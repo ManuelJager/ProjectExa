@@ -8,5 +8,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public ShipEditorOverlayInfoPanel blueprintInfoPanel;
         public ShipEditorOverlayInventory inventory;
         public CanvasGroupInteractibleAdapter editorOverlayCanvasGroup;
+        public MirrorView mirrorView;
     }
 }

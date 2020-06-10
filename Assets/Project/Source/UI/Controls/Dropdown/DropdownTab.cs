@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.Ui.Controls
+namespace Exa.UI.Controls
 {
     [RequireComponent(typeof(Button))]
     public class DropdownTab : MonoBehaviour

@@ -1,5 +1,4 @@
 ﻿using Exa.Utils;
-using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
@@ -20,6 +19,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             {
                 mirrorEnabled = value;
                 editorGrid.MirrorEnabled = value;
+                editorOverlay.mirrorView.SetState(value);
             }
         }
 
