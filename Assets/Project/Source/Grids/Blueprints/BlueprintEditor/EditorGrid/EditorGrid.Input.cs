@@ -1,5 +1,6 @@
 ﻿using Exa.Grids.Blocks;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
 {
@@ -50,9 +51,14 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         public void OnLeftClickPressed()
         {
+            // if mouse position is invalid
             if (MouseGridPos == null) return;
 
+            // if ghost cannot be placed
             if (!canPlaceGhost) return;
+
+            // if the editor grid is interactable
+            if (!Interactable) return; 
 
             canPlaceGhost = false;
 
@@ -70,6 +76,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public void OnRightClickPressed()
         {
             if (MouseGridPos == null) return;
+
+            if (!Interactable) return;
 
             var realGridPos = MouseGridPos.GetValueOrDefault();
 

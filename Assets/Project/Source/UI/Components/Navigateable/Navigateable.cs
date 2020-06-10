@@ -4,7 +4,7 @@ namespace Exa.UI.Components
 {
     public class Navigateable : MonoBehaviour, IInteractableGroup
     {
-        public bool Interactible { get; set; } = true;
+        public bool Interactable { get; set; } = true;
 
         public virtual void OnExit()
         {

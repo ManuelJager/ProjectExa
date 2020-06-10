@@ -58,7 +58,7 @@ namespace Exa.UI
             {
                 onClosePrompt?.Invoke();
                 okButton.gameObject.SetActive(false);
-                interactableGroup.Interactible = true;
+                interactableGroup.Interactable = true;
                 gameObject.SetActive(false);
             });
         }
@@ -72,14 +72,14 @@ namespace Exa.UI
         public void BaseStartPrompt(string message, IInteractableGroup interactableGroup)
         {
             gameObject.SetActive(true);
-            interactableGroup.Interactible = false;
+            interactableGroup.Interactable = false;
             promptText.text = message;
         }
 
         public void BaseCleanupPrompt(IInteractableGroup interactableGroup)
         {
             gameObject.SetActive(false);
-            interactableGroup.Interactible = true;
+            interactableGroup.Interactable = true;
             yesButton.onClick.RemoveAllListeners();
             noButton.onClick.RemoveAllListeners();
         }

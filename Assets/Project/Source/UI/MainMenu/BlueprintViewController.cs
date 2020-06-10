@@ -18,14 +18,14 @@ namespace Exa.UI
 
         private bool interactible = true;
 
-        public bool Interactible
+        public bool Interactable
         {
             get => interactible;
             set
             {
                 interactible = value;
 
-                shipEditorBlueprintSelector.Interactible = value;
+                shipEditorBlueprintSelector.Interactable = value;
             }
         }
 
@@ -48,14 +48,14 @@ namespace Exa.UI
         {
             view.button.onClick.AddListener(() =>
             {
-                if (!Interactible) return;
+                if (!Interactable) return;
 
                 shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
                 shipEditor.Import(observer, TrySave);
             });
             view.deleteButton.onClick.AddListener(() =>
             {
-                if (!Interactible) return;
+                if (!Interactable) return;
 
                 GameManager.Instance.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
                 {

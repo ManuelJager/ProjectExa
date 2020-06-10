@@ -15,7 +15,7 @@ namespace Assets.Project.Source.CustomEditors
         {
             base.OnInspectorGUI();
 
-            ((CanvasGroupInteractibleAdapter)target).Interactible = ((CanvasGroupInteractibleAdapter)target).Interactible;
+            ((CanvasGroupInteractibleAdapter)target).Interactable = ((CanvasGroupInteractibleAdapter)target).Interactable;
         }
     }
 }

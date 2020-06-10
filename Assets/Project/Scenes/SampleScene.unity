@@ -2026,6 +2026,13 @@ PrefabInstance:
       propertyPath: interactible
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4796793526025443438, guid: 2661b46a09dd09949b76373e7086f5b1,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Exit
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 4964111844474905426, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_Interactable

@@ -28,7 +28,7 @@ namespace Exa.UI.Components
 
         protected virtual void Return(bool force = false)
         {
-            if (!Interactible && !force) return;
+            if (!Interactable && !force) return;
 
             NavigateTo(from, false);
         }

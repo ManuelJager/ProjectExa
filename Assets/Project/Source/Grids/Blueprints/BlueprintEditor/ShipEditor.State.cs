@@ -25,15 +25,15 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         private bool interactible = true;
 
-        public bool Interactible
+        public bool Interactable
         {
             get => interactible;
             set
             {
                 interactible = value;
 
-                editorGrid.Interactible = value;
-                navigateable.Interactible = value;
+                editorGrid.Interactable = value;
+                navigateable.Interactable = value;
 
                 if (value)
                 {

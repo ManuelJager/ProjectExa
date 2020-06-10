@@ -16,12 +16,12 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         protected override void Return(bool force = false)
         {
-            if (!Interactible) return;
+            if (!Interactable) return;
 
             var blueprintIsSaved = shipEditor.IsSaved;
             if (!blueprintIsSaved)
             {
-                GameManager.Instance.promptController.PromptYesNo("Are you sure you want to exit without saving?", this, (yes) =>
+                GameManager.Instance.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, (yes) =>
                 {
                     if (yes)
                     {

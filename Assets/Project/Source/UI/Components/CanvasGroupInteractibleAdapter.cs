@@ -9,7 +9,7 @@ namespace Exa.UI
         [SerializeField] private bool setAlpha;
 
         [SerializeField] private bool interactible = true;
-        public bool Interactible
+        public bool Interactable
         {
             get => interactible;
             set
@@ -23,7 +23,7 @@ namespace Exa.UI
 
         private void Awake()
         {
-            Interactible = interactible;
+            Interactable = interactible;
             canvasGroup = GetComponent<CanvasGroup>();
         }
     }

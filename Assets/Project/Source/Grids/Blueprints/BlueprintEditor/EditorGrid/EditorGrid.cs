@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using Exa.UI;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
 {
-    public partial class EditorGrid : MonoBehaviour
+    public partial class EditorGrid : MonoBehaviour, IInteractableGroup
     {
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridGhostLayer ghostLayer;
@@ -18,13 +19,13 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public Vector2 MovementVector { private get; set; }
 
         private bool interactible = true;
-        public bool Interactible
+        public bool Interactable
         {
             get => interactible;
             set
             {
                 interactible = value;
-                if (!interactible)
+                if (!value)
                 {
                     ghostLayer.GhostVisible = false;
                 }
@@ -53,7 +54,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         public void Update()
         {
-            if (!Interactible) return;
+            if (!Interactable) return;
             
             // Move the grid to keyboard input
             playerPos -= MovementVector * movementSpeed;
