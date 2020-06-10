@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Projects\C#\ProjectExa" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Project" t="Include">
+          <e p="Source" t="Include">
+            <e p="Bindings" t="Include">
+              <e p="ICollectionObserver.cs" t="Include" />
+              <e p="IObservableCollection.cs" t="Include" />
+              <e p="IObverser.cs" t="Include" />
+              <e p="Observable.cs" t="Include" />
+              <e p="ObservableCollection.cs" t="Include" />
+              <e p="ViewController.cs" t="Include" />
+            </e>
+            <e p="Debug" t="Include">
+              <e p="Commands" t="Include">
+                <e p="ClsCommand.cs" t="Include" />
+                <e p="DebugBehaviour.cs" t="Include" />
+                <e p="DebugCommand.cs" t="Include" />
+                <e p="Factory" t="Include">
+                  <e p="CommandFactory.cs" t="Include" />
+                </e>
+                <e p="SpawnBlockCommand.cs" t="Include" />
+              </e>
+              <e p="DebugConsole" t="Include">
+                <e p="DebugConsole.cs" t="Include" />
+                <e p="DebugConsoleController.cs" t="Include" />
+              </e>
+              <e p="DebugController.cs" t="Include" />
+            </e>
+            <e p="Editor" t="Include">
+              <e p="UIAnimateable.Editor.cs" t="Include" />
+            </e>
+            <e p="GameManager.cs" t="Include" />
+            <e p="Generics" t="Include">
+              <e p="Builders" t="Include">
+                <e p="BuilderException.cs" t="Include" />
+                <e p="IBuilder.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Grids" t="Include">
+              <e p="Blocks" t="Include">
+                <e p="BlockFactory.cs" t="Include" />
+                <e p="BlockTemplate.cs" t="Include" />
+                <e p="BlockTypes" t="Include">
+                  <e p="ArmorBlock" t="Include">
+                    <e p="ArmorBlock.cs" t="Include" />
+                    <e p="ArmorBlockTemplate.cs" t="Include" />
+                  </e>
+                  <e p="Block.cs" t="Include" />
+                  <e p="IBlock.cs" t="Include" />
+                </e>
+                <e p="Components" t="Include">
+                  <e p="PhysicalBlock" t="Include">
+                    <e p="IPhysicalBlock.cs" t="Include" />
+                    <e p="PhysicalBlockData.cs" t="Include" />
+                    <e p="PhysicalBlockTemplateComponent.cs" t="Include" />
+                  </e>
+                </e>
+                <e p="ITemplateComponent.cs" t="Include" />
+                <e p="ObservableBlockTemplate.cs" t="Include" />
+              </e>
+              <e p="Blueprints" t="Include">
+                <e p="Blueprint.cs" t="Include" />
+                <e p="BlueprintBlock.cs" t="Include" />
+                <e p="BlueprintBlocks.cs" t="Include" />
+                <e p="BlueprintBlocksOccupiedTilesCache.cs" t="Include" />
+                <e p="BlueprintEditor" t="Include">
+                  <e p="EditorGrid" t="Include">
+                    <e p="BlockGhost.cs" t="Include" />
+                    <e p="EditorGrid.cs" t="Include" />
+                    <e p="EditorGrid.Input.cs" t="Include" />
+                    <e p="EditorGridBackgroundLayer.cs" t="Include" />
+                    <e p="EditorGridBlueprintLayer.cs" t="Include" />
+                    <e p="EditorGridGhostLayer.cs" t="Include" />
+                    <e p="EditorGridItem.cs" t="Include" />
+                  </e>
+                  <e p="ShipEditor.cs" t="Include" />
+                  <e p="ShipEditor.Input.cs" t="Include" />
+                  <e p="ShipEditorController.cs" t="Include" />
+                  <e p="ShipEditorOverlay" t="Include">
+                    <e p="BlockTemplateView.cs" t="Include" />
+                    <e p="BlueprintWarningList.cs" t="Include" />
+                    <e p="ShipEditorOverlay.cs" t="Include" />
+                    <e p="ShipEditorOverlayInfoPanel.cs" t="Include" />
+                    <e p="ShipEditorOverlayInventory.cs" t="Include" />
+                  </e>
+                  <e p="ShipEditorUtils.cs" t="Include" />
+                </e>
+                <e p="BlueprintManager.cs" t="Include" />
+                <e p="ObservableBlueprint.cs" t="Include" />
+                <e p="ObservableBlueprintCollection.cs" t="Include" />
+                <e p="ObservableBlueprintConverter.cs" t="Include" />
+                <e p="Validation" t="Include">
+                  <e p="BlueprintValidator.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="Input" t="Include">
+              <e p="GameControls.cs" t="Include" />
+            </e>
+            <e p="IO" t="Include">
+              <e p="IOUtils.cs" t="Include" />
+              <e p="ISaveable.cs" t="Include" />
+              <e p="JSON" t="Include">
+                <e p="BlueprintBlocksConverter.cs" t="Include" />
+                <e p="ObservableConverter.cs" t="Include" />
+                <e p="Vector2IntConverter.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Rotate.cs" t="Include" />
+            <e p="RotateAuthoring.cs" t="Include" />
+            <e p="RotateSystem.cs" t="Include" />
+            <e p="Schemas" t="Include">
+              <e p="IValidator.cs" t="Include" />
+              <e p="ValidationError.cs" t="Include" />
+              <e p="ValidationErrorPanel.cs" t="Include" />
+              <e p="ValidationResult.cs" t="Include" />
+              <e p="ValidationSchema.cs" t="Include" />
+              <e p="ValidationSchemaBuilder.cs" t="Include" />
+            </e>
+            <e p="UI" t="Include">
+              <e p="Controls" t="Include">
+                <e p="ErrorList" t="Include">
+                  <e p="ErrorListControl.cs" t="Include" />
+                </e>
+                <e p="ExpandableItem" t="Include">
+                  <e p="ExpandableItem.cs" t="Include" />
+                  <e p="ExpandableItemFactory.cs" t="Include" />
+                </e>
+                <e p="InputField" t="Include">
+                  <e p="ExaInputField.cs" t="Include" />
+                </e>
+                <e p="KeyValuePair" t="Include">
+                  <e p="KeyValuePairView.cs" t="Include" />
+                </e>
+                <e p="Tooltip" t="Include">
+                  <e p="Tooltip.cs" t="Include" />
+                  <e p="TooltipHoverable.cs" t="Include" />
+                </e>
+                <e p="UIAnimateable" t="Include">
+                  <e p="UIAnimateable.cs" t="Include" />
+                  <e p="UIAnimateableHelper.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Hoverable.cs" t="Include" />
+              <e p="INavigateable.cs" t="Include" />
+              <e p="MainMenu" t="Include">
+                <e p="BlueprintDetails.cs" t="Include" />
+                <e p="BlueprintView.cs" t="Include" />
+                <e p="BlueprintViewController.cs" t="Include" />
+                <e p="MainMenu.cs" t="Include" />
+                <e p="MainMenuDebug.cs" t="Include" />
+              </e>
+              <e p="Navigateable.cs" t="Include" />
+              <e p="ReturnNavigateable.cs" t="Include" />
+            </e>
+            <e p="Utils" t="Include">
+              <e p="Hashing" t="Include">
+                <e p="HashHelpers.cs" t="Include" />
+              </e>
+              <e p="MonoBehaviourInstance.cs" t="Include" />
+              <e p="RectTransformExtensions.cs" t="Include" />
+              <e p="Types" t="Include">
+                <e p="TypeUtils.Reflection.cs" t="Include" />
+              </e>
+              <e p="Vector4Int.cs" t="Include" />
+              <e p="VectorHelpers.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TextMesh Pro" t="Include">
+          <e p="Fonts" t="Include">
+            <e p="LiberationSans - OFL.txt" t="Include" />
+          </e>
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+            <e p="Shaders" t="Include">
+              <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+              <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+              <e p="TMP_Bitmap.shader" t="Include" />
+              <e p="TMP_SDF Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface.shader" t="Include" />
+              <e p="TMP_SDF.shader" t="Include" />
+              <e p="TMP_Sprite.shader" t="Include" />
+              <e p="TMPro.cginc" t="Include" />
+              <e p="TMPro_Properties.cginc" t="Include" />
+              <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="ProjectExa.sln" t="IncludeFlat" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+    <e p="C:\Users\SKIKK\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\SKIKK\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_ProjectExa.-1016969449.00" t="ExcludeRecursive" />
+  </component>
+</project>

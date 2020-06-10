@@ -1,0 +1,484 @@
+// GENERATED AUTOMATICALLY FROM 'Assets/Project/Source/Input/GameControls.inputactions'
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
+
+namespace Exa.Input
+{
+    public class @GameControls : IInputActionCollection, IDisposable
+    {
+        public InputActionAsset asset { get; }
+        public @GameControls()
+        {
+            asset = InputActionAsset.FromJson(@"{
+    ""name"": ""GameControls"",
+    ""maps"": [
+        {
+            ""name"": ""Editor"",
+            ""id"": ""ddda1cd8-bd9b-4895-b667-214d683e0e16"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4726475-8b79-45d1-9532-28ed98f0eec0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ce42356-795d-497f-a813-8f86d4d0bca7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb03ea49-7fd7-43e5-bf85-acd7f986412d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RotateLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""74076920-1a4a-44c6-9eed-0a5e545732ce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RotateRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c25f458-dd75-4756-9108-297733f06b3d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleMirror"",
+                    ""type"": ""Button"",
+                    ""id"": ""5cd15413-dd5d-4c6c-aed7-035969a257fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""f000d51a-3bf6-494e-b022-1e27fdf2901a"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""a9978e7d-5891-4e26-9cea-3d38037b4720"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""c6d95be6-8d84-46cd-9358-85985e7f8fd7"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""193be172-a61e-489b-82ec-9428a2c1da95"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""8aa6fcb9-dbde-42be-a650-cec1a9150dd7"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99cab014-b995-403d-85ad-3140c01037aa"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""LeftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16aee5bf-7843-4f6b-ad08-eac99f6a0cb5"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16af04c7-5a85-4ef6-8f5d-14083def649a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""RotateLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8e8c7ea-a53f-4182-b207-e1ba6b69c473"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""RotateRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9edb89d0-2990-477b-8851-8db2e565f78b"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""ToggleMirror"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""f0082add-904f-492a-abda-60fefe8da8ff"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleConsole"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e486db0-7abd-4570-86e6-53b181833168"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""33ac8a8d-0546-4121-8858-7134b251890b"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""ToggleConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""ReturnNavigateable"",
+            ""id"": ""c8b9e2d9-a691-4930-80bc-7f36809a9bb6"",
+            ""actions"": [
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""9f2ee82f-6b2c-4de1-834d-8b988278babe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8c5a4399-91ac-4590-8129-3ded1ee8fdc0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        }
+    ],
+    ""controlSchemes"": [
+        {
+            ""name"": ""MouseKb"",
+            ""bindingGroup"": ""MouseKb"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
+}");
+            // Editor
+            m_Editor = asset.FindActionMap("Editor", throwIfNotFound: true);
+            m_Editor_Movement = m_Editor.FindAction("Movement", throwIfNotFound: true);
+            m_Editor_LeftClick = m_Editor.FindAction("LeftClick", throwIfNotFound: true);
+            m_Editor_RightClick = m_Editor.FindAction("RightClick", throwIfNotFound: true);
+            m_Editor_RotateLeft = m_Editor.FindAction("RotateLeft", throwIfNotFound: true);
+            m_Editor_RotateRight = m_Editor.FindAction("RotateRight", throwIfNotFound: true);
+            m_Editor_ToggleMirror = m_Editor.FindAction("ToggleMirror", throwIfNotFound: true);
+            // Debug
+            m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+            m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
+            // ReturnNavigateable
+            m_ReturnNavigateable = asset.FindActionMap("ReturnNavigateable", throwIfNotFound: true);
+            m_ReturnNavigateable_Return = m_ReturnNavigateable.FindAction("Return", throwIfNotFound: true);
+        }
+
+        public void Dispose()
+        {
+            UnityEngine.Object.Destroy(asset);
+        }
+
+        public InputBinding? bindingMask
+        {
+            get => asset.bindingMask;
+            set => asset.bindingMask = value;
+        }
+
+        public ReadOnlyArray<InputDevice>? devices
+        {
+            get => asset.devices;
+            set => asset.devices = value;
+        }
+
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+        public bool Contains(InputAction action)
+        {
+            return asset.Contains(action);
+        }
+
+        public IEnumerator<InputAction> GetEnumerator()
+        {
+            return asset.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void Enable()
+        {
+            asset.Enable();
+        }
+
+        public void Disable()
+        {
+            asset.Disable();
+        }
+
+        // Editor
+        private readonly InputActionMap m_Editor;
+        private IEditorActions m_EditorActionsCallbackInterface;
+        private readonly InputAction m_Editor_Movement;
+        private readonly InputAction m_Editor_LeftClick;
+        private readonly InputAction m_Editor_RightClick;
+        private readonly InputAction m_Editor_RotateLeft;
+        private readonly InputAction m_Editor_RotateRight;
+        private readonly InputAction m_Editor_ToggleMirror;
+        public struct EditorActions
+        {
+            private @GameControls m_Wrapper;
+            public EditorActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Movement => m_Wrapper.m_Editor_Movement;
+            public InputAction @LeftClick => m_Wrapper.m_Editor_LeftClick;
+            public InputAction @RightClick => m_Wrapper.m_Editor_RightClick;
+            public InputAction @RotateLeft => m_Wrapper.m_Editor_RotateLeft;
+            public InputAction @RotateRight => m_Wrapper.m_Editor_RotateRight;
+            public InputAction @ToggleMirror => m_Wrapper.m_Editor_ToggleMirror;
+            public InputActionMap Get() { return m_Wrapper.m_Editor; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(EditorActions set) { return set.Get(); }
+            public void SetCallbacks(IEditorActions instance)
+            {
+                if (m_Wrapper.m_EditorActionsCallbackInterface != null)
+                {
+                    @Movement.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
+                    @Movement.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
+                    @Movement.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
+                    @LeftClick.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnLeftClick;
+                    @RightClick.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnRightClick;
+                    @RightClick.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnRightClick;
+                    @RightClick.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnRightClick;
+                    @RotateLeft.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateLeft;
+                    @RotateLeft.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateLeft;
+                    @RotateLeft.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateLeft;
+                    @RotateRight.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
+                    @RotateRight.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
+                    @RotateRight.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
+                    @ToggleMirror.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
+                    @ToggleMirror.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
+                    @ToggleMirror.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
+                }
+                m_Wrapper.m_EditorActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Movement.started += instance.OnMovement;
+                    @Movement.performed += instance.OnMovement;
+                    @Movement.canceled += instance.OnMovement;
+                    @LeftClick.started += instance.OnLeftClick;
+                    @LeftClick.performed += instance.OnLeftClick;
+                    @LeftClick.canceled += instance.OnLeftClick;
+                    @RightClick.started += instance.OnRightClick;
+                    @RightClick.performed += instance.OnRightClick;
+                    @RightClick.canceled += instance.OnRightClick;
+                    @RotateLeft.started += instance.OnRotateLeft;
+                    @RotateLeft.performed += instance.OnRotateLeft;
+                    @RotateLeft.canceled += instance.OnRotateLeft;
+                    @RotateRight.started += instance.OnRotateRight;
+                    @RotateRight.performed += instance.OnRotateRight;
+                    @RotateRight.canceled += instance.OnRotateRight;
+                    @ToggleMirror.started += instance.OnToggleMirror;
+                    @ToggleMirror.performed += instance.OnToggleMirror;
+                    @ToggleMirror.canceled += instance.OnToggleMirror;
+                }
+            }
+        }
+        public EditorActions @Editor => new EditorActions(this);
+
+        // Debug
+        private readonly InputActionMap m_Debug;
+        private IDebugActions m_DebugActionsCallbackInterface;
+        private readonly InputAction m_Debug_ToggleConsole;
+        public struct DebugActions
+        {
+            private @GameControls m_Wrapper;
+            public DebugActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
+            public InputActionMap Get() { return m_Wrapper.m_Debug; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+            public void SetCallbacks(IDebugActions instance)
+            {
+                if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+                {
+                    @ToggleConsole.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @ToggleConsole.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @ToggleConsole.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                }
+                m_Wrapper.m_DebugActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @ToggleConsole.started += instance.OnToggleConsole;
+                    @ToggleConsole.performed += instance.OnToggleConsole;
+                    @ToggleConsole.canceled += instance.OnToggleConsole;
+                }
+            }
+        }
+        public DebugActions @Debug => new DebugActions(this);
+
+        // ReturnNavigateable
+        private readonly InputActionMap m_ReturnNavigateable;
+        private IReturnNavigateableActions m_ReturnNavigateableActionsCallbackInterface;
+        private readonly InputAction m_ReturnNavigateable_Return;
+        public struct ReturnNavigateableActions
+        {
+            private @GameControls m_Wrapper;
+            public ReturnNavigateableActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Return => m_Wrapper.m_ReturnNavigateable_Return;
+            public InputActionMap Get() { return m_Wrapper.m_ReturnNavigateable; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(ReturnNavigateableActions set) { return set.Get(); }
+            public void SetCallbacks(IReturnNavigateableActions instance)
+            {
+                if (m_Wrapper.m_ReturnNavigateableActionsCallbackInterface != null)
+                {
+                    @Return.started -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
+                    @Return.performed -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
+                    @Return.canceled -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
+                }
+                m_Wrapper.m_ReturnNavigateableActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Return.started += instance.OnReturn;
+                    @Return.performed += instance.OnReturn;
+                    @Return.canceled += instance.OnReturn;
+                }
+            }
+        }
+        public ReturnNavigateableActions @ReturnNavigateable => new ReturnNavigateableActions(this);
+        private int m_MouseKbSchemeIndex = -1;
+        public InputControlScheme MouseKbScheme
+        {
+            get
+            {
+                if (m_MouseKbSchemeIndex == -1) m_MouseKbSchemeIndex = asset.FindControlSchemeIndex("MouseKb");
+                return asset.controlSchemes[m_MouseKbSchemeIndex];
+            }
+        }
+        public interface IEditorActions
+        {
+            void OnMovement(InputAction.CallbackContext context);
+            void OnLeftClick(InputAction.CallbackContext context);
+            void OnRightClick(InputAction.CallbackContext context);
+            void OnRotateLeft(InputAction.CallbackContext context);
+            void OnRotateRight(InputAction.CallbackContext context);
+            void OnToggleMirror(InputAction.CallbackContext context);
+        }
+        public interface IDebugActions
+        {
+            void OnToggleConsole(InputAction.CallbackContext context);
+        }
+        public interface IReturnNavigateableActions
+        {
+            void OnReturn(InputAction.CallbackContext context);
+        }
+    }
+}
