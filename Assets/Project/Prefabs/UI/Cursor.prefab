@@ -208,6 +208,7 @@ MonoBehaviour:
   idleColor: {r: 0.39215687, g: 0.39215687, b: 0.43137255, a: 1}
   activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
   removeColor: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}
+  infoColor: {r: 0.98039216, g: 0.9019608, b: 0, a: 1}
 --- !u!225 &319541716243004829
 CanvasGroup:
   m_ObjectHideFlags: 0

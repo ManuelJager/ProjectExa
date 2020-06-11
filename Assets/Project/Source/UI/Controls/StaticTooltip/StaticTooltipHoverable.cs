@@ -9,7 +9,7 @@ public class HoverEvent : UnityEvent<string>
 }
 
 [RequireComponent(typeof(Hoverable))]
-public class TooltipHoverable : MonoBehaviour
+public class StaticTooltipHoverable : MonoBehaviour
 {
     public string message;
     public HoverEvent onHover;

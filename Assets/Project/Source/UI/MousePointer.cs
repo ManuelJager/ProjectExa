@@ -12,6 +12,7 @@ namespace Exa.UI
         idle,
         active,
         remove,
+        info,
         input
     }
 
@@ -27,6 +28,7 @@ namespace Exa.UI
         public Color idleColor;
         public Color activeColor;
         public Color removeColor;
+        public Color infoColor;
 
         private void OnEnable()
         {
@@ -45,6 +47,7 @@ namespace Exa.UI
                 case CursorState.idle:
                 case CursorState.active:
                 case CursorState.remove:
+                case CursorState.info:
                     normalCursor.gameObject.SetActive(false);
                     break;
 
@@ -68,6 +71,11 @@ namespace Exa.UI
                 case CursorState.remove:
                     normalCursor.gameObject.SetActive(true);
                     cursorBackground.color = removeColor;
+                    break;
+
+                case CursorState.info:
+                    normalCursor.gameObject.SetActive(true);
+                    cursorBackground.color = infoColor;
                     break;
 
                 case CursorState.input:

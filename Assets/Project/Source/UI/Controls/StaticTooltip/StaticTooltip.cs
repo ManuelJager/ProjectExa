@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Exa.UI.Controls
 {
-    public class Tooltip : MonoBehaviour
+    public class StaticTooltip : MonoBehaviour
     {
         [SerializeField] private Text text;
 

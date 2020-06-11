@@ -243,8 +243,9 @@ GameObject:
   - component: {fileID: 6228571799257515533}
   - component: {fileID: 6686136345054778047}
   - component: {fileID: 987773853525342457}
+  - component: {fileID: 4622038966046284500}
   m_Layer: 5
-  m_Name: KeyValuePair
+  m_Name: Property
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,5 +346,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6bde19975c63240a7b6201ffeef783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyContainer: {fileID: 8698529868403434280}
   keyText: {fileID: 438599937416983596}
+  valueContainer: {fileID: 1541835943466787729}
   valueText: {fileID: 3942644137778613017}
+--- !u!114 &4622038966046284500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6372109433816541427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 40
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1

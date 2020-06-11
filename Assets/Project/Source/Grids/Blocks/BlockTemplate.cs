@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Exa.Generics;
+using Exa.UI.Controls;
+using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
@@ -20,7 +22,7 @@ namespace Exa.Grids.Blocks
         }
     }
 
-    public abstract class BlockTemplate : ScriptableObject
+    public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter
     {
         public string id;
         public string displayId;
@@ -49,5 +51,14 @@ namespace Exa.Grids.Blocks
         }
 
         public abstract void SetValues(IBlock block);
+
+        public ITooltipComponent[] GetComponents()
+        {
+            return new ITooltipComponent[]
+            {
+                new ValueContext { name = "", value = displayId },
+                new ValueContext { name = "Size", value = $"{Size.x}x{Size.y}"}
+            };
+        }
     }
 }

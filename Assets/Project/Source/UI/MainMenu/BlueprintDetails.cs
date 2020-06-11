@@ -10,7 +10,7 @@ namespace Exa.UI
         [SerializeField] private GameObject container;
         [SerializeField] private Image image;
         [SerializeField] private Text nameText;
-        [SerializeField] private KeyValuePairView blockCountView;
+        [SerializeField] private PropertyView blockCountView;
 
         public void Reflect(Blueprint blueprint)
         {
@@ -22,7 +22,11 @@ namespace Exa.UI
             if (!container.activeSelf) container.SetActive(true);
 
             nameText.text = blueprint.name;
-            blockCountView.Reflect($"{blueprint.blocks.Count}");
+            blockCountView.Reflect(new Generics.ValueContext 
+            {
+                name = "Blocks",
+                value = blueprint.blocks.Count.ToString()
+            });
         }
 
         private void OnEnable()

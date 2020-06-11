@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7647292746538798994}
   - component: {fileID: -3164420598616301264}
   - component: {fileID: 6963279495890403748}
+  - component: {fileID: 8000309795641431184}
+  - component: {fileID: 2174120825671390337}
   m_Layer: 5
   m_Name: InventoryBlockView
   m_TagString: Untagged
@@ -90,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 6963279495890403748}
   image: {fileID: 7647292746538798994}
+  hoverable: {fileID: 2174120825671390337}
 --- !u!114 &6963279495890403748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,3 +136,35 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &8000309795641431184
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606553523780072951}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2174120825671390337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606553523780072951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb55c9353d5f9f4b90f125ad87129d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  invokeStateChangeOnHover: 1
+  cursorState: 3
