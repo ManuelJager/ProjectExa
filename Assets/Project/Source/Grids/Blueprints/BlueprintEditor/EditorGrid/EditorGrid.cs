@@ -1,4 +1,5 @@
 ﻿using Exa.UI;
+using Exa.Utils;
 using System.Linq;
 using UnityEngine;
 
@@ -57,11 +58,18 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             if (!Interactable) return;
             
             // Move the grid to keyboard input
+            // TODO: Smooth 
             playerPos -= MovementVector * movementSpeed;
-            transform.localPosition = new Vector3(playerPos.x, playerPos.y);
+            transform.localPosition = playerPos.ToVector3();
 
             // Check for mouse input
             backgroundLayer.UpdateCurrActiveGridItem(playerPos);
+        }
+
+        public void OnDisable()
+        {
+            playerPos = Vector2.zero;
+            transform.localPosition = Vector3.zero;
         }
 
         // Create a grid

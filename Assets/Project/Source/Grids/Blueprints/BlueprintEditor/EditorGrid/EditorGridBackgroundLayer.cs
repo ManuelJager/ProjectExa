@@ -38,6 +38,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 Destroy(child.gameObject);
             }
 
+            gridItems.Clear();
+
             foreach (var vector in VectorHelpers.EnumerateVectors(size))
             {
                 var gridItem = Instantiate(

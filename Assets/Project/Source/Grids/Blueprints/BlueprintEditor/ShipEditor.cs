@@ -69,6 +69,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
             SetCallbacks(blueprintContainer, saveCallback);
             ValidateName(blueprintContainer, newBlueprint.name);
+
+            IsSaved = true;
         }
 
         public void SetCallbacks(ObservableBlueprint blueprintContainer, Action<ObservableBlueprint> saveCallback)

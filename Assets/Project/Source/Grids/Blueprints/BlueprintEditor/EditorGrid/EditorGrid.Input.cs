@@ -39,12 +39,16 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         public void OnRotateLeft()
         {
+            if (!ghostLayer.GhostCreated) return;
+
             ghostLayer.OnRotateLeft();
             CalculateGhostEnabled();
         }
 
         public void OnRotateRight()
         {
+            if (!ghostLayer.GhostCreated) return;
+
             ghostLayer.OnRotateRight();
             CalculateGhostEnabled();
         }
