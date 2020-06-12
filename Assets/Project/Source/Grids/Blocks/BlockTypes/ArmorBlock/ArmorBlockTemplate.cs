@@ -1,5 +1,8 @@
-﻿using Exa.Grids.Blocks.Components;
+﻿using Boo.Lang;
+using Exa.Grids.Blocks.Components;
+using Exa.UI.Controls;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
@@ -8,11 +11,18 @@ namespace Exa.Grids.Blocks.BlockTypes
     [CreateAssetMenu(fileName = "Armor", menuName = "Grids/Blocks/Armor")]
     public class ArmorBlockTemplate : BlockTemplate<ArmorBlock>
     {
-        public PhysicalBlockTemplateComponent templateComponent;
+        public PhysicalBlockTemplateComponent physicalTemplateComponent;
 
-        public override void SetValues(ArmorBlock block)
+        protected override void SetValues(ArmorBlock block)
         {
-            block.physicalBlockData = templateComponent.Convert();
+            block.physicalBlockData = physicalTemplateComponent.Convert();
+        }
+
+        public override ITooltipComponent[] GetComponents()
+        {
+            return base.GetComponents()
+                .Concat(physicalTemplateComponent.GetComponents())
+                .ToArray();
         }
     }
 }

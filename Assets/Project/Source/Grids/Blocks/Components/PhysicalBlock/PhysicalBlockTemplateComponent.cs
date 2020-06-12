@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Exa.Generics;
+using Exa.UI.Controls;
+using System;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class PhysicalBlockTemplateComponent : ITemplateComponent<PhysicalBlockData>
+    public class PhysicalBlockTemplateComponent : ITemplateComponent<PhysicalBlockData>, ITooltipPresenter
     {
         public float maxHealth;
         public float armor;
@@ -14,6 +16,15 @@ namespace Exa.Grids.Blocks.Components
             {
                 armor = armor,
                 health = maxHealth
+            };
+        }
+
+        public ITooltipComponent[] GetComponents()
+        {
+            return new ITooltipComponent[]
+            {
+                new ValueContext { name = "Health", value = maxHealth.ToString() },
+                new ValueContext { name = "Armor", value = armor.ToString() }
             };
         }
     }
