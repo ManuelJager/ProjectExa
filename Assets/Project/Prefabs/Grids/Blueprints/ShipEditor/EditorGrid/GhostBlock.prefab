@@ -128,10 +128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostImage: {fileID: 2328400462197416724}
   filter: {fileID: 1656620625760434138}
+  filterTransform: {fileID: 672676629116447004}
   activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 0.19607843}
   inactiveColor: {r: 1, g: 0, b: 0, a: 0.19607843}
   blueprintBlock:
     id: 
+    flippedX: 0
+    flippedY: 0
 --- !u!1 &7572590843215005451
 GameObject:
   m_ObjectHideFlags: 0

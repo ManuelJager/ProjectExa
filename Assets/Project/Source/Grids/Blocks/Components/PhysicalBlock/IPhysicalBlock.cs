@@ -2,6 +2,6 @@
 {
     public interface IPhysicalBlock
     {
-        PhysicalBlockData physicalBlockData { get; set; }
+        PhysicalBlockData PhysicalBlockData { get; set; }
     }
 }

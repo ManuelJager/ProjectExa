@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scout
   m_EditorClassIdentifier: 
   displayName: Scout
-  typeGuid: scout
+  typeGuid: Scout
   maxSize: {x: 8, y: 5}
   disallowedBlockCategories:
   - storage

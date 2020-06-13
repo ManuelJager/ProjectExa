@@ -29,31 +29,22 @@ namespace Exa.Grids.Blocks
 
     public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter
     {
-        public string id;
-        public string displayId;
-        public string category;
-        public string displayCategory;
-        public Sprite thumbnail;
-        public GameObject prefab;
+        [SerializeField] private string id;
+        [SerializeField] private string displayId;
+        [SerializeField] private string category;
+        [SerializeField] private string displayCategory;
+        [SerializeField] private Sprite thumbnail;
+        [SerializeField] private Vector2Int size;
+        [SerializeField] private GameObject prefab;
 
-        private Vector2Int? size = null;
+        public string Id => id;
+        public string DisplayId => displayId;
+        public string Category => category;
+        public string DisplayCategory => displayCategory;
+        public Sprite Thumbnail => thumbnail;
+        public Vector2Int Size => size;
+        public GameObject Prefab => prefab;
 
-        public Vector2Int Size
-        {
-            get
-            {
-                if (size == null)
-                {
-                    var scale = prefab.transform.localScale;
-                    return new Vector2Int
-                    {
-                        x = Mathf.FloorToInt(scale.x),
-                        y = Mathf.FloorToInt(scale.y)
-                    };
-                }
-                return size.GetValueOrDefault();
-            }
-        }
 
         public abstract void SetValues(IBlock block);
 
@@ -62,7 +53,7 @@ namespace Exa.Grids.Blocks
             return new ITooltipComponent[]
             {
                 new ValueContext { name = "", value = displayId },
-                new ValueContext { name = "Size", value = $"{Size.x}x{Size.y}"}
+                new ValueContext { name = "Size", value = $"{size.x}x{size.y}"}
             };
         }
     }

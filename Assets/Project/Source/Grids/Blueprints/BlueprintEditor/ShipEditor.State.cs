@@ -1,4 +1,5 @@
-﻿using Exa.Utils;
+﻿using Assets.Project.Source.Utils;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
@@ -77,7 +78,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         {
             set
             {
-                editorOverlay.gameObject.TrySetActive(value);
+                MiscUtils.InvokeIfNotQuitting(() => editorOverlay.gameObject.TrySetActive(value));
             }
         }
 

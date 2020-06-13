@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9170a6466acbd46bda7c4d2ea122eb, type: 3}
   m_Name: LightArmorBlock
   m_EditorClassIdentifier: 
-  id: LightArmorBlock
+  id: LightArmor
   displayId: Light Armor Block
-  category: ArmorBlock
+  category: Armor
   displayCategory: Armor
-  thumbnail: {fileID: 21300000, guid: e72141e06fa2a7e4fb49c28ae51eab6e, type: 3}
+  thumbnail: {fileID: 6903120917539983151, guid: 1dc961a6e6a10e04daa44ec43d9c7d4c,
+    type: 3}
+  size: {x: 1, y: 1}
   prefab: {fileID: 5942586963420624834, guid: 388b7c281c3898b419e1cd0f9144a545, type: 3}
   physicalTemplateComponent:
     maxHealth: 10

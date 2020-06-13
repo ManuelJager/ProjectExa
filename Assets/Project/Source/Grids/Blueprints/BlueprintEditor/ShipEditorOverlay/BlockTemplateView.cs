@@ -30,7 +30,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public void OnUpdate(BlockTemplate data)
         {
             this.data = data;
-            image.sprite = data.thumbnail;
+            image.sprite = data.Thumbnail;
         }
     }
 }

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26376f3f84942c94e8ed242ffe1528ea, type: 3}
+  m_Name: SmallThruster
+  m_EditorClassIdentifier: 
+  id: SmallThruster
+  displayId: Small Thruster
+  category: Thruster
+  displayCategory: Thruster
+  thumbnail: {fileID: 4580618572166466534, guid: 1dc961a6e6a10e04daa44ec43d9c7d4c,
+    type: 3}
+  size: {x: 1, y: 1}
+  prefab: {fileID: 8008238908798635066, guid: 92b59b064482e4e4f8a11023b1dd8244, type: 3}
+  physicalTemplateComponent:
+    maxHealth: 5
+    armor: 5
+  thrusterTemplateComponent:
+    newtonThrust: 10

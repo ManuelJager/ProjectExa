@@ -7,6 +7,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
     {
         [SerializeField] private SpriteRenderer ghostImage;
         [SerializeField] private SpriteRenderer filter;
+        [SerializeField] private Transform filterTransform;
         [SerializeField] private Color activeColor;
         [SerializeField] private Color inactiveColor;
         [HideInInspector] public BlueprintBlock blueprintBlock;
@@ -35,8 +36,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         public void ImportBlock(BlueprintBlock block)
         {
-            transform.localScale = block.RuntimeContext.Size.ToVector3();
-            ghostImage.sprite = block.RuntimeContext.thumbnail;
+            ghostImage.sprite = block.RuntimeContext.Thumbnail;
+            filterTransform.localScale = block.RuntimeContext.Size.ToVector3();
             this.blueprintBlock = block;
         }
 

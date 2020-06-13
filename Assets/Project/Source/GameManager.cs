@@ -3,11 +3,14 @@ using Exa.Grids.Blueprints;
 using Exa.Grids.Blueprints.BlueprintEditor;
 using Exa.UI;
 using Exa.Utils;
+using UnityEngine;
 
 namespace Exa
 {
     public class GameManager : MonoBehaviourInstance<GameManager>
     {
+        public static bool IsQuitting { get; private set; }
+
         public BlockFactory blockFactory;
         public BlueprintManager blueprintManager;
         public ShipEditor shipEditor;
@@ -20,6 +23,15 @@ namespace Exa
             blockFactory.gameObject.SetActive(true);
             // Load blueprints from disk
             blueprintManager.gameObject.SetActive(true);
+        }
+
+        [RuntimeInitializeOnLoadMethod]
+        static void RunOnStart()
+        {
+            Application.quitting += () =>
+            {
+                IsQuitting = true;
+            };
         }
     }
 }

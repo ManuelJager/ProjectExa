@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Worker
   m_EditorClassIdentifier: 
   displayName: Worker
-  typeGuid: worker
+  typeGuid: Worker
   maxSize: {x: 9, y: 7}
   disallowedBlockCategories:
   - weapon

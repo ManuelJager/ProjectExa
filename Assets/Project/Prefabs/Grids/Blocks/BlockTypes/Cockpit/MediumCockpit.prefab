@@ -1,18 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &3442997774518997181
+--- !u!114 &6199284897672335954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5942586963420624834}
+  m_GameObject: {fileID: 9081225109179339502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c1491fef2167eb41844618b313d1e8b, type: 3}
+  m_Script: {fileID: 11500000, guid: f2656d15eb2570e40b3d1507c98bb9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &7591042787932674383
+--- !u!1001 &4982806886898678883
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -32,17 +32,17 @@ PrefabInstance:
     - target: {fileID: 112503658778448997, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.32
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 112503658778448997, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.32
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 112503658778448997, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 112503658778448997, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
@@ -53,6 +53,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
@@ -74,12 +109,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4178788428458324673, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6903120917539983151, guid: 1dc961a6e6a10e04daa44ec43d9c7d4c,
+      objectReference: {fileID: 3645848052118946982, guid: d0e04424dbcb057468a88b0a9d48d7c6,
         type: 3}
+    - target: {fileID: 4178788428458324673, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4178788428458324673, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -88,13 +133,13 @@ PrefabInstance:
     - target: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
       propertyPath: m_Name
-      value: LightArmorBlock
+      value: MediumCockpit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 833d8ea8eb468324d957c13dcdf89414, type: 3}
---- !u!1 &5942586963420624834 stripped
+--- !u!1 &9081225109179339502 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
     type: 3}
-  m_PrefabInstance: {fileID: 7591042787932674383}
+  m_PrefabInstance: {fileID: 4982806886898678883}
   m_PrefabAsset: {fileID: 0}

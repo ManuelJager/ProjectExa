@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Corvette
   m_EditorClassIdentifier: 
   displayName: Corvette
-  typeGuid: corvette
-  maxSize: {x: 19, y: 9}
+  typeGuid: Corvette
+  maxSize: {x: 14, y: 9}
   disallowedBlockCategories:
   - worker

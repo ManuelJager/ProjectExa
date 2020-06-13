@@ -31,6 +31,9 @@ namespace Exa.Grids.Blueprints
         [JsonIgnore]
         private int rotation;
 
+        [JsonIgnore]
+        private BlockTemplate runtimeContext;
+
         public int Rotation
         {
             get => rotation;
@@ -39,14 +42,6 @@ namespace Exa.Grids.Blueprints
                 rotation = value % 4;
             }
         }
-
-        public void Rotate(int quarterTurns)
-        {
-            Rotation = quarterTurns % 4;
-        }
-
-        [JsonIgnore]
-        private BlockTemplate runtimeContext;
 
         [JsonIgnore]
         public BlockTemplate RuntimeContext
@@ -59,6 +54,11 @@ namespace Exa.Grids.Blueprints
                 }
                 return runtimeContext;
             }
+        }
+
+        public void Rotate(int quarterTurns)
+        {
+            Rotation = quarterTurns % 4;
         }
 
         [JsonIgnore]

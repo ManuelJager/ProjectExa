@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e291881a9bb544546b8fb636a275fc97, type: 3}
   m_Name: Mothership
   m_EditorClassIdentifier: 
-  displayName: 
-  typeGuid: 
-  maxSize: {x: 0, y: 0}
-  disallowedBlockCategories: []
+  displayName: Mothership
+  typeGuid: Mothership
+  maxSize: {x: 30, y: 21}
+  disallowedBlockCategories:
+  - worker

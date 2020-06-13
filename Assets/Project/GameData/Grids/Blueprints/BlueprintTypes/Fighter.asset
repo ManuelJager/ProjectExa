@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fighter
   m_EditorClassIdentifier: 
   displayName: Fighter
-  typeGuid: fighter
-  maxSize: {x: 11, y: 7}
+  typeGuid: Fighter
+  maxSize: {x: 9, y: 7}
   disallowedBlockCategories:
   - worker

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Battleship
   m_EditorClassIdentifier: 
   displayName: Battleship
-  typeGuid: battleship
-  maxSize: {x: 33, y: 15}
+  typeGuid: Battleship
+  maxSize: {x: 22, y: 15}
   disallowedBlockCategories:
   - worker

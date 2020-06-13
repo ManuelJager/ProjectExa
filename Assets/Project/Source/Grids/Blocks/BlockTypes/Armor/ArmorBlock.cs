@@ -4,6 +4,6 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     public class ArmorBlock : Block, IPhysicalBlock
     {
-        public PhysicalBlockData physicalBlockData { get; set; }
+        public PhysicalBlockData PhysicalBlockData { get; set; }
     }
 }

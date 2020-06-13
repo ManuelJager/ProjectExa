@@ -85,9 +85,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             var spriteRenderer = blockObject.AddComponent<SpriteRenderer>();
             spriteRenderer.flipX = block.flippedX;
             spriteRenderer.flipY = block.flippedY;
-            spriteRenderer.sprite = block.RuntimeContext.thumbnail;
+            spriteRenderer.sprite = block.RuntimeContext.Thumbnail;
             blockObject.transform.SetParent(transform);
-            blockObject.transform.localScale = block.RuntimeContext.Size.ToVector3();
             blockObject.transform.localRotation = block.QuaternionRotation;
             return blockObject;
         }

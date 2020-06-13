@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fb5adc618c4a34b9dc96c383c715e5, type: 3}
+  m_Name: MediumCockpit
+  m_EditorClassIdentifier: 
+  id: MediumCockpit
+  displayId: Medium Cockpit
+  category: Controller
+  displayCategory: Controller
+  thumbnail: {fileID: 3645848052118946982, guid: d0e04424dbcb057468a88b0a9d48d7c6,
+    type: 3}
+  size: {x: 3, y: 1}
+  prefab: {fileID: 9081225109179339502, guid: 9c9b8c06eb1433f48a84e5acd00d4135, type: 3}
+  physicalTemplateComponent:
+    maxHealth: 50
+    armor: 0
