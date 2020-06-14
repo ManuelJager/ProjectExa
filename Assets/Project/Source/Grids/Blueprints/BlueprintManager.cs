@@ -1,5 +1,4 @@
 ﻿using Exa.IO;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -7,20 +6,16 @@ namespace Exa.Grids.Blueprints
 {
     public class BlueprintManager : MonoBehaviour, ISaveable
     {
-        public BlueprintTypes blueprintTypes;
-        [HideInInspector] public ObservableBlueprintCollection observableGameBlueprints = new ObservableBlueprintCollection();
         [HideInInspector] public ObservableBlueprintCollection observableUserBlueprints = new ObservableBlueprintCollection();
-
-        private string gameBlueprintsPath;
-        private string userBlueprintsPath;
+        public BlueprintTypes blueprintTypes;
 
         [SerializeField] private bool loadOnEnable;
         [SerializeField] private bool saveOnDisable;
+        private string userBlueprintsDirectory;
 
-        public void Awake()
+        private void Awake()
         {
-            gameBlueprintsPath = Path.Combine(Application.persistentDataPath, "gameBlueprints.json").Replace("/", "\\");
-            userBlueprintsPath = Path.Combine(Application.persistentDataPath, "userBlueprints.json").Replace("/", "\\");
+            userBlueprintsDirectory = Path.Combine(Application.persistentDataPath, "userBlueprints").Replace("/", "\\");
         }
 
         private void OnEnable()
@@ -37,27 +32,13 @@ namespace Exa.Grids.Blueprints
         // Has a dependency on block factory
         public void Load()
         {
-            List<ObservableBlueprint> gameBlueprints;
-            List<ObservableBlueprint> userBlueprints;
-            IOUtils.TryJsonDeserializeFromPath(gameBlueprintsPath, out gameBlueprints);
-            IOUtils.TryJsonDeserializeFromPath(userBlueprintsPath, out userBlueprints);
-
-            if (gameBlueprints != null)
-            {
-                observableGameBlueprints.AddRange(gameBlueprints);
-            }
-
-            if (userBlueprints != null)
-            {
-                observableUserBlueprints.AddRange(userBlueprints);
-            }
+            CollectionUtils.LoadToCollectionFromDirectory(observableUserBlueprints, userBlueprintsDirectory);
         }
 
         [ContextMenu("Save")]
         public void Save()
         {
-            IOUtils.JsonSerializeToPath(gameBlueprintsPath, observableGameBlueprints.collection);
-            IOUtils.JsonSerializeToPath(userBlueprintsPath, observableUserBlueprints.collection);
+            CollectionUtils.SaveCollectionToDirectory(observableUserBlueprints, userBlueprintsDirectory, true);
         }
     }
 }

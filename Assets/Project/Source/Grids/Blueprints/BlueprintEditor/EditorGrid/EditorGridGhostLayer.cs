@@ -100,13 +100,13 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public void OnRotateLeft()
         {
             ghost.Rotation += 1;
-            mirrorGhost.Rotation += 1;
+            mirrorGhost.Rotation -= 1;
         }
 
         public void OnRotateRight()
         {
             ghost.Rotation -= 1;
-            mirrorGhost.Rotation -= 1;
+            mirrorGhost.Rotation += 1;
         }
     }
 }

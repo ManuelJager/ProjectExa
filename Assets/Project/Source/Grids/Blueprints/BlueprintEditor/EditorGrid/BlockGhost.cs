@@ -38,6 +38,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         {
             ghostImage.sprite = block.RuntimeContext.Thumbnail;
             filterTransform.localScale = block.RuntimeContext.Size.ToVector3();
+            ghostImage.flipX = block.flippedX;
+            ghostImage.flipY = block.flippedY;
             this.blueprintBlock = block;
         }
 

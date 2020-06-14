@@ -1,7 +1,7 @@
 ﻿using Exa;
 using System;
 
-namespace Assets.Project.Source.Utils
+namespace Exa.Utils
 {
     public static class MiscUtils
     {

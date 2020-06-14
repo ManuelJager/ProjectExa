@@ -1,4 +1,5 @@
 ﻿using Exa.Input;
+using Exa.Utils;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -81,7 +82,7 @@ namespace Exa.UI
         {
             if (InvokeStateChange)
             {
-                InputManager.Instance.OnExitControl();
+                MiscUtils.InvokeIfNotQuitting(InputManager.Instance.OnExitControl);
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using Assets.Project.Source.Utils;
-using Exa.Utils;
+﻿using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor

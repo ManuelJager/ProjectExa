@@ -68,7 +68,9 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         public void OnDisable()
         {
+            // Reset values
             playerPos = Vector2.zero;
+            mouseGridPos = null;
             transform.localPosition = Vector3.zero;
         }
 

@@ -59,11 +59,6 @@ namespace Exa.IO
 
         public static void JsonSerializeToPath(string filePath, object value)
         {
-            if (!File.Exists(filePath))
-            {
-                File.Create(filePath);
-            }
-
             var text = JsonConvert.SerializeObject(value, jsonSettings);
             File.WriteAllText(filePath, text);
         }
