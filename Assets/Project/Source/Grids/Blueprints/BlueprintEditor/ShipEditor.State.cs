@@ -9,6 +9,9 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private bool rightButtonPressed = false;
         private bool lockMovement = false;
         private bool mirrorEnabled = false;
+        private bool interactible = true;
+        private bool isSaved;
+        private bool nameIsValid;
         private ObservableBlueprint blueprintContainer;
         private Blueprint newBlueprint;
 
@@ -22,8 +25,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 editorOverlay.mirrorView.SetState(value);
             }
         }
-
-        private bool interactible = true;
 
         public bool Interactable
         {
@@ -47,8 +48,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             }
         }
 
-        private bool isSaved;
-
         public bool IsSaved
         {
             get => isSaved;
@@ -59,8 +58,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 UpdateSaveButtonActive();
             }
         }
-
-        private bool nameIsValid;
 
         public bool NameIsValid
         {

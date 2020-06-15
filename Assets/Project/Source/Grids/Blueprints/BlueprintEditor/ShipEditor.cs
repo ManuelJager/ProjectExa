@@ -12,13 +12,13 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
     [RequireComponent(typeof(ShipEditorNavigateable))]
     public partial class ShipEditor : MonoBehaviour, IEditorActions, IInteractableGroup
     {
-        public ObservableBlueprintCollection blueprintCollection;
-        public ShipEditorOverlay editorOverlay;
-        public EditorGrid editorGrid;
-
         [SerializeField] private GameObject editorGridBackground;
         private GameControls gameControls;
         private ShipEditorNavigateable navigateable;
+
+        public ObservableBlueprintCollection blueprintCollection;
+        public ShipEditorOverlay editorOverlay;
+        public EditorGrid editorGrid;
 
         private void Awake()
         {
@@ -26,6 +26,16 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             gameControls.Editor.SetCallbacks(this);
             navigateable = GetComponent<ShipEditorNavigateable>();
             SetGridBackground();
+
+            editorOverlay.onPointerEnter.AddListener(() =>
+            {
+                editorGrid.BlockedByUI = true;
+            });
+
+            editorOverlay.onPointerExit.AddListener(() =>
+            {
+                editorGrid.BlockedByUI = false;
+            });
         }
 
         private void Update()

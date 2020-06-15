@@ -1,39 +1,60 @@
 ﻿using Exa.Grids.Blocks;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
 {
     public class EditorGridGhostLayer : MonoBehaviour
     {
-        public GameObject ghostPrefab;
+        private bool ghostVisible = true;
+        private bool mirrorEnabled = false;
+        private bool blockedByUI = false;
 
+        public GameObject ghostPrefab;
         public BlockGhost ghost;
         public BlockGhost mirrorGhost;
 
         public bool GhostCreated { get; private set; }
 
-        private bool ghostVisible = true;
-
+        /// <summary>
+        /// Ghost was created
+        /// </summary>
         public bool GhostVisible
         {
             get => ghostVisible;
             set
             {
-                ghost.gameObject.SetActive(value);
-                mirrorGhost.gameObject.SetActive(value && MirrorEnabled);
                 ghostVisible = value;
+
+                CalculateGhostEnabled();
             }
         }
 
-        private bool mirrorEnabled = false;
-
+        /// <summary>
+        /// Ghost is enabled
+        /// </summary>
         public bool MirrorEnabled
         {
             get => mirrorEnabled;
             set
             {
-                mirrorGhost.gameObject.SetActive(value && GhostVisible && ghost.GridPos != mirrorGhost.GridPos);
                 mirrorEnabled = value;
+
+                CalculateGhostEnabled();
+            }
+        }
+
+        /// <summary>
+        /// If player is hovering over ui
+        /// </summary>
+        public bool BlockedByUI
+        {
+            get => blockedByUI;
+            set
+            {
+                blockedByUI = value;
+
+                CalculateGhostEnabled();
             }
         }
 
@@ -71,30 +92,16 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         {
             if (!GhostCreated) return;
 
-            if (anchorPos == null)
-            {
-                GhostVisible = false;
-                return;
-            }
-            else
-            {
-                GhostVisible = true;
-            }
+            GhostVisible = anchorPos != null;
+
+            if (!GhostVisible) return;
 
             var realAnchorPos = anchorPos.GetValueOrDefault();
             var mirroredAnchorPos = ShipEditorUtils.GetMirroredGridPos(gridSize, realAnchorPos);
             ghost.GridPos = realAnchorPos;
+            mirrorGhost.GridPos = mirroredAnchorPos;
 
-            if (realAnchorPos == mirroredAnchorPos)
-            {
-                mirrorGhost.GridPos = mirroredAnchorPos;
-                mirrorGhost.gameObject.SetActive(false);
-            }
-            else
-            {
-                mirrorGhost.GridPos = mirroredAnchorPos;
-                mirrorGhost.gameObject.SetActive(MirrorEnabled && GhostVisible);
-            }
+            CalculateGhostEnabled();
         }
 
         public void OnRotateLeft()
@@ -107,6 +114,19 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         {
             ghost.Rotation -= 1;
             mirrorGhost.Rotation += 1;
+        }
+
+        private void CalculateGhostEnabled()
+        {
+            ghost.gameObject.SetActive(
+                GhostVisible &&
+                !BlockedByUI);
+
+            mirrorGhost.gameObject.SetActive(
+                MirrorEnabled && 
+                GhostVisible && 
+                ghost.GridPos != mirrorGhost.GridPos 
+                && !BlockedByUI);
         }
     }
 }

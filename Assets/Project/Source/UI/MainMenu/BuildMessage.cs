@@ -7,7 +7,7 @@ namespace Exa.UI
     [CreateAssetMenu(fileName = "buildMessage", menuName = "UI/MainMenu/BuildMessage")]
     public class BuildMessage : ScriptableObject
     {
-        [TextAreaAttribute]
+        [TextArea]
         public string buildMessage;
     }
 }

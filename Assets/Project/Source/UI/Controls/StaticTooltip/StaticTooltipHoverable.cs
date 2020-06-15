@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [Serializable]
-public class HoverEvent : UnityEvent<string>
+public class TooltipHoverEvent : UnityEvent<string>
 {
 }
 
@@ -12,7 +12,7 @@ public class HoverEvent : UnityEvent<string>
 public class StaticTooltipHoverable : MonoBehaviour
 {
     public string message;
-    public HoverEvent onHover;
+    public TooltipHoverEvent onHover;
 
     private Hoverable hoverable;
 

@@ -7,19 +7,19 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 {
     public partial class EditorGrid : MonoBehaviour, IInteractableGroup
     {
+        [SerializeField] private float movementSpeed;
+        private bool interactible = true;
+        private bool mirrorEnabled = false;
+        private bool blockedByUI = false;
+        private bool canPlaceGhost = false;
+        private Vector2 playerPos = Vector2.zero;
+        private Vector2Int size;
+
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridGhostLayer ghostLayer;
         public EditorGridBlueprintLayer blueprintLayer;
 
-        [SerializeField] private float movementSpeed;
-
-        private Vector2 playerPos = Vector2.zero;
-        private Vector2Int size;
-        private bool canPlaceGhost = false;
-
         public Vector2 MovementVector { private get; set; }
-
-        private bool interactible = true;
         public bool Interactable
         {
             get => interactible;
@@ -33,15 +33,27 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             }
         }
 
-        private bool mirrorEnabled;
         public bool MirrorEnabled
         {
             get => mirrorEnabled;
             set
             {
                 mirrorEnabled = value;
+
                 ghostLayer.MirrorEnabled = value;
                 SetActiveBackground(mouseGridPos, true);
+                CalculateGhostEnabled();
+            }
+        }
+
+        public bool BlockedByUI
+        {
+            get => blockedByUI;
+            set
+            {
+                blockedByUI = value;
+
+                ghostLayer.BlockedByUI = value;
                 CalculateGhostEnabled();
             }
         }
@@ -107,6 +119,12 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public void CalculateGhostEnabled()
         {
             if (!ghostLayer.GhostCreated) return;
+
+            if (BlockedByUI)
+            {
+                canPlaceGhost = false;
+                return;
+            }
 
             var ghostTiles = ShipEditorUtils.GetOccupiedTilesByGhost(ghostLayer.ghost);
             var mirrorGhostTiles = ShipEditorUtils.GetOccupiedTilesByGhost(ghostLayer.mirrorGhost);
