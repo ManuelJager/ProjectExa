@@ -9,7 +9,6 @@ namespace Exa.UI.Components
     {
         [SerializeField] private GameObject inputFieldPrefab;
         [SerializeField] private GameObject dropdownPrefab;
-
         [SerializeField] private Transform controlsContainer;
 
         public void GenerateForm<T>(ModelDescriptor<T> modelDescriptor)
@@ -42,7 +41,16 @@ namespace Exa.UI.Components
             {
                 propertyContext.propertyInfo.SetValue(modelDescriptor, value);
             });
-            control.CreateTabs(propertyContext.propertyInfo.Name, propertyContext.sourceProvider.GetValues());
+            control.CreateTabs(propertyContext.propertyInfo.Name, propertyContext.sourceAttribute.DataSourceProvider.GetValues());
+
+            // Set callbacks
+            if (propertyContext.sourceAttribute.ViewCreationlistener != null)
+            { 
+                foreach (var item in control.tabByOption)
+                {
+                    propertyContext.sourceAttribute.ViewCreationlistener.SetCallbacks(item.Key, item.Value.gameObject);
+                }
+            }
         }
 
         public void CreateInputFieldControl(PropertyContext propertyContext, ModelDescriptor modelDescriptor)

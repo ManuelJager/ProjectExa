@@ -2,7 +2,7 @@
 
 namespace Exa.Generics
 {
-    public interface IValuesSourceProvider
+    public interface IDataSourceProvider
     {
         IEnumerable<ValueContext> GetValues();
     }

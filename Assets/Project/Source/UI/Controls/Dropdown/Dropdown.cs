@@ -17,13 +17,13 @@ namespace Exa.UI.Controls
     {
         [HideInInspector] public string selectedOption;
         public DropdownTabSelected onDropdownTabValueSelected;
+        public Dictionary<string, DropdownTab> tabByOption = new Dictionary<string, DropdownTab>();
 
         [SerializeField] private Text selectedName;
         [SerializeField] private Text selectedText;
         [SerializeField] private Button button;
         [SerializeField] private Transform tabContainer;
         [SerializeField] private GameObject tabPrefab;
-        private Dictionary<string, DropdownTab> tabByOption = new Dictionary<string, DropdownTab>();
 
         private void Awake()
         {

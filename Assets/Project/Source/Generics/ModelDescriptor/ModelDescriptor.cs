@@ -43,11 +43,11 @@ namespace Exa.Generics
                     UnityEngine.Debug.LogWarning($"{property.Name} is not of type string. Types inheriting from ModelDescriptor should contain non-string properties");
                 }
 
-                IValuesSourceProvider sourceProvider = null;
+                SourceAttribute sourceAttribute = null;
 
                 try
                 {
-                    sourceProvider = property.GetAttribute<SourceAttribute>().Getter;
+                    sourceAttribute = property.GetAttribute<SourceAttribute>();
                     controlType = ControlType.dropdown;
                 }
                 catch
@@ -59,7 +59,7 @@ namespace Exa.Generics
                 {
                     controlType = controlType,
                     propertyInfo = property,
-                    sourceProvider = sourceProvider
+                    sourceAttribute = sourceAttribute
                 };
             }
         }

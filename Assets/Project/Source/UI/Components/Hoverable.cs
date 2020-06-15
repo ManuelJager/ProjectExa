@@ -11,14 +11,18 @@ namespace Exa.UI
     [Serializable]
     public class HoverEvent : UnityEvent
     {
+        public HoverEvent()
+            : base()
+        {
+        }
     }
 
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(CanvasGroup))]
     public class Hoverable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        public HoverEvent onPointerEnter;
-        public HoverEvent onPointerExit;
+        public HoverEvent onPointerEnter = new HoverEvent();
+        public HoverEvent onPointerExit = new HoverEvent();
 
         public bool invokeStateChangeOnHover;
         public CursorState cursorState;

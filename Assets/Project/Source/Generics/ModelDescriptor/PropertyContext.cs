@@ -6,6 +6,6 @@ namespace Exa.Generics
     {
         public ControlType controlType;
         public PropertyInfo propertyInfo;
-        public IValuesSourceProvider sourceProvider;
+        public SourceAttribute sourceAttribute;
     }
 }
