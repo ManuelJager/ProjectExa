@@ -47,6 +47,9 @@ TagManager:
   - name: Overlay
     uniqueID: 842884435
     locked: 0
+  - name: Tooltip
+    uniqueID: 3954885307
+    locked: 0
   - name: Debug
     uniqueID: 3084335075
     locked: 0
