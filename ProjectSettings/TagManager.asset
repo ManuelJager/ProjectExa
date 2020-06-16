@@ -53,6 +53,9 @@ TagManager:
   - name: Debug
     uniqueID: 3084335075
     locked: 0
+  - name: Diagnostics
+    uniqueID: 1457935847
+    locked: 0
   - name: Cursor
     uniqueID: 2790405169
     locked: 0

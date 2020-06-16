@@ -10,7 +10,7 @@ namespace Exa.Debug.DebugConsole
     public class DebugConsoleController : MonoBehaviourInstance<DebugConsoleController>
     {
         private DebugConsole console;
-        [SerializeField] private GameObject ownerObject;
+        [SerializeField] private GameObject ownerObject; 
         [SerializeField] private Text consoleOutput;
         [SerializeField] private InputField consoleInput;
 

@@ -63,23 +63,23 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.a
-    value: 0.78431374
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.r
-    value: 0.23529412
+    value: 0.15686275
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.g
-    value: 0.23529412
+    value: 0.15686275
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.b
-    value: 0.27450982
+    value: 0.19607843
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.a
-    value: 0.78431374
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_PressedColor.r
@@ -95,7 +95,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_PressedColor.a
-    value: 0.78431374
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_SelectedColor.r
@@ -111,7 +111,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_SelectedColor.a
-    value: 0.78431374
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_DisabledColor.r
@@ -127,7 +127,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_DisabledColor.a
-    value: 0.78431374
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_ColorMultiplier

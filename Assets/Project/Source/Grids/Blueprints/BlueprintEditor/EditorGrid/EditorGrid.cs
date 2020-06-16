@@ -71,7 +71,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             
             // Move the grid to keyboard input
             // TODO: Smooth 
-            playerPos -= MovementVector * movementSpeed;
+            playerPos -= MovementVector * movementSpeed * Time.deltaTime;
             transform.localPosition = playerPos.ToVector3();
 
             // Check for mouse input

@@ -42,11 +42,13 @@ namespace Exa.UI.Controls
         {
             // Get the mouse position
             var mousePos = Mouse.current.position.ReadValue();
+
             // Get the edge of the container by adding the mouse position to the container size
             var edge = mousePos + container.sizeDelta;
-            // Use 10 pixels as a sort of buffer
-            edge.x -= 10f;
-            edge.y -= 10f;
+
+            // Add 4px (outline width) to edge size
+            edge.x += 4f;
+            edge.y += 4f;
 
             // Calculate position offset
             var offset = new Vector2

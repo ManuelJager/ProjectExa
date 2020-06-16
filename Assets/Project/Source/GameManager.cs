@@ -15,6 +15,7 @@ namespace Exa
         public BlueprintManager blueprintManager;
         public ShipEditor shipEditor;
         public PromptController promptController;
+        public DiagnosticsPanel diagnosticsPanel;
 
         public void Start()
         {
