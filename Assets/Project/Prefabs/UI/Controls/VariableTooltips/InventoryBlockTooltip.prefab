@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryBlockTooltip
       objectReference: {fileID: 0}
+    - target: {fileID: 5009265155103042250, guid: 3fbbcff36fbee5e49b47a6307c36f6f5,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6022247309663554689, guid: 3fbbcff36fbee5e49b47a6307c36f6f5,
         type: 3}
       propertyPath: m_LocalPosition.x

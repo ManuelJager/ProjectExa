@@ -17,8 +17,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public ShipEditorOverlayInventory inventory;
         public MirrorView mirrorView;
 
-        public HoverEvent onPointerEnter;
-        public HoverEvent onPointerExit;
+        public UnityEvent onPointerEnter;
+        public UnityEvent onPointerExit;
 
         private void Awake()
         {

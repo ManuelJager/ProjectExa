@@ -1624,18 +1624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580006f3f0068ab45a98cb5a94e3ad63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1986239823 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7164022047882804461, guid: 2661b46a09dd09949b76373e7086f5b1,
-    type: 3}
-  m_PrefabInstance: {fileID: 206546701406750975}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38748e668bf81de49a7fc1b27a7eeab9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2050827337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5057754596078983127, guid: 227f073157b96bf478a074d8927023ce,
@@ -2230,7 +2218,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1986239823}
+      objectReference: {fileID: 0}
     - target: {fileID: 7290483991753067514, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_FontData.m_Font

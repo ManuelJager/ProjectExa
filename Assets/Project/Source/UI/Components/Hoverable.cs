@@ -8,21 +8,12 @@ using UnityEngine.InputSystem;
 
 namespace Exa.UI
 {
-    [Serializable]
-    public class HoverEvent : UnityEvent
-    {
-        public HoverEvent()
-            : base()
-        {
-        }
-    }
-
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(CanvasGroup))]
     public class Hoverable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        public HoverEvent onPointerEnter = new HoverEvent();
-        public HoverEvent onPointerExit = new HoverEvent();
+        public UnityEvent onPointerEnter = new UnityEvent();
+        public UnityEvent onPointerExit = new UnityEvent();
 
         public bool invokeStateChangeOnHover;
         public CursorState cursorState;
@@ -30,6 +21,7 @@ namespace Exa.UI
         private RectTransform rectTransform;
         private bool queuedEnabled = false;
         private CanvasGroup canvasGroup;
+        private bool mouseOverControl = false;
 
         private bool InvokeStateChange
         {
@@ -50,6 +42,7 @@ namespace Exa.UI
                 var mousePos = Mouse.current.position.ReadValue();
                 if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos))
                 {
+                    mouseOverControl = true;
                     onPointerEnter?.Invoke();
                 }
                 queuedEnabled = false;
@@ -58,6 +51,7 @@ namespace Exa.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            mouseOverControl = true;
             onPointerEnter?.Invoke();
 
             if (InvokeStateChange)
@@ -68,6 +62,7 @@ namespace Exa.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            mouseOverControl = false;
             onPointerExit?.Invoke();
 
             if (InvokeStateChange)
@@ -84,6 +79,11 @@ namespace Exa.UI
 
         public void OnDisable()
         {
+            if (mouseOverControl)
+            {
+                onPointerExit?.Invoke();
+            }
+
             if (InvokeStateChange)
             {
                 MiscUtils.InvokeIfNotQuitting(InputManager.Instance.OnExitControl);

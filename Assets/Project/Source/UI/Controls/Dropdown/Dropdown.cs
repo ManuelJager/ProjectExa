@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Coffee.UIEffects;
 
 namespace Exa.UI.Controls
 {
@@ -21,16 +22,14 @@ namespace Exa.UI.Controls
 
         [SerializeField] private Text selectedName;
         [SerializeField] private Text selectedText;
+        [SerializeField] private UIFlip tabArrow;
         [SerializeField] private Button button;
         [SerializeField] private Transform tabContainer;
         [SerializeField] private GameObject tabPrefab;
 
         private void Awake()
         {
-            button.onClick.AddListener(() =>
-            {
-                tabContainer.gameObject.SetActive(!tabContainer.gameObject.activeSelf);
-            });
+            button.onClick.AddListener(ToggleContainer);
         }
 
         public void CreateTabs(string selectedName, IEnumerable<ValueContext> options)
@@ -44,7 +43,7 @@ namespace Exa.UI.Controls
                 tab.button.onClick.AddListener(() =>
                 {
                     SetSelected(option);
-                    tabContainer.gameObject.SetActive(false);
+                    ToggleContainer();
                 });
                 tabByOption[option.value] = tab;
             }
@@ -68,6 +67,12 @@ namespace Exa.UI.Controls
             tabByOption[selectedOption].Selected = true;
             onDropdownTabValueSelected?.Invoke(option.value);
             selectedText.text = option.name;
+        }
+
+        private void ToggleContainer()
+        {
+            tabArrow.vertical = !tabArrow.vertical;
+            tabContainer.gameObject.SetActive(!tabContainer.gameObject.activeSelf);
         }
     }
 }

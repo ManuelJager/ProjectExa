@@ -4,8 +4,10 @@ using UnityEngine.InputSystem;
 namespace Exa.UI.Controls
 {
     public abstract class VariableTooltipBase<T> : MonoBehaviour
+        where T : ITooltipPresenter
     {
         [SerializeField] protected RectTransform container;
+        [SerializeField] protected Transform border;
 
         private void Update()
         {
@@ -15,6 +17,15 @@ namespace Exa.UI.Controls
         public void ShowTooltip(T data)
         {
             gameObject.SetActive(true);
+
+            foreach (Transform child in container)
+            {
+                if (border != child)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
             SmartSetPos();
             SetValues(data);
         }
@@ -48,6 +59,9 @@ namespace Exa.UI.Controls
             container.anchoredPosition = mousePos + offset;
         }
 
-        public abstract void SetValues(T data);
+        public virtual void SetValues(T data)
+        {
+            VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltip(data, container);
+        }
     }
 }

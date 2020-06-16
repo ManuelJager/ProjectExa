@@ -50,12 +50,23 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "com.coffee.ui-effect": "4.0.0-preview.9"
   },
   "lock": {
     "com.xeleh.enhancer": {
       "revision": "HEAD",
       "hash": "5e1d0a217b1697a06a4a6082f42fcfcab10c058a"
     }
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.coffee.ui-effect",
+        "com.openupm"
+      ]
+    }
+  ]
 }
