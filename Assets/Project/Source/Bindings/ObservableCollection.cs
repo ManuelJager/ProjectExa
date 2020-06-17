@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 namespace Exa.Bindings
 {
+    /// <summary>
+    /// Base class for virtual collection that notifies observers of model changes
+    /// <para>
+    /// This is preferable to just an observable<List<TData>> because it only needs to refresh views that are changed
+    /// </para>
+    /// </summary>
+    /// <typeparam name="TData"></typeparam>
     [Serializable]
     public class ObservableCollection<TData> : IObservableCollection<TData>
     {
@@ -129,7 +136,11 @@ namespace Exa.Bindings
         }
 
         #endregion IList<TData> implementation
-
+        
+        /// <summary>
+        /// Add an observer to the observer collection
+        /// </summary>
+        /// <param name="observer"></param>
         public virtual void Register(ICollectionObserver<TData> observer)
         {
             if (Observers.Contains(observer)) return;
@@ -138,6 +149,10 @@ namespace Exa.Bindings
             observer.Source = this;
         }
 
+        /// <summary>
+        /// Remove an observer from the observer collection
+        /// </summary>
+        /// <param name="observer"></param>
         public virtual void Unregister(ICollectionObserver<TData> observer)
         {
             if (!Observers.Contains(observer)) return;

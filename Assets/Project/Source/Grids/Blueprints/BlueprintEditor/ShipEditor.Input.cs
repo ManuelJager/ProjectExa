@@ -123,8 +123,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 if (yDelta == 0f) return;
 
                 yDelta /= 100f;
-                Zoom = Mathf.Clamp(zoom + (-yDelta * zoomSpeed), 3, 15);
-                Camera.main.DOOrthoSize(zoom, 0.5f);
+                Zoom = Mathf.Clamp(Zoom + (-yDelta * zoomSpeed), 3, 15);
+                Camera.main.DOOrthoSize(Zoom, 0.5f);
             }
         }
 

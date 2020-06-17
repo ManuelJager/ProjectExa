@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Exa.Bindings
 {
+    /// <summary>
+    /// Provides 
+    /// </summary>
+    /// <typeparam name="TData"></typeparam>
     public interface IObservableCollection<TData> :
         ICollection<TData>,
         IEnumerable<TData>,

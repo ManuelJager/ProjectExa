@@ -3,19 +3,28 @@ using UnityEngine;
 
 namespace Exa.Bindings
 {
-    public class ViewController<TView, TModelObserver, TModel> : MonoBehaviour, ICollectionObserver<TModelObserver>
+    /// <summary>
+    /// Controls views for a collection of models
+    /// <para>
+    /// Handles instantiating views, binding model observables to their corresponding views, and deleting views
+    /// </para>
+    /// </summary>
+    /// <typeparam name="TView">View type, must be an observer of <see cref="{TModel}"/></typeparam>
+    /// <typeparam name="TModelObservable">Model observable type</typeparam>
+    /// <typeparam name="TModel">Model type</typeparam>
+    public class ViewController<TView, TModelObservable, TModel> : MonoBehaviour, ICollectionObserver<TModelObservable>
         where TView : MonoBehaviour, IObserver<TModel>
-        where TModelObserver : Observable<TModel>
+        where TModelObservable : Observable<TModel>
         where TModel : class
     {
         [SerializeField] protected Transform viewContainer;
         [SerializeField] protected GameObject viewPrefab;
 
-        protected Dictionary<TModelObserver, TView> views = new Dictionary<TModelObserver, TView>();
+        protected Dictionary<TModelObservable, TView> views = new Dictionary<TModelObservable, TView>();
 
-        private IObservableCollection<TModelObserver> source = null;
+        private IObservableCollection<TModelObservable> source = null;
 
-        public virtual IObservableCollection<TModelObserver> Source
+        public virtual IObservableCollection<TModelObservable> Source
         {
             get => source;
             set
@@ -55,7 +64,7 @@ namespace Exa.Bindings
             }
         }
 
-        public virtual void AddRange(IEnumerable<TModelObserver> collection)
+        public virtual void AddRange(IEnumerable<TModelObservable> collection)
         {
             foreach (var item in source)
             {
@@ -63,12 +72,12 @@ namespace Exa.Bindings
             }
         }
 
-        public virtual void OnAdd(TModelObserver observer)
+        public virtual void OnAdd(TModelObservable observer)
         {
             OnAdd(observer, viewContainer);
         }
 
-        protected virtual void OnAdd(TModelObserver observer, Transform container)
+        protected virtual void OnAdd(TModelObservable observer, Transform container)
         {
             var blockObject = Instantiate(viewPrefab, container);
             var view = blockObject.GetComponent<TView>();
@@ -77,8 +86,13 @@ namespace Exa.Bindings
             views.Add(observer, view);
             ViewCreation(view, observer);
         }
-
-        public virtual void ViewCreation(TView view, TModelObserver observer)
+        
+        /// <summary>
+        /// Is called after a view is created, may be override to add custom event listeners by inheritor
+        /// </summary>
+        /// <param name="view"></param>
+        /// <param name="observer"></param>
+        public virtual void ViewCreation(TView view, TModelObservable observer)
         {
         }
 
@@ -89,15 +103,15 @@ namespace Exa.Bindings
                 OnRemove(key);
             }
 
-            views = new Dictionary<TModelObserver, TView>();
+            views = new Dictionary<TModelObservable, TView>();
         }
 
-        public virtual void OnInsert(int index, TModelObserver observer)
+        public virtual void OnInsert(int index, TModelObservable observer)
         {
             throw new System.NotImplementedException();
         }
 
-        public virtual void OnRemove(TModelObserver observer)
+        public virtual void OnRemove(TModelObservable observer)
         {
             var view = views[observer];
             observer.Unregister(view);
@@ -109,7 +123,7 @@ namespace Exa.Bindings
             throw new System.NotImplementedException();
         }
 
-        public virtual void OnSet(int index, TModelObserver observer)
+        public virtual void OnSet(int index, TModelObservable observer)
         {
             throw new System.NotImplementedException();
         }

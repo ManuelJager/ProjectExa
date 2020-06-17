@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace Exa.Bindings
 {
+    /// <summary>
+    /// Wrapper that provides a model a way to notify observers of model changes so views are refreshed or queued for refreshing
+    /// </summary>
+    /// <typeparam name="TData"></typeparam>
     public class Observable<TData> : IEquatable<Observable<TData>>
         where TData : class
     {
