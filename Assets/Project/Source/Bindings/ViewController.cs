@@ -102,7 +102,7 @@ namespace Exa.Bindings
             views.Add(observer, view);
             ViewCreation(view, observer);
         }
-        
+
         /// <summary>
         /// Is called after a view is created, may be override to add custom event listeners by inheritor
         /// </summary>

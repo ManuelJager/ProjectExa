@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Exa.UI.Components;
 using UnityEditor;
 using UnityEngine;
-using Exa.UI.Components;
 
 namespace Exa.UI
 {

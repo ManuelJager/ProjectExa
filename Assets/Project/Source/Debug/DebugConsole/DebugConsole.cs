@@ -1,5 +1,4 @@
 ﻿using CommandEngine;
-using Exa.Debug.Commands;
 
 namespace Exa.Debug
 {

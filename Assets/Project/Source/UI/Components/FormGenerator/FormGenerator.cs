@@ -1,6 +1,5 @@
 ﻿using Exa.Generics;
 using Exa.UI.Controls;
-using System;
 using UnityEngine;
 
 namespace Exa.UI.Components
@@ -25,9 +24,11 @@ namespace Exa.UI.Components
                     case ControlType.inputField:
                         CreateInputFieldControl(propertyContext, modelDescriptor);
                         break;
+
                     case ControlType.dropdown:
                         CreateDropdownControl(propertyContext, modelDescriptor);
                         break;
+
                     default:
                         break;
                 }
@@ -45,7 +46,7 @@ namespace Exa.UI.Components
 
             // Set callbacks
             if (propertyContext.sourceAttribute.OptionCreationlistener != null)
-            { 
+            {
                 foreach (var item in control.tabByOption)
                 {
                     propertyContext.sourceAttribute.OptionCreationlistener.OnOptionCreation(item.Key, item.Value.gameObject);

@@ -5,7 +5,7 @@
     /// </summary>
     public enum ControlType
     {
-        inputField, 
+        inputField,
         dropdown
     }
 }

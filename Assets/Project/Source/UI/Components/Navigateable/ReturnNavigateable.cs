@@ -36,7 +36,7 @@ namespace Exa.UI.Components
         public void OnReturn(CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started) return;
-            
+
             Return();
         }
 

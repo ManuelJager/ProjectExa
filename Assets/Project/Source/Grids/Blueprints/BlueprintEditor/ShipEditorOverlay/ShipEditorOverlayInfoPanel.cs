@@ -1,5 +1,4 @@
-﻿using Exa.UI;
-using Exa.UI.Controls;
+﻿using Exa.UI.Controls;
 using UnityEngine;
 using UnityEngine.UI;
 

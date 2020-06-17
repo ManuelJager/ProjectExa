@@ -45,7 +45,6 @@ namespace Exa.Grids.Blocks
         public Vector2Int Size => size;
         public GameObject Prefab => prefab;
 
-
         public abstract void SetValues(IBlock block);
 
         public virtual ITooltipComponent[] GetComponents()

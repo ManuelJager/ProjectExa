@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Exa.Bindings
 {
     /// <summary>
-    /// Provides 
+    /// Provides
     /// </summary>
     /// <typeparam name="TData"></typeparam>
     public interface IObservableCollection<TData> :

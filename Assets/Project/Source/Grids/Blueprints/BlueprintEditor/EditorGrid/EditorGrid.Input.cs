@@ -1,6 +1,5 @@
 ﻿using Exa.Grids.Blocks;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
 {
@@ -62,7 +61,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             if (!canPlaceGhost) return;
 
             // if the editor grid is interactable
-            if (!Interactable) return; 
+            if (!Interactable) return;
 
             canPlaceGhost = false;
 

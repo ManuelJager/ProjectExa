@@ -87,7 +87,6 @@ namespace Exa.Generics
         [IgnoreDescriptorBuilder]
         public Type DescriptorType { get; }
 
-
         public ModelDescriptor()
         {
             this.DescriptorType = GetType();

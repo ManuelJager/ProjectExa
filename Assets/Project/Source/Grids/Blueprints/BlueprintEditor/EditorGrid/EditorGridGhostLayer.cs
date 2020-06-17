@@ -1,5 +1,4 @@
 ﻿using Exa.Grids.Blocks;
-using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
@@ -123,9 +122,9 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 !BlockedByUI);
 
             mirrorGhost.gameObject.SetActive(
-                MirrorEnabled && 
-                GhostVisible && 
-                ghost.GridPos != mirrorGhost.GridPos 
+                MirrorEnabled &&
+                GhostVisible &&
+                ghost.GridPos != mirrorGhost.GridPos
                 && !BlockedByUI);
         }
     }

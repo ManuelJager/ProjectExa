@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.UI
 {
@@ -11,4 +9,3 @@ namespace Exa.UI
         public string buildMessage;
     }
 }
-

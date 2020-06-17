@@ -1,6 +1,4 @@
 ﻿using Exa.UI;
-using Exa.UI.Components;
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 

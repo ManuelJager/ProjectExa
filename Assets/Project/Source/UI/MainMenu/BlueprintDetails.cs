@@ -22,7 +22,7 @@ namespace Exa.UI
             if (!container.activeSelf) container.SetActive(true);
 
             nameText.text = blueprint.name;
-            blockCountView.Reflect(new Generics.ValueContext 
+            blockCountView.Reflect(new Generics.ValueContext
             {
                 name = "Blocks",
                 value = blueprint.blocks.Count.ToString()

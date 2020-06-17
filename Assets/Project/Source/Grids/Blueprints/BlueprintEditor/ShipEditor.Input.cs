@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using Exa.Input;
-using Exa.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

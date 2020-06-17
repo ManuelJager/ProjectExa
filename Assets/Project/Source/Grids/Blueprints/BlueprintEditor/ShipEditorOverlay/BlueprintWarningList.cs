@@ -1,9 +1,7 @@
 ﻿using Exa.Schemas;
 using Exa.UI.Controls;
 using System;
-using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace Exa.Grids.Blueprints
 {

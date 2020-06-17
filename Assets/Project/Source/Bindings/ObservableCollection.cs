@@ -136,7 +136,7 @@ namespace Exa.Bindings
         }
 
         #endregion IList<TData> implementation
-        
+
         /// <summary>
         /// Add an observer to the observer collection
         /// </summary>

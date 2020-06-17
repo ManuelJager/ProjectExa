@@ -36,7 +36,6 @@ namespace Exa.Input
             }
         }
 
-
         public void OnHoverOverControl(CursorState desiredCursorStateByControl)
         {
             mousePointer.SetState(desiredCursorStateByControl);

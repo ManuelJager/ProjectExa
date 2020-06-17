@@ -1,5 +1,4 @@
-﻿using Exa.Generics;
-using Exa.Utils;
+﻿using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

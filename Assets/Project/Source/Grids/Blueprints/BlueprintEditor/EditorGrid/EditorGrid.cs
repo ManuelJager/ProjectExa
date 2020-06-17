@@ -75,7 +75,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             var remappedZoomScale = ZoomScale.Remap(0f, 3f, 0.5f, 1.5f);
             playerPos -= MovementVector * movementSpeed * Time.deltaTime * remappedZoomScale;
             transform.DOLocalMove(playerPos.ToVector3(), 0.3f);
-            
+
             // Check for mouse input
             backgroundLayer.UpdateCurrActiveGridItem(transform.localPosition.ToVector2());
         }

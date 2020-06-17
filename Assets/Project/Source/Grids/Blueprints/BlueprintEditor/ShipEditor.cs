@@ -1,11 +1,8 @@
-﻿using DG.Tweening;
-using Exa.Grids.Blocks;
+﻿using Exa.Grids.Blocks;
 using Exa.Input;
 using Exa.UI;
-using Exa.Utils;
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor

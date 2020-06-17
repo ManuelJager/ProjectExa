@@ -27,7 +27,7 @@ namespace Exa
         }
 
         [RuntimeInitializeOnLoadMethod]
-        static void RunOnStart()
+        private static void RunOnStart()
         {
             Application.quitting += () =>
             {

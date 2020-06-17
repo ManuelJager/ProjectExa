@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
-using UnityEngine;
-
-namespace Exa.Generics
+﻿namespace Exa.Generics
 {
     public struct MinMax<T>
     {

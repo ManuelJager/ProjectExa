@@ -15,9 +15,9 @@ namespace DG.Tweening
 {
 	public static class DOTweenModuleAudio
     {
-        #region Shortcuts
+#region Shortcuts
 
-        #region Audio
+#region Audio
 
         /// <summary>Tweens an AudioSource's volume to the given value.
         /// Also stores the AudioSource as the tween's target so it can be used for filtered operations</summary>
@@ -41,10 +41,11 @@ namespace DG.Tweening
             return t;
         }
 
-        #endregion
+#endregion Audio
 
 #if UNITY_5 || UNITY_2017_1_OR_NEWER
-        #region AudioMixer (Unity 5 or Newer)
+
+#region AudioMixer (Unity 5 or Newer)
 
         /// <summary>Tweens an AudioMixer's exposed float to the given value.
         /// Also stores the AudioMixer as the tween's target so it can be used for filtered operations.
@@ -62,7 +63,7 @@ namespace DG.Tweening
             return t;
         }
 
-        #region Operation Shortcuts
+#region Operation Shortcuts
 
         /// <summary>
         /// Completes all tweens that have this target as a reference
@@ -191,12 +192,13 @@ namespace DG.Tweening
             return DOTween.TogglePause(target);
         }
 
-        #endregion
+#endregion Operation Shortcuts
 
-        #endregion
+#endregion AudioMixer (Unity 5 or Newer)
+
 #endif
 
-        #endregion
+#endregion Shortcuts
     }
 }
 #endif

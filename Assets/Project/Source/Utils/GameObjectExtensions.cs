@@ -13,7 +13,7 @@ namespace Exa.Utils
 
                 gameObject.SetActive(value);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 UnityEngine.Debug.LogWarning(e.Message);
             }

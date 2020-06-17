@@ -10,6 +10,7 @@ namespace Exa.Generics
     {
         // Range provider
         public IDataSourceProvider DataSourceProvider { get; private set; } = null;
+
         // Optional option creation listener
         public IOptionCreationListener OptionCreationlistener { get; private set; } = null;
 
