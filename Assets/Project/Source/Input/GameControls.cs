@@ -67,6 +67,14 @@ namespace Exa.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""491d8e4b-11b2-40f6-9188-67d4ab7e0bf7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -179,6 +187,17 @@ namespace Exa.Input
                     ""action"": ""ToggleMirror"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d592b28c-df45-4c5d-a5bb-a3577412b6e0"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -264,6 +283,7 @@ namespace Exa.Input
             m_Editor_RotateLeft = m_Editor.FindAction("RotateLeft", throwIfNotFound: true);
             m_Editor_RotateRight = m_Editor.FindAction("RotateRight", throwIfNotFound: true);
             m_Editor_ToggleMirror = m_Editor.FindAction("ToggleMirror", throwIfNotFound: true);
+            m_Editor_Zoom = m_Editor.FindAction("Zoom", throwIfNotFound: true);
             // Debug
             m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
             m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
@@ -325,6 +345,7 @@ namespace Exa.Input
         private readonly InputAction m_Editor_RotateLeft;
         private readonly InputAction m_Editor_RotateRight;
         private readonly InputAction m_Editor_ToggleMirror;
+        private readonly InputAction m_Editor_Zoom;
         public struct EditorActions
         {
             private @GameControls m_Wrapper;
@@ -335,6 +356,7 @@ namespace Exa.Input
             public InputAction @RotateLeft => m_Wrapper.m_Editor_RotateLeft;
             public InputAction @RotateRight => m_Wrapper.m_Editor_RotateRight;
             public InputAction @ToggleMirror => m_Wrapper.m_Editor_ToggleMirror;
+            public InputAction @Zoom => m_Wrapper.m_Editor_Zoom;
             public InputActionMap Get() { return m_Wrapper.m_Editor; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -362,6 +384,9 @@ namespace Exa.Input
                     @ToggleMirror.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
                     @ToggleMirror.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
                     @ToggleMirror.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
+                    @Zoom.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
+                    @Zoom.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
+                    @Zoom.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
                 }
                 m_Wrapper.m_EditorActionsCallbackInterface = instance;
                 if (instance != null)
@@ -384,6 +409,9 @@ namespace Exa.Input
                     @ToggleMirror.started += instance.OnToggleMirror;
                     @ToggleMirror.performed += instance.OnToggleMirror;
                     @ToggleMirror.canceled += instance.OnToggleMirror;
+                    @Zoom.started += instance.OnZoom;
+                    @Zoom.performed += instance.OnZoom;
+                    @Zoom.canceled += instance.OnZoom;
                 }
             }
         }
@@ -471,6 +499,7 @@ namespace Exa.Input
             void OnRotateLeft(InputAction.CallbackContext context);
             void OnRotateRight(InputAction.CallbackContext context);
             void OnToggleMirror(InputAction.CallbackContext context);
+            void OnZoom(InputAction.CallbackContext context);
         }
         public interface IDebugActions
         {

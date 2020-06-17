@@ -12,5 +12,10 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         {
             spriteRenderer.color = enabled ? hoverColor : defaultColor;
         }
+
+        private void OnMouseEnter()
+        {
+            UnityEngine.Debug.Log("Yo");
+        }
     }
 }

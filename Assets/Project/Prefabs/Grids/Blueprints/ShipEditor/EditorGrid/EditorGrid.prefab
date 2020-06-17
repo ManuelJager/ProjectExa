@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63395ac0aec248445a7abe66f67b2f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.1
+  movementSpeed: 10
   backgroundLayer: {fileID: 4635185658990925759}
   ghostLayer: {fileID: 7041857602528279267}
   blueprintLayer: {fileID: 7112577619619822814}
@@ -140,6 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a78c19b37de462242a8ab4dc6743a7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onBlueprintChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5895357026409253044
 GameObject:
   m_ObjectHideFlags: 0

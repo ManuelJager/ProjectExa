@@ -42,11 +42,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
             foreach (var vector in VectorHelpers.EnumerateVectors(size))
             {
-                var gridItem = Instantiate(
-                        gridItemPrefab,
-                        new Vector3(vector.x + 0.5f, vector.y + 0.5f),
-                        Quaternion.identity,
-                        transform);
+                var gridItem = Instantiate(gridItemPrefab, transform);
+                gridItem.transform.localPosition = new Vector3(vector.x + 0.5f, vector.y + 0.5f);
                 gridItems.Add(vector, gridItem.GetComponent<EditorGridItem>());
             }
         }

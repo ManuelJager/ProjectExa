@@ -1,8 +1,11 @@
-﻿using Exa.Grids.Blocks;
+﻿using DG.Tweening;
+using Exa.Grids.Blocks;
 using Exa.Input;
 using Exa.UI;
+using Exa.Utils;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
@@ -12,13 +15,26 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
     [RequireComponent(typeof(ShipEditorNavigateable))]
     public partial class ShipEditor : MonoBehaviour, IEditorActions, IInteractableGroup
     {
+        [HideInInspector] public ObservableBlueprintCollection blueprintCollection;
+        public ShipEditorOverlay editorOverlay;
+        public EditorGrid editorGrid;
+
         [SerializeField] private GameObject editorGridBackground;
+        [SerializeField] private float zoomSpeed;
+        private float zoom;
         private GameControls gameControls;
         private ShipEditorNavigateable navigateable;
 
-        public ObservableBlueprintCollection blueprintCollection;
-        public ShipEditorOverlay editorOverlay;
-        public EditorGrid editorGrid;
+        public float Zoom
+        {
+            get => zoom;
+            set
+            {
+                zoom = value;
+
+                editorGrid.ZoomScale = value / 5f;
+            }
+        }
 
         private void Awake()
         {
@@ -36,6 +52,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             {
                 editorGrid.BlockedByUI = false;
             });
+
+            Zoom = 5f;
         }
 
         private void Update()
@@ -74,6 +92,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             this.blueprintContainer = blueprintContainer;
             this.newBlueprint = blueprintContainer.Data.Clone();
 
+            Zoom = 5f;
             editorGrid.Import(newBlueprint);
             editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.text = newBlueprint.name;
 

@@ -1,4 +1,6 @@
-﻿using Exa.Input;
+﻿using DG.Tweening;
+using Exa.Input;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -109,6 +111,20 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
                 default:
                     return;
+            }
+        }
+
+        public void OnZoom(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+            {
+                var v2delta = context.ReadValue<Vector2>();
+                var yDelta = v2delta.y;
+                if (yDelta == 0f) return;
+
+                yDelta /= 100f;
+                Zoom = Mathf.Clamp(zoom + (-yDelta * zoomSpeed), 3, 15);
+                Camera.main.DOOrthoSize(zoom, 0.5f);
             }
         }
 

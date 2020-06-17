@@ -1,4 +1,5 @@
-﻿using Exa.UI;
+﻿using DG.Tweening;
+using Exa.UI;
 using Exa.Utils;
 using System.Linq;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public EditorGridBlueprintLayer blueprintLayer;
 
         public Vector2 MovementVector { private get; set; }
+        public float ZoomScale { private get; set; }
+
         public bool Interactable
         {
             get => interactible;
@@ -60,7 +63,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         private void Awake()
         {
-            playerPos = GetGridOffset();
             backgroundLayer.EnterGrid += OnEnterGrid;
             backgroundLayer.ExitGrid += OnExitGrid;
         }
@@ -68,14 +70,14 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public void Update()
         {
             if (!Interactable) return;
-            
             // Move the grid to keyboard input
-            // TODO: Smooth 
-            playerPos -= MovementVector * movementSpeed * Time.deltaTime;
-            transform.localPosition = playerPos.ToVector3();
-
+            // Remap zoom scale range to damp scale
+            var remappedZoomScale = ZoomScale.Remap(0f, 3f, 0.5f, 1.5f);
+            playerPos -= MovementVector * movementSpeed * Time.deltaTime * remappedZoomScale;
+            transform.DOLocalMove(playerPos.ToVector3(), 0.3f);
+            
             // Check for mouse input
-            backgroundLayer.UpdateCurrActiveGridItem(playerPos);
+            backgroundLayer.UpdateCurrActiveGridItem(transform.localPosition.ToVector2());
         }
 
         public void OnDisable()
@@ -90,8 +92,9 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public void GenerateGrid(Vector2Int size)
         {
             this.size = size;
-            backgroundLayer.GenerateGrid(size);
             playerPos = GetGridOffset();
+            transform.localPosition = playerPos.ToVector3();
+            backgroundLayer.GenerateGrid(size);
         }
 
         public void Import(Blueprint blueprint)
