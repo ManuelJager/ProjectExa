@@ -34,18 +34,61 @@ namespace Exa.Grids.Blueprints
                 blueprintBlock = value
             };
 
-            foreach (var occupiedTile in ShipEditorUtils.GetOccupiedTilesByAnchor(value, key))
+            // Get grid positions of blueprint block
+            var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
+
+            // Add neighbour references
+            foreach (var neighbour in GetNeighbours(tilePositions))
             {
-                occupiedTiles.Add(occupiedTile, anchoredBlueprintBlock);
+                neighbour.neighbours.Add(anchoredBlueprintBlock);
+                anchoredBlueprintBlock.neighbours.Add(neighbour);
             }
+
+            foreach (var tilePosition in tilePositions)
+            {
+                occupiedTiles.Add(tilePosition, anchoredBlueprintBlock);
+            }
+        }
+
+        public IEnumerable<AnchoredBlueprintBlock> GetNeighbours(IEnumerable<Vector2Int> tilePositions)
+        {
+            // Get grid positions around block
+            var bounds = new Generics.Bounds(tilePositions);
+            var neighbourPositions = bounds.GetAdjacentPositions();
+
+            var neighbours = new List<AnchoredBlueprintBlock>();
+
+            foreach (var neighbourPosition in neighbourPositions)
+            {
+                if (occupiedTiles.ContainsKey(neighbourPosition))
+                {
+                    var neighbour = occupiedTiles[neighbourPosition];
+                    if (!neighbours.Contains(neighbour))
+                    {
+                        neighbours.Add(neighbour);
+                    }
+                }
+            }
+
+            return neighbours;
         }
 
         public new void Remove(Vector2Int key)
         {
-            foreach (var occupiedTile in ShipEditorUtils.GetOccupiedTilesByAnchor(base[key], key))
+            var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(base[key], key);
+            var anchoredBlueprintBlock = occupiedTiles[key];
+
+            // Add neighbour references
+            foreach (var neighbour in anchoredBlueprintBlock.neighbours)
+            {
+                neighbour.neighbours.Remove(anchoredBlueprintBlock);
+            }
+
+            foreach (var occupiedTile in tilePositions)
             {
                 occupiedTiles.Remove(occupiedTile);
             }
+
             base.Remove(key);
         }
 
@@ -89,10 +132,12 @@ namespace Exa.Grids.Blueprints
 
         public BlueprintBlocks Clone()
         {
-            return new BlueprintBlocks(this)
+            var blocks = new BlueprintBlocks();
+            foreach (var kvp in this)
             {
-                occupiedTiles = occupiedTiles.Clone()
-            };
+                blocks.Add(kvp.Key, kvp.Value);
+            }
+            return blocks;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using Boo.Lang;
+using Exa.Generics;
 using Exa.Grids.Blocks;
 using Newtonsoft.Json;
 using System;
@@ -10,13 +11,15 @@ namespace Exa.Grids.Blueprints
     {
         public Vector2Int gridAnchor;
         public BlueprintBlock blueprintBlock;
+        public List<AnchoredBlueprintBlock> neighbours = new List<AnchoredBlueprintBlock>();
 
+        // NOTE: Doesn't clone neighbour
         public AnchoredBlueprintBlock Clone()
         {
             return new AnchoredBlueprintBlock
             {
                 gridAnchor = gridAnchor,
-                blueprintBlock = blueprintBlock
+                blueprintBlock = blueprintBlock,
             };
         }
     }

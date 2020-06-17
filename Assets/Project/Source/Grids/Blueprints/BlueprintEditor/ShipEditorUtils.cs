@@ -1,4 +1,5 @@
-﻿using Exa.Utils;
+﻿using Exa.Generics;
+using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,13 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         {
             var block = blockGhost.blueprintBlock;
             var gridAnchor = blockGhost.GridPos;
+            return GetOccupiedTilesByAnchor(block, gridAnchor);
+        }
+
+        public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(AnchoredBlueprintBlock anchoredBlueprintBlock)
+        {
+            var block = anchoredBlueprintBlock.blueprintBlock;
+            var gridAnchor = anchoredBlueprintBlock.gridAnchor;
             return GetOccupiedTilesByAnchor(block, gridAnchor);
         }
 
