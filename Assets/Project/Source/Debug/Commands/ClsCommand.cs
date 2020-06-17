@@ -1,5 +1,4 @@
 ﻿using CommandEngine.Models;
-using Exa.Debug.DebugConsole;
 
 namespace Exa.Debug.Commands
 {

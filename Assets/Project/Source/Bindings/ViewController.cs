@@ -24,6 +24,9 @@ namespace Exa.Bindings
 
         private IObservableCollection<TModelObservable> source = null;
 
+        /// <summary>
+        /// Views data source
+        /// </summary>
         public virtual IObservableCollection<TModelObservable> Source
         {
             get => source;
@@ -64,6 +67,10 @@ namespace Exa.Bindings
             }
         }
 
+        /// <summary>
+        /// Add Collection of observables
+        /// </summary>
+        /// <param name="collection"></param>
         public virtual void AddRange(IEnumerable<TModelObservable> collection)
         {
             foreach (var item in source)
@@ -72,11 +79,20 @@ namespace Exa.Bindings
             }
         }
 
+        /// <summary>
+        /// Add observable
+        /// </summary>
+        /// <param name="observer"></param>
         public virtual void OnAdd(TModelObservable observer)
         {
             OnAdd(observer, viewContainer);
         }
 
+        /// <summary>
+        /// Add Observable with specified view container
+        /// </summary>
+        /// <param name="observer"></param>
+        /// <param name="container"></param>
         protected virtual void OnAdd(TModelObservable observer, Transform container)
         {
             var blockObject = Instantiate(viewPrefab, container);
@@ -96,6 +112,9 @@ namespace Exa.Bindings
         {
         }
 
+        /// <summary>
+        /// Clear views
+        /// </summary>
         public virtual void OnClear()
         {
             foreach (var key in views.Keys)
@@ -111,6 +130,10 @@ namespace Exa.Bindings
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// Remove view
+        /// </summary>
+        /// <param name="observer"></param>
         public virtual void OnRemove(TModelObservable observer)
         {
             var view = views[observer];

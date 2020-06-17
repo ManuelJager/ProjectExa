@@ -5,14 +5,17 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.Debug.DebugConsole
+namespace Exa.Debug
 {
+    /// <summary>
+    /// Console controller
+    /// </summary>
     public class DebugConsoleController : MonoBehaviourInstance<DebugConsoleController>
     {
-        private DebugConsole console;
-        [SerializeField] private GameObject ownerObject; 
+        [SerializeField] private GameObject ownerObject;
         [SerializeField] private Text consoleOutput;
         [SerializeField] private InputField consoleInput;
+        private DebugConsole console;
 
         public string ConsoleOutputText
         {
@@ -63,6 +66,10 @@ namespace Exa.Debug.DebugConsole
             OutputToConsole("\n", false);
         }
 
+        /// <summary>
+        /// On console input end edit
+        /// </summary>
+        /// <param name="input"></param>
         private void OnInputEndEdit(string input)
         {
             if (input == "") return;

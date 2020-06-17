@@ -44,11 +44,11 @@ namespace Exa.UI.Components
             control.CreateTabs(propertyContext.propertyInfo.Name, propertyContext.sourceAttribute.DataSourceProvider.GetValues());
 
             // Set callbacks
-            if (propertyContext.sourceAttribute.ViewCreationlistener != null)
+            if (propertyContext.sourceAttribute.OptionCreationlistener != null)
             { 
                 foreach (var item in control.tabByOption)
                 {
-                    propertyContext.sourceAttribute.ViewCreationlistener.SetCallbacks(item.Key, item.Value.gameObject);
+                    propertyContext.sourceAttribute.OptionCreationlistener.OnOptionCreation(item.Key, item.Value.gameObject);
                 }
             }
         }

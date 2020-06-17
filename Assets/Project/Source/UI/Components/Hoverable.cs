@@ -86,7 +86,7 @@ namespace Exa.UI
 
             if (InvokeStateChange)
             {
-                MiscUtils.InvokeIfNotQuitting(InputManager.Instance.OnExitControl);
+                MiscUtils.InvokeIfNotQuitting(() => InputManager.Instance.OnExitControl());
             }
         }
     }

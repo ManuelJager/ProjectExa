@@ -2,6 +2,9 @@
 
 namespace Exa.Generics
 {
+    /// <summary>
+    /// Container for a model descriptor property
+    /// </summary>
     public struct PropertyContext
     {
         public ControlType controlType;

@@ -1,7 +1,7 @@
 ﻿using CommandEngine;
 using Exa.Debug.Commands;
 
-namespace Exa.Debug.DebugConsole
+namespace Exa.Debug
 {
     public class DebugConsole : Console
     {

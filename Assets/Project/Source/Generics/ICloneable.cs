@@ -1,4 +1,6 @@
-﻿namespace Exa.Generics
+﻿using System;
+
+namespace Exa.Generics
 {
     public interface ICloneable<T>
         where T : class

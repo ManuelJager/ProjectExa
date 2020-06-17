@@ -1,5 +1,4 @@
-﻿using Exa.Debug.DebugConsole;
-using Exa.Input;
+﻿using Exa.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;

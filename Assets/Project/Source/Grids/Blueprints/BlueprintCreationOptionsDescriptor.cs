@@ -24,7 +24,7 @@ namespace Exa.Grids.Blueprints
 
     public class BlueprintClassificationOptionCreation : IOptionCreationListener
     {
-        public void SetCallbacks(string value, GameObject viewObject)
+        public void OnOptionCreation(string value, GameObject viewObject)
         {
             var hoverable = viewObject.AddComponent<Hoverable>();
             // Get the blueprint type for the tooltip

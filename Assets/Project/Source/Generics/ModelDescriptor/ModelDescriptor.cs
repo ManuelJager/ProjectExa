@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace Exa.Generics
 {
+    /// <summary>
+    /// Object that contains the active string values used by a generated form
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
     public abstract class ModelDescriptor<TModel> : ModelDescriptor
     {
         public ModelDescriptor()
@@ -11,20 +15,27 @@ namespace Exa.Generics
         {
             var type = GetType();
 
+            // Ensure property context cache is only built once per type
             if (!PropertyBindings.ContainsKey(type))
             {
-                PropertyBindings[type] = new List<PropertyContext>(BuildPropertyInfoCacheCollection(type));
+                PropertyBindings[type] = new List<PropertyContext>(BuildPropertyContextCacheCollection(type));
             }
         }
 
         public abstract TModel FromDescriptor();
 
-        private IEnumerable<PropertyContext> BuildPropertyInfoCacheCollection(Type type)
+        /// <summary>
+        /// Build a collection of property context foreach property in the descriptor as a cache
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private IEnumerable<PropertyContext> BuildPropertyContextCacheCollection(Type type)
         {
             foreach (var property in type.GetProperties())
             {
                 ControlType controlType;
 
+                // Ignore property if it contains the ignore builder attribute
                 try
                 {
                     var attribute = property.GetAttribute<IgnoreDescriptorBuilderAttribute>();
@@ -32,12 +43,14 @@ namespace Exa.Generics
                 }
                 catch { }
 
+                // Ensure property can be read and written to
                 if (!(property.CanRead && property.CanWrite))
                 {
                     UnityEngine.Debug.LogWarning($"{property.Name} must be both read and write");
                     continue;
                 }
 
+                // Ensure property is string type
                 if (property.PropertyType != typeof(string))
                 {
                     UnityEngine.Debug.LogWarning($"{property.Name} is not of type string. Types inheriting from ModelDescriptor should contain non-string properties");
@@ -45,6 +58,7 @@ namespace Exa.Generics
 
                 SourceAttribute sourceAttribute = null;
 
+                // Test for the property having an attribute that defines the value range
                 try
                 {
                     sourceAttribute = property.GetAttribute<SourceAttribute>();
