@@ -14,18 +14,23 @@ namespace Exa.Grids.Blueprints
         [JsonIgnore]
         internal BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
 
+        [JsonIgnore]
+        public LazyCache<Vector2Int> Size;
+
         public BlueprintBlocks()
             : base()
         {
-        }
-
-        public BlueprintBlocks(BlueprintBlocks dictionary)
-            : base(dictionary)
-        {
+            Size = new LazyCache<Vector2Int>(() =>
+            {
+                var bounds = new GridBounds(occupiedTiles.Keys);
+                return bounds.GetDelta();
+            });
         }
 
         public new void Add(Vector2Int key, BlueprintBlock value)
         {
+            Size.Invalidate();
+
             base.Add(key, value);
 
             var anchoredBlueprintBlock = new AnchoredBlueprintBlock
@@ -50,31 +55,10 @@ namespace Exa.Grids.Blueprints
             }
         }
 
-        public IEnumerable<AnchoredBlueprintBlock> GetNeighbours(IEnumerable<Vector2Int> tilePositions)
-        {
-            // Get grid positions around block
-            var bounds = new Generics.Bounds(tilePositions);
-            var neighbourPositions = bounds.GetAdjacentPositions();
-
-            var neighbours = new List<AnchoredBlueprintBlock>();
-
-            foreach (var neighbourPosition in neighbourPositions)
-            {
-                if (occupiedTiles.ContainsKey(neighbourPosition))
-                {
-                    var neighbour = occupiedTiles[neighbourPosition];
-                    if (!neighbours.Contains(neighbour))
-                    {
-                        neighbours.Add(neighbour);
-                    }
-                }
-            }
-
-            return neighbours;
-        }
-
         public new void Remove(Vector2Int key)
         {
+            Size.Invalidate();
+
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(base[key], key);
             var anchoredBlueprintBlock = occupiedTiles[key];
 
@@ -138,6 +122,29 @@ namespace Exa.Grids.Blueprints
                 blocks.Add(kvp.Key, kvp.Value);
             }
             return blocks;
+        }
+
+        private IEnumerable<AnchoredBlueprintBlock> GetNeighbours(IEnumerable<Vector2Int> tilePositions)
+        {
+            // Get grid positions around block
+            var bounds = new Generics.GridBounds(tilePositions);
+            var neighbourPositions = bounds.GetAdjacentPositions();
+
+            var neighbours = new List<AnchoredBlueprintBlock>();
+
+            foreach (var neighbourPosition in neighbourPositions)
+            {
+                if (occupiedTiles.ContainsKey(neighbourPosition))
+                {
+                    var neighbour = occupiedTiles[neighbourPosition];
+                    if (!neighbours.Contains(neighbour))
+                    {
+                        neighbours.Add(neighbour);
+                    }
+                }
+            }
+
+            return neighbours;
         }
     }
 }

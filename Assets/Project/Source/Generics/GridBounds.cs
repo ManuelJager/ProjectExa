@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace Exa.Generics
 {
-    public struct Bounds
+    public struct GridBounds
     {
         public MinMax<Vector2Int> minMax;
 
-        public Bounds(MinMax<Vector2Int> minMax)
+        public GridBounds(MinMax<Vector2Int> minMax)
         {
             this.minMax = minMax;
         }
 
-        public Bounds(IEnumerable<Vector2Int> positions)
+        public GridBounds(IEnumerable<Vector2Int> positions)
         {
             minMax = new MinMax<Vector2Int>();
 
@@ -45,6 +45,15 @@ namespace Exa.Generics
                 yield return new Vector2Int(minMax.min.x - 1, i);
                 yield return new Vector2Int(minMax.max.x + 1, i);
             }
+        }
+
+        public Vector2Int GetDelta()
+        {
+            return new Vector2Int
+            {
+                x = minMax.max.x - minMax.min.x + 1,
+                y = minMax.max.y - minMax.min.y + 1,
+            };
         }
     }
 }

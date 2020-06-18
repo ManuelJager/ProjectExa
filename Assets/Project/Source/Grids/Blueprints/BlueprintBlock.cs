@@ -13,7 +13,7 @@ namespace Exa.Grids.Blueprints
         public BlueprintBlock blueprintBlock;
         public List<AnchoredBlueprintBlock> neighbours = new List<AnchoredBlueprintBlock>();
 
-        // NOTE: Doesn't clone neighbour
+        // NOTE: Doesn't clone neighbours
         public AnchoredBlueprintBlock Clone()
         {
             return new AnchoredBlueprintBlock

@@ -69,11 +69,14 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 ghostLayer.ghost.GridPos,
                 ghostLayer.ghost.blueprintBlock);
 
-            if (!MirrorEnabled || ghostLayer.ghost.GridPos == ghostLayer.mirrorGhost.GridPos) return;
+            if (MirrorEnabled && ghostLayer.ghost.GridPos != ghostLayer.mirrorGhost.GridPos)
+            {
+                blueprintLayer.AddBlock(
+                    ghostLayer.mirrorGhost.GridPos,
+                    ghostLayer.mirrorGhost.blueprintBlock);
+            }
 
-            blueprintLayer.AddBlock(
-                ghostLayer.mirrorGhost.GridPos,
-                ghostLayer.mirrorGhost.blueprintBlock);
+            CalculateGhostEnabled();
         }
 
         public void OnRightClickPressed()
@@ -90,6 +93,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             {
                 blueprintLayer.RemoveBlock(ShipEditorUtils.GetMirroredGridPos(size, realGridPos));
             }
+
+            CalculateGhostEnabled();
         }
 
         private void OnEnterGrid(Vector2Int? gridPos)
