@@ -23,5 +23,6 @@ MonoBehaviour:
   physicalTemplateComponent:
     maxHealth: 5
     armor: 5
+    mass: 600
   thrusterTemplateComponent:
-    newtonThrust: 10
+    newtonThrust: 1000

@@ -8,9 +8,11 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(fileName = "Armor", menuName = "Grids/Blocks/Armor")]
-    public class ArmorBlockTemplate : BlockTemplate<ArmorBlock>
+    public class ArmorBlockTemplate : BlockTemplate<ArmorBlock>, IPhysicalBlockTemplateComponent
     {
         public PhysicalBlockTemplateComponent physicalTemplateComponent;
+
+        public PhysicalBlockTemplateComponent PhysicalBlockTemplateComponent => physicalTemplateComponent;
 
         protected override void SetValues(ArmorBlock block)
         {

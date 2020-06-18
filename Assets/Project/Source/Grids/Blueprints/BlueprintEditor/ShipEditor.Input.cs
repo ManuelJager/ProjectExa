@@ -134,6 +134,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             {
                 if (yes)
                 {
+                    IsSaved = false;
                     editorGrid.ClearBlueprint();
                 }
             });

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Exa.Utils
 {
-    public static class TypeUtils
+    public static partial class TypeUtils
     {
         private static Dictionary<Assembly, List<Type>> ImplementationsByAssembly = new Dictionary<Assembly, List<Type>>();
 

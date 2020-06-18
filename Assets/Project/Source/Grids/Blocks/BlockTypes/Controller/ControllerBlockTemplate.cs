@@ -8,9 +8,11 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(fileName = "Controller", menuName = "Grids/Blocks/Controller")]
-    public class ControllerBlockTemplate : BlockTemplate<ControllerBlock>
+    public class ControllerBlockTemplate : BlockTemplate<ControllerBlock>, IPhysicalBlockTemplateComponent
     {
         public PhysicalBlockTemplateComponent physicalTemplateComponent;
+
+        public PhysicalBlockTemplateComponent PhysicalBlockTemplateComponent => physicalTemplateComponent;
 
         protected override void SetValues(ControllerBlock block)
         {

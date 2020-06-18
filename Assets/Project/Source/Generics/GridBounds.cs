@@ -17,6 +17,8 @@ namespace Exa.Generics
         {
             minMax = new MinMax<Vector2Int>();
 
+            if (positions.Count() == 0) return;
+
             var first = positions.First();
             minMax.min = first;
             minMax.max = first;

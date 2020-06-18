@@ -1,9 +1,12 @@
 ﻿using Exa.Generics;
+using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints.BlueprintEditor;
 using Exa.IO.Json;
+using Exa.Utils;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -11,11 +14,10 @@ namespace Exa.Grids.Blueprints
     [JsonConverter(typeof(BlueprintBlocksConverter))]
     public class BlueprintBlocks : Dictionary<Vector2Int, BlueprintBlock>, ICloneable<BlueprintBlocks>
     {
-        [JsonIgnore]
-        internal BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
+        [JsonIgnore] internal BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
 
-        [JsonIgnore]
-        public LazyCache<Vector2Int> Size;
+        [JsonIgnore] public LazyCache<Vector2Int> Size { get; }
+        [JsonIgnore] public long Mass { get; private set; }
 
         public BlueprintBlocks()
             : base()
@@ -59,8 +61,15 @@ namespace Exa.Grids.Blueprints
         {
             Size.Invalidate();
 
-            var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(base[key], key);
+            var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(this[key], key);
             var anchoredBlueprintBlock = occupiedTiles[key];
+
+            // Add mass to grid
+            var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
+            TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
+            {
+                Mass += component.PhysicalBlockTemplateComponent.Mass;
+            });
 
             // Add neighbour references
             foreach (var neighbour in anchoredBlueprintBlock.neighbours)

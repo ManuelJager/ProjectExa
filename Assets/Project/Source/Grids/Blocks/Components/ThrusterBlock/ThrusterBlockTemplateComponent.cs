@@ -1,13 +1,16 @@
 ﻿using Exa.Generics;
 using Exa.UI.Controls;
 using System;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
     public class ThrusterBlockTemplateComponent : ITemplateComponent<ThrusterBlockData>, ITooltipPresenter
     {
-        public float newtonThrust;
+        [SerializeField] private int newtonThrust; // In newton
+
+        public int NewtonThrust => newtonThrust;
 
         public ThrusterBlockData Convert()
         {

@@ -8,10 +8,13 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(fileName = "Thruster", menuName = "Grids/Blocks/Thruster")]
-    public class ThrusterBlockTemplate : BlockTemplate<ThrusterBlock>
+    public class ThrusterBlockTemplate : BlockTemplate<ThrusterBlock>, IPhysicalBlockTemplateComponent, IThrusterBlockTemplateComponent
     {
         public PhysicalBlockTemplateComponent physicalTemplateComponent;
         public ThrusterBlockTemplateComponent thrusterTemplateComponent;
+
+        public PhysicalBlockTemplateComponent PhysicalBlockTemplateComponent => physicalTemplateComponent;
+        public ThrusterBlockTemplateComponent ThrusterBlockTemplateComponent => thrusterTemplateComponent;
 
         protected override void SetValues(ThrusterBlock block)
         {

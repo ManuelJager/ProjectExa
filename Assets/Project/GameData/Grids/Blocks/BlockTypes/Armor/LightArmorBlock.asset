@@ -23,3 +23,4 @@ MonoBehaviour:
   physicalTemplateComponent:
     maxHealth: 10
     armor: 10
+    mass: 600
