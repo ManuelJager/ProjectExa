@@ -3,6 +3,7 @@ using Exa.Generics;
 using Exa.Grids.Blocks;
 using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -28,8 +29,8 @@ namespace Exa.Grids.Blueprints
     public struct BlueprintBlock
     {
         public string id;
-        public bool flippedX;
-        public bool flippedY;
+        [DefaultValue(false)] public bool flippedX;
+        [DefaultValue(false)] public bool flippedY;
 
         [JsonIgnore]
         private int rotation;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Input;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -15,17 +16,17 @@ namespace Exa.UI
 
     public class MousePointer : MonoBehaviour
     {
-        [SerializeField] private Transform normalCursor;
-        [SerializeField] private RectTransform rectTransform;
-        [SerializeField] private RectTransform inputCursor;
         [HideInInspector] public CursorState cursorState = CursorState.idle;
         [HideInInspector] public CursorState prevCursorState = CursorState.idle;
-
         public Image cursorBackground;
         public Color idleColor;
         public Color activeColor;
         public Color removeColor;
         public Color infoColor;
+
+        [SerializeField] private Transform normalCursor;
+        [SerializeField] private RectTransform rectTransform;
+        [SerializeField] private RectTransform inputCursor;
 
         private void OnEnable()
         {
@@ -86,7 +87,7 @@ namespace Exa.UI
 
         private void Update()
         {
-            rectTransform.anchoredPosition = Mouse.current.position.ReadValue();
+            rectTransform.anchoredPosition = InputManager.Instance.ScaledMousePosition;
         }
     }
 }

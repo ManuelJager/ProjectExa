@@ -13,6 +13,7 @@ namespace Exa.UI
         [SerializeField] private Text nameText;
         [SerializeField] private PropertyView blockCountView;
         [SerializeField] private PropertyView sizeView;
+        [SerializeField] private PropertyView massView;
 
         public void Reflect(Blueprint blueprint)
         {
@@ -25,6 +26,7 @@ namespace Exa.UI
             if (!container.activeSelf) container.SetActive(true);
 
             nameText.text = blueprint.name;
+
             blockCountView.Reflect(new ValueContext
             {
                 name = "Blocks",
@@ -36,6 +38,12 @@ namespace Exa.UI
             {
                 name = "Size",
                 value = $"{size.x}x{size.y}"
+            });
+
+            massView.Reflect(new ValueContext
+            {
+                name = "Mass",
+                value = $"{blueprint.blocks.Mass / 1000f:0} Tons"
             });
         }
 

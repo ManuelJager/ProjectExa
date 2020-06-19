@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Input;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Exa.UI.Controls
@@ -41,7 +42,7 @@ namespace Exa.UI.Controls
         public void SmartSetPos()
         {
             // Get the mouse position
-            var mousePos = Mouse.current.position.ReadValue();
+            var mousePos = InputManager.Instance.ScaledMousePosition;
 
             // Get the edge of the container by adding the mouse position to the container size
             var edge = mousePos + container.sizeDelta;
@@ -50,11 +51,13 @@ namespace Exa.UI.Controls
             edge.x += 4f;
             edge.y += 4f;
 
+            var rootRect = UIManager.Instance.RootTransform.rect;
+
             // Calculate position offset
             var offset = new Vector2
             {
-                x = Mathf.Clamp(Screen.width - edge.x, float.MinValue, 0),
-                y = Mathf.Clamp(Screen.height - edge.y, float.MinValue, 0),
+                x = Mathf.Clamp(rootRect.width - edge.x, float.MinValue, 0),
+                y = Mathf.Clamp(rootRect.height - edge.y, float.MinValue, 0),
             };
 
             // Set position of container

@@ -41,6 +41,13 @@ namespace Exa.Grids.Blueprints
                 blueprintBlock = value
             };
 
+            // Add mass to grid
+            var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
+            TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
+            {
+                Mass += component.PhysicalBlockTemplateComponent.Mass;
+            });
+
             // Get grid positions of blueprint block
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
 
@@ -68,10 +75,10 @@ namespace Exa.Grids.Blueprints
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
             TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
             {
-                Mass += component.PhysicalBlockTemplateComponent.Mass;
+                Mass -= component.PhysicalBlockTemplateComponent.Mass;
             });
 
-            // Add neighbour references
+            // Remove neighbour references
             foreach (var neighbour in anchoredBlueprintBlock.neighbours)
             {
                 neighbour.neighbours.Remove(anchoredBlueprintBlock);

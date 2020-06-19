@@ -9,7 +9,14 @@ namespace Exa.Input
     {
         public bool InputIsCaptured;
         public MousePointer mousePointer;
+
+        [SerializeField] private Canvas root;
         private bool mouseInViewport = false;
+
+        public Vector2 ScaledMousePosition
+        {
+            get => Mouse.current.position.ReadValue() / root.scaleFactor;
+        }
 
         protected override void Awake()
         {

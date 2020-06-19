@@ -13,7 +13,7 @@ namespace Exa.Utils
         /// <returns>wether object is assignable from T</returns>
         public static bool OnAssignableFrom<T>(object @object, Action<T> action)
         {
-            if (@object.GetType().IsAssignableFrom(typeof(T)))
+            if (typeof(T).IsAssignableFrom(@object.GetType()))
             {
                 action((T)@object);
                 return true;

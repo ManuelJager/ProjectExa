@@ -6,9 +6,16 @@ namespace Exa.IO
 {
     public static class IOUtils
     {
-        public static JsonSerializerSettings jsonSettings = new JsonSerializerSettings
+        public static JsonSerializerSettings systemJsonSettings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.None,
+            DefaultValueHandling = DefaultValueHandling.Ignore
+        };
+
+        public static JsonSerializerSettings userJsonSettings = new JsonSerializerSettings
         {
             Formatting = Formatting.Indented,
+            DefaultValueHandling = DefaultValueHandling.Ignore
         };
 
         public static bool TryJsonDeserializeFromPath<T>(string filePath, out T result)
@@ -21,14 +28,14 @@ namespace Exa.IO
             }
 
             var text = File.ReadAllText(filePath);
-            result = JsonConvert.DeserializeObject<T>(text, jsonSettings);
+            result = JsonConvert.DeserializeObject<T>(text, systemJsonSettings);
             return true;
         }
 
         public static T JsonDeserializeFromPath<T>(string filePath)
         {
             var text = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<T>(text, jsonSettings);
+            return JsonConvert.DeserializeObject<T>(text, systemJsonSettings);
         }
 
         public static bool TryBinaryDeserializeFromPath<T>(string filePath, out T result)
@@ -59,7 +66,7 @@ namespace Exa.IO
 
         public static void JsonSerializeToPath(string filePath, object value)
         {
-            var text = JsonConvert.SerializeObject(value, jsonSettings);
+            var text = JsonConvert.SerializeObject(value, systemJsonSettings);
             File.WriteAllText(filePath, text);
         }
 
