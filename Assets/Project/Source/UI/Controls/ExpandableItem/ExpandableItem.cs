@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Coffee.UIEffects;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Exa.UI.Controls
@@ -8,8 +9,7 @@ namespace Exa.UI.Controls
         [SerializeField] private Button button;
         [SerializeField] private Image shrinkExpandImage;
         [SerializeField] private Text headerText;
-        [SerializeField] private Sprite shrinkSprite;
-        [SerializeField] private Sprite expandSprite;
+        [SerializeField] private UIFlip arrowFlip;
 
         [Space]
         [SerializeField] private bool contentActive = false;
@@ -36,7 +36,7 @@ namespace Exa.UI.Controls
         private void ReflectActive()
         {
             content.gameObject.SetActive(contentActive);
-            shrinkExpandImage.sprite = contentActive ? shrinkSprite : expandSprite;
+            arrowFlip.vertical = contentActive;
         }
     }
 }

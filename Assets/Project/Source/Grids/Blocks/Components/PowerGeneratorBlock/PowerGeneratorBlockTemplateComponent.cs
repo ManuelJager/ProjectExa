@@ -8,7 +8,9 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class PowerGeneratorBlockTemplateComponent : ITemplateComponent<PowerGeneratorBlockData>, ITooltipPresenter
     {
-        [SerializeField] private float maxGeneration; // In MW
+        [SerializeField] private float peakGeneration; // In MW
+
+        public float PeakGeneration => peakGeneration;
 
         public PowerGeneratorBlockData Convert()
         {
@@ -21,7 +23,7 @@ namespace Exa.Grids.Blocks.Components
         {
             return new ITooltipComponent[]
             {
-                new ValueContext { name = "Power generation", value = $"{maxGeneration} KW"}
+                new ValueContext { name = "Power generation", value = $"{peakGeneration} KW"}
             };
         }
     }

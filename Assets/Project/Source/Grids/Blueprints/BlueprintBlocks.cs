@@ -18,6 +18,8 @@ namespace Exa.Grids.Blueprints
 
         [JsonIgnore] public LazyCache<Vector2Int> Size { get; }
         [JsonIgnore] public long Mass { get; private set; }
+        [JsonIgnore] public float PeakPowerGeneration { get; private set; }
+        
 
         public BlueprintBlocks()
             : base()
@@ -41,12 +43,20 @@ namespace Exa.Grids.Blueprints
                 blueprintBlock = value
             };
 
-            // Add mass to grid
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
+
+            // Add mass to grid
             TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
             {
                 Mass += component.PhysicalBlockTemplateComponent.Mass;
             });
+
+            // Add peak consumption to grid
+            TypeUtils.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>(context, (component) =>
+            {
+                PeakPowerGeneration += component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
+            });
+
 
             // Get grid positions of blueprint block
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);

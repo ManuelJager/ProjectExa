@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5941306504863626006}
   - component: {fileID: 1729741981486395754}
   - component: {fileID: 3114875602507284777}
+  - component: {fileID: 5620594591494955949}
   m_Layer: 5
   m_Name: Graphic
   m_TagString: Untagged
@@ -58,13 +59,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.39215687, g: 0.39215687, b: 0.43137255, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 93f88deaf7c2e27488765fd84dad32b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3cf1e0179534c834e86391bec8881109, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -74,6 +75,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5620594591494955949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3414706492969539800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb4e59514e90489d985e9a17c838085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Horizontal: 0
+  m_Veritical: 0
 --- !u!1 &4077963718053255179
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,8 +447,7 @@ MonoBehaviour:
   button: {fileID: 728075970501568607}
   shrinkExpandImage: {fileID: 3114875602507284777}
   headerText: {fileID: 6291168069355230080}
-  shrinkSprite: {fileID: 21300000, guid: 76d5381118b89e0439b20eaad6a2083a, type: 3}
-  expandSprite: {fileID: 21300000, guid: 93f88deaf7c2e27488765fd84dad32b6, type: 3}
+  arrowFlip: {fileID: 5620594591494955949}
   contentActive: 0
   content: {fileID: 280625715060227807}
 --- !u!114 &728075970501568607

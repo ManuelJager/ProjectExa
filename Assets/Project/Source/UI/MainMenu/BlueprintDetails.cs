@@ -14,6 +14,7 @@ namespace Exa.UI
         [SerializeField] private PropertyView blockCountView;
         [SerializeField] private PropertyView sizeView;
         [SerializeField] private PropertyView massView;
+        [SerializeField] private PropertyView peakPowerGenerationView;
 
         public void Reflect(Blueprint blueprint)
         {
@@ -44,6 +45,12 @@ namespace Exa.UI
             {
                 name = "Mass",
                 value = $"{blueprint.blocks.Mass / 1000f:0} Tons"
+            });
+
+            peakPowerGenerationView.Reflect(new ValueContext
+            {
+                name = "Power generation",
+                value = $"{blueprint.blocks.PeakPowerGeneration:0} KW"
             });
         }
 

@@ -25,4 +25,4 @@ MonoBehaviour:
     armor: 0
     mass: 1000
   powerGeneratorBlockTemplateComponent:
-    maxGeneration: 5
+    peakGeneration: 5
