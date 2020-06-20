@@ -20,6 +20,15 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private Dictionary<Vector2Int, EditorGridItem> gridItems = new Dictionary<Vector2Int, EditorGridItem>();
         private Vector2Int size = Vector2Int.zero;
 
+        private void OnDisable()
+        {
+            if (currActiveGridItem != null)
+            {
+                ExitGrid?.Invoke();
+                currActiveGridItem = null;
+            }
+        }
+
         public void SetGridBackgroundItemColor(Vector2Int? gridPos, bool active)
         {
             var realGridPos = gridPos.GetValueOrDefault();

@@ -66,6 +66,11 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             GhostVisible = false;
         }
 
+        private void OnDisable()
+        {
+            GhostVisible = false;
+        }
+
         public void CreateGhost(BlockTemplate template)
         {
             ghost.ImportBlock(new BlueprintBlock
