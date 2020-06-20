@@ -8,6 +8,21 @@ TextureImporter:
   - first:
       213: 8996286793590431966
     second: cockpit
+  - first:
+      213: -4407428943048777942
+    second: block-frame
+  - first:
+      213: 4255077602726073688
+    second: large-light-armor
+  - first:
+      213: -953787185943740991
+    second: large-heavy-armor
+  - first:
+      213: 4400518260287964509
+    second: medium-thruster
+  - first:
+      213: -7001886351380578605
+    second: cockpit
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -93,7 +108,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 3x1-frame
+      name: block-frame
       rect:
         serializedVersion: 2
         x: 0
@@ -107,14 +122,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5ce08f861cdbc1d0800000000000000
-      internalID: -3329325510055367590
+      spriteID: a2f5dc45abaa5d2c0800000000000000
+      internalID: -4407428943048777942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cockpit
+      name: large-light-armor
       rect:
         serializedVersion: 2
         x: 96
@@ -128,8 +143,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed0ee75ac2b39dc70800000000000000
-      internalID: 8996286793590431966
+      spriteID: 855553a09821d0b30800000000000000
+      internalID: 4255077602726073688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: large-heavy-armor
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cdf0869b9773c2f0800000000000000
+      internalID: -953787185943740991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: medium-thruster
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d558514fa08c11d30800000000000000
+      internalID: 4400518260287964509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cockpit
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3defd44067d44de90800000000000000
+      internalID: -7001886351380578605
       vertices: []
       indices: 
       edges: []
