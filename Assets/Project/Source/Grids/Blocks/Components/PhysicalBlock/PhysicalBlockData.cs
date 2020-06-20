@@ -4,7 +4,7 @@
 
     public struct PhysicalBlockData
     {
-        public float health;
+        public float hull;
         public float armor;
 
         public event DestroyDelegate Destroy;
@@ -15,9 +15,9 @@
 
             if (trueDamage < 0f) return;
 
-            health -= trueDamage;
+            hull -= trueDamage;
 
-            if (health < 0)
+            if (hull < 0)
             {
                 Destroy?.Invoke();
             }

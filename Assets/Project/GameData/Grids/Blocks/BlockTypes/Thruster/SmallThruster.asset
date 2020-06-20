@@ -16,12 +16,12 @@ MonoBehaviour:
   displayId: Small Thruster
   category: Thruster
   displayCategory: Thruster
-  thumbnail: {fileID: 4580618572166466534, guid: 1dc961a6e6a10e04daa44ec43d9c7d4c,
+  thumbnail: {fileID: 7290792151979832223, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
   prefab: {fileID: 8008238908798635066, guid: 92b59b064482e4e4f8a11023b1dd8244, type: 3}
   physicalTemplateComponent:
-    maxHealth: 5
+    maxHull: 0
     armor: 5
     mass: 600
   thrusterTemplateComponent:

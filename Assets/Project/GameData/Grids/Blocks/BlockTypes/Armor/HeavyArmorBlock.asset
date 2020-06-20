@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae9170a6466acbd46bda7c4d2ea122eb, type: 3}
-  m_Name: LightArmorBlock
+  m_Name: HeavyArmorBlock
   m_EditorClassIdentifier: 
-  id: LightArmor
-  displayId: Light Armor Block
+  id: HeavyArmor
+  displayId: Heavy Armor Block
   category: Armor
   displayCategory: Armor
-  thumbnail: {fileID: -8622130350348527361, guid: b83defb4a441e484193ddcc29009f684,
+  thumbnail: {fileID: -5334815410903090343, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
-  prefab: {fileID: 5942586963420624834, guid: 388b7c281c3898b419e1cd0f9144a545, type: 3}
+  prefab: {fileID: 2921106919509136819, guid: 4c86b5f73d664904c9fa22505ace6cb7, type: 3}
   physicalTemplateComponent:
-    maxHull: 15
-    armor: 10
-    mass: 600
+    maxHull: 35
+    armor: 35
+    mass: 1800

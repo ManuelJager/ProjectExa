@@ -1,18 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &3442997774518997181
+--- !u!114 &4523726615528913981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5942586963420624834}
+  m_GameObject: {fileID: 5827904646688133772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c1491fef2167eb41844618b313d1e8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f121ac56bbdea54b8f616cacba87458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &7591042787932674383
+--- !u!1001 &7764313578222976001
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -56,6 +56,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903583348838361020, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
@@ -78,7 +113,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8622130350348527361, guid: b83defb4a441e484193ddcc29009f684,
+      objectReference: {fileID: -3998760808037880431, guid: b83defb4a441e484193ddcc29009f684,
         type: 3}
     - target: {fileID: 4178788428458324673, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
@@ -88,13 +123,13 @@ PrefabInstance:
     - target: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
       propertyPath: m_Name
-      value: LightArmorBlock
+      value: SmallGyroscopeBlock
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 833d8ea8eb468324d957c13dcdf89414, type: 3}
---- !u!1 &5942586963420624834 stripped
+--- !u!1 &5827904646688133772 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
     type: 3}
-  m_PrefabInstance: {fileID: 7591042787932674383}
+  m_PrefabInstance: {fileID: 7764313578222976001}
   m_PrefabAsset: {fileID: 0}

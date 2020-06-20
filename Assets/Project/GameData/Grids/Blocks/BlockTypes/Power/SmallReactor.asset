@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c5711a32fbcd04fadddec57caeaa1d, type: 3}
+  m_Name: SmallReactor
+  m_EditorClassIdentifier: 
+  id: SmallReactor
+  displayId: Small Reactor
+  category: Power
+  displayCategory: Power
+  thumbnail: {fileID: 1621632156944642556, guid: b83defb4a441e484193ddcc29009f684,
+    type: 3}
+  size: {x: 1, y: 1}
+  prefab: {fileID: 4178392537655227059, guid: 0179dd15f70082446b6d704c2da76ec6, type: 3}
+  physicalBlockTemplateComponent:
+    maxHull: 10
+    armor: 0
+    mass: 1000
+  powerGeneratorBlockTemplateComponent:
+    maxGeneration: 5
