@@ -115,6 +115,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         public void OnZoom(InputAction.CallbackContext context)
         {
+            if (BlockedByUI) return;
+
             if (context.phase == InputActionPhase.Performed)
             {
                 var v2delta = context.ReadValue<Vector2>();

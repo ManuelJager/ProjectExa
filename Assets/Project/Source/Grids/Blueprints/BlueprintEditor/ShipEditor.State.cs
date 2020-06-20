@@ -12,6 +12,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private bool interactible = true;
         private bool isSaved;
         private bool nameIsValid;
+        private bool blockedByUI;
         private ObservableBlueprint blueprintContainer;
         private Blueprint newBlueprint;
 
@@ -75,6 +76,17 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             set
             {
                 MiscUtils.InvokeIfNotQuitting(() => editorOverlay.gameObject.TrySetActive(value));
+            }
+        }
+
+        public bool BlockedByUI
+        {
+            get => blockedByUI;
+            set
+            {
+                blockedByUI = value;
+
+                editorGrid.BlockedByUI = value;
             }
         }
 

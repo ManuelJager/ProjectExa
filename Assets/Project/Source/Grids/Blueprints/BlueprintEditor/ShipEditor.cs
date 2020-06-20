@@ -42,12 +42,12 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
             editorOverlay.onPointerEnter.AddListener(() =>
             {
-                editorGrid.BlockedByUI = true;
+                BlockedByUI = true;
             });
 
             editorOverlay.onPointerExit.AddListener(() =>
             {
-                editorGrid.BlockedByUI = false;
+                BlockedByUI = false;
             });
 
             Zoom = 5f;

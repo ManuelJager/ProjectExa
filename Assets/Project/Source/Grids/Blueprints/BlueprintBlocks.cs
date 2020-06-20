@@ -81,11 +81,17 @@ namespace Exa.Grids.Blueprints
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(this[key], key);
             var anchoredBlueprintBlock = occupiedTiles[key];
 
-            // Add mass to grid
+            // Remove mass from grid
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
             TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
             {
                 Mass -= component.PhysicalBlockTemplateComponent.Mass;
+            });
+
+            // Remove peak consumption from grid
+            TypeUtils.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>(context, (component) =>
+            {
+                PeakPowerGeneration -= component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
             });
 
             // Remove neighbour references
