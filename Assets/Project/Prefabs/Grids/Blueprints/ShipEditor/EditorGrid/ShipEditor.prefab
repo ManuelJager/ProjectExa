@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 9037354107960172111}
   - component: {fileID: 1617958063522696134}
   - component: {fileID: 6027265397929423277}
+  - component: {fileID: 9133893927100921210}
   m_Layer: 0
   m_Name: ShipEditor
   m_TagString: Untagged
@@ -79,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorOverlay: {fileID: 0}
   editorGrid: {fileID: 1127281402421229076}
+  stopwatch: {fileID: 9133893927100921210}
   editorGridBackground: {fileID: 7409053316416911932}
   zoomSpeed: 0.1
 --- !u!114 &6027265397929423277
@@ -93,6 +95,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7e654be5f38614388626bb325fb1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9133893927100921210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3467558800746813093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7435b2b1993a1947ba8e3f69357ee36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTime:
+    m_PersistentCalls:
+      m_Calls: []
+  invokeOnTime: 1
 --- !u!1 &7409053316416911932
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +204,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EditorGridv2
       objectReference: {fileID: 0}
+    - target: {fileID: 7112577619619822814, guid: ee9987c9c591276448d04c256085f97e,
+        type: 3}
+      propertyPath: stopwatch
+      value: 
+      objectReference: {fileID: 9133893927100921210}
     - target: {fileID: 9165474356103406435, guid: ee9987c9c591276448d04c256085f97e,
         type: 3}
       propertyPath: m_LocalPosition.x

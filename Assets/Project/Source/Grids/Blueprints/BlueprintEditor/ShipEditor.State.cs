@@ -16,6 +16,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private ObservableBlueprint blueprintContainer;
         private Blueprint newBlueprint;
 
+        // Keep track of time elapsed from last blueprint edit
+
         public bool MirrorEnabled
         {
             get => mirrorEnabled;

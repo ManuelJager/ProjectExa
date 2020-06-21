@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6864283158919811149}
   - component: {fileID: 484643112269531831}
   m_Layer: 5
-  m_Name: WarningImage
+  m_Name: ErrorImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4600042112514056488}
   - component: {fileID: 8990582578219798031}
   m_Layer: 5
-  m_Name: WarningPanel
+  m_Name: ErrorPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1302892103519258000}
   m_Layer: 5
-  m_Name: WarningPanelContainer
+  m_Name: ErrorPanelContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

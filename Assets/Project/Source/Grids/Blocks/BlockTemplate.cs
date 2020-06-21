@@ -1,7 +1,6 @@
 ﻿using Exa.Generics;
 using Exa.UI.Controls;
 using System;
-using System.Net.Http.Headers;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks

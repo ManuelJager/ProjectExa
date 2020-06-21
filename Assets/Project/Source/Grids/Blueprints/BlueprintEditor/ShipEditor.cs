@@ -1,7 +1,6 @@
 ﻿using Exa.Grids.Blocks;
 using Exa.Input;
 using Exa.UI;
-using Exa.Utils;
 using System;
 using UnityEngine;
 using static Exa.Input.GameControls;
@@ -17,6 +16,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public ShipEditorOverlay editorOverlay;
         public EditorGrid editorGrid;
 
+        [SerializeField] private ShipEditorStopwatch stopwatch;
         [SerializeField] private GameObject editorGridBackground;
         [SerializeField] private float zoomSpeed;
         private float zoom;
@@ -50,6 +50,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             {
                 BlockedByUI = false;
             });
+
+            stopwatch.onTime.AddListener(ValidateGrid);
 
             Zoom = 5f;
         }
@@ -122,23 +124,33 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 IsSaved = false;
             });
 
-            editorOverlay.blueprintInfoPanel.blueprintWarningList.onValidChange.RemoveAllListeners();
-            editorOverlay.blueprintInfoPanel.blueprintWarningList.onValidChange.AddListener((valid) =>
+            editorOverlay.blueprintInfoPanel.blueprintNameErrorList.onValidChange.RemoveAllListeners();
+            editorOverlay.blueprintInfoPanel.blueprintNameErrorList.onValidChange.AddListener((valid) =>
             {
                 NameIsValid = valid;
             });
         }
 
+        public void ValidateGrid()
+        {
+            var args = new BlueprintGridValidationArgs
+            {
+                blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.blocks
+            };
+
+            editorOverlay.blueprintInfoPanel.blueprintGridErrorList.Validate(args);
+        }
+
         public void ValidateName(ObservableBlueprint blueprintContainer, string name)
         {
-            var args = new BlueprintValidationArgs
+            var args = new BlueprintNameValidationArgs
             {
                 collectionContext = blueprintCollection,
                 requestedName = name,
                 blueprintContainer = blueprintContainer
             };
 
-            editorOverlay.blueprintInfoPanel.blueprintWarningList.Validate(args);
+            editorOverlay.blueprintInfoPanel.blueprintNameErrorList.Validate(args);
         }
 
         public void ValidateAndSave(ObservableBlueprint blueprintContainer, Action<ObservableBlueprint> saveCallback)
@@ -146,14 +158,14 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             // Don't to save twice
             if (IsSaved) return;
 
-            var args = new BlueprintValidationArgs
+            var args = new BlueprintNameValidationArgs
             {
                 collectionContext = blueprintCollection,
                 requestedName = editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.text,
                 blueprintContainer = blueprintContainer
             };
 
-            var result = editorOverlay.blueprintInfoPanel.blueprintWarningList.Validate(args);
+            var result = editorOverlay.blueprintInfoPanel.blueprintNameErrorList.Validate(args);
             if (result.Valid)
             {
                 IsSaved = true;

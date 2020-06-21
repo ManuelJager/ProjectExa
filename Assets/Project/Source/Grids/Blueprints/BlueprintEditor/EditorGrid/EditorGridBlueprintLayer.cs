@@ -8,6 +8,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
     {
         public UnityEvent onBlueprintChanged;
 
+        [SerializeField] private ShipEditorStopwatch stopwatch;
         private Dictionary<Vector2Int, GameObject> blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
 
         public Blueprint ActiveBlueprint { get; private set; }
@@ -30,6 +31,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         public void AddBlock(Vector2Int gridPos, BlueprintBlock blueprintBlock)
         {
+            // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
+            stopwatch.Reset();
             onBlueprintChanged?.Invoke();
             PlaceBlock(gridPos, blueprintBlock);
             ActiveBlueprint.blocks.Add(gridPos, blueprintBlock);
@@ -38,6 +41,9 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public void RemoveBlock(Vector2Int gridPos)
         {
             if (!ActiveBlueprint.blocks.HasOverlap(gridPos)) return;
+
+            // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
+            stopwatch.Reset();
 
             var anchoredBlock = ActiveBlueprint.blocks.GetAnchoredBlockAtGridPos(gridPos);
             var anchoredPos = anchoredBlock.gridAnchor;

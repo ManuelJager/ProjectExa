@@ -1,6 +1,5 @@
 ﻿using Exa.Input;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Exa.UI.Controls
 {

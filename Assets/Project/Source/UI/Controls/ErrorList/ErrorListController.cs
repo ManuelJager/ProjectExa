@@ -1,12 +1,21 @@
 ﻿using Exa.Schemas;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Exa.UI.Controls
 {
-    public class ErrorListControl<TValidator, TValidatorArgs> : MonoBehaviour
+    [Serializable]
+    public class ValidChangeEvent : UnityEvent<bool>
+    {
+    }
+
+    public class ErrorListController<TValidator, TValidatorArgs> : MonoBehaviour
         where TValidator : IValidator<TValidatorArgs>, new()
     {
+        public ValidChangeEvent onValidChange;
+
         protected ValidationSchema schema;
         protected TValidator validator;
         protected Dictionary<string, ValidationErrorPanel> panelByError = new Dictionary<string, ValidationErrorPanel>();
@@ -60,6 +69,9 @@ namespace Exa.UI.Controls
                 {
                     var id = errorInstance.ErrorId;
                     panelByError[id].gameObject.SetActive(false);
+                }).OnValidChange((valid) =>
+                {
+                    onValidChange?.Invoke(valid);
                 });
         }
     }

@@ -6,7 +6,6 @@ using Exa.Utils;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -19,7 +18,7 @@ namespace Exa.Grids.Blueprints
         [JsonIgnore] public LazyCache<Vector2Int> Size { get; }
         [JsonIgnore] public long Mass { get; private set; }
         [JsonIgnore] public float PeakPowerGeneration { get; private set; }
-        
+        [JsonIgnore] public List<AnchoredBlueprintBlock> anchoredBlueprintBlocks = new List<AnchoredBlueprintBlock>();
 
         public BlueprintBlocks()
             : base()
@@ -43,6 +42,8 @@ namespace Exa.Grids.Blueprints
                 blueprintBlock = value
             };
 
+            anchoredBlueprintBlocks.Add(anchoredBlueprintBlock);
+
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
 
             // Add mass to grid
@@ -56,7 +57,6 @@ namespace Exa.Grids.Blueprints
             {
                 PeakPowerGeneration += component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
             });
-
 
             // Get grid positions of blueprint block
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
@@ -80,6 +80,8 @@ namespace Exa.Grids.Blueprints
 
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(this[key], key);
             var anchoredBlueprintBlock = occupiedTiles[key];
+
+            anchoredBlueprintBlocks.Remove(anchoredBlueprintBlock);
 
             // Remove mass from grid
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;

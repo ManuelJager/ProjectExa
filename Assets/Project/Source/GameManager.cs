@@ -16,7 +16,6 @@ namespace Exa
         public ShipEditor shipEditor;
         public PromptController promptController;
         public DiagnosticsPanel diagnosticsPanel;
-        
 
         public void Start()
         {

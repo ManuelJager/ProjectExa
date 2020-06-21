@@ -1209,6 +1209,16 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1955779252061041205, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
+        type: 3}
+      propertyPath: m_Name
+      value: NameErrorList
+      objectReference: {fileID: 0}
+    - target: {fileID: 2368883794717362117, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
+        type: 3}
+      propertyPath: m_Name
+      value: GridErrorList
+      objectReference: {fileID: 0}
     - target: {fileID: 2766220962098376748, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1789,7 +1799,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3349293075664270092, guid: 6dcacaa133fbe944c8903baf6dd2a0ee, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6dcacaa133fbe944c8903baf6dd2a0ee, type: 3}
 --- !u!114 &1722470155 stripped
 MonoBehaviour:
