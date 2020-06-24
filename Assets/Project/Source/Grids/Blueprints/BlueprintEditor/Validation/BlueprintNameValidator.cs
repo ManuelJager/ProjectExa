@@ -1,4 +1,4 @@
-﻿using Exa.Schemas;
+﻿using Exa.Validation;
 using System.Linq;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
@@ -7,7 +7,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
     {
         public ValidationResult Validate(BlueprintNameValidationArgs validationArgs)
         {
-            var errors = new ValidationResult(this);
+            var errors = new ValidationResult();
 
             // Check if there is any blueprint in the collection that contains the same name as the requested name
             errors.Assert<BlueprintNameDuplicateError>(
@@ -20,17 +20,13 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
             // Check if the name isn't empty
             errors.Assert<BlueprintNameEmptyError>(
-                $"Blueprint name is empty", () =>
-                {
-                    return validationArgs.requestedName != "";
-                });
+                $"Blueprint name is empty", 
+                () => validationArgs.requestedName != "");
 
             // Check if the requested name is the default name
             errors.Assert<BlueprintNameDefaultError>(
-                "Blueprint name cannot be default", () =>
-                {
-                    return validationArgs.requestedName != Blueprint.DEFAULT_BLUEPRINT_NAME;
-                });
+                "Blueprint name cannot be default", 
+                () => validationArgs.requestedName != Blueprint.DEFAULT_BLUEPRINT_NAME);
 
             return errors;
         }

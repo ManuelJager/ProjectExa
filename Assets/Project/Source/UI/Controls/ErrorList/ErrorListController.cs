@@ -1,4 +1,4 @@
-﻿using Exa.Schemas;
+﻿using Exa.Validation;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +11,11 @@ namespace Exa.UI.Controls
     {
     }
 
-    public class ErrorListController<TValidator, TValidatorArgs> : MonoBehaviour
-        where TValidator : IValidator<TValidatorArgs>, new()
+    public class ErrorListController : MonoBehaviour
     {
         public ValidChangeEvent onValidChange;
 
         protected ValidationSchema schema;
-        protected TValidator validator;
         protected Dictionary<string, ValidationErrorPanel> panelByError = new Dictionary<string, ValidationErrorPanel>();
 
         [SerializeField] private GameObject errorPanelPrefab;
@@ -26,15 +24,9 @@ namespace Exa.UI.Controls
         {
             var builder = CreateSchemaBuilder();
             schema = builder.Build();
-            validator = new TValidator();
         }
 
-        public ValidationResult Validate(TValidatorArgs args)
-        {
-            return schema.Control(validator, args);
-        }
-
-        public ValidationResult Validate(IValidator<TValidatorArgs> validator, TValidatorArgs args)
+        public ValidationResult Validate<TArgs>(IValidator<TArgs> validator, TArgs args)
         {
             return schema.Control(validator, args);
         }
@@ -54,7 +46,7 @@ namespace Exa.UI.Controls
             return new ValidationSchemaBuilder()
                 .OnUnhandledError((errorInstance) =>
                 {
-                    var id = errorInstance.ErrorId;
+                    var id = errorInstance.Id;
                     if (!panelByError.ContainsKey(id))
                     {
                         var panel = Instantiate(errorPanelPrefab, transform).GetComponent<ValidationErrorPanel>();
@@ -67,7 +59,7 @@ namespace Exa.UI.Controls
                     }
                 }, (errorInstance) =>
                 {
-                    var id = errorInstance.ErrorId;
+                    var id = errorInstance.Id;
                     panelByError[id].gameObject.SetActive(false);
                 }).OnValidChange((valid) =>
                 {

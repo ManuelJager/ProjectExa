@@ -9,8 +9,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public Button clearButton;
         public Button saveButton;
         public NamedInputField blueprintNameInput;
-        public BlueprintNameErrorList blueprintNameErrorList;
-        public BlueprintGridErrorList blueprintGridErrorList;
+        public ErrorListController errorListController;
         public CanvasGroup saveButtonCanvasGroup;
     }
 }

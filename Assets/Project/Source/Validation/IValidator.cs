@@ -1,4 +1,4 @@
-﻿namespace Exa.Schemas
+﻿namespace Exa.Validation
 {
     public interface IValidator<TArgs>
     {

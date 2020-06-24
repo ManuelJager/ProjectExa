@@ -123,12 +123,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             {
                 IsSaved = false;
             });
-
-            editorOverlay.blueprintInfoPanel.blueprintNameErrorList.onValidChange.RemoveAllListeners();
-            editorOverlay.blueprintInfoPanel.blueprintNameErrorList.onValidChange.AddListener((valid) =>
-            {
-                NameIsValid = valid;
-            });
         }
 
         public void ValidateGrid()
@@ -138,7 +132,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.blocks
             };
 
-            editorOverlay.blueprintInfoPanel.blueprintGridErrorList.Validate(args);
+            editorOverlay.blueprintInfoPanel.errorListController.Validate(new BlueprintGridValidator(), args);
         }
 
         public void ValidateName(ObservableBlueprint blueprintContainer, string name)
@@ -150,7 +144,12 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 blueprintContainer = blueprintContainer
             };
 
-            editorOverlay.blueprintInfoPanel.blueprintNameErrorList.Validate(args);
+            var result = editorOverlay
+                .blueprintInfoPanel
+                .errorListController
+                .Validate(new BlueprintNameValidator(), args);
+
+            NameIsValid = result.Valid;
         }
 
         public void ValidateAndSave(ObservableBlueprint blueprintContainer, Action<ObservableBlueprint> saveCallback)
@@ -165,7 +164,10 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 blueprintContainer = blueprintContainer
             };
 
-            var result = editorOverlay.blueprintInfoPanel.blueprintNameErrorList.Validate(args);
+            var result = editorOverlay
+                .blueprintInfoPanel
+                .errorListController
+                .Validate(new BlueprintNameValidator(), args);
             if (result.Valid)
             {
                 IsSaved = true;

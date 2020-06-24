@@ -1,7 +1,7 @@
 ﻿using Exa.Generics;
 using System;
 
-namespace Exa.Schemas
+namespace Exa.Validation
 {
     public class ValidationSchemaBuilder : IBuilder<ValidationSchema>
     {
@@ -14,12 +14,11 @@ namespace Exa.Schemas
             OnUnhandledErrorSet = false;
         }
 
-        public ValidationSchemaBuilder OnError<TError>(Action<TError> errorHandler, Action errorCleaner)
+        public ValidationSchemaBuilder OnError<TError>(string id, Action<TError> errorHandler, Action<TError> errorCleaner)
             where TError : ValidationError
         {
-            var errorType = typeof(TError);
-            schema.errorHandlers[errorType] = (Action<object>)errorHandler;
-            schema.errorCleaners[errorType] = errorCleaner;
+            schema.errorHandlers[id] = errorHandler as Action<ValidationError>;
+            schema.errorCleaners[id] = errorCleaner as Action<ValidationError>;
             return this;
         }
 
