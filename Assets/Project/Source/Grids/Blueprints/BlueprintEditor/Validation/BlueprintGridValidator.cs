@@ -7,7 +7,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
     {
         public ValidationResult Validate(BlueprintGridValidationArgs validationArgs)
         {
-            var result = new ValidationResult();
+            var result = new ValidationResult(GetType());
 
             var thrownBlueprintGridHasDisconnectedBlocks = false;
             var thrownBlueprintGridHasMultipleControllers = false;

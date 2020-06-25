@@ -7,7 +7,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
     {
         public ValidationResult Validate(BlueprintNameValidationArgs validationArgs)
         {
-            var errors = new ValidationResult();
+            var errors = new ValidationResult(GetType());
 
             // Check if there is any blueprint in the collection that contains the same name as the requested name
             errors.Assert<BlueprintNameDuplicateError>(

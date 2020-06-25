@@ -9,6 +9,7 @@ namespace Exa.Validation
     public class ValidationResult : IEnumerable<ValidationError>
     {
         private List<ValidationError> collection;
+        public string ContextID { get; private set; }
 
         public ValidationError this[int index]
         {
@@ -16,8 +17,9 @@ namespace Exa.Validation
             set => collection[index] = value;
         }
 
-        internal ValidationResult()
+        internal ValidationResult(Type validationContext)
         {
+            ContextID = validationContext.Name;
             collection = new List<ValidationError>();
         }
 

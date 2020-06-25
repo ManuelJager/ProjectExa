@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Project.Source.Validation
+﻿namespace Assets.Project.Source.Validation
 {
+    /// <summary>
+    /// Represents the result for a single validation operation
+    /// </summary>
     public struct ValidationOperationResult
     {
+        /// <summary>
+        /// Error message if applicable
+        /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Whether the operation was valid
+        /// </summary>
         public bool Valid { get; set; }
     }
 }

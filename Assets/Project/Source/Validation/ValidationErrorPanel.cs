@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace Exa.Validation
 {
+    /// <summary>
+    /// Validation error view
+    /// </summary>
     public class ValidationErrorPanel : MonoBehaviour
     {
         [SerializeField] private Text text;
