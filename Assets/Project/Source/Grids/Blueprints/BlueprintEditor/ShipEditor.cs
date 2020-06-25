@@ -52,8 +52,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             });
 
             stopwatch.onTime.AddListener(ValidateGrid);
-
-            Zoom = 5f;
         }
 
         private void Update()
@@ -74,6 +72,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private void OnEnable()
         {
             Active = true;
+            Zoom = 5f;
+            Camera.main.orthographicSize = Zoom;
             gameControls.Enable();
             editorOverlay.inventory.BlockSelected += editorGrid.OnBlockSelected;
             editorOverlay.blueprintInfoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
@@ -92,7 +92,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             this.blueprintContainer = blueprintContainer;
             this.newBlueprint = blueprintContainer.Data.Clone();
 
-            Zoom = 5f;
             editorGrid.Import(newBlueprint);
             editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.text = newBlueprint.name;
 
@@ -168,6 +167,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 .blueprintInfoPanel
                 .errorListController
                 .Validate(new BlueprintNameValidator(), args);
+
             if (result.Valid)
             {
                 IsSaved = true;
