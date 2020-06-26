@@ -2,6 +2,11 @@
 {
     public static class HashHelpers
     {
+        /// <summary>
+        /// Get a deterministic hash code for the given string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static int GetDeterministicHashCode(this string str)
         {
             unchecked

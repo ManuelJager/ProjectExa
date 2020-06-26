@@ -9,6 +9,12 @@ namespace Exa.Utils
     {
         private static Dictionary<Assembly, List<Type>> ImplementationsByAssembly = new Dictionary<Assembly, List<Type>>();
 
+        /// <summary>
+        /// Get types in assembly that implement the given parent type
+        /// </summary>
+        /// <param name="assembly">Assembly in which to query for</param>
+        /// <param name="parentType">Type children must inherit from</param>
+        /// <returns>List of implementations for parentType</returns>
         public static IEnumerable<Type> GetTypeImplementations(Assembly assembly, Type parentType)
         {
             if (!ImplementationsByAssembly.ContainsKey(assembly))
@@ -28,16 +34,24 @@ namespace Exa.Utils
             }
         }
 
+        /// <summary>
+        /// Get types in current executing assembly
+        /// </summary>
+        /// <param name="parentType"></param>
+        /// <returns></returns>
         public static IEnumerable<Type> GetTypeImplementations(Type parentType)
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            foreach (var type in GetTypeImplementations(assembly, parentType))
-            {
-                yield return type;
-            }
+            return GetTypeImplementations(assembly, parentType);
         }
 
+        /// <summary>
+        /// Get attribute from property
+        /// </summary>
+        /// <typeparam name="T">Attribute type</typeparam>
+        /// <param name="propertyInfo">Property info</param>
+        /// <returns></returns>
         public static T GetAttribute<T>(this PropertyInfo propertyInfo)
             where T : Attribute
         {

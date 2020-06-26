@@ -7,9 +7,12 @@ namespace Exa.Utils
     {
         protected static T instance = null;
 
+        /// <summary>
+        /// Static reference that can only be set once internally
+        /// </summary>
         public static T Instance
         {
-            set
+            private set
             {
                 if (instance == null)
                 {
@@ -28,6 +31,9 @@ namespace Exa.Utils
             }
         }
 
+        /// <summary>
+        /// Get the component
+        /// </summary>
         protected virtual void Awake()
         {
             if (instance == null)

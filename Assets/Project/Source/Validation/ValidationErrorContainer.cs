@@ -39,7 +39,8 @@ namespace Exa.Validation
             foreach (var currentError in currErrors)
             {
                 // Check if there is a specific error handler for the error, otherwise use the default one
-                if (errorHandlers[currValidator].ContainsKey(currentError.Id))
+                if (errorHandlers.ContainsKey(currValidator) &&
+                    errorHandlers[currValidator].ContainsKey(currentError.Id))
                 {
                     errorHandlers[currValidator][currentError.Id](currentError);
                 }
