@@ -11,6 +11,12 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private float timeElapsedFromLastEdit = 0f;
         private bool invokedOnTime = false;
 
+        public void OnEnable()
+        {
+            timeElapsedFromLastEdit = 0f;
+            invokedOnTime = false;
+        }
+
         public void Reset()
         {
             timeElapsedFromLastEdit = 0f;
