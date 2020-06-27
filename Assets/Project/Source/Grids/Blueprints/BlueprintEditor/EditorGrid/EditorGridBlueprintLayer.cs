@@ -23,32 +23,32 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 Destroy(child.gameObject);
             }
 
-            foreach (var block in blueprint.blocks)
+            foreach (var block in blueprint.Blocks.anchoredBlueprintBlocks)
             {
-                PlaceBlock(block.Key, block.Value);
+                PlaceBlock(block);
             }
         }
 
-        public void AddBlock(Vector2Int gridPos, BlueprintBlock blueprintBlock)
+        public void AddBlock(AnchoredBlueprintBlock anchoredBlueprintBlocks)
         {
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
             onBlueprintChanged?.Invoke();
-            PlaceBlock(gridPos, blueprintBlock);
-            ActiveBlueprint.blocks.Add(gridPos, blueprintBlock);
+            PlaceBlock(anchoredBlueprintBlocks);
+            ActiveBlueprint.Blocks.Add(anchoredBlueprintBlocks);
         }
 
         public void RemoveBlock(Vector2Int gridPos)
         {
-            if (!ActiveBlueprint.blocks.HasOverlap(gridPos)) return;
+            if (!ActiveBlueprint.Blocks.HasOverlap(gridPos)) return;
 
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
 
-            var anchoredBlock = ActiveBlueprint.blocks.GetAnchoredBlockAtGridPos(gridPos);
+            var anchoredBlock = ActiveBlueprint.Blocks.GetAnchoredBlockAtGridPos(gridPos);
             var anchoredPos = anchoredBlock.gridAnchor;
 
-            ActiveBlueprint.blocks.Remove(anchoredPos);
+            ActiveBlueprint.Remove(anchoredPos);
             onBlueprintChanged?.Invoke();
             DisplaceBlock(anchoredPos);
         }
@@ -60,17 +60,20 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 Destroy(child.gameObject);
             }
 
-            ActiveBlueprint.blocks = new BlueprintBlocks();
+            ActiveBlueprint.ClearBlocks();
         }
 
-        public void PlaceBlock(Vector2Int anchoredPos, BlueprintBlock blueprintBlock)
+        public void PlaceBlock(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
             // Create block
-            var block = CreateBlock(blueprintBlock);
+            var block = CreateBlock(anchoredBlueprintBlock.blueprintBlock);
             // Keep track of block object by grid anchor position
-            blocksByBlueprintAnchor[anchoredPos] = block;
+            blocksByBlueprintAnchor[anchoredBlueprintBlock.gridAnchor] = block;
             // Set position of block
-            var position = ShipEditorUtils.GetRealPositionByAnchor(blueprintBlock, anchoredPos);
+            var position = ShipEditorUtils.GetRealPositionByAnchor(
+                anchoredBlueprintBlock.blueprintBlock, 
+                anchoredBlueprintBlock.gridAnchor);
+
             block.transform.localPosition = position;
         }
 

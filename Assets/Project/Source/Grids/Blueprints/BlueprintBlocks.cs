@@ -11,13 +11,11 @@ using UnityEngine;
 namespace Exa.Grids.Blueprints
 {
     [JsonConverter(typeof(BlueprintBlocksConverter))]
-    public class BlueprintBlocks : Dictionary<Vector2Int, BlueprintBlock>, ICloneable<BlueprintBlocks>
+    public class BlueprintBlocks : ICloneable<BlueprintBlocks>
     {
-        [JsonIgnore] internal BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
+        [JsonIgnore] private BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
 
         [JsonIgnore] public LazyCache<Vector2Int> Size { get; }
-        [JsonIgnore] public long Mass { get; private set; }
-        [JsonIgnore] public float PeakPowerGeneration { get; private set; }
         [JsonIgnore] public List<AnchoredBlueprintBlock> anchoredBlueprintBlocks = new List<AnchoredBlueprintBlock>();
 
         public BlueprintBlocks()
@@ -30,33 +28,11 @@ namespace Exa.Grids.Blueprints
             });
         }
 
-        public new void Add(Vector2Int key, BlueprintBlock value)
+        public void Add(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
             Size.Invalidate();
 
-            base.Add(key, value);
-
-            var anchoredBlueprintBlock = new AnchoredBlueprintBlock
-            {
-                gridAnchor = key,
-                blueprintBlock = value
-            };
-
             anchoredBlueprintBlocks.Add(anchoredBlueprintBlock);
-
-            var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
-
-            // Add mass to grid
-            TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
-            {
-                Mass += component.PhysicalBlockTemplateComponent.Mass;
-            });
-
-            // Add peak consumption to grid
-            TypeUtils.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>(context, (component) =>
-            {
-                PeakPowerGeneration += component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
-            });
 
             // Get grid positions of blueprint block
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
@@ -74,27 +50,14 @@ namespace Exa.Grids.Blueprints
             }
         }
 
-        public new void Remove(Vector2Int key)
+        public void Remove(Vector2Int key)
         {
             Size.Invalidate();
 
-            var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(this[key], key);
-            var anchoredBlueprintBlock = occupiedTiles[key];
+            var anchoredBlueprintBlock = GetAnchoredBlockAtGridPos(key);
+            var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
 
             anchoredBlueprintBlocks.Remove(anchoredBlueprintBlock);
-
-            // Remove mass from grid
-            var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
-            TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
-            {
-                Mass -= component.PhysicalBlockTemplateComponent.Mass;
-            });
-
-            // Remove peak consumption from grid
-            TypeUtils.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>(context, (component) =>
-            {
-                PeakPowerGeneration -= component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
-            });
 
             // Remove neighbour references
             foreach (var neighbour in anchoredBlueprintBlock.neighbours)
@@ -106,8 +69,6 @@ namespace Exa.Grids.Blueprints
             {
                 occupiedTiles.Remove(occupiedTile);
             }
-
-            base.Remove(key);
         }
 
         public bool HasOverlap(Vector2Int gridPosition)
@@ -150,12 +111,12 @@ namespace Exa.Grids.Blueprints
 
         public BlueprintBlocks Clone()
         {
-            var blocks = new BlueprintBlocks();
-            foreach (var kvp in this)
+            var newBlocks = new BlueprintBlocks();
+            foreach (var block in anchoredBlueprintBlocks)
             {
-                blocks.Add(kvp.Key, kvp.Value);
+                newBlocks.Add(block);
             }
-            return blocks;
+            return newBlocks;
         }
 
         private IEnumerable<AnchoredBlueprintBlock> GetNeighbours(IEnumerable<Vector2Int> tilePositions)

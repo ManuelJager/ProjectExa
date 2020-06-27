@@ -1,11 +1,15 @@
 ﻿using DG.Tweening;
 using Exa.UI;
 using Exa.Utils;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
 {
+    /// <summary>
+    /// Grid layer for the ship layer
+    /// </summary>
     public partial class EditorGrid : MonoBehaviour, IInteractableGroup
     {
         [SerializeField] private float movementSpeed;
@@ -17,12 +21,15 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private Vector2Int size;
 
         public EditorGridBackgroundLayer backgroundLayer;
-        public EditorGridGhostLayer ghostLayer;
         public EditorGridBlueprintLayer blueprintLayer;
+        public EditorGridGhostLayer ghostLayer;
 
         public Vector2 MovementVector { private get; set; }
         public float ZoomScale { private get; set; }
 
+        /// <summary>
+        /// Wether or not the grid can be interacted with
+        /// </summary>
         public bool Interactable
         {
             get => interactible;
@@ -36,6 +43,9 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             }
         }
 
+        /// <summary>
+        /// Wether of not a ghost mirror is enabled
+        /// </summary>
         public bool MirrorEnabled
         {
             get => mirrorEnabled;
@@ -49,6 +59,9 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             }
         }
 
+        /// <summary>
+        /// Wether or not the mouse is over UI
+        /// </summary>
         public bool BlockedByUI
         {
             get => blockedByUI;
@@ -60,7 +73,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 CalculateGhostEnabled();
             }
         }
-
+        
         private void Awake()
         {
             backgroundLayer.EnterGrid += OnEnterGrid;
@@ -74,6 +87,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             // Remap zoom scale range to damp scale
             var remappedZoomScale = ZoomScale.Remap(0f, 3f, 0.5f, 1.5f);
             playerPos -= MovementVector * movementSpeed * Time.deltaTime * remappedZoomScale;
+            // Move the 
             transform.DOLocalMove(playerPos.ToVector3(), 0.3f);
 
             // Check for mouse input
@@ -88,19 +102,32 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             transform.localPosition = Vector3.zero;
         }
 
-        // Create a grid
+        /// <summary>
+        /// Creates a grid with the given size
+        /// </summary>
+        /// <param name="size"></param>
         public void GenerateGrid(Vector2Int size)
         {
+            // Set the active size and set targe player position the center of the grid
             this.size = size;
             playerPos = GetGridOffset();
             transform.localPosition = playerPos.ToVector3();
+
+            // Generate the grid
             backgroundLayer.GenerateGrid(size);
         }
 
+        /// <summary>
+        /// Import a blueprint
+        /// </summary>
+        /// <param name="blueprint"></param>
         public void Import(Blueprint blueprint)
         {
+            // Get size of blueprint class and resize the grid accordingly
             var editorSize = blueprint.blueprintType.maxSize;
             GenerateGrid(editorSize);
+
+            // Import the blueprint
             blueprintLayer.Import(blueprint);
         }
 
@@ -119,6 +146,9 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             return new Vector2(-(size.x / 2f), -(size.y / 2f));
         }
 
+        /// <summary>
+        /// Walk through all cases and calculate wether the ghost/s should be enabled
+        /// </summary>
         public void CalculateGhostEnabled()
         {
             if (!ghostLayer.GhostCreated) return;
@@ -132,35 +162,36 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             var ghostTiles = ShipEditorUtils.GetOccupiedTilesByGhost(ghostLayer.ghost);
             var mirrorGhostTiles = ShipEditorUtils.GetOccupiedTilesByGhost(ghostLayer.mirrorGhost);
 
+            bool GetGhostIsClear(IEnumerable<Vector2Int> occupiedGhostTiles)
+            {
+                return !blueprintLayer.ActiveBlueprint.Blocks.HasOverlap(occupiedGhostTiles) &&
+                    occupiedGhostTiles.All((gridPos) => backgroundLayer.PosIsInGrid(gridPos));
+            }
+
+            // Calculate wether the main ghost doesn't overlap existing blocks or is outside of the grid
+            var ghostIsClear = GetGhostIsClear(ghostTiles);
+
             if (MirrorEnabled)
             {
-                var ghostIsClear =
-                (
-                    !blueprintLayer.ActiveBlueprint.blocks.HasOverlap(ghostTiles) &&
-                    ghostTiles.All((gridPos) => backgroundLayer.PosIsInGrid(gridPos))
-                );
+                // Calculate wether the mirror ghost doesn't overlap existing blocks or is outside of the grid
+                var mirrorGhostIsClear = GetGhostIsClear(mirrorGhostTiles);
 
-                var mirrorGhostIsClear =
-                (
-                    !blueprintLayer.ActiveBlueprint.blocks.HasOverlap(mirrorGhostTiles) &&
-                    mirrorGhostTiles.All((gridPos) => backgroundLayer.PosIsInGrid(gridPos))
-                );
-
+                // Calculate if the ghosts intersect
                 var ghostsIntersect = ghostTiles.Intersect(mirrorGhostTiles).Any() &&
                     !(ghostLayer.ghost.GridPos == ghostLayer.mirrorGhost.GridPos);
 
+                // Set the color for the main ghost
                 ghostLayer.ghost.SetFilterColor(ghostIsClear && !ghostsIntersect);
+
+                // Set the color for the mirror ghost
                 ghostLayer.mirrorGhost.SetFilterColor(mirrorGhostIsClear && !ghostsIntersect);
-                canPlaceGhost = (ghostIsClear && mirrorGhostIsClear && !ghostsIntersect);
+
+                // Only allow block placement when both ghosts are clear
+                canPlaceGhost = ghostIsClear && mirrorGhostIsClear && !ghostsIntersect;
             }
             else
             {
-                var ghostIsClear =
-                (
-                    !blueprintLayer.ActiveBlueprint.blocks.HasOverlap(ghostTiles) &&
-                    ghostTiles.All((gridPos) => backgroundLayer.PosIsInGrid(gridPos))
-                );
-
+                // Set the filter color to the clear state of the ghost
                 ghostLayer.ghost.SetFilterColor(ghostIsClear);
                 canPlaceGhost = ghostIsClear;
             }

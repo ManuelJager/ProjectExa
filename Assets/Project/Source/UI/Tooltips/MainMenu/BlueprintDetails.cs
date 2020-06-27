@@ -31,10 +31,10 @@ namespace Exa.UI
             blockCountView.Reflect(new ValueContext
             {
                 name = "Blocks",
-                value = blueprint.blocks.Count.ToString()
+                value = blueprint.Blocks.anchoredBlueprintBlocks.Count.ToString()
             });
 
-            var size = blueprint.blocks.Size.Value;
+            var size = blueprint.Blocks.Size.Value;
             sizeView.Reflect(new ValueContext
             {
                 name = "Size",
@@ -44,13 +44,13 @@ namespace Exa.UI
             massView.Reflect(new ValueContext
             {
                 name = "Mass",
-                value = $"{blueprint.blocks.Mass / 1000f:0} Tons"
+                value = $"{blueprint.Mass / 1000f:0} Tons"
             });
 
             peakPowerGenerationView.Reflect(new ValueContext
             {
                 name = "Power generation",
-                value = $"{blueprint.blocks.PeakPowerGeneration:0} KW"
+                value = $"{blueprint.PeakPowerGeneration:0} KW"
             });
         }
 

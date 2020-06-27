@@ -9,11 +9,15 @@ namespace Exa.Grids.Blocks
     {
     }
 
+    /// <summary>
+    /// Registers block types and sets default values
+    /// </summary>
     public class BlockFactory : MonoBehaviour
     {
-        [SerializeField] private BlockTemplateCollection blockTemplates;
         public ObservableBlockTemplateCollection availibleBlockTemplates = new ObservableBlockTemplateCollection();
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
+
+        [SerializeField] private BlockTemplateCollection blockTemplates;
 
         public void OnEnable()
         {
@@ -28,6 +32,10 @@ namespace Exa.Grids.Blocks
             }
         }
 
+        /// <summary>
+        /// Register a template, and set the values on the block prefab
+        /// </summary>
+        /// <param name="blockTemplate"></param>
         private void RegisterBlockTemplate(BlockTemplate blockTemplate)
         {
             availibleBlockTemplates.Add(new ObservableBlockTemplate(blockTemplate));
@@ -46,11 +54,21 @@ namespace Exa.Grids.Blocks
             blockTemplatesDict[id] = blockTemplate;
         }
 
+        /// <summary>
+        /// Get the block prefab with the given id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public GameObject GetBlock(string id)
         {
             return blockTemplatesDict[id].Prefab;
         }
 
+        /// <summary>
+        /// Get block template
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public BlockTemplate GetTemplate(string id)
         {
             return blockTemplatesDict[id];

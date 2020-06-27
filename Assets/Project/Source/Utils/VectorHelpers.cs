@@ -28,6 +28,11 @@ namespace Exa.Utils
             return vector;
         }
 
+        public static string ToShortString(this Vector2Int vector)
+        {
+            return $"{vector.x},{vector.y}";
+        }
+
         /// <summary>
         /// Rotate a vector2 by the given count of quarter turns
         /// </summary>

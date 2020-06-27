@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
 {
+    /// <summary>
+    /// Represents a single block that is not yet placed
+    /// </summary>
     public class BlockGhost : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer ghostImage;
@@ -34,6 +37,19 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             }
         }
 
+        public AnchoredBlueprintBlock AnchoredBlueprintBlock
+        {
+            get => new AnchoredBlueprintBlock
+            {
+                gridAnchor = gridPos,
+                blueprintBlock = blueprintBlock
+            };
+        }
+
+        /// <summary>
+        /// Update the block the ghost is representing
+        /// </summary>
+        /// <param name="block"></param>
         public void ImportBlock(BlueprintBlock block)
         {
             ghostImage.sprite = block.RuntimeContext.Thumbnail;

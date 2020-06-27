@@ -7,6 +7,12 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
     {
         private Vector2Int? mouseGridPos;
 
+        /// <summary>
+        /// Current mouse position in the grid
+        /// <para>
+        /// A null value signifies a mouse outside of the grid
+        /// </para>
+        /// </summary>
         private Vector2Int? MouseGridPos
         {
             get => mouseGridPos;
@@ -65,15 +71,11 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
             canPlaceGhost = false;
 
-            blueprintLayer.AddBlock(
-                ghostLayer.ghost.GridPos,
-                ghostLayer.ghost.blueprintBlock);
+            blueprintLayer.AddBlock(ghostLayer.ghost.AnchoredBlueprintBlock);
 
             if (MirrorEnabled && ghostLayer.ghost.GridPos != ghostLayer.mirrorGhost.GridPos)
             {
-                blueprintLayer.AddBlock(
-                    ghostLayer.mirrorGhost.GridPos,
-                    ghostLayer.mirrorGhost.blueprintBlock);
+                blueprintLayer.AddBlock(ghostLayer.mirrorGhost.AnchoredBlueprintBlock);
             }
 
             CalculateGhostEnabled();
@@ -115,7 +117,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
             ShipEditorUtils.ConditionallyApplyToMirror(gridPos, size, (mirroredGridPos) =>
             {
-                backgroundLayer.SetGridBackgroundItemColor(mirroredGridPos, mirrorEnabled && enter);
+                backgroundLayer.SetGridBackgroundItemColor(mirroredGridPos, MirrorEnabled && enter);
             });
         }
     }

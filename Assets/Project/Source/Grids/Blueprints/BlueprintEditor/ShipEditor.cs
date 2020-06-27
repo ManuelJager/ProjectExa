@@ -128,7 +128,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         {
             var args = new BlueprintGridValidationArgs
             {
-                blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.blocks
+                blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.Blocks
             };
 
             editorOverlay.blueprintInfoPanel.errorListController.Validate(new BlueprintGridValidator(), args);

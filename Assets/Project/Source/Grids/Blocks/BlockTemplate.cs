@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks
 {
     /// <summary>
-    /// Provides a generic base class for storing and settings the base values of blocks
+    /// Provides a generic base class for storing and setting the base values of blocks
     /// </summary>
     /// <typeparam name="TBlock"></typeparam>
     public abstract class BlockTemplate<TBlock> : BlockTemplate
