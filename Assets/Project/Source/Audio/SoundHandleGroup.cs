@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Exa.Audio
 {
+    /// <summary>
+    /// Supports a collection of sound handle context objects
+    /// </summary>
     public class SoundHandleGroup : List<SoundHandle>
     {
+        /// <summary>
+        /// Stop every sound
+        /// </summary>
         public void Stop()
         {
-            foreach (var audioObject in this)
+            foreach (var handle in this)
             {
-                audioObject.Stop();
+                handle.Stop();
             }
         }
     }

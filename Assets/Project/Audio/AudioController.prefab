@@ -133,5 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - {fileID: 11400000, guid: b48159f68624a6f4785ccc1ca593a456, type: 2}
+  - {fileID: 11400000, guid: 39f12b02ccd77de41825bf98b2a7159c, type: 2}
   ST_AudioTrack: {fileID: 7435605647849675640}
   UI_SFX_AudioTrack: {fileID: 1198682036274942249}

@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
 namespace Exa.Audio
 {
-    public class AudioTrack : MonoBehaviour
+    public class AudioTrack : MonoBehaviour, ITrackContext
     {
         // Stores a handle group for the currently playing sounds of the given id
-        private Dictionary<string, SoundHandleGroup> handles = new Dictionary<string, SoundHandleGroup>();
+        private SoundHandleGroupDictionary handleGroups = new SoundHandleGroupDictionary();
 
-        // Stores an audio source for sound on the track 
+        // Stores an audio source for sound on the track
         private Dictionary<string, AudioSource> players = new Dictionary<string, AudioSource>();
 
         /// <summary>
@@ -19,24 +18,12 @@ namespace Exa.Audio
         /// <param name="sound">Audio object to be played</param>
         public SoundHandle PlayGlobal(Sound sound)
         {
-            // If the sound doesnt allow multiple sounds to be played in the track, stop all current sounds
-            if (!sound.allowMultipleOnTrack)
-            {
-                foreach (var currHandle in handles.Values)
-                {
-                    currHandle.Stop();
-                }
-            }
-
             // Get a handle for the sound, play it, and add it to the collection
             var handle = GetGlobalHandle(sound);
-            handle.Play();
-            handles[sound.id].Add(handle);
-
-            // Remove the handle for the sound after finishing playing
-            StartCoroutine(RemoveHandle(handle));
 
             // Return the handle to the caller
+            handle.Play(this);
+
             return handle;
         }
 
@@ -47,7 +34,30 @@ namespace Exa.Audio
         public void Register(Sound sound)
         {
             players[sound.id] = gameObject.AddComponent<AudioSource>();
-            handles[sound.id] = new SoundHandleGroup();
+            handleGroups.RegisterGroup(sound.id);
+        }
+
+        public void Register(SoundHandle handle)
+        {
+            // Remove the handle for the sound after finishing playing
+            var endRoutine = StartCoroutine(WaitForSoundEnd(handle));
+
+            handle.onStop.AddListener(() =>
+            {
+                handle.onEnd.Invoke();
+                handleGroups.Remove(handle);
+                StopCoroutine(endRoutine);
+            });
+
+            handleGroups.Add(handle);
+        }
+
+        public void StopAllSounds()
+        {
+            foreach (var group in handleGroups.Handles)
+            {
+                group.Stop();
+            }
         }
 
         /// <summary>
@@ -62,17 +72,29 @@ namespace Exa.Audio
             var handle = new SoundHandle
             {
                 audioSource = source,
-                audioObject = audioObject
+                sound = audioObject
             };
 
             return handle;
         }
 
-        private IEnumerator RemoveHandle(SoundHandle handle)
+        /// <summary>
+        /// Waits for a sound to end,
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private IEnumerator WaitForSoundEnd(SoundHandle handle)
         {
-            yield return new WaitForSeconds(handle.audioObject.audioClip.length);
+            var sound = handle.sound;
 
-            handles[handle.audioObject.id].Remove(handle);
+            // Wait for the sound to play
+            yield return new WaitForSeconds(sound.audioClip.length);
+
+            // Remove context from currently playing sounds
+            handleGroups.Remove(handle);
+
+            // Invoke the on end callback on the sound handle
+            handle.onEnd?.Invoke();
         }
     }
 }
