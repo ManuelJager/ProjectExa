@@ -240,6 +240,7 @@ MonoBehaviour:
   shipEditor: {fileID: 684846338}
   promptController: {fileID: 8281615046713481808}
   diagnosticsPanel: {fileID: 255216739}
+  audioController: {fileID: 108921787}
 --- !u!4 &60919911
 Transform:
   m_ObjectHideFlags: 0
@@ -253,9 +254,28 @@ Transform:
   m_Children:
   - {fileID: 2050827337}
   - {fileID: 717186561}
+  - {fileID: 108921788}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &108921787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8427892475349134151, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8427892475244407036}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97914687ba1663944aee64ef618cb462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &108921788 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8427892475244407036}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &255216737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3338,3 +3358,72 @@ PrefabInstance:
     - {fileID: 5629182402601433705, guid: 84dc0bf7b928d2844ba5df3b7352dc5e, type: 3}
     - {fileID: 8813394670645601934, guid: 84dc0bf7b928d2844ba5df3b7352dc5e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 84dc0bf7b928d2844ba5df3b7352dc5e, type: 3}
+--- !u!1001 &8427892475244407036
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 60919911}
+    m_Modifications:
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134150, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f8050f98786d9b74e9fbedc18db8c4a7, type: 3}

@@ -8,7 +8,6 @@ public class TooltipHoverEvent : UnityEvent<string>
 {
 }
 
-[RequireComponent(typeof(Hoverable))]
 public class StaticTooltipHoverable : MonoBehaviour
 {
     public string message;

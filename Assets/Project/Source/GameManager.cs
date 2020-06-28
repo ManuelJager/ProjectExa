@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks;
+﻿using Exa.Audio;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.Grids.Blueprints.BlueprintEditor;
 using Exa.UI;
@@ -16,6 +17,7 @@ namespace Exa
         public ShipEditor shipEditor;
         public PromptController promptController;
         public DiagnosticsPanel diagnosticsPanel;
+        public AudioController audioController;
 
         public void Start()
         {
