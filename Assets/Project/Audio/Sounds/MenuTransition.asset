@@ -15,6 +15,7 @@ MonoBehaviour:
   id: MenuTransition
   audioType: 1
   audioClip: {fileID: 8300000, guid: 355e2100dca78fb478cf1025683506c6, type: 3}
-  volume: 0.05
+  volume: 0.02
+  pitch: 1
   allowMultipleOnTrack: 1
   allowMultipleOfType: 0

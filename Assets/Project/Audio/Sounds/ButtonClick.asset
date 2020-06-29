@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09514ecf28b230a408a213dce317ddb0, type: 3}
-  m_Name: ButtonSelect
+  m_Name: ButtonClick
   m_EditorClassIdentifier: 
-  id: ButtonSelect
+  id: ButtonClick
   audioType: 1
-  audioClip: {fileID: 8300000, guid: 6d41ca4de8b1e06468f9b29c77810b8a, type: 3}
+  audioClip: {fileID: 8300000, guid: 650b06369a6226c40ad4b8aff1537921, type: 3}
   volume: 0.02
+  pitch: 0.85
   allowMultipleOnTrack: 1
   allowMultipleOfType: 0

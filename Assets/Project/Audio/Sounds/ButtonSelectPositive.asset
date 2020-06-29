@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09514ecf28b230a408a213dce317ddb0, type: 3}
   m_Name: ButtonSelectPositive
   m_EditorClassIdentifier: 
-  id: 
-  audioType: 0
-  audioClip: {fileID: 0}
-  volume: 1
+  id: ButtonSelectPositive
+  audioType: 1
+  audioClip: {fileID: 8300000, guid: 650b06369a6226c40ad4b8aff1537921, type: 3}
+  volume: 0.02
+  pitch: 1
   allowMultipleOnTrack: 1
   allowMultipleOfType: 1

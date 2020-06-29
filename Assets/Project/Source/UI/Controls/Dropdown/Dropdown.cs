@@ -1,4 +1,5 @@
 ﻿using Coffee.UIEffects;
+using Exa.Audio;
 using Exa.Generics;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,17 @@ namespace Exa.UI.Controls
     public class Dropdown : MonoBehaviour
     {
         [HideInInspector] public string selectedOption;
-        public DropdownTabSelected onDropdownTabValueSelected;
         public Dictionary<string, DropdownTab> tabByOption = new Dictionary<string, DropdownTab>();
 
         [SerializeField] private Text selectedName;
         [SerializeField] private Text selectedText;
+        [SerializeField] private GlobalAudioPlayerProxy playerProxy;
         [SerializeField] private UIFlip tabArrow;
         [SerializeField] private Button button;
         [SerializeField] private Transform tabContainer;
         [SerializeField] private GameObject tabPrefab;
+
+        public DropdownTabSelected onDropdownTabValueSelected;
 
         private void Awake()
         {
@@ -71,8 +74,10 @@ namespace Exa.UI.Controls
 
         private void ToggleContainer()
         {
-            tabArrow.vertical = !tabArrow.vertical;
-            tabContainer.gameObject.SetActive(!tabContainer.gameObject.activeSelf);
+            var newState = !tabContainer.gameObject.activeSelf;
+            tabArrow.vertical = newState;
+            tabContainer.gameObject.SetActive(newState);
+            playerProxy.Play(newState ? "ButtonSelectPositive" : "ButtonSelectNegative");
         }
     }
 }
