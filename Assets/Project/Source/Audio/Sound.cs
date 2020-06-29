@@ -5,7 +5,7 @@ namespace Exa.Audio
     /// <summary>
     /// Supports an audioclip with additional properties that gives audio tracks more context
     /// </summary>
-    [CreateAssetMenu(menuName = "Audio")]
+    [CreateAssetMenu(menuName = "Audio/Sound")]
     public class Sound : ScriptableObject
     {
         /// <summary>
@@ -27,6 +27,11 @@ namespace Exa.Audio
         /// Volume the clip should be played at
         /// </summary>
         public float volume = 1f;
+
+        /// <summary>
+        /// Pitch the clip should be played at
+        /// </summary>
+        public float pitch = 1f;
 
         /// <summary>
         /// Wether or not it cancels other sounds playing on the current track

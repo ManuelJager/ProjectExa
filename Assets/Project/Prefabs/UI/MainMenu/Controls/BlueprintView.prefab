@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 4454047151125362667}
   - component: {fileID: 8078376972296800502}
   - component: {fileID: 1950641049810020933}
+  - component: {fileID: 7225781546019620102}
   m_Layer: 5
   m_Name: DeleteButton
   m_TagString: Untagged
@@ -556,7 +557,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2619300757104155338}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7225781546019620102}
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ButtonSelectNegative
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!225 &8078376972296800502
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -589,6 +601,18 @@ MonoBehaviour:
       m_Calls: []
   invokeStateChangeOnHover: 1
   cursorState: 2
+--- !u!114 &7225781546019620102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5875178546839550736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e199450f3216546b29d13f8d842126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5924377046259920371
 GameObject:
   m_ObjectHideFlags: 0

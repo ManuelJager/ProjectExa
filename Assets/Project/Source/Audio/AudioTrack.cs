@@ -34,6 +34,7 @@ namespace Exa.Audio
         public void Register(Sound sound)
         {
             players[sound.id] = gameObject.AddComponent<AudioSource>();
+
             handleGroups.RegisterGroup(sound.id);
         }
 

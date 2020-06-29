@@ -48,6 +48,8 @@ namespace Exa.Audio
                 audioSource.Play();
             }
 
+            audioSource.pitch = sound.pitch;
+
             context.Register(this);
         }
 

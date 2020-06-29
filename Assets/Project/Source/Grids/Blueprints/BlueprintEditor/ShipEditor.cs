@@ -1,9 +1,9 @@
 ﻿using Exa.Grids.Blocks;
 using Exa.Input;
 using Exa.UI;
+using Exa.Utils;
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 using static Exa.Input.GameControls;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
@@ -23,8 +23,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private float zoom;
         private GameControls gameControls;
         private ShipEditorNavigateable navigateable;
-        private UnityAction<string> blueprintNameInputOnValueChanged;
-        private UnityAction saveButtonOnClick;
+        private EventRef blueprintNameEditEventRef;
+        private EventRef saveButtonOnClickEventRef;
 
         public float Zoom
         {
@@ -112,38 +112,20 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         public void SetCallbacks(ObservableBlueprint blueprintContainer, Action<ObservableBlueprint> saveCallback)
         {
             // Set blueprint name input field callback
+            var onValueChanged = editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged;
+            onValueChanged.AddListenerOnce((value) =>
             {
-                var blueprintNameInputField = editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField;
-                if (blueprintNameInputOnValueChanged != null)
-                {
-                    blueprintNameInputField.onValueChanged.RemoveListener(blueprintNameInputOnValueChanged);
-                }
-
-                blueprintNameInputOnValueChanged = (value) =>
-                {
-                    ValidateName(blueprintContainer, value);
-                    IsSaved = false;
-                };
-
-                blueprintNameInputField.onValueChanged.AddListener(blueprintNameInputOnValueChanged);
-            }
+                ValidateName(blueprintContainer, value);
+                IsSaved = false;
+            }, blueprintNameEditEventRef);
 
             // Set save button callback
+            var onClick = editorOverlay.blueprintInfoPanel.saveButton.onClick;
+            onClick.AddListenerOnce(() => 
             {
-                var saveButton = editorOverlay.blueprintInfoPanel.saveButton;
-                if (saveButtonOnClick != null)
-                {
-                    saveButton.onClick.RemoveListener(saveButtonOnClick);
-                }
-
-                saveButtonOnClick = () =>
-                {
-                    UnityEngine.Debug.Log("yo");
-                    ValidateAndSave(blueprintContainer, saveCallback);
-                };
-
-                saveButton.onClick.AddListener(saveButtonOnClick);
-            }
+                UnityEngine.Debug.Log("yo");
+                ValidateAndSave(blueprintContainer, saveCallback);
+            }, saveButtonOnClickEventRef);
         }
 
         public void ValidateGrid()
