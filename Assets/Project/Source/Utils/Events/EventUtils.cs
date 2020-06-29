@@ -33,6 +33,7 @@ namespace Exa.Utils
             eventRef = AddListenerWithRef(unityEvent, action);
         }
 
+        /// <inheritdoc cref="AddListenerWithRef(UnityEvent, UnityAction)"/>
         public static EventRef AddListenerWithRef<T0>(
             this UnityEvent<T0> unityEvent, 
             UnityAction<T0> action)
@@ -41,6 +42,7 @@ namespace Exa.Utils
             return new EventRef(() => unityEvent.RemoveListener(action));
         }
 
+        /// <inheritdoc cref="AddListenerOnce(UnityEvent, UnityAction, EventRef)"/>
         public static void AddListenerOnce<T0>(
             this UnityEvent<T0> unityEvent,
             UnityAction<T0> action,
@@ -50,6 +52,7 @@ namespace Exa.Utils
             eventRef = AddListenerWithRef(unityEvent, action);
         }
 
+        /// <inheritdoc cref="AddListenerWithRef(UnityEvent, UnityAction)"/>
         public static EventRef AddListenerWithRef<T0, T1>(
             this UnityEvent<T0, T1> unityEvent, 
             UnityAction<T0, T1> action)
@@ -58,6 +61,7 @@ namespace Exa.Utils
             return new EventRef(() => unityEvent.RemoveListener(action));
         }
 
+        /// <inheritdoc cref="AddListenerOnce(UnityEvent, UnityAction, EventRef)"/>
         public static void AddListenerOnce<T0, T1>(
             this UnityEvent<T0, T1> unityEvent,
             UnityAction<T0, T1> action,
@@ -67,6 +71,7 @@ namespace Exa.Utils
             eventRef = AddListenerWithRef(unityEvent, action);
         }
 
+        /// <inheritdoc cref="AddListenerWithRef(UnityEvent, UnityAction)"/>
         public static EventRef AddListenerWithRef<T0, T1, T2>(
             this UnityEvent<T0, T1, T2> unityEvent, 
             UnityAction<T0, T1, T2> action)
@@ -75,6 +80,7 @@ namespace Exa.Utils
             return new EventRef(() => unityEvent.RemoveListener(action));
         }
 
+        /// <inheritdoc cref="AddListenerOnce(UnityEvent, UnityAction, EventRef)"/>
         public static void AddListenerOnce<T0, T1, T2>(
             this UnityEvent<T0, T1, T2> unityEvent,
             UnityAction<T0, T1, T2> action,
@@ -84,6 +90,7 @@ namespace Exa.Utils
             eventRef = AddListenerWithRef(unityEvent, action);
         }
 
+        /// <inheritdoc cref="AddListenerWithRef(UnityEvent, UnityAction)"/>
         public static EventRef AddListenerWithRef<T0, T1, T2, T3>(
             this UnityEvent<T0, T1, T2, T3> unityEvent, 
             UnityAction<T0, T1, T2, T3> action)
@@ -92,6 +99,7 @@ namespace Exa.Utils
             return new EventRef(() => unityEvent.RemoveListener(action));
         }
 
+        /// <inheritdoc cref="AddListenerOnce(UnityEvent, UnityAction, EventRef)"/>
         public static void AddListenerOnce<T0, T1, T2, T3>(
             this UnityEvent<T0, T1, T2, T3> unityEvent,
             UnityAction<T0, T1, T2, T3> action,
