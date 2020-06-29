@@ -29,13 +29,13 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             }
         }
 
-        public void AddBlock(AnchoredBlueprintBlock anchoredBlueprintBlocks)
+        public void AddBlock(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
             onBlueprintChanged?.Invoke();
-            PlaceBlock(anchoredBlueprintBlocks);
-            ActiveBlueprint.Blocks.Add(anchoredBlueprintBlocks);
+            PlaceBlock(anchoredBlueprintBlock);
+            ActiveBlueprint.Add(anchoredBlueprintBlock);
         }
 
         public void RemoveBlock(Vector2Int gridPos)
@@ -50,7 +50,7 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
             ActiveBlueprint.Remove(anchoredPos);
             onBlueprintChanged?.Invoke();
-            DisplaceBlock(anchoredPos);
+            Destroy(blocksByBlueprintAnchor[anchoredPos]);
         }
 
         public void ClearBlueprint()
@@ -75,11 +75,6 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
                 anchoredBlueprintBlock.gridAnchor);
 
             block.transform.localPosition = position;
-        }
-
-        public void DisplaceBlock(Vector2Int anchoredPos)
-        {
-            Destroy(blocksByBlueprintAnchor[anchoredPos]);
         }
 
         public Blueprint Export()

@@ -82,7 +82,10 @@ namespace Exa.UI
             {
                 Source.Add(observableBlueprint);
             }
-            GameManager.Instance.blueprintManager.Save();
+            if (observableBlueprint.Data.Blocks != null)
+            {
+                GameManager.Instance.blueprintManager.Save();
+            }
         }
     }
 }

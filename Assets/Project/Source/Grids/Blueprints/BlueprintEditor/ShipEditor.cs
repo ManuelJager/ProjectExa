@@ -3,6 +3,7 @@ using Exa.Input;
 using Exa.UI;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using static Exa.Input.GameControls;
 
 namespace Exa.Grids.Blueprints.BlueprintEditor
@@ -22,6 +23,8 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
         private float zoom;
         private GameControls gameControls;
         private ShipEditorNavigateable navigateable;
+        private UnityAction<string> blueprintNameInputOnValueChanged;
+        private UnityAction saveButtonOnClick;
 
         public float Zoom
         {
@@ -49,6 +52,11 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
             editorOverlay.onPointerExit.AddListener(() =>
             {
                 BlockedByUI = false;
+            });
+
+            editorGrid.blueprintLayer.onBlueprintChanged.AddListener(() =>
+            {
+                IsSaved = false;
             });
 
             stopwatch.onTime.AddListener(ValidateGrid);
@@ -103,25 +111,39 @@ namespace Exa.Grids.Blueprints.BlueprintEditor
 
         public void SetCallbacks(ObservableBlueprint blueprintContainer, Action<ObservableBlueprint> saveCallback)
         {
-            editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged.RemoveAllListeners();
-            editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged.AddListener((value) =>
+            // Set blueprint name input field callback
             {
-                IsSaved = false;
-                ValidateName(blueprintContainer, value);
-            });
+                var blueprintNameInputField = editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField;
+                if (blueprintNameInputOnValueChanged != null)
+                {
+                    blueprintNameInputField.onValueChanged.RemoveListener(blueprintNameInputOnValueChanged);
+                }
 
-            editorOverlay.blueprintInfoPanel.saveButton.onClick.RemoveAllListeners();
-            editorOverlay.blueprintInfoPanel.saveButton.onClick.AddListener(() =>
-            {
-                ValidateAndSave(blueprintContainer, saveCallback);
-            });
+                blueprintNameInputOnValueChanged = (value) =>
+                {
+                    ValidateName(blueprintContainer, value);
+                    IsSaved = false;
+                };
 
-            // Set saved state to false when blueprint data changes
-            editorGrid.blueprintLayer.onBlueprintChanged.RemoveAllListeners();
-            editorGrid.blueprintLayer.onBlueprintChanged.AddListener(() =>
+                blueprintNameInputField.onValueChanged.AddListener(blueprintNameInputOnValueChanged);
+            }
+
+            // Set save button callback
             {
-                IsSaved = false;
-            });
+                var saveButton = editorOverlay.blueprintInfoPanel.saveButton;
+                if (saveButtonOnClick != null)
+                {
+                    saveButton.onClick.RemoveListener(saveButtonOnClick);
+                }
+
+                saveButtonOnClick = () =>
+                {
+                    UnityEngine.Debug.Log("yo");
+                    ValidateAndSave(blueprintContainer, saveCallback);
+                };
+
+                saveButton.onClick.AddListener(saveButtonOnClick);
+            }
         }
 
         public void ValidateGrid()

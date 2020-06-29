@@ -5,7 +5,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Exa.IO.Json
 {
@@ -30,7 +29,7 @@ namespace Exa.IO.Json
 
                 var value = pair.Value.ToObject<BlueprintBlock>(serializer);
 
-                dict.Add(new AnchoredBlueprintBlock 
+                dict.Add(new AnchoredBlueprintBlock
                 {
                     gridAnchor = key,
                     blueprintBlock = value

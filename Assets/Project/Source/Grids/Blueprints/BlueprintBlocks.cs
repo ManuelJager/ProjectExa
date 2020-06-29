@@ -1,8 +1,6 @@
 ﻿using Exa.Generics;
-using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints.BlueprintEditor;
 using Exa.IO.Json;
-using Exa.Utils;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,7 +120,7 @@ namespace Exa.Grids.Blueprints
         private IEnumerable<AnchoredBlueprintBlock> GetNeighbours(IEnumerable<Vector2Int> tilePositions)
         {
             // Get grid positions around block
-            var bounds = new Generics.GridBounds(tilePositions);
+            var bounds = new GridBounds(tilePositions);
             var neighbourPositions = bounds.GetAdjacentPositions();
 
             var neighbours = new List<AnchoredBlueprintBlock>();

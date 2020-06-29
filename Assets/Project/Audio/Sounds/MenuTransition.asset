@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09514ecf28b230a408a213dce317ddb0, type: 3}
   m_Name: MenuTransition
   m_EditorClassIdentifier: 
-  id: 
-  audioType: 0
-  audioClip: {fileID: 0}
-  volume: 1
+  id: MenuTransition
+  audioType: 1
+  audioClip: {fileID: 8300000, guid: 355e2100dca78fb478cf1025683506c6, type: 3}
+  volume: 0.05
   allowMultipleOnTrack: 1
-  allowMultipleOfType: 1
+  allowMultipleOfType: 0

@@ -8,12 +8,10 @@ namespace Exa.Grids.Blueprints
 {
     public class Blueprint : ICloneable<Blueprint>
     {
-        private BlueprintBlocks blocks;
         public string name;
         public string shipClass;
 
-
-        [JsonIgnore] public BlueprintBlocks Blocks => blocks;
+        [JsonProperty("blocks")] public BlueprintBlocks Blocks { get; private set; }
         [JsonIgnore] public long Mass { get; private set; }
         [JsonIgnore] public float PeakPowerGeneration { get; private set; }
 
@@ -29,7 +27,8 @@ namespace Exa.Grids.Blueprints
         {
             this.name = options.name;
             this.shipClass = options.shipClass;
-            this.blocks = new BlueprintBlocks();
+
+            this.Blocks = new BlueprintBlocks();
         }
 
         [JsonConstructor]
@@ -37,14 +36,18 @@ namespace Exa.Grids.Blueprints
         {
             this.name = name;
             this.shipClass = shipClass;
-            this.blocks = blocks;
 
-            blocks.anchoredBlueprintBlocks.ForEach((block) => AddContext(block));
+            this.Blocks = blocks;
+
+            if (Blocks != null)
+            {
+                blocks.anchoredBlueprintBlocks.ForEach((block) => AddContext(block));
+            }
         }
 
         public void Add(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
-            blocks.Add(anchoredBlueprintBlock);
+            Blocks.Add(anchoredBlueprintBlock);
             AddContext(anchoredBlueprintBlock);
         }
 
@@ -67,13 +70,13 @@ namespace Exa.Grids.Blueprints
 
         public void Remove(Vector2Int gridPos)
         {
-            blocks.Remove(gridPos);
             RemoveContext(gridPos);
+            Blocks.Remove(gridPos);
         }
 
         public void RemoveContext(Vector2Int gridPos)
         {
-            var anchoredBlueprintBlock = blocks.GetAnchoredBlockAtGridPos(gridPos);
+            var anchoredBlueprintBlock = Blocks.GetAnchoredBlockAtGridPos(gridPos);
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
 
             // Remove mass from grid
@@ -91,14 +94,15 @@ namespace Exa.Grids.Blueprints
 
         public void ClearBlocks()
         {
-            blocks = new BlueprintBlocks();
+            Blocks = new BlueprintBlocks();
+
             Mass = 0;
             PeakPowerGeneration = 0f;
         }
 
         public Blueprint Clone()
         {
-            return new Blueprint(name, shipClass, blocks.Clone());
+            return new Blueprint(name, shipClass, Blocks.Clone());
         }
     }
 }
