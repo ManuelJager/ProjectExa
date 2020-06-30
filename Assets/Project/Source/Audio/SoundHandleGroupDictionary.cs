@@ -1,5 +1,4 @@
-﻿using Exa.Audio;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Exa.Audio
 {

@@ -9,8 +9,7 @@ namespace Exa.Grids.Blueprints
     public class BlueprintTypes : ScriptableObject
     {
         public Dictionary<string, BlueprintType> typesById;
-
-        [SerializeField] private List<BlueprintType> types;
+        public List<BlueprintType> types;
 
         public void OnEnable()
         {

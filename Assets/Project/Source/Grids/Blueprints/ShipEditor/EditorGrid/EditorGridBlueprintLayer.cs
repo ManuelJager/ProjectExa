@@ -71,7 +71,7 @@ namespace Exa.Grids.Blueprints.Editor
             blocksByBlueprintAnchor[anchoredBlueprintBlock.gridAnchor] = block;
             // Set position of block
             var position = ShipEditorUtils.GetRealPositionByAnchor(
-                anchoredBlueprintBlock.blueprintBlock, 
+                anchoredBlueprintBlock.blueprintBlock,
                 anchoredBlueprintBlock.gridAnchor);
 
             block.transform.localPosition = position;

@@ -19,7 +19,7 @@ namespace Exa.Grids.Blueprints
         {
             return new ITooltipComponent[]
             {
-                new ValueContext { name = "Max size", value = $"{maxSize.x}x{maxSize.y}"}
+                new NamedValue<string> { Name = "Max size", Value = $"{maxSize.x}x{maxSize.y}"}
             };
         }
     }

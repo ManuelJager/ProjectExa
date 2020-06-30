@@ -55,8 +55,13 @@ namespace Exa.UI
             }
             catch { return; }
 
+            var observableBlueprint = new ObservableBlueprint(blueprint);
+
+            if (Source.Contains(observableBlueprint)) return;
+
+            Source.Add(observableBlueprint);
             shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
-            shipEditor.Import(new ObservableBlueprint(blueprint), TrySave);
+            shipEditor.Import(observableBlueprint, TrySave);
         }
 
         public override void ViewCreation(BlueprintView view, ObservableBlueprint observer)

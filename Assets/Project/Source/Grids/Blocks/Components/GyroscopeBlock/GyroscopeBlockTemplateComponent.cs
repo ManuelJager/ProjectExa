@@ -25,7 +25,7 @@ namespace Exa.Grids.Blocks.Components
         {
             return new ITooltipComponent[]
             {
-                new ValueContext { name = "Turning Rate", value = turningRate.ToString()}
+                new NamedValue<string> { Name = "Turning Rate", Value = turningRate.ToString()}
             };
         }
     }

@@ -50,23 +50,26 @@ namespace Exa.Generics
                     continue;
                 }
 
-                // Ensure property is string type
-                if (property.PropertyType != typeof(string))
-                {
-                    UnityEngine.Debug.LogWarning($"{property.Name} is not of type string. Types inheriting from ModelDescriptor should contain non-string properties");
-                }
-
                 SourceAttribute sourceAttribute = null;
-
-                // Test for the property having an attribute that defines the value range
+                // Test for the property having an attribute that defines a collection of possible values
                 try
                 {
                     sourceAttribute = property.GetAttribute<SourceAttribute>();
+                }
+                catch { }
+
+                if (sourceAttribute != null)
+                {
                     controlType = ControlType.dropdown;
                 }
-                catch
+                else
                 {
                     controlType = ControlType.inputField;
+                    // Ensure property is string type
+                    if (property.PropertyType != typeof(string))
+                    {
+                        UnityEngine.Debug.LogWarning($"{property.Name} is not of type string. Types inheriting from ModelDescriptor should contain non-string properties");
+                    }
                 }
 
                 yield return new PropertyContext

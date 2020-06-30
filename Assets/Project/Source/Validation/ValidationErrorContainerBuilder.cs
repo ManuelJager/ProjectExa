@@ -75,7 +75,7 @@ namespace Exa.Validation
         }
 
         /// <summary>
-        ///  
+        ///
         /// </summary>
         /// <returns></returns>
         public ValidationErrorContainer Build()

@@ -11,18 +11,9 @@ namespace Exa.Generics
         // Range provider
         public IDataSourceProvider DataSourceProvider { get; private set; } = null;
 
-        // Optional option creation listener
-        public IOptionCreationListener OptionCreationlistener { get; private set; } = null;
-
         public SourceAttribute(Type dataSourceProvider)
         {
             AssignDataSourceProvider(dataSourceProvider);
-        }
-
-        public SourceAttribute(Type dataSourceProvider, Type viewCreationListener)
-        {
-            AssignDataSourceProvider(dataSourceProvider);
-            AssignViewCreationListener(viewCreationListener);
         }
 
         /// <summary>
@@ -38,22 +29,6 @@ namespace Exa.Generics
             else
             {
                 throw new ArgumentException($"{dataSourceProvider.Name} should implement the IValuesSourceProvider interface");
-            }
-        }
-
-        /// <summary>
-        /// Test the view creation listener type, create instance and assign to the DataSourceProvider property
-        /// </summary>
-        /// <param name="viewCreationlistener"></param>
-        private void AssignViewCreationListener(Type viewCreationlistener)
-        {
-            if (typeof(IOptionCreationListener).IsAssignableFrom(viewCreationlistener))
-            {
-                OptionCreationlistener = (IOptionCreationListener)Activator.CreateInstance(viewCreationlistener);
-            }
-            else
-            {
-                throw new ArgumentException($"{viewCreationlistener.Name} should implement the IValuesSourceProvider interface");
             }
         }
     }

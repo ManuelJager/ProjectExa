@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Exa.Generics
 {
@@ -7,6 +8,8 @@ namespace Exa.Generics
     /// </summary>
     public interface IDataSourceProvider
     {
-        IEnumerable<ValueContext> GetValues();
+        IEnumerable<NamedValue<object>> GetValues();
+
+        void OnOptionCreation(object value, GameObject viewObject);
     }
 }

@@ -20,12 +20,12 @@ namespace Exa.UI.Controls
             return collection;
         }
 
-        public GameObject GenerateTooltipProperty(ValueContext valueContext, Transform parent)
+        public GameObject GenerateTooltipProperty<T>(NamedValue<T> valueContext, Transform parent)
         {
             var propertyObject = Instantiate(propertyPrefab, parent);
             var propertyView = propertyObject.GetComponent<PropertyView>();
             propertyView.Reflect(valueContext);
-            propertyView.SetKeyOnly(valueContext.name == "");
+            propertyView.SetKeyOnly(valueContext.Name == "");
             return propertyObject;
         }
     }

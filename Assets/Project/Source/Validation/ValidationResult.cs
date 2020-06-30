@@ -1,5 +1,4 @@
-﻿using Assets.Project.Source.Validation;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace Exa.Validation
         }
 
         /// <summary>
-        /// Test the predicate and on false add an error with the given error message 
+        /// Test the predicate and on false add an error with the given error message
         /// </summary>
         /// <typeparam name="TError">Type of error thrown</typeparam>
         /// <param name="errorMessage">Error message</param>

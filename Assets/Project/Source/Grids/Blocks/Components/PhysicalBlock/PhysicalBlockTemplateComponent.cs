@@ -29,9 +29,9 @@ namespace Exa.Grids.Blocks.Components
         {
             return new ITooltipComponent[]
             {
-                new ValueContext { name = "Hull", value = maxHull.ToString() },
-                new ValueContext { name = "Armor", value = armor.ToString() },
-                new ValueContext { name = "Mass", value = mass.ToString()}
+                new NamedValue<string> { Name = "Hull", Value = maxHull.ToString() },
+                new NamedValue<string> { Name = "Armor", Value = armor.ToString() },
+                new NamedValue<string> { Name = "Mass", Value = mass.ToString()}
             };
         }
     }

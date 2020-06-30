@@ -28,29 +28,29 @@ namespace Exa.UI
 
             nameText.text = blueprint.name;
 
-            blockCountView.Reflect(new ValueContext
+            blockCountView.Reflect(new NamedValue<string>
             {
-                name = "Blocks",
-                value = blueprint.Blocks.anchoredBlueprintBlocks.Count.ToString()
+                Name = "Blocks",
+                Value = blueprint.Blocks.anchoredBlueprintBlocks.Count.ToString()
             });
 
             var size = blueprint.Blocks.Size.Value;
-            sizeView.Reflect(new ValueContext
+            sizeView.Reflect(new NamedValue<string>
             {
-                name = "Size",
-                value = $"{size.x}x{size.y}"
+                Name = "Size",
+                Value = $"{size.x}x{size.y}"
             });
 
-            massView.Reflect(new ValueContext
+            massView.Reflect(new NamedValue<string>
             {
-                name = "Mass",
-                value = $"{blueprint.Mass / 1000f:0} Tons"
+                Name = "Mass",
+                Value = $"{blueprint.Mass / 1000f:0} Tons"
             });
 
-            peakPowerGenerationView.Reflect(new ValueContext
+            peakPowerGenerationView.Reflect(new NamedValue<string>
             {
-                name = "Power generation",
-                value = $"{blueprint.PeakPowerGeneration:0} KW"
+                Name = "Power generation",
+                Value = $"{blueprint.PeakPowerGeneration:0} KW"
             });
         }
 

@@ -1,6 +1,4 @@
-﻿using Exa.Audio;
-
-namespace Exa.Audio
+﻿namespace Exa.Audio
 {
     /// <summary>
     /// Supports managing the events for a given sound handle

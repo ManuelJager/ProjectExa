@@ -1,7 +1,7 @@
 ﻿using Exa.UI;
 using UnityEditor;
 
-namespace Assets.Project.Source.CustomEditors
+namespace Exa.CustomEditors
 {
     [CustomEditor(typeof(CanvasGroupInteractibleAdapter))]
     internal class CanvasGroupInteractibleAdapterEditor : Editor

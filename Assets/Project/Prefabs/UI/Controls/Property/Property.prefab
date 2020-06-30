@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: 1105353575307169899}
   - component: {fileID: 8698118408291861508}
   - component: {fileID: 438599937416983596}
+  - component: {fileID: 676923749048738059}
+  - component: {fileID: 6529207259761569483}
   m_Layer: 5
   m_Name: KeyText
   m_TagString: Untagged
@@ -114,6 +116,36 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Key
+--- !u!225 &676923749048738059
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688401382411277827}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &6529207259761569483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688401382411277827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b3d7e6954ec474a841cdbeba761bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  msLocalAnimationOffset: 200
+  movementDirection: 2
+  movementSmoothDamp: 0.1
+  movementMagnitude: 20
+  animateAlpha: 1
+  alphaSpeed: 8
 --- !u!1 &2836389058989956976
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +157,8 @@ GameObject:
   - component: {fileID: 8529832063865582637}
   - component: {fileID: 9163945668082841864}
   - component: {fileID: 3942644137778613017}
+  - component: {fileID: 5622242118493287394}
+  - component: {fileID: 3342226063278286231}
   m_Layer: 5
   m_Name: ValueText
   m_TagString: Untagged
@@ -194,6 +228,36 @@ MonoBehaviour:
   m_Text: 'Value
 
 '
+--- !u!225 &5622242118493287394
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836389058989956976}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &3342226063278286231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836389058989956976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b3d7e6954ec474a841cdbeba761bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  msLocalAnimationOffset: 200
+  movementDirection: 4
+  movementSmoothDamp: 0.1
+  movementMagnitude: 20
+  animateAlpha: 1
+  alphaSpeed: 8
 --- !u!1 &4113519539557635247
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1541835943466787729}
+  - component: {fileID: 2084012485190102375}
   m_Layer: 5
   m_Name: ValueContainer
   m_TagString: Untagged
@@ -230,6 +295,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &2084012485190102375
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4113519539557635247}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6372109433816541427
 GameObject:
   m_ObjectHideFlags: 0

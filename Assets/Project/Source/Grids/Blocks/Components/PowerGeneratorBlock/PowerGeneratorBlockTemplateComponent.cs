@@ -23,7 +23,7 @@ namespace Exa.Grids.Blocks.Components
         {
             return new ITooltipComponent[]
             {
-                new ValueContext { name = "Power generation", value = $"{peakGeneration} KW"}
+                new NamedValue<string> { Name = "Power generation", Value = $"{peakGeneration} KW"}
             };
         }
     }

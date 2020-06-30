@@ -51,8 +51,8 @@ namespace Exa.Grids.Blocks
         {
             return new ITooltipComponent[]
             {
-                new ValueContext { name = "", value = displayId },
-                new ValueContext { name = "Size", value = $"{size.x}x{size.y}"}
+                new NamedValue<string> { Name = "", Value = displayId },
+                new NamedValue<string> { Name = "Size", Value = $"{size.x}x{size.y}"}
             };
         }
     }

@@ -72,7 +72,7 @@ namespace Exa.Utils
                 }
             }
         }
-        
+
         /// <summary>
         /// Enumerate through a square of vectors from the given offset
         /// </summary>

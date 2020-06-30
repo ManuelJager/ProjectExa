@@ -8,30 +8,40 @@ namespace Exa.Grids.Blueprints
 {
     public class BlueprintClassificationSource : IDataSourceProvider
     {
-        public IEnumerable<ValueContext> GetValues()
+        private class BlueprintTypeComparer : IComparer<BlueprintType>
         {
-            var types = GameManager.Instance.blueprintManager.blueprintTypes.typesById.Values;
+            public int Compare(BlueprintType x, BlueprintType y)
+            {
+                return GetSize(x) - GetSize(y);
+            }
+
+            private int GetSize(BlueprintType blueprintType)
+            {
+                return blueprintType.maxSize.x * blueprintType.maxSize.y;
+            }
+        }
+
+        public IEnumerable<NamedValue<object>> GetValues()
+        {
+            var types = GameManager.Instance.blueprintManager.blueprintTypes.types;
+            // Sort blueprint types by their size
+            types.Sort(new BlueprintTypeComparer());
             foreach (var type in types)
             {
-                yield return new ValueContext
+                yield return new NamedValue<object>
                 {
-                    name = type.displayName,
-                    value = type.typeGuid
+                    Name = type.displayName,
+                    Value = type
                 };
             }
         }
-    }
 
-    public class BlueprintClassificationOptionCreation : IOptionCreationListener
-    {
-        public void OnOptionCreation(string value, GameObject viewObject)
+        public void OnOptionCreation(object value, GameObject viewObject)
         {
             var hoverable = viewObject.AddComponent<Hoverable>();
-            // Get the blueprint type for the tooltip
-            var blueprintType = GameManager.Instance.blueprintManager.blueprintTypes.typesById[value];
-            hoverable.onPointerEnter.AddListener(() => // Error here
+            hoverable.onPointerEnter.AddListener(() =>
             {
-                VariableTooltipManager.Instance.blueprintTypeTooltip.ShowTooltip(blueprintType);
+                VariableTooltipManager.Instance.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
@@ -44,12 +54,12 @@ namespace Exa.Grids.Blueprints
     {
         public string Name { get; set; }
 
-        [Source(typeof(BlueprintClassificationSource), typeof(BlueprintClassificationOptionCreation))]
-        public string Class { get; set; }
+        [Source(typeof(BlueprintClassificationSource))]
+        public BlueprintType Class { get; set; }
 
         public override BlueprintCreationOptions FromDescriptor()
         {
-            return new BlueprintCreationOptions(Name, Class);
+            return new BlueprintCreationOptions(Name, Class.typeGuid);
         }
     }
 }

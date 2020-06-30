@@ -73,7 +73,7 @@ namespace Exa.Grids.Blueprints.Editor
                 CalculateGhostEnabled();
             }
         }
-        
+
         private void Awake()
         {
             backgroundLayer.EnterGrid += OnEnterGrid;
@@ -87,7 +87,7 @@ namespace Exa.Grids.Blueprints.Editor
             // Remap zoom scale range to damp scale
             var remappedZoomScale = ZoomScale.Remap(0f, 3f, 0.5f, 1.5f);
             playerPos -= MovementVector * movementSpeed * Time.deltaTime * remappedZoomScale;
-            // Move the 
+            // Move the
             transform.DOLocalMove(playerPos.ToVector3(), 0.3f);
 
             // Check for mouse input

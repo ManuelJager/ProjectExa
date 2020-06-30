@@ -12,10 +12,12 @@ namespace Exa.Validation
         // Keep track of error handlers in a nested dictionary
         // Access the error handler or cleaner by [validator][error]
         internal Dictionary<string, Dictionary<string, Action<ValidationError>>> errorHandlers;
+
         internal Dictionary<string, Dictionary<string, Action<ValidationError>>> errorCleaners;
 
         // Default implementation for the error handlers or cleaners
         internal Action<ValidationError> defaultErrorHandler;
+
         internal Action<ValidationError> defaultErrorCleaner;
 
         // Keep track of errors thrown by a specific validator

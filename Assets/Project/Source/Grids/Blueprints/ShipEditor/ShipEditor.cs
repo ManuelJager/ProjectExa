@@ -6,7 +6,6 @@ using Exa.Utils;
 using System;
 using UnityEngine;
 using static Exa.Input.GameControls;
-using System.Windows;
 
 namespace Exa.Grids.Blueprints.Editor
 {
@@ -108,6 +107,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             SetCallbacks(blueprintContainer, saveCallback);
             ValidateName(blueprintContainer, newBlueprint.name);
+            UpdateSaveButtonActive();
 
             IsSaved = true;
         }
@@ -120,14 +120,15 @@ namespace Exa.Grids.Blueprints.Editor
             {
                 ValidateName(blueprintContainer, value);
                 IsSaved = false;
-            }, blueprintNameEditEventRef);
+                UpdateSaveButtonActive();
+            }, ref blueprintNameEditEventRef);
 
             // Set save button callback
             var onClick = editorOverlay.blueprintInfoPanel.saveButton.onClick;
-            onClick.AddListenerOnce(() => 
+            onClick.AddListenerOnce(() =>
             {
                 ValidateAndSave(blueprintContainer, saveCallback);
-            }, saveButtonOnClickEventRef);
+            }, ref saveButtonOnClickEventRef);
         }
 
         public void ValidateGrid()

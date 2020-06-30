@@ -20,12 +20,12 @@ namespace Exa.Grids.Blueprints.Editor
 
             // Check if the name isn't empty
             errors.Assert<BlueprintNameEmptyError>(
-                $"Blueprint name is empty", 
+                $"Blueprint name is empty",
                 () => validationArgs.requestedName != "");
 
             // Check if the requested name is the default name
             errors.Assert<BlueprintNameDefaultError>(
-                "Blueprint name cannot be default", 
+                "Blueprint name cannot be default",
                 () => validationArgs.requestedName != Blueprint.DEFAULT_BLUEPRINT_NAME);
 
             return errors;

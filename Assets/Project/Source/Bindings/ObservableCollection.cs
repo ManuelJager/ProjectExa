@@ -57,7 +57,7 @@ namespace Exa.Bindings
             }
         }
 
-        public void AddRange(IEnumerable<TData> collection)
+        public virtual void AddRange(IEnumerable<TData> collection)
         {
             foreach (var item in collection)
             {
@@ -65,7 +65,7 @@ namespace Exa.Bindings
             }
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             collection.Clear();
 
@@ -75,27 +75,27 @@ namespace Exa.Bindings
             }
         }
 
-        public bool Contains(TData item)
+        public virtual bool Contains(TData item)
         {
             return collection.Contains(item);
         }
 
-        public void CopyTo(TData[] array, int arrayIndex)
+        public virtual void CopyTo(TData[] array, int arrayIndex)
         {
             collection.CopyTo(array, arrayIndex);
         }
 
-        public IEnumerator<TData> GetEnumerator()
+        public virtual IEnumerator<TData> GetEnumerator()
         {
             return collection.GetEnumerator();
         }
 
-        public int IndexOf(TData item)
+        public virtual int IndexOf(TData item)
         {
             return collection.IndexOf(item);
         }
 
-        public void Insert(int index, TData item)
+        public virtual void Insert(int index, TData item)
         {
             collection.Insert(index, item);
 
@@ -105,7 +105,7 @@ namespace Exa.Bindings
             }
         }
 
-        public bool Remove(TData item)
+        public virtual bool Remove(TData item)
         {
             var removed = collection.Remove(item);
 
@@ -120,7 +120,7 @@ namespace Exa.Bindings
             return removed;
         }
 
-        public void RemoveAt(int index)
+        public virtual void RemoveAt(int index)
         {
             collection.RemoveAt(index);
 

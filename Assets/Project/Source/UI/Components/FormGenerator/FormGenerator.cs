@@ -44,13 +44,9 @@ namespace Exa.UI.Components
             });
             control.CreateTabs(propertyContext.propertyInfo.Name, propertyContext.sourceAttribute.DataSourceProvider.GetValues());
 
-            // Set callbacks
-            if (propertyContext.sourceAttribute.OptionCreationlistener != null)
+            foreach (var item in control.tabByOption)
             {
-                foreach (var item in control.tabByOption)
-                {
-                    propertyContext.sourceAttribute.OptionCreationlistener.OnOptionCreation(item.Key, item.Value.gameObject);
-                }
+                propertyContext.sourceAttribute.DataSourceProvider.OnOptionCreation(control.valueByOption[item.Key], item.Value.gameObject);
             }
         }
 

@@ -11,10 +11,10 @@ namespace Exa.UI.Controls
         [SerializeField] private Transform valueContainer;
         [SerializeField] private Text valueText;
 
-        public void Reflect(ValueContext valueContext)
+        public void Reflect<T>(NamedValue<T> valueContext)
         {
-            keyText.text = valueContext.name;
-            valueText.text = valueContext.value;
+            keyText.text = valueContext.Name;
+            valueText.text = valueContext.Value.ToString();
         }
 
         public void SetKeyOnly(bool value)

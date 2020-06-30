@@ -24,7 +24,7 @@ namespace Exa.Grids.Blocks.Components
         {
             return new ITooltipComponent[]
             {
-                new ValueContext { name = "Thrust", value = $"{newtonThrust}N"}
+                new NamedValue<string> { Name = "Thrust", Value = $"{newtonThrust}N"}
             };
         }
     }

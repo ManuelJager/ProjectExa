@@ -1,8 +1,6 @@
 ﻿using Exa.Validation;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Exa.UI.Controls
 {
@@ -13,6 +11,7 @@ namespace Exa.UI.Controls
     {
         // Error container
         protected ValidationErrorContainer container;
+
         // Dictionary linking an error with the current view
         protected Dictionary<string, ValidationErrorPanel> panelByError = new Dictionary<string, ValidationErrorPanel>();
 
@@ -40,7 +39,7 @@ namespace Exa.UI.Controls
         }
 
         /// <summary>
-        /// Supports configuring the 
+        /// Supports configuring the
         /// </summary>
         /// <returns></returns>
         public virtual ValidationErrorContainerBuilder CreateSchemaBuilder()

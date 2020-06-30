@@ -1,4 +1,4 @@
-﻿namespace Assets.Project.Source.Validation
+﻿namespace Exa.Validation
 {
     /// <summary>
     /// Represents the result for a single validation operation

@@ -1,5 +1,4 @@
 ﻿using Exa.Validation;
-using System.Linq;
 
 namespace Exa.Grids.Blueprints.Editor
 {
@@ -17,7 +16,7 @@ namespace Exa.Grids.Blueprints.Editor
             {
                 // Check for disconnected blocks
                 result.Assert<BlueprintGridHasDisconnectedBlocks>(
-                    "Blueprint has disconnected blocks", 
+                    "Blueprint has disconnected blocks",
                     () => block.neighbours.Count > 0,
                     ref thrownBlueprintGridHasDisconnectedBlocks);
 

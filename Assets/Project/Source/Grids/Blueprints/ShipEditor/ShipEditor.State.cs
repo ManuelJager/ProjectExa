@@ -10,11 +10,12 @@ namespace Exa.Grids.Blueprints.Editor
         private bool lockMovement = false;
         private bool mirrorEnabled = false;
         private bool interactible = true;
-        private bool isSaved;
-        private bool nameIsValid;
         private bool blockedByUI;
         private ObservableBlueprint blueprintContainer;
         private Blueprint newBlueprint;
+
+        public bool IsSaved { get; private set; }
+        public bool NameIsValid { get; private set; }
 
         // Keep track of time elapsed from last blueprint edit
 
@@ -48,28 +49,6 @@ namespace Exa.Grids.Blueprints.Editor
                     gameControls.Disable();
                     editorGrid.MovementVector = Vector2.zero;
                 }
-            }
-        }
-
-        public bool IsSaved
-        {
-            get => isSaved;
-            set
-            {
-                isSaved = value;
-
-                UpdateSaveButtonActive();
-            }
-        }
-
-        public bool NameIsValid
-        {
-            get => nameIsValid;
-            set
-            {
-                nameIsValid = value;
-
-                UpdateSaveButtonActive();
             }
         }
 

@@ -12,6 +12,6 @@ namespace Exa.Generics
         /// </summary>
         /// <param name="value">dropdown value</param>
         /// <param name="viewObject">dropdown view object</param>
-        void OnOptionCreation(string value, GameObject viewObject);
+        void OnOptionCreation(object value, GameObject viewObject);
     }
 }

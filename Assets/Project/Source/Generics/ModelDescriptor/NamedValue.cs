@@ -3,14 +3,19 @@ using UnityEngine;
 
 namespace Exa.Generics
 {
-    public struct ValueContext : ITooltipComponent
+    public struct NamedValue<T> : ITooltipComponent, INamedValue<T>
     {
-        public string value;
-        public string name;
+        public string Name;
+        public T Value { get; set; }
 
         public GameObject InstantiateComponentView(Transform parent)
         {
             return VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltipProperty(this, parent);
         }
+    }
+
+    public interface INamedValue<out T>
+    {
+        T Value { get; }
     }
 }
