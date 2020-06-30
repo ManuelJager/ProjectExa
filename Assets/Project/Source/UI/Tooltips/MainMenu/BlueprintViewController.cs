@@ -2,7 +2,8 @@
 
 using Exa.Bindings;
 using Exa.Grids.Blueprints;
-using Exa.Grids.Blueprints.BlueprintEditor;
+using Exa.Grids.Blueprints.Editor;
+using Exa.IO;
 using Exa.UI.Components;
 using UnityEngine;
 
@@ -43,6 +44,19 @@ namespace Exa.UI
                 shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
                 shipEditor.Import(observableBlueprint, TrySave);
             });
+        }
+
+        public void OnImportBlueprintFromClipboard()
+        {
+            Blueprint blueprint;
+            try
+            {
+                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(GUIUtility.systemCopyBuffer);
+            }
+            catch { return; }
+
+            shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
+            shipEditor.Import(new ObservableBlueprint(blueprint), TrySave);
         }
 
         public override void ViewCreation(BlueprintView view, ObservableBlueprint observer)

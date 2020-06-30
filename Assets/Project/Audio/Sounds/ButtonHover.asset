@@ -16,6 +16,6 @@ MonoBehaviour:
   audioType: 1
   audioClip: {fileID: 8300000, guid: be695ed9792ac2c48892908f668bf17c, type: 3}
   volume: 0.02
-  pitch: 1
+  pitch: 0.85
   allowMultipleOnTrack: 1
   allowMultipleOfType: 0

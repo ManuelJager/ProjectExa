@@ -1,5 +1,5 @@
 ﻿using Exa.Generics;
-using Exa.Grids.Blueprints.BlueprintEditor;
+using Exa.Grids.Blueprints.Editor;
 using Exa.IO.Json;
 using Newtonsoft.Json;
 using System.Collections.Generic;

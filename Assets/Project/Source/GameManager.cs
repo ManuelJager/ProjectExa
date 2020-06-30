@@ -1,7 +1,7 @@
 ﻿using Exa.Audio;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
-using Exa.Grids.Blueprints.BlueprintEditor;
+using Exa.Grids.Blueprints.Editor;
 using Exa.UI;
 using Exa.Utils;
 using UnityEngine;

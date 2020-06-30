@@ -64,9 +64,19 @@ namespace Exa.IO
             }
         }
 
+        public static string JsonSerializeWithSettings(object value)
+        {
+            return JsonConvert.SerializeObject(value, systemJsonSettings);
+        }
+
+        public static T JsonDeserializeWithSettings<T>(string input)
+        {
+            return JsonConvert.DeserializeObject<T>(input, systemJsonSettings);
+        }
+
         public static void JsonSerializeToPath(string filePath, object value)
         {
-            var text = JsonConvert.SerializeObject(value, systemJsonSettings);
+            var text = JsonSerializeWithSettings(value);
             File.WriteAllText(filePath, text);
         }
 
