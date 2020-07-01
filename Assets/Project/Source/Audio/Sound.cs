@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Exa.Data;
+using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.Audio
 {
@@ -6,7 +8,7 @@ namespace Exa.Audio
     /// Supports an audioclip with additional properties that gives audio tracks more context
     /// </summary>
     [CreateAssetMenu(menuName = "Audio/Sound")]
-    public class Sound : ScriptableObject
+    public class Sound : RegisterableScriptableObject
     {
         /// <summary>
         /// Global audio identifier
@@ -42,5 +44,10 @@ namespace Exa.Audio
         /// Wether or not multiple sounds of this type can be played simoultaniously
         /// </summary>
         public bool allowMultipleOfType = true;
+
+        public override void RegisterSelf(GameManager gameManager)
+        {
+            gameManager.audioController.Register(this);
+        }
     }
 }

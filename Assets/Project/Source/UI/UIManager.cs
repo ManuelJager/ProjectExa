@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Exa.UI
 {
-    public class UIManager : MonoBehaviourInstance<UIManager>
+    public class UIManager : MonoSingleton<UIManager>
     {
         [SerializeField] private Canvas root;
         [SerializeField] private RectTransform rootTransform;

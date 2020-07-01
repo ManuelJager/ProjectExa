@@ -10,7 +10,7 @@ namespace Exa.Debug
     /// <summary>
     /// Console controller
     /// </summary>
-    public class DebugConsoleController : MonoBehaviourInstance<DebugConsoleController>
+    public class DebugConsoleController : MonoSingleton<DebugConsoleController>
     {
         [SerializeField] private GameObject ownerObject;
         [SerializeField] private Text consoleOutput;

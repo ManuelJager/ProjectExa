@@ -2,8 +2,8 @@
 
 namespace Exa.Utils
 {
-    public class MonoBehaviourInstance<T> : MonoBehaviour
-        where T : MonoBehaviour
+    public class MonoSingleton<T> : MonoSingleton
+        where T : MonoSingleton<T> 
     {
         protected static T instance = null;
 
@@ -39,7 +39,13 @@ namespace Exa.Utils
             if (instance == null)
             {
                 Instance = GetComponent<T>();
+                MonoSingletonUtils.NotifyCreated<T>(this);
             }
         }
+    }
+
+    public abstract class MonoSingleton : MonoBehaviour
+    {
+
     }
 }

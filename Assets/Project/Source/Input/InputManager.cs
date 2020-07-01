@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Exa.Input
 {
-    public class InputManager : MonoBehaviourInstance<InputManager>
+    public class InputManager : MonoSingleton<InputManager>
     {
         public bool InputIsCaptured;
         public MousePointer mousePointer;

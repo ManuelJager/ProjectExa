@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Exa
 {
-    public class GameManager : MonoBehaviourInstance<GameManager>
+    public class GameManager : MonoSingleton<GameManager>
     {
         public static bool IsQuitting { get; private set; }
 

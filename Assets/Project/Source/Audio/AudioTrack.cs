@@ -35,8 +35,6 @@ namespace Exa.Audio
         {
             players[sound.id] = gameObject.AddComponent<AudioSource>();
 
-            UnityEngine.Debug.Log(sound.id);
-
             handleGroups.RegisterGroup(sound.id);
         }
 

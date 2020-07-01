@@ -13,14 +13,6 @@ namespace Exa.Audio
 
         private Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
 
-        public void Awake()
-        {
-            foreach (var sound in sounds)
-            {
-                Register(sound);
-            }
-        }
-
         /// <summary>
         /// Play a sound with the given id
         /// </summary>

@@ -3,7 +3,7 @@ using Exa.Utils;
 
 namespace Exa.UI.Controls
 {
-    public class VariableTooltipManager : MonoBehaviourInstance<VariableTooltipManager>
+    public class VariableTooltipManager : MonoSingleton<VariableTooltipManager>
     {
         public TooltipGenerator tooltipGenerator;
         public BlockTemplateTooltip blockTemplateTooltip;
