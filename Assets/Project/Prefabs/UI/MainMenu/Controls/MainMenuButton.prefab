@@ -97,7 +97,7 @@ PrefabInstance:
     - target: {fileID: 2519197678057345776, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
       propertyPath: onPointerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: ButtonHover
+      value: UI_SFX_ButtonHover
       objectReference: {fileID: 0}
     - target: {fileID: 5093804088955523567, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}

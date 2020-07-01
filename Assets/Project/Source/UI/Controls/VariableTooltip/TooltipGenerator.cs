@@ -8,7 +8,7 @@ namespace Exa.UI.Controls
     {
         [SerializeField] private GameObject propertyPrefab;
 
-        public List<GameObject> GenerateTooltip(ITooltipPresenter tooltipPresenter, Transform parent)
+        public List<GameObject> GenerateTooltips(ITooltipPresenter tooltipPresenter, Transform parent)
         {
             var collection = new List<GameObject>();
             foreach (var property in tooltipPresenter.GetComponents())

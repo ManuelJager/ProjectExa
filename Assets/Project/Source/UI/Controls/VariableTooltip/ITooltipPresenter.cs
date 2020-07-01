@@ -1,7 +1,7 @@
 ﻿namespace Exa.UI.Controls
 {
     /// <summary>
-    /// Provides an interface for data objects that may be presented with an in-game tooltip
+    /// Supports objects that may be presented with an in-game tooltip
     /// </summary>
     public interface ITooltipPresenter
     {

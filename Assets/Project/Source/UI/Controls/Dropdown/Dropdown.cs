@@ -85,7 +85,7 @@ namespace Exa.UI.Controls
             var newState = !tabContainer.gameObject.activeSelf;
             tabArrow.vertical = newState;
             tabContainer.gameObject.SetActive(newState);
-            playerProxy.Play(newState ? "ButtonSelectPositive" : "ButtonSelectNegative");
+            playerProxy.Play(newState ? "UI_SFX_ButtonSelectPositive" : "UI_SFX_ButtonSelectNegative");
         }
     }
 }

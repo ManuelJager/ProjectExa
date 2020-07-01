@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1dba15de04f214d96a3f366c29745e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedOption: 
+  selectedOption: 0
   selectedName: {fileID: 6665540959298001051}
   selectedText: {fileID: 7791772207032264622}
   playerProxy: {fileID: 8619676640294347819}
@@ -598,7 +598,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonHover
+          m_StringArgument: UI_SFX_ButtonHover
           m_BoolArgument: 0
         m_CallState: 2
   onPointerExit:

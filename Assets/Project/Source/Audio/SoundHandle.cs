@@ -50,7 +50,7 @@ namespace Exa.Audio
 
             audioSource.pitch = sound.pitch;
 
-            context.Register(this);
+            context.RegisterHandle(this);
         }
 
         public void Stop()

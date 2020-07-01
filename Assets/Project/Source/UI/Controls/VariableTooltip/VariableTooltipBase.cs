@@ -65,7 +65,7 @@ namespace Exa.UI.Controls
 
         public virtual void SetValues(T data)
         {
-            VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltip(data, container);
+            VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltips(data, container);
         }
     }
 }

@@ -7,10 +7,10 @@ namespace Exa.Audio
     public class AudioTrack : MonoBehaviour, ITrackContext
     {
         // Stores a handle group for the currently playing sounds of the given id
-        private SoundHandleGroupDictionary handleGroups = new SoundHandleGroupDictionary();
+        protected SoundHandleGroupDictionary handleGroups = new SoundHandleGroupDictionary();
 
         // Stores an audio source for sound on the track
-        private Dictionary<string, AudioSource> players = new Dictionary<string, AudioSource>();
+        protected Dictionary<string, AudioSource> players = new Dictionary<string, AudioSource>();
 
         /// <summary>
         /// Plays an audio object on this track
@@ -35,10 +35,12 @@ namespace Exa.Audio
         {
             players[sound.id] = gameObject.AddComponent<AudioSource>();
 
+            UnityEngine.Debug.Log(sound.id);
+
             handleGroups.RegisterGroup(sound.id);
         }
 
-        public void Register(SoundHandle handle)
+        public void RegisterHandle(SoundHandle handle)
         {
             // Remove the handle for the sound after finishing playing
             var endRoutine = StartCoroutine(WaitForSoundEnd(handle));

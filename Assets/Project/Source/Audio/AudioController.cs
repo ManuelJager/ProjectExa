@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Exa.Audio.Music;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Audio
@@ -7,8 +8,8 @@ namespace Exa.Audio
     {
         public List<Sound> sounds;
 
-        [SerializeField] private AudioTrack ST_AudioTrack;
-        [SerializeField] private AudioTrack UI_SFX_AudioTrack;
+        public MusicTrack ST_AudioTrack;
+        public AudioTrack UI_SFX_AudioTrack;
 
         private Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
 

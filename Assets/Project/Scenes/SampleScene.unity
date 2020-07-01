@@ -121,6 +121,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &9403128 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5712632118419898057, guid: 2661b46a09dd09949b76373e7086f5b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 206546701406750975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9403134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9403128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2ac0b803bafc8409147f19b4a4771d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetAtmosphere: 0
 --- !u!1 &53928245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,7 +1975,7 @@ PrefabInstance:
     - target: {fileID: 70962895980411302, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: ButtonClick
+      value: UI_SFX_ButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 70962895980411302, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
@@ -2203,7 +2222,7 @@ PrefabInstance:
     - target: {fileID: 2613297364346620398, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: ButtonClick
+      value: UI_SFX_ButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 2613297364346620398, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}

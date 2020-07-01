@@ -12,7 +12,7 @@
         /// </para>
         /// </summary>
         /// <param name="soundHandle">Sound handle to register</param>
-        void Register(SoundHandle soundHandle);
+        void RegisterHandle(SoundHandle soundHandle);
 
         /// <summary>
         /// Stops all the sounds in the audio track
