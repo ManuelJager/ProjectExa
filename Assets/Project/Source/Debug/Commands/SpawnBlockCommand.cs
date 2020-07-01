@@ -1,5 +1,4 @@
-﻿using CommandEngine;
-using CommandEngine.Models;
+﻿using Exa.Debug.Commands.Parser;
 using UnityEngine;
 
 namespace Exa.Debug.Commands
