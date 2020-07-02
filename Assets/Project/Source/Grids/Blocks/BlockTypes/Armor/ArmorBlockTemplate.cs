@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "Armor", menuName = "Grids/Blocks/Armor")]
+    [CreateAssetMenu(menuName = "Grids/Blocks/Armor")]
     public class ArmorBlockTemplate : BlockTemplate<ArmorBlock>, IPhysicalBlockTemplateComponent
     {
         public PhysicalBlockTemplateComponent physicalTemplateComponent;

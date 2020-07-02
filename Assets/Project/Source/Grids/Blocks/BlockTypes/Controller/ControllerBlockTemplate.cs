@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "Controller", menuName = "Grids/Blocks/Controller")]
+    [CreateAssetMenu(menuName = "Grids/Blocks/Controller")]
     public class ControllerBlockTemplate : BlockTemplate<ControllerBlock>, IPhysicalBlockTemplateComponent
     {
         public PhysicalBlockTemplateComponent physicalTemplateComponent;

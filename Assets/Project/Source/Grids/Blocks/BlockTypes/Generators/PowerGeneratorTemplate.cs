@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "PowerGenerator", menuName = "Grids/Blocks/PowerGenerator")]
+    [CreateAssetMenu(menuName = "Grids/Blocks/PowerGenerator")]
     public class PowerGeneratorTemplate : BlockTemplate<PowerGenerator>, IPhysicalBlockTemplateComponent, IPowerGeneratorBlockTemplateComponent
     {
         [SerializeField] private PhysicalBlockTemplateComponent physicalBlockTemplateComponent;

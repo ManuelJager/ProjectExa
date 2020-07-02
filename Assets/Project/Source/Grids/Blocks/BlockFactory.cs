@@ -1,4 +1,5 @@
 ﻿using Exa.Bindings;
+using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,16 +18,9 @@ namespace Exa.Grids.Blocks
         public ObservableBlockTemplateCollection availibleBlockTemplates = new ObservableBlockTemplateCollection();
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
-        [SerializeField] private BlockTemplateCollection blockTemplates;
-
-        public void OnEnable()
+        private void Awake()
         {
-            RegisterBlockTemplates();
-        }
-
-        public void RegisterBlockTemplates()
-        {
-            foreach (var blockTemplate in blockTemplates.blocks)
+            foreach (var blockTemplate in MiscUtils.GetAllInstances<BlockTemplate>())
             {
                 RegisterBlockTemplate(blockTemplate);
             }

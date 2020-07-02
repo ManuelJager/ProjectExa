@@ -22,8 +22,6 @@ namespace Exa
         public void Start()
         {
             shipEditor.editorOverlay.inventory.Source = blockFactory.availibleBlockTemplates;
-            // Load blocks from unity scriptable objects
-            blockFactory.gameObject.SetActive(true);
             // Load blueprints from disk
             blueprintManager.gameObject.SetActive(true);
         }

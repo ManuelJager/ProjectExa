@@ -1,8 +1,8 @@
-﻿using CommandEngine.Models;
-using Exa.Utils;
+﻿using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Debug.Commands.Parser;
 
 namespace Exa.Debug
 {
@@ -19,7 +19,9 @@ namespace Exa.Debug
         /// </summary>
         static CommandFactory()
         {
-            implementations = TypeUtils.GetTypeImplementations(typeof(Command));
+            implementations = TypeUtils.GetTypeImplementations(typeof(Command))
+                .Where(IsPublic);
+
             instances = implementations
                 .Select((type) => Activator.CreateInstance(type) as Command);
         }
@@ -28,9 +30,24 @@ namespace Exa.Debug
         /// Add command instances to console
         /// </summary>
         /// <param name="console"></param>
-        public static void AddToConsole(CommandEngine.Console console)
+        public static void AddToConsole(Commands.Parser.Console console)
         {
             instances.ToList().ForEach((instance) => console.Add(instance));
+        }
+
+        private static bool IsPublic(Type t)
+        {
+            return
+                t.IsVisible
+                && t.IsPublic
+                && !t.IsNotPublic
+                && !t.IsNested
+                && !t.IsNestedPublic
+                && !t.IsNestedFamily
+                && !t.IsNestedPrivate
+                && !t.IsNestedAssembly
+                && !t.IsNestedFamORAssem
+                && !t.IsNestedFamANDAssem;
         }
     }
 }

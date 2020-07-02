@@ -24,7 +24,7 @@ namespace Exa.Debug.Commands.Parser
         {
             if (CommandDict.ContainsKey(command.Name))
             {
-                throw new IncorrectCommandFormatException("Command already added");
+                throw new IncorrectCommandFormatException($"Command {command.Name} already added");
             }
             CommandDict.Add(command.Name, command);
         }

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "Gyroscope", menuName = "Grids/Blocks/Gyroscope")]
+    [CreateAssetMenu(menuName = "Grids/Blocks/Gyroscope")]
     public class GyroscopeBlockTemplate : BlockTemplate<GyroscopeBlock>, IPhysicalBlockTemplateComponent, IGyroscopeBlockTemplateComponent
     {
         [SerializeField] private PhysicalBlockTemplateComponent physicalBlockTemplateComponent;

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "Thruster", menuName = "Grids/Blocks/Thruster")]
+    [CreateAssetMenu(menuName = "Grids/Blocks/Thruster")]
     public class ThrusterBlockTemplate : BlockTemplate<ThrusterBlock>, IPhysicalBlockTemplateComponent, IThrusterBlockTemplateComponent
     {
         public PhysicalBlockTemplateComponent physicalTemplateComponent;

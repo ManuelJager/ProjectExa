@@ -8,17 +8,17 @@ namespace Exa.Grids.Blocks
     /// <summary>
     /// Provides a generic base class for storing and setting the base values of blocks
     /// </summary>
-    /// <typeparam name="TBlock"></typeparam>
-    public abstract class BlockTemplate<TBlock> : BlockTemplate
-        where TBlock : IBlock
+    /// <typeparam name="T"></typeparam>
+    public abstract class BlockTemplate<T> : BlockTemplate
+        where T : IBlock
     {
-        protected abstract void SetValues(TBlock block);
+        protected abstract void SetValues(T block);
 
         public override void SetValues(IBlock block)
         {
-            if (block.GetType() == typeof(TBlock))
+            if (block.GetType() == typeof(T))
             {
-                SetValues((TBlock)block);
+                SetValues((T)block);
             }
             else
             {

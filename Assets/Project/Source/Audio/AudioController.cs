@@ -1,4 +1,5 @@
 ﻿using Exa.Audio.Music;
+using Exa.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,14 @@ namespace Exa.Audio
 
         private Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
 
+        private void Awake()
+        {
+            foreach (var sound in MiscUtils.GetAllInstances<Sound>())
+            {
+                Register(sound);
+            }
+        }
+
         /// <summary>
         /// Play a sound with the given id
         /// </summary>
@@ -24,7 +33,7 @@ namespace Exa.Audio
             GetTrack(sound.audioType).PlayGlobal(sound);
         }
 
-        public void Register(Sound sound)
+        private void Register(Sound sound)
         {
             soundById[sound.id] = sound;
             GetTrack(sound.audioType).Register(sound);
