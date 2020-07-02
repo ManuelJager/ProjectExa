@@ -8,7 +8,6 @@ namespace Exa.Audio
     public class AudioController : MonoBehaviour
     {
         public List<Sound> sounds;
-
         public MusicTrack ST_AudioTrack;
         public AudioTrack UI_SFX_AudioTrack;
 

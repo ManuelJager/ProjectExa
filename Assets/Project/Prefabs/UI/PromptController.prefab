@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c3e2a78fca2194cbe153cb1fb5a84b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputFieldPrefab: {fileID: 3896904596393045585, guid: 5c803372678387844af7dd861cfc2129,
+  inputFieldPrefab: {fileID: 3896904596393045585, guid: 3b615f3a5808fcd4da198ad89c20ad8f,
     type: 3}
   dropdownPrefab: {fileID: 214129591251731524, guid: 70629459d73ad224abf7e33d946cbdd6,
     type: 3}

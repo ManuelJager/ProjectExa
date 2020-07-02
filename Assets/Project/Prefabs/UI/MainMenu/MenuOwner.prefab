@@ -737,8 +737,8 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6417987456773475566}
   m_Enabled: 1
-  m_Alpha: 0.5
-  m_Interactable: 0
+  m_Alpha: 1
+  m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &3198629893687493042
@@ -755,7 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 7799710994189705287}
   setAlpha: 1
-  interactible: 0
+  interactible: 1
 --- !u!225 &3419726728830464253
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -873,6 +873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   self: {fileID: 0}
   shipEditorBlueprintSelector: {fileID: 0}
+  settings: {fileID: 0}
   blueprintViewController: {fileID: 0}
 --- !u!225 &7597310785715439762
 CanvasGroup:
@@ -1688,6 +1689,21 @@ PrefabInstance:
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7136377399004277141}
     - target: {fileID: 5964629740232828238, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1795,9 +1811,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6970348709145247333, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970348709145247333, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 7096116986693088681}
+    - target: {fileID: 6970348709145247333, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970348709145247333, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970348709145247333, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4280995066260558919}
+    - target: {fileID: 6970348709145247333, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: NavigateToSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970348709145247333, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7994069015727270563, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: m_Name

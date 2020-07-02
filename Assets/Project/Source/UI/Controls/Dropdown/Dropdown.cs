@@ -41,10 +41,15 @@ namespace Exa.UI.Controls
             button.onClick.AddListener(ToggleContainer);
         }
 
-        public void CreateTabs(string selectedName, IEnumerable<NamedValue<object>> options)
+        public void CreateTabs(string name, IEnumerable<NamedValue<object>> options)
         {
-            this.selectedName.text = selectedName;
+            this.selectedName.text = name;
 
+            CreateTabs(options);
+        }
+
+        public void CreateTabs(IEnumerable<NamedValue<object>> options)
+        {
             foreach (var option in options)
             {
                 var tab = Instantiate(tabPrefab, tabContainer).GetComponent<DropdownTab>();
@@ -55,8 +60,9 @@ namespace Exa.UI.Controls
                     ToggleContainer();
                 });
 
-                tabByOption[option.Value.GetHashCode()] = tab;
-                valueByOption[option.Value.GetHashCode()] = option.Value;
+                var optionCode = option.Value.GetHashCode();
+                tabByOption[optionCode] = tab;
+                valueByOption[optionCode ] = option.Value;
             }
 
             foreach (var tab in tabByOption.Values)

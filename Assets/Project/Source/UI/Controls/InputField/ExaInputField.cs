@@ -1,21 +1,27 @@
-﻿using Exa.Input;
-using UnityEngine.EventSystems;
+﻿using Exa.UI.Components;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.UI
+namespace Exa.UI.Controls
 {
-    public class ExaInputField : InputField
+    public class ExaInputField : InputControl<string>
     {
-        public override void OnSelect(BaseEventData eventData)
-        {
-            base.OnSelect(eventData);
-            InputManager.Instance.InputIsCaptured = true;
+        public Text nameText;
+        public Text placeholderText;
+        public ExtendedInputField inputField;
+
+        public override string CleanValue { get; set; }
+        public override string Value 
+        { 
+            get => inputField.text; 
+            set => inputField.text = value; 
         }
 
-        public override void OnDeselect(BaseEventData eventData)
+        public void Setup(string name, string valuePlaceholder, string value = "")
         {
-            base.OnDeselect(eventData);
-            InputManager.Instance.InputIsCaptured = false;
+            nameText.text = name;
+            placeholderText.text = valuePlaceholder;
+            inputField.text = value;
         }
     }
 }
