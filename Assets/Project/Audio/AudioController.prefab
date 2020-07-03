@@ -43,6 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e09fc3331dd98449b69d050627a96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeKey: musicVolume
+  audioMixerGroup: {fileID: 9039013957981596346, guid: f60bfc6b3fd678042befa6c918a4a877,
+    type: 2}
   MainMenuTrackList: {fileID: 11400000, guid: 15c3cdf87f8c12649afd5241f73052f8, type: 2}
 --- !u!1 &2953528372697732043
 GameObject:
@@ -87,6 +90,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90373e8a1fa7ae24691d7904ce8833e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeKey: effectsVolume
+  audioMixerGroup: {fileID: -1543409477138552270, guid: f60bfc6b3fd678042befa6c918a4a877,
+    type: 2}
 --- !u!1 &8427892475349134150
 GameObject:
   m_ObjectHideFlags: 0

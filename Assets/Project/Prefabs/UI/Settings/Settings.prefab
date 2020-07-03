@@ -527,11 +527,11 @@ GameObject:
   - component: {fileID: 699835158650388821}
   - component: {fileID: 2747999166277195222}
   - component: {fileID: 5848845348460836071}
-  - component: {fileID: 8254473521083377216}
   - component: {fileID: 4673210130383718381}
   - component: {fileID: 1188389260084641461}
   - component: {fileID: 4745261153383515780}
   - component: {fileID: 6047006211943620043}
+  - component: {fileID: 3434554292256472909}
   m_Layer: 5
   m_Name: SettingsContainer
   m_TagString: Untagged
@@ -620,18 +620,6 @@ MonoBehaviour:
       m_Calls: []
   invokeStateChangeOnHover: 0
   cursorState: 0
---- !u!114 &8254473521083377216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6120152934594821739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 678dcf26a5894dc4f8299b466afe4fbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4673210130383718381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,6 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94887486b6ae0f449c31d2daf3b86c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeTab: {fileID: 0}
   activeTabText: {fileID: 2801454329770021622}
   defaultTab: {fileID: 5343789051969997632}
   canvasGroupInteractibleAdapter: {fileID: 6047006211943620043}
@@ -689,6 +678,19 @@ MonoBehaviour:
   canvasGroup: {fileID: 4745261153383515780}
   setAlpha: 0
   interactible: 1
+--- !u!114 &3434554292256472909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120152934594821739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed918d94922cbb0488c5bd15eab7f174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsTabManager: {fileID: 1188389260084641461}
 --- !u!114 &1390372783696617641
 MonoBehaviour:
   m_ObjectHideFlags: 0

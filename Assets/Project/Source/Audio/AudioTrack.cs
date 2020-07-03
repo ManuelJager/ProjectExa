@@ -1,16 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Exa.Audio
 {
     public class AudioTrack : MonoBehaviour, ITrackContext
     {
+        [SerializeField] private string volumeKey;
+        [SerializeField] private AudioMixerGroup audioMixerGroup;
+
         // Stores a handle group for the currently playing sounds of the given id
         protected SoundHandleGroupDictionary handleGroups = new SoundHandleGroupDictionary();
 
         // Stores an audio source for sound on the track
         protected Dictionary<string, AudioSource> players = new Dictionary<string, AudioSource>();
+
+        public float Volume
+        {
+            set
+            {
+                var actualVolume = value > 0.001f ? Mathf.Log(value) * 20 : -80;
+                audioMixerGroup.audioMixer.SetFloat(volumeKey, actualVolume);
+            }
+        }
 
         /// <summary>
         /// Plays an audio object on this track
@@ -33,7 +46,9 @@ namespace Exa.Audio
         /// <param name="sound"></param>
         public void Register(Sound sound)
         {
-            players[sound.id] = gameObject.AddComponent<AudioSource>();
+            var source = gameObject.AddComponent<AudioSource>();
+            source.outputAudioMixerGroup = audioMixerGroup;
+            players[sound.id] = source;
 
             handleGroups.RegisterGroup(sound.id);
         }

@@ -1,5 +1,5 @@
-﻿using Exa.UI.Controls;
-using Exa.UI.Settings;
+﻿using Exa.UI.Settings;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +7,11 @@ namespace Exa.UI.Components
 {
     public class SettingsTabManager : MonoBehaviour
     {
+        public SettingsTabBase activeTab;
+
         [SerializeField] private Text activeTabText;
         [SerializeField] private SettingsTabBase defaultTab;
         [SerializeField] private CanvasGroupInteractibleAdapter canvasGroupInteractibleAdapter;
-        private SettingsTabBase activeTab;
 
         private void OnEnable()
         {
@@ -31,18 +32,24 @@ namespace Exa.UI.Components
             }
             else
             {
-                GameManager.Instance.promptController.PromptYesNo(
-                    "Changes were not saved, do you wish to apply the changes?",
-                    canvasGroupInteractibleAdapter,
-                    (yes) =>
+                QueryUserConfirmation((yes) =>
+                {
+                    if (yes)
                     {
-                        if (yes)
-                        {
-                            activeTab.ApplyChanges();
-                        }
-                        ProcessTab(tab);
-                    });
+                        activeTab.ApplyChanges();
+                    }
+
+                    ProcessTab(tab);
+                });
             }
+        }
+
+        public void QueryUserConfirmation(Action<bool> onClosePrompt)
+        {
+            GameManager.Instance.promptController.PromptYesNo(
+                "Changes were not saved, do you wish to apply the changes?",
+                canvasGroupInteractibleAdapter,
+                onClosePrompt);
         }
 
         /// <summary>
