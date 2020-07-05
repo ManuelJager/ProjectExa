@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
 
-namespace Exa.Debug
+namespace Exa.Debugging
 {
     public class DebugController : MonoBehaviour, IDebugActions
     {

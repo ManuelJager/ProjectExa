@@ -2,7 +2,7 @@
 
 namespace Exa.UI.Components
 {
-    public class Navigateable : MonoBehaviour, IInteractableGroup
+    public class Navigateable : MonoBehaviour, IUIGroup
     {
         public bool Interactable { get; set; } = true;
 

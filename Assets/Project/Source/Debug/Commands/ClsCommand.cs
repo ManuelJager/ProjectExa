@@ -1,6 +1,6 @@
-﻿using Exa.Debug.Commands.Parser;
+﻿using Exa.Debugging.Commands.Parser;
 
-namespace Exa.Debug.Commands
+namespace Exa.Debugging.Commands
 {
     public class ClsCommand : ParameterfulCommand
     {

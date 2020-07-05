@@ -48,7 +48,7 @@ namespace Exa.Grids.Blueprints.Editor
             if (block.flippedX) area.x = -area.x;
             if (block.flippedY) area.y = -area.y;
 
-            return VectorHelpers.EnumerateVectors(area, gridAnchor);
+            return MathUtils.EnumerateVectors(area, gridAnchor);
         }
 
         public static Vector2Int GetMirroredGridPos(Vector2Int size, Vector2Int gridPos)

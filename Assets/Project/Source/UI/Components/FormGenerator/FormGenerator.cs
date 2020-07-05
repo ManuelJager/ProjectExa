@@ -46,7 +46,7 @@ namespace Exa.UI.Components
 
             foreach (var item in control.tabByOption)
             {
-                propertyContext.sourceAttribute.DataSourceProvider.OnOptionCreation(control.valueByOption[item.Key], item.Value.gameObject);
+                propertyContext.sourceAttribute.DataSourceProvider.OnOptionCreation(item.Key.Value, item.Value.gameObject);
             }
         }
 

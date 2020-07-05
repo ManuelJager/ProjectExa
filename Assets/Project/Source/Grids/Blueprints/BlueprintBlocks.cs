@@ -11,11 +11,10 @@ namespace Exa.Grids.Blueprints
     [JsonConverter(typeof(BlueprintBlocksConverter))]
     public class BlueprintBlocks : ICloneable<BlueprintBlocks>
     {
-        [JsonIgnore] private BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
-
         [JsonIgnore] public LazyCache<Vector2Int> Size { get; }
         [JsonIgnore] public List<AnchoredBlueprintBlock> anchoredBlueprintBlocks = new List<AnchoredBlueprintBlock>();
 
+        [JsonIgnore] private BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
         public BlueprintBlocks()
             : base()
         {

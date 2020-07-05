@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Exa.Input;
+using Exa.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -132,7 +133,7 @@ namespace Exa.Grids.Blueprints.Editor
         public void OnBlueprintClear()
         {
             // Hide block ghost and ask user for blueprint clear confirmation
-            GameManager.Instance.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
+            PromptController.Instance.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
             {
                 if (yes)
                 {

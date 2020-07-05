@@ -1,4 +1,4 @@
-﻿using Exa.Debug;
+﻿using Exa.Debugging;
 using UnityEngine;
 
 namespace Exa.UI

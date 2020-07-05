@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.Debug
+namespace Exa.Debugging
 {
     /// <summary>
     /// Console controller

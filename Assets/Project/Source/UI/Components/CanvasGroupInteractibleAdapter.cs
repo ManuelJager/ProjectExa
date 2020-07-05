@@ -3,11 +3,10 @@
 namespace Exa.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class CanvasGroupInteractibleAdapter : MonoBehaviour, IInteractableGroup
+    public class CanvasGroupInteractibleAdapter : MonoBehaviour, IUIGroup
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private bool setAlpha;
-
         [SerializeField] private bool interactible = true;
 
         public bool Interactable
@@ -15,10 +14,16 @@ namespace Exa.UI
             get => interactible;
             set
             {
+                if (interactible == value) return;
+
                 interactible = value;
 
-                canvasGroup.interactable = value;
-                if (setAlpha) canvasGroup.alpha = value ? 1f : 0.5f;
+                if (canvasGroup != null)
+                {
+                    canvasGroup.blocksRaycasts = value;
+                    canvasGroup.interactable = value;
+                    if (setAlpha) canvasGroup.alpha = value ? 1f : 0.5f;
+                }
             }
         }
 

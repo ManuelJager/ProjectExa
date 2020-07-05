@@ -1,6 +1,7 @@
-﻿using Exa.Debug.Commands.Parser;
+﻿using Exa.Debugging.Commands.Parser;
+using Exa.UI;
 
-namespace Exa.Debug.Commands
+namespace Exa.Debugging.Commands
 {
     public class ToggleDiagnosticsCommand : ParameterlessCommand
     {
@@ -9,7 +10,7 @@ namespace Exa.Debug.Commands
 
         public override void CommandAction()
         {
-            var dp = GameManager.Instance.diagnosticsPanel.gameObject;
+            var dp = DiagnosticsPanel.Instance.gameObject;
             dp.SetActive(!dp.activeSelf);
         }
     }

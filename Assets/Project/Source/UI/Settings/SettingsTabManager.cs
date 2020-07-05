@@ -7,8 +7,10 @@ namespace Exa.UI.Components
 {
     public class SettingsTabManager : MonoBehaviour
     {
-        public SettingsTabBase activeTab;
+        [HideInInspector] public SettingsTabBase activeTab;
 
+        [SerializeField] private CanvasGroupInteractibleAdapter applyButton;
+        [SerializeField] private CanvasGroupInteractibleAdapter setDefaultButton;
         [SerializeField] private Text activeTabText;
         [SerializeField] private SettingsTabBase defaultTab;
         [SerializeField] private CanvasGroupInteractibleAdapter canvasGroupInteractibleAdapter;
@@ -44,9 +46,15 @@ namespace Exa.UI.Components
             }
         }
 
+        public void Update()
+        {
+            applyButton.Interactable = activeTab.IsDirty;
+            setDefaultButton.Interactable = activeTab.IsDirty || !activeTab.IsDefault;
+        }
+
         public void QueryUserConfirmation(Action<bool> onClosePrompt)
         {
-            GameManager.Instance.promptController.PromptYesNo(
+            PromptController.Instance.PromptYesNo(
                 "Changes were not saved, do you wish to apply the changes?",
                 canvasGroupInteractibleAdapter,
                 onClosePrompt);

@@ -35,9 +35,9 @@ namespace Exa.IO
 
             foreach (var item in collection)
             {
-                var itemPath = Path.Combine(directory, $"{item.itemName}.json").Replace("/", "\\"); ;
+                var itemPath = IOUtils.CombinePathWithDataPath(directory, $"{item.itemName}.json");
 
-                IOUtils.JsonSerializeToPath(itemPath, item);
+                IOUtils.JsonSerializeToPath(item, itemPath);
             }
         }
 

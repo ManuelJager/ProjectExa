@@ -1,7 +1,7 @@
-﻿using Exa.Debug.Commands.Parser;
+﻿using Exa.Debugging.Commands.Parser;
 using UnityEngine;
 
-namespace Exa.Debug.Commands
+namespace Exa.Debugging.Commands
 {
     public class SpawnBlockCommand : ParameterfulCommand
     {

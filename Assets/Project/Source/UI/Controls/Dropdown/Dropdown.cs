@@ -1,6 +1,7 @@
 ﻿using Coffee.UIEffects;
 using Exa.Audio;
 using Exa.Generics;
+using Exa.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,10 @@ namespace Exa.UI.Controls
     {
     }
 
-    public class Dropdown : MonoBehaviour
+    public class Dropdown : InputControl<NamedValue<object>>
     {
-        // Stores the hash code of the currently selected value
-        [HideInInspector] public int selectedOption;
-
         // Stores the tabs by the value hash code
-        public Dictionary<int, DropdownTab> tabByOption = new Dictionary<int, DropdownTab>();
-
-        // Stores the tabs by the value option
-        public Dictionary<int, object> valueByOption = new Dictionary<int, object>();
+        public Dictionary<NamedValue<object>, DropdownTab> tabByOption = new Dictionary<NamedValue<object>, DropdownTab>();
 
         [SerializeField] private Text selectedName;
         [SerializeField] private Text selectedText;
@@ -33,22 +28,32 @@ namespace Exa.UI.Controls
         [SerializeField] private Button button;
         [SerializeField] private Transform tabContainer;
         [SerializeField] private GameObject tabPrefab;
+        private NamedValue<object> value;
+        private Dictionary<object, NamedValue<object>> contextByValue = new Dictionary<object, NamedValue<object>>();
 
         public DropdownTabSelected onDropdownTabValueSelected;
+
+        public override NamedValue<object> CleanValue { get; set; }
+
+        public override NamedValue<object> Value 
+        { 
+            get => value; 
+            set => SetSelected(value.Value); 
+        }
 
         private void Awake()
         {
             button.onClick.AddListener(ToggleContainer);
         }
 
-        public void CreateTabs(string name, IEnumerable<NamedValue<object>> options)
+        public virtual void CreateTabs(string name, IEnumerable<NamedValue<object>> options)
         {
             this.selectedName.text = name;
 
             CreateTabs(options);
         }
 
-        public void CreateTabs(IEnumerable<NamedValue<object>> options)
+        public virtual void CreateTabs(IEnumerable<NamedValue<object>> options)
         {
             foreach (var option in options)
             {
@@ -56,13 +61,12 @@ namespace Exa.UI.Controls
                 tab.Text = option.Name;
                 tab.button.onClick.AddListener(() =>
                 {
-                    SetSelected(option);
+                    SetSelected(option.Value);
                     ToggleContainer();
                 });
 
-                var optionCode = option.Value.GetHashCode();
-                tabByOption[optionCode] = tab;
-                valueByOption[optionCode ] = option.Value;
+                tabByOption[option] = tab;
+                contextByValue[option.Value] = option;
             }
 
             foreach (var tab in tabByOption.Values)
@@ -70,20 +74,32 @@ namespace Exa.UI.Controls
                 tab.Selected = false;
             }
 
-            SetSelected(options.First());
+            SelectFirstActive();
         }
 
-        public void SetSelected(NamedValue<object> option)
+        public virtual void SelectFirstActive()
         {
-            if (tabByOption.ContainsKey(selectedOption))
+            SetSelected(
+                tabByOption
+                .Where((kvp) => kvp.Value.gameObject.activeSelf)
+                .FirstOrDefault()
+                .Key
+                .Value);
+        }
+
+        public virtual void SetSelected(object newOptionValue)
+        {
+            if (tabByOption.ContainsKey(value))
             {
-                tabByOption[selectedOption].Selected = false;
+                tabByOption[value].Selected = false;
             }
 
-            selectedOption = option.Value.GetHashCode();
-            tabByOption[selectedOption].Selected = true;
-            onDropdownTabValueSelected?.Invoke(option.Value);
-            selectedText.text = option.Name;
+            var newOption = contextByValue[newOptionValue];
+
+            value = newOption;
+            tabByOption[newOption].Selected = true;
+            onDropdownTabValueSelected?.Invoke(newOption.Value);
+            selectedText.text = newOption.Name;
         }
 
         private void ToggleContainer()

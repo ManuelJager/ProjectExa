@@ -69,11 +69,11 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -340081989
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &8398319600394413599
@@ -243,6 +243,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockTemplateTooltip
       objectReference: {fileID: 0}
+    - target: {fileID: 6803584687407185839, guid: f99ac1e33b30b7144bf7b1b31323536a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99ac1e33b30b7144bf7b1b31323536a, type: 3}
 --- !u!224 &3033717110735535963 stripped
@@ -270,6 +275,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5487336474674689311}
     m_Modifications:
+    - target: {fileID: 2511943656280392042, guid: 16e95cc44557a564aa956f97b10b1b14,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4547925157858132864, guid: 16e95cc44557a564aa956f97b10b1b14,
         type: 3}
       propertyPath: m_Name

@@ -11,7 +11,7 @@ namespace Exa.Data
     /// </summary>
     public abstract class RegisterableScriptableObject : ScriptableObject
     {
-        public void OnEnable()
+        public void Awake()
         {
             MonoSingletonUtils.OnInstanceCreated<GameManager>(RegisterSelf);
         }

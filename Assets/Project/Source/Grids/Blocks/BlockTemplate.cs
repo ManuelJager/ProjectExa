@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using Exa.Data;
+using Exa.Generics;
 using Exa.UI.Controls;
 using System;
 using UnityEngine;
@@ -27,7 +28,7 @@ namespace Exa.Grids.Blocks
         }
     }
 
-    public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter
+    public abstract class BlockTemplate : RegisterableScriptableObject, ITooltipPresenter
     {
         [SerializeField] private string id;
         [SerializeField] private string displayId;
@@ -54,6 +55,10 @@ namespace Exa.Grids.Blocks
                 new NamedValue<string> { Name = "", Value = displayId },
                 new NamedValue<string> { Name = "Size", Value = $"{size.x}x{size.y}"}
             };
+        }
+
+        public override void RegisterSelf(GameManager gameManager)
+        {
         }
     }
 }

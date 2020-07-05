@@ -1,4 +1,4 @@
-﻿namespace Exa.Debug.Commands.Parser
+﻿namespace Exa.Debugging.Commands.Parser
 {
     /// <summary>
     /// Describes a part of the command

@@ -1,4 +1,4 @@
-﻿namespace Exa.Debug.Commands.Parser
+﻿namespace Exa.Debugging.Commands.Parser
 {
     public abstract class ExposedCommand : Command
     {

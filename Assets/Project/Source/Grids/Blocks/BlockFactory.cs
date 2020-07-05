@@ -20,9 +20,9 @@ namespace Exa.Grids.Blocks
 
         private void Awake()
         {
-            foreach (var blockTemplate in MiscUtils.GetAllInstances<BlockTemplate>())
+            foreach (var template in MiscUtils.GetAllInstances<BlockTemplate>("GameData/BlockTypes"))
             {
-                RegisterBlockTemplate(blockTemplate);
+                RegisterBlockTemplate(template);
             }
         }
 

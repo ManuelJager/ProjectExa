@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Exa.Debug.Commands.Parser
+namespace Exa.Debugging.Commands.Parser
 {
     public class CommandTypeContext
     {

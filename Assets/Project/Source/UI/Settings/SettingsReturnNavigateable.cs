@@ -19,7 +19,7 @@ namespace Exa.UI.Settings
                     }
                     else
                     {
-                        base.Return(force);
+                        base.Return(true);
                     }
                 });
             }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Exa.Debug.Commands.Parser
+namespace Exa.Debugging.Commands.Parser
 {
     internal class HelpCommand : ExposedCommand
     {

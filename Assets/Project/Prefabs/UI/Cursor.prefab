@@ -201,16 +201,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673de599071ca5e46adf1055d8b3f9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalCursor: {fileID: 5253302181072005237}
-  rectTransform: {fileID: 595289767640309667}
-  inputCursor: {fileID: 6164083937507520386}
   cursorState: 0
   prevCursorState: 0
   cursorBackground: {fileID: 595289766817353120}
   idleColor: {r: 0.39215687, g: 0.39215687, b: 0.43137255, a: 1}
   activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
   removeColor: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}
-  infoColor: {r: 0.98039216, g: 0.9019608, b: 0, a: 1}
+  infoColor: {r: 1, g: 1, b: 1, a: 1}
+  normalCursor: {fileID: 5253302181072005237}
+  rectTransform: {fileID: 595289767640309667}
+  inputCursor: {fileID: 6164083937507520386}
 --- !u!225 &319541716243004829
 CanvasGroup:
   m_ObjectHideFlags: 0

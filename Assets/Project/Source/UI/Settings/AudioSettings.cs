@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Exa.Data;
+using UnityEngine;
 
 namespace Exa.UI.Settings
 {
-    public struct AudioSettingsValues
+    public class AudioSettingsValues
     {
         public float masterVolume;
         public float musicVolume;
@@ -17,6 +18,8 @@ namespace Exa.UI.Settings
             musicVolume = 0.5f,
             effectsVolume = 0.5f
         };
+
+        protected override string Key => "audioSettings";
 
         public override void Apply()
         {

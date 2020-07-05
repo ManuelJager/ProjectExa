@@ -10,7 +10,7 @@ namespace Exa.Grids.Blueprints.Editor
     /// <summary>
     /// Grid layer for the ship layer
     /// </summary>
-    public partial class EditorGrid : MonoBehaviour, IInteractableGroup
+    public partial class EditorGrid : MonoBehaviour, IUIGroup
     {
         [SerializeField] private float movementSpeed;
         private bool interactible = true;

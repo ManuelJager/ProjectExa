@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Exa.UI
 {
-    internal class BlueprintViewController : ViewController<BlueprintView, ObservableBlueprint, Blueprint>, IInteractableGroup
+    internal class BlueprintViewController : ViewController<BlueprintView, ObservableBlueprint, Blueprint>, IUIGroup
     {
         public ObservableBlueprintCollection collectionContext;
         public ShipEditor shipEditor;
@@ -33,7 +33,7 @@ namespace Exa.UI
 
         public void OnAddNewBlueprint()
         {
-            GameManager.Instance.promptController.PromptForm(
+            PromptController.Instance.PromptForm(
                 "Add blueprint",
                 this,
                 new BlueprintCreationOptionsDescriptor(),
@@ -77,7 +77,7 @@ namespace Exa.UI
             {
                 if (!Interactable) return;
 
-                GameManager.Instance.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
+                PromptController.Instance.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
                 {
                     if (yes)
                     {

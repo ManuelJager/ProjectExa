@@ -39,7 +39,6 @@ namespace Exa.Utils
             if (instance == null)
             {
                 Instance = GetComponent<T>();
-                MonoSingletonUtils.NotifyCreated<T>(this);
             }
         }
     }

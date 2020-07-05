@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace Exa.Debug.Commands.Parser
+namespace Exa.Debugging.Commands.Parser
 {
     /// <summary>
     /// Breaks the user input into chunks that can be processed by other objects

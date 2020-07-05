@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exa.Debug.Commands.Parser
+namespace Exa.Debugging.Commands.Parser
 {
     internal static class AttributeExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exa.Debug.Commands.Parser
+namespace Exa.Debugging.Commands.Parser
 {
     /// <summary>
     /// Provides context for a property

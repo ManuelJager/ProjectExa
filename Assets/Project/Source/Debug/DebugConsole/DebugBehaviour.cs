@@ -1,7 +1,7 @@
-﻿using Exa.Debug.Commands;
+﻿using Exa.Debugging.Commands;
 using UnityEngine;
 
-namespace Exa.Debug
+namespace Exa.Debugging
 {
     public abstract class DebugBehaviour : MonoBehaviour
     {

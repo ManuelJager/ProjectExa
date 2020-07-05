@@ -1,5 +1,4 @@
 ﻿using Exa.IO;
-using System.IO;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -11,12 +10,6 @@ namespace Exa.Grids.Blueprints
 
         [SerializeField] private bool loadOnEnable;
         [SerializeField] private bool saveOnDisable;
-        private string userBlueprintsDirectory;
-
-        private void Awake()
-        {
-            userBlueprintsDirectory = Path.Combine(Application.persistentDataPath, "userBlueprints").Replace("/", "\\");
-        }
 
         private void OnEnable()
         {
@@ -32,13 +25,15 @@ namespace Exa.Grids.Blueprints
         // Has a dependency on block factory
         public void Load()
         {
-            CollectionUtils.LoadToCollectionFromDirectory(observableUserBlueprints, userBlueprintsDirectory);
+            var path = IOUtils.CombinePathWithDataPath("userBlueprints");
+            CollectionUtils.LoadToCollectionFromDirectory(observableUserBlueprints, path);
         }
 
         [ContextMenu("Save")]
         public void Save()
         {
-            CollectionUtils.SaveCollectionToDirectory(observableUserBlueprints, userBlueprintsDirectory, true);
+            var path = IOUtils.CombinePathWithDataPath("userBlueprints");
+            CollectionUtils.SaveCollectionToDirectory(observableUserBlueprints, path, true);
         }
     }
 }

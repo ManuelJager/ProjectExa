@@ -49,7 +49,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             gridItems.Clear();
 
-            foreach (var vector in VectorHelpers.EnumerateVectors(size))
+            foreach (var vector in MathUtils.EnumerateVectors(size))
             {
                 var gridItem = Instantiate(gridItemPrefab, transform);
                 gridItem.transform.localPosition = new Vector3(vector.x + 0.5f, vector.y + 0.5f);

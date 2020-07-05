@@ -1,6 +1,6 @@
-﻿using Exa.Debug.Commands.Parser;
+﻿using Exa.Debugging.Commands.Parser;
 
-namespace Exa.Debug
+namespace Exa.Debugging
 {
     public class DebugConsole : Console
     {

@@ -1,4 +1,5 @@
-﻿using Exa.UI.Components;
+﻿using Exa.UI;
+using Exa.UI.Components;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.Editor
@@ -20,7 +21,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             if (!shipEditor.IsSaved)
             {
-                GameManager.Instance.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, (yes) =>
+                PromptController.Instance.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, (yes) =>
                 {
                     if (yes)
                     {

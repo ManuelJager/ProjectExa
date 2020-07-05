@@ -1,4 +1,5 @@
-﻿using Exa.UI.Components;
+﻿using Exa.Data;
+using Exa.UI.Components;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,15 +17,9 @@ namespace Exa.UI.Settings
         /// <summary>
         /// Current stored settings object
         /// </summary>
-        protected TSettings current;
+        public TSettings current;
 
-        public void OnEnable()
-        {
-            current = new TSettings();
-            current.Load();
-            current.Apply();
-            ReflectValues(current.Values);
-        }
+        public override bool IsDefault => current.Values.Equals(current.DefaultValues);
 
         /// <summary>
         /// Reflects the values of the settings
@@ -70,9 +65,14 @@ namespace Exa.UI.Settings
         [SerializeField] protected List<InputControl> controls;
 
         /// <summary>
-        /// Gets wether any of the setting controls are not up-to-date
+        /// Denotes wether any of the setting controls are not up-to-date
         /// </summary>
         public bool IsDirty => controls.Any(control => control.IsDirty);
+
+        /// <summary>
+        /// Denotes wether the current settings object is equal to the default values
+        /// </summary>
+        public abstract bool IsDefault { get; }
 
         /// <summary>
         /// Applies the default values

@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Exa.Debug.Commands.Parser;
+using Exa.Debugging.Commands.Parser;
 
-namespace Exa.Debug
+namespace Exa.Debugging
 {
     /// <summary>
     /// Generates commands from assembly

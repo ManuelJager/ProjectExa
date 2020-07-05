@@ -12,7 +12,7 @@ namespace Exa.Grids.Blueprints.Editor
     public delegate void BlockSelectedDelegate(BlockTemplate id);
 
     [RequireComponent(typeof(ShipEditorNavigateable))]
-    public partial class ShipEditor : MonoBehaviour, IEditorActions, IInteractableGroup
+    public partial class ShipEditor : MonoBehaviour, IEditorActions, IUIGroup
     {
         [HideInInspector] public ObservableBlueprintCollection blueprintCollection;
         public ShipEditorOverlay editorOverlay;
@@ -184,7 +184,7 @@ namespace Exa.Grids.Blueprints.Editor
             }
             else
             {
-                GameManager.Instance.promptController.PromptOk(result[0].Message, this);
+                PromptController.Instance.PromptOk(result[0].Message, this);
             }
         }
 
