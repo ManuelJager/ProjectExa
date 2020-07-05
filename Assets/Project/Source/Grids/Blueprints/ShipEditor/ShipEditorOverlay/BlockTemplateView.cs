@@ -11,6 +11,7 @@ namespace Exa.Grids.Blueprints.Editor
     {
         public Button button;
 
+        [SerializeField] private Text blockSizeText;
         [SerializeField] private Image image;
         [SerializeField] private Hoverable hoverable;
         private BlockTemplate data;
@@ -31,6 +32,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             this.data = data;
             image.sprite = data.Thumbnail;
+            blockSizeText.text = $"{data.Size.x}x{data.Size.y}";
         }
     }
 }
