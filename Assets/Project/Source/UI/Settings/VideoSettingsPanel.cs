@@ -31,7 +31,7 @@ namespace Exa.UI.Settings
         {
             resolutionDropdown.SetSelected(values.resolution);
             refreshRatesDropdown.SetSelected(values.resolution.refreshRate);
-            fullscreenRadio.Value = fullscreenRadio.Value;
+            fullscreenRadio.Value = values.fullscreen;
         }
     }
 }

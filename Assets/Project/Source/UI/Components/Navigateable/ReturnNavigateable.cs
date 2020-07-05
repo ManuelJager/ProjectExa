@@ -1,4 +1,6 @@
-﻿using Exa.Input;
+﻿using Exa.Audio;
+using Exa.Input;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
 using static UnityEngine.InputSystem.InputAction;
@@ -9,6 +11,7 @@ namespace Exa.UI.Components
     {
         public GameControls gameControls;
 
+        [SerializeField] private GlobalAudioPlayerProxy audioPlayer;
         private Navigateable from = null;
 
         protected virtual void Awake()
@@ -30,6 +33,7 @@ namespace Exa.UI.Components
         {
             if (!Interactable && !force) return;
 
+            audioPlayer.Play("UI_SFX_MenuTransitionOut");
             NavigateTo(from, false);
         }
 

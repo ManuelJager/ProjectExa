@@ -9,6 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 359874674127863162, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
+      propertyPath: onPointerExit.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 359874674127863162, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
       propertyPath: onPointerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: UI_SFX_ButtonHover
       objectReference: {fileID: 0}
@@ -122,5 +127,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HighlightedButton
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8901350474062417319, guid: 4436753b620da8f4aa44ab701036f540, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4436753b620da8f4aa44ab701036f540, type: 3}

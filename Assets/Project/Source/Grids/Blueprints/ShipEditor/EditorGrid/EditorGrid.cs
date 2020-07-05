@@ -17,6 +17,7 @@ namespace Exa.Grids.Blueprints.Editor
         private bool mirrorEnabled = false;
         private bool blockedByUI = false;
         private bool canPlaceGhost = false;
+        private Vector2 centerPos;
         private Vector2 playerPos = Vector2.zero;
         private Vector2Int size;
 
@@ -83,12 +84,24 @@ namespace Exa.Grids.Blueprints.Editor
         public void Update()
         {
             if (!Interactable) return;
+
             // Move the grid to keyboard input
             // Remap zoom scale range to damp scale
             var remappedZoomScale = ZoomScale.Remap(0f, 3f, 0.5f, 1.5f);
-            playerPos -= MovementVector * movementSpeed * Time.deltaTime * remappedZoomScale;
-            // Move the
-            transform.DOLocalMove(playerPos.ToVector3(), 0.3f);
+
+            // Calculate movement offset
+            playerPos -= 
+                MovementVector *
+                movementSpeed * 
+                Time.deltaTime * 
+                remappedZoomScale;
+
+            // Clamp movement offset to prevent going out of bounds
+            playerPos = Vector2.ClampMagnitude(playerPos, 15f);
+
+            // Get position by adding the pivot to the offset
+            var position = centerPos + playerPos;
+            transform.DOLocalMove(position, 0.3f);
 
             // Check for mouse input
             backgroundLayer.UpdateCurrActiveGridItem(transform.localPosition.ToVector2());
@@ -110,8 +123,10 @@ namespace Exa.Grids.Blueprints.Editor
         {
             // Set the active size and set targe player position the center of the grid
             this.size = size;
-            playerPos = GetGridOffset();
-            transform.localPosition = playerPos.ToVector3();
+
+            // Set the movement pivot
+            centerPos = GetGridOffset();
+            transform.localPosition = centerPos.ToVector3();
 
             // Generate the grid
             backgroundLayer.GenerateGrid(size);

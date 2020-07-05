@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969b3692d4ac1d64e9442244cd074751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 2029234065}
 --- !u!1 &233742688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,49 +1093,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2017633447}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2029234064 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2527967290887384825, guid: b8b2f503827870f4a9a51cd4bb666fbf,
+--- !u!114 &2029234065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2820697391525133568, guid: b8b2f503827870f4a9a51cd4bb666fbf,
     type: 3}
   m_PrefabInstance: {fileID: 2527967290278094248}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2029234065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029234064}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: d888a3ab04c7fb64380c59ab76d62138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2029234066
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029234064}
-  m_CullTransparentMesh: 0
 --- !u!1001 &2132227040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1293,6 +1263,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LoadingScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527967290887384825, guid: b8b2f503827870f4a9a51cd4bb666fbf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2527967290887384826, guid: b8b2f503827870f4a9a51cd4bb666fbf,
         type: 3}

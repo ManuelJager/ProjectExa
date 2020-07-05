@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1617958063522696134}
   - component: {fileID: 6027265397929423277}
   - component: {fileID: 9133893927100921210}
+  - component: {fileID: 8625900837292856731}
   m_Layer: 0
   m_Name: ShipEditor
   m_TagString: Untagged
@@ -95,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7e654be5f38614388626bb325fb1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioPlayer: {fileID: 8625900837292856731}
 --- !u!114 &9133893927100921210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +113,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invokeOnTime: 1
+--- !u!114 &8625900837292856731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3467558800746813093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e199450f3216546b29d13f8d842126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7409053316416911932
 GameObject:
   m_ObjectHideFlags: 0
