@@ -1,12 +1,13 @@
 ﻿using Exa.Generics;
 using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class PowerGeneratorBlockTemplateComponent : ITemplateComponent<PowerGeneratorBlockData>, ITooltipPresenter
+    public class PowerGeneratorBlockTemplateComponent : ITemplateComponent<PowerGeneratorBlockData>
     {
         [SerializeField] private float peakGeneration; // In MW
 
@@ -24,7 +25,7 @@ namespace Exa.Grids.Blocks.Components
             return new ITooltipComponent[]
             {
                 new TooltipSpacer(),
-                new NamedValue<string> { Name = "Power generation", Value = $"{peakGeneration} KW"}
+                new NamedValue<string>("Power generation", $"{peakGeneration} KW")
             };
         }
     }

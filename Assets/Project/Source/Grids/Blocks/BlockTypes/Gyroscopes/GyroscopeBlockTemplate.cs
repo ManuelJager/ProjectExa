@@ -1,5 +1,6 @@
 ﻿using Exa.Grids.Blocks.Components;
 using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -22,9 +23,9 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.GyroscopeBlockData = gyroscopeBlockTemplateComponent.Convert();
         }
 
-        public override ITooltipComponent[] GetComponents()
+        protected override ITooltipComponent[] ComponentFactory()
         {
-            return base.GetComponents()
+            return base.ComponentFactory()
                 .Concat(physicalBlockTemplateComponent.GetComponents())
                 .Concat(gyroscopeBlockTemplateComponent.GetComponents())
                 .ToArray();

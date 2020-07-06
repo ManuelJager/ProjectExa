@@ -1,13 +1,13 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blocks.BlockTypes;
-using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class GyroscopeBlockTemplateComponent : ITemplateComponent<GyroscopeBlockData>, ITooltipPresenter
+    public class GyroscopeBlockTemplateComponent : ITemplateComponent<GyroscopeBlockData>
     {
         [SerializeField] private float turningRate; // In tons it can rotate 360 degrees per second
 
@@ -26,7 +26,7 @@ namespace Exa.Grids.Blocks.Components
             return new ITooltipComponent[]
             {
                 new TooltipSpacer(),
-                new NamedValue<string> { Name = "Turning Rate", Value = turningRate.ToString()}
+                new NamedValue<string>("Turning Rate", turningRate.ToString())
             };
         }
     }

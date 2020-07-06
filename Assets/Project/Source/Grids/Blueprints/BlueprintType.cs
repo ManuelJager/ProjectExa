@@ -1,5 +1,5 @@
 ﻿using Exa.Generics;
-using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +15,24 @@ namespace Exa.Grids.Blueprints
         public Vector2Int maxSize;
         public List<string> disallowedBlockCategories;
 
-        public ITooltipComponent[] GetComponents()
+        private TooltipResult tooltipResult;
+
+        private void OnEnable()
+        {
+            tooltipResult = new TooltipResult(ComponentFactory);
+        }
+
+        public ITooltipComponent[] ComponentFactory()
         {
             return new ITooltipComponent[]
             {
-                new NamedValue<string> { Name = "Max size", Value = $"{maxSize.x}x{maxSize.y}"}
+                new NamedValue<string>("Max size", $"{maxSize.x}x{maxSize.y}")
             };
+        }
+
+        public TooltipResult GetComponents()
+        {
+            return tooltipResult;
         }
     }
 }

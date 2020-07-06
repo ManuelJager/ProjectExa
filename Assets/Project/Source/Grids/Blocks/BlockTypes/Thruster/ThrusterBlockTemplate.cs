@@ -1,5 +1,5 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -22,9 +22,9 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.ThrusterBlockData = thrusterTemplateComponent.Convert();
         }
 
-        public override ITooltipComponent[] GetComponents()
+        protected override ITooltipComponent[] ComponentFactory()
         {
-            return base.GetComponents()
+            return base.ComponentFactory()
                 .Concat(physicalTemplateComponent.GetComponents())
                 .Concat(thrusterTemplateComponent.GetComponents())
                 .ToArray();

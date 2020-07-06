@@ -1,12 +1,12 @@
 ﻿using Exa.Generics;
-using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class ThrusterBlockTemplateComponent : ITemplateComponent<ThrusterBlockData>, ITooltipPresenter
+    public class ThrusterBlockTemplateComponent : ITemplateComponent<ThrusterBlockData>
     {
         [SerializeField] private int newtonThrust; // In newton
 
@@ -25,7 +25,7 @@ namespace Exa.Grids.Blocks.Components
             return new ITooltipComponent[]
             {
                 new TooltipSpacer(),
-                new NamedValue<string> { Name = "Thrust", Value = $"{newtonThrust}N"}
+                new NamedValue<string>("Thrust", $"{newtonThrust}N")
             };
         }
     }

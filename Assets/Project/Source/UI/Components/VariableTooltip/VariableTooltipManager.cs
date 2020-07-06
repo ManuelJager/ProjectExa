@@ -1,7 +1,7 @@
 ﻿using Exa.Grids.Blocks;
 using Exa.Utils;
 
-namespace Exa.UI.Controls
+namespace Exa.UI.Tooltips
 {
     public class VariableTooltipManager : MonoSingleton<VariableTooltipManager>
     {

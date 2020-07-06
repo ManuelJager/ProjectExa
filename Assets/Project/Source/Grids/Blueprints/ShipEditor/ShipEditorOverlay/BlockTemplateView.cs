@@ -1,7 +1,7 @@
 ﻿using Exa.Bindings;
 using Exa.Grids.Blocks;
 using Exa.UI;
-using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.UI;
 

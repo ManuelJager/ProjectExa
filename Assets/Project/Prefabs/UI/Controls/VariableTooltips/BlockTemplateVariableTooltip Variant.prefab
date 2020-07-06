@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 6803584687407185839}
+  tooltipContainer: {fileID: 2338765496953455963}
 --- !u!1001 &1985779427146486879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,6 +141,12 @@ PrefabInstance:
 --- !u!1 &4875848765654760773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6351369876169861402, guid: 976bff65b741ce24bb240b3a811a8bb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1985779427146486879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2338765496953455963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4321785527859777796, guid: 976bff65b741ce24bb240b3a811a8bb3,
     type: 3}
   m_PrefabInstance: {fileID: 1985779427146486879}
   m_PrefabAsset: {fileID: 0}

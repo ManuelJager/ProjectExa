@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.UI.Controls
+namespace Exa.UI.Tooltips
 {
     public interface ITooltipComponent
     {

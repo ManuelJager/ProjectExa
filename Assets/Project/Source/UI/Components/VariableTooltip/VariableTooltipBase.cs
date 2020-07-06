@@ -1,7 +1,7 @@
 ﻿using Exa.Input;
 using UnityEngine;
 
-namespace Exa.UI.Controls
+namespace Exa.UI.Tooltips
 {
     public abstract class VariableTooltipBase<T> : MonoBehaviour
         where T : ITooltipPresenter
@@ -16,17 +16,13 @@ namespace Exa.UI.Controls
         public void ShowTooltip(T data)
         {
             gameObject.SetActive(true);
-            SmartSetPos();
             SetValues(data);
+            SmartSetPos();
         }
 
         public void HideTooltip()
         {
             gameObject.SetActive(false);
-            foreach (Transform child in container)
-            {
-                Destroy(child.gameObject);
-            }
         }
 
         /// <summary>
@@ -59,7 +55,8 @@ namespace Exa.UI.Controls
 
         public virtual void SetValues(T data)
         {
-            VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltips(data, container);
+            var result = data.GetComponents();
+            VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltip(result, container);
         }
     }
 }

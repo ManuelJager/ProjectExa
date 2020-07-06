@@ -1,9 +1,10 @@
 ﻿using Exa.Generics;
+using Exa.UI.Controls;
 using Exa.UI.SharedViews;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.UI.Controls
+namespace Exa.UI.Tooltips
 {
     public class TooltipGenerator : MonoBehaviour
     {
@@ -11,10 +12,10 @@ namespace Exa.UI.Controls
         [SerializeField] private GameObject titlePrefab;
         [SerializeField] private GameObject spacerPrefab;
 
-        public List<GameObject> GenerateTooltips(ITooltipPresenter tooltipPresenter, Transform parent)
+        public IEnumerable<GameObject> GenerateTooltip(TooltipResult result, Transform parent)
         {
             var collection = new List<GameObject>();
-            foreach (var property in tooltipPresenter.GetComponents())
+            foreach (var property in result.GetComponents())
             {
                 var tooltipProperty = property.InstantiateComponentView(parent);
                 tooltipProperty.transform.SetParent(parent);

@@ -1,12 +1,13 @@
 ﻿using Exa.Generics;
 using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class PhysicalBlockTemplateComponent : ITemplateComponent<PhysicalBlockData>, ITooltipPresenter
+    public class PhysicalBlockTemplateComponent : ITemplateComponent<PhysicalBlockData>
     {
         [SerializeField] private float maxHull;
         [SerializeField] private float armor;
@@ -30,9 +31,9 @@ namespace Exa.Grids.Blocks.Components
             return new ITooltipComponent[]
             {
                 new TooltipSpacer(),
-                new NamedValue<string> { Name = "Hull", Value = maxHull.ToString() },
-                new NamedValue<string> { Name = "Armor", Value = armor.ToString() },
-                new NamedValue<string> { Name = "Mass", Value = mass.ToString()}
+                new NamedValue<string>("Hull", maxHull.ToString()),
+                new NamedValue<string>("Armor", armor.ToString()),
+                new NamedValue<string>("Mass", mass.ToString())
             };
         }
     }

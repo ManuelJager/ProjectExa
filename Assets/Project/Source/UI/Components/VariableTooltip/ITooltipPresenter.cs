@@ -1,4 +1,4 @@
-﻿namespace Exa.UI.Controls
+﻿namespace Exa.UI.Tooltips
 {
     /// <summary>
     /// Supports objects that may be presented with an in-game tooltip
@@ -9,6 +9,6 @@
         /// Get the collection of tooltip components
         /// </summary>
         /// <returns></returns>
-        ITooltipComponent[] GetComponents();
+        TooltipResult GetComponents();
     }
 }
