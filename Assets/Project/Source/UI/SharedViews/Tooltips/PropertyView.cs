@@ -16,11 +16,5 @@ namespace Exa.UI.Controls
             keyText.text = valueContext.Name;
             valueText.text = valueContext.Value.ToString();
         }
-
-        public void SetKeyOnly(bool value)
-        {
-            keyContainer.gameObject.SetActive(!value);
-            valueText.alignment = value ? TextAnchor.MiddleCenter : TextAnchor.MiddleLeft;
-        }
     }
 }

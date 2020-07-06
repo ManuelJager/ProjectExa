@@ -126,6 +126,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   propertyPrefab: {fileID: 6372109433816541427, guid: 7d49f4aa77aebae418b6c289028d58ec,
     type: 3}
+  titlePrefab: {fileID: 8987388402462985970, guid: 52f9717f47e5a19499acc8ac2330c405,
+    type: 3}
+  spacerPrefab: {fileID: 7272114362287537980, guid: 9bb61fb0a3098ff4dbd814ecf8d8d5ed,
+    type: 3}
 --- !u!1001 &858728725163463310
 PrefabInstance:
   m_ObjectHideFlags: 0

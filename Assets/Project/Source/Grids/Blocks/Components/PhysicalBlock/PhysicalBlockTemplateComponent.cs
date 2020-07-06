@@ -29,6 +29,7 @@ namespace Exa.Grids.Blocks.Components
         {
             return new ITooltipComponent[]
             {
+                new TooltipSpacer(),
                 new NamedValue<string> { Name = "Hull", Value = maxHull.ToString() },
                 new NamedValue<string> { Name = "Armor", Value = armor.ToString() },
                 new NamedValue<string> { Name = "Mass", Value = mass.ToString()}

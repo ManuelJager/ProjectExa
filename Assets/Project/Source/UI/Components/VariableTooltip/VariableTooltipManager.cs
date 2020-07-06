@@ -8,10 +8,5 @@ namespace Exa.UI.Controls
         public TooltipGenerator tooltipGenerator;
         public BlockTemplateTooltip blockTemplateTooltip;
         public BlueprintTypeTooltip blueprintTypeTooltip;
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
     }
 }

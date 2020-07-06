@@ -1,4 +1,5 @@
 ﻿using Exa.Generics;
+using Exa.UI.SharedViews;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace Exa.UI.Controls
     public class TooltipGenerator : MonoBehaviour
     {
         [SerializeField] private GameObject propertyPrefab;
+        [SerializeField] private GameObject titlePrefab;
+        [SerializeField] private GameObject spacerPrefab;
 
         public List<GameObject> GenerateTooltips(ITooltipPresenter tooltipPresenter, Transform parent)
         {
@@ -20,13 +23,24 @@ namespace Exa.UI.Controls
             return collection;
         }
 
-        public GameObject GenerateTooltipProperty<T>(NamedValue<T> valueContext, Transform parent)
+        public GameObject GenerateTooltipProperty<T>(NamedValue<T> value, Transform parent)
         {
             var propertyObject = Instantiate(propertyPrefab, parent);
-            var propertyView = propertyObject.GetComponent<PropertyView>();
-            propertyView.Reflect(valueContext);
-            propertyView.SetKeyOnly(valueContext.Name == "");
+            propertyObject.GetComponent<PropertyView>().Reflect(value);
             return propertyObject;
+        }
+
+        public GameObject GenerateTooltipTitle(TooltipTitle value, Transform parent)
+        {
+            var titleObject = Instantiate(titlePrefab, parent);
+            titleObject.GetComponent<TitleView>().Reflect(value);
+            return titleObject;
+        }
+
+        public GameObject GenerateTooltipSpacer(TooltipSpacer value, Transform parent)
+        {
+            var spacerObject = Instantiate(spacerPrefab, parent);
+            return spacerObject;
         }
     }
 }

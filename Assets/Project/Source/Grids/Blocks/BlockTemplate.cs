@@ -28,7 +28,7 @@ namespace Exa.Grids.Blocks
         }
     }
 
-    public abstract class BlockTemplate : RegisterableScriptableObject, ITooltipPresenter
+    public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter
     {
         [SerializeField] private string id;
         [SerializeField] private string displayId;
@@ -52,13 +52,8 @@ namespace Exa.Grids.Blocks
         {
             return new ITooltipComponent[]
             {
-                new NamedValue<string> { Name = "", Value = displayId },
-                new NamedValue<string> { Name = "Size", Value = $"{size.x}x{size.y}"}
+                new TooltipTitle(displayId),
             };
-        }
-
-        public override void RegisterSelf(GameManager gameManager)
-        {
         }
     }
 }

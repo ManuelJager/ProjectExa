@@ -6,8 +6,14 @@ namespace Exa.Generics
 {
     public struct NamedValue<T> : ITooltipComponent, INamedValue<T>, IEquatable<NamedValue<T>>
     {
-        public string Name;
+        public string Name { get; set; }
         public T Value { get; set; }
+
+        public NamedValue(string name, T value)
+        {
+            Name = name;
+            Value = value;
+        }
 
         public bool Equals(NamedValue<T> other)
         {
