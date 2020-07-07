@@ -14,8 +14,9 @@ namespace Exa.UI.Controls
         public SliderEvent onValueChanged = new SliderEvent();
 
         public override float CleanValue { get; set; }
-        public override float Value 
-        { 
+
+        public override float Value
+        {
             get => slider.value;
             set
             {

@@ -15,6 +15,7 @@ namespace Exa.Grids.Blueprints
         [JsonIgnore] public List<AnchoredBlueprintBlock> anchoredBlueprintBlocks = new List<AnchoredBlueprintBlock>();
 
         [JsonIgnore] private BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
+
         public BlueprintBlocks()
             : base()
         {

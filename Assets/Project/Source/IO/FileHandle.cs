@@ -4,7 +4,7 @@ using System.IO;
 namespace Exa.IO
 {
     /// <summary>
-    /// Provides a reference to a file that may have its name updated 
+    /// Provides a reference to a file that may have its name updated
     /// </summary>
     public class FileHandle
     {

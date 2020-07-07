@@ -26,7 +26,7 @@ namespace Exa.Grids.Blocks.Components
             return new ITooltipComponent[]
             {
                 new TooltipSpacer(),
-                new NamedValue<string>("Turning Rate", turningRate.ToString())
+                new NamedWrapper<string>("Turning Rate", turningRate.ToString())
             };
         }
     }

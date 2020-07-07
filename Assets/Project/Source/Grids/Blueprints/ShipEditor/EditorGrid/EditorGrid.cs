@@ -90,10 +90,10 @@ namespace Exa.Grids.Blueprints.Editor
             var remappedZoomScale = ZoomScale.Remap(0f, 3f, 0.5f, 1.5f);
 
             // Calculate movement offset
-            playerPos -= 
+            playerPos -=
                 MovementVector *
-                movementSpeed * 
-                Time.deltaTime * 
+                movementSpeed *
+                Time.deltaTime *
                 remappedZoomScale;
 
             // Clamp movement offset to prevent going out of bounds

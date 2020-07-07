@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 
 namespace Exa.SceneManagement
 {

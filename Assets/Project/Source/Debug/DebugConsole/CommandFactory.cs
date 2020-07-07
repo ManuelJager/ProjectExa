@@ -1,8 +1,8 @@
-﻿using Exa.Utils;
+﻿using Exa.Debugging.Commands.Parser;
+using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Exa.Debugging.Commands.Parser;
 
 namespace Exa.Debugging
 {

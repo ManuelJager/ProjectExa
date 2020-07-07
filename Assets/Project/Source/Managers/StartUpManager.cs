@@ -14,7 +14,7 @@ namespace Exa
 
             MainManager.Prepared.AddListener(() =>
             {
-                transition.onScenePrepared?.Invoke();  
+                transition.onScenePrepared?.Invoke();
             });
         }
     }

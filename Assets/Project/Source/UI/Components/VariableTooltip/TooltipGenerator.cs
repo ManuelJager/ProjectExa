@@ -20,7 +20,7 @@ namespace Exa.UI.Tooltips
             }
         }
 
-        public GameObject GenerateTooltipProperty<T>(NamedValue<T> value, Transform parent)
+        public GameObject GenerateTooltipProperty<T>(NamedWrapper<T> value, Transform parent)
         {
             var propertyObject = Instantiate(propertyPrefab, parent);
             propertyObject.GetComponent<PropertyView>().Reflect(value);

@@ -25,7 +25,7 @@ namespace Exa.Grids.Blocks.Components
             return new ITooltipComponent[]
             {
                 new TooltipSpacer(),
-                new NamedValue<string>("Thrust", $"{newtonThrust}N")
+                new NamedWrapper<string>("Thrust", $"{newtonThrust}N")
             };
         }
     }

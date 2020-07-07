@@ -1,5 +1,4 @@
-﻿using Unity.Entities.UniversalDelegates;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Exa.UI.Components
@@ -28,8 +27,8 @@ namespace Exa.UI.Components
         {
             base.CalculateLayoutInputHorizontal();
 
-            if (fitType == FitType.Width 
-                || fitType == FitType.Height 
+            if (fitType == FitType.Width
+                || fitType == FitType.Height
                 || fitType == FitType.Uniform)
             {
                 var sqrRt = Mathf.Sqrt(transform.childCount);
@@ -37,12 +36,12 @@ namespace Exa.UI.Components
                 columns = Mathf.CeilToInt(sqrRt);
             }
 
-            if (fitType == FitType.Width 
+            if (fitType == FitType.Width
                 || fitType == FitType.FixedColumns)
             {
                 rows = Mathf.CeilToInt(transform.childCount / (float)columns);
             }
-            if (fitType == FitType.Height 
+            if (fitType == FitType.Height
                 || fitType == FitType.FixedRows)
             {
                 columns = Mathf.CeilToInt(transform.childCount / (float)rows);
@@ -51,14 +50,14 @@ namespace Exa.UI.Components
             var parentWidth = rectTransform.rect.width;
             var parentHeight = rectTransform.rect.height;
 
-            var cellWidth = 
-                parentWidth / (float)columns 
-                - ((spacing.x / (float)columns) * 2f) 
-                - (padding.left / (float)columns) 
+            var cellWidth =
+                parentWidth / (float)columns
+                - ((spacing.x / (float)columns) * 2f)
+                - (padding.left / (float)columns)
                 - (padding.right / (float)columns);
 
-            var cellHeight = 
-                parentHeight / (float)rows 
+            var cellHeight =
+                parentHeight / (float)rows
                 - ((spacing.y / (float)rows) * 2f)
                 - (padding.top / (float)rows)
                 - (padding.bottom / (float)rows);

@@ -9,8 +9,6 @@ namespace Exa.Data
     /// <typeparam name="T"></typeparam>
     public abstract class SaveableSettings<T> : ISettings
     {
-        private static string baseDirectory;
-
         /// <summary>
         /// Default setting values
         /// </summary>
@@ -23,15 +21,6 @@ namespace Exa.Data
 
         protected abstract string Key { get; }
 
-        static SaveableSettings()
-        {
-            baseDirectory = IOUtils.GetPath("settings");
-            if (!Directory.Exists(baseDirectory))
-            {
-                Directory.CreateDirectory(baseDirectory);
-            }
-        }
-
         /// <summary>
         /// Applies the current values to the client
         /// </summary>
@@ -42,7 +31,7 @@ namespace Exa.Data
         /// </summary>
         public virtual void Save()
         {
-            var path = IOUtils.CombinePath(baseDirectory, $"{Key}.json");
+            var path = IOUtils.CombinePath(IOUtils.GetPath("settings"), $"{Key}.json");
             IOUtils.JsonSerializeToPath(Values, path, SerializationMode.readable);
         }
 
@@ -51,8 +40,8 @@ namespace Exa.Data
         /// </summary>
         public virtual void Load()
         {
-            var path = IOUtils.CombinePath(baseDirectory, $"{Key}.json");
-            Values = File.Exists(path) 
+            var path = IOUtils.CombinePath(IOUtils.GetPath("settings"), $"{Key}.json");
+            Values = File.Exists(path)
                 ? IOUtils.JsonDeserializeFromPath<T>(path)
                 : DefaultValues;
         }

@@ -3,7 +3,7 @@
 namespace Exa.Utils
 {
     public class MonoSingleton<T> : MonoSingleton
-        where T : MonoSingleton<T> 
+        where T : MonoSingleton<T>
     {
         protected static T instance = null;
 
@@ -45,6 +45,5 @@ namespace Exa.Utils
 
     public abstract class MonoSingleton : MonoBehaviour
     {
-
     }
 }

@@ -34,7 +34,7 @@ namespace Exa.Data
 
             // Get resolition view models
             var resolutions = selectedResolutions
-                .Select((resolution) => new NamedValue<object>($"{resolution.width}x{resolution.height}", resolution))
+                .Select((resolution) => new NamedWrapper<object>($"{resolution.width}x{resolution.height}", resolution))
                 .Reverse();
 
             // Get Refresh rate view models
@@ -42,7 +42,7 @@ namespace Exa.Data
                 .Select((resolution) => resolution.refreshRate)
                 .Distinct()
                 .OrderByDescending((resolution) => resolution)
-                .Select((refreshRate) => new NamedValue<object>($"{refreshRate} hz", refreshRate));
+                .Select((refreshRate) => new NamedWrapper<object>($"{refreshRate} hz", refreshRate));
 
             videoSettings.refreshRatesDropdown.CreateTabs("Refresh rate", refreshRates);
 

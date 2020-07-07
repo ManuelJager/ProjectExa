@@ -11,7 +11,7 @@ namespace Exa.UI.Controls
         [SerializeField] private Transform valueContainer;
         [SerializeField] private Text valueText;
 
-        public void Reflect<T>(NamedValue<T> valueContext)
+        public void Reflect<T>(NamedWrapper<T> valueContext)
         {
             keyText.text = valueContext.Name;
             valueText.text = valueContext.Value.ToString();

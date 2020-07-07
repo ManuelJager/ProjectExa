@@ -1,5 +1,4 @@
 ﻿using Exa.Generics;
-using Exa.UI.Controls;
 using Exa.UI.Tooltips;
 using System;
 using UnityEngine;
@@ -31,9 +30,9 @@ namespace Exa.Grids.Blocks.Components
             return new ITooltipComponent[]
             {
                 new TooltipSpacer(),
-                new NamedValue<string>("Hull", maxHull.ToString()),
-                new NamedValue<string>("Armor", armor.ToString()),
-                new NamedValue<string>("Mass", mass.ToString())
+                new NamedWrapper<string>("Hull", maxHull.ToString()),
+                new NamedWrapper<string>("Armor", armor.ToString()),
+                new NamedWrapper<string>("Mass", mass.ToString())
             };
         }
     }

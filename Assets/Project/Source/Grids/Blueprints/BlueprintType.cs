@@ -26,7 +26,7 @@ namespace Exa.Grids.Blueprints
         {
             return new ITooltipComponent[]
             {
-                new NamedValue<string>("Max size", $"{maxSize.x}x{maxSize.y}")
+                new NamedWrapper<string>("Max size", $"{maxSize.x}x{maxSize.y}")
             };
         }
 

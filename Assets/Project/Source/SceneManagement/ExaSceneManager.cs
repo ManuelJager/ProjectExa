@@ -52,7 +52,7 @@ namespace Exa.SceneManagement
             return transition;
         }
 
-        IEnumerator ReportOperation(AsyncOperation operation)
+        private IEnumerator ReportOperation(AsyncOperation operation)
         {
             while (true)
             {

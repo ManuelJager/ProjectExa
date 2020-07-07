@@ -21,14 +21,14 @@ namespace Exa.Grids.Blueprints
             }
         }
 
-        public IEnumerable<NamedValue<object>> GetValues()
+        public IEnumerable<NamedWrapper<object>> GetValues()
         {
             var types = MainManager.Instance.blueprintManager.blueprintTypes.types;
             // Sort blueprint types by their size
             types.Sort(new BlueprintTypeComparer());
             foreach (var type in types)
             {
-                yield return new NamedValue<object>
+                yield return new NamedWrapper<object>
                 {
                     Name = type.displayName,
                     Value = type

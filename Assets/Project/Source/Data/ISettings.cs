@@ -3,6 +3,9 @@
     public interface ISettings
     {
         void Load();
+
+        void Save();
+
         void Apply();
     }
 }

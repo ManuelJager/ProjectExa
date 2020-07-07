@@ -60,8 +60,8 @@ namespace Exa.IO
         }
 
         public static void JsonSerializeToPath(
-            object value, 
-            string filePath, 
+            object value,
+            string filePath,
             SerializationMode serializationMode = SerializationMode.compact)
         {
             var text = JsonSerializeWithSettings(value, serializationMode);

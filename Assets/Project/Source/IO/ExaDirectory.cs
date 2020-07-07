@@ -1,10 +1,7 @@
-﻿using Exa.Generics;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 namespace Exa.IO
 {
-    // TODO: optimize
     public class ExaDirectory
     {
         public string Value { get; private set; }

@@ -9,7 +9,7 @@ namespace Exa.Generics
     {
         public bool Fatal { get; private set; } = false;
 
-        public UserException() 
+        public UserException()
             : base()
         { }
 

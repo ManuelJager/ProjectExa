@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace Exa.Generics
 {
-    public struct NamedValue<T> : ITooltipComponent, INamedValue<T>, IEquatable<NamedValue<T>>
+    public struct NamedWrapper<T> : ITooltipComponent, INamedValue<T>, IEquatable<NamedWrapper<T>>
     {
         public string Name { get; set; }
         public T Value { get; set; }
 
-        public NamedValue(string name, T value)
+        public NamedWrapper(string name, T value)
         {
             Name = name;
             Value = value;
         }
 
-        public bool Equals(NamedValue<T> other)
+        public bool Equals(NamedWrapper<T> other)
         {
             return
                 Name.Equals(other.Name) &&

@@ -1,5 +1,4 @@
-﻿using Exa.Bindings;
-using Exa.Generics;
+﻿using Exa.Generics;
 using Exa.Grids.Blueprints;
 using Exa.UI.Controls;
 using UnityEngine;
@@ -33,26 +32,26 @@ namespace Exa.UI
 
             nameText.text = blueprint.name;
 
-            blockCountView.Reflect(new NamedValue<string>
+            blockCountView.Reflect(new NamedWrapper<string>
             {
                 Name = "Blocks",
                 Value = blueprint.Blocks.anchoredBlueprintBlocks.Count.ToString()
             });
 
             var size = blueprint.Blocks.Size.Value;
-            sizeView.Reflect(new NamedValue<string>
+            sizeView.Reflect(new NamedWrapper<string>
             {
                 Name = "Size",
                 Value = $"{size.x}x{size.y}"
             });
 
-            massView.Reflect(new NamedValue<string>
+            massView.Reflect(new NamedWrapper<string>
             {
                 Name = "Mass",
                 Value = $"{blueprint.Mass / 1000f:0} Tons"
             });
 
-            peakPowerGenerationView.Reflect(new NamedValue<string>
+            peakPowerGenerationView.Reflect(new NamedWrapper<string>
             {
                 Name = "Power generation",
                 Value = $"{blueprint.PeakPowerGeneration:0} KW"
