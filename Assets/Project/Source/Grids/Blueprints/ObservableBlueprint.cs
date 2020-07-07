@@ -40,7 +40,7 @@ namespace Exa.Grids.Blueprints
 
         public void UpdateThumbnail()
         {
-            Data.Thumbnail = GenerateThumbnail();       
+            Data.Thumbnail = MainManager.Instance.thumbnailGenerator.GenerateThumbnail(Data);       
             ThumbnailFileHandle.UpdatePath();
         }
 

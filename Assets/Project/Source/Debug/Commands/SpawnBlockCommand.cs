@@ -8,7 +8,7 @@ namespace Exa.Debugging.Commands
         public override string Name => "spawnblock";
         public override string HelpText => "Spawns a block of given id to 0.0";
 
-        [ArgumentDefinition(0, "Id of the block to be spawned")]
+        [CommandArg(0, "Id of the block to be spawned")]
         public string blockId { get; set; }
 
         public override void CommandHandle(Console console, Tokenizer tokenizer)

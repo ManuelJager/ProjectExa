@@ -3,6 +3,7 @@ using Exa.Data;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.Grids.Blueprints.Editor;
+using Exa.Grids.Blueprints.Thumbnails;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +20,7 @@ namespace Exa
         public ShipEditor shipEditor;
         public AudioManager audioController;
         public SettingsManager settingsManager;
+        public ThumbnailGenerator thumbnailGenerator;
 
         public void Start()
         {

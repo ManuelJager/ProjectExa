@@ -6,7 +6,7 @@ namespace Exa.Debugging.Commands.Parser
     /// Provides context for a property
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-    public sealed class ArgumentDefinitionAttribute : Attribute
+    public sealed class CommandArgAttribute : Attribute
     {
         /// <summary>
         /// Argument tooltip
@@ -25,21 +25,28 @@ namespace Exa.Debugging.Commands.Parser
         /// </summary>
         internal bool Positional => ArgumentOrder != -1;
 
-        public ArgumentDefinitionAttribute(string HelpText = "default help text")
+        public CommandArgAttribute()
+        {
+            this.HelpText = "default help text";
+            this.ArgumentOrder = -1;
+            this.aliases = null;
+        }
+
+        public CommandArgAttribute(string HelpText)
         {
             this.HelpText = HelpText;
             this.ArgumentOrder = -1;
             this.aliases = null;
         }
 
-        public ArgumentDefinitionAttribute(int ArgumentOrder = -1, string HelpText = "default help text")
+        public CommandArgAttribute(int ArgumentOrder = -1, string HelpText = "default help text")
         {
             this.HelpText = HelpText;
             this.ArgumentOrder = ArgumentOrder;
             this.aliases = null;
         }
 
-        public ArgumentDefinitionAttribute(string[] aliases, string HelpText = "default help text")
+        public CommandArgAttribute(string[] aliases, string HelpText = "default help text")
         {
             this.HelpText = HelpText;
             this.ArgumentOrder = -1;

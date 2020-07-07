@@ -42,11 +42,11 @@ namespace Exa.Debugging.Commands.Parser
 
             foreach (var property in properties)
             {
-                ArgumentDefinitionAttribute argument;
+                CommandArgAttribute argument;
 
                 try
                 {
-                    argument = property.GetProperty<ArgumentDefinitionAttribute>();
+                    argument = property.GetProperty<CommandArgAttribute>();
                 }
                 catch (IndexOutOfRangeException)
                 {
