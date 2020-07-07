@@ -14,11 +14,11 @@ namespace Exa.Grids.Blueprints
             : base(blueprint)
         {
             BlueprintFileHandle = new FileHandle(this,
-                (name) => IOUtils.CombinePath(RelativeDir.USER_BLUEPRINTS, $"{name}.json"),
+                (name) => IOUtils.CombinePath(IOUtils.GetPath("blueprints"), $"{name}.json"),
                 (path) => IOUtils.JsonSerializeToPath(this, path));
 
             ThumbnailFileHandle = new FileHandle(this,
-                (name) => IOUtils.CombinePath(RelativeDir.THUMBNAILS, $"{name}.png"),
+                (name) => IOUtils.CombinePath(IOUtils.GetPath("thumbnails"), $"{name}.png"),
                 (path) => IOUtils.SaveTexture2D(Data.Thumbnail, path));
         }
 

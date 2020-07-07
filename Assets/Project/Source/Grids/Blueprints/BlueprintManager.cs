@@ -19,8 +19,7 @@ namespace Exa.Grids.Blueprints
         [ContextMenu("Load")]
         public void Load()
         {
-            var blueprintPath = IOUtils.CombinePathWithDataPath(RelativeDir.USER_BLUEPRINTS);
-            CollectionUtils.LoadJsonCollectionFromDirectory(observableUserBlueprints, blueprintPath);
+            CollectionUtils.LoadJsonCollectionFromDirectory(observableUserBlueprints, IOUtils.GetPath("blueprints"));
         }
     }
 }

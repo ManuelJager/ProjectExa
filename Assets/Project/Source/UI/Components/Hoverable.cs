@@ -1,5 +1,6 @@
 ﻿using Exa.Input;
 using Exa.Utils;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -18,7 +19,6 @@ namespace Exa.UI
         public CursorState cursorState;
 
         private RectTransform rectTransform;
-        private bool queuedEnabled = false;
         private CanvasGroup canvasGroup;
         private bool mouseOverControl = false;
 
@@ -31,21 +31,6 @@ namespace Exa.UI
         {
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
-        }
-
-        public void Update()
-        {
-            // Queue a check for mouse input so other behaviours have time to subscribe to the pointer enter event
-            if (queuedEnabled)
-            {
-                var mousePos = Mouse.current.position.ReadValue();
-                if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos))
-                {
-                    mouseOverControl = true;
-                    onPointerEnter?.Invoke();
-                }
-                queuedEnabled = false;
-            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -72,8 +57,7 @@ namespace Exa.UI
 
         public void OnEnable()
         {
-            // Set queue flag
-            queuedEnabled = true;
+            StartCoroutine(DelayMouseOver());
         }
 
         public void OnDisable()
@@ -86,6 +70,18 @@ namespace Exa.UI
             if (InvokeStateChange)
             {
                 MiscUtils.InvokeIfNotQuitting(() => InputManager.Instance.OnExitControl());
+            }
+        }
+
+        private IEnumerator DelayMouseOver()
+        {
+            yield return 0;
+
+            var mousePos = InputManager.Instance.ScaledMousePosition;
+            if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos))
+            {
+                mouseOverControl = true;
+                onPointerEnter?.Invoke();
             }
         }
     }

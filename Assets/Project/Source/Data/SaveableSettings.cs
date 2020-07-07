@@ -25,7 +25,7 @@ namespace Exa.Data
 
         static SaveableSettings()
         {
-            baseDirectory = IOUtils.CombinePathWithDataPath("settings");
+            baseDirectory = IOUtils.GetPath("settings");
             if (!Directory.Exists(baseDirectory))
             {
                 Directory.CreateDirectory(baseDirectory);
