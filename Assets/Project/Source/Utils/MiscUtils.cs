@@ -14,7 +14,7 @@ namespace Exa.Utils
         /// <param name="action"></param>
         public static void InvokeIfNotQuitting(Action action)
         {
-            if (GameManager.IsQuitting) return;
+            if (MainManager.IsQuitting) return;
 
             action();
         }

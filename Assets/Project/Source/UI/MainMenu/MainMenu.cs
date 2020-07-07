@@ -23,8 +23,8 @@ namespace Exa.UI
         public void NavigateToEditor()
         {
             self.NavigateTo(shipEditorBlueprintSelector);
-            blueprintViewController.Source = GameManager.Instance.blueprintManager.observableUserBlueprints;
-            blueprintViewController.shipEditor.blueprintCollection = GameManager.Instance.blueprintManager.observableUserBlueprints;
+            blueprintViewController.Source = MainManager.Instance.blueprintManager.observableUserBlueprints;
+            blueprintViewController.shipEditor.blueprintCollection = MainManager.Instance.blueprintManager.observableUserBlueprints;
         }
 
         public void NavigateToSettings()

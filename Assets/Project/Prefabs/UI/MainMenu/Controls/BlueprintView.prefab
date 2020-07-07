@@ -220,6 +220,7 @@ MonoBehaviour:
   deleteButton: {fileID: 4454047151125362667}
   button: {fileID: 8266874066832455821}
   hoverable: {fileID: 9190009631345698380}
+  thumbnailImage: {fileID: 6159821519808659432}
   nameText: {fileID: 4416792057429206307}
   classText: {fileID: 9040446573280460503}
 --- !u!225 &7631821938624592853
@@ -761,7 +762,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ButtonSelectNegative
+          m_StringArgument: UI_SFX_ButtonSelectNegative
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!225 &8078376972296800502

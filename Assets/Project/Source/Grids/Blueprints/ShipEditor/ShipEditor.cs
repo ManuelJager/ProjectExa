@@ -59,6 +59,7 @@ namespace Exa.Grids.Blueprints.Editor
             editorGrid.blueprintLayer.onBlueprintChanged.AddListener(() =>
             {
                 IsSaved = false;
+                UpdateSaveButtonActive();
             });
 
             stopwatch.onTime.AddListener(ValidateGrid);
@@ -179,8 +180,15 @@ namespace Exa.Grids.Blueprints.Editor
             {
                 IsSaved = true;
                 newBlueprint.name = args.requestedName;
-                blueprintContainer.Data = newBlueprint;
+
+                // Set the value of the observable
+                blueprintContainer.SetData(newBlueprint, false);
+
+                // Save the blueprint, generate the thumbnail
                 saveCallback(blueprintContainer);
+
+                // Notify after saving as observers require the thumbnail to be generated
+                blueprintContainer.Notify();
             }
             else
             {

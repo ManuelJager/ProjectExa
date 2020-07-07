@@ -12,6 +12,16 @@ namespace Exa.Grids.Blueprints
             return this.Any((x) => x.Data.name == item.Data.name);
         }
 
+        public override bool Remove(ObservableBlueprint item)
+        {
+            var result = base.Remove(item);
+
+            item.BlueprintFileHandle.Delete();
+            item.ThumbnailFileHandle.Delete();
+
+            return result;
+        }
+
         public override void Add(ObservableBlueprint item)
         {
             if (Contains(item))
@@ -20,6 +30,7 @@ namespace Exa.Grids.Blueprints
                 return;
             }
 
+            item.LoadThumbnail();
             base.Add(item);
         }
     }

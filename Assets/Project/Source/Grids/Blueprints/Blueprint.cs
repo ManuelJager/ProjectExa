@@ -14,20 +14,20 @@ namespace Exa.Grids.Blueprints
         [JsonProperty("blocks")] public BlueprintBlocks Blocks { get; private set; }
         [JsonIgnore] public long Mass { get; private set; }
         [JsonIgnore] public float PeakPowerGeneration { get; private set; }
+        [JsonIgnore] public Texture2D Thumbnail { get; set; }
 
         public static readonly string DEFAULT_BLUEPRINT_NAME = "New blueprint";
 
         [JsonIgnore]
         public BlueprintType blueprintType
         {
-            get => GameManager.Instance.blueprintManager.blueprintTypes.typesById[shipClass];
+            get => MainManager.Instance.blueprintManager.blueprintTypes.typesById[shipClass];
         }
 
         public Blueprint(BlueprintCreationOptions options)
         {
             this.name = options.name;
             this.shipClass = options.shipClass;
-
             this.Blocks = new BlueprintBlocks();
         }
 
@@ -36,7 +36,6 @@ namespace Exa.Grids.Blueprints
         {
             this.name = name;
             this.shipClass = shipClass;
-
             this.Blocks = blocks;
 
             if (Blocks != null)

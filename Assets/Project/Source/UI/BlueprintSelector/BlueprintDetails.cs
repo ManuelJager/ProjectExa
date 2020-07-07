@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using Exa.Bindings;
+using Exa.Generics;
 using Exa.Grids.Blueprints;
 using Exa.UI.Controls;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Exa.UI
     public class BlueprintDetails : MonoBehaviour
     {
         [SerializeField] private GameObject container;
-        [SerializeField] private Image image;
+        [SerializeField] private Image thumbnailImage;
         [SerializeField] private Text nameText;
         [SerializeField] private PropertyView blockCountView;
         [SerializeField] private PropertyView sizeView;
@@ -25,6 +26,10 @@ namespace Exa.UI
             }
 
             if (!container.activeSelf) container.SetActive(true);
+
+            var thumbnailRect = new Rect(0, 0, 512, 512);
+            var thumbnailPivot = new Vector2(0.5f, 0.5f);
+            thumbnailImage.sprite = Sprite.Create(blueprint.Thumbnail, thumbnailRect, thumbnailPivot);
 
             nameText.text = blueprint.name;
 

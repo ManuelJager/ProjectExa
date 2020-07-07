@@ -19,7 +19,7 @@ namespace Exa.Debugging.Commands
 
         public override void CommandAction()
         {
-            var prefab = GameManager.Instance.blockFactory.GetBlock(blockId);
+            var prefab = MainManager.Instance.blockFactory.GetBlock(blockId);
             GameObject.Instantiate(prefab);
         }
     }

@@ -11,9 +11,9 @@ namespace Exa.UI.Tooltips
 
         public TooltipResult(Func<IEnumerable<ITooltipComponent>> factory)
         {
-            this.components = factory();
+            this.components = null;
             this.factory = factory;
-            IsDirty = false;
+            IsDirty = true;
         }
 
         public IEnumerable<ITooltipComponent> GetComponents()

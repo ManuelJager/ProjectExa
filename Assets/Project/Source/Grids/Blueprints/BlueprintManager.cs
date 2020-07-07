@@ -3,37 +3,24 @@ using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
-    public class BlueprintManager : MonoBehaviour, ISaveable
+    public class BlueprintManager : MonoBehaviour
     {
         [HideInInspector] public ObservableBlueprintCollection observableUserBlueprints = new ObservableBlueprintCollection();
         public BlueprintTypes blueprintTypes;
 
         [SerializeField] private bool loadOnEnable;
-        [SerializeField] private bool saveOnDisable;
 
         private void OnEnable()
         {
             if (loadOnEnable) Load();
         }
 
-        private void OnDisable()
-        {
-            if (saveOnDisable) Save();
-        }
-
-        [ContextMenu("Load")]
         // Has a dependency on block factory
+        [ContextMenu("Load")]
         public void Load()
         {
-            var path = IOUtils.CombinePathWithDataPath("userBlueprints");
-            CollectionUtils.LoadToCollectionFromDirectory(observableUserBlueprints, path);
-        }
-
-        [ContextMenu("Save")]
-        public void Save()
-        {
-            var path = IOUtils.CombinePathWithDataPath("userBlueprints");
-            CollectionUtils.SaveCollectionToDirectory(observableUserBlueprints, path, true);
+            var blueprintPath = IOUtils.CombinePathWithDataPath(RelativeDir.USER_BLUEPRINTS);
+            CollectionUtils.LoadJsonCollectionFromDirectory(observableUserBlueprints, blueprintPath);
         }
     }
 }

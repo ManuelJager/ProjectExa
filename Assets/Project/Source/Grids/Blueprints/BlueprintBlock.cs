@@ -54,7 +54,7 @@ namespace Exa.Grids.Blueprints
             {
                 if (runtimeContext == null)
                 {
-                    runtimeContext = GameManager.Instance.blockFactory.blockTemplatesDict[id];
+                    runtimeContext = MainManager.Instance.blockFactory.blockTemplatesDict[id];
                 }
                 return runtimeContext;
             }

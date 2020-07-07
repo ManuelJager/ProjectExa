@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.SceneManagement;
+using UnityEngine;
 
 namespace Exa
 {
@@ -6,7 +7,15 @@ namespace Exa
     {
         private void Start()
         {
-            ExaSceneManager.Instance.Transition("Main");
+            var transition = ExaSceneManager.Instance.Transition("Main", new TransitionArgs
+            {
+                loadScreenMode = LoadScreenMode.CloseOnPrepared
+            });
+
+            MainManager.Prepared.AddListener(() =>
+            {
+                transition.onScenePrepared?.Invoke();  
+            });
         }
     }
 }

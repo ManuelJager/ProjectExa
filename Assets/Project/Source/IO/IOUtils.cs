@@ -20,5 +20,20 @@ namespace Exa.IO
         {
             return Path.Combine(paths).Replace("/", "\\");
         }
+
+        public static void SaveTexture2D(Texture2D tex, string filePath)
+        {
+            var bytes = tex.EncodeToPNG();
+            File.WriteAllBytes(filePath, bytes);
+        }
+
+        public static Texture2D LoadTexture2D(string filePath, int width, int height)
+        {
+            var bytes = File.ReadAllBytes(filePath);
+            var tex = new Texture2D(width, height);
+            tex.LoadImage(bytes);
+
+            return tex;
+        }
     }
 }

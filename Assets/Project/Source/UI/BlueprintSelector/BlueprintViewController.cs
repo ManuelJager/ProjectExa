@@ -103,7 +103,8 @@ namespace Exa.UI
             }
             if (observableBlueprint.Data.Blocks != null)
             {
-                GameManager.Instance.blueprintManager.Save();
+                observableBlueprint.UpdateThumbnail();
+                observableBlueprint.BlueprintFileHandle.UpdatePath();
             }
         }
     }

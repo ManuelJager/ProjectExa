@@ -6,16 +6,16 @@ namespace Exa.Data
     /// <summary>
     /// Base class for a scriptable object that owns a method to register itself to game systems
     /// <para>
-    /// The <see cref="RegisterSelf(GameManager)"/> method is called when the <see cref="GameManager"/> Instance is created
+    /// The <see cref="RegisterSelf(MainManager)"/> method is called when the <see cref="MainManager"/> Instance is created
     /// </para>
     /// </summary>
     public abstract class RegisterableScriptableObject : ScriptableObject
     {
         public void Awake()
         {
-            MonoSingletonUtils.OnInstanceCreated<GameManager>(RegisterSelf);
+            MonoSingletonUtils.OnInstanceCreated<MainManager>(RegisterSelf);
         }
 
-        public abstract void RegisterSelf(GameManager gameManager);
+        public abstract void RegisterSelf(MainManager gameManager);
     }
 }

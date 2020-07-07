@@ -3,15 +3,16 @@ using Exa.Data;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.Grids.Blueprints.Editor;
-using Exa.UI;
 using Exa.Utils;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Exa
 {
-    public class GameManager : MonoSingleton<GameManager>
+    public class MainManager : MonoSingleton<MainManager>
     {
         public static bool IsQuitting { get; private set; }
+        public static UnityEvent Prepared = new UnityEvent();
 
         public BlockFactory blockFactory;
         public BlueprintManager blueprintManager;
@@ -21,10 +22,11 @@ namespace Exa
 
         public void Start()
         {
-            MonoSingletonUtils.NotifyCreated<GameManager>(this);
+            MonoSingletonUtils.NotifyCreated<MainManager>(this);
             shipEditor.editorOverlay.inventory.Source = blockFactory.availibleBlockTemplates;
             // Load blueprints from disk
             blueprintManager.gameObject.SetActive(true);
+            Prepared?.Invoke();
         }
 
         [RuntimeInitializeOnLoadMethod]

@@ -44,7 +44,7 @@ namespace Exa.Audio
         /// </summary>
         public bool allowMultipleOfType = true;
 
-        public override void RegisterSelf(GameManager gameManager)
+        public override void RegisterSelf(MainManager gameManager)
         {
         }
     }

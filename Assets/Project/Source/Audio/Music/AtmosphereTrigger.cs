@@ -19,7 +19,7 @@ namespace Exa.Audio.Music
         {
             yield return 0;
 
-            GameManager.Instance.audioController.ST_AudioTrack.SetAtmosphere(targetAtmosphere);
+            MainManager.Instance.audioController.ST_AudioTrack.SetAtmosphere(targetAtmosphere);
         }
     }
 }

@@ -4,20 +4,26 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Exa
+namespace Exa.SceneManagement
 {
+    public enum LoadScreenMode
+    {
+        CloseOnLoad,
+        CloseOnPrepared,
+        None
+    }
+
     public class TransitionArgs
     {
         public LoadSceneMode loadSceneMode = LoadSceneMode.Additive;
-        public bool showLoadingScreen = true;
-        public bool hideLoadingScreen = true; 
+        public LoadScreenMode loadScreenMode = LoadScreenMode.CloseOnLoad;
     }
 
     public class ExaSceneManager : MonoSingleton<ExaSceneManager>
     {
         [SerializeField] private LoadingScreen loadingScreen;
 
-        public void Transition(string name, TransitionArgs transitionArgs = null)
+        public ISceneTransition Transition(string name, TransitionArgs transitionArgs = null)
         {
             if (transitionArgs == null)
             {
@@ -25,11 +31,25 @@ namespace Exa
             }
 
             var operation = SceneManager.LoadSceneAsync(name, transitionArgs.loadSceneMode);
-            if (transitionArgs.showLoadingScreen)
+            var transition = new SceneTransition(operation);
+
+            if (transitionArgs.loadScreenMode != LoadScreenMode.None)
             {
-                loadingScreen.ShowScreen(transitionArgs.hideLoadingScreen);
+                loadingScreen.ShowScreen();
+
+                if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnLoad)
+                {
+                    transition.onSceneLoaded.AddListener(loadingScreen.MarkLoaded);
+                }
+
+                if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnPrepared)
+                {
+                    transition.onScenePrepared.AddListener(loadingScreen.MarkLoaded);
+                }
             }
+
             StartCoroutine(ReportOperation(operation));
+            return transition;
         }
 
         IEnumerator ReportOperation(AsyncOperation operation)
@@ -38,7 +58,6 @@ namespace Exa
             {
                 if (operation.isDone)
                 {
-                    loadingScreen.MarkLoaded();
                     break;
                 }
 
