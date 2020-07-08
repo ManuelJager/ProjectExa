@@ -40,7 +40,7 @@ namespace Exa.Grids.Blueprints
 
             if (Blocks != null)
             {
-                blocks.anchoredBlueprintBlocks.ForEach((block) => AddContext(block));
+                blocks.AnchoredBlueprintBlocks.ForEach((block) => AddContext(block));
             }
         }
 

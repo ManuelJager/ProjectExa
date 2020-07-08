@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
-    internal class BlueprintBlocksOccupiedTilesCache : Dictionary<Vector2Int, AnchoredBlueprintBlock>, ICloneable<BlueprintBlocksOccupiedTilesCache>
+    public class BlueprintBlocksOccupiedTilesCache : Dictionary<Vector2Int, AnchoredBlueprintBlock>, ICloneable<BlueprintBlocksOccupiedTilesCache>
     {
         public BlueprintBlocksOccupiedTilesCache Clone()
         {

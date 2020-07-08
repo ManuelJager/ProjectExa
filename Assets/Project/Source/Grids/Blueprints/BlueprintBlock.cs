@@ -1,5 +1,6 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blocks;
+using Exa.Grids.Blueprints.Editor;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,23 @@ namespace Exa.Grids.Blueprints
                 gridAnchor = gridAnchor,
                 blueprintBlock = blueprintBlock,
             };
+        }
+
+        public void SetupBehaviourInGrid(SpriteRenderer spriteRenderer, GameObject blockGO)
+        {
+            spriteRenderer.flipX = blueprintBlock.flippedX;
+            spriteRenderer.flipY = blueprintBlock.flippedY;
+            blockGO.transform.localRotation = blueprintBlock.QuaternionRotation;
+            blockGO.transform.localPosition = ShipEditorUtils.GetRealPositionByAnchor(blueprintBlock, gridAnchor);
+        }
+
+        public GameObject CreateBehaviourInGrid(Transform parent)
+        {
+            var prefab = MainManager.Instance.blockFactory.GetBlock(blueprintBlock.id);
+            var blockGO = GameObject.Instantiate(prefab, parent);
+            var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
+            SetupBehaviourInGrid(spriteRenderer, blockGO);
+            return blockGO;
         }
     }
 

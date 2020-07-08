@@ -23,7 +23,7 @@ namespace Exa.Grids.Blueprints.Editor
                 Destroy(child.gameObject);
             }
 
-            foreach (var block in blueprint.Blocks.anchoredBlueprintBlocks)
+            foreach (var block in blueprint.Blocks.AnchoredBlueprintBlocks)
             {
                 PlaceBlock(block);
             }
@@ -63,35 +63,15 @@ namespace Exa.Grids.Blueprints.Editor
             ActiveBlueprint.ClearBlocks();
         }
 
-        public void PlaceBlock(AnchoredBlueprintBlock anchoredBlueprintBlock)
+        public void PlaceBlock(AnchoredBlueprintBlock block)
         {
-            // Create block
-            var block = CreateBlock(anchoredBlueprintBlock.blueprintBlock);
-            // Keep track of block object by grid anchor position
-            blocksByBlueprintAnchor[anchoredBlueprintBlock.gridAnchor] = block;
-            // Set position of block
-            var position = ShipEditorUtils.GetRealPositionByAnchor(
-                anchoredBlueprintBlock.blueprintBlock,
-                anchoredBlueprintBlock.gridAnchor);
-
-            block.transform.localPosition = position;
+            var blockGO = block.CreateBehaviourInGrid(transform);
+            blocksByBlueprintAnchor[block.gridAnchor] = blockGO;
         }
 
         public Blueprint Export()
         {
             return ActiveBlueprint;
-        }
-
-        private GameObject CreateBlock(BlueprintBlock block)
-        {
-            var blockObject = new GameObject();
-            var spriteRenderer = blockObject.AddComponent<SpriteRenderer>();
-            spriteRenderer.flipX = block.flippedX;
-            spriteRenderer.flipY = block.flippedY;
-            spriteRenderer.sprite = block.RuntimeContext.Thumbnail;
-            blockObject.transform.SetParent(transform);
-            blockObject.transform.localRotation = block.QuaternionRotation;
-            return blockObject;
         }
     }
 }

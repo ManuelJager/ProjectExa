@@ -12,16 +12,15 @@ namespace Exa.Grids.Blueprints
     public class BlueprintBlocks : ICloneable<BlueprintBlocks>
     {
         [JsonIgnore] public LazyCache<Vector2Int> Size { get; }
-        [JsonIgnore] public List<AnchoredBlueprintBlock> anchoredBlueprintBlocks = new List<AnchoredBlueprintBlock>();
-
-        [JsonIgnore] private BlueprintBlocksOccupiedTilesCache occupiedTiles = new BlueprintBlocksOccupiedTilesCache();
+        [JsonIgnore] public List<AnchoredBlueprintBlock> AnchoredBlueprintBlocks { get; private set; } = new List<AnchoredBlueprintBlock>();
+        [JsonIgnore] public BlueprintBlocksOccupiedTilesCache OccupiedTiles { get; private set; } = new BlueprintBlocksOccupiedTilesCache();
 
         public BlueprintBlocks()
             : base()
         {
             Size = new LazyCache<Vector2Int>(() =>
             {
-                var bounds = new GridBounds(occupiedTiles.Keys);
+                var bounds = new GridBounds(OccupiedTiles.Keys);
                 return bounds.GetDelta();
             });
         }
@@ -30,7 +29,7 @@ namespace Exa.Grids.Blueprints
         {
             Size.Invalidate();
 
-            anchoredBlueprintBlocks.Add(anchoredBlueprintBlock);
+            AnchoredBlueprintBlocks.Add(anchoredBlueprintBlock);
 
             // Get grid positions of blueprint block
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
@@ -44,7 +43,7 @@ namespace Exa.Grids.Blueprints
 
             foreach (var tilePosition in tilePositions)
             {
-                occupiedTiles.Add(tilePosition, anchoredBlueprintBlock);
+                OccupiedTiles.Add(tilePosition, anchoredBlueprintBlock);
             }
         }
 
@@ -55,7 +54,7 @@ namespace Exa.Grids.Blueprints
             var anchoredBlueprintBlock = GetAnchoredBlockAtGridPos(key);
             var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
 
-            anchoredBlueprintBlocks.Remove(anchoredBlueprintBlock);
+            AnchoredBlueprintBlocks.Remove(anchoredBlueprintBlock);
 
             // Remove neighbour references
             foreach (var neighbour in anchoredBlueprintBlock.neighbours)
@@ -65,18 +64,18 @@ namespace Exa.Grids.Blueprints
 
             foreach (var occupiedTile in tilePositions)
             {
-                occupiedTiles.Remove(occupiedTile);
+                OccupiedTiles.Remove(occupiedTile);
             }
         }
 
         public bool HasOverlap(Vector2Int gridPosition)
         {
-            return occupiedTiles.ContainsKey(gridPosition);
+            return OccupiedTiles.ContainsKey(gridPosition);
         }
 
         public bool HasOverlap(IEnumerable<Vector2Int> gridPositions)
         {
-            return occupiedTiles
+            return OccupiedTiles
                 .Select((item) => item.Key)
                 .Intersect(gridPositions)
                 .Any();
@@ -86,31 +85,36 @@ namespace Exa.Grids.Blueprints
         {
             var gridPositions = ShipEditorUtils.GetOccupiedTilesByAnchor(block, gridAnchor);
 
-            return occupiedTiles
+            return OccupiedTiles
                 .Select((item) => item.Key)
                 .Intersect(gridPositions)
                 .Any();
         }
 
+        public bool ContainsBlockAtGridPos(Vector2Int gridPos)
+        {
+            return OccupiedTiles.ContainsKey(gridPos);
+        }
+
         public AnchoredBlueprintBlock GetAnchoredBlockAtGridPos(Vector2Int gridPos)
         {
-            return occupiedTiles[gridPos];
+            return OccupiedTiles[gridPos];
         }
 
         public BlueprintBlock GetBlockAtGridPos(Vector2Int gridPos)
         {
-            return occupiedTiles[gridPos].blueprintBlock;
+            return OccupiedTiles[gridPos].blueprintBlock;
         }
 
         public Vector2Int GetGridAnchorByGridPos(Vector2Int gridPos)
         {
-            return occupiedTiles[gridPos].gridAnchor;
+            return OccupiedTiles[gridPos].gridAnchor;
         }
 
         public BlueprintBlocks Clone()
         {
             var newBlocks = new BlueprintBlocks();
-            foreach (var block in anchoredBlueprintBlocks)
+            foreach (var block in AnchoredBlueprintBlocks)
             {
                 newBlocks.Add(block);
             }
@@ -127,9 +131,9 @@ namespace Exa.Grids.Blueprints
 
             foreach (var neighbourPosition in neighbourPositions)
             {
-                if (occupiedTiles.ContainsKey(neighbourPosition))
+                if (OccupiedTiles.ContainsKey(neighbourPosition))
                 {
-                    var neighbour = occupiedTiles[neighbourPosition];
+                    var neighbour = OccupiedTiles[neighbourPosition];
                     if (!neighbours.Contains(neighbour))
                     {
                         neighbours.Add(neighbour);

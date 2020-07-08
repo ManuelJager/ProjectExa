@@ -23,7 +23,7 @@ namespace Exa.UI.Controls
             container = builder.Build();
         }
 
-        public ValidationResult Validate<TArgs>(IValidator<TArgs> validator, TArgs args)
+        public virtual ValidationResult Validate<T>(IValidator<T> validator, T args)
         {
             return container.Control(validator, args);
         }
@@ -45,24 +45,30 @@ namespace Exa.UI.Controls
         public virtual ValidationErrorContainerBuilder CreateSchemaBuilder()
         {
             return new ValidationErrorContainerBuilder()
-                .OnUnhandledError((errorInstance) =>
-                {
-                    var id = errorInstance.Id;
-                    if (!panelByError.ContainsKey(id))
-                    {
-                        var panel = Instantiate(errorPanelPrefab, transform).GetComponent<ValidationErrorPanel>();
-                        panel.Text = errorInstance.Message;
-                        panelByError[id] = panel;
-                    }
-                    else
-                    {
-                        panelByError[id].gameObject.SetActive(true);
-                    }
-                }, (errorInstance) =>
-                {
-                    var id = errorInstance.Id;
-                    panelByError[id].gameObject.SetActive(false);
-                });
+                .OnUnhandledError(OnUnhandledErrorHandler, OnUnhandledErrorCleaner);
+        }
+
+        public virtual void OnUnhandledErrorHandler(ValidationError validationError)
+        {
+            var id = validationError.Id;
+            if (!panelByError.ContainsKey(id))
+            {
+                var panel = Instantiate(errorPanelPrefab, transform).GetComponent<ValidationErrorPanel>();
+                panel.Text = validationError.Message;
+                panelByError[id] = panel;
+            }
+            else
+            {
+                var panel = panelByError[id];
+                panel.Text = validationError.Message;
+                panel.gameObject.SetActive(true);
+            }
+        }
+
+        public virtual void OnUnhandledErrorCleaner(ValidationError validationError)
+        {
+            var id = validationError.Id;
+            panelByError[id].gameObject.SetActive(false);
         }
     }
 }

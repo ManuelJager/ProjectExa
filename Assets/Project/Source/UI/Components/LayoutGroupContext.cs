@@ -14,6 +14,11 @@ namespace Exa.UI.Components
 
         private void OnTransformChildrenChanged()
         {
+            UpdateActiveSelf();
+        }
+
+        public void UpdateActiveSelf()
+        {
             layoutElement.ignoreLayout = transform
                 .GetChildren()
                 .Where(transform => transform.gameObject.activeSelf)

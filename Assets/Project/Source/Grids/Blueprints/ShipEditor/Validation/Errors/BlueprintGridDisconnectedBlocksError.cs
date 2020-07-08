@@ -2,7 +2,7 @@
 
 namespace Exa.Grids.Blueprints.Editor
 {
-    public class BlueprintNameEmptyError : ValidationError
+    public class BlueprintGridDisconnectedBlocksError : ValidationError
     {
     }
 }

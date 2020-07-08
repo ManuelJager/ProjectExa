@@ -22,6 +22,14 @@ namespace Exa.Validation
             collection = new List<ValidationError>();
         }
 
+        public void Throw<TError>(string errorMessage)
+            where TError : ValidationError
+        {
+            var error = Activator.CreateInstance(typeof(TError)) as TError;
+            error.Message = errorMessage;
+            collection.Add(error);
+        }
+
         /// <summary>
         /// Test the predicate and on false add an error with the given error message
         /// </summary>
@@ -33,30 +41,8 @@ namespace Exa.Validation
         {
             if (!predicate())
             {
-                var error = Activator.CreateInstance(typeof(TError), errorMessage) as TError;
-                collection.Add(error);
-            }
-        }
-
-        /// <summary>
-        /// Test the predicate and on false add an error with the given error message
-        /// <para>
-        /// Will only test when the thrown parameter is false
-        /// </para>
-        /// </summary>
-        /// <typeparam name="TError">Type of error thrown</typeparam>
-        /// <param name="errorMessage">Error message</param>
-        /// <param name="predicate">Validation condition</param>
-        /// <param name="thrown">flag used as reference to keep track wether the assertion should be ran</param>
-        public void Assert<TError>(string errorMessage, Func<bool> predicate, ref bool thrown)
-            where TError : ValidationError
-        {
-            if (thrown) return;
-
-            if (!predicate())
-            {
-                thrown = true;
-                var error = Activator.CreateInstance(typeof(TError), errorMessage) as TError;
+                var error = Activator.CreateInstance(typeof(TError)) as TError;
+                error.Message = errorMessage;
                 collection.Add(error);
             }
         }
@@ -72,30 +58,8 @@ namespace Exa.Validation
             var operationResult = predicate();
             if (!operationResult.Valid)
             {
-                var error = Activator.CreateInstance(typeof(TError), operationResult.Message) as TError;
-                collection.Add(error);
-            }
-        }
-
-        /// <summary>
-        /// Test the predicate and on false add an error with the given error message
-        /// <para>
-        /// Will only test when the thrown parameter is false
-        /// </para>
-        /// </summary>
-        /// <typeparam name="TError">Type of error thrown</typeparam>
-        /// <param name="predicate">Validation contidion</param>
-        /// <param name="thrown">flag used as reference to keep track wether the assertion should be ran</param>
-        public void Assert<TError>(Func<ValidationOperationResult> predicate, ref bool thrown)
-            where TError : ValidationError
-        {
-            if (thrown) return;
-
-            var operationResult = predicate();
-            if (!operationResult.Valid)
-            {
-                thrown = true;
-                var error = Activator.CreateInstance(typeof(TError), operationResult.Message) as TError;
+                var error = Activator.CreateInstance(typeof(TError)) as TError;
+                error.Message = operationResult.Message;
                 collection.Add(error);
             }
         }

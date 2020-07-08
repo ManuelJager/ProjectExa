@@ -311,9 +311,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7729614257948850543}
   - component: {fileID: 8885517178386905607}
-  - component: {fileID: 1018289593016856951}
   - component: {fileID: 4363146681951946034}
   - component: {fileID: 346855002378352999}
+  - component: {fileID: 836093271520450795}
   m_Layer: 5
   m_Name: ErrorListController
   m_TagString: Untagged
@@ -365,20 +365,6 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
---- !u!114 &1018289593016856951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955779252061041205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7938fbf8d2decba459c1f86124634839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorPanelPrefab: {fileID: 5022688277923585052, guid: 24453bde1d1dd224f91530db053813a3,
-    type: 3}
 --- !u!114 &4363146681951946034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +398,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &836093271520450795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955779252061041205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feefe8f98170a664b81619bf4c326179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorPanelPrefab: {fileID: 5022688277923585052, guid: 24453bde1d1dd224f91530db053813a3,
+    type: 3}
+  layoutGroupContext: {fileID: 4363146681951946034}
 --- !u!1 &2197345603147270775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,7 +1948,7 @@ MonoBehaviour:
   saveButton: {fileID: 556960494971799033}
   exportButton: {fileID: 8811278844542435630}
   blueprintNameInput: {fileID: 1768342692160745610}
-  errorListController: {fileID: 1018289593016856951}
+  errorListController: {fileID: 836093271520450795}
   saveButtonCanvasGroup: {fileID: 4357921600955329012}
 --- !u!114 &7693724912663897459
 MonoBehaviour:

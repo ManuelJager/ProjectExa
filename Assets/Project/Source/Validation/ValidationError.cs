@@ -5,12 +5,11 @@
     /// </summary>
     public abstract class ValidationError
     {
-        public ValidationError(string message)
+        public ValidationError()
         {
-            Message = message;
         }
 
-        public string Message { get; private set; }
+        public string Message { get; set; }
         public virtual string Id => GetType().Name;
     }
 }
