@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.IO;
 
 namespace Exa.IO
@@ -11,7 +11,7 @@ namespace Exa.IO
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
         /// <param name="directory"></param>
-        public static void LoadJsonCollectionFromDirectory<T>(ICollection<T> collection, string directory)
+        public static void LoadJsonCollectionFromDirectory<T>(string directory, Action<T> callback)
             where T : class
         {
             if (!Directory.Exists(directory)) return;
@@ -22,10 +22,7 @@ namespace Exa.IO
 
                 IOUtils.TryJsonDeserializeFromPath(filePath, out item);
 
-                if (item != null)
-                {
-                    collection.Add(item);
-                }
+                callback(item);
             }
         }
     }

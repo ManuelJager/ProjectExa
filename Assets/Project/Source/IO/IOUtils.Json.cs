@@ -23,7 +23,7 @@ namespace Exa.IO
             DefaultValueHandling = DefaultValueHandling.Ignore
         };
 
-        public static bool TryJsonDeserializeFromPath<T>(string filePath, out T result)
+        public static bool TryJsonDeserializeFromPath<T>(string filePath, out T result, SerializationMode serializationMode = SerializationMode.compact)
             where T : class
         {
             if (!File.Exists(filePath))
@@ -32,9 +32,17 @@ namespace Exa.IO
                 return false;
             }
 
-            var text = File.ReadAllText(filePath);
-            result = JsonConvert.DeserializeObject<T>(text, systemJsonSettings);
-            return true;
+            try
+            {
+                var text = File.ReadAllText(filePath);
+                result = JsonConvert.DeserializeObject<T>(text, GetSettings(serializationMode));
+                return true;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
         }
 
         public static T JsonDeserializeWithSettings<T>(

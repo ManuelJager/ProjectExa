@@ -1,4 +1,6 @@
-﻿using Exa.IO;
+﻿using Exa.Debugging;
+using Exa.Generics;
+using Exa.IO;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -19,7 +21,20 @@ namespace Exa.Grids.Blueprints
         [ContextMenu("Load")]
         public void Load()
         {
-            CollectionUtils.LoadJsonCollectionFromDirectory(observableUserBlueprints, IOUtils.GetPath("blueprints"));
+            CollectionUtils.LoadJsonCollectionFromDirectory<ObservableBlueprint>(IOUtils.GetPath("blueprints"), Add);
+        }
+
+        private void Add(ObservableBlueprint observableBlueprint)
+        {
+            if (observableBlueprint != null)
+            {
+                observableUserBlueprints.Add(observableBlueprint);
+            }
+            else
+            {
+                var exception = new UserException("Error parsing a blueprint from disk. Please avoid editing blueprints directly");
+                UnityLoggerInterceptor.Instance.LogUserException(exception);
+            }
         }
     }
 }
