@@ -12,7 +12,7 @@ namespace Exa.Generics
             Text = text;
         }
 
-        public GameObject InstantiateComponentView(Transform parent)
+        public TooltipComponentBundle InstantiateComponentView(Transform parent)
         {
             return VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltipTitle(this, parent);
         }

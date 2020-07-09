@@ -1,9 +1,10 @@
 ﻿using Exa.Generics;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.UI
 {
-    public class UserExceptionLogger : MonoBehaviour
+    public class UserExceptionLogger : MonoSingleton<UserExceptionLogger>
     {
         [SerializeField] private GameObject userExceptionPrefab;
 
@@ -11,6 +12,12 @@ namespace Exa.UI
         {
             var exceptionView = Instantiate(userExceptionPrefab, transform).GetComponent<UserExceptionView>();
             exceptionView.Message = exception.Message;
+        }
+
+        public void Log(string message)
+        {
+            var exceptionView = Instantiate(userExceptionPrefab, transform).GetComponent<UserExceptionView>();
+            exceptionView.Message = message;
         }
     }
 }

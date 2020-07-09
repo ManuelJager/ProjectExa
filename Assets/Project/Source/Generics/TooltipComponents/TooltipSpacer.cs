@@ -5,7 +5,7 @@ namespace Exa.Generics
 {
     public struct TooltipSpacer : ITooltipComponent
     {
-        public GameObject InstantiateComponentView(Transform parent)
+        public TooltipComponentBundle InstantiateComponentView(Transform parent)
         {
             return VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltipSpacer(this, parent);
         }

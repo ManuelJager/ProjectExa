@@ -34,32 +34,46 @@ namespace Exa.UI
         public void OnAddNewBlueprint()
         {
             PromptController.Instance.PromptForm(
-                "Add blueprint",
-                this,
-                new BlueprintCreationOptionsDescriptor(),
-                (options) =>
-            {
-                var observableBlueprint = new ObservableBlueprint(new Blueprint(options));
-
-                shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
-                shipEditor.Import(observableBlueprint, TrySave);
-            });
+                message: "Add blueprint",
+                uiGroup: this,
+                modelDescriptor: new BlueprintCreationOptionsDescriptor(),
+                onSubmit: ImportBlueprintWithOptions);
         }
 
         public void OnImportBlueprintFromClipboard()
         {
             Blueprint blueprint;
+
+            var clipboardText = GUIUtility.systemCopyBuffer;
+
+            if (string.IsNullOrEmpty(clipboardText))
+            {
+                UserExceptionLogger.Instance.Log("Clipboard is empty");
+                return;
+            }
+
             try
             {
-                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(GUIUtility.systemCopyBuffer);
+                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(clipboardText);
             }
-            catch { return; }
+            catch
+            {
+                UserExceptionLogger.Instance.Log("Clipboard data is formatted incorrectly");
+                return;
+            }
 
             var observableBlueprint = new ObservableBlueprint(blueprint);
 
-            if (Source.Contains(observableBlueprint)) return;
+            if (Source.Contains(observableBlueprint))
+            {
+                UserExceptionLogger.Instance.Log("Blueprint with given name already added");
+                return;
+            }
 
-            Source.Add(observableBlueprint);
+            // Save blueprint and generate thumbnail
+            TrySave(observableBlueprint);
+
+            // Navigate to editor and import blueprint
             shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
             shipEditor.Import(observableBlueprint, TrySave);
         }
@@ -103,9 +117,17 @@ namespace Exa.UI
             }
             if (observableBlueprint.Data.Blocks != null)
             {
-                observableBlueprint.UpdateThumbnail();
+                observableBlueprint.GenerateThumbnail();
                 observableBlueprint.BlueprintFileHandle.UpdatePath();
             }
+        }
+
+        private void ImportBlueprintWithOptions(BlueprintCreationOptions options)
+        {
+            var observableBlueprint = new ObservableBlueprint(new Blueprint(options));
+
+            shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
+            shipEditor.Import(observableBlueprint, TrySave);
         }
     }
 }

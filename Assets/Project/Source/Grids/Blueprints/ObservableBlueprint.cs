@@ -34,29 +34,14 @@ namespace Exa.Grids.Blueprints
             }
             else
             {
-                UpdateThumbnail();
+                GenerateThumbnail();
             }
         }
 
-        public void UpdateThumbnail()
+        public void GenerateThumbnail()
         {
             Data.Thumbnail = MainManager.Instance.thumbnailGenerator.GenerateThumbnail(Data);
             ThumbnailFileHandle.UpdatePath();
-        }
-
-        private Texture2D GenerateThumbnail()
-        {
-            var tex = new Texture2D(512, 512);
-
-            foreach (var vector in MathUtils.EnumerateVectors(512, 512))
-            {
-                var col = (vector.x % 2 == 0 ^ vector.y % 2 == 0) ? 1 : 0;
-                tex.SetPixel(vector.x, vector.y, new Color(col, col, col));
-            }
-
-            tex.Apply();
-
-            return tex;
         }
     }
 }

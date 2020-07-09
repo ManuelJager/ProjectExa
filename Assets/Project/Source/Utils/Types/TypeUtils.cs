@@ -11,7 +11,7 @@ namespace Exa.Utils
         /// <param name="object">parameter</param>
         /// <param name="action">object callback</param>
         /// <returns>wether object is assignable from T</returns>
-        public static bool OnAssignableFrom<T>(object @object, Action<T> action)
+        public static bool OnAssignableFrom<T>(this object @object, Action<T> action)
         {
             if (typeof(T).IsAssignableFrom(@object.GetType()))
             {

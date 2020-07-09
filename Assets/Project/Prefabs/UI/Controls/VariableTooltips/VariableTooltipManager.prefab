@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipGenerator: {fileID: 719642121965761222}
   blockTemplateTooltip: {fileID: 5089771237629161398}
-  blueprintTypeTooltip: {fileID: 2836414152020786014}
+  blueprintTypeTooltip: {fileID: 7982120172739777316}
 --- !u!223 &2189408376039309859
 Canvas:
   m_ObjectHideFlags: 0
@@ -411,9 +411,9 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4828927655441796984}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2836414152020786014 stripped
+--- !u!114 &7982120172739777316 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7232565198840525862, guid: 16e95cc44557a564aa956f97b10b1b14,
+  m_CorrespondingSourceObject: {fileID: 3298319514978573404, guid: 16e95cc44557a564aa956f97b10b1b14,
     type: 3}
   m_PrefabInstance: {fileID: 4828927655441796984}
   m_PrefabAsset: {fileID: 0}

@@ -25,5 +25,16 @@ namespace Exa.IO
                 callback(item);
             }
         }
+
+        public static void GetJsonFilesFromDirectory<T>(string directory, Action<string> callback)
+            where T : class
+        {
+            if (!Directory.Exists(directory)) return;
+
+            foreach (var filePath in Directory.GetFiles(directory, "*.json"))
+            {
+                callback(filePath);
+            }
+        }
     }
 }

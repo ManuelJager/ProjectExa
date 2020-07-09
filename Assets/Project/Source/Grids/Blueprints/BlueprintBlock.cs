@@ -50,11 +50,8 @@ namespace Exa.Grids.Blueprints
         [DefaultValue(false)] public bool flippedX;
         [DefaultValue(false)] public bool flippedY;
 
-        [JsonIgnore]
-        private int rotation;
-
-        [JsonIgnore]
-        private BlockTemplate runtimeContext;
+        [JsonIgnore] private int rotation;
+        [JsonIgnore] private BlockTemplate runtimeContext;
 
         public int Rotation
         {
@@ -76,11 +73,6 @@ namespace Exa.Grids.Blueprints
                 }
                 return runtimeContext;
             }
-        }
-
-        public void Rotate(int quarterTurns)
-        {
-            Rotation = quarterTurns % 4;
         }
 
         [JsonIgnore]

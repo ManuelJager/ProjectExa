@@ -22,7 +22,7 @@ namespace Exa.Debugging
         public void LogException(Exception exception, UnityEngine.Object context)
         {
             defaultLogHandler.LogException(exception, context);
-            TypeUtils.OnAssignableFrom<UserException>(exception, LogUserException);
+            exception.OnAssignableFrom<UserException>(LogUserException);
         }
 
         public void LogUserException(UserException exception)

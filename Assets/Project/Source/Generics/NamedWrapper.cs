@@ -22,9 +22,9 @@ namespace Exa.Generics
                 Value.Equals(other.Value);
         }
 
-        public GameObject InstantiateComponentView(Transform parent)
+        public TooltipComponentBundle InstantiateComponentView(Transform parent)
         {
-            return VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltipProperty(this, parent);
+            return VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltipProperty<T>(parent);
         }
     }
 

@@ -55,13 +55,13 @@ namespace Exa.Grids.Blueprints
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
 
             // Add mass to grid
-            TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
+            context.OnAssignableFrom<IPhysicalBlockTemplateComponent>((component) =>
             {
                 Mass += component.PhysicalBlockTemplateComponent.Mass;
             });
 
             // Add peak consumption to grid
-            TypeUtils.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>(context, (component) =>
+            context.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>((component) =>
             {
                 PeakPowerGeneration += component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
             });
@@ -79,13 +79,13 @@ namespace Exa.Grids.Blueprints
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
 
             // Remove mass from grid
-            TypeUtils.OnAssignableFrom<IPhysicalBlockTemplateComponent>(context, (component) =>
+            context.OnAssignableFrom<IPhysicalBlockTemplateComponent>((component) =>
             {
                 Mass -= component.PhysicalBlockTemplateComponent.Mass;
             });
 
             // Remove peak consumption from grid
-            TypeUtils.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>(context, (component) =>
+            context.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>((component) =>
             {
                 PeakPowerGeneration -= component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
             });

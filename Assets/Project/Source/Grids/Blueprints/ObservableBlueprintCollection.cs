@@ -30,7 +30,6 @@ namespace Exa.Grids.Blueprints
                 return;
             }
 
-            item.LoadThumbnail();
             base.Add(item);
         }
     }

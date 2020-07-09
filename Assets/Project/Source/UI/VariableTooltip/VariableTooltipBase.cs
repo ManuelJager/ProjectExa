@@ -8,16 +8,18 @@ namespace Exa.UI.Tooltips
     {
         [SerializeField] protected RectTransform container;
 
+        private TooltipBinder<T> binder;
+
         private void Update()
         {
-            SmartSetPos();
+            SetContainerPosition();
         }
 
         public void ShowTooltip(T data)
         {
             gameObject.SetActive(true);
             SetValues(data);
-            SmartSetPos();
+            SetContainerPosition();
         }
 
         public void HideTooltip()
@@ -28,7 +30,7 @@ namespace Exa.UI.Tooltips
         /// <summary>
         /// Sets the position of the tooltip container while being aware of the screen edge
         /// </summary>
-        public void SmartSetPos()
+        public void SetContainerPosition()
         {
             // Get the mouse position
             var mousePos = InputManager.Instance.ScaledMousePosition;
@@ -55,8 +57,11 @@ namespace Exa.UI.Tooltips
 
         public virtual void SetValues(T data)
         {
-            var result = data.GetComponents();
-            VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltip(result, container);
+            if (binder == null)
+            {
+                binder = VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltip(data, container);
+            }
+            binder.Update(data);
         }
     }
 }

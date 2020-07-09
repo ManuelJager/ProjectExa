@@ -1,6 +1,4 @@
-﻿using Exa.Debugging;
-using Exa.Generics;
-using Exa.IO;
+﻿using Exa.IO;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -28,12 +26,8 @@ namespace Exa.Grids.Blueprints
         {
             if (observableBlueprint != null)
             {
+                observableBlueprint.LoadThumbnail();
                 observableUserBlueprints.Add(observableBlueprint);
-            }
-            else
-            {
-                var exception = new UserException("Error parsing a blueprint from disk. Please avoid editing blueprints directly");
-                UnityLoggerInterceptor.Instance.LogUserException(exception);
             }
         }
     }
