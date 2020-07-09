@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af089c8e6cc9c9f4eae72cf6cbf22524, type: 3}
+  m_Name: Alpha2BuildMessage
+  m_EditorClassIdentifier: 
+  buildMessage: "Hello there!\n\nThe second month of development on this game is
+    upon me, and i'm glad to say i've reached a level of polish UI-wise that i'm
+    pretty happy about. \n\nThis update i've added audio, a settings menu, blueprint
+    thumbnails and blueprint sharing.\n\nBut ofcourse no one cares about a game that
+    has no gameplay, so that's what im going to focus from now on. I hope to have
+    very basic controls down by next update. \n\nIf you encounter any bugs, please
+    report them on the community tab on the itch.io page."
