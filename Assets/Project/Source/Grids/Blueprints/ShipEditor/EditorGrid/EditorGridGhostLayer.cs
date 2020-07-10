@@ -102,22 +102,21 @@ namespace Exa.Grids.Blueprints.Editor
 
             var realAnchorPos = anchorPos.GetValueOrDefault();
             var mirroredAnchorPos = ShipEditorUtils.GetMirroredGridPos(gridSize, realAnchorPos);
-            ghost.GridPos = realAnchorPos;
-            mirrorGhost.GridPos = mirroredAnchorPos;
+
+            ghost.AnchoredBlueprintBlock.gridAnchor = realAnchorPos;
+            ghost.ReflectState();
+            mirrorGhost.AnchoredBlueprintBlock.gridAnchor = mirroredAnchorPos;
+            mirrorGhost.ReflectState();
 
             CalculateGhostEnabled();
         }
 
-        public void OnRotateLeft()
+        public void RotateGhosts(int value)
         {
-            ghost.Rotation += 1;
-            mirrorGhost.Rotation -= 1;
-        }
-
-        public void OnRotateRight()
-        {
-            ghost.Rotation -= 1;
-            mirrorGhost.Rotation += 1;
+            ghost.AnchoredBlueprintBlock.blueprintBlock.Rotation += value;
+            ghost.ReflectState();
+            mirrorGhost.AnchoredBlueprintBlock.blueprintBlock.Rotation += value;
+            mirrorGhost.ReflectState();
         }
 
         private void CalculateGhostEnabled()
@@ -129,7 +128,7 @@ namespace Exa.Grids.Blueprints.Editor
             mirrorGhost.gameObject.SetActive(
                 MirrorEnabled &&
                 GhostVisible &&
-                ghost.GridPos != mirrorGhost.GridPos
+                ghost.AnchoredBlueprintBlock.gridAnchor != mirrorGhost.AnchoredBlueprintBlock.gridAnchor
                 && !BlockedByUI);
         }
     }

@@ -13,38 +13,8 @@ namespace Exa.Grids.Blueprints.Editor
         [SerializeField] private Transform filterTransform;
         [SerializeField] private Color activeColor;
         [SerializeField] private Color inactiveColor;
-        [HideInInspector] public BlueprintBlock blueprintBlock;
 
-        private Vector2Int gridPos;
-
-        public Vector2Int GridPos
-        {
-            get => gridPos;
-            set
-            {
-                gridPos = value;
-                ReflectState();
-            }
-        }
-
-        public int Rotation
-        {
-            get => blueprintBlock.Rotation;
-            set
-            {
-                blueprintBlock.Rotation = value;
-                ReflectState();
-            }
-        }
-
-        public AnchoredBlueprintBlock AnchoredBlueprintBlock
-        {
-            get => new AnchoredBlueprintBlock
-            {
-                gridAnchor = gridPos,
-                blueprintBlock = blueprintBlock
-            };
-        }
+        public AnchoredBlueprintBlock AnchoredBlueprintBlock { get; private set; } = new AnchoredBlueprintBlock();
 
         /// <summary>
         /// Update the block the ghost is representing
@@ -54,9 +24,13 @@ namespace Exa.Grids.Blueprints.Editor
         {
             ghostImage.sprite = block.RuntimeContext.Thumbnail;
             filterTransform.localScale = block.RuntimeContext.Size.ToVector3();
-            ghostImage.flipX = block.flippedX;
-            ghostImage.flipY = block.flippedY;
-            this.blueprintBlock = block;
+            AnchoredBlueprintBlock = new AnchoredBlueprintBlock()
+            {
+                blueprintBlock = block,
+                gridAnchor = new Vector2Int()
+            };
+            AnchoredBlueprintBlock.UpdateSpriteRenderer(ghostImage);
+            AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }
 
         public void SetFilterColor(bool active)
@@ -66,9 +40,8 @@ namespace Exa.Grids.Blueprints.Editor
 
         public void ReflectState()
         {
-            var realPos = ShipEditorUtils.GetRealPositionByAnchor(blueprintBlock, gridPos);
-            transform.localRotation = blueprintBlock.QuaternionRotation;
-            transform.localPosition = realPos;
+            AnchoredBlueprintBlock.UpdateSpriteRenderer(ghostImage);
+            AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }
     }
 }

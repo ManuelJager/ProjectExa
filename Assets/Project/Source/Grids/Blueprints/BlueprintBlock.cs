@@ -25,10 +25,14 @@ namespace Exa.Grids.Blueprints
             };
         }
 
-        public void SetupBehaviourInGrid(SpriteRenderer spriteRenderer, GameObject blockGO)
+        public void UpdateSpriteRenderer(SpriteRenderer spriteRenderer)
         {
-            spriteRenderer.flipX = blueprintBlock.flippedX;
-            spriteRenderer.flipY = blueprintBlock.flippedY;
+            spriteRenderer.flipX = blueprintBlock.Rotation % 2 == 0 ? blueprintBlock.flippedX : blueprintBlock.flippedY;
+            spriteRenderer.flipY = blueprintBlock.Rotation % 2 == 0 ? blueprintBlock.flippedY : blueprintBlock.flippedX;
+        }
+
+        public void UpdateLocals(GameObject blockGO)
+        {
             blockGO.transform.localRotation = blueprintBlock.QuaternionRotation;
             blockGO.transform.localPosition = ShipEditorUtils.GetRealPositionByAnchor(blueprintBlock, gridAnchor);
         }
@@ -38,7 +42,8 @@ namespace Exa.Grids.Blueprints
             var prefab = MainManager.Instance.blockFactory.GetBlock(blueprintBlock.id);
             var blockGO = GameObject.Instantiate(prefab, parent);
             var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
-            SetupBehaviourInGrid(spriteRenderer, blockGO);
+            UpdateSpriteRenderer(spriteRenderer);
+            UpdateLocals(blockGO);
             return blockGO;
         }
     }

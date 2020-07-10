@@ -17,8 +17,11 @@ namespace Exa.Grids.Blueprints.Editor
                 y = size.y / 2f
             }.Rotate(block.Rotation);
 
-            if (block.flippedX) offset.x = -offset.x;
-            if (block.flippedY) offset.y = -offset.y;
+            offset = new Vector2
+            (
+                block.flippedX ? -offset.x : offset.x,
+                block.flippedY ? -offset.y : offset.y
+            );
 
             return new Vector3
             {
@@ -29,9 +32,7 @@ namespace Exa.Grids.Blueprints.Editor
 
         public static IEnumerable<Vector2Int> GetOccupiedTilesByGhost(BlockGhost blockGhost)
         {
-            var block = blockGhost.blueprintBlock;
-            var gridAnchor = blockGhost.GridPos;
-            return GetOccupiedTilesByAnchor(block, gridAnchor);
+            return GetOccupiedTilesByAnchor(blockGhost.AnchoredBlueprintBlock);
         }
 
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(AnchoredBlueprintBlock anchoredBlueprintBlock)

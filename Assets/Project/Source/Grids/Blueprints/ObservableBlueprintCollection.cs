@@ -1,17 +1,11 @@
-﻿using Exa.Bindings;
+﻿using Exa.Generics;
 using System;
-using System.Linq;
 
 namespace Exa.Grids.Blueprints
 {
     [Serializable]
-    public class ObservableBlueprintCollection : ObservableCollection<ObservableBlueprint>
+    public class ObservableBlueprintCollection : ObservableDictionary<string, ObservableBlueprint>
     {
-        public override bool Contains(ObservableBlueprint item)
-        {
-            return this.Any((x) => x.Data.name == item.Data.name);
-        }
-
         public override bool Remove(ObservableBlueprint item)
         {
             var result = base.Remove(item);

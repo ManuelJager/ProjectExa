@@ -16,6 +16,7 @@ namespace Exa.UI.Controls
     {
     }
 
+    [Serializable]
     public class Dropdown : InputControl<NamedWrapper<object>>
     {
         // Stores the tabs by the value hash code

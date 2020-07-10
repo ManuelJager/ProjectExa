@@ -9,9 +9,9 @@ namespace Exa.IO
     public class FileHandle
     {
         private string currentPath;
-        private Func<string, string> pathFactory;
-        private Action<string> serializationFactory;
-        private ISerializableItem item;
+        private readonly Func<string, string> pathFactory;
+        private readonly Action<string> serializationFactory;
+        private readonly ISerializableItem item;
 
         public string TargetPath => pathFactory(item.ItemName);
         public bool PathIsDirty => currentPath != TargetPath;

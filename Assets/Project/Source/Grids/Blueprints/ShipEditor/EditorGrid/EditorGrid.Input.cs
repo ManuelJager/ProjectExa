@@ -46,7 +46,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             if (!ghostLayer.GhostCreated) return;
 
-            ghostLayer.OnRotateLeft();
+            ghostLayer.RotateGhosts(1);
             CalculateGhostEnabled();
         }
 
@@ -54,7 +54,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             if (!ghostLayer.GhostCreated) return;
 
-            ghostLayer.OnRotateRight();
+            ghostLayer.RotateGhosts(-1);
             CalculateGhostEnabled();
         }
 
@@ -71,11 +71,12 @@ namespace Exa.Grids.Blueprints.Editor
 
             canPlaceGhost = false;
 
-            blueprintLayer.AddBlock(ghostLayer.ghost.AnchoredBlueprintBlock);
+            blueprintLayer.AddBlock(ghostLayer.ghost.AnchoredBlueprintBlock.Clone());
 
-            if (MirrorEnabled && ghostLayer.ghost.GridPos != ghostLayer.mirrorGhost.GridPos)
+            if (MirrorEnabled && ghostLayer.ghost.AnchoredBlueprintBlock.gridAnchor 
+                != ghostLayer.mirrorGhost.AnchoredBlueprintBlock.gridAnchor)
             {
-                blueprintLayer.AddBlock(ghostLayer.mirrorGhost.AnchoredBlueprintBlock);
+                blueprintLayer.AddBlock(ghostLayer.mirrorGhost.AnchoredBlueprintBlock.Clone());
             }
 
             CalculateGhostEnabled();

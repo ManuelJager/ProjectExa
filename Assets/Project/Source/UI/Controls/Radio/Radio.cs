@@ -1,9 +1,11 @@
 ﻿using Exa.UI.Components;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Exa.UI.Controls
 {
+    [Serializable]
     public class Radio : InputControl<bool>
     {
         [SerializeField] private Image buttonImage;

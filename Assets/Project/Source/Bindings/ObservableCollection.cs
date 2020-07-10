@@ -10,26 +10,26 @@ namespace Exa.Bindings
     /// This is preferable to just an observable<List<TData>> because it only needs to refresh views that are changed
     /// </para>
     /// </summary>
-    /// <typeparam name="TData"></typeparam>
+    /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class ObservableCollection<TData> : IObservableCollection<TData>
+    public class ObservableCollection<T> : IObservableCollection<T>
     {
-        public List<TData> collection;
-        public List<ICollectionObserver<TData>> Observers { get; } = new List<ICollectionObserver<TData>>();
+        public List<T> collection;
+        public List<ICollectionObserver<T>> Observers { get; } = new List<ICollectionObserver<T>>();
 
         public ObservableCollection()
         {
-            this.collection = new List<TData>();
+            this.collection = new List<T>();
         }
 
-        public ObservableCollection(List<TData> collection)
+        public ObservableCollection(List<T> collection)
         {
             this.collection = collection;
         }
 
         #region IList<TData> implementation
 
-        public TData this[int index]
+        public T this[int index]
         {
             get => collection[index];
             set
@@ -47,21 +47,13 @@ namespace Exa.Bindings
 
         public bool IsReadOnly => false;
 
-        public virtual void Add(TData item)
+        public virtual void Add(T item)
         {
             collection.Add(item);
 
             foreach (var observer in Observers)
             {
                 observer.OnAdd(item);
-            }
-        }
-
-        public virtual void AddRange(IEnumerable<TData> collection)
-        {
-            foreach (var item in collection)
-            {
-                Add(item);
             }
         }
 
@@ -75,27 +67,27 @@ namespace Exa.Bindings
             }
         }
 
-        public virtual bool Contains(TData item)
+        public virtual bool Contains(T item)
         {
             return collection.Contains(item);
         }
 
-        public virtual void CopyTo(TData[] array, int arrayIndex)
+        public virtual void CopyTo(T[] array, int arrayIndex)
         {
             collection.CopyTo(array, arrayIndex);
         }
 
-        public virtual IEnumerator<TData> GetEnumerator()
+        public virtual IEnumerator<T> GetEnumerator()
         {
             return collection.GetEnumerator();
         }
 
-        public virtual int IndexOf(TData item)
+        public virtual int IndexOf(T item)
         {
             return collection.IndexOf(item);
         }
 
-        public virtual void Insert(int index, TData item)
+        public virtual void Insert(int index, T item)
         {
             collection.Insert(index, item);
 
@@ -105,7 +97,7 @@ namespace Exa.Bindings
             }
         }
 
-        public virtual bool Remove(TData item)
+        public virtual bool Remove(T item)
         {
             var removed = collection.Remove(item);
 
@@ -141,7 +133,7 @@ namespace Exa.Bindings
         /// Add an observer to the observer collection
         /// </summary>
         /// <param name="observer"></param>
-        public virtual void Register(ICollectionObserver<TData> observer)
+        public virtual void Register(ICollectionObserver<T> observer)
         {
             if (Observers.Contains(observer)) return;
 
@@ -153,7 +145,7 @@ namespace Exa.Bindings
         /// Remove an observer from the observer collection
         /// </summary>
         /// <param name="observer"></param>
-        public virtual void Unregister(ICollectionObserver<TData> observer)
+        public virtual void Unregister(ICollectionObserver<T> observer)
         {
             if (!Observers.Contains(observer)) return;
 

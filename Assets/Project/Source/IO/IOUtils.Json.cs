@@ -11,13 +11,13 @@ namespace Exa.IO
 
     public static partial class IOUtils
     {
-        public static JsonSerializerSettings systemJsonSettings = new JsonSerializerSettings
+        public static JsonSerializerSettings compactJsonSettings = new JsonSerializerSettings
         {
             Formatting = Formatting.None,
             DefaultValueHandling = DefaultValueHandling.Ignore
         };
 
-        public static JsonSerializerSettings userJsonSettings = new JsonSerializerSettings
+        public static JsonSerializerSettings readableJsonSettings = new JsonSerializerSettings
         {
             Formatting = Formatting.Indented,
             DefaultValueHandling = DefaultValueHandling.Ignore
@@ -81,10 +81,10 @@ namespace Exa.IO
             switch (serializationMode)
             {
                 case SerializationMode.compact:
-                    return systemJsonSettings;
+                    return compactJsonSettings;
 
                 case SerializationMode.readable:
-                    return userJsonSettings;
+                    return readableJsonSettings;
 
                 default:
                     return null;

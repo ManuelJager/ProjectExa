@@ -75,8 +75,8 @@ namespace Exa.Bindings
         public static bool operator ==(Observable<T> a, Observable<T> b)
         {
             if (ReferenceEquals(a, b)) return true;
-            if (ReferenceEquals(a, null)) return false;
-            if (ReferenceEquals(b, null)) return false;
+            if (a is null) return false;
+            if (b is null) return false;
             return a.data.Equals(b.data);
         }
 

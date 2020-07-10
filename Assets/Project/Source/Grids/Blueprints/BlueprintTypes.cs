@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
-    [Serializable]
     [CreateAssetMenu(fileName = "BlueprintTypes", menuName = "Grids/Blueprints/BlueprintTypes")]
     public class BlueprintTypes : ScriptableObject
     {

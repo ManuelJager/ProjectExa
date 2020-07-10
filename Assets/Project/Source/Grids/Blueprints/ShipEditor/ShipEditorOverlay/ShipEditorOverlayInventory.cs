@@ -9,7 +9,7 @@ namespace Exa.Grids.Blueprints.Editor
     public class ShipEditorOverlayInventory : ViewController<BlockTemplateView, ObservableBlockTemplate, BlockTemplate>
     {
         [SerializeField] private GameObject expandableItemPrefab;
-        private Dictionary<string, ExpandableItem> blockCategories = new Dictionary<string, ExpandableItem>();
+        private readonly Dictionary<string, ExpandableItem> blockCategories = new Dictionary<string, ExpandableItem>();
 
         public event BlockSelectedDelegate BlockSelected;
 
