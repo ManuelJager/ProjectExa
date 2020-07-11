@@ -13,6 +13,11 @@ namespace Exa.Grids.Blueprints.Editor
 
         public event BlockSelectedDelegate BlockSelected;
 
+        private void Start()
+        {
+            Source = MainManager.Instance.blockFactory.availibleBlockTemplates;
+        }
+
         public override void OnAdd(ObservableBlockTemplate observer)
         {
             var category = observer.Data.Category;

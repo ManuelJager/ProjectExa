@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fcb04f4268c2a4ba5d6b8f91425149, type: 3}
   m_Name: Scout
   m_EditorClassIdentifier: 
-  blueprintJson: 
+  blueprintJson: '{"name":"Scout","shipClass":"Scout","blocks":{"3,2":{"id":"MediumCockpit"},"6,2":{"id":"HeavyArmor"},"7,2":{"id":"HeavyArmor"},"4,1":{"id":"HeavyArmor"},"3,0":{"id":"HeavyArmor"},"4,3":{"id":"HeavyArmor"},"3,4":{"id":"HeavyArmor"},"2,4":{"id":"SmallThruster"},"2,0":{"id":"SmallThruster"},"4,0":{"id":"SmallThruster","Rotation":-2},"4,4":{"id":"SmallThruster","Rotation":-2},"5,1":{"id":"SmallThruster","Rotation":-3},"5,3":{"id":"SmallThruster","flippedY":true,"Rotation":3},"6,1":{"id":"SmallThruster","Rotation":2},"6,3":{"id":"SmallThruster","flippedY":true,"Rotation":-2},"0,3":{"id":"MediumThruster"},"0,1":{"id":"MediumThruster","flippedY":true},"1,2":{"id":"SmallThruster"},"3,1":{"id":"SmallGyroscope"},"3,3":{"id":"SmallGyroscope","flippedY":true},"2,2":{"id":"SmallReactor"}}}'

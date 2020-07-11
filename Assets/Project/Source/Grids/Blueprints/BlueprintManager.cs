@@ -15,7 +15,7 @@ namespace Exa.Grids.Blueprints
 
         [SerializeField] private bool loadOnEnable;
 
-        private void Awake()
+        public void StartUp()
         {
             foreach (var defaultBlueprint in MiscUtils.GetAllInstances<DefaultBlueprint>())
             {
@@ -63,15 +63,7 @@ namespace Exa.Grids.Blueprints
 
         private void AddUserBlueprint(Blueprint blueprint)
         {
-            if (blueprint == null)
-            {
-                return;
-            }
-
-            if (BlueprintNameExists(blueprint.name))
-            {
-                return;
-            }
+            if (blueprint == null || BlueprintNameExists(blueprint.name)) return;
 
             var observableBlueprint = new ObservableBlueprint(blueprint);
             observableBlueprint.LoadThumbnail();

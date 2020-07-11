@@ -7,15 +7,7 @@ namespace Exa
     {
         private void Start()
         {
-            var transition = ExaSceneManager.Instance.Transition("Main", new TransitionArgs
-            {
-                loadScreenMode = LoadScreenMode.CloseOnPrepared
-            });
-
-            MainManager.Prepared.AddListener(() =>
-            {
-                transition.onScenePrepared?.Invoke();
-            });
+            ExaSceneManager.Instance.Transition("Main", new TransitionArgs());
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Exa.Grids.Blocks
         public ObservableBlockTemplateCollection availibleBlockTemplates = new ObservableBlockTemplateCollection();
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
-        private void Awake()
+        public void StartUp()
         {
             foreach (var template in MiscUtils.GetAllInstances<BlockTemplate>("GameData/BlockTypes"))
             {

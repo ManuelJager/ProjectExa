@@ -1,6 +1,7 @@
 ﻿using Exa.UI.Components;
 using UnityEditor;
 using UnityEngine;
+using Exa.SceneManagement;
 
 namespace Exa.UI
 {
@@ -18,6 +19,15 @@ namespace Exa.UI
 #else
             Application.Quit();
 #endif
+        }
+
+        public void NavigateToMission()
+        {
+            var transition = ExaSceneManager.Instance.Transition("Mission", new TransitionArgs());
+            transition.onPrepared.AddListener(() =>
+            {
+                self.NavigateTo(MissionManager.Instance.navigateable);
+            });
         }
 
         public void NavigateToEditor()

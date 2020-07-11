@@ -8,7 +8,6 @@ namespace Exa.SceneManagement
 {
     public enum LoadScreenMode
     {
-        CloseOnLoad,
         CloseOnPrepared,
         None
     }
@@ -16,20 +15,15 @@ namespace Exa.SceneManagement
     public class TransitionArgs
     {
         public LoadSceneMode loadSceneMode = LoadSceneMode.Additive;
-        public LoadScreenMode loadScreenMode = LoadScreenMode.CloseOnLoad;
+        public LoadScreenMode loadScreenMode = LoadScreenMode.CloseOnPrepared;
     }
 
     public class ExaSceneManager : MonoSingleton<ExaSceneManager>
     {
         [SerializeField] private LoadingScreen loadingScreen;
 
-        public ISceneTransition Transition(string name, TransitionArgs transitionArgs = null)
+        public SceneTransition Transition(string name, TransitionArgs transitionArgs)
         {
-            if (transitionArgs == null)
-            {
-                transitionArgs = new TransitionArgs();
-            }
-
             var operation = SceneManager.LoadSceneAsync(name, transitionArgs.loadSceneMode);
             var transition = new SceneTransition(operation);
 
@@ -37,14 +31,9 @@ namespace Exa.SceneManagement
             {
                 loadingScreen.ShowScreen();
 
-                if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnLoad)
-                {
-                    transition.onSceneLoaded.AddListener(loadingScreen.MarkLoaded);
-                }
-
                 if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnPrepared)
                 {
-                    transition.onScenePrepared.AddListener(loadingScreen.MarkLoaded);
+                    transition.onPrepared.AddListener(loadingScreen.MarkLoaded);
                 }
             }
 

@@ -12,7 +12,6 @@ namespace Exa
 {
     public class MainManager : MonoSingleton<MainManager>
     {
-        public static bool IsQuitting { get; private set; }
         public static UnityEvent Prepared = new UnityEvent();
 
         public BlockFactory blockFactory;
@@ -22,13 +21,14 @@ namespace Exa
         public SettingsManager settingsManager;
         public ThumbnailGenerator thumbnailGenerator;
 
-        public void Start()
+        protected override void Awake()
         {
-            MonoSingletonUtils.NotifyCreated<MainManager>(this);
-            shipEditor.editorOverlay.inventory.Source = blockFactory.availibleBlockTemplates;
+            base.Awake();
+
+            blockFactory.StartUp();
+
             // Load blueprints from disk
-            blueprintManager.gameObject.SetActive(true);
-            Prepared?.Invoke();
+            blueprintManager.StartUp();
         }
 
         [RuntimeInitializeOnLoadMethod]
@@ -36,7 +36,7 @@ namespace Exa
         {
             Application.quitting += () =>
             {
-                IsQuitting = true;
+                MiscUtils.IsQuitting = true;
             };
         }
     }
