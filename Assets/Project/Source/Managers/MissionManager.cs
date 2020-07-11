@@ -8,12 +8,14 @@ namespace Exa
     public class MissionManager : MonoSingleton<MissionManager>
     {
         public Navigateable navigateable;
+        public ShipFactory shipFactory;
 
         [SerializeField] private GameplayInputController gameplayInputController;
 
         protected override void Awake()
         {
             base.Awake();
+            shipFactory.Create("defaultMothership");
         }
     }
 }

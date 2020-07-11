@@ -5,6 +5,7 @@ namespace Exa.Gameplay
 {
     public class GameplayCameraController : MonoBehaviour
     {
+        [SerializeField] private float movementSpeed;
         private Camera target;
         private UserCameraTarget userCameraTarget = new UserCameraTarget();
         private ICameraTarget currentTarget;
@@ -20,7 +21,7 @@ namespace Exa.Gameplay
 
         private void Update()
         {
-            userCameraTarget.worldPosition += movementDelta * Time.deltaTime;
+            userCameraTarget.worldPosition += movementDelta * movementSpeed * Time.deltaTime;
 
             if (currentTarget != null)
             {
