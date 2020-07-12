@@ -13,7 +13,7 @@ namespace Exa.Grids.Blueprints
         [HideInInspector] public ObservableDictionary<string, ObservableBlueprint> observableDefaultBlueprints = new ObservableDictionary<string, ObservableBlueprint>();
         public BlueprintTypeBag blueprintTypes;
 
-        [SerializeField] private bool loadOnEnable;
+        [SerializeField] private bool loadOnAwake;
         [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
 
         public void StartUp()
@@ -23,7 +23,7 @@ namespace Exa.Grids.Blueprints
                 AddDefaultBlueprint(defaultBlueprint);
             }
 
-            if (loadOnEnable) Load();
+            if (loadOnAwake) Load();
         }
 
         // Has a dependency on block factory

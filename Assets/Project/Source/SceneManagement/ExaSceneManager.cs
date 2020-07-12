@@ -39,8 +39,11 @@ namespace Exa.SceneManagement
 
                 if (transitionArgs.SetActiveScene)
                 {
-                    var scene = SceneManager.GetSceneByName(name);
-                    SceneManager.SetActiveScene(scene);
+                    transition.onPrepared.AddListener(() =>
+                    {
+                        var scene = SceneManager.GetSceneByName(name);
+                        SceneManager.SetActiveScene(scene);
+                    });
                 }
             }
 
