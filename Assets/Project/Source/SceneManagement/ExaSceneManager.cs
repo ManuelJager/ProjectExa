@@ -16,6 +16,7 @@ namespace Exa.SceneManagement
     {
         public LoadSceneMode loadSceneMode = LoadSceneMode.Additive;
         public LoadScreenMode loadScreenMode = LoadScreenMode.CloseOnPrepared;
+        public bool SetActiveScene = false;
     }
 
     public class ExaSceneManager : MonoSingleton<ExaSceneManager>
@@ -34,6 +35,12 @@ namespace Exa.SceneManagement
                 if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnPrepared)
                 {
                     transition.onPrepared.AddListener(loadingScreen.MarkLoaded);
+                }
+
+                if (transitionArgs.SetActiveScene)
+                {
+                    var scene = SceneManager.GetSceneByName(name);
+                    SceneManager.SetActiveScene(scene);
                 }
             }
 

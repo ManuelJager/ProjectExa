@@ -23,7 +23,11 @@ namespace Exa.UI
 
         public void NavigateToMission()
         {
-            var transition = ExaSceneManager.Instance.Transition("Mission", new TransitionArgs());
+            var transition = ExaSceneManager.Instance.Transition("Mission", new TransitionArgs
+            {
+                SetActiveScene = true
+            });
+
             transition.onPrepared.AddListener(() =>
             {
                 self.NavigateTo(MissionManager.Instance.navigateable);

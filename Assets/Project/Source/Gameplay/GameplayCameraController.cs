@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.Gameplay
 {
@@ -26,8 +26,10 @@ namespace Exa.Gameplay
 
             if (currentTarget != null)
             {
+                var targetOrthoSize = currentTarget.GetOrthoSize();
                 var targetPosition = currentTarget.GetWorldPosition().ToVector3(-10);
                 target.transform.DOMove(targetPosition, 0.2f);
+                target.DOOrthoSize(targetOrthoSize, 0.2f);
             }
         }
 
@@ -44,7 +46,7 @@ namespace Exa.Gameplay
         public void SetMovementDelta(Vector2 delta)
         {
             movementDelta = IsTargetUserControlled
-                ? delta 
+                ? delta
                 : Vector2.zero;
         }
     }

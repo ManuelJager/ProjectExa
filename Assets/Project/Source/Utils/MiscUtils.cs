@@ -21,12 +21,14 @@ namespace Exa.Utils
             action();
         }
 
+        [Obsolete("Poor reliability, use scriptable object bags instead")]
         public static T[] GetAllInstances<T>()
             where T : ScriptableObject
         {
             return Resources.FindObjectsOfTypeAll(typeof(T)) as T[];
         }
 
+        [Obsolete("Poor scaleability, use scriptable object bags instead")]
         public static T[] GetAllInstances<T>(string path)
             where T : ScriptableObject
         {

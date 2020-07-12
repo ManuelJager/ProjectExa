@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Exa.Generics;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
-    [CreateAssetMenu(fileName = "BlueprintTypes", menuName = "Grids/Blueprints/BlueprintTypes")]
-    public class BlueprintTypes : ScriptableObject
+    [CreateAssetMenu(menuName = "Grids/Blueprints/BlueprintTypes")]
+    public class BlueprintTypeBag : ScriptableObjectBag<BlueprintType>
     {
         public Dictionary<string, BlueprintType> typesById;
-        public List<BlueprintType> types;
 
         public void OnEnable()
         {
             typesById = new Dictionary<string, BlueprintType>();
-            foreach (var type in types)
+            foreach (var type in objects)
             {
                 typesById[type.typeGuid] = type;
             }

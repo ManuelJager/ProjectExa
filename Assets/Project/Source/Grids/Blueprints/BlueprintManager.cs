@@ -11,13 +11,14 @@ namespace Exa.Grids.Blueprints
     {
         [HideInInspector] public ObservableBlueprintCollection observableUserBlueprints = new ObservableBlueprintCollection();
         [HideInInspector] public ObservableDictionary<string, ObservableBlueprint> observableDefaultBlueprints = new ObservableDictionary<string, ObservableBlueprint>();
-        public BlueprintTypes blueprintTypes;
+        public BlueprintTypeBag blueprintTypes;
 
         [SerializeField] private bool loadOnEnable;
+        [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
 
         public void StartUp()
         {
-            foreach (var defaultBlueprint in MiscUtils.GetAllInstances<DefaultBlueprint>())
+            foreach (var defaultBlueprint in defaultBlueprintBag)
             {
                 AddDefaultBlueprint(defaultBlueprint);
             }

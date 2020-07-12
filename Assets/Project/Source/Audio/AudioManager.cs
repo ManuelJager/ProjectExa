@@ -7,7 +7,7 @@ namespace Exa.Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        public List<Sound> sounds;
+        public SoundBag soundBag;
         public MusicTrack ST_AudioTrack;
         public AudioTrack UI_SFX_AudioTrack;
 
@@ -15,7 +15,7 @@ namespace Exa.Audio
 
         private void Awake()
         {
-            foreach (var sound in MiscUtils.GetAllInstances<Sound>())
+            foreach (var sound in soundBag)
             {
                 Register(sound);
             }

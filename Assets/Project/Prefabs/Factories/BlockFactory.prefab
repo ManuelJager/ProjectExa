@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2442101be11c2b488c13d2d07262d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockTemplates: {fileID: 11400000, guid: 58c45937448da734cbc567d5a7e36460, type: 2}
+  blockTemplateBag: {fileID: 11400000, guid: 81f5adcca85f42c42b5aea3d09f0b99c, type: 2}

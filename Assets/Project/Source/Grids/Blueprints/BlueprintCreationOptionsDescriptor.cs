@@ -23,7 +23,7 @@ namespace Exa.Grids.Blueprints
 
         public IEnumerable<NamedWrapper<object>> GetValues()
         {
-            var types = MainManager.Instance.blueprintManager.blueprintTypes.types;
+            var types = MainManager.Instance.blueprintManager.blueprintTypes.objects;
             // Sort blueprint types by their size
             types.Sort(new BlueprintTypeComparer());
             foreach (var type in types)

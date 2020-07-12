@@ -138,12 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97914687ba1663944aee64ef618cb462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 11400000, guid: b48159f68624a6f4785ccc1ca593a456, type: 2}
-  - {fileID: 11400000, guid: 39f12b02ccd77de41825bf98b2a7159c, type: 2}
-  - {fileID: 11400000, guid: 911c51fedc82b49428337ae7075e4656, type: 2}
-  - {fileID: 11400000, guid: bdaa7c8727d197444a1b1e9662639ac3, type: 2}
-  - {fileID: 11400000, guid: 9aae5c7b23a755e4d93b870b00a802ed, type: 2}
-  - {fileID: 11400000, guid: dccc669e2843782488b6ed8eb772cba7, type: 2}
+  soundBag: {fileID: 11400000, guid: 4e28e46c0d3c17b4683ee5a6e0cc57d1, type: 2}
   ST_AudioTrack: {fileID: 6437573395784765496}
   UI_SFX_AudioTrack: {fileID: 1198682036274942249}

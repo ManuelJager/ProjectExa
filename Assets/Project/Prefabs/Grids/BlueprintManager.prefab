@@ -43,6 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85e5c0ac7090e542bbbfe4070314b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueprintTypes: {fileID: 11400000, guid: d2bcab0a414e18a4eafd26663e76900c, type: 2}
+  blueprintTypes: {fileID: 11400000, guid: ea5f593b3dc3ed142a8d8854ab70e880, type: 2}
   loadOnEnable: 1
-  saveOnDisable: 0
