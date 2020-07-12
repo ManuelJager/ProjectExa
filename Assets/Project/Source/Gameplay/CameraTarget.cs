@@ -4,7 +4,7 @@ namespace Exa.Gameplay
 {
     public class CameraTarget : MonoBehaviour, ICameraTarget
     {
-        public Vector3 GetWorldPosition()
+        public Vector2 GetWorldPosition()
         {
             return transform.position;
         }

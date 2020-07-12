@@ -6,7 +6,7 @@ namespace Exa.Gameplay
     {
         public Vector2 worldPosition;
 
-        public Vector3 GetWorldPosition()
+        public Vector2 GetWorldPosition()
         {
             return worldPosition;
         }

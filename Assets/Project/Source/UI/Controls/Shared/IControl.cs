@@ -1,9 +1,9 @@
 ﻿namespace Exa.UI.Components
 {
     /// <summary>
-    /// Supports a control that can be checked for a changed value
+    /// Supports a user control that can be checked for a changed value
     /// </summary>
-    public interface IDirtableControl
+    public interface IControl
     {
         /// <summary>
         /// Checks if the value is up-to-date

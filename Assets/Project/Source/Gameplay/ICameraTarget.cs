@@ -9,6 +9,6 @@ namespace Exa.Gameplay
 {
     public interface ICameraTarget
     {
-        Vector3 GetWorldPosition();
+        Vector2 GetWorldPosition();
     }
 }

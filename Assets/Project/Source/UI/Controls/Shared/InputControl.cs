@@ -31,7 +31,7 @@ namespace Exa.UI.Components
         }
     }
 
-    public abstract class InputControl : MonoBehaviour, IDirtableControl
+    public abstract class InputControl : MonoBehaviour, IControl
     {
         /// <summary>
         /// Checks if the value is up-to-date

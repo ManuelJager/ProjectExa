@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using Exa.Utils;
 
 namespace Exa.Gameplay
 {
@@ -25,7 +26,8 @@ namespace Exa.Gameplay
 
             if (currentTarget != null)
             {
-                target.transform.DOMove(currentTarget.GetWorldPosition(), 0.2f);
+                var targetPosition = currentTarget.GetWorldPosition().ToVector3(-10);
+                target.transform.DOMove(targetPosition, 0.2f);
             }
         }
 

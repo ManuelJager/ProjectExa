@@ -57,7 +57,7 @@ namespace Exa.UI.Settings
         }
     }
 
-    public abstract class SettingsTabBase : Tab, IDirtableControl
+    public abstract class SettingsTabBase : Tab, IControl
     {
         /// <summary>
         /// All controls under the panel
