@@ -1,6 +1,7 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints.Editor;
+using Exa.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Exa.Grids.Blueprints
         public void UpdateLocals(GameObject blockGO)
         {
             blockGO.transform.localRotation = blueprintBlock.QuaternionRotation;
-            blockGO.transform.localPosition = ShipEditorUtils.GetRealPositionByAnchor(blueprintBlock, gridAnchor);
+            blockGO.transform.localPosition = GetRealPosition();
         }
 
         public GameObject CreateBehaviourInGrid(Transform parent)
@@ -45,6 +46,22 @@ namespace Exa.Grids.Blueprints
             UpdateSpriteRenderer(spriteRenderer);
             UpdateLocals(blockGO);
             return blockGO;
+        }
+
+        public Vector2 GetRealPosition()
+        {
+            var size = blueprintBlock.RuntimeContext.Size - Vector2Int.one;
+
+            var offset = new Vector2
+            {
+                x = size.x / 2f,
+                y = size.y / 2f
+            }.Rotate(blueprintBlock.Rotation);
+
+            if (blueprintBlock.flippedX) offset.x = -offset.x;
+            if (blueprintBlock.flippedY) offset.y = -offset.y;
+
+            return offset + gridAnchor;
         }
     }
 
@@ -84,6 +101,16 @@ namespace Exa.Grids.Blueprints
         public Quaternion QuaternionRotation
         {
             get => Quaternion.Euler(0, 0, Rotation * 90f);
+        }
+
+        public Vector2Int CalculateSizeDelta()
+        {
+            var area = RuntimeContext.Size.Rotate(Rotation);
+
+            if (flippedX) area.x = -area.x;
+            if (flippedY) area.y = -area.y;
+
+            return area;
         }
     }
 }

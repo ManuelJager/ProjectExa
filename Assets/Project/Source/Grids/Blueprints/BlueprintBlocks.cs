@@ -12,6 +12,7 @@ namespace Exa.Grids.Blueprints
     public class BlueprintBlocks : ICloneable<BlueprintBlocks>
     {
         [JsonIgnore] public LazyCache<Vector2Int> Size { get; }
+        [JsonIgnore] public LazyCache<Vector2> CentreOfMass { get; }
         [JsonIgnore] public List<AnchoredBlueprintBlock> AnchoredBlueprintBlocks { get; private set; } = new List<AnchoredBlueprintBlock>();
         [JsonIgnore] public BlueprintBlocksOccupiedTilesCache OccupiedTiles { get; private set; } = new BlueprintBlocksOccupiedTilesCache();
 
@@ -23,16 +24,22 @@ namespace Exa.Grids.Blueprints
                 var bounds = new GridBounds(OccupiedTiles.Keys);
                 return bounds.GetDelta();
             });
+
+            CentreOfMass = new LazyCache<Vector2>(() =>
+            {
+                return CalculateCentreOfMass();
+            });
         }
 
         public void Add(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
             Size.Invalidate();
+            CentreOfMass.Invalidate();
 
             AnchoredBlueprintBlocks.Add(anchoredBlueprintBlock);
 
             // Get grid positions of blueprint block
-            var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
+            var tilePositions = GridUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
 
             // Add neighbour references
             foreach (var neighbour in GetNeighbours(tilePositions))
@@ -50,9 +57,10 @@ namespace Exa.Grids.Blueprints
         public void Remove(Vector2Int key)
         {
             Size.Invalidate();
+            CentreOfMass.Invalidate();
 
             var anchoredBlueprintBlock = GetAnchoredBlockAtGridPos(key);
-            var tilePositions = ShipEditorUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
+            var tilePositions = GridUtils.GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
 
             AnchoredBlueprintBlocks.Remove(anchoredBlueprintBlock);
 
@@ -75,16 +83,6 @@ namespace Exa.Grids.Blueprints
 
         public bool HasOverlap(IEnumerable<Vector2Int> gridPositions)
         {
-            return OccupiedTiles
-                .Select((item) => item.Key)
-                .Intersect(gridPositions)
-                .Any();
-        }
-
-        public bool HasOverlap(BlueprintBlock block, Vector2Int gridAnchor)
-        {
-            var gridPositions = ShipEditorUtils.GetOccupiedTilesByAnchor(block, gridAnchor);
-
             return OccupiedTiles
                 .Select((item) => item.Key)
                 .Intersect(gridPositions)
@@ -142,6 +140,18 @@ namespace Exa.Grids.Blueprints
             }
 
             return neighbours;
+        }
+
+        private Vector2 CalculateCentreOfMass()
+        {
+            var total = new Vector2();
+
+            foreach (var block in AnchoredBlueprintBlocks)
+            {
+                total += block.GetRealPosition();
+            }
+
+            return total / AnchoredBlueprintBlocks.Count;
         }
     }
 }

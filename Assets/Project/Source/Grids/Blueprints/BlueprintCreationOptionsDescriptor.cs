@@ -8,24 +8,9 @@ namespace Exa.Grids.Blueprints
 {
     public class BlueprintClassificationSource : IDataSourceProvider
     {
-        private class BlueprintTypeComparer : IComparer<BlueprintType>
-        {
-            public int Compare(BlueprintType x, BlueprintType y)
-            {
-                return GetSize(x) - GetSize(y);
-            }
-
-            private int GetSize(BlueprintType blueprintType)
-            {
-                return blueprintType.maxSize.x * blueprintType.maxSize.y;
-            }
-        }
-
         public IEnumerable<NamedWrapper<object>> GetValues()
         {
             var types = MainManager.Instance.blueprintManager.blueprintTypes.objects;
-            // Sort blueprint types by their size
-            types.Sort(new BlueprintTypeComparer());
             foreach (var type in types)
             {
                 yield return new NamedWrapper<object>

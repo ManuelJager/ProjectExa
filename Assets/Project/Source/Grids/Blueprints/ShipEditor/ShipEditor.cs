@@ -46,6 +46,9 @@ namespace Exa.Grids.Blueprints.Editor
             navigateable = GetComponent<ShipEditorNavigateable>();
             SetGridBackground();
 
+            editorOverlay.blueprintInfoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
+            editorOverlay.inventory.BlockSelected += editorGrid.OnBlockSelected;
+
             editorOverlay.onPointerEnter.AddListener(() =>
             {
                 BlockedByUI = true;
@@ -86,16 +89,13 @@ namespace Exa.Grids.Blueprints.Editor
             Zoom = 5f;
             Camera.main.orthographicSize = Zoom;
             gameControls.Enable();
-            editorOverlay.inventory.BlockSelected += editorGrid.OnBlockSelected;
-            editorOverlay.blueprintInfoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
+            
         }
 
         private void OnDisable()
         {
             Active = false;
             gameControls.Disable();
-            editorOverlay.inventory.BlockSelected -= editorGrid.OnBlockSelected;
-            editorOverlay.blueprintInfoPanel.clearButton.onClick.RemoveListener(OnBlueprintClear);
         }
 
         public void Import(ObservableBlueprint blueprintContainer, Action<ObservableBlueprint> saveCallback)

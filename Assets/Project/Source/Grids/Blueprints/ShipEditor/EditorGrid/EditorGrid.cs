@@ -158,7 +158,12 @@ namespace Exa.Grids.Blueprints.Editor
 
         private Vector2 GetGridOffset()
         {
-            return new Vector2(-(size.x / 2f), -(size.y / 2f));
+            var halfSize = size.ToVector2() / 2f;
+            return new Vector2
+            {
+                x = -halfSize.x + 0.5f,
+                y = -halfSize.y + 0.5f
+            };
         }
 
         /// <summary>
@@ -174,8 +179,8 @@ namespace Exa.Grids.Blueprints.Editor
                 return;
             }
 
-            var ghostTiles = ShipEditorUtils.GetOccupiedTilesByGhost(ghostLayer.ghost);
-            var mirrorGhostTiles = ShipEditorUtils.GetOccupiedTilesByGhost(ghostLayer.mirrorGhost);
+            var ghostTiles = GridUtils.GetOccupiedTilesByAnchor(ghostLayer.ghost.AnchoredBlueprintBlock);
+            var mirrorGhostTiles = GridUtils.GetOccupiedTilesByAnchor(ghostLayer.mirrorGhost.AnchoredBlueprintBlock);
 
             bool GetGhostIsClear(IEnumerable<Vector2Int> occupiedGhostTiles)
             {

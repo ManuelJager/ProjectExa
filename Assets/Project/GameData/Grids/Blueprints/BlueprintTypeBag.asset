@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f33f6fcbfb45241bead532e5f4cddc, type: 3}
   m_Name: BlueprintTypeBag
   m_EditorClassIdentifier: 
-  objects: []
+  objects:
+  - {fileID: 11400000, guid: b47587f850af9d74bb2cd876d6a5164b, type: 2}
+  - {fileID: 11400000, guid: a317ce957b557d5439e529557ef19db2, type: 2}
+  - {fileID: 11400000, guid: eee8ff1cc487ebf4b932477976cfa85f, type: 2}
+  - {fileID: 11400000, guid: 6418ee3cf5aa4b745bcc2db665031053, type: 2}
+  - {fileID: 11400000, guid: 426a246e14732cc4ebecf3702c4a049b, type: 2}
+  - {fileID: 11400000, guid: e524c56f609a0e94ba5ab686b75532e9, type: 2}

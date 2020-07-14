@@ -1,6 +1,4 @@
 ﻿using Exa.Generics;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,9 +12,10 @@ namespace Exa.CustomEditors
             base.OnInspectorGUI();
             if (GUILayout.Button("Find objects"))
             {
-                (target as ScriptableObjectBagBase).FindObjects();
+                var bag = target as ScriptableObjectBagBase;
+                bag.FindObjects();
+                EditorUtility.SetDirty(bag);
             }
         }
     }
 }
-

@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blueprintTypes: {fileID: 11400000, guid: ea5f593b3dc3ed142a8d8854ab70e880, type: 2}
-  loadOnEnable: 1
+  loadOnAwake: 1
   defaultBlueprintBag: {fileID: 11400000, guid: c1c7e923b5a0cf445bb12d051651cfc8,
     type: 2}

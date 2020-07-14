@@ -1,16 +1,35 @@
-﻿using Exa.Utils;
+﻿using Exa.Grids.Blueprints;
+using Exa.Grids.Blueprints.Editor;
+using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Grids.Blueprints.Editor
+namespace Exa.Grids
 {
-    public static class ShipEditorUtils
+    public static class GridUtils
     {
-
-        public static IEnumerable<Vector2Int> GetOccupiedTilesByGhost(BlockGhost blockGhost)
+        public static Vector3 GetRealPositionByAnchor(BlueprintBlock block, Vector2Int gridAnchor)
         {
-            return GetOccupiedTilesByAnchor(blockGhost.AnchoredBlueprintBlock);
+            var size = block.RuntimeContext.Size - Vector2Int.one;
+
+            var offset = new Vector2
+            {
+                x = size.x / 2f,
+                y = size.y / 2f
+            }.Rotate(block.Rotation);
+
+            offset = new Vector2
+            (
+                block.flippedX ? -offset.x : offset.x,
+                block.flippedY ? -offset.y : offset.y
+            );
+
+            return new Vector3
+            {
+                x = offset.x + gridAnchor.x,
+                y = offset.y + gridAnchor.y,
+            };
         }
 
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(AnchoredBlueprintBlock anchoredBlueprintBlock)

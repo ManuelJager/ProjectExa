@@ -51,9 +51,10 @@ namespace Exa.Grids.Blueprints.Editor
 
             foreach (var vector in MathUtils.EnumerateVectors(size))
             {
-                var gridItem = Instantiate(gridItemPrefab, transform);
-                gridItem.transform.localPosition = new Vector3(vector.x + 0.5f, vector.y + 0.5f);
-                gridItems.Add(vector, gridItem.GetComponent<EditorGridItem>());
+                var gridItemGO = Instantiate(gridItemPrefab, transform);
+                gridItemGO.transform.localPosition = vector.ToVector3();
+                var gridItem = gridItemGO.GetComponent<EditorGridItem>();
+                gridItems.Add(vector, gridItem);
             }
         }
 
@@ -106,11 +107,10 @@ namespace Exa.Grids.Blueprints.Editor
         private Vector2Int GetGridPosFromMousePos(Vector2 playerPos)
         {
             // Get grid position from world position mouse
-            var worldMousePosv3 = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            var worldMousePosv2 = new Vector2(worldMousePosv3.x, worldMousePosv3.y);
+            var screenPoint = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-            var posXFloor = Mathf.FloorToInt(worldMousePosv2.x - playerPos.x);
-            var posYFloor = Mathf.FloorToInt(worldMousePosv2.y - playerPos.y);
+            var posXFloor = Mathf.FloorToInt(screenPoint.x - playerPos.x + 0.5f);
+            var posYFloor = Mathf.FloorToInt(screenPoint.y - playerPos.y + 0.5f);
 
             return new Vector2Int(posXFloor, posYFloor);
         }

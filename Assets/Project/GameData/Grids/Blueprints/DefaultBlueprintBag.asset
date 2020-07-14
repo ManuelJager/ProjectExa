@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598799f4e681ad74587239b4aa57450b, type: 3}
   m_Name: DefaultBlueprintBag
   m_EditorClassIdentifier: 
-  objects: []
+  objects:
+  - {fileID: 11400000, guid: 3c533f14606d1d240b93ba3186dab0da, type: 2}
+  - {fileID: 11400000, guid: 587404bb59283c143936ea0c1463d0a6, type: 2}

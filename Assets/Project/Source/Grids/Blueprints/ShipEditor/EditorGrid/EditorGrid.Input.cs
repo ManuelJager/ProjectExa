@@ -94,7 +94,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             if (MirrorEnabled)
             {
-                blueprintLayer.RemoveBlock(ShipEditorUtils.GetMirroredGridPos(size, realGridPos));
+                blueprintLayer.RemoveBlock(GridUtils.GetMirroredGridPos(size, realGridPos));
             }
 
             CalculateGhostEnabled();
@@ -116,7 +116,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             backgroundLayer.SetGridBackgroundItemColor(gridPos, enter);
 
-            ShipEditorUtils.ConditionallyApplyToMirror(gridPos, size, (mirroredGridPos) =>
+            GridUtils.ConditionallyApplyToMirror(gridPos, size, (mirroredGridPos) =>
             {
                 backgroundLayer.SetGridBackgroundItemColor(mirroredGridPos, MirrorEnabled && enter);
             });

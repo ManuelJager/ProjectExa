@@ -101,7 +101,7 @@ namespace Exa.Grids.Blueprints.Editor
             if (!GhostVisible) return;
 
             var realAnchorPos = anchorPos.GetValueOrDefault();
-            var mirroredAnchorPos = ShipEditorUtils.GetMirroredGridPos(gridSize, realAnchorPos);
+            var mirroredAnchorPos = GridUtils.GetMirroredGridPos(gridSize, realAnchorPos);
 
             ghost.AnchoredBlueprintBlock.gridAnchor = realAnchorPos;
             ghost.ReflectState();
