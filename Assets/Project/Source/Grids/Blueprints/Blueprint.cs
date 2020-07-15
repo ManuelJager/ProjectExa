@@ -54,6 +54,7 @@ namespace Exa.Grids.Blueprints
         {
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
 
+            /*
             // Add mass to grid
             context.OnAssignableFrom<IPhysicalBlockTemplateComponent>((component) =>
             {
@@ -65,6 +66,7 @@ namespace Exa.Grids.Blueprints
             {
                 PeakPowerGeneration += component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
             });
+            */
         }
 
         public void Remove(Vector2Int gridPos)
@@ -78,6 +80,7 @@ namespace Exa.Grids.Blueprints
             var anchoredBlueprintBlock = Blocks.GetAnchoredBlockAtGridPos(gridPos);
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
 
+            /*
             // Remove mass from grid
             context.OnAssignableFrom<IPhysicalBlockTemplateComponent>((component) =>
             {
@@ -89,6 +92,7 @@ namespace Exa.Grids.Blueprints
             {
                 PeakPowerGeneration -= component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
             });
+            */
         }
 
         public void ClearBlocks()

@@ -1,6 +1,5 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blocks;
-using Exa.Grids.Blueprints.Editor;
 using Exa.Utils;
 using Newtonsoft.Json;
 using System;
@@ -35,7 +34,7 @@ namespace Exa.Grids.Blueprints
         public void UpdateLocals(GameObject blockGO)
         {
             blockGO.transform.localRotation = blueprintBlock.QuaternionRotation;
-            blockGO.transform.localPosition = GetRealPosition();
+            blockGO.transform.localPosition = GetLocalPosition();
         }
 
         public GameObject CreateBehaviourInGrid(Transform parent)
@@ -48,9 +47,9 @@ namespace Exa.Grids.Blueprints
             return blockGO;
         }
 
-        public Vector2 GetRealPosition()
+        public Vector2 GetLocalPosition()
         {
-            var size = blueprintBlock.RuntimeContext.Size - Vector2Int.one;
+            var size = blueprintBlock.RuntimeContext.size - Vector2Int.one;
 
             var offset = new Vector2
             {
@@ -105,7 +104,7 @@ namespace Exa.Grids.Blueprints
 
         public Vector2Int CalculateSizeDelta()
         {
-            var area = RuntimeContext.Size.Rotate(Rotation);
+            var area = RuntimeContext.size.Rotate(Rotation);
 
             if (flippedX) area.x = -area.x;
             if (flippedY) area.y = -area.y;

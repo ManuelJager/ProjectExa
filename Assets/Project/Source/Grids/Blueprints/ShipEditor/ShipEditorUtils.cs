@@ -22,7 +22,7 @@ namespace Exa.Grids.Blueprints.Editor
 
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(BlueprintBlock block, Vector2Int gridAnchor)
         {
-            var area = block.RuntimeContext.Size.Rotate(block.Rotation);
+            var area = block.RuntimeContext.size.Rotate(block.Rotation);
 
             if (block.flippedX) area.x = -area.x;
             if (block.flippedY) area.y = -area.y;

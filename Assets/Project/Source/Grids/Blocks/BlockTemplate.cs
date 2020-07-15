@@ -29,37 +29,27 @@ namespace Exa.Grids.Blocks
 
     public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter
     {
-        [SerializeField] private string id;
-        [SerializeField] private string displayId;
-        [SerializeField] private string category;
-        [SerializeField] private string displayCategory;
-        [SerializeField] private Sprite thumbnail;
-        [SerializeField] private Vector2Int size;
-        [SerializeField] private GameObject prefab;
-        private TooltipResult tooltipResult;
+        public string id;
+        public string displayId;
+        public string category;
+        public string displayCategory;
+        public Sprite thumbnail;
+        public Vector2Int size;
+        public GameObject prefab;
 
-        public string Id => id;
-        public string DisplayId => displayId;
-        public string Category => category;
-        public string DisplayCategory => displayCategory;
-        public Sprite Thumbnail => thumbnail;
-        public Vector2Int Size => size;
-        public GameObject Prefab => prefab;
+        private TooltipResult tooltipResult;
 
         private void OnEnable()
         {
-            tooltipResult = new TooltipResult(ComponentFactory);
+            tooltipResult = new TooltipResult(TooltipComponentFactory);
         }
 
         public abstract void SetValues(IBlock block);
 
-        protected virtual ITooltipComponent[] ComponentFactory()
+        protected virtual ITooltipComponent[] TooltipComponentFactory() => new ITooltipComponent[]
         {
-            return new ITooltipComponent[]
-            {
-                new TooltipTitle(displayId)
-            };
-        }
+            new TooltipTitle(displayId)
+        };
 
         public TooltipResult GetComponents()
         {

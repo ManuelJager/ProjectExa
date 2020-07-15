@@ -31,8 +31,8 @@ namespace Exa.Grids.Blueprints.Editor
         public void OnUpdate(BlockTemplate data)
         {
             this.data = data;
-            image.sprite = data.Thumbnail;
-            blockSizeText.text = $"{data.Size.x}x{data.Size.y}";
+            image.sprite = data.thumbnail;
+            blockSizeText.text = $"{data.size.x}x{data.size.y}";
         }
     }
 }

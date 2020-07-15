@@ -20,8 +20,8 @@ namespace Exa.Grids.Blueprints.Editor
 
         public override void OnAdd(ObservableBlockTemplate observer)
         {
-            var category = observer.Data.Category;
-            var displayCategory = observer.Data.DisplayCategory;
+            var category = observer.Data.category;
+            var displayCategory = observer.Data.displayCategory;
 
             if (!blockCategories.ContainsKey(category))
             {

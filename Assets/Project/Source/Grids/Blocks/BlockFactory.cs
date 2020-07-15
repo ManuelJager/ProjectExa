@@ -36,11 +36,11 @@ namespace Exa.Grids.Blocks
         {
             availibleBlockTemplates.Add(new ObservableBlockTemplate(blockTemplate));
 
-            var block = blockTemplate.Prefab.GetComponent<IBlock>();
+            var block = blockTemplate.prefab.GetComponent<IBlock>();
 
             blockTemplate.SetValues(block);
 
-            var id = blockTemplate.Id;
+            var id = blockTemplate.id;
 
             if (blockTemplatesDict.ContainsKey(id))
             {
@@ -57,7 +57,7 @@ namespace Exa.Grids.Blocks
         /// <returns></returns>
         public GameObject GetBlock(string id)
         {
-            return blockTemplatesDict[id].Prefab;
+            return blockTemplatesDict[id].prefab;
         }
 
         /// <summary>

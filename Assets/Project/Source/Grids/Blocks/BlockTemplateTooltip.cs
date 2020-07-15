@@ -15,7 +15,7 @@ namespace Exa.Grids.Blocks
         public override void SetValues(BlockTemplate data)
         {
             var result = data.GetComponents();
-            var id = data.Id;
+            var id = data.id;
 
             // If the given block already has a tooltip
             if (tooltips.ContainsKey(activeTooltip))

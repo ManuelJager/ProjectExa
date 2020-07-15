@@ -7,23 +7,23 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
-    [CreateAssetMenu(menuName = "Grids/Blocks/PowerGenerator")]
-    public class PowerGeneratorTemplate : BlockTemplate<PowerGenerator>
+    [CreateAssetMenu(menuName = "Grids/Blocks/Gyroscope")]
+    public class GyroscopeTemplate : BlockTemplate<Gyroscope>
     {
         [SerializeField] private PhysicalTemplatePartial physicalTemplatePartial;
-        [SerializeField] private PowerGeneratorTemplatePartial powerGeneratorTemplatePartial;
+        [SerializeField] private GyroscopeTemplatePartial gyroscopeTemplatePartial;
 
-        protected override void SetValues(PowerGenerator block)
+        protected override void SetValues(Gyroscope block)
         {
-            block.physicalBehaviour.data = physicalTemplatePartial.Convert();
-            block.powerGeneratorBehaviour.data = powerGeneratorTemplatePartial.Convert();
+            block.PhysicalBehaviour.data = physicalTemplatePartial.Convert();
+            block.GyroscopeBehaviour.data = gyroscopeTemplatePartial.Convert();
         }
 
         protected override ITooltipComponent[] TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()
                 .Concat(physicalTemplatePartial.GetTooltipComponents())
-                .Concat(powerGeneratorTemplatePartial.GetComponents())
+                .Concat(gyroscopeTemplatePartial.GetComponents())
                 .ToArray();
         }
     }

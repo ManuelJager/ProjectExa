@@ -2,9 +2,9 @@
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class PowerGenerator : Block, IPhysicalBlock, IPowerGeneratorBlock
+    public class PowerGenerator : Block
     {
-        public PhysicalBlockData PhysicalBlockData { get; set; }
-        public PowerGeneratorBlockData PowerGeneratorBlockData { get; set; }
+        public PhysicalBehaviour physicalBehaviour;
+        public PowerGeneratorBehaviour powerGeneratorBehaviour;
     }
 }

@@ -75,7 +75,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             ghost.ImportBlock(new BlueprintBlock
             {
-                id = template.Id,
+                id = template.id,
                 Rotation = 0,
                 flippedX = false,
                 flippedY = false
@@ -83,7 +83,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             mirrorGhost.ImportBlock(new BlueprintBlock
             {
-                id = template.Id,
+                id = template.id,
                 Rotation = 0,
                 flippedX = false,
                 flippedY = true

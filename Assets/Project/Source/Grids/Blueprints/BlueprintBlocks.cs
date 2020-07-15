@@ -148,7 +148,7 @@ namespace Exa.Grids.Blueprints
 
             foreach (var block in AnchoredBlueprintBlocks)
             {
-                total += block.GetRealPosition();
+                total += block.GetLocalPosition();
             }
 
             return total / AnchoredBlueprintBlocks.Count;

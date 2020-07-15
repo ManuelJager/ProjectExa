@@ -11,7 +11,7 @@ namespace Exa.Grids
     {
         public static Vector3 GetRealPositionByAnchor(BlueprintBlock block, Vector2Int gridAnchor)
         {
-            var size = block.RuntimeContext.Size - Vector2Int.one;
+            var size = block.RuntimeContext.size - Vector2Int.one;
 
             var offset = new Vector2
             {
@@ -41,7 +41,7 @@ namespace Exa.Grids
 
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(BlueprintBlock block, Vector2Int gridAnchor)
         {
-            var area = block.RuntimeContext.Size.Rotate(block.Rotation);
+            var area = block.RuntimeContext.size.Rotate(block.Rotation);
 
             if (block.flippedX) area.x = -area.x;
             if (block.flippedY) area.y = -area.y;

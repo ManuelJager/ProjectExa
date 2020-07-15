@@ -12,7 +12,7 @@ namespace Exa.Grids.Blueprints.Editor
             var result = new ValidationResult(GetType());
 
             var controllers = validationArgs.blueprintBlocks.AnchoredBlueprintBlocks
-                .Where((block) => block.blueprintBlock.RuntimeContext.Category == "Controller");
+                .Where((block) => block.blueprintBlock.RuntimeContext.category == "Controller");
 
             var controllerCount = controllers.Count();
 
