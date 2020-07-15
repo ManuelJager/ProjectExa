@@ -3,15 +3,14 @@ using System.Collections.Generic;
 
 namespace Exa.UI.Tooltips
 {
-    public class TooltipResult
+    public class Tooltip
     {
         private Func<IEnumerable<ITooltipComponent>> factory;
         private IEnumerable<ITooltipComponent> components;
         public bool IsDirty { get; set; }
 
-        public TooltipResult(Func<IEnumerable<ITooltipComponent>> factory)
+        public Tooltip(Func<IEnumerable<ITooltipComponent>> factory)
         {
-            this.components = null;
             this.factory = factory;
             IsDirty = true;
         }

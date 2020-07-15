@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blocks.Components;
 using Exa.UI.Tooltips;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -17,11 +18,10 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.PhysicalBlockBehaviour.data = physicalTemplateComponent.Convert();
         }
 
-        protected override ITooltipComponent[] TooltipComponentFactory()
+        protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()
-                .Concat(physicalTemplateComponent.GetTooltipComponents())
-                .ToArray();
+                .Concat(physicalTemplateComponent.GetTooltipComponents());
         }
     }
 }

@@ -89,7 +89,6 @@ namespace Exa.Grids.Blueprints.Editor
             Zoom = 5f;
             Camera.main.orthographicSize = Zoom;
             gameControls.Enable();
-            
         }
 
         private void OnDisable()

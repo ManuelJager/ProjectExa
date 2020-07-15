@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blocks.Components;
 using Exa.UI.Tooltips;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.powerGeneratorBehaviour.data = powerGeneratorTemplatePartial.Convert();
         }
 
-        protected override ITooltipComponent[] TooltipComponentFactory()
+        protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()
                 .Concat(physicalTemplatePartial.GetTooltipComponents())

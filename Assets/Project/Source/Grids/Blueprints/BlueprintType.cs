@@ -15,22 +15,19 @@ namespace Exa.Grids.Blueprints
         public Vector2Int maxSize;
         public List<string> disallowedBlockCategories;
 
-        private TooltipResult tooltipResult;
+        private Tooltip tooltipResult;
 
         private void OnEnable()
         {
-            tooltipResult = new TooltipResult(ComponentFactory);
+            tooltipResult = new Tooltip(ComponentFactory);
         }
 
-        public ITooltipComponent[] ComponentFactory()
+        public IEnumerable<ITooltipComponent> ComponentFactory() => new ITooltipComponent[]
         {
-            return new ITooltipComponent[]
-            {
-                new NamedWrapper<string>("Max size", $"{maxSize.x}x{maxSize.y}")
-            };
-        }
+            new NamedWrapper<string>("Max size", $"{maxSize.x}x{maxSize.y}")
+        };
 
-        public TooltipResult GetComponents()
+        public Tooltip GetTooltip()
         {
             return tooltipResult;
         }

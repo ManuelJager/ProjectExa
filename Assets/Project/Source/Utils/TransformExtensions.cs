@@ -5,6 +5,11 @@ namespace Exa.Utils
 {
     public static class TransformExtensions
     {
+        /// <summary>
+        /// Provides type safe enumerator for a given transform
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <returns></returns>
         public static IEnumerable<Transform> GetChildren(this Transform transform)
         {
             foreach (Transform child in transform)

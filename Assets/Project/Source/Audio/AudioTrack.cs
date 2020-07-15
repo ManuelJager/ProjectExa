@@ -16,11 +16,16 @@ namespace Exa.Audio
         // Stores an audio source for sound on the track
         protected Dictionary<string, AudioSource> players = new Dictionary<string, AudioSource>();
 
+        // Set the volume of an audio track using a 0-1 based float range
         public float Volume
         {
             set
             {
-                var actualVolume = value > 0.001f ? Mathf.Log(value) * 20 : -80;
+                // Convert linear to logarithmic
+                var actualVolume = value > 0.001f 
+                    ? Mathf.Log(value) * 20 
+                    : -80;
+
                 audioMixerGroup.audioMixer.SetFloat(volumeKey, actualVolume);
             }
         }
@@ -79,16 +84,16 @@ namespace Exa.Audio
         /// <summary>
         /// Generates the handle for the sound that needs to be played
         /// </summary>
-        /// <param name="audioObject"></param>
+        /// <param name="sound"></param>
         /// <returns></returns>
-        private SoundHandle GetGlobalHandle(Sound audioObject)
+        private SoundHandle GetGlobalHandle(Sound sound)
         {
-            var source = players[audioObject.id];
+            var source = players[sound.id];
 
             var handle = new SoundHandle
             {
                 audioSource = source,
-                sound = audioObject
+                sound = sound
             };
 
             return handle;
@@ -96,15 +101,14 @@ namespace Exa.Audio
 
         /// <summary>
         /// Waits for a sound to end,
+        /// assumes a sound 
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="handle"></param>
         /// <returns></returns>
         private IEnumerator WaitForSoundEnd(SoundHandle handle)
         {
-            var sound = handle.sound;
-
             // Wait for the sound to play
-            yield return new WaitForSeconds(sound.audioClip.length);
+            yield return new WaitForSeconds(handle.sound.audioClip.length - handle.audioSource.time);
 
             // Remove context from currently playing sounds
             handleGroups.Remove(handle);

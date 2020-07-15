@@ -9,6 +9,6 @@
         /// Get the collection of tooltip components
         /// </summary>
         /// <returns></returns>
-        TooltipResult GetComponents();
+        Tooltip GetTooltip();
     }
 }

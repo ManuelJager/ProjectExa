@@ -1,6 +1,7 @@
 ﻿using Exa.Generics;
 using Exa.UI.Tooltips;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
@@ -37,23 +38,23 @@ namespace Exa.Grids.Blocks
         public Vector2Int size;
         public GameObject prefab;
 
-        private TooltipResult tooltipResult;
+        private Tooltip tooltip;
 
         private void OnEnable()
         {
-            tooltipResult = new TooltipResult(TooltipComponentFactory);
+            tooltip = new Tooltip(TooltipComponentFactory);
         }
 
         public abstract void SetValues(IBlock block);
 
-        protected virtual ITooltipComponent[] TooltipComponentFactory() => new ITooltipComponent[]
+        protected virtual IEnumerable<ITooltipComponent> TooltipComponentFactory() => new ITooltipComponent[]
         {
             new TooltipTitle(displayId)
         };
 
-        public TooltipResult GetComponents()
+        public Tooltip GetTooltip()
         {
-            return tooltipResult;
+            return tooltip;
         }
     }
 }

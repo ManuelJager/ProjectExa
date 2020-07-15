@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blocks.Components;
 using Exa.UI.Tooltips;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,12 +20,11 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.GyroscopeBehaviour.data = gyroscopeTemplatePartial.Convert();
         }
 
-        protected override ITooltipComponent[] TooltipComponentFactory()
+        protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()
                 .Concat(physicalTemplatePartial.GetTooltipComponents())
-                .Concat(gyroscopeTemplatePartial.GetComponents())
-                .ToArray();
+                .Concat(gyroscopeTemplatePartial.GetComponents());
         }
     }
 }

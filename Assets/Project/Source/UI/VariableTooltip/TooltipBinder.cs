@@ -15,7 +15,7 @@ namespace Exa.UI.Tooltips
 
         public void Update(T value)
         {
-            var result = value.GetComponents()
+            var result = value.GetTooltip()
                 .GetComponents()
                 .ToList();
 

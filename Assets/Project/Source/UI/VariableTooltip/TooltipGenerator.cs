@@ -19,7 +19,7 @@ namespace Exa.UI.Tooltips
         public TooltipBinder<T> GenerateTooltip<T>(T value, Transform parent)
             where T : ITooltipPresenter
         {
-            var result = value.GetComponents();
+            var result = value.GetTooltip();
             var binders = new List<TooltipComponentBinder>();
 
             foreach (var property in result.GetComponents())
