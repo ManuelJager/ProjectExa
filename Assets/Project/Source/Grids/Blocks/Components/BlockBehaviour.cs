@@ -6,7 +6,6 @@ namespace Exa.Grids.Blocks.Components
     public abstract class BlockBehaviour<T> : BlockBehaviourBase
         where T : IBlockComponentData
     {
-        [HideInInspector] public Block block;
         public T data;
 
         public override void SetData(object data)
@@ -17,6 +16,8 @@ namespace Exa.Grids.Blocks.Components
 
     public abstract class BlockBehaviourBase : MonoBehaviour
     {
+        [HideInInspector] public Block block;
+
         public abstract void SetData(object data);
     }
 }

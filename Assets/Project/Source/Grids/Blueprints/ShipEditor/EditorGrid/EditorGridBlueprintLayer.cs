@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Exa.Grids.Blocks;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -65,7 +66,7 @@ namespace Exa.Grids.Blueprints.Editor
 
         public void PlaceBlock(AnchoredBlueprintBlock block)
         {
-            var blockGO = block.CreateBehaviourInGrid(transform);
+            var blockGO = block.CreateBehaviourInGrid(transform, BlockPrefabType.inertGroup);
             blocksByBlueprintAnchor[block.gridAnchor] = blockGO;
         }
 

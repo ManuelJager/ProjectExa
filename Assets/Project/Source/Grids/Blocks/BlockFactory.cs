@@ -1,10 +1,18 @@
 ﻿using Exa.Bindings;
+using Exa.Grids.Blocks.BlockTypes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
 {
+    public enum BlockPrefabType
+    {
+        inertGroup,
+        defaultGroup,
+        userGroup,
+    }
+
     public class ObservableBlockTemplateCollection : ObservableCollection<ObservableBlockTemplate>
     {
     }
@@ -18,6 +26,9 @@ namespace Exa.Grids.Blocks
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
         [SerializeField] private BlockTemplateBag blockTemplateBag;
+        [SerializeField] private InertBlockFactoryPrefabGroup inertPrefabGroup;
+        [SerializeField] private BlockFactoryPrefabGroup defaultPrefabGroup;
+        [SerializeField] private BlockFactoryPrefabGroup userPrefabGroup;
 
         public void StartUp()
         {
@@ -28,30 +39,13 @@ namespace Exa.Grids.Blocks
         }
 
         /// <summary>
-        /// Register a template, and set the values on the block prefab
+        /// Get the block prefab with the given id
         /// </summary>
-        /// <param name="blockTemplate"></param>
-        private void RegisterBlockTemplate(BlockTemplate blockTemplate)
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public GameObject InstantiateBlock(string id, BlockPrefabType blockPrefabType)
         {
-            availibleBlockTemplates.Add(new ObservableBlockTemplate(blockTemplate));
-
-            var block = blockTemplate.prefab.GetComponent<IBlock>();
-
-            try
-            {
-                blockTemplate.SetValues(block);
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"Error on setting value for block template with id: {blockTemplate.id}", e);
-            }
-
-            if (blockTemplatesDict.ContainsKey(blockTemplate.id))
-            {
-                throw new Exception("Duplicate block id found");
-            }
-
-            blockTemplatesDict[blockTemplate.id] = blockTemplate;
+            return GetGroup(blockPrefabType).InstantiateBlock(id);
         }
 
         /// <summary>
@@ -59,19 +53,47 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public GameObject GetBlock(string id)
+        public GameObject InstantiateBlock(string id, Transform transform, BlockPrefabType blockPrefabType)
         {
-            return blockTemplatesDict[id].prefab;
+            return GetGroup(blockPrefabType).InstantiateBlock(id, transform);
         }
 
         /// <summary>
-        /// Get block template
+        /// Register a template, and set the values on the block prefab
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public BlockTemplate GetTemplate(string id)
+        /// <param name="blockTemplate"></param>
+        private void RegisterBlockTemplate(BlockTemplate blockTemplate)
         {
-            return blockTemplatesDict[id];
+            availibleBlockTemplates.Add(new ObservableBlockTemplate(blockTemplate));
+
+            if (blockTemplatesDict.ContainsKey(blockTemplate.id))
+            {
+                throw new Exception("Duplicate block id found");
+            }
+
+            blockTemplatesDict[blockTemplate.id] = blockTemplate;
+
+            inertPrefabGroup.CreatePrefab(blockTemplate);
+            defaultPrefabGroup.CreatePrefab(blockTemplate);
+            userPrefabGroup.CreatePrefab(blockTemplate);
+        }
+
+        private InertBlockFactoryPrefabGroup GetGroup(BlockPrefabType blockPrefabType)
+        {
+            switch (blockPrefabType)
+            {
+                case BlockPrefabType.inertGroup:
+                    return inertPrefabGroup;
+
+                case BlockPrefabType.defaultGroup:
+                    return defaultPrefabGroup;
+
+                case BlockPrefabType.userGroup:
+                    return userPrefabGroup;
+
+                default:
+                    return null;
+            }
         }
     }
 }

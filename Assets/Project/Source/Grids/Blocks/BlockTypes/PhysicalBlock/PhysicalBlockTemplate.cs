@@ -18,6 +18,13 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.PhysicalBlockBehaviour.data = physicalTemplatePartial.Convert();
         }
 
+        protected override T BuildOnGameObject(GameObject gameObject)
+        {
+            var instance = base.BuildOnGameObject(gameObject);
+            instance.PhysicalBlockBehaviour = AddBlockBehaviour<PhysicalBehaviour>(instance);
+            return instance;
+        }
+
         protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()

@@ -1,13 +1,12 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
@@ -19,20 +18,29 @@ namespace Exa.Grids.Blocks
     public abstract class BlockTemplate<T> : BlockTemplate
         where T : Block
     {
-        public virtual void SetValues(T block)
+        public abstract void SetValues(T block);
+
+        protected virtual T BuildOnGameObject(GameObject gameObject)
         {
+            return gameObject.AddComponent<T>();
         }
 
-        public override void SetValues(IBlock block)
+        public override Block AddBlockOnGameObject(GameObject gameObject)
         {
-            if (block.GetType() == typeof(T))
-            {
-                SetValues((T)block);
-            }
-            else
-            {
-                throw new Exception("Incorrect component type given");
-            }
+             return BuildOnGameObject(gameObject);
+        }
+
+        public override void SetValues(Block block)
+        {
+            SetValues((T)block);
+        }
+
+        protected S AddBlockBehaviour<S>(T blockInstance)
+            where S : BlockBehaviourBase
+        {
+            var behaviour = blockInstance.gameObject.AddComponent<S>();
+            behaviour.block = blockInstance;
+            return behaviour;
         }
     }
 
@@ -44,18 +52,25 @@ namespace Exa.Grids.Blocks
         public string displayCategory;
         public Sprite thumbnail;
         public Vector2Int size;
-        public GameObject prefab;
+        public GameObject inertPrefab;
+        public GameObject alivePrefab;
 
         private Tooltip tooltip;
         private IEnumerable<Func<BlockTemplate, IBlueprintTotalsModifier>> modifierGetters;
+
+        public bool GeneratePrefab { get; private set; }
 
         private void OnEnable()
         {
             tooltip = new Tooltip(TooltipComponentFactory);
             modifierGetters = TypeUtils.GetPropertyGetters<BlockTemplate, IBlueprintTotalsModifier>(GetType()).ToList();
+            if (!inertPrefab) throw new Exception("inertPrefab must have a prefab reference");
+            GeneratePrefab = !alivePrefab;
         }
 
-        public abstract void SetValues(IBlock block);
+        public abstract void SetValues(Block block);
+
+        public abstract Block AddBlockOnGameObject(GameObject gameObject);
 
         public void DynamicallyAddTotals(Blueprint blueprint)
         {

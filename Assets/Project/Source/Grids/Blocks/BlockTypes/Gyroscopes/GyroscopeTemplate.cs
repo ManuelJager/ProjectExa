@@ -21,6 +21,13 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.GyroscopeBehaviour.data = gyroscopeTemplatePartial.Convert();
         }
 
+        protected override Gyroscope BuildOnGameObject(GameObject gameObject)
+        {
+            var instance = base.BuildOnGameObject(gameObject);
+            instance.GyroscopeBehaviour = AddBlockBehaviour<GyroscopeBehaviour>(instance);
+            return instance;
+        }
+
         protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()

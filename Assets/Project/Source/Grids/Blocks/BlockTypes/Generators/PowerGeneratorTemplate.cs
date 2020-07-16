@@ -21,6 +21,13 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.PowerGeneratorBehaviour.data = powerGeneratorTemplatePartial.Convert();
         }
 
+        protected override PowerGenerator BuildOnGameObject(GameObject gameObject)
+        {
+            var instance = base.BuildOnGameObject(gameObject);
+            instance.PowerGeneratorBehaviour = AddBlockBehaviour<PowerGeneratorBehaviour>(instance);
+            return instance;
+        }
+
         protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()

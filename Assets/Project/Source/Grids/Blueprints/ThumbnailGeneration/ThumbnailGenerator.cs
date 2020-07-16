@@ -1,4 +1,5 @@
-﻿using Exa.Utils;
+﻿using Exa.Grids.Blocks;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.Thumbnails
@@ -34,7 +35,7 @@ namespace Exa.Grids.Blueprints.Thumbnails
         {
             foreach (var block in blueprint.Blocks.AnchoredBlueprintBlocks)
             {
-                block.CreateBehaviourInGrid(transform);
+                block.CreateBehaviourInGrid(transform, BlockPrefabType.inertGroup);
             }
         }
     }

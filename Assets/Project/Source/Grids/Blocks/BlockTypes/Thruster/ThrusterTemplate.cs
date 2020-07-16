@@ -21,6 +21,13 @@ namespace Exa.Grids.Blocks.BlockTypes
             block.ThrusterBehaviour.data = thrusterTemplatePartial.Convert();
         }
 
+        protected override Thruster BuildOnGameObject(GameObject gameObject)
+        {
+            var instance = base.BuildOnGameObject(gameObject);
+            instance.ThrusterBehaviour = AddBlockBehaviour<ThrusterBehaviour>(instance);
+            return instance;
+        }
+
         protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()
