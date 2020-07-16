@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Exa.Utils
@@ -8,6 +9,35 @@ namespace Exa.Utils
     public static partial class TypeUtils
     {
         private static Dictionary<Assembly, List<Type>> ImplementationsByAssembly = new Dictionary<Assembly, List<Type>>();
+
+        public static IEnumerable<Func<TObject, TMember>> GetPropertyGetters<TObject, TMember>(Type objectType = null)
+        {
+            if (objectType == null)
+            {
+                objectType = typeof(TObject);
+            }
+            else
+            {
+                if (!typeof(TObject).IsAssignableFrom(objectType))
+                {
+                    throw new Exception("Type mismatch");
+                }
+            }
+
+            var memberType = typeof(TMember);
+
+            foreach (var propertyInfo in objectType.GetProperties())
+            {
+                if (memberType.IsAssignableFrom(propertyInfo.PropertyType))
+                {
+                    var input = Expression.Parameter(typeof(object), "input");
+                    var getMethod = propertyInfo.GetGetMethod();
+                    var instance = Expression.Convert(input, objectType);
+                    var methodCall = Expression.Call(instance, getMethod);
+                    yield return Expression.Lambda<Func<TObject, TMember>>(methodCall, input).Compile();
+                }
+            }
+        }
 
         /// <summary>
         /// Get types in assembly that implement the given parent type
@@ -46,23 +76,38 @@ namespace Exa.Utils
             return GetTypeImplementations(assembly, parentType);
         }
 
-        /// <summary>
-        /// Get attribute from property
-        /// </summary>
-        /// <typeparam name="T">Attribute type</typeparam>
-        /// <param name="propertyInfo">Property info</param>
-        /// <returns></returns>
-        public static T GetAttribute<T>(this PropertyInfo propertyInfo)
+        public static bool TryGetAttribute<T>(this MemberInfo memberInfo, out T result)
             where T : Attribute
         {
             try
             {
-                var def = (T)propertyInfo.GetCustomAttributes(typeof(T), false)[0];
+                result = memberInfo.GetAttribute<T>();
+                return true;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Get attribute from property
+        /// </summary>
+        /// <typeparam name="T">Attribute type</typeparam>
+        /// <param name="memberInfo">Property info</param>
+        /// <returns></returns>
+        public static T GetAttribute<T>(this MemberInfo memberInfo)
+            where T : Attribute
+        {
+            try
+            {
+                var def = (T)memberInfo.GetCustomAttributes(typeof(T), false)[0];
                 return def;
             }
-            catch (IndexOutOfRangeException)
+            catch (IndexOutOfRangeException e)
             {
-                throw new IndexOutOfRangeException($"Attribute {nameof(T)} not found on property {propertyInfo.Name} on object {propertyInfo.DeclaringType.Name}");
+                throw new IndexOutOfRangeException($"Attribute {nameof(T)} not found on property {memberInfo.Name} on object {memberInfo.DeclaringType.Name}", e);
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -10,31 +9,21 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/Gyroscope")]
-    public class GyroscopeTemplate : BlockTemplate<Gyroscope>
+    public class GyroscopeTemplate : PhysicalBlockTemplate<Gyroscope>
     {
-        public PhysicalTemplatePartial physicalTemplatePartial;
-        public GyroscopeTemplatePartial gyroscopeTemplatePartial;
+        [SerializeField] private GyroscopeTemplatePartial gyroscopeTemplatePartial;
 
-        public override void AddContext(Blueprint blueprint)
-        {
-            physicalTemplatePartial.AddContext(blueprint);
-        }
+        public GyroscopeTemplatePartial GyroscopeTemplatePartial { get => gyroscopeTemplatePartial; set => gyroscopeTemplatePartial = value; }
 
-        public override void RemoveContext(Blueprint blueprint)
+        public override void SetValues(Gyroscope block)
         {
-            physicalTemplatePartial.RemoveContext(blueprint);
-        }
-
-        protected override void SetValues(Gyroscope block)
-        {
-            block.PhysicalBehaviour.data = physicalTemplatePartial.Convert();
+            base.SetValues(block);
             block.GyroscopeBehaviour.data = gyroscopeTemplatePartial.Convert();
         }
 
         protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()
-                .Concat(physicalTemplatePartial.GetTooltipComponents())
                 .Concat(gyroscopeTemplatePartial.GetComponents());
         }
     }

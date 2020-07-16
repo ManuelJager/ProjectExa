@@ -1,5 +1,4 @@
 ﻿using Exa.Bindings;
-using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +18,7 @@ namespace Exa.Grids.Blocks
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
         [SerializeField] private BlockTemplateBag blockTemplateBag;
-        
+
         public void StartUp()
         {
             foreach (var template in blockTemplateBag)

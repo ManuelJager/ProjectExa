@@ -51,7 +51,7 @@ namespace Exa.Grids.Blueprints
         public void AddContext(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
-            context.AddContext(this);
+            context.DynamicallyAddTotals(this);
         }
 
         public void Remove(Vector2Int gridPos)
@@ -64,7 +64,7 @@ namespace Exa.Grids.Blueprints
         {
             var anchoredBlueprintBlock = Blocks.GetAnchoredBlockAtGridPos(gridPos);
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
-            context.RemoveContext(this);
+            context.DynamicallyRemoveTotals(this);
         }
 
         public void ClearBlocks()

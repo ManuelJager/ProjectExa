@@ -73,7 +73,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             blueprintLayer.AddBlock(ghostLayer.ghost.AnchoredBlueprintBlock.Clone());
 
-            if (MirrorEnabled && ghostLayer.ghost.AnchoredBlueprintBlock.gridAnchor 
+            if (MirrorEnabled && ghostLayer.ghost.AnchoredBlueprintBlock.gridAnchor
                 != ghostLayer.mirrorGhost.AnchoredBlueprintBlock.gridAnchor)
             {
                 blueprintLayer.AddBlock(ghostLayer.mirrorGhost.AnchoredBlueprintBlock.Clone());

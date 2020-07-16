@@ -13,6 +13,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
+--- !u!114 &379172214598153137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178392537655227059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f4cd17d16757c04dac200d77f7a1677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  physicalBlockBehaviour: {fileID: 5183441991836642849}
+  powerGeneratorBehaviour: {fileID: -8920755569910745417}
 --- !u!114 &5183441991836642849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,20 +40,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
---- !u!114 &379172214598153137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4178392537655227059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f4cd17d16757c04dac200d77f7a1677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  physicalBehaviour: {fileID: 5183441991836642849}
-  powerGeneratorBehaviour: {fileID: -8920755569910745417}
 --- !u!1001 &206078947595394110
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
-﻿using Exa.Grids.Blueprints.Editor;
-using Exa.Utils;
+﻿using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.Thumbnails

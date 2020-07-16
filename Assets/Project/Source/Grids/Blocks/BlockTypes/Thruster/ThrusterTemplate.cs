@@ -1,5 +1,4 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -10,31 +9,21 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/Thruster")]
-    public class ThrusterTemplate : BlockTemplate<Thruster>
+    public class ThrusterTemplate : PhysicalBlockTemplate<Thruster>
     {
-        public PhysicalTemplatePartial physicalTemplatePartial;
-        public ThrusterTemplatePartial thrusterTemplatePartial;
+        [SerializeField] private ThrusterTemplatePartial thrusterTemplatePartial;
 
-        public override void AddContext(Blueprint blueprint)
-        {
-            physicalTemplatePartial.AddContext(blueprint);
-        }
+        public ThrusterTemplatePartial ThrusterTemplatePartial { get => thrusterTemplatePartial; set => thrusterTemplatePartial = value; }
 
-        public override void RemoveContext(Blueprint blueprint)
+        public override void SetValues(Thruster block)
         {
-            physicalTemplatePartial.RemoveContext(blueprint);
-        }
-
-        protected override void SetValues(Thruster block)
-        {
-            block.PhysicalBlockBehaviour.data = physicalTemplatePartial.Convert();
+            base.SetValues(block);
             block.ThrusterBehaviour.data = thrusterTemplatePartial.Convert();
         }
 
         protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()
-                .Concat(physicalTemplatePartial.GetTooltipComponents())
                 .Concat(thrusterTemplatePartial.GetComponents());
         }
     }

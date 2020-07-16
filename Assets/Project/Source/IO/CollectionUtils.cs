@@ -18,7 +18,6 @@ namespace Exa.IO
 
             foreach (var filePath in Directory.GetFiles(directory, "*.json"))
             {
-
                 IOUtils.TryJsonDeserializeFromPath(filePath, out T item);
 
                 callback(item);

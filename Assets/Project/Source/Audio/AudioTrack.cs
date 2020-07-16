@@ -22,8 +22,8 @@ namespace Exa.Audio
             set
             {
                 // Convert linear to logarithmic
-                var actualVolume = value > 0.001f 
-                    ? Mathf.Log(value) * 20 
+                var actualVolume = value > 0.001f
+                    ? Mathf.Log(value) * 20
                     : -80;
 
                 audioMixerGroup.audioMixer.SetFloat(volumeKey, actualVolume);
@@ -101,7 +101,7 @@ namespace Exa.Audio
 
         /// <summary>
         /// Waits for a sound to end,
-        /// assumes a sound 
+        /// assumes a sound
         /// </summary>
         /// <param name="handle"></param>
         /// <returns></returns>

@@ -1,10 +1,12 @@
 ﻿using Exa.Grids.Blocks.Components;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class PowerGenerator : Block
+    public class PowerGenerator : PhysicalBlock
     {
-        public PhysicalBehaviour physicalBehaviour;
-        public PowerGeneratorBehaviour powerGeneratorBehaviour;
+        [SerializeField] private PowerGeneratorBehaviour powerGeneratorBehaviour;
+
+        public PowerGeneratorBehaviour PowerGeneratorBehaviour { get => powerGeneratorBehaviour; set => powerGeneratorBehaviour = value; }
     }
 }

@@ -7,25 +7,25 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class PhysicalTemplatePartial : ITemplatePartial<PhysicalData>
+    public class PhysicalTemplatePartial : TemplatePartial<PhysicalData>, IBlueprintTotalsModifier
     {
         [SerializeField] private float maxHull;
         [SerializeField] private float armor;
         [SerializeField] private short mass; // In kg
 
-        public PhysicalData Convert() => new PhysicalData
+        public override PhysicalData Convert() => new PhysicalData
         {
             armor = armor,
             hull = maxHull,
             mass = mass
         };
 
-        public virtual void AddContext(Blueprint blueprint)
+        public virtual void AddBlueprintTotals(Blueprint blueprint)
         {
             blueprint.Mass += mass;
         }
 
-        public virtual void RemoveContext(Blueprint blueprint)
+        public virtual void RemoveBlueprintTotals(Blueprint blueprint)
         {
             blueprint.Mass -= mass;
         }

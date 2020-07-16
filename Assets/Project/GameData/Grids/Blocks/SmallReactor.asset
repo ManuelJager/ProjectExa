@@ -25,4 +25,4 @@ MonoBehaviour:
     armor: 0
     mass: 1000
   powerGeneratorTemplatePartial:
-    peakGeneration: 5
+    peakGeneration: 20

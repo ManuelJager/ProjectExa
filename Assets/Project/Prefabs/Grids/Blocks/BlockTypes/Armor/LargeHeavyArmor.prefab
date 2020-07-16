@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7031477778444801672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5101002289940695139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c1491fef2167eb41844618b313d1e8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PhysicalBlockBehaviour: {fileID: 2163981993062872974}
 --- !u!114 &2163981993062872974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,6 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fb983101d6f86459a22fa5772742fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  block: {fileID: 0}
+--- !u!114 &7031477778444801672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5101002289940695139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1491fef2167eb41844618b313d1e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  physicalBlockBehaviour: {fileID: 2163981993062872974}
 --- !u!1001 &9073316082400863982
 PrefabInstance:
   m_ObjectHideFlags: 0

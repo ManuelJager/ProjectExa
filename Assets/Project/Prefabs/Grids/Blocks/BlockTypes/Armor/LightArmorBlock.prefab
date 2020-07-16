@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1491fef2167eb41844618b313d1e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PhysicalBlockBehaviour: {fileID: 7707442716623162518}
+  physicalBlockBehaviour: {fileID: 7707442716623162518}
 --- !u!114 &7707442716623162518
 MonoBehaviour:
   m_ObjectHideFlags: 0

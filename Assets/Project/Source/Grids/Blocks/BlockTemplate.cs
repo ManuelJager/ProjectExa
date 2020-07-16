@@ -1,8 +1,13 @@
 ﻿using Exa.Generics;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
+using Exa.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
@@ -12,9 +17,11 @@ namespace Exa.Grids.Blocks
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class BlockTemplate<T> : BlockTemplate
-        where T : IBlock
+        where T : Block
     {
-        protected abstract void SetValues(T block);
+        public virtual void SetValues(T block)
+        {
+        }
 
         public override void SetValues(IBlock block)
         {
@@ -40,26 +47,42 @@ namespace Exa.Grids.Blocks
         public GameObject prefab;
 
         private Tooltip tooltip;
+        private IEnumerable<Func<BlockTemplate, IBlueprintTotalsModifier>> modifierGetters;
 
         private void OnEnable()
         {
             tooltip = new Tooltip(TooltipComponentFactory);
+            modifierGetters = TypeUtils.GetPropertyGetters<BlockTemplate, IBlueprintTotalsModifier>(GetType()).ToList();
         }
-
-        public abstract void AddContext(Blueprint blueprint);
-
-        public abstract void RemoveContext(Blueprint blueprint);
 
         public abstract void SetValues(IBlock block);
 
-        protected virtual IEnumerable<ITooltipComponent> TooltipComponentFactory() => new ITooltipComponent[]
+        public void DynamicallyAddTotals(Blueprint blueprint)
         {
-            new TooltipTitle(displayId)
-        };
+            foreach (var blueprintModifierGetter in modifierGetters)
+            {
+                var blueprintModifier = blueprintModifierGetter(this);
+                blueprintModifier.AddBlueprintTotals(blueprint);
+            }
+        }
+
+        public void DynamicallyRemoveTotals(Blueprint blueprint)
+        {
+            foreach (var blueprintModifierGetter in modifierGetters)
+            {
+                var blueprintModifier = blueprintModifierGetter(this);
+                blueprintModifier.AddBlueprintTotals(blueprint);
+            }
+        }
 
         public Tooltip GetTooltip()
         {
             return tooltip;
         }
+
+        protected virtual IEnumerable<ITooltipComponent> TooltipComponentFactory() => new ITooltipComponent[]
+        {
+            new TooltipTitle(displayId)
+        };
     }
 }

@@ -3,13 +3,10 @@ using Exa.UI.Controls;
 using Exa.UI.SharedViews;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Exa.UI.Tooltips
 {
-
-
     public class TooltipGenerator : MonoBehaviour
     {
         [SerializeField] private GameObject propertyPrefab;
@@ -50,7 +47,7 @@ namespace Exa.UI.Tooltips
         {
             var titleObject = Instantiate(titlePrefab, parent);
             var titleView = titleObject.GetComponent<TitleView>();
-            Action<object> update = (obj) => titleView.Reflect((TooltipTitle) obj);
+            Action<object> update = (obj) => titleView.Reflect((TooltipTitle)obj);
             var componentBinder = new TooltipComponentBinder(update);
 
             return new TooltipComponentBundle
@@ -64,7 +61,7 @@ namespace Exa.UI.Tooltips
         {
             var spacerObject = Instantiate(spacerPrefab, parent);
 
-            return new TooltipComponentBundle 
+            return new TooltipComponentBundle
             {
                 componentView = spacerObject,
                 componentBinder = new TooltipComponentBinder()

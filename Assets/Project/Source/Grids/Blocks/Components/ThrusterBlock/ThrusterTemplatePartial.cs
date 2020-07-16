@@ -6,13 +6,13 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class ThrusterTemplatePartial : ITemplatePartial<ThrusterData>
+    public class ThrusterTemplatePartial : TemplatePartial<ThrusterData>
     {
         [SerializeField] private int newtonThrust; // In newton
 
         public int NewtonThrust => newtonThrust;
 
-        public ThrusterData Convert() => new ThrusterData
+        public override ThrusterData Convert() => new ThrusterData
         {
             newtonThrust = newtonThrust
         };

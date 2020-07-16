@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fb983101d6f86459a22fa5772742fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  block: {fileID: 0}
 --- !u!114 &-7255998738726154258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24,6 +25,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b434764f29369b147a7762cc2e7d1c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  block: {fileID: 0}
 --- !u!114 &-3543322645291378993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36,8 +38,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8bf23e4f8c54741bedd0530d578e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PhysicalBlockBehaviour: {fileID: -8864528278454119883}
-  ThrusterBehaviour: {fileID: -7255998738726154258}
+  physicalBlockBehaviour: {fileID: -8864528278454119883}
+  thrusterBehaviour: {fileID: -7255998738726154258}
 --- !u!1001 &6053533556438639287
 PrefabInstance:
   m_ObjectHideFlags: 0

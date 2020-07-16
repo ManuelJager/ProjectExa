@@ -1,9 +1,6 @@
-﻿using Exa.Grids.Blocks.Components;
-
-namespace Exa.Grids.Blocks.BlockTypes
+﻿namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Controller : Block
+    public class Controller : PhysicalBlock
     {
-        public PhysicalBehaviour PhysicalBlockBehaviour;
     }
 }

@@ -6,13 +6,11 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class GyroscopeTemplatePartial : ITemplatePartial<GyroscopeData>
+    public class GyroscopeTemplatePartial : TemplatePartial<GyroscopeData>
     {
         [SerializeField] private float turningRate; // In tons it can rotate 360 degrees per second
 
-        public float TurningRate => turningRate;
-
-        public GyroscopeData Convert() => new GyroscopeData
+        public override GyroscopeData Convert() => new GyroscopeData
         {
             turningRate = turningRate
         };

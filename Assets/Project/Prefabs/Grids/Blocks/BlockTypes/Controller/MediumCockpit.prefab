@@ -25,7 +25,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d23d84337d29f44905507089eaa9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PhysicalBlockBehaviour: {fileID: -2785918029176170965}
+  physicalBlockBehaviour: {fileID: -2785918029176170965}
 --- !u!1001 &4982806886898678883
 PrefabInstance:
   m_ObjectHideFlags: 0

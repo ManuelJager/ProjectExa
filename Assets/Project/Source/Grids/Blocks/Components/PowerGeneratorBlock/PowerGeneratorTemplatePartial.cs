@@ -7,23 +7,21 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class PowerGeneratorTemplatePartial : ITemplatePartial<PowerGeneratorData>
+    public class PowerGeneratorTemplatePartial : TemplatePartial<PowerGeneratorData>, IBlueprintTotalsModifier
     {
         [SerializeField] private float peakGeneration; // In MW
 
-        public float PeakGeneration => peakGeneration;
-
-        public virtual void AddContext(Blueprint blueprint)
+        public virtual void AddBlueprintTotals(Blueprint blueprint)
         {
             blueprint.PeakPowerGeneration += peakGeneration;
         }
 
-        public virtual void RemoveContext(Blueprint blueprint)
+        public virtual void RemoveBlueprintTotals(Blueprint blueprint)
         {
             blueprint.PeakPowerGeneration -= peakGeneration;
         }
 
-        public PowerGeneratorData Convert() => new PowerGeneratorData
+        public override PowerGeneratorData Convert() => new PowerGeneratorData
         {
             peakGeneration = peakGeneration
         };

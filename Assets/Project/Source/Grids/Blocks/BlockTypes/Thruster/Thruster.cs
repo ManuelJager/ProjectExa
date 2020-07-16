@@ -1,10 +1,16 @@
 ﻿using Exa.Grids.Blocks.Components;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Thruster : Block
+    public class Thruster : PhysicalBlock
     {
-        public PhysicalBehaviour PhysicalBlockBehaviour;
-        public ThrusterBehaviour ThrusterBehaviour;
+        [SerializeField] private ThrusterBehaviour thrusterBehaviour;
+
+        public ThrusterBehaviour ThrusterBehaviour
+        {
+            get => thrusterBehaviour;
+            set => thrusterBehaviour = value;
+        }
     }
 }

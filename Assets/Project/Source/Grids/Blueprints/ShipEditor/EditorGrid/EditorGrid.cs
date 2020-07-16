@@ -198,7 +198,7 @@ namespace Exa.Grids.Blueprints.Editor
 
                 // Calculate if the ghosts intersect
                 var ghostsIntersect = ghostTiles.Intersect(mirrorGhostTiles).Any() &&
-                    !(ghostLayer.ghost.AnchoredBlueprintBlock.gridAnchor 
+                    !(ghostLayer.ghost.AnchoredBlueprintBlock.gridAnchor
                     == ghostLayer.mirrorGhost.AnchoredBlueprintBlock.gridAnchor);
 
                 // Set the color for the main ghost

@@ -25,4 +25,4 @@ MonoBehaviour:
     armor: 5
     mass: 1500
   thrusterTemplatePartial:
-    newtonThrust: 4000
+    newtonThrust: 20

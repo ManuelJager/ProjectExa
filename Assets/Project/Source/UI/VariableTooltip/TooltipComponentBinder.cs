@@ -6,8 +6,8 @@ namespace Exa.UI.Tooltips
     {
         private Action<object> update = null;
 
-        public TooltipComponentBinder() 
-        { 
+        public TooltipComponentBinder()
+        {
         }
 
         public TooltipComponentBinder(Action<object> update)

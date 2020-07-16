@@ -7,7 +7,6 @@ namespace Exa.Grids.Blueprints.Editor
 {
     public static class ShipEditorUtils
     {
-
         public static IEnumerable<Vector2Int> GetOccupiedTilesByGhost(BlockGhost blockGhost)
         {
             return GetOccupiedTilesByAnchor(blockGhost.AnchoredBlueprintBlock);
