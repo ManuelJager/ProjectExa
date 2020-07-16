@@ -38,16 +38,21 @@ namespace Exa.Grids.Blocks
 
             var block = blockTemplate.prefab.GetComponent<IBlock>();
 
-            blockTemplate.SetValues(block);
+            try
+            {
+                blockTemplate.SetValues(block);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Error on setting value for block template with id: {blockTemplate.id}", e);
+            }
 
-            var id = blockTemplate.id;
-
-            if (blockTemplatesDict.ContainsKey(id))
+            if (blockTemplatesDict.ContainsKey(blockTemplate.id))
             {
                 throw new Exception("Duplicate block id found");
             }
 
-            blockTemplatesDict[id] = blockTemplate;
+            blockTemplatesDict[blockTemplate.id] = blockTemplate;
         }
 
         /// <summary>

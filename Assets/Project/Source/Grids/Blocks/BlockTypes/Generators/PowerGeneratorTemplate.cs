@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks.Components;
+using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,20 @@ namespace Exa.Grids.Blocks.BlockTypes
     [CreateAssetMenu(menuName = "Grids/Blocks/PowerGenerator")]
     public class PowerGeneratorTemplate : BlockTemplate<PowerGenerator>
     {
-        [SerializeField] private PhysicalTemplatePartial physicalTemplatePartial;
-        [SerializeField] private PowerGeneratorTemplatePartial powerGeneratorTemplatePartial;
+        public PhysicalTemplatePartial physicalTemplatePartial;
+        public PowerGeneratorTemplatePartial powerGeneratorTemplatePartial;
+
+        public override void AddContext(Blueprint blueprint)
+        {
+            physicalTemplatePartial.AddContext(blueprint);
+            powerGeneratorTemplatePartial.AddContext(blueprint);
+        }
+
+        public override void RemoveContext(Blueprint blueprint)
+        {
+            physicalTemplatePartial.RemoveContext(blueprint);
+            powerGeneratorTemplatePartial.RemoveContext(blueprint);
+        }
 
         protected override void SetValues(PowerGenerator block)
         {

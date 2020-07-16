@@ -20,9 +20,9 @@ MonoBehaviour:
     type: 3}
   size: {x: 1, y: 1}
   prefab: {fileID: 8008238908798635066, guid: 92b59b064482e4e4f8a11023b1dd8244, type: 3}
-  physicalTemplateComponent:
+  physicalTemplatePartial:
     maxHull: 15
     armor: 5
     mass: 600
-  thrusterTemplateComponent:
+  thrusterTemplatePartial:
     newtonThrust: 1000

@@ -1,4 +1,5 @@
 ﻿using Exa.Generics;
+using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System;
 using UnityEngine;
@@ -10,13 +11,24 @@ namespace Exa.Grids.Blocks.Components
     {
         [SerializeField] private float maxHull;
         [SerializeField] private float armor;
-        [SerializeField] private long mass; // In kg
+        [SerializeField] private short mass; // In kg
 
         public PhysicalData Convert() => new PhysicalData
         {
             armor = armor,
-            hull = maxHull
+            hull = maxHull,
+            mass = mass
         };
+
+        public virtual void AddContext(Blueprint blueprint)
+        {
+            blueprint.Mass += mass;
+        }
+
+        public virtual void RemoveContext(Blueprint blueprint)
+        {
+            blueprint.Mass -= mass;
+        }
 
         public ITooltipComponent[] GetTooltipComponents() => new ITooltipComponent[]
         {

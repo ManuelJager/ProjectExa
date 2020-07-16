@@ -1,6 +1,4 @@
 ﻿using Exa.Generics;
-using Exa.Grids.Blocks.Components;
-using Exa.Utils;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -12,8 +10,8 @@ namespace Exa.Grids.Blueprints
         public string shipClass;
 
         [JsonProperty("blocks")] public BlueprintBlocks Blocks { get; private set; }
-        [JsonIgnore] public long Mass { get; private set; }
-        [JsonIgnore] public float PeakPowerGeneration { get; private set; }
+        [JsonIgnore] public long Mass { get; set; }
+        [JsonIgnore] public float PeakPowerGeneration { get; set; }
         [JsonIgnore] public Texture2D Thumbnail { get; set; }
 
         public static readonly string DEFAULT_BLUEPRINT_NAME = "New blueprint";
@@ -53,20 +51,7 @@ namespace Exa.Grids.Blueprints
         public void AddContext(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
-
-            /*
-            // Add mass to grid
-            context.OnAssignableFrom<IPhysicalBlockTemplateComponent>((component) =>
-            {
-                Mass += component.PhysicalBlockTemplateComponent.Mass;
-            });
-
-            // Add peak consumption to grid
-            context.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>((component) =>
-            {
-                PeakPowerGeneration += component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
-            });
-            */
+            context.AddContext(this);
         }
 
         public void Remove(Vector2Int gridPos)
@@ -79,20 +64,7 @@ namespace Exa.Grids.Blueprints
         {
             var anchoredBlueprintBlock = Blocks.GetAnchoredBlockAtGridPos(gridPos);
             var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
-
-            /*
-            // Remove mass from grid
-            context.OnAssignableFrom<IPhysicalBlockTemplateComponent>((component) =>
-            {
-                Mass -= component.PhysicalBlockTemplateComponent.Mass;
-            });
-
-            // Remove peak consumption from grid
-            context.OnAssignableFrom<IPowerGeneratorBlockTemplateComponent>((component) =>
-            {
-                PeakPowerGeneration -= component.PowerGeneratorBlockTemplateComponent.PeakGeneration;
-            });
-            */
+            context.RemoveContext(this);
         }
 
         public void ClearBlocks()

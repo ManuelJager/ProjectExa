@@ -20,9 +20,9 @@ MonoBehaviour:
     type: 3}
   size: {x: 1, y: 1}
   prefab: {fileID: 4178392537655227059, guid: 0179dd15f70082446b6d704c2da76ec6, type: 3}
-  physicalBlockTemplateComponent:
+  physicalTemplatePartial:
     maxHull: 10
     armor: 0
     mass: 1000
-  powerGeneratorBlockTemplateComponent:
+  powerGeneratorTemplatePartial:
     peakGeneration: 5

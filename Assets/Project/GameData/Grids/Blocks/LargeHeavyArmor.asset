@@ -20,7 +20,7 @@ MonoBehaviour:
     type: 3}
   size: {x: 3, y: 1}
   prefab: {fileID: 5101002289940695139, guid: d37933373260aee4ab2117bdbf654fb7, type: 3}
-  physicalTemplateComponent:
+  physicalTemplatePartial:
     maxHull: 110
     armor: 40
     mass: 5400

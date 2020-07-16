@@ -4,5 +4,6 @@
     {
         public float hull;
         public float armor;
+        public short mass;
     }
 }

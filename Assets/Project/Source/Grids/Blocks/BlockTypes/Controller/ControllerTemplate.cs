@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks.Components;
+using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,27 @@ namespace Exa.Grids.Blocks.BlockTypes
     [CreateAssetMenu(menuName = "Grids/Blocks/Controller")]
     public class ControllerTemplate : BlockTemplate<Controller>
     {
-        public PhysicalTemplatePartial physicalTemplateComponent;
+        public PhysicalTemplatePartial physicalTemplatePartial;
+
+        public override void AddContext(Blueprint blueprint)
+        {
+            physicalTemplatePartial.AddContext(blueprint);
+        }
+
+        public override void RemoveContext(Blueprint blueprint)
+        {
+            physicalTemplatePartial.RemoveContext(blueprint);
+        }
 
         protected override void SetValues(Controller block)
         {
-            block.PhysicalBlockBehaviour.data = physicalTemplateComponent.Convert();
+            block.PhysicalBlockBehaviour.data = physicalTemplatePartial.Convert();
         }
 
         protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
         {
             return base.TooltipComponentFactory()
-                .Concat(physicalTemplateComponent.GetTooltipComponents());
+                .Concat(physicalTemplatePartial.GetTooltipComponents());
         }
     }
 }

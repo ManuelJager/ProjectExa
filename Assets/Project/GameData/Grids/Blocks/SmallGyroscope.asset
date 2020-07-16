@@ -20,9 +20,9 @@ MonoBehaviour:
     type: 3}
   size: {x: 1, y: 1}
   prefab: {fileID: 5827904646688133772, guid: d71f814ff82476247ac778af958f572f, type: 3}
-  physicalBlockTemplateComponent:
+  physicalTemplatePartial:
     maxHull: 5
     armor: 0
     mass: 1000
-  gyroscopeBlockTemplateComponent:
+  gyroscopeTemplatePartial:
     turningRate: 10

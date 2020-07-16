@@ -1,4 +1,5 @@
 ﻿using Exa.Generics;
+using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,10 @@ namespace Exa.Grids.Blocks
         {
             tooltip = new Tooltip(TooltipComponentFactory);
         }
+
+        public abstract void AddContext(Blueprint blueprint);
+
+        public abstract void RemoveContext(Blueprint blueprint);
 
         public abstract void SetValues(IBlock block);
 
