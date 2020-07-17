@@ -16,13 +16,10 @@ namespace Exa.Grids.Blueprints.Editor
 
         public void Import(Blueprint blueprint)
         {
+            ClearBlueprint();
+
             ActiveBlueprint = blueprint;
             blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
-
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
 
             foreach (var block in blueprint.Blocks.AnchoredBlueprintBlocks)
             {
@@ -51,7 +48,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             ActiveBlueprint.Remove(anchoredPos);
             onBlueprintChanged?.Invoke();
-            Destroy(blocksByBlueprintAnchor[anchoredPos]);
+            blocksByBlueprintAnchor[anchoredPos].SetActive(false);
         }
 
         public void ClearBlueprint()
@@ -61,18 +58,14 @@ namespace Exa.Grids.Blueprints.Editor
                 Destroy(child.gameObject);
             }
 
-            ActiveBlueprint.ClearBlocks();
+            ActiveBlueprint?.ClearBlocks();
         }
 
         public void PlaceBlock(AnchoredBlueprintBlock block)
         {
-            var blockGO = block.CreateBehaviourInGrid(transform, BlockPrefabType.inertGroup);
+            var blockGO = block.CreateInertBehaviourInGrid(transform);
+            blockGO.SetActive(true);
             blocksByBlueprintAnchor[block.gridAnchor] = blockGO;
-        }
-
-        public Blueprint Export()
-        {
-            return ActiveBlueprint;
         }
     }
 }

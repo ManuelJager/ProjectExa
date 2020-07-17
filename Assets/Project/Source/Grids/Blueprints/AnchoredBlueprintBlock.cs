@@ -1,18 +1,17 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blocks;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Utils;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
+    [Serializable]
     public class AnchoredBlueprintBlock : ICloneable<AnchoredBlueprintBlock>
     {
         public Vector2Int gridAnchor;
         public BlueprintBlock blueprintBlock;
-
-        // TODO: Move this to the blueprint level
-        public List<AnchoredBlueprintBlock> neighbours = new List<AnchoredBlueprintBlock>();
 
         public void UpdateSpriteRenderer(SpriteRenderer spriteRenderer)
         {
@@ -26,14 +25,19 @@ namespace Exa.Grids.Blueprints
             blockGO.transform.localPosition = GetLocalPosition();
         }
 
-        public GameObject CreateBehaviourInGrid(Transform parent, BlockPrefabType blockPrefabType)
+        public GameObject CreateInertBehaviourInGrid(Transform parent)
         {
-            var blockGO = MainManager.Instance.blockFactory.InstantiateBlock(blueprintBlock.id, parent, blockPrefabType);
-            blockGO.name = $"{blueprintBlock.RuntimeContext.displayId} {gridAnchor}";
-            var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
-            UpdateSpriteRenderer(spriteRenderer);
-            UpdateLocals(blockGO);
+            var blockGO = MainManager.Instance.blockFactory.GetInertBlock(blueprintBlock.id, parent);
+            SetupGameObject(blockGO);
             return blockGO;
+        }
+
+        public Block CreateBehaviourInGrid(Transform parent, BlockPrefabType blockPrefabType)
+        {
+            var block = MainManager.Instance.blockFactory.GetBlock(blueprintBlock.id, parent, blockPrefabType);
+            block.anchoredBlueprintBlock = this;
+            SetupGameObject(block.gameObject);
+            return block;
         }
 
         // NOTE: Doesn't clone neighbours
@@ -60,6 +64,14 @@ namespace Exa.Grids.Blueprints
             if (blueprintBlock.flippedY) offset.y = -offset.y;
 
             return offset + gridAnchor;
+        }
+
+        private void SetupGameObject(GameObject blockGO)
+        {
+            blockGO.name = $"{blueprintBlock.RuntimeContext.displayId} {gridAnchor}";
+            var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
+            UpdateSpriteRenderer(spriteRenderer);
+            UpdateLocals(blockGO);
         }
     }
 }

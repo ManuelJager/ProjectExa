@@ -6,11 +6,13 @@ namespace Exa.Grids
 {
     public class ShipGrid : MonoBehaviour
     {
-        internal void Import(Blueprint blueprint)
+        public void Import(Blueprint blueprint)
         {
-            foreach (var block in blueprint.Blocks.AnchoredBlueprintBlocks)
+            foreach (var anchoredBlueprintBlock in blueprint.Blocks.AnchoredBlueprintBlocks)
             {
-                block.CreateBehaviourInGrid(transform, BlockPrefabType.userGroup);
+                var block = anchoredBlueprintBlock.CreateBehaviourInGrid(transform, BlockPrefabType.userGroup);
+                block.shipGrid = this;
+                block.gameObject.SetActive(true);
             }
         }
     }

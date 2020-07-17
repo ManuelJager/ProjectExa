@@ -35,7 +35,7 @@ namespace Exa.Grids.Blueprints.Thumbnails
         {
             foreach (var block in blueprint.Blocks.AnchoredBlueprintBlocks)
             {
-                block.CreateBehaviourInGrid(transform, BlockPrefabType.inertGroup);
+                block.CreateInertBehaviourInGrid(transform);
             }
         }
     }

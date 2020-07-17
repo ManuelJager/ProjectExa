@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
+using Exa.Pooling;
 using System;
 using UnityEngine;
 
@@ -6,19 +7,21 @@ namespace Exa.Grids.Blocks
 {
     public class BlockFactoryPrefabGroup : InertBlockFactoryPrefabGroup
     {
+        protected override BlockTemplatePrefabType PrefabType => BlockTemplatePrefabType.alive;
+
         /// <summary>
         /// Creates an alive prefab on this group.
         /// <para>
         /// Either copies the current alive prefab on the tamplate, or generates a new alive prefab based on the inert prefab
         /// </para>
-        /// </summary>
+        /// </summary> 
         /// <param name="blockTemplate"></param>
         /// <returns></returns>
-        public override GameObject CreatePrefab(BlockTemplate blockTemplate)
+        public void CreateAlivePrefab(BlockTemplate blockTemplate)
         {
             var instance = blockTemplate.GeneratePrefab
                 ? GeneratePrefab(blockTemplate)
-                : CreatePrefab(blockTemplate, BlockTemplatePrefabType.alive).GetComponent<Block>();
+                : CreatePrefab(blockTemplate, PrefabType).GetComponent<Block>();
 
             try
             {
@@ -29,7 +32,8 @@ namespace Exa.Grids.Blocks
                 throw new Exception($"Error on setting value for block template with id: {blockTemplate.id}", e);
             }
 
-            return instance.gameObject;
+            var id = blockTemplate.id;
+            poolById[id] = CreatePool(instance.gameObject, $"Block pool: {id}");
         }
 
         /// <summary>

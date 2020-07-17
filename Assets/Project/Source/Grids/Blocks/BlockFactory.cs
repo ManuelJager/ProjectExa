@@ -38,14 +38,9 @@ namespace Exa.Grids.Blocks
             }
         }
 
-        /// <summary>
-        /// Get the block prefab with the given id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public GameObject InstantiateBlock(string id, BlockPrefabType blockPrefabType)
+        public GameObject GetInertBlock(string id, Transform transform)
         {
-            return GetGroup(blockPrefabType).InstantiateBlock(id);
+            return inertPrefabGroup.GetBlock(id, transform);
         }
 
         /// <summary>
@@ -53,9 +48,11 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public GameObject InstantiateBlock(string id, Transform transform, BlockPrefabType blockPrefabType)
+        public Block GetBlock(string id, Transform transform, BlockPrefabType blockPrefabType)
         {
-            return GetGroup(blockPrefabType).InstantiateBlock(id, transform);
+            return GetGroup(blockPrefabType)
+                .GetBlock(id, transform)
+                .GetComponent<Block>();
         }
 
         /// <summary>
@@ -73,18 +70,15 @@ namespace Exa.Grids.Blocks
 
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
-            inertPrefabGroup.CreatePrefab(blockTemplate);
-            defaultPrefabGroup.CreatePrefab(blockTemplate);
-            userPrefabGroup.CreatePrefab(blockTemplate);
+            inertPrefabGroup.CreateInertPrefab(blockTemplate);
+            defaultPrefabGroup.CreateAlivePrefab(blockTemplate);
+            userPrefabGroup.CreateAlivePrefab(blockTemplate);
         }
 
-        private InertBlockFactoryPrefabGroup GetGroup(BlockPrefabType blockPrefabType)
+        private BlockFactoryPrefabGroup GetGroup(BlockPrefabType blockPrefabType)
         {
             switch (blockPrefabType)
             {
-                case BlockPrefabType.inertGroup:
-                    return inertPrefabGroup;
-
                 case BlockPrefabType.defaultGroup:
                     return defaultPrefabGroup;
 

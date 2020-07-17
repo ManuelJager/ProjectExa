@@ -19,7 +19,9 @@ MonoBehaviour:
   thumbnail: {fileID: 7290792151979832223, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
-  prefab: {fileID: 8008238908798635066, guid: 92b59b064482e4e4f8a11023b1dd8244, type: 3}
+  inertPrefab: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
+    type: 3}
+  alivePrefab: {fileID: 0}
   physicalTemplatePartial:
     maxHull: 15
     armor: 5

@@ -146,11 +146,6 @@ namespace Exa.Grids.Blueprints.Editor
             blueprintLayer.Import(blueprint);
         }
 
-        public Blueprint Export()
-        {
-            return blueprintLayer.Export();
-        }
-
         public void ClearBlueprint()
         {
             blueprintLayer.ClearBlueprint();

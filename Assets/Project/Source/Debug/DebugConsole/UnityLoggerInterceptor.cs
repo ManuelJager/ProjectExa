@@ -21,6 +21,12 @@ namespace Exa.Debugging
 
         public void LogException(Exception exception, UnityEngine.Object context)
         {
+            // Missing reference exceptions when the application is quitting should be ignored
+            if (exception is MissingReferenceException && MiscUtils.IsQuitting)
+            {
+                return;
+            }
+
             defaultLogHandler.LogException(exception, context);
             exception.OnAssignableFrom<UserException>(LogUserException);
         }

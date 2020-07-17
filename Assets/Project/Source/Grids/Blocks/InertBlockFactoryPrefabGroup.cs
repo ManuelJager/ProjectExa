@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Exa.Pooling;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
@@ -11,26 +12,31 @@ namespace Exa.Grids.Blocks
 
     public class InertBlockFactoryPrefabGroup : MonoBehaviour
     {
-        protected Dictionary<string, GameObject> prefabById = new Dictionary<string, GameObject>();
+        protected Dictionary<string, Pool> poolById = new Dictionary<string, Pool>();
+
+        [SerializeField] private PoolSettings defaultPoolSettings;
+
+        protected virtual BlockTemplatePrefabType PrefabType => BlockTemplatePrefabType.inert; 
 
         /// <summary>
         /// Creates an inert block prefab on this group
         /// </summary> 
         /// <param name="blockTemplate"></param>
         /// <returns></returns>
-        public virtual GameObject CreatePrefab(BlockTemplate blockTemplate)
+        public void CreateInertPrefab(BlockTemplate blockTemplate)
         {
-            return CreatePrefab(blockTemplate, BlockTemplatePrefabType.inert);
+            var id = blockTemplate.id;
+            var prefab = CreatePrefab(blockTemplate, PrefabType);
+            poolById[id] = CreatePool(prefab, $"Inert block pool: {id}");
         }
 
-        public GameObject InstantiateBlock(string id)
+        public GameObject GetBlock(string id, Transform parent)
         {
-            return Instantiate(prefabById[id]);
-        }
+            var blockGO = poolById[id].Retrieve().gameObject;
 
-        public GameObject InstantiateBlock(string id, Transform parent)
-        {
-            return Instantiate(prefabById[id], parent);
+            blockGO.transform.SetParent(parent);
+
+            return blockGO;
         }
 
         /// <summary>
@@ -41,7 +47,7 @@ namespace Exa.Grids.Blocks
         /// <returns></returns>
         protected GameObject CreatePrefab(BlockTemplate blockTemplate, BlockTemplatePrefabType prefabType)
         {
-            var prefab = GetPrefab(blockTemplate, prefabType);
+            var prefab = GetBasePrefab(blockTemplate, prefabType);
             var instance = Instantiate(prefab, transform);
             instance.name = $"{blockTemplate.displayId}";
 
@@ -51,11 +57,26 @@ namespace Exa.Grids.Blocks
                 instance.GetComponent<SpriteRenderer>().sprite = blockTemplate.thumbnail;
             }
 
-            prefabById[blockTemplate.id] = instance;
             return instance;
         }
 
-        private GameObject GetPrefab(BlockTemplate blockTemplate, BlockTemplatePrefabType prefabType)
+        protected Pool CreatePool(GameObject prefab, string name)
+        {
+            var poolGO = new GameObject(name);
+            poolGO.transform.SetParent(transform);
+
+            var pool = PrefabType == BlockTemplatePrefabType.inert
+                ? poolGO.AddComponent<Pool>()
+                : poolGO.AddComponent<BlockPool>();
+
+            var settings = defaultPoolSettings.Clone();
+            settings.prefab = prefab;
+
+            pool.Configure(settings);
+            return pool;
+        }
+
+        private GameObject GetBasePrefab(BlockTemplate blockTemplate, BlockTemplatePrefabType prefabType)
         {
             switch (prefabType)
             {

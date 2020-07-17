@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d6ff87bd9d1894983fe9deb8f33a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultPoolSettings:
+    maxSize: 1000
+    preferredSize: 100
+    growToPreferredSize: 1
+    prefab: {fileID: 0}
 --- !u!1 &2719377549866276367
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +91,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d6ff87bd9d1894983fe9deb8f33a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultPoolSettings:
+    maxSize: 1000
+    preferredSize: 100
+    growToPreferredSize: 1
+    prefab: {fileID: 0}
 --- !u!1 &5057754596078983129
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,3 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d137aed641943b04a8dfc97e4029737d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultPoolSettings:
+    maxSize: 1000
+    preferredSize: 100
+    growToPreferredSize: 1
+    prefab: {fileID: 0}
