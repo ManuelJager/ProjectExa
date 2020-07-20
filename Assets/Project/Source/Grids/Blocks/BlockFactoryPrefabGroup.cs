@@ -33,7 +33,7 @@ namespace Exa.Grids.Blocks
             }
 
             var id = blockTemplate.id;
-            poolById[id] = CreatePool(instance.gameObject, $"Block pool: {id}");
+            poolById[id] = CreatePool(instance.gameObject, BlockTemplatePrefabType.alive, $"Block pool: {id}");
         }
 
         /// <summary>

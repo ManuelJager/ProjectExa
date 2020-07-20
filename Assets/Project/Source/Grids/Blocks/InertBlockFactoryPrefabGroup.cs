@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks
 
     public class InertBlockFactoryPrefabGroup : MonoBehaviour
     {
-        protected Dictionary<string, Pool> poolById = new Dictionary<string, Pool>();
+        protected Dictionary<string, IPool<PoolMember>> poolById = new Dictionary<string, IPool<PoolMember>>();
 
         [SerializeField] private PoolSettings defaultPoolSettings;
 
@@ -27,7 +27,7 @@ namespace Exa.Grids.Blocks
         {
             var id = blockTemplate.id;
             var prefab = CreatePrefab(blockTemplate, PrefabType);
-            poolById[id] = CreatePool(prefab, $"Inert block pool: {id}");
+            poolById[id] = CreatePool(prefab, BlockTemplatePrefabType.inert, $"Inert block pool: {id}");
         }
 
         public GameObject GetBlock(string id, Transform parent)
@@ -60,14 +60,14 @@ namespace Exa.Grids.Blocks
             return instance;
         }
 
-        protected Pool CreatePool(GameObject prefab, string name)
+        protected IPool<PoolMember> CreatePool(GameObject prefab, BlockTemplatePrefabType type, string name)
         {
             var poolGO = new GameObject(name);
             poolGO.transform.SetParent(transform);
 
-            var pool = PrefabType == BlockTemplatePrefabType.inert
+            var pool = type == BlockTemplatePrefabType.inert
                 ? poolGO.AddComponent<Pool>()
-                : poolGO.AddComponent<BlockPool>();
+                : poolGO.AddComponent<BlockPool>() as IPool<PoolMember>;
 
             var settings = defaultPoolSettings.Clone();
             settings.prefab = prefab;

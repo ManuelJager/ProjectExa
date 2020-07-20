@@ -5,10 +5,16 @@ using UnityEngine;
 
 namespace Exa.Pooling
 {
-    public class Pool : MonoBehaviour
+    public class Pool : Pool<PoolMember>
+    {
+    }
+
+    [Serializable]
+    public class Pool<T> : MonoBehaviour, IPool<T>
+        where T : PoolMember
     {
         private PoolSettings poolSettings;
-        private Stack<PoolMember> poolMembers = new Stack<PoolMember>();
+        private Stack<T> poolMembers = new Stack<T>();
         public int total = 0;
 
         private void Update()
@@ -20,7 +26,7 @@ namespace Exa.Pooling
             }
         }
 
-        public void Configure(PoolSettings poolSettings)
+        public virtual void Configure(PoolSettings poolSettings)
         {
             this.poolSettings = poolSettings;
 
@@ -29,7 +35,7 @@ namespace Exa.Pooling
                 Destroy(poolMember.gameObject);
             }
 
-            poolMembers = new Stack<PoolMember>(poolSettings.maxSize);
+            poolMembers = new Stack<T>(poolSettings.maxSize);
 
             for (int i = 0; i < poolSettings.preferredSize; i++)
             {
@@ -42,7 +48,7 @@ namespace Exa.Pooling
             return TryPop();
         }
 
-        public virtual bool Return(PoolMember poolMember)
+        public virtual bool Return(T poolMember)
         {
             Action action = () => poolMember.transform.SetParent(transform);
             var enumerator = RoutineUtils.DelayOneFrame(action);
@@ -50,7 +56,7 @@ namespace Exa.Pooling
             return TryPush(poolMember);
         }
 
-        protected virtual PoolMember TryPop()
+        protected virtual T TryPop()
         {
             if (poolMembers.Count == 0)
             {
@@ -60,7 +66,7 @@ namespace Exa.Pooling
             return poolMembers.Pop();
         }
 
-        protected virtual bool TryPush(PoolMember poolMember)
+        protected virtual bool TryPush(T poolMember)
         {
             if (poolMembers.Count > poolSettings.maxSize)
             {
@@ -73,14 +79,14 @@ namespace Exa.Pooling
         }
 
 
-        private PoolMember InstantiatePrefab()
+        protected virtual T InstantiatePrefab()
         {
             total++;
             var poolMemberGO = Instantiate(poolSettings.prefab, transform);
             poolMemberGO.name = $"{poolSettings.prefab.name} ({total})";
 
-            var poolMember = poolMemberGO.AddComponent<PoolMember>();
-            poolMember.pool = this;
+            var poolMember = poolMemberGO.AddComponent<T>();
+            poolMember.pool = this as Pool<PoolMember>;
 
             return poolMember;
         }
