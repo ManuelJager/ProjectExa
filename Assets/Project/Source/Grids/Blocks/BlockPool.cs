@@ -5,12 +5,12 @@ namespace Exa.Grids.Blocks
 {
     public class BlockPool : Pool<BlockPoolMember>
     {
-        public override bool Return(BlockPoolMember poolMember)
+        public override bool Return(PoolMember poolMember)
         {
             var result = base.Return(poolMember);
             if (result)
             {
-                var block = poolMember.block;
+                var block = ((BlockPoolMember)poolMember).block;
 
                 // Reset values
                 block.anchoredBlueprintBlock.blueprintBlock.RuntimeContext.SetValues(block);

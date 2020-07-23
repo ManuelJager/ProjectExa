@@ -43,17 +43,22 @@ namespace Exa.Pooling
             }
         }
 
-        public virtual PoolMember Retrieve()
+        public virtual T Retrieve()
         {
             return TryPop();
         }
 
-        public virtual bool Return(T poolMember)
+        public virtual bool Return(PoolMember poolMember)
         {
+            if (!(poolMember is T))
+            {
+                throw new ArgumentException($"Pool member type ({poolMember.GetType()}) does not match type ({typeof(T)})");
+            }
+
             Action action = () => poolMember.transform.SetParent(transform);
             var enumerator = RoutineUtils.DelayOneFrame(action);
             MainManager.Instance.StartCoroutine(enumerator);
-            return TryPush(poolMember);
+            return TryPush((T) poolMember);
         }
 
         protected virtual T TryPop()

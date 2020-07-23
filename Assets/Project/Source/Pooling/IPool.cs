@@ -1,12 +1,14 @@
 ﻿namespace Exa.Pooling
 {
-    public interface IPool<in T>
+    public interface IPool<out T> : IPool
         where T : PoolMember
     {
+        T Retrieve();
+    }
+
+    public interface IPool
+    {
         void Configure(PoolSettings poolSettings);
-
-        PoolMember Retrieve();
-
-        bool Return(T poolMember);
+        bool Return(PoolMember poolMember);
     }
 }
