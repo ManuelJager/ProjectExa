@@ -1,4 +1,5 @@
 ﻿using Exa.Input;
+using UCommandConsole;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
@@ -7,7 +8,7 @@ namespace Exa.Debugging
 {
     public class DebugController : MonoBehaviour, IDebugActions
     {
-        [SerializeField] private DebugConsoleController consoleController;
+        [SerializeField] private Console console;
 
         private GameControls gameControls;
 
@@ -31,7 +32,8 @@ namespace Exa.Debugging
         {
             if (!context.performed) return;
 
-            consoleController.ToggleActive();
+            var consoleGO = console.gameObject;
+            consoleGO.SetActive(!consoleGO.activeSelf);
         }
     }
 }

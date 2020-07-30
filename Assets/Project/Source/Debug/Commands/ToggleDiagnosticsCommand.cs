@@ -1,14 +1,13 @@
-﻿using Exa.Debugging.Commands.Parser;
-using Exa.UI;
+﻿using Exa.UI;
+using UCommandConsole;
 
 namespace Exa.Debugging.Commands
 {
-    public class ToggleDiagnosticsCommand : ParameterlessCommand
+    public class ToggleDiagnosticsCommand : Command
     {
-        public override string Name => "td";
-        public override string HelpText => "Toggles the diagnostics panel";
+        public override string GetName() => "td";
 
-        public override void CommandAction()
+        public override void Execute(Console host)
         {
             var dp = DiagnosticsPanel.Instance.gameObject;
             dp.SetActive(!dp.activeSelf);

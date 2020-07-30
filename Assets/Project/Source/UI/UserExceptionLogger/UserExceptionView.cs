@@ -20,12 +20,12 @@ namespace Exa.UI
             canvasGroup.alpha = 0f;
             canvasGroup.DOFade(1, 0.2f);
 
-            StartCoroutine(RoutineUtils.Delay(3f, () =>
+            StartCoroutine(CoroutineUtils.Delay(3f, () =>
             {
                 canvasGroup.DOFade(0f, 0.2f);
             }));
 
-            StartCoroutine(RoutineUtils.Delay(3.2f, () =>
+            StartCoroutine(CoroutineUtils.Delay(3.2f, () =>
             {
                 Destroy(gameObject);
             }));

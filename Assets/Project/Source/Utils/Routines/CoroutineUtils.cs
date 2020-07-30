@@ -4,8 +4,13 @@ using UnityEngine;
 
 namespace Exa.Utils
 {
-    public static class RoutineUtils
+    public static class CoroutineUtils
     {
+        public static Coroutine DelayOneFrame(this MonoBehaviour monoBehaviour, Action callback)
+        {
+            return monoBehaviour.StartCoroutine(DelayOneFrame(callback));
+        }
+
         public static IEnumerator DelayOneFrame(Action callback)
         {
             yield return 0;

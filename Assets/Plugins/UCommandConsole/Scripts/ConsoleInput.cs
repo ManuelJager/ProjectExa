@@ -30,6 +30,11 @@ namespace UCommandConsole
             submitAction.performed += OnSubmit;
         }
 
+        public void Focus()
+        {
+            inputField.ActivateInputField();
+        }
+
         private void OnEnable()
         {
             submitAction.Enable();

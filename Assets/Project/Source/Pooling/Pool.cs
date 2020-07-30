@@ -57,7 +57,7 @@ namespace Exa.Pooling
             }
 
             Action action = () => poolMember.transform.SetParent(transform);
-            var enumerator = RoutineUtils.DelayOneFrame(action);
+            var enumerator = CoroutineUtils.DelayOneFrame(action);
             MainManager.Instance.StartCoroutine(enumerator);
             return TryPush((T) poolMember);
         }

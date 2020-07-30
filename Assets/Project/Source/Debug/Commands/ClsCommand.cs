@@ -1,15 +1,14 @@
-﻿using Exa.Debugging.Commands.Parser;
+﻿using UCommandConsole;
 
 namespace Exa.Debugging.Commands
 {
-    public class ClsCommand : ParameterfulCommand
+    public class ClsCommand : Command
     {
-        public override string Name => "cls";
-        public override string HelpText => "Clears the console";
+        public override string GetName() => "cls";
 
-        public override void CommandAction()
+        public override void Execute(Console host)
         {
-            DebugConsoleController.Instance.ConsoleOutputText = "";
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using UCommandConsole.Exceptions;
-using UCommandConsole.Models;
 using UCommandConsole.TypeParsers;
 using UnityEngine;
 
@@ -13,6 +11,8 @@ namespace UCommandConsole
     {
         [Header("References")]
         public ConsoleOutput output;
+
+        public ConsoleInput input;
         public CommandContainer container;
         public CommandParserContext parserContext;
 
