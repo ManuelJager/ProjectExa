@@ -17,7 +17,7 @@ namespace Exa.Gameplay
         private void Awake()
         {
             target = Camera.main;
-            SetUserTarget();
+            SetTarget(userCameraTarget);
         }
 
         private void Update()
@@ -36,11 +36,6 @@ namespace Exa.Gameplay
         public void SetTarget(ICameraTarget cameraTarget)
         {
             currentTarget = cameraTarget;
-        }
-
-        public void SetUserTarget()
-        {
-            SetTarget(userCameraTarget);
         }
 
         public void SetMovementDelta(Vector2 delta)

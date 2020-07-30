@@ -16,7 +16,7 @@ namespace Exa.Pooling
 
         protected virtual void OnDestroy()
         {
-            pool.total--;
+            pool.totalMembers--;
         }
     }
 }

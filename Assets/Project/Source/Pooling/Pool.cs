@@ -13,9 +13,10 @@ namespace Exa.Pooling
     public class Pool<T> : MonoBehaviour, IPool<T>
         where T : PoolMember
     {
+        public int totalMembers = 0;
+
         private PoolSettings poolSettings;
         private Stack<T> poolMembers = new Stack<T>();
-        public int total = 0;
 
         private void Update()
         {
@@ -86,9 +87,9 @@ namespace Exa.Pooling
 
         protected virtual T InstantiatePrefab()
         {
-            total++;
+            totalMembers++;
             var poolMemberGO = Instantiate(poolSettings.prefab, transform);
-            poolMemberGO.name = $"{poolSettings.prefab.name} ({total})";
+            poolMemberGO.name = $"{poolSettings.prefab.name} ({totalMembers})";
 
             var poolMember = poolMemberGO.AddComponent<T>();
             poolMember.pool = this as Pool<PoolMember>;
