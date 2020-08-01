@@ -36,7 +36,7 @@ namespace Exa.Grids.Blocks
             {
                 var tooltipContainer = Instantiate(tooltipContainerPrefab, transform).transform;
                 tooltipContainer.gameObject.name = id;
-                var binder = VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltip(data, tooltipContainer);
+                var binder = MainManager.Instance.tooltipManager.tooltipGenerator.GenerateTooltip(data, tooltipContainer);
                 binder.Update(data);
                 tooltips[id] = tooltipContainer;
             }

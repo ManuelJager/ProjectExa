@@ -9,13 +9,13 @@ namespace Exa.UI
         public override void OnSelect(BaseEventData eventData)
         {
             base.OnSelect(eventData);
-            InputManager.Instance.InputIsCaptured = true;
+            MainManager.Instance.inputManager.inputIsCaptured = true;
         }
 
         public override void OnDeselect(BaseEventData eventData)
         {
             base.OnDeselect(eventData);
-            InputManager.Instance.InputIsCaptured = false;
+            MainManager.Instance.inputManager.inputIsCaptured = false;
         }
     }
 }

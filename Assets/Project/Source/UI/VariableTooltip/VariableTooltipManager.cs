@@ -1,9 +1,9 @@
 ﻿using Exa.Grids.Blocks;
-using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.UI.Tooltips
 {
-    public class VariableTooltipManager : MonoSingleton<VariableTooltipManager>
+    public class VariableTooltipManager : MonoBehaviour
     {
         public TooltipGenerator tooltipGenerator;
         public BlockTemplateTooltip blockTemplateTooltip;

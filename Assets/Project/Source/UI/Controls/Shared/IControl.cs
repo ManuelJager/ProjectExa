@@ -13,6 +13,6 @@
         /// <summary>
         /// Marks the current value as being up-to-date
         /// </summary>
-        void MarkClean();
+        void SetClean();
     }
 }

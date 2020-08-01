@@ -16,9 +16,12 @@ namespace UCommandConsole
         public CommandContainer container;
         public CommandParserContext parserContext;
 
+        public static Console Instance;
+
         private void Awake()
         {
             container = new CommandContainer(this);
+            Instance = this;
         }
 
         public void OnSubmit(string input)

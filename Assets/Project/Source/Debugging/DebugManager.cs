@@ -6,7 +6,7 @@ using static Exa.Input.GameControls;
 
 namespace Exa.Debugging
 {
-    public class DebugController : MonoBehaviour, IDebugActions
+    public class DebugManager : MonoBehaviour, IDebugActions
     {
         [SerializeField] private Console console;
 

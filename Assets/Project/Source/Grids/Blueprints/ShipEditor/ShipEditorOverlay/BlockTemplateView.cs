@@ -1,7 +1,6 @@
 ﻿using Exa.Bindings;
 using Exa.Grids.Blocks;
 using Exa.UI;
-using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,11 +19,11 @@ namespace Exa.Grids.Blueprints.Editor
         {
             hoverable.onPointerEnter.AddListener(() =>
             {
-                VariableTooltipManager.Instance.blockTemplateTooltip.ShowTooltip(data);
+                MainManager.Instance.tooltipManager.blockTemplateTooltip.ShowTooltip(data);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
-                VariableTooltipManager.Instance.blockTemplateTooltip.HideTooltip();
+                MainManager.Instance.tooltipManager.blockTemplateTooltip.HideTooltip();
             });
         }
 

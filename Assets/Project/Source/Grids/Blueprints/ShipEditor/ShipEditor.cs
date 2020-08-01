@@ -191,7 +191,7 @@ namespace Exa.Grids.Blueprints.Editor
             }
             else
             {
-                PromptController.Instance.PromptOk(result[0].Message, this);
+                MainManager.Instance.promptController.PromptOk(result[0].Message, this);
             }
         }
 

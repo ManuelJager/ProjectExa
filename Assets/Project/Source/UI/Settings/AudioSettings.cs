@@ -24,8 +24,8 @@ namespace Exa.UI.Settings
         public override void Apply()
         {
             AudioListener.volume = Values.masterVolume;
-            MainManager.Instance.audioController.ST_AudioTrack.Volume = Values.musicVolume;
-            MainManager.Instance.audioController.UI_SFX_AudioTrack.Volume = Values.effectsVolume;
+            MainManager.Instance.audioManager.ST_AudioTrack.Volume = Values.musicVolume;
+            MainManager.Instance.audioManager.UI_SFX_AudioTrack.Volume = Values.effectsVolume;
         }
     }
 }

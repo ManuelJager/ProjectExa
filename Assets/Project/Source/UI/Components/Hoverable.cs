@@ -39,7 +39,7 @@ namespace Exa.UI
 
             if (InvokeStateChange)
             {
-                InputManager.Instance.OnHoverOverControl(cursorState);
+                MainManager.Instance.inputManager.OnHoverOverControl(cursorState);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Exa.UI
 
             if (InvokeStateChange)
             {
-                InputManager.Instance.OnExitControl();
+                MainManager.Instance.inputManager.OnExitControl();
             }
         }
 
@@ -68,7 +68,7 @@ namespace Exa.UI
 
             if (InvokeStateChange)
             {
-                MiscUtils.InvokeIfNotQuitting(() => InputManager.Instance.OnExitControl());
+                MiscUtils.InvokeIfNotQuitting(() => MainManager.Instance.inputManager.OnExitControl());
             }
         }
 
@@ -76,7 +76,7 @@ namespace Exa.UI
         {
             yield return 0;
 
-            var mousePos = InputManager.Instance.ScaledMousePosition;
+            var mousePos = MainManager.Instance.inputManager.ScaledMousePosition;
             if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos))
             {
                 mouseOverControl = true;

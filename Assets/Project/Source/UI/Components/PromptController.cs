@@ -1,13 +1,12 @@
 ﻿using Exa.Generics;
 using Exa.UI.Components;
-using Exa.Utils;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Exa.UI
 {
-    public class PromptController : MonoSingleton<PromptController>
+    public class PromptController : MonoBehaviour
     {
         [SerializeField] private Transform ownerObject;
         [SerializeField] private Button yesButton;

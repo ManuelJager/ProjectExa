@@ -19,9 +19,9 @@ namespace Exa.SceneManagement
         public bool SetActiveScene = false;
     }
 
-    public class ExaSceneManager : MonoSingleton<ExaSceneManager>
+    public class ExaSceneManager : MonoBehaviour
     {
-        [SerializeField] private LoadingScreen loadingScreen;
+        public LoadingScreen loadingScreen;
 
         public SceneTransition Transition(string name, TransitionArgs transitionArgs)
         {

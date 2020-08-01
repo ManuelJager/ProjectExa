@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6267927913502584679}
   - component: {fileID: 6267927913502584672}
   m_Layer: 0
-  m_Name: DebugController
+  m_Name: DebugManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad40e27fbbf11d74f9fb964f741abbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consoleController: {fileID: 0}
+  console: {fileID: 0}

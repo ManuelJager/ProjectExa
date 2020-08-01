@@ -1,6 +1,5 @@
 ﻿using Exa.Generics;
 using Exa.UI;
-using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,11 +25,11 @@ namespace Exa.Grids.Blueprints
             var hoverable = viewObject.AddComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() =>
             {
-                VariableTooltipManager.Instance.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
+                MainManager.Instance.tooltipManager.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
-                VariableTooltipManager.Instance.blueprintTypeTooltip.HideTooltip();
+                MainManager.Instance.tooltipManager.blueprintTypeTooltip.HideTooltip();
             });
         }
     }

@@ -4,7 +4,7 @@ namespace Exa.Debugging.Commands
 {
     public delegate void DebugChangeDelegate(bool state);
 
-    public class DebugCommand : Command
+    public class ToggleDebugCommand : Command
     {
         private static bool debugEnabled = false;
         public static event DebugChangeDelegate DebugChange;

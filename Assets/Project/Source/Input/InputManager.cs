@@ -1,13 +1,12 @@
 ﻿using Exa.UI;
-using Exa.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Exa.Input
 {
-    public class InputManager : MonoSingleton<InputManager>
+    public class InputManager : MonoBehaviour
     {
-        public bool InputIsCaptured;
+        [HideInInspector] public bool inputIsCaptured;
         public MousePointer mousePointer;
 
         [SerializeField] private Canvas root;
@@ -18,10 +17,8 @@ namespace Exa.Input
             get => Mouse.current.position.ReadValue() / root.scaleFactor;
         }
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-
             mousePointer.SetState(CursorState.idle);
         }
 

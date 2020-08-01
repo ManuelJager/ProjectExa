@@ -6,15 +6,13 @@ using UnityEngine;
 
 namespace Exa.Debugging
 {
-    public class UnityLoggerInterceptor : MonoSingleton<UnityLoggerInterceptor>, ILogHandler
+    public class LoggerInterceptor : MonoBehaviour, ILogHandler
     {
         [SerializeField] private UserExceptionLogger userExceptionLogger;
         private ILogHandler defaultLogHandler;
 
-        public new void Awake()
+        private void Awake()
         {
-            base.Awake();
-
             defaultLogHandler = Debug.unityLogger.logHandler;
             Debug.unityLogger.logHandler = this;
         }
@@ -22,7 +20,7 @@ namespace Exa.Debugging
         public void LogException(Exception exception, UnityEngine.Object context)
         {
             // Missing reference exceptions when the application is quitting should be ignored
-            if (exception is MissingReferenceException && MiscUtils.IsQuitting)
+            if (exception is MissingReferenceException && MainManager.IsQuitting)
             {
                 return;
             }

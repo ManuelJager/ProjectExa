@@ -1,8 +1,9 @@
 ﻿using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.UI
 {
-    public class DiagnosticsPanel : MonoSingleton<DiagnosticsPanel>
+    public class DiagnosticsPanel : MonoBehaviour
     {
     }
 }

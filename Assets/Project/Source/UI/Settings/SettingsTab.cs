@@ -2,7 +2,6 @@
 using Exa.UI.Components;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Exa.UI.Settings
 {
@@ -53,26 +52,32 @@ namespace Exa.UI.Settings
             current.Save();
             current.Apply();
             ReflectValues(values);
-            MarkClean();
+            SetClean();
         }
     }
 
     public abstract class SettingsTabBase : Tab, IControl
     {
         /// <summary>
-        /// All controls under the panel
-        /// </summary>
-        [SerializeField] protected List<InputControl> controls;
-
-        /// <summary>
         /// Denotes wether any of the setting controls are not up-to-date
         /// </summary>
-        public bool IsDirty => controls.Any(control => control.IsDirty);
+        public bool IsDirty
+        {
+            get
+            {
+                return GetControls().Any(control => control.IsDirty);
+            }
+        }
 
         /// <summary>
         /// Denotes wether the current settings object is equal to the default values
         /// </summary>
         public abstract bool IsDefault { get; }
+
+        /// <summary>
+        /// All controls under the panel
+        /// </summary>
+        protected abstract IEnumerable<InputControl> GetControls();
 
         /// <summary>
         /// Applies the default values
@@ -87,11 +92,11 @@ namespace Exa.UI.Settings
         /// <summary>
         /// Marks all the controls as being up-to-date
         /// </summary>
-        public void MarkClean()
+        public void SetClean()
         {
-            foreach (var control in controls)
+            foreach (var control in GetControls())
             {
-                control.MarkClean();
+                control.SetClean();
             }
         }
     }

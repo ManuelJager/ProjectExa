@@ -5,8 +5,6 @@ namespace Exa.Utils
 {
     public static class MiscUtils
     {
-        public static bool IsQuitting { get; set; }
-
         /// <summary>
         /// Wrapper method for invoking an action if the application is not currently quitting
         /// <para>
@@ -16,7 +14,7 @@ namespace Exa.Utils
         /// <param name="action"></param>
         public static void InvokeIfNotQuitting(Action action)
         {
-            if (IsQuitting) return;
+            if (MainManager.IsQuitting) return;
 
             action();
         }

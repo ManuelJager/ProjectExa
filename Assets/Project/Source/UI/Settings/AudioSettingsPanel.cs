@@ -1,4 +1,6 @@
-﻿using Exa.UI.Controls;
+﻿using Exa.UI.Components;
+using Exa.UI.Controls;
+using System.Collections.Generic;
 
 namespace Exa.UI.Settings
 {
@@ -7,6 +9,18 @@ namespace Exa.UI.Settings
         public ExaSlider masterVolumeSlider;
         public ExaSlider musicVolumeSlider;
         public ExaSlider effectsVolumeSlider;
+
+        private InputControl[] controls;
+
+        private void Awake()
+        {
+            controls = new InputControl[]
+            {
+                masterVolumeSlider,
+                musicVolumeSlider,
+                effectsVolumeSlider
+            };
+        }
 
         public override AudioSettingsValues GetSettingsValues()
         {
@@ -23,6 +37,11 @@ namespace Exa.UI.Settings
             masterVolumeSlider.Value = values.masterVolume;
             musicVolumeSlider.Value = values.musicVolume;
             effectsVolumeSlider.Value = values.effectsVolume;
+        }
+
+        protected override IEnumerable<InputControl> GetControls()
+        {
+            return controls;
         }
     }
 }

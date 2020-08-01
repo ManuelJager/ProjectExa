@@ -19,15 +19,15 @@ namespace Exa.UI.Components
         /// <inheritdoc cref="InputControl.IsDirty"/>
         public override bool IsDirty => !CleanValue.Equals(Value);
 
-        /// <inheritdoc cref="InputControl.MarkClean()"/>
-        public override void MarkClean()
+        /// <inheritdoc cref="InputControl.SetClean()"/>
+        public override void SetClean()
         {
             CleanValue = Value;
         }
 
         public virtual void OnEnable()
         {
-            MarkClean();
+            SetClean();
         }
     }
 
@@ -41,6 +41,6 @@ namespace Exa.UI.Components
         /// <summary>
         /// Marks the control as being updated
         /// </summary>
-        public abstract void MarkClean();
+        public abstract void SetClean();
     }
 }

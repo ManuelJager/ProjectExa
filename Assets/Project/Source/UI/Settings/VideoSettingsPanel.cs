@@ -1,4 +1,6 @@
-﻿using Exa.UI.Controls;
+﻿using Exa.UI.Components;
+using Exa.UI.Controls;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.UI.Settings
@@ -9,8 +11,17 @@ namespace Exa.UI.Settings
         [SerializeField] public Dropdown refreshRatesDropdown;
         [SerializeField] public Radio fullscreenRadio;
 
+        private InputControl[] controls;
+
         private void Awake()
         {
+            controls = new InputControl[]
+            {
+                resolutionDropdown,
+                refreshRatesDropdown,
+                fullscreenRadio
+            };
+
             refreshRatesDropdown.onDropdownTabValueSelected.AddListener((obj) =>
             {
                 resolutionDropdown.FilterByRefreshRate((int)obj);
@@ -32,6 +43,11 @@ namespace Exa.UI.Settings
             resolutionDropdown.SetSelected(values.resolution);
             refreshRatesDropdown.SetSelected(values.resolution.refreshRate);
             fullscreenRadio.Value = values.fullscreen;
+        }
+
+        protected override IEnumerable<InputControl> GetControls()
+        {
+            return controls;
         }
     }
 }

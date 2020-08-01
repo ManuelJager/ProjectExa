@@ -38,6 +38,7 @@ namespace UCommandConsole
         private void OnEnable()
         {
             submitAction.Enable();
+            Focus();
         }
 
         private void OnDisable()

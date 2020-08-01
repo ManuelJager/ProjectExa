@@ -24,7 +24,7 @@ namespace Exa.Generics
 
         public TooltipComponentBundle InstantiateComponentView(Transform parent)
         {
-            return VariableTooltipManager.Instance.tooltipGenerator.GenerateTooltipProperty<T>(parent);
+            return MainManager.Instance.tooltipManager.tooltipGenerator.GenerateTooltipProperty<T>(parent);
         }
     }
 

@@ -9,7 +9,7 @@ namespace Exa.Pooling
 
         protected virtual void OnDisable()
         {
-            if (MiscUtils.IsQuitting) return;
+            if (MainManager.IsQuitting) return;
 
             pool.Return(this);
         }

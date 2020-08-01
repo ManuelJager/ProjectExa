@@ -9,7 +9,7 @@ namespace Exa.Debugging.Commands
 
         public override void Execute(Console host)
         {
-            var dp = DiagnosticsPanel.Instance.gameObject;
+            var dp = MainManager.Instance.diagnostics.gameObject;
             dp.SetActive(!dp.activeSelf);
         }
     }

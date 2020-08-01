@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using Exa.Input;
 using Exa.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +9,7 @@ namespace Exa.Grids.Blueprints.Editor
     {
         public void OnMovement(InputAction.CallbackContext context)
         {
-            if (InputManager.Instance.InputIsCaptured)
+            if (MainManager.Instance.inputManager.inputIsCaptured)
             {
                 editorGrid.MovementVector = Vector2.zero;
                 return;
@@ -133,7 +132,7 @@ namespace Exa.Grids.Blueprints.Editor
         public void OnBlueprintClear()
         {
             // Hide block ghost and ask user for blueprint clear confirmation
-            PromptController.Instance.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
+            MainManager.Instance.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
             {
                 if (yes)
                 {
