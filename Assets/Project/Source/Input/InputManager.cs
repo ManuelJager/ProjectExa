@@ -1,4 +1,5 @@
 ﻿using Exa.UI;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,7 @@ namespace Exa.Input
         private bool mouseInViewport = false;
         private MousePointer mousePointer;
         private Canvas root;
+        private Stack<Hoverable> hoverableStack = new Stack<Hoverable>();
 
         public Vector2 ScaledMousePosition
         {
@@ -42,14 +44,19 @@ namespace Exa.Input
             }
         }
 
-        public void OnHoverOverControl(CursorState desiredCursorStateByControl)
+        public void OnHoverOverControl(Hoverable hoverable)
         {
-            mousePointer.SetState(desiredCursorStateByControl);
+            mousePointer.SetState(hoverable.cursorState);
+            hoverableStack.Push(hoverable);
         }
 
         public void OnExitControl()
         {
-            mousePointer.SetState(CursorState.idle);
+            hoverableStack.Pop();
+
+            mousePointer.SetState(hoverableStack.Count == 0
+                ? CursorState.idle
+                : hoverableStack.Peek().cursorState);
         }
     }
 }

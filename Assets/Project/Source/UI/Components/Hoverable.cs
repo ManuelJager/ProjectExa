@@ -1,6 +1,4 @@
-﻿using Exa.Input;
-using Exa.Utils;
-using System.Collections;
+﻿using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -39,7 +37,7 @@ namespace Exa.UI
 
             if (InvokeStateChange)
             {
-                Systems.InputManager.OnHoverOverControl(cursorState);
+                Systems.InputManager.OnHoverOverControl(this);
             }
         }
 
@@ -56,7 +54,20 @@ namespace Exa.UI
 
         public void OnEnable()
         {
-            StartCoroutine(DelayMouseOver());
+            this.DelayOneFrame(() =>
+            {
+                var mousePos = Systems.InputManager.ScaledMousePosition;
+                if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos))
+                {
+                    mouseOverControl = true;
+                    onPointerEnter?.Invoke();
+
+                    if (InvokeStateChange)
+                    {
+                        Systems.InputManager.OnHoverOverControl(this);
+                    }
+                }
+            });
         }
 
         public void OnDisable()
@@ -64,23 +75,11 @@ namespace Exa.UI
             if (mouseOverControl)
             {
                 onPointerExit?.Invoke();
-            }
 
-            if (InvokeStateChange)
-            {
-                MiscUtils.InvokeIfNotQuitting(() => Systems.InputManager.OnExitControl());
-            }
-        }
-
-        private IEnumerator DelayMouseOver()
-        {
-            yield return 0;
-
-            var mousePos = Systems.InputManager.ScaledMousePosition;
-            if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos))
-            {
-                mouseOverControl = true;
-                onPointerEnter?.Invoke();
+                if (InvokeStateChange)
+                {
+                    MiscUtils.InvokeIfNotQuitting(() => Systems.InputManager.OnExitControl());
+                }
             }
         }
     }
