@@ -12,7 +12,7 @@ namespace Exa.Gameplay
             var shipGO = Instantiate(shipPrefab);
             var ship = shipGO.GetComponent<Ship>();
 
-            var blueprint = MainManager.Instance.blueprintManager.GetBlueprint(name);
+            var blueprint = Systems.BlueprintManager.GetBlueprint(name);
             ship.Import(blueprint.Data);
 
             return ship;

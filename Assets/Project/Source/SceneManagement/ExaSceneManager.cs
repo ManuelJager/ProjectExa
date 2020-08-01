@@ -21,7 +21,12 @@ namespace Exa.SceneManagement
 
     public class ExaSceneManager : MonoBehaviour
     {
-        public LoadingScreen loadingScreen;
+        private LoadingScreen loadingScreen;
+
+        private void Awake()
+        {
+            loadingScreen = Systems.MainUI.loadingScreen;
+        }
 
         public SceneTransition Transition(string name, TransitionArgs transitionArgs)
         {

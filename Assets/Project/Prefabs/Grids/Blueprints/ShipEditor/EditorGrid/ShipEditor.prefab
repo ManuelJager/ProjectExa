@@ -79,8 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff94cfe3f71c82b45b2c8e17cf5583b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorOverlay: {fileID: 0}
   editorGrid: {fileID: 1127281402421229076}
+  navigateable: {fileID: 6027265397929423277}
   stopwatch: {fileID: 9133893927100921210}
   editorGridBackground: {fileID: 7409053316416911932}
   zoomSpeed: 0.8

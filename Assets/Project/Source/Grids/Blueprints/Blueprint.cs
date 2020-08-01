@@ -19,7 +19,7 @@ namespace Exa.Grids.Blueprints
         [JsonIgnore]
         public BlueprintType blueprintType
         {
-            get => MainManager.Instance.blueprintManager.blueprintTypes.typesById[shipClass];
+            get => Systems.BlueprintManager.blueprintTypes.typesById[shipClass];
         }
 
         public Blueprint(BlueprintCreationOptions options)

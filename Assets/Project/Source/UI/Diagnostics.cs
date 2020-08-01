@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Exa.UI
 {
-    public class DiagnosticsPanel : MonoBehaviour
+    public class Diagnostics : MonoBehaviour
     {
     }
 }

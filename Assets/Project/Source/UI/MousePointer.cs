@@ -86,7 +86,7 @@ namespace Exa.UI
 
         private void Update()
         {
-            rectTransform.anchoredPosition = MainManager.Instance.inputManager.ScaledMousePosition;
+            rectTransform.anchoredPosition = Systems.InputManager.ScaledMousePosition;
         }
     }
 }

@@ -15,15 +15,15 @@ namespace Exa.Grids.Blueprints.Editor
     public partial class ShipEditor : MonoBehaviour, IEditorActions, IUIGroup
     {
         [HideInInspector] public ObservableBlueprintCollection blueprintCollection;
-        public ShipEditorOverlay editorOverlay;
         public EditorGrid editorGrid;
+        public ShipEditorNavigateable navigateable;
 
         [SerializeField] private ShipEditorStopwatch stopwatch;
         [SerializeField] private GameObject editorGridBackground;
         [SerializeField] private float zoomSpeed;
         private float zoom;
         private GameControls gameControls;
-        private ShipEditorNavigateable navigateable;
+        private ShipEditorOverlay shipEditorOverlay;
 
         private EventRef blueprintNameEditEventRef;
         private EventRef saveButtonOnClickEventRef;
@@ -41,20 +41,21 @@ namespace Exa.Grids.Blueprints.Editor
 
         private void Awake()
         {
+            shipEditorOverlay = Systems.MainUI.shipEditorOverlay;
+
             gameControls = new GameControls();
             gameControls.Editor.SetCallbacks(this);
-            navigateable = GetComponent<ShipEditorNavigateable>();
             SetGridBackground();
 
-            editorOverlay.blueprintInfoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
-            editorOverlay.inventory.BlockSelected += editorGrid.OnBlockSelected;
+            shipEditorOverlay.blueprintInfoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
+            shipEditorOverlay.inventory.BlockSelected += editorGrid.OnBlockSelected;
 
-            editorOverlay.onPointerEnter.AddListener(() =>
+            shipEditorOverlay.onPointerEnter.AddListener(() =>
             {
                 BlockedByUI = true;
             });
 
-            editorOverlay.onPointerExit.AddListener(() =>
+            shipEditorOverlay.onPointerExit.AddListener(() =>
             {
                 BlockedByUI = false;
             });
@@ -103,7 +104,7 @@ namespace Exa.Grids.Blueprints.Editor
             this.newBlueprint = blueprintContainer.Data.Clone();
 
             editorGrid.Import(newBlueprint);
-            editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.text = newBlueprint.name;
+            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.text = newBlueprint.name;
 
             SetCallbacks(blueprintContainer, saveCallback);
             ValidateName(blueprintContainer, newBlueprint.name);
@@ -112,10 +113,11 @@ namespace Exa.Grids.Blueprints.Editor
             IsSaved = true;
         }
 
+        // TODO: Fix this horribleness
         public void SetCallbacks(ObservableBlueprint blueprintContainer, Action<ObservableBlueprint> saveCallback)
         {
             // Set blueprint name input field callback
-            var onValueChanged = editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged;
+            var onValueChanged = shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged;
             onValueChanged.AddListenerOnce((value) =>
             {
                 ValidateName(blueprintContainer, value);
@@ -124,7 +126,7 @@ namespace Exa.Grids.Blueprints.Editor
             }, ref blueprintNameEditEventRef);
 
             // Set save button callback
-            var onClick = editorOverlay.blueprintInfoPanel.saveButton.onClick;
+            var onClick = shipEditorOverlay.blueprintInfoPanel.saveButton.onClick;
             onClick.AddListenerOnce(() =>
             {
                 ValidateAndSave(blueprintContainer, saveCallback);
@@ -138,7 +140,7 @@ namespace Exa.Grids.Blueprints.Editor
                 blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.Blocks
             };
 
-            editorOverlay.blueprintInfoPanel.errorListController.Validate(new BlueprintGridValidator(), args);
+            shipEditorOverlay.blueprintInfoPanel.errorListController.Validate(new BlueprintGridValidator(), args);
         }
 
         public void ValidateName(ObservableBlueprint blueprintContainer, string name)
@@ -150,7 +152,7 @@ namespace Exa.Grids.Blueprints.Editor
                 blueprintContainer = blueprintContainer
             };
 
-            var result = editorOverlay
+            var result = shipEditorOverlay
                 .blueprintInfoPanel
                 .errorListController
                 .Validate(new BlueprintNameValidator(), args);
@@ -166,11 +168,11 @@ namespace Exa.Grids.Blueprints.Editor
             var args = new BlueprintNameValidationArgs
             {
                 collectionContext = blueprintCollection,
-                requestedName = editorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.text,
+                requestedName = shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.text,
                 blueprintContainer = blueprintContainer
             };
 
-            var result = editorOverlay
+            var result = shipEditorOverlay
                 .blueprintInfoPanel
                 .errorListController
                 .Validate(new BlueprintNameValidator(), args);
@@ -191,7 +193,7 @@ namespace Exa.Grids.Blueprints.Editor
             }
             else
             {
-                MainManager.Instance.promptController.PromptOk(result[0].Message, this);
+                Systems.MainUI.promptController.PromptOk(result[0].Message, this);
             }
         }
 

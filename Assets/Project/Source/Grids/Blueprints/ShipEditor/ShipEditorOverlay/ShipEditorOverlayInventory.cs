@@ -15,7 +15,7 @@ namespace Exa.Grids.Blueprints.Editor
 
         private void Start()
         {
-            Source = MainManager.Instance.blockFactory.availibleBlockTemplates;
+            Source = Systems.BlockFactory.availibleBlockTemplates;
         }
 
         public override void OnAdd(ObservableBlockTemplate observer)

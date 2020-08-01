@@ -7,10 +7,10 @@ namespace Exa.Input
     public class InputManager : MonoBehaviour
     {
         [HideInInspector] public bool inputIsCaptured;
-        public MousePointer mousePointer;
 
-        [SerializeField] private Canvas root;
         private bool mouseInViewport = false;
+        private MousePointer mousePointer;
+        private Canvas root;
 
         public Vector2 ScaledMousePosition
         {
@@ -19,6 +19,8 @@ namespace Exa.Input
 
         private void Awake()
         {
+            mousePointer = Systems.MainUI.mousePointer;
+            root = Systems.MainUI.root;
             mousePointer.SetState(CursorState.idle);
         }
 

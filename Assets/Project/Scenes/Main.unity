@@ -250,7 +250,6 @@ GameObject:
   - component: {fileID: 60919918}
   - component: {fileID: 60919917}
   - component: {fileID: 60919916}
-  - component: {fileID: 60919915}
   - component: {fileID: 60919914}
   - component: {fileID: 60919913}
   - component: {fileID: 60919912}
@@ -270,21 +269,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 60919909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cbe22231831601459e28d61267679f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6440f6fc0ca95774a818bcd7424c3461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blockFactory: {fileID: 2050827338}
   blueprintManager: {fileID: 60919917}
   shipEditor: {fileID: 684846338}
   audioManager: {fileID: 108921787}
-  settingsManager: {fileID: 60919915}
   thumbnailGenerator: {fileID: 60919914}
-  debugController: {fileID: 60919916}
+  debugManager: {fileID: 60919916}
   inputManager: {fileID: 60919912}
   sceneManager: {fileID: 60919913}
   logger: {fileID: 60919918}
-  tooltipManager: {fileID: 740591096}
-  promptController: {fileID: 414348130}
+  mainUI: {fileID: 1644759584}
 --- !u!4 &60919911
 Transform:
   m_ObjectHideFlags: 0
@@ -314,8 +311,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputIsCaptured: 0
-  mousePointer: {fileID: 25622853}
-  root: {fileID: 1644759582}
 --- !u!114 &60919913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969b3692d4ac1d64e9442244cd074751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingScreen: {fileID: 1821237316}
 --- !u!114 &60919914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,20 +337,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundColor: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
   padding: 0.02
---- !u!114 &60919915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 60919909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3943663ec6537784bbd7b75b3baa5175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  videoSettings: {fileID: 456890008}
-  audioSettings: {fileID: 846207010}
 --- !u!114 &60919916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad40e27fbbf11d74f9fb964f741abbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  console: {fileID: 2053960249}
 --- !u!114 &60919917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,9 +362,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blueprintTypes: {fileID: 11400000, guid: ea5f593b3dc3ed142a8d8854ab70e880, type: 2}
-  loadOnAwake: 1
   defaultBlueprintBag: {fileID: 11400000, guid: c1c7e923b5a0cf445bb12d051651cfc8,
     type: 2}
+  loadOnAwake: 1
 --- !u!114 &60919918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d4c584744344248860ecf56786e0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userExceptionLogger: {fileID: 932612883}
 --- !u!114 &108921787 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8427892475349134151, guid: f8050f98786d9b74e9fbedc18db8c4a7,
@@ -511,18 +489,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f772ed5fc6486e14a96bd39ae5d6ee04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &456890008 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2498064661330336269, guid: 2661b46a09dd09949b76373e7086f5b1,
-    type: 3}
-  m_PrefabInstance: {fileID: 206546701406750975}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ded90979be9faf244822a39fb7a96a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &474322722 stripped
@@ -746,6 +712,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &577818068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6372174551572543716, guid: 6d62c65db4598c448a9f7ded22748117,
+    type: 3}
+  m_PrefabInstance: {fileID: 484849957}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aede992ac33b1f41a4224e64aefbfb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &684846338 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1617958063522696134, guid: 84dc0bf7b928d2844ba5df3b7352dc5e,
@@ -768,30 +746,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 561362d30ded05b44850de9f9f45ba3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &846207010 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1516428043188814587, guid: 2661b46a09dd09949b76373e7086f5b1,
-    type: 3}
-  m_PrefabInstance: {fileID: 206546701406750975}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3da7f91d93c2414a92189d3fa60e909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &932612883 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7927577167753772813, guid: 83f7edfa6a10a654ca9f66d1529c0505,
-    type: 3}
-  m_PrefabInstance: {fileID: 4621365057292714860}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c571d2818dcaddd45beb8a30c4f2bb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &962650964 stripped
@@ -1243,6 +1197,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 1644759582}
   rootTransform: {fileID: 1644759583}
+  loadingScreen: {fileID: 1821237316}
+  shipEditorOverlay: {fileID: 1722470155}
+  mainMenu: {fileID: 2098072124}
+  variableTooltipManager: {fileID: 740591096}
+  console: {fileID: 2053960249}
+  userExceptionLogger: {fileID: 1807045425}
+  mousePointer: {fileID: 25622853}
+  promptController: {fileID: 414348130}
+  diagnostics: {fileID: 577818068}
+  settingsManager: {fileID: 206546701406750977}
 --- !u!114 &1644759585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1541,7 +1505,7 @@ PrefabInstance:
     - target: {fileID: 4182533117752597263, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
         type: 3}
       propertyPath: m_Name
-      value: EditorGridOverlay
+      value: ShipEditorOverlay
       objectReference: {fileID: 0}
     - target: {fileID: 4182533117752597263, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
         type: 3}
@@ -1904,6 +1868,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2e199450f3216546b29d13f8d842126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1807045425 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2070488185489477815, guid: 83f7edfa6a10a654ca9f66d1529c0505,
+    type: 3}
+  m_PrefabInstance: {fileID: 4621365057292714860}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c571d2818dcaddd45beb8a30c4f2bb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1821237314
@@ -2455,7 +2431,7 @@ PrefabInstance:
     - target: {fileID: 595289767640309666, guid: 2ad423a5fb9787f44988bd055461ea3c,
         type: 3}
       propertyPath: m_Name
-      value: Cursor
+      value: MousePointer
       objectReference: {fileID: 0}
     - target: {fileID: 595289767640309667, guid: 2ad423a5fb9787f44988bd055461ea3c,
         type: 3}
@@ -3869,6 +3845,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 206546701406750975}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &206546701406750977 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5229011147367864752, guid: 2661b46a09dd09949b76373e7086f5b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 206546701406750975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3943663ec6537784bbd7b75b3baa5175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4621365057292714860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3879,7 +3867,7 @@ PrefabInstance:
     - target: {fileID: 4621365056658803772, guid: 83f7edfa6a10a654ca9f66d1529c0505,
         type: 3}
       propertyPath: m_Name
-      value: UserExceptionNoticesContainer
+      value: UserExceptionLogger
       objectReference: {fileID: 0}
     - target: {fileID: 4621365056658803773, guid: 83f7edfa6a10a654ca9f66d1529c0505,
         type: 3}
@@ -3990,11 +3978,6 @@ PrefabInstance:
       propertyPath: editorOverlay
       value: 
       objectReference: {fileID: 1722470155}
-    - target: {fileID: 1617958063522696134, guid: 84dc0bf7b928d2844ba5df3b7352dc5e,
-        type: 3}
-      propertyPath: navigateable
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3467558800746813093, guid: 84dc0bf7b928d2844ba5df3b7352dc5e,
         type: 3}
       propertyPath: m_Name
@@ -4117,7 +4100,7 @@ PrefabInstance:
     - target: {fileID: 8427892475349134150, guid: f8050f98786d9b74e9fbedc18db8c4a7,
         type: 3}
       propertyPath: m_Name
-      value: AudioController
+      value: AudioManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8050f98786d9b74e9fbedc18db8c4a7, type: 3}

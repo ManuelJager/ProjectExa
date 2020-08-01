@@ -33,7 +33,7 @@ namespace Exa.Grids.Blueprints
             {
                 if (runtimeContext == null)
                 {
-                    runtimeContext = MainManager.Instance.blockFactory.blockTemplatesDict[id];
+                    runtimeContext = Systems.BlockFactory.blockTemplatesDict[id];
                 }
                 return runtimeContext;
             }

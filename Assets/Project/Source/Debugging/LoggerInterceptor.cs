@@ -8,11 +8,12 @@ namespace Exa.Debugging
 {
     public class LoggerInterceptor : MonoBehaviour, ILogHandler
     {
-        [SerializeField] private UserExceptionLogger userExceptionLogger;
         private ILogHandler defaultLogHandler;
+        private UserExceptionLogger userExceptionLogger;
 
         private void Awake()
         {
+            userExceptionLogger = Systems.MainUI.userExceptionLogger;
             defaultLogHandler = Debug.unityLogger.logHandler;
             Debug.unityLogger.logHandler = this;
         }
@@ -20,7 +21,7 @@ namespace Exa.Debugging
         public void LogException(Exception exception, UnityEngine.Object context)
         {
             // Missing reference exceptions when the application is quitting should be ignored
-            if (exception is MissingReferenceException && MainManager.IsQuitting)
+            if (exception is MissingReferenceException && Systems.IsQuitting)
             {
                 return;
             }

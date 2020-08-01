@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 8876288434751572680}
   - component: {fileID: 4275399948406767617}
   - component: {fileID: 5902739707318206018}
+  - component: {fileID: 2070488185489477815}
   m_Layer: 5
-  m_Name: UserExceptionContainer
+  m_Name: UserExceptionLogger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,6 +112,21 @@ Canvas:
   m_SortingLayerID: -1210632221
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2070488185489477815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621365056658803772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c571d2818dcaddd45beb8a30c4f2bb7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userExceptionPrefab: {fileID: 4718999622183323108, guid: af7b2c2dd0856de42a52d05edad193ed,
+    type: 3}
+  container: {fileID: 4621365057763628049}
 --- !u!1 &4621365057763628048
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,10 +137,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4621365057763628049}
   - component: {fileID: 4621365057763628050}
-  - component: {fileID: 7927577167753772813}
   - component: {fileID: 8860731025954141842}
   m_Layer: 5
-  m_Name: UserExceptionNotices
+  m_Name: NoticeContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,20 +189,6 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 1
---- !u!114 &7927577167753772813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4621365057763628048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c571d2818dcaddd45beb8a30c4f2bb7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  userExceptionPrefab: {fileID: 4718999622183323108, guid: af7b2c2dd0856de42a52d05edad193ed,
-    type: 3}
 --- !u!114 &8860731025954141842
 MonoBehaviour:
   m_ObjectHideFlags: 0

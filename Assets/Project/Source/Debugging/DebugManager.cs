@@ -8,12 +8,12 @@ namespace Exa.Debugging
 {
     public class DebugManager : MonoBehaviour, IDebugActions
     {
-        [SerializeField] private Console console;
-
         private GameControls gameControls;
+        private Console console;
 
         public void Awake()
         {
+            console = Systems.MainUI.console;
             gameControls = new GameControls();
             gameControls.Debug.SetCallbacks(this);
         }

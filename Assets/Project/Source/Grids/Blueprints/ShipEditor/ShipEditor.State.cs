@@ -26,7 +26,7 @@ namespace Exa.Grids.Blueprints.Editor
             {
                 mirrorEnabled = value;
                 editorGrid.MirrorEnabled = value;
-                editorOverlay.mirrorView.SetState(value);
+                shipEditorOverlay.mirrorView.SetState(value);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             set
             {
-                MiscUtils.InvokeIfNotQuitting(() => editorOverlay.gameObject.TrySetActive(value));
+                MiscUtils.InvokeIfNotQuitting(() => shipEditorOverlay.gameObject.TrySetActive(value));
             }
         }
 
@@ -75,8 +75,8 @@ namespace Exa.Grids.Blueprints.Editor
         {
             var valid = !IsSaved && NameIsValid;
 
-            editorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.interactable = valid;
-            editorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;
+            shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.interactable = valid;
+            shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;
         }
     }
 }

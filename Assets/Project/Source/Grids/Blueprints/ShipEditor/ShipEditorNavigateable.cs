@@ -21,7 +21,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             if (!shipEditor.IsSaved)
             {
-                MainManager.Instance.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, (yes) =>
+                Systems.MainUI.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, (yes) =>
                 {
                     if (yes)
                     {

@@ -33,7 +33,7 @@ namespace Exa.UI
 
         public void OnAddNewBlueprint()
         {
-            MainManager.Instance.promptController.PromptForm(
+            Systems.MainUI.promptController.PromptForm(
                 message: "Add blueprint",
                 uiGroup: this,
                 modelDescriptor: new BlueprintCreationOptionsDescriptor(),
@@ -91,7 +91,7 @@ namespace Exa.UI
             {
                 if (!Interactable) return;
 
-                MainManager.Instance.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
+                Systems.MainUI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
                 {
                     if (yes)
                     {

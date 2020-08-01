@@ -27,14 +27,14 @@ namespace Exa.Grids.Blueprints
 
         public GameObject CreateInertBehaviourInGrid(Transform parent)
         {
-            var blockGO = MainManager.Instance.blockFactory.GetInertBlock(blueprintBlock.id, parent);
+            var blockGO = Systems.BlockFactory.GetInertBlock(blueprintBlock.id, parent);
             SetupGameObject(blockGO);
             return blockGO;
         }
 
         public Block CreateBehaviourInGrid(Transform parent, BlockPrefabType blockPrefabType)
         {
-            var block = MainManager.Instance.blockFactory.GetBlock(blueprintBlock.id, parent, blockPrefabType);
+            var block = Systems.BlockFactory.GetBlock(blueprintBlock.id, parent, blockPrefabType);
             block.anchoredBlueprintBlock = this;
             SetupGameObject(block.gameObject);
             return block;

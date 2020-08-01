@@ -32,7 +32,7 @@ namespace Exa.UI.Tooltips
         public void SetContainerPosition()
         {
             // Get the mouse position
-            var mousePos = MainManager.Instance.inputManager.ScaledMousePosition;
+            var mousePos = Systems.InputManager.ScaledMousePosition;
 
             // Get the edge of the container by adding the mouse position to the container size
             var edge = mousePos + container.sizeDelta;
@@ -41,7 +41,7 @@ namespace Exa.UI.Tooltips
             edge.x += 4f;
             edge.y += 4f;
 
-            var rootRect = MainManager.Instance.uiManager.RootTransform.rect;
+            var rootRect = Systems.MainUI.rootTransform.rect;
 
             // Calculate position offset
             var offset = new Vector2
@@ -58,7 +58,7 @@ namespace Exa.UI.Tooltips
         {
             if (binder == null)
             {
-                binder = MainManager.Instance.tooltipManager.tooltipGenerator.GenerateTooltip(data, container);
+                binder = Systems.MainUI.variableTooltipManager.tooltipGenerator.GenerateTooltip(data, container);
             }
             binder.Update(data);
         }

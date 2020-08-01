@@ -11,8 +11,8 @@ namespace Exa.Grids.Blueprints
         [HideInInspector] public ObservableDictionary<string, ObservableBlueprint> observableDefaultBlueprints = new ObservableDictionary<string, ObservableBlueprint>();
         public BlueprintTypeBag blueprintTypes;
 
-        [SerializeField] private bool loadOnAwake;
         [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
+        [SerializeField] private bool loadOnAwake;
 
         public void StartUp()
         {

@@ -9,7 +9,7 @@ namespace Exa.Grids.Blueprints.Editor
     {
         public void OnMovement(InputAction.CallbackContext context)
         {
-            if (MainManager.Instance.inputManager.inputIsCaptured)
+            if (Systems.InputManager.inputIsCaptured)
             {
                 editorGrid.MovementVector = Vector2.zero;
                 return;
@@ -132,7 +132,7 @@ namespace Exa.Grids.Blueprints.Editor
         public void OnBlueprintClear()
         {
             // Hide block ghost and ask user for blueprint clear confirmation
-            MainManager.Instance.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
+            Systems.MainUI.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
             {
                 if (yes)
                 {

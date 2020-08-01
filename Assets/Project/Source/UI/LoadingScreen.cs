@@ -12,8 +12,9 @@ namespace Exa.UI
         {
             if (!loaded)
             {
+                var euler = new Vector3(0, 0, time * 360f % 360f);
+                imageTransform.rotation = Quaternion.Euler(euler);
                 time += Time.deltaTime;
-                imageTransform.rotation = Quaternion.Euler(0, 0, time * 360f % 360f);
             }
         }
 
