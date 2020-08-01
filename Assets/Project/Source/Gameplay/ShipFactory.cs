@@ -5,12 +5,18 @@ namespace Exa.Gameplay
 {
     public class ShipFactory : MonoBehaviour
     {
-        [SerializeField] private GameObject shipPrefab;
+        [SerializeField] private GameObject friendlyShipPrefab;
 
-        public Ship Create(string name)
+        public FriendlyShip CreateFriendly(string name)
         {
-            var shipGO = Instantiate(shipPrefab);
-            var ship = shipGO.GetComponent<Ship>();
+            var shipGO = Instantiate(friendlyShipPrefab);
+            return Configure<FriendlyShip>(shipGO, name);
+        }
+
+        private T Configure<T>(GameObject shipGO, string name)
+            where T : Ship
+        {
+            var ship = shipGO.GetComponent<T>();
 
             var blueprint = Systems.BlueprintManager.GetBlueprint(name);
             ship.Import(blueprint.Data);

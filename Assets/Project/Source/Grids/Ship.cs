@@ -5,10 +5,10 @@ namespace Exa.Grids
 {
     public class Ship : MonoBehaviour
     {
-        private Blueprint blueprint;
-        [SerializeField] private ShipGrid shipGrid;
+        [SerializeField] protected ShipGrid shipGrid;
+        protected Blueprint blueprint;
 
-        public void Import(Blueprint blueprint)
+        public virtual void Import(Blueprint blueprint)
         {
             this.blueprint = blueprint;
             shipGrid.Import(blueprint);

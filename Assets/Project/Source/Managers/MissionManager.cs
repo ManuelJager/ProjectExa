@@ -15,7 +15,7 @@ namespace Exa
         protected override void Awake()
         {
             base.Awake();
-            shipFactory.Create("defaultMothership");
+            shipFactory.CreateFriendly("defaultMothership");
         }
     }
 }

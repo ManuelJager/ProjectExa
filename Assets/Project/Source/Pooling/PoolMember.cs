@@ -16,6 +16,8 @@ namespace Exa.Pooling
 
         protected virtual void OnDestroy()
         {
+            if (Systems.IsQuitting) return;
+
             pool.totalMembers--;
         }
     }
