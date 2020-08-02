@@ -9,7 +9,7 @@ namespace Exa.Debugging.Commands
         private static bool debugEnabled = false;
         public static event DebugChangeDelegate DebugChange;
 
-        public override string GetName() => "debug";
+        public override string GetName() => "tgl-debug";
 
         public override void Execute(Console host)
         {

@@ -41,6 +41,16 @@ namespace UCommandConsole
         private Queue<CommandOutputContainer> outputContainersQueue = new Queue<CommandOutputContainer>();
         private CommandOutputContainer currentContainer = null;
 
+        public void Clear()
+        {
+            currentContainer = null;
+            while (outputContainersQueue.Count != 0)
+            {
+                var container = outputContainersQueue.Dequeue();
+                Destroy(container.gameObject);
+            }
+        }
+
         public void DumpExceptionLogRecursively(Exception e, int indentationLevel = 1)
         {
             if (dumpExceptionMessage)

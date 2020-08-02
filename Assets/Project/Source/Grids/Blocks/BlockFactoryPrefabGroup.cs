@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Pooling;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
@@ -17,15 +18,15 @@ namespace Exa.Grids.Blocks
         /// </summary> 
         /// <param name="blockTemplate"></param>
         /// <returns></returns>
-        public void CreateAlivePrefab(BlockTemplate blockTemplate)
+        public void CreateAlivePrefabGroup(BlockTemplate blockTemplate)
         {
-            var instance = blockTemplate.GeneratePrefab
+            var rootInstance = blockTemplate.GeneratePrefab
                 ? GeneratePrefab(blockTemplate)
                 : CreatePrefab(blockTemplate, PrefabType).GetComponent<Block>();
 
             try
             {
-                blockTemplate.SetValues(instance);
+                blockTemplate.SetValues(rootInstance);
             }
             catch (Exception e)
             {
@@ -33,7 +34,9 @@ namespace Exa.Grids.Blocks
             }
 
             var id = blockTemplate.id;
-            poolById[id] = CreatePool(instance.gameObject, BlockTemplatePrefabType.alive, $"Block pool: {id}");
+            var pool = CreatePool<BlockPool>(rootInstance.gameObject, $"Block pool: {id}", out var settings);
+            poolById[id] = pool;
+            pool.Configure(settings);
         }
 
         /// <summary>

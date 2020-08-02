@@ -1,5 +1,6 @@
 ﻿using Exa.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,7 +58,7 @@ namespace Exa.Pooling
             }
 
             Action action = () => poolMember.transform.SetParent(transform);
-            var enumerator = CoroutineUtils.DelayOneFrame(action);
+            var enumerator = EnumeratorUtils.DelayOneFrame(action);
             Systems.Instance.StartCoroutine(enumerator);
             return TryPush((T) poolMember);
         }

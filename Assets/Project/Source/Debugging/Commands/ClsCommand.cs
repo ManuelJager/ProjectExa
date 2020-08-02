@@ -8,7 +8,7 @@ namespace Exa.Debugging.Commands
 
         public override void Execute(Console host)
         {
-            throw new System.NotImplementedException();
+            host.output.Clear();
         }
     }
 }

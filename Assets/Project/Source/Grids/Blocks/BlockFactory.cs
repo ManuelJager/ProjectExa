@@ -1,8 +1,11 @@
 ﻿using Exa.Bindings;
 using Exa.Grids.Blocks.BlockTypes;
 using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Exa.Utils;
 
 namespace Exa.Grids.Blocks
 {
@@ -30,12 +33,10 @@ namespace Exa.Grids.Blocks
         [SerializeField] private BlockFactoryPrefabGroup defaultPrefabGroup;
         [SerializeField] private BlockFactoryPrefabGroup userPrefabGroup;
 
-        public void StartUp()
+        public IEnumerator StartUp(IProgress<float> progress)
         {
-            foreach (var template in blockTemplateBag)
-            {
-                RegisterBlockTemplate(template);
-            }
+            var enumerator = EnumeratorUtils.ReportForeachOperation(blockTemplateBag, RegisterBlockTemplate, progress);
+            while (enumerator.MoveNext()) yield return enumerator.Current;
         }
 
         public GameObject GetInertBlock(string id, Transform transform)
@@ -59,7 +60,7 @@ namespace Exa.Grids.Blocks
         /// Register a template, and set the values on the block prefab
         /// </summary>
         /// <param name="blockTemplate"></param>
-        private void RegisterBlockTemplate(BlockTemplate blockTemplate)
+        private IEnumerator RegisterBlockTemplate(BlockTemplate blockTemplate)
         {
             availibleBlockTemplates.Add(new ObservableBlockTemplate(blockTemplate));
 
@@ -71,8 +72,11 @@ namespace Exa.Grids.Blocks
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
-            defaultPrefabGroup.CreateAlivePrefab(blockTemplate);
-            userPrefabGroup.CreateAlivePrefab(blockTemplate);
+            yield return null;
+            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate);
+            yield return null;
+            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate);
+            yield return null;
         }
 
         private BlockFactoryPrefabGroup GetGroup(BlockPrefabType blockPrefabType)

@@ -39,7 +39,7 @@ namespace Exa.SceneManagement
 
                 if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnPrepared)
                 {
-                    transition.onPrepared.AddListener(loadingScreen.MarkLoaded);
+                    transition.onPrepared.AddListener(loadingScreen.HideScreen);
                 }
 
                 if (transitionArgs.SetActiveScene)

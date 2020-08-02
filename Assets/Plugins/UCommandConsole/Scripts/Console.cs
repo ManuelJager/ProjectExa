@@ -11,7 +11,6 @@ namespace UCommandConsole
     {
         [Header("References")]
         public ConsoleOutput output;
-
         public ConsoleInput input;
         public CommandContainer container;
         public CommandParserContext parserContext;
@@ -92,9 +91,10 @@ namespace UCommandConsole
             {
                 command.Execute(this);
             }
-            catch
+            catch(Exception e)
             {
-                output.Print($"Error executing command", OutputColor.error);
+                output.Print("Encountered an exception while executing command");
+                output.DumpExceptionLogRecursively(e);
                 return false;
             }
 

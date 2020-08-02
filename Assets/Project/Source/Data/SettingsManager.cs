@@ -8,8 +8,9 @@ namespace Exa.Data
 {
     public class SettingsManager : MonoBehaviour
     {
-        [SerializeField] private VideoSettingsPanel videoSettings;
-        [SerializeField] private AudioSettingsPanel audioSettings;
+        public VideoSettingsPanel videoSettings;
+        public AudioSettingsPanel audioSettings;
+
         private int[] acceptedRefreshRates = { 60, 75, 80, 90, 100, 120, 144, 165, 180, 240 };
 
         private void Start()

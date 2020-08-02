@@ -1,6 +1,9 @@
 ﻿using Exa.Generics;
 using Exa.IO;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -12,24 +15,42 @@ namespace Exa.Grids.Blueprints
         public BlueprintTypeBag blueprintTypes;
 
         [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
-        [SerializeField] private bool loadOnAwake;
 
-        public void StartUp()
+        public IEnumerator StartUp(IProgress<float> progress)
         {
+            var userBlueprintPaths = CollectionUtils
+                .GetJsonPathsFromDirectory(IOUtils.GetPath("blueprints"))
+                .ToList();
+            var defaultBlueprints = defaultBlueprintBag.ToList();
+            var iterator = 0;
+            var blueprintTotal = userBlueprintPaths.Count + defaultBlueprints.Count;
+
+            // Load default blueprints
             foreach (var defaultBlueprint in defaultBlueprintBag)
             {
                 AddDefaultBlueprint(defaultBlueprint);
+
+                yield return null;
+                iterator++;
+                progress.Report((float)iterator / blueprintTotal);
             }
 
-            if (loadOnAwake) Load();
+            // Load user defined blueprints
+            foreach (var blueprintPath in userBlueprintPaths)
+            {
+                var blueprint = IOUtils.JsonDeserializeFromPath<Blueprint>(blueprintPath);
+                AddUserBlueprint(blueprint);
+
+                yield return null;
+                iterator++;
+                progress.Report((float)iterator / blueprintTotal);
+            }
         }
 
         // Has a dependency on block factory
         [ContextMenu("Load")]
         public void Load()
         {
-            var path = IOUtils.GetPath("blueprints");
-            CollectionUtils.LoadJsonCollectionFromDirectory<Blueprint>(path, AddUserBlueprint);
         }
 
         public ObservableBlueprint GetBlueprint(string name)

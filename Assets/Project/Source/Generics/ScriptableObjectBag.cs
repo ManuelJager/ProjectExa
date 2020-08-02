@@ -17,6 +17,7 @@ namespace Exa.Generics
 
         private List<T> GetAllInstances()
         {
+#if UNITY_EDITOR
             var guids = QueryGUIDs();
             var collection = new List<T>(guids.Length);
 
@@ -27,11 +28,18 @@ namespace Exa.Generics
             }
 
             return collection;
+#else
+            throw new System.Exception("Cannot get instances in runtime");
+#endif
         }
 
         protected virtual string[] QueryGUIDs()
         {
+#if UNITY_EDITOR
             return AssetDatabase.FindAssets("t:" + typeof(T).Name);
+#else
+            throw new System.Exception("Cannot QueryGUIDs in runtime");
+#endif
         }
 
         public IEnumerator<T> GetEnumerator()

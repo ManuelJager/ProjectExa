@@ -32,6 +32,8 @@ namespace Exa.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (mouseOverControl) return;
+
             mouseOverControl = true;
             onPointerEnter?.Invoke();
 
@@ -43,6 +45,8 @@ namespace Exa.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (!mouseOverControl) return;
+
             mouseOverControl = false;
             onPointerExit?.Invoke();
 
@@ -56,6 +60,8 @@ namespace Exa.UI
         {
             this.DelayOneFrame(() =>
             {
+                if (mouseOverControl) return;
+
                 var mousePos = Systems.InputManager.ScaledMousePosition;
                 if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos))
                 {
@@ -74,6 +80,7 @@ namespace Exa.UI
         {
             if (mouseOverControl)
             {
+                mouseOverControl = false;
                 onPointerExit?.Invoke();
 
                 if (InvokeStateChange)

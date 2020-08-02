@@ -1,10 +1,20 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Exa.IO
 {
     public static class CollectionUtils
     {
+        public static IEnumerable<string> GetJsonPathsFromDirectory(string directory)
+        {
+            foreach (var filePath in Directory.GetFiles(directory, "*.json"))
+            {
+                yield return filePath;
+            }
+        }
+
         /// <summary>
         /// Deserialize items from directory and add to collection
         /// </summary>

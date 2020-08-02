@@ -25,10 +25,8 @@ namespace UCommandConsole
 
         protected void AddCommands()
         {
-            AddGetter(() => new TestCommand());
             AddGetter(() => new UndoCommand());
             AddGetter(() => new HelpCommand());
-            AddGetter(() => new MethodCommand(host, "Run"));
         }
 
         public void AddGetter(Func<Command> commandGetter)

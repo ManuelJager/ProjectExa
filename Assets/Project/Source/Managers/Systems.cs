@@ -9,6 +9,8 @@ using Exa.Input;
 using Exa.SceneManagement;
 using Exa.UI;
 using Exa.Utils;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Exa
@@ -43,19 +45,11 @@ namespace Exa
         protected override void Awake()
         {
             base.Awake();
-
-            MainUI.loadingScreen.ShowScreen();
         }
 
         private void Start()
         {
-            // Create blocks
-            blockFactory.StartUp();
-
-            // Load blueprints from disk
-            blueprintManager.StartUp();
-
-            MainUI.loadingScreen.MarkLoaded();
+            StartCoroutine(Load());
         }
 
         [RuntimeInitializeOnLoadMethod]
@@ -65,6 +59,29 @@ namespace Exa
             {
                 IsQuitting = true;
             };
+        }
+
+        private IEnumerator Load()
+        {
+            // Allow the screen to be shown
+            MainUI.loadingScreen.ShowScreen();
+            yield return 0;
+
+            var targetFrameRate = MainUI.settingsManager.videoSettings.current.Values.resolution.refreshRate;
+
+            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.StartUp(new Progress<float>((value) =>
+            {
+                var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)} % complete) ...";
+                MainUI.loadingScreen.ShowMessage(message);
+            })), targetFrameRate);
+
+            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.StartUp(new Progress<float>((value) =>
+            {
+                var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)} % complete) ...";
+                MainUI.loadingScreen.ShowMessage(message);
+            })), targetFrameRate); 
+
+            MainUI.loadingScreen.HideScreen();
         }
     }
 }
