@@ -38,7 +38,7 @@ namespace Exa.Grids.Blueprints
 
             if (Blocks != null)
             {
-                blocks.AnchoredBlueprintBlocks.ForEach((block) => AddContext(block));
+                blocks.GridMembers.ForEach((block) => AddContext(block));
             }
         }
 
@@ -50,7 +50,7 @@ namespace Exa.Grids.Blueprints
 
         public void AddContext(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
-            var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
+            var context = anchoredBlueprintBlock.BlueprintBlock.RuntimeContext;
             context.DynamicallyAddTotals(this);
         }
 
@@ -63,7 +63,7 @@ namespace Exa.Grids.Blueprints
         public void RemoveContext(Vector2Int gridPos)
         {
             var anchoredBlueprintBlock = Blocks.GetAnchoredBlockAtGridPos(gridPos);
-            var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
+            var context = anchoredBlueprintBlock.BlueprintBlock.RuntimeContext;
             context.DynamicallyRemoveTotals(this);
         }
 

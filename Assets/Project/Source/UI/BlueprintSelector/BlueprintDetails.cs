@@ -35,7 +35,7 @@ namespace Exa.UI
             blockCountView.Reflect(new NamedWrapper<string>
             {
                 Name = "Blocks",
-                Value = blueprint.Blocks.AnchoredBlueprintBlocks.Count.ToString()
+                Value = blueprint.Blocks.GridMembers.Count.ToString()
             });
 
             var size = blueprint.Blocks.Size.Value;

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -364,7 +364,6 @@ MonoBehaviour:
   blueprintTypes: {fileID: 11400000, guid: ea5f593b3dc3ed142a8d8854ab70e880, type: 2}
   defaultBlueprintBag: {fileID: 11400000, guid: c1c7e923b5a0cf445bb12d051651cfc8,
     type: 2}
-  loadOnAwake: 1
 --- !u!114 &60919918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2409,6 +2408,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 987ef0cba5a2dbd48ac494bdd5067696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2053960252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053960246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0824f88017d4849a02bf4148ce25db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2056015434

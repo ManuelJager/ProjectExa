@@ -14,7 +14,7 @@ namespace Exa.Grids.Blueprints.Editor
         [SerializeField] private Color activeColor;
         [SerializeField] private Color inactiveColor;
 
-        public AnchoredBlueprintBlock AnchoredBlueprintBlock { get; private set; } = new AnchoredBlueprintBlock();
+        public AnchoredBlueprintBlock AnchoredBlueprintBlock { get; private set; }
 
         /// <summary>
         /// Update the block the ghost is representing
@@ -24,11 +24,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             ghostImage.sprite = block.RuntimeContext.thumbnail;
             filterTransform.localScale = block.RuntimeContext.size.ToVector3();
-            AnchoredBlueprintBlock = new AnchoredBlueprintBlock()
-            {
-                blueprintBlock = block,
-                gridAnchor = new Vector2Int()
-            };
+            AnchoredBlueprintBlock = new AnchoredBlueprintBlock(new Vector2Int(), block);
             AnchoredBlueprintBlock.UpdateSpriteRenderer(ghostImage);
             AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }

@@ -8,7 +8,7 @@ namespace Exa.Debugging
     {
         private Console console;
 
-        private void Awake()
+        private void Start()
         {
             console = Systems.MainUI.console;
 

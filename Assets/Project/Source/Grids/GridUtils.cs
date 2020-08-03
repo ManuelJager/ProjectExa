@@ -1,45 +1,152 @@
-﻿using Exa.Grids.Blueprints;
+﻿using Exa.Generics;
+using Exa.Grids.Blueprints;
 using Exa.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids
 {
     public static class GridUtils
     {
-        public static Vector3 GetRealPositionByAnchor(BlueprintBlock block, Vector2Int gridAnchor)
+        public static void Add<T>(this IGrid<T> grid, T gridMember)
+            where T : IGridMember
         {
-            var size = block.RuntimeContext.size - Vector2Int.one;
+            grid.Size.Invalidate();
+            grid.CentreOfMass.Invalidate();
 
-            var offset = new Vector2
+            grid.GridMembers.Add(gridMember);
+
+            // Get grid positions of blueprint block
+            var tilePositions = GetOccupiedTilesByAnchor(gridMember);
+
+            grid.EnsureNeighbourKeyIsCreated(gridMember);
+
+            // Add neighbour references
+            foreach (var neighbour in grid.GetNeighbours(tilePositions))
             {
-                x = size.x / 2f,
-                y = size.y / 2f
-            }.Rotate(block.Rotation);
+                grid.NeighbourDict[neighbour].Add(gridMember);
+                grid.NeighbourDict[gridMember].Add(neighbour);
+            }
 
-            offset = new Vector2
-            (
-                block.flippedX ? -offset.x : offset.x,
-                block.flippedY ? -offset.y : offset.y
-            );
-
-            return new Vector3
+            foreach (var tilePosition in tilePositions)
             {
-                x = offset.x + gridAnchor.x,
-                y = offset.y + gridAnchor.y,
-            };
+                grid.OccupiedTiles.Add(tilePosition, gridMember);
+            }
         }
 
-        public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(AnchoredBlueprintBlock anchoredBlueprintBlock)
+        public static void Remove<T>(this IGrid<T> grid, Vector2Int key)
+            where T : IGridMember
         {
-            var block = anchoredBlueprintBlock.blueprintBlock;
-            var gridAnchor = anchoredBlueprintBlock.gridAnchor;
-            return GetOccupiedTilesByAnchor(block, gridAnchor);
+            grid.Size.Invalidate();
+            grid.CentreOfMass.Invalidate();
+
+            var anchoredBlueprintBlock = grid.GetAnchoredBlockAtGridPos(key);
+            var tilePositions = GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
+
+            grid.GridMembers.Remove(anchoredBlueprintBlock);
+
+            // Remove neighbour references
+            foreach (var neighbour in grid.NeighbourDict[anchoredBlueprintBlock])
+            {
+                grid.NeighbourDict[neighbour].Remove(anchoredBlueprintBlock);
+            }
+
+            foreach (var occupiedTile in tilePositions)
+            {
+                grid.OccupiedTiles.Remove(occupiedTile);
+            }
         }
 
-        public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(BlueprintBlock block, Vector2Int gridAnchor)
+        public static void EnsureNeighbourKeyIsCreated<T>(this IGrid<T> grid, T gridMember)
+            where T : IGridMember
         {
+            if (!grid.NeighbourDict.ContainsKey(gridMember))
+            {
+                grid.NeighbourDict[gridMember] = new List<T>();
+            }
+        }
+
+        public static IEnumerable<T> GetNeighbours<T>(this IGrid<T> grid, IEnumerable<Vector2Int> tilePositions)
+            where T : IGridMember
+        {
+            // Get grid positions around block
+            var bounds = new GridBounds(tilePositions);
+            var neighbourPositions = bounds.GetAdjacentPositions();
+
+            var neighbours = new List<T>();
+
+            foreach (var neighbourPosition in neighbourPositions)
+            {
+                if (grid.OccupiedTiles.ContainsKey(neighbourPosition))
+                {
+                    var neighbour = grid.OccupiedTiles[neighbourPosition];
+                    if (!neighbours.Contains(neighbour))
+                    {
+                        neighbours.Add(neighbour);
+                        yield return neighbour;
+                    }
+                }
+            }
+        }
+
+        public static Vector2 CalculateCentreOfMass<T>(this IGrid<T> grid)
+            where T : IGridMember
+        {
+            var total = new Vector2();
+
+            foreach (var block in grid.GridMembers)
+            {
+                total += block.GetLocalPosition();
+            }
+
+            return total / grid.GridMembers.Count;
+        }
+
+        public static bool HasOverlap<T>(this IGrid<T> grid, Vector2Int gridPosition)
+            where T : IGridMember
+        {
+            return grid.OccupiedTiles.ContainsKey(gridPosition);
+        }
+
+        public static bool HasOverlap<T>(this IGrid<T> grid, IEnumerable<Vector2Int> gridPositions)
+            where T : IGridMember
+        {
+            return grid.OccupiedTiles
+                .Select((item) => item.Key)
+                .Intersect(gridPositions)
+                .Any();
+        }
+
+        public static bool ContainsBlockAtGridPos<T>(this IGrid<T> grid, Vector2Int gridPos)
+            where T : IGridMember
+        {
+            return grid.OccupiedTiles.ContainsKey(gridPos);
+        }
+
+        public static T GetAnchoredBlockAtGridPos<T>(this IGrid<T> grid, Vector2Int gridPos)
+            where T : IGridMember
+        {
+            return grid.OccupiedTiles[gridPos];
+        }
+
+        public static BlueprintBlock GetBlockAtGridPos<T>(this IGrid<T> grid, Vector2Int gridPos)
+            where T : IGridMember
+        {
+            return grid.OccupiedTiles[gridPos].BlueprintBlock;
+        }
+
+        public static Vector2Int GetGridAnchorByGridPos<T>(this IGrid<T> grid, Vector2Int gridPos)
+            where T : IGridMember
+        {
+            return grid.OccupiedTiles[gridPos].GridAnchor;
+        }
+
+        public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(IGridMember gridMember)
+        {
+            var block = gridMember.BlueprintBlock;
+            var gridAnchor = gridMember.GridAnchor;
             var area = block.RuntimeContext.size.Rotate(block.Rotation);
 
             if (block.flippedX) area.x = -area.x;

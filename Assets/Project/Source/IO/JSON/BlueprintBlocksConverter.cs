@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blueprints;
+﻿using Exa.Grids;
+using Exa.Grids.Blueprints;
 using Exa.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -16,7 +17,7 @@ namespace Exa.IO.Json
         {
             if (reader.TokenType == JsonToken.Null) return null;
 
-            var dict = new BlueprintBlocks();
+            var blocks = new BlueprintBlocks();
             foreach (var pair in JObject.Load(reader))
             {
                 var vector = pair.Key.Split(SEPARATORS, StringSplitOptions.RemoveEmptyEntries);
@@ -29,22 +30,18 @@ namespace Exa.IO.Json
 
                 var value = pair.Value.ToObject<BlueprintBlock>(serializer);
 
-                dict.Add(new AnchoredBlueprintBlock
-                {
-                    gridAnchor = key,
-                    blueprintBlock = value
-                });
+                blocks.Add(new AnchoredBlueprintBlock(key, value));
             }
-            return dict;
+            return blocks;
         }
 
         public override void WriteJson(JsonWriter writer, BlueprintBlocks value, JsonSerializer serializer)
         {
             writer.WriteStartObject();
-            foreach (var pair in value.AnchoredBlueprintBlocks)
+            foreach (var pair in value.GridMembers)
             {
-                writer.WritePropertyName(pair.gridAnchor.ToShortString());
-                serializer.Serialize(writer, pair.blueprintBlock);
+                writer.WritePropertyName(pair.GridAnchor.ToShortString());
+                serializer.Serialize(writer, pair.BlueprintBlock);
             }
             writer.WriteEndObject();
         }

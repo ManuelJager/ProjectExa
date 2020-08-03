@@ -11,8 +11,8 @@ namespace Exa.Grids.Blueprints.Editor
         {
             var result = new ValidationResult(GetType());
 
-            var controllers = validationArgs.blueprintBlocks.AnchoredBlueprintBlocks
-                .Where((block) => block.blueprintBlock.RuntimeContext.category == "Controller");
+            var controllers = validationArgs.blueprintBlocks.GridMembers
+                .Where((block) => block.BlueprintBlock.RuntimeContext.category == "Controller");
 
             var controllerCount = controllers.Count();
 
@@ -26,7 +26,7 @@ namespace Exa.Grids.Blueprints.Editor
             }
             else
             {
-                var startingPoint = controllers.FirstOrDefault().gridAnchor;
+                var startingPoint = controllers.FirstOrDefault().GridAnchor;
 
                 result.Assert<BlueprintGridDisconnectedBlocksError>(
                     "Blueprint has disconnected blocks",

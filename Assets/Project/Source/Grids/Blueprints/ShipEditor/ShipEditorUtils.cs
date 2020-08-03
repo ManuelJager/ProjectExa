@@ -14,8 +14,8 @@ namespace Exa.Grids.Blueprints.Editor
 
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
-            var block = anchoredBlueprintBlock.blueprintBlock;
-            var gridAnchor = anchoredBlueprintBlock.gridAnchor;
+            var block = anchoredBlueprintBlock.BlueprintBlock;
+            var gridAnchor = anchoredBlueprintBlock.GridAnchor;
             return GetOccupiedTilesByAnchor(block, gridAnchor);
         }
 

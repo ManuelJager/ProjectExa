@@ -21,7 +21,7 @@ namespace Exa.Grids.Blueprints.Editor
             ActiveBlueprint = blueprint;
             blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
 
-            foreach (var block in blueprint.Blocks.AnchoredBlueprintBlocks)
+            foreach (var block in blueprint.Blocks.GridMembers)
             {
                 PlaceBlock(block);
             }
@@ -44,7 +44,7 @@ namespace Exa.Grids.Blueprints.Editor
             stopwatch.Reset();
 
             var anchoredBlock = ActiveBlueprint.Blocks.GetAnchoredBlockAtGridPos(gridPos);
-            var anchoredPos = anchoredBlock.gridAnchor;
+            var anchoredPos = anchoredBlock.GridAnchor;
 
             ActiveBlueprint.Remove(anchoredPos);
             onBlueprintChanged?.Invoke();
@@ -55,7 +55,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             foreach (Transform child in transform)
             {
-                Destroy(child.gameObject);
+                child.gameObject.SetActive(false);
             }
 
             ActiveBlueprint?.ClearBlocks();

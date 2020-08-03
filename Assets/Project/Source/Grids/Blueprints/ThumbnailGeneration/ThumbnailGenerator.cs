@@ -24,7 +24,7 @@ namespace Exa.Grids.Blueprints.Thumbnails
 
             foreach (var child in transform.GetChildren())
             {
-                Destroy(child.gameObject);
+                child.gameObject.SetActive(false);
             }
 
             return tex;
@@ -32,7 +32,7 @@ namespace Exa.Grids.Blueprints.Thumbnails
 
         private void GenerateShip(Blueprint blueprint)
         {
-            foreach (var block in blueprint.Blocks.AnchoredBlueprintBlocks)
+            foreach (var block in blueprint.Blocks.GridMembers)
             {
                 block.CreateInertBehaviourInGrid(transform);
             }

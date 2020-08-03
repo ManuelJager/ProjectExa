@@ -61,7 +61,7 @@ namespace Exa.Audio
         public void RegisterHandle(SoundHandle handle)
         {
             // Remove the handle for the sound after finishing playing
-            var endRoutine = StartCoroutine(WaitForSoundEnd(handle));
+            var endRoutine = Systems.Instance.StartCoroutine(WaitForSoundEnd(handle));
 
             handle.onStop.AddListener(() =>
             {

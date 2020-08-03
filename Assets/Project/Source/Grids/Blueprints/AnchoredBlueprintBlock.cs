@@ -2,33 +2,40 @@
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Utils;
+using Newtonsoft.Json;
 using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
     [Serializable]
-    public class AnchoredBlueprintBlock : ICloneable<AnchoredBlueprintBlock>
+    public class AnchoredBlueprintBlock : ICloneable<AnchoredBlueprintBlock>, IGridMember
     {
         public Vector2Int gridAnchor;
         public BlueprintBlock blueprintBlock;
 
-        public void UpdateSpriteRenderer(SpriteRenderer spriteRenderer)
+        public Vector2Int GridAnchor
         {
-            spriteRenderer.flipX = blueprintBlock.Rotation % 2 == 0 ? blueprintBlock.flippedX : blueprintBlock.flippedY;
-            spriteRenderer.flipY = blueprintBlock.Rotation % 2 == 0 ? blueprintBlock.flippedY : blueprintBlock.flippedX;
+            get => gridAnchor;
+            set => gridAnchor = value;
         }
 
-        public void UpdateLocals(GameObject blockGO)
+        public BlueprintBlock BlueprintBlock
         {
-            blockGO.transform.localRotation = blueprintBlock.QuaternionRotation;
-            blockGO.transform.localPosition = GetLocalPosition();
+            get => blueprintBlock;
+            set => blueprintBlock = value;
+        }
+
+        public AnchoredBlueprintBlock(Vector2Int gridAnchor, BlueprintBlock blueprintBlock)
+        {
+            this.gridAnchor = gridAnchor;
+            this.blueprintBlock = blueprintBlock;
         }
 
         public GameObject CreateInertBehaviourInGrid(Transform parent)
         {
             var blockGO = Systems.BlockFactory.GetInertBlock(blueprintBlock.id, parent);
-            SetupGameObject(blockGO);
+            this.SetupGameObject(blockGO);
             return blockGO;
         }
 
@@ -36,42 +43,13 @@ namespace Exa.Grids.Blueprints
         {
             var block = Systems.BlockFactory.GetBlock(blueprintBlock.id, parent, blockPrefabType);
             block.anchoredBlueprintBlock = this;
-            SetupGameObject(block.gameObject);
+            this.SetupGameObject(block.gameObject);
             return block;
         }
-
-        // NOTE: Doesn't clone neighbours
+        
         public AnchoredBlueprintBlock Clone()
         {
-            return new AnchoredBlueprintBlock
-            {
-                gridAnchor = gridAnchor,
-                blueprintBlock = blueprintBlock,
-            };
-        }
-
-        public Vector2 GetLocalPosition()
-        {
-            var size = blueprintBlock.RuntimeContext.size - Vector2Int.one;
-
-            var offset = new Vector2
-            {
-                x = size.x / 2f,
-                y = size.y / 2f
-            }.Rotate(blueprintBlock.Rotation);
-
-            if (blueprintBlock.flippedX) offset.x = -offset.x;
-            if (blueprintBlock.flippedY) offset.y = -offset.y;
-
-            return offset + gridAnchor;
-        }
-
-        private void SetupGameObject(GameObject blockGO)
-        {
-            blockGO.name = $"{blueprintBlock.RuntimeContext.displayId} {gridAnchor}";
-            var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
-            UpdateSpriteRenderer(spriteRenderer);
-            UpdateLocals(blockGO);
+            return new AnchoredBlueprintBlock(gridAnchor, blueprintBlock);
         }
     }
 }

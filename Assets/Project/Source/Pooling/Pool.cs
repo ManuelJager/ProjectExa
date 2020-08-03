@@ -57,9 +57,6 @@ namespace Exa.Pooling
                 throw new ArgumentException($"Pool member type ({poolMember.GetType()}) does not match type ({typeof(T)})");
             }
 
-            Action action = () => poolMember.transform.SetParent(transform);
-            var enumerator = EnumeratorUtils.DelayOneFrame(action);
-            Systems.Instance.StartCoroutine(enumerator);
             return TryPush((T) poolMember);
         }
 
@@ -81,6 +78,10 @@ namespace Exa.Pooling
                 return false;
             }
 
+            Debug.Log(poolMember.gameObject.name);
+            Action action = () => poolMember.transform.SetParent(transform);
+            var enumerator = EnumeratorUtils.DelayOneFrame(action);
+            Systems.Instance.StartCoroutine(enumerator);
             poolMembers.Push(poolMember);
             return true;
         }

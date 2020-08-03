@@ -13,7 +13,7 @@ namespace Exa.Grids.Blocks
                 var block = ((BlockPoolMember)poolMember).block;
 
                 // Reset values
-                block.anchoredBlueprintBlock.blueprintBlock.RuntimeContext.SetValues(block);
+                block.anchoredBlueprintBlock.BlueprintBlock.RuntimeContext.SetValues(block);
             }
             return result;
         }
