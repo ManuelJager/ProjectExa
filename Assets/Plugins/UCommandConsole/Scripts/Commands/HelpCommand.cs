@@ -23,8 +23,8 @@ namespace UCommandConsole
 
         private void HandleCommand(Console host)
         {
-            host.output.Print($"Availible commands: {host.container.Count}", OutputColor.accent);
-            foreach (var item in host.container.commandContext)
+            host.output.Print($"Availible commands: {host.Container.Count}", OutputColor.accent);
+            foreach (var item in host.Container.commandContext)
             {
                 var commandName = item.Key;
                 var argumentFormat = item.Value.GetArgumentFormat();
@@ -34,7 +34,7 @@ namespace UCommandConsole
 
         private void HandleCommandName(Console host)
         {
-            var context = host.container.commandContext[CommandName];
+            var context = host.Container.commandContext[CommandName];
             host.output.Print($"Command: {CommandName}", OutputColor.accent);
             host.output.Print($"arguments: {context.GetArgumentFormat()}", 1, OutputColor.accent, true);
             PrintParameters(host, context.properties, "properties");

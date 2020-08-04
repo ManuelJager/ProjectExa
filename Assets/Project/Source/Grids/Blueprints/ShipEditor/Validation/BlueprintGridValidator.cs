@@ -11,7 +11,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             var result = new ValidationResult(GetType());
 
-            var controllers = validationArgs.blueprintBlocks.GridMembers
+            var controllers = validationArgs.blueprintBlocks
                 .Where((block) => block.BlueprintBlock.RuntimeContext.category == "Controller");
 
             var controllerCount = controllers.Count();
@@ -42,7 +42,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             void FloodFill(Vector2Int gridPos)
             {
-                if (blocks.ContainsBlockAtGridPos(gridPos) && !visited.Contains(gridPos))
+                if (blocks.ContainsMember(gridPos) && !visited.Contains(gridPos))
                 {
                     visited.Add(gridPos);
                     FloodFill(new Vector2Int(gridPos.x - 1, gridPos.y));
@@ -54,7 +54,7 @@ namespace Exa.Grids.Blueprints.Editor
 
             FloodFill(startingPoint);
 
-            return blocks.OccupiedTiles.Count == visited.Count;
+            return blocks.GetOccupiedTileCount() == visited.Count;
         }
     }
 }

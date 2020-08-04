@@ -12,10 +12,10 @@ namespace Exa.Debugging
         {
             console = Systems.MainUI.console;
 
-            console.container.AddGetter(() => new ClsCommand());
-            console.container.AddGetter(() => new ToggleDebugCommand());
-            console.container.AddGetter(() => new SpawnCommand());
-            console.container.AddGetter(() => new ToggleDiagnosticsCommand());
+            console.Container.AddGetter(() => new ClsCommand());
+            console.Container.AddGetter(() => new ToggleDebugCommand());
+            console.Container.AddGetter(() => new SpawnCommand());
+            console.Container.AddGetter(() => new ToggleDiagnosticsCommand());
         }
     }
 }

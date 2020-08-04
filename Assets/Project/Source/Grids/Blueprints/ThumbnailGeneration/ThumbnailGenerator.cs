@@ -32,7 +32,7 @@ namespace Exa.Grids.Blueprints.Thumbnails
 
         private void GenerateShip(Blueprint blueprint)
         {
-            foreach (var block in blueprint.Blocks.GridMembers)
+            foreach (var block in blueprint.Blocks)
             {
                 block.CreateInertBehaviourInGrid(transform);
             }

@@ -20,5 +20,10 @@ namespace Exa.UI
         public PromptController promptController;
         public Diagnostics diagnostics;
         public SettingsManager settingsManager;
+
+        private void Awake()
+        {
+            console.Initialize();
+        }
     }
 }

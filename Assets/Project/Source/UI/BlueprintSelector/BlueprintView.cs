@@ -1,11 +1,12 @@
 ﻿using Exa.Bindings;
 using Exa.Grids.Blueprints;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Exa.UI
 {
-    public class BlueprintView : MonoBehaviour, IObserver<Blueprint>
+    public class BlueprintView : MonoBehaviour, Bindings.IObserver<Blueprint>
     {
         public Button deleteButton;
         public Button button;
@@ -18,9 +19,17 @@ namespace Exa.UI
         {
             nameText.text = data.name;
             classText.text = data.shipClass;
-            var thumbnailRect = new Rect(0, 0, 512, 512);
-            var thumbnailPivot = new Vector2(0.5f, 0.5f);
-            thumbnailImage.sprite = Sprite.Create(data.Thumbnail, thumbnailRect, thumbnailPivot);
+
+            try
+            {
+                var thumbnailRect = new Rect(0, 0, 512, 512);
+                var thumbnailPivot = new Vector2(0.5f, 0.5f);
+                thumbnailImage.sprite = Sprite.Create(data.Thumbnail, thumbnailRect, thumbnailPivot);
+            }
+            catch
+            {
+                Debug.LogWarning("Error setting blueprint thumbnail");
+            }
         }
     }
 }

@@ -36,9 +36,12 @@ namespace Exa.Grids.Blueprints
             this.shipClass = shipClass;
             this.Blocks = blocks;
 
-            if (Blocks != null)
+            if (blocks != null)
             {
-                blocks.GridMembers.ForEach((block) => AddContext(block));
+                foreach (var block in blocks)
+                {
+                    AddContext(block);
+                }
             }
         }
 
@@ -62,7 +65,7 @@ namespace Exa.Grids.Blueprints
 
         public void RemoveContext(Vector2Int gridPos)
         {
-            var anchoredBlueprintBlock = Blocks.GetAnchoredBlockAtGridPos(gridPos);
+            var anchoredBlueprintBlock = Blocks.GetMember(gridPos);
             var context = anchoredBlueprintBlock.BlueprintBlock.RuntimeContext;
             context.DynamicallyRemoveTotals(this);
         }
@@ -70,7 +73,6 @@ namespace Exa.Grids.Blueprints
         public void ClearBlocks()
         {
             Blocks = new BlueprintBlocks();
-
             Mass = 0;
             PeakPowerGeneration = 0f;
         }

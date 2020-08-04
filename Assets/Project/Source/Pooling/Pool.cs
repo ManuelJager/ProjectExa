@@ -78,7 +78,6 @@ namespace Exa.Pooling
                 return false;
             }
 
-            Debug.Log(poolMember.gameObject.name);
             Action action = () => poolMember.transform.SetParent(transform);
             var enumerator = EnumeratorUtils.DelayOneFrame(action);
             Systems.Instance.StartCoroutine(enumerator);

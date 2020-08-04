@@ -21,7 +21,7 @@ namespace Exa.Grids.Blueprints.Editor
             ActiveBlueprint = blueprint;
             blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
 
-            foreach (var block in blueprint.Blocks.GridMembers)
+            foreach (var block in blueprint.Blocks)
             {
                 PlaceBlock(block);
             }
@@ -38,12 +38,12 @@ namespace Exa.Grids.Blueprints.Editor
 
         public void RemoveBlock(Vector2Int gridPos)
         {
-            if (!ActiveBlueprint.Blocks.HasOverlap(gridPos)) return;
+            if (!ActiveBlueprint.Blocks.ContainsMember(gridPos)) return;
 
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
 
-            var anchoredBlock = ActiveBlueprint.Blocks.GetAnchoredBlockAtGridPos(gridPos);
+            var anchoredBlock = ActiveBlueprint.Blocks.GetMember(gridPos);
             var anchoredPos = anchoredBlock.GridAnchor;
 
             ActiveBlueprint.Remove(anchoredPos);

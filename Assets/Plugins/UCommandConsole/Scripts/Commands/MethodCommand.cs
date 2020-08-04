@@ -9,10 +9,15 @@ namespace UCommandConsole
     [IgnoreHistory]
     public class MethodCommand : Command
     {
+        private string name = "";
         private MethodInfo methodInfo;
         private object target;
 
-        public override string GetName() => methodInfo.Name;
+        public override string GetName()
+        {
+            if (name != "") return name;
+            return methodInfo.Name;
+        }
 
         public Dictionary<string, object> Arguments { get; private set; }
 
@@ -25,6 +30,17 @@ namespace UCommandConsole
 
         public MethodCommand(object target, string methodName)
             : this(target, target.GetType().GetMethod(methodName))
+        {
+        }
+
+        public MethodCommand(object target, MethodInfo methodInfo, string name)
+            : this(target, methodInfo)
+        {
+            this.name = name;
+        }
+
+        public MethodCommand(object target, string methodName, string name)
+            : this(target, target.GetType().GetMethod(methodName), name)
         {
         }
 

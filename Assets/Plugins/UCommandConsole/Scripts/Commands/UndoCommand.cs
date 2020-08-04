@@ -10,7 +10,7 @@ namespace UCommandConsole
 
         public override void Execute(Console host)
         {
-            host.container.Undo();
+            host.Container.Undo();
         }
 
         public override void Undo(Console host)

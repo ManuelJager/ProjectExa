@@ -38,7 +38,7 @@ namespace Exa.IO.Json
         public override void WriteJson(JsonWriter writer, BlueprintBlocks value, JsonSerializer serializer)
         {
             writer.WriteStartObject();
-            foreach (var pair in value.GridMembers)
+            foreach (var pair in value)
             {
                 writer.WritePropertyName(pair.GridAnchor.ToShortString());
                 serializer.Serialize(writer, pair.BlueprintBlock);

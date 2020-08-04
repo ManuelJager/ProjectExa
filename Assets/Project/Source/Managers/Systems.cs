@@ -42,11 +42,6 @@ namespace Exa
 
         public static bool IsQuitting { get; set; } = false;
 
-        protected override void Awake()
-        {
-            base.Awake();
-        }
-
         private void Start()
         {
             StartCoroutine(Load());

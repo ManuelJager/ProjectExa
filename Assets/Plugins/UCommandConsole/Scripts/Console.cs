@@ -12,15 +12,13 @@ namespace UCommandConsole
         [Header("References")]
         public ConsoleOutput output;
         public ConsoleInput input;
-        public CommandContainer container;
         public CommandParserContext parserContext;
 
-        public static Console Instance;
+        public CommandContainer Container { get; set; }
 
-        private void Awake()
+        public void Initialize()
         {
-            container = new CommandContainer(this);
-            Instance = this;
+            Container = new CommandContainer(this);
         }
 
         public void OnSubmit(string input)
@@ -57,13 +55,13 @@ namespace UCommandConsole
             var commandName = parser.AsValue(new StringLiteralParser());
 
             // Select command
-            if (!container.ContainsCommand(commandName))
+            if (!Container.ContainsCommand(commandName))
             {
                 output.Print($"Command: \"{commandName}\" doesn't exist", OutputColor.warning);
                 return false;
             }
 
-            var command = container.GetCommand(commandName);
+            var command = Container.GetCommand(commandName);
             return Run(command, parser);
         }
 
@@ -101,7 +99,7 @@ namespace UCommandConsole
             // Add command history to queue
             if (!command.Context.info.ignoresHistory)
             {
-                container.AddToHistory(command);
+                Container.AddToHistory(command);
             }
 
             command.CurrentParser = null;

@@ -19,10 +19,6 @@ namespace Exa.Pooling
         {
             if (Systems.IsQuitting) return;
 
-            Systems.MainUI.console.output.BeginPrint(gameObject.name);
-            Systems.MainUI.console.output.Print(StackTraceUtility.ExtractStackTrace());
-            Systems.MainUI.console.output.EndPrint();
-
             pool.totalMembers--;
         }
     }

@@ -26,16 +26,23 @@ namespace Exa.UI
 
             if (!container.activeSelf) container.SetActive(true);
 
-            var thumbnailRect = new Rect(0, 0, 512, 512);
-            var thumbnailPivot = new Vector2(0.5f, 0.5f);
-            thumbnailImage.sprite = Sprite.Create(blueprint.Thumbnail, thumbnailRect, thumbnailPivot);
+            try
+            {
+                var thumbnailRect = new Rect(0, 0, 512, 512);
+                var thumbnailPivot = new Vector2(0.5f, 0.5f);
+                thumbnailImage.sprite = Sprite.Create(blueprint.Thumbnail, thumbnailRect, thumbnailPivot);
+            }
+            catch
+            {
+                Debug.LogWarning("Error setting blueprint thumbnail");
+            }
 
             nameText.text = blueprint.name;
 
             blockCountView.Reflect(new NamedWrapper<string>
             {
                 Name = "Blocks",
-                Value = blueprint.Blocks.GridMembers.Count.ToString()
+                Value = blueprint.Blocks.GetMemberCount().ToString()
             });
 
             var size = blueprint.Blocks.Size.Value;

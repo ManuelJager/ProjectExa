@@ -25,7 +25,7 @@ namespace Exa.Utils
             {
                 if (instance == null)
                 {
-                    UnityEngine.Debug.LogError($"Missing instance on type {typeof(T)}");
+                    throw new System.Exception($"Missing instance on type {typeof(T)}");
                 }
                 return instance;
             }

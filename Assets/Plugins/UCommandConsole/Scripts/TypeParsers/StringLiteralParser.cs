@@ -16,7 +16,10 @@ namespace UCommandConsole.TypeParsers
 
             if (char.IsLetter(tokenizer.CurrentChar))
             {
-                while (char.IsLetter(tokenizer.CurrentChar))
+                while (
+                    char.IsLetter(tokenizer.CurrentChar) || 
+                    char.IsDigit(tokenizer.CurrentChar) ||
+                    tokenizer.CurrentChar == '-')
                 {
                     sb.Append(tokenizer.CurrentChar);
                     tokenizer.NextChar();

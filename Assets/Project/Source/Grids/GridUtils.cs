@@ -10,65 +10,7 @@ namespace Exa.Grids
 {
     public static class GridUtils
     {
-        public static void Add<T>(this IGrid<T> grid, T gridMember)
-            where T : IGridMember
-        {
-            grid.Size.Invalidate();
-            grid.CentreOfMass.Invalidate();
-
-            grid.GridMembers.Add(gridMember);
-
-            // Get grid positions of blueprint block
-            var tilePositions = GetOccupiedTilesByAnchor(gridMember);
-
-            grid.EnsureNeighbourKeyIsCreated(gridMember);
-
-            // Add neighbour references
-            foreach (var neighbour in grid.GetNeighbours(tilePositions))
-            {
-                grid.NeighbourDict[neighbour].Add(gridMember);
-                grid.NeighbourDict[gridMember].Add(neighbour);
-            }
-
-            foreach (var tilePosition in tilePositions)
-            {
-                grid.OccupiedTiles.Add(tilePosition, gridMember);
-            }
-        }
-
-        public static void Remove<T>(this IGrid<T> grid, Vector2Int key)
-            where T : IGridMember
-        {
-            grid.Size.Invalidate();
-            grid.CentreOfMass.Invalidate();
-
-            var anchoredBlueprintBlock = grid.GetAnchoredBlockAtGridPos(key);
-            var tilePositions = GetOccupiedTilesByAnchor(anchoredBlueprintBlock);
-
-            grid.GridMembers.Remove(anchoredBlueprintBlock);
-
-            // Remove neighbour references
-            foreach (var neighbour in grid.NeighbourDict[anchoredBlueprintBlock])
-            {
-                grid.NeighbourDict[neighbour].Remove(anchoredBlueprintBlock);
-            }
-
-            foreach (var occupiedTile in tilePositions)
-            {
-                grid.OccupiedTiles.Remove(occupiedTile);
-            }
-        }
-
-        public static void EnsureNeighbourKeyIsCreated<T>(this IGrid<T> grid, T gridMember)
-            where T : IGridMember
-        {
-            if (!grid.NeighbourDict.ContainsKey(gridMember))
-            {
-                grid.NeighbourDict[gridMember] = new List<T>();
-            }
-        }
-
-        public static IEnumerable<T> GetNeighbours<T>(this IGrid<T> grid, IEnumerable<Vector2Int> tilePositions)
+        public static IEnumerable<T> GetNeighbours<T>(this Grid<T> grid, IEnumerable<Vector2Int> tilePositions)
             where T : IGridMember
         {
             // Get grid positions around block
@@ -79,9 +21,9 @@ namespace Exa.Grids
 
             foreach (var neighbourPosition in neighbourPositions)
             {
-                if (grid.OccupiedTiles.ContainsKey(neighbourPosition))
+                if (grid.ContainsMember(neighbourPosition))
                 {
-                    var neighbour = grid.OccupiedTiles[neighbourPosition];
+                    var neighbour = grid.GetMember(neighbourPosition);
                     if (!neighbours.Contains(neighbour))
                     {
                         neighbours.Add(neighbour);
@@ -91,56 +33,17 @@ namespace Exa.Grids
             }
         }
 
-        public static Vector2 CalculateCentreOfMass<T>(this IGrid<T> grid)
+        public static Vector2 CalculateCentreOfMass<T>(this Grid<T> grid)
             where T : IGridMember
         {
             var total = new Vector2();
 
-            foreach (var block in grid.GridMembers)
+            foreach (var block in grid)
             {
                 total += block.GetLocalPosition();
             }
 
-            return total / grid.GridMembers.Count;
-        }
-
-        public static bool HasOverlap<T>(this IGrid<T> grid, Vector2Int gridPosition)
-            where T : IGridMember
-        {
-            return grid.OccupiedTiles.ContainsKey(gridPosition);
-        }
-
-        public static bool HasOverlap<T>(this IGrid<T> grid, IEnumerable<Vector2Int> gridPositions)
-            where T : IGridMember
-        {
-            return grid.OccupiedTiles
-                .Select((item) => item.Key)
-                .Intersect(gridPositions)
-                .Any();
-        }
-
-        public static bool ContainsBlockAtGridPos<T>(this IGrid<T> grid, Vector2Int gridPos)
-            where T : IGridMember
-        {
-            return grid.OccupiedTiles.ContainsKey(gridPos);
-        }
-
-        public static T GetAnchoredBlockAtGridPos<T>(this IGrid<T> grid, Vector2Int gridPos)
-            where T : IGridMember
-        {
-            return grid.OccupiedTiles[gridPos];
-        }
-
-        public static BlueprintBlock GetBlockAtGridPos<T>(this IGrid<T> grid, Vector2Int gridPos)
-            where T : IGridMember
-        {
-            return grid.OccupiedTiles[gridPos].BlueprintBlock;
-        }
-
-        public static Vector2Int GetGridAnchorByGridPos<T>(this IGrid<T> grid, Vector2Int gridPos)
-            where T : IGridMember
-        {
-            return grid.OccupiedTiles[gridPos].GridAnchor;
+            return total / grid.GetMemberCount();
         }
 
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(IGridMember gridMember)
