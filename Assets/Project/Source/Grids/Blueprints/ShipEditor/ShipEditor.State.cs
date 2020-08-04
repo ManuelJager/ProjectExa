@@ -12,7 +12,6 @@ namespace Exa.Grids.Blueprints.Editor
         private bool interactible = true;
         private bool blockedByUI;
         private ObservableBlueprint blueprintContainer;
-        private Blueprint newBlueprint;
 
         public bool IsSaved { get; private set; }
         public bool NameIsValid { get; private set; }

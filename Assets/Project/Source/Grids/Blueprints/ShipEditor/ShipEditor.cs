@@ -101,7 +101,7 @@ namespace Exa.Grids.Blueprints.Editor
         public void Import(ObservableBlueprint blueprintContainer, Action<ObservableBlueprint> saveCallback)
         {
             this.blueprintContainer = blueprintContainer;
-            this.newBlueprint = blueprintContainer.Data.Clone();
+            var newBlueprint = blueprintContainer.Data.Clone();
 
             editorGrid.Import(newBlueprint);
             shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.text = newBlueprint.name;
@@ -180,10 +180,10 @@ namespace Exa.Grids.Blueprints.Editor
             if (result.Valid)
             {
                 IsSaved = true;
-                newBlueprint.name = args.requestedName;
+                editorGrid.blueprintLayer.ActiveBlueprint.name = args.requestedName;
 
                 // Set the value of the observable
-                blueprintContainer.SetData(newBlueprint, false);
+                blueprintContainer.SetData(editorGrid.blueprintLayer.ActiveBlueprint, false);
 
                 // Save the blueprint, generate the thumbnail
                 saveCallback(blueprintContainer);

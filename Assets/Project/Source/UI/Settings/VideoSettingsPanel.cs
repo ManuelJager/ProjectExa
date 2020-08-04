@@ -7,9 +7,9 @@ namespace Exa.UI.Settings
 {
     public class VideoSettingsPanel : SettingsTab<ExaVideoSettings, VideoSettingsValues>
     {
-        [SerializeField] public ResolutionDropdown resolutionDropdown;
-        [SerializeField] public Dropdown refreshRatesDropdown;
-        [SerializeField] public Radio fullscreenRadio;
+        public ResolutionDropdown resolutionDropdown;
+        public Dropdown refreshRatesDropdown;
+        public Radio fullscreenRadio;
 
         private InputControl[] controls;
 

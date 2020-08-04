@@ -36,12 +36,9 @@ namespace Exa.Grids.Blueprints
             this.shipClass = shipClass;
             this.Blocks = blocks;
 
-            if (blocks != null)
+            foreach (var block in blocks)
             {
-                foreach (var block in blocks)
-                {
-                    AddContext(block);
-                }
+                AddContext(block);
             }
         }
 

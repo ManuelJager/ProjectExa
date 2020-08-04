@@ -15,7 +15,7 @@ namespace Exa.Grids.Blueprints
             var newBlocks = new BlueprintBlocks();
             foreach (var block in this)
             {
-                newBlocks.Add(block);
+                newBlocks.Add(block.Clone());
             }
             return newBlocks;
         }
