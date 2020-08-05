@@ -15,7 +15,7 @@ namespace Exa.Grids.Blueprints.Editor
         private bool interactible = true;
         private float zoom;
         private BlueprintContainer container;
-        private Func<BlueprintContainer, IEnumerator> saveCallback;
+        private Action<BlueprintContainer> saveCallback;
 
         public bool IsSaved { get; private set; }
         public ValidationResult NameValidationResult { get; private set; }

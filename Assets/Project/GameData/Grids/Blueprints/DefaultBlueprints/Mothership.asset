@@ -12,4 +12,120 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fcb04f4268c2a4ba5d6b8f91425149, type: 3}
   m_Name: Mothership
   m_EditorClassIdentifier: 
-  blueprintJson: '{"name":"defaultMothership","shipClass":"Mothership","blocks":{"18,12":{"id":"LargeHeavyArmor"},"18,8":{"id":"LargeHeavyArmor","flippedY":true},"23,9":{"id":"LargeHeavyArmor","Rotation":-3},"18,10":{"id":"MediumCockpit"},"15,8":{"id":"LargeHeavyArmor"},"15,12":{"id":"LargeHeavyArmor","flippedY":true},"17,9":{"id":"SmallGyroscope"},"17,11":{"id":"SmallGyroscope","flippedY":true},"16,9":{"id":"SmallGyroscope"},"16,11":{"id":"SmallGyroscope","flippedY":true},"15,9":{"id":"SmallGyroscope"},"15,11":{"id":"SmallGyroscope","flippedY":true},"17,10":{"id":"SmallReactor"},"16,10":{"id":"SmallReactor"},"15,10":{"id":"SmallReactor"},"10,11":{"id":"LargeLightArmor","Rotation":-1},"13,11":{"id":"SmallGyroscope"},"12,11":{"id":"SmallGyroscope"},"11,11":{"id":"SmallGyroscope"},"11,9":{"id":"SmallGyroscope"},"12,9":{"id":"SmallGyroscope"},"13,9":{"id":"SmallGyroscope"},"13,10":{"id":"SmallReactor"},"12,10":{"id":"SmallReactor"},"11,10":{"id":"SmallReactor"},"9,10":{"id":"SmallReactor"},"8,10":{"id":"SmallReactor"},"7,10":{"id":"SmallReactor"},"11,12":{"id":"LargeHeavyArmor"},"11,8":{"id":"LargeHeavyArmor"},"7,8":{"id":"LargeHeavyArmor"},"7,12":{"id":"LargeHeavyArmor","flippedY":true},"14,11":{"id":"LargeLightArmor","Rotation":-1},"9,9":{"id":"SmallGyroscope"},"9,11":{"id":"SmallGyroscope","flippedY":true},"8,9":{"id":"SmallGyroscope"},"8,11":{"id":"SmallGyroscope","flippedY":true},"7,9":{"id":"SmallGyroscope"},"7,11":{"id":"SmallGyroscope","flippedY":true},"14,8":{"id":"SmallThruster","Rotation":-1},"14,12":{"id":"SmallThruster","flippedY":true,"Rotation":-1},"10,8":{"id":"SmallThruster","Rotation":-1},"10,12":{"id":"SmallThruster","flippedY":true,"Rotation":-1},"21,8":{"id":"LargeHeavyArmor"},"21,12":{"id":"LargeHeavyArmor","flippedY":true},"24,11":{"id":"LargeHeavyArmor","Rotation":-1},"18,9":{"id":"LargeLightArmor"},"18,11":{"id":"LargeLightArmor","flippedY":true},"21,11":{"id":"LargeLightArmor","Rotation":-1},"22,11":{"id":"LargeHeavyArmor","Rotation":-1},"6,11":{"id":"LargeLightArmor","Rotation":-1},"3,11":{"id":"MediumThruster"},"3,10":{"id":"MediumThruster"},"3,9":{"id":"MediumThruster"},"6,8":{"id":"SmallThruster","Rotation":3},"6,12":{"id":"SmallThruster","flippedY":true,"Rotation":3},"5,8":{"id":"LightArmor"},"5,12":{"id":"LightArmor","flippedY":true},"4,8":{"id":"LightArmor"},"4,12":{"id":"LightArmor","flippedY":true},"3,8":{"id":"LightArmor"},"3,12":{"id":"LightArmor","flippedY":true},"1,15":{"id":"MediumThruster"},"1,5":{"id":"MediumThruster","flippedY":true},"1,16":{"id":"MediumThruster"},"1,4":{"id":"MediumThruster","flippedY":true},"1,17":{"id":"MediumThruster"},"1,3":{"id":"MediumThruster","flippedY":true},"7,3":{"id":"MediumThruster","Rotation":1},"7,17":{"id":"MediumThruster","flippedY":true,"Rotation":1},"9,3":{"id":"MediumThruster","Rotation":1},"9,17":{"id":"MediumThruster","flippedY":true,"Rotation":1},"4,3":{"id":"LargeHeavyArmor"},"4,17":{"id":"LargeHeavyArmor","flippedY":true},"10,3":{"id":"LargeHeavyArmor"},"10,17":{"id":"LargeHeavyArmor","flippedY":true},"6,5":{"id":"LightArmor"},"6,15":{"id":"LightArmor","flippedY":true},"5,5":{"id":"LightArmor"},"5,15":{"id":"LightArmor","flippedY":true},"10,5":{"id":"LightArmor"},"10,15":{"id":"LightArmor","flippedY":true},"11,5":{"id":"LightArmor"},"11,15":{"id":"LightArmor","flippedY":true},"8,3":{"id":"HeavyArmor"},"8,17":{"id":"HeavyArmor","flippedY":true},"11,4":{"id":"SmallGyroscope"},"11,16":{"id":"SmallGyroscope","flippedY":true},"10,4":{"id":"SmallGyroscope"},"10,16":{"id":"SmallGyroscope","flippedY":true},"8,4":{"id":"SmallGyroscope"},"8,16":{"id":"SmallGyroscope","flippedY":true},"5,4":{"id":"SmallGyroscope"},"5,16":{"id":"SmallGyroscope","flippedY":true},"6,4":{"id":"SmallGyroscope"},"6,16":{"id":"SmallGyroscope","flippedY":true},"4,4":{"id":"SmallGyroscope"},"4,16":{"id":"SmallGyroscope","flippedY":true},"12,4":{"id":"SmallGyroscope"},"12,16":{"id":"SmallGyroscope","flippedY":true},"15,4":{"id":"MediumThruster","Rotation":-2},"15,16":{"id":"MediumThruster","flippedY":true,"Rotation":-2},"13,3":{"id":"LightArmor"},"13,17":{"id":"LightArmor","flippedY":true},"14,3":{"id":"LightArmor"},"14,17":{"id":"LightArmor","flippedY":true},"15,3":{"id":"LightArmor"},"15,17":{"id":"LightArmor","flippedY":true},"15,5":{"id":"LightArmor"},"15,15":{"id":"LightArmor","flippedY":true},"14,5":{"id":"LightArmor"},"14,15":{"id":"LightArmor","flippedY":true},"13,5":{"id":"LightArmor"},"13,15":{"id":"LightArmor","flippedY":true},"12,5":{"id":"LargeHeavyArmor","Rotation":1},"12,15":{"id":"LargeHeavyArmor","flippedY":true,"Rotation":1},"8,5":{"id":"LargeHeavyArmor","Rotation":1},"8,15":{"id":"LargeHeavyArmor","flippedY":true,"Rotation":1},"4,5":{"id":"LargeHeavyArmor","Rotation":1},"4,15":{"id":"LargeHeavyArmor","flippedY":true,"Rotation":1}}}'
+  blueprintJson: "{\r\n   \"name\":\"defaultMothership\",\r\n   \"shipClass\":\"Mothership\",\r\n  
+    \"blocks\":{\r\n      \"18,12\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n     
+    },\r\n      \"18,8\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"23,9\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":-3\r\n     
+    },\r\n      \"18,10\":{\r\n         \"id\":\"MediumCockpit\"\r\n      },\r\n     
+    \"15,8\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"15,12\":{\r\n        
+    \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true\r\n      },\r\n     
+    \"17,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n      \"17,11\":{\r\n        
+    \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n      },\r\n     
+    \"16,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n      \"16,11\":{\r\n        
+    \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n      },\r\n     
+    \"15,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n      \"15,11\":{\r\n        
+    \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n      },\r\n     
+    \"17,10\":{\r\n         \"id\":\"SmallReactor\"\r\n      },\r\n      \"16,10\":{\r\n        
+    \"id\":\"SmallReactor\"\r\n      },\r\n      \"15,10\":{\r\n         \"id\":\"SmallReactor\"\r\n     
+    },\r\n      \"10,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":-1\r\n     
+    },\r\n      \"13,11\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"12,11\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n      \"11,11\":{\r\n        
+    \"id\":\"SmallGyroscope\"\r\n      },\r\n      \"11,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n     
+    },\r\n      \"12,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"13,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n      \"13,10\":{\r\n        
+    \"id\":\"SmallReactor\"\r\n      },\r\n      \"12,10\":{\r\n         \"id\":\"SmallReactor\"\r\n     
+    },\r\n      \"11,10\":{\r\n         \"id\":\"SmallReactor\"\r\n      },\r\n     
+    \"9,10\":{\r\n         \"id\":\"SmallReactor\"\r\n      },\r\n      \"8,10\":{\r\n        
+    \"id\":\"SmallReactor\"\r\n      },\r\n      \"7,10\":{\r\n         \"id\":\"SmallReactor\"\r\n     
+    },\r\n      \"11,12\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n      },\r\n     
+    \"11,8\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"7,8\":{\r\n        
+    \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"7,12\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
+    \"flippedY\":true\r\n      },\r\n      \"14,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n        
+    \"Rotation\":-1\r\n      },\r\n      \"9,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n     
+    },\r\n      \"9,11\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"8,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"8,11\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"7,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"7,11\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"14,8\":{\r\n         \"id\":\"SmallThruster\",\r\n         \"Rotation\":-1\r\n     
+    },\r\n      \"14,12\":{\r\n         \"id\":\"SmallThruster\",\r\n         \"flippedY\":true,\r\n        
+    \"Rotation\":-1\r\n      },\r\n      \"10,8\":{\r\n         \"id\":\"SmallThruster\",\r\n        
+    \"Rotation\":-1\r\n      },\r\n      \"10,12\":{\r\n         \"id\":\"SmallThruster\",\r\n        
+    \"flippedY\":true,\r\n         \"Rotation\":-1\r\n      },\r\n      \"21,8\":{\r\n        
+    \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"21,12\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
+    \"flippedY\":true\r\n      },\r\n      \"24,11\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
+    \"Rotation\":-1\r\n      },\r\n      \"18,9\":{\r\n         \"id\":\"LargeLightArmor\"\r\n     
+    },\r\n      \"18,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"21,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":-1\r\n     
+    },\r\n      \"22,11\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":-1\r\n     
+    },\r\n      \"6,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":-1\r\n     
+    },\r\n      \"3,11\":{\r\n         \"id\":\"MediumThruster\"\r\n      },\r\n     
+    \"3,10\":{\r\n         \"id\":\"MediumThruster\"\r\n      },\r\n      \"3,9\":{\r\n        
+    \"id\":\"MediumThruster\"\r\n      },\r\n      \"6,8\":{\r\n         \"id\":\"SmallThruster\",\r\n        
+    \"Rotation\":3\r\n      },\r\n      \"6,12\":{\r\n         \"id\":\"SmallThruster\",\r\n        
+    \"flippedY\":true,\r\n         \"Rotation\":3\r\n      },\r\n      \"5,8\":{\r\n        
+    \"id\":\"LightArmor\"\r\n      },\r\n      \"5,12\":{\r\n         \"id\":\"LightArmor\",\r\n        
+    \"flippedY\":true\r\n      },\r\n      \"4,8\":{\r\n         \"id\":\"LightArmor\"\r\n     
+    },\r\n      \"4,12\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"3,8\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"3,12\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"1,15\":{\r\n         \"id\":\"MediumThruster\"\r\n      },\r\n     
+    \"1,5\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"1,16\":{\r\n         \"id\":\"MediumThruster\"\r\n      },\r\n     
+    \"1,4\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"1,17\":{\r\n         \"id\":\"MediumThruster\"\r\n      },\r\n     
+    \"1,3\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"7,3\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"Rotation\":1\r\n     
+    },\r\n      \"7,17\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"flippedY\":true,\r\n        
+    \"Rotation\":1\r\n      },\r\n      \"9,3\":{\r\n         \"id\":\"MediumThruster\",\r\n        
+    \"Rotation\":1\r\n      },\r\n      \"9,17\":{\r\n         \"id\":\"MediumThruster\",\r\n        
+    \"flippedY\":true,\r\n         \"Rotation\":1\r\n      },\r\n      \"4,3\":{\r\n        
+    \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"4,17\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
+    \"flippedY\":true\r\n      },\r\n      \"10,3\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n     
+    },\r\n      \"10,17\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"6,5\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"6,15\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"5,5\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"5,15\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"10,5\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"10,15\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"11,5\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"11,15\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"8,3\":{\r\n         \"id\":\"HeavyArmor\"\r\n      },\r\n     
+    \"8,17\":{\r\n         \"id\":\"HeavyArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"11,4\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"11,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"10,4\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"10,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"8,4\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"8,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"5,4\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"5,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"6,4\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"6,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"4,4\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"4,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"12,4\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
+    \"12,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"15,4\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"Rotation\":-2\r\n     
+    },\r\n      \"15,16\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"flippedY\":true,\r\n        
+    \"Rotation\":-2\r\n      },\r\n      \"13,3\":{\r\n         \"id\":\"LightArmor\"\r\n     
+    },\r\n      \"13,17\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"14,3\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"14,17\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"15,3\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"15,17\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"15,5\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"15,15\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"14,5\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"14,15\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"13,5\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"13,15\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"12,5\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":1\r\n     
+    },\r\n      \"12,15\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true,\r\n        
+    \"Rotation\":1\r\n      },\r\n      \"8,5\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
+    \"Rotation\":1\r\n      },\r\n      \"8,15\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
+    \"flippedY\":true,\r\n         \"Rotation\":1\r\n      },\r\n      \"4,5\":{\r\n        
+    \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":1\r\n      },\r\n      \"4,15\":{\r\n        
+    \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true,\r\n         \"Rotation\":1\r\n     
+    }\r\n   }\r\n}"

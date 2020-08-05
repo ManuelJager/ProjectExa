@@ -73,7 +73,7 @@ namespace Exa.Grids.Blueprints.Editor
             }
         }
 
-        public void Import(BlueprintContainer blueprintContainer, Func<BlueprintContainer, IEnumerator> saveCallback)
+        public void Import(BlueprintContainer blueprintContainer, Action<BlueprintContainer> saveCallback)
         {
             this.container = blueprintContainer;
             this.saveCallback = saveCallback;

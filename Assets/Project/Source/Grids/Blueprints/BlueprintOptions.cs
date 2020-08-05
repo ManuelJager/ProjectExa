@@ -1,11 +1,11 @@
 ﻿namespace Exa.Grids.Blueprints
 {
-    public class BlueprintCreationOptions
+    public class BlueprintOptions
     {
         public string name;
         public string shipClass;
 
-        public BlueprintCreationOptions(string name, string shipClass)
+        public BlueprintOptions(string name, string shipClass)
         {
             this.name = name;
             this.shipClass = shipClass;

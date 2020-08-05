@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
-    public class BlueprintClassificationSource : IDataSourceProvider
+    public class BlueprintClassSource : IDataSourceProvider
     {
         public IEnumerable<NamedWrapper<object>> GetValues()
         {
@@ -34,16 +34,16 @@ namespace Exa.Grids.Blueprints
         }
     }
 
-    public class BlueprintCreationOptionsDescriptor : ModelDescriptor<BlueprintCreationOptions>
+    public class BlueprintOptionsDescriptor : ModelDescriptor<BlueprintOptions>
     {
         public string Name { get; set; }
 
-        [Source(typeof(BlueprintClassificationSource))]
+        [Source(typeof(BlueprintClassSource))]
         public BlueprintType Class { get; set; }
 
-        public override BlueprintCreationOptions FromDescriptor()
+        public override BlueprintOptions FromDescriptor()
         {
-            return new BlueprintCreationOptions(Name, Class.typeGuid);
+            return new BlueprintOptions(Name, Class.typeGuid);
         }
     }
 }

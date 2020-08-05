@@ -37,7 +37,7 @@ namespace Exa.UI
             Systems.MainUI.promptController.PromptForm(
                 message: "Add blueprint",
                 uiGroup: this,
-                modelDescriptor: new BlueprintCreationOptionsDescriptor(),
+                modelDescriptor: new BlueprintOptionsDescriptor(),
                 onSubmit: ImportBlueprintWithOptions);
         }
 
@@ -72,7 +72,11 @@ namespace Exa.UI
             }
 
             // Save blueprint and generate thumbnail
-            StartCoroutine(TrySaveAndImport(container));
+            TrySave(container);
+
+            //// Navigate to editor and import blueprint
+            //shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
+            //shipEditor.Import(container, TrySave);
         }
 
         public override void ViewCreation(BlueprintView view, BlueprintContainer container)
@@ -106,33 +110,24 @@ namespace Exa.UI
             });
         }
 
-        public IEnumerator TrySave(BlueprintContainer container)
+        public void TrySave(BlueprintContainer container)
         {
+            Systems.ThumbnailGenerator.GenerateThumbnail(container.Data);
+            container.ThumbnailFileHandle.Refresh();
+            container.BlueprintFileHandle.Refresh();
+
             if (!Source.Contains(container))
             {
                 Source.Add(container);
             }
-
-            yield return Systems.ThumbnailGenerator.GenerateThumbnail(container.Data);
-            container.ThumbnailFileHandle.Refresh();
-            container.BlueprintFileHandle.Refresh();
         }
 
-        private void ImportBlueprintWithOptions(BlueprintCreationOptions options)
+        private void ImportBlueprintWithOptions(BlueprintOptions options)
         {
             var observableBlueprint = new BlueprintContainer(new Blueprint(options));
 
             shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
             shipEditor.Import(observableBlueprint, TrySave);
-        }
-
-        private IEnumerator TrySaveAndImport(BlueprintContainer container)
-        {
-            yield return TrySave(container);
-
-            // Navigate to editor and import blueprint
-            shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
-            shipEditor.Import(container, TrySave);
         }
     }
 }

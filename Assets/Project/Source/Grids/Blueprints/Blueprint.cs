@@ -22,7 +22,7 @@ namespace Exa.Grids.Blueprints
             get => Systems.BlueprintManager.blueprintTypes.typesById[shipClass];
         }
 
-        public Blueprint(BlueprintCreationOptions options)
+        public Blueprint(BlueprintOptions options)
         {
             this.name = options.name;
             this.shipClass = options.shipClass;

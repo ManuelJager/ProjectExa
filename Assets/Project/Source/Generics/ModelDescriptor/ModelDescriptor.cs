@@ -1,6 +1,7 @@
 ﻿using Exa.Utils;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Exa.Generics
 {
@@ -38,7 +39,7 @@ namespace Exa.Generics
                 // Ignore property if it contains the ignore builder attribute
                 try
                 {
-                    var attribute = property.GetAttribute<IgnoreDescriptorBuilderAttribute>();
+                    var attribute = property.GetCustomAttribute<IgnoreDescriptorBuilderAttribute>();
                     continue;
                 }
                 catch { }
@@ -54,7 +55,7 @@ namespace Exa.Generics
                 // Test for the property having an attribute that defines a collection of possible values
                 try
                 {
-                    sourceAttribute = property.GetAttribute<SourceAttribute>();
+                    sourceAttribute = property.GetCustomAttribute<SourceAttribute>();
                 }
                 catch { }
 

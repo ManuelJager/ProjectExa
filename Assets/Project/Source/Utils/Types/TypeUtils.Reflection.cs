@@ -81,33 +81,13 @@ namespace Exa.Utils
         {
             try
             {
-                result = memberInfo.GetAttribute<T>();
+                result = memberInfo.GetCustomAttribute<T>();
                 return true;
             }
             catch
             {
                 result = null;
                 return false;
-            }
-        }
-
-        /// <summary>
-        /// Get attribute from property
-        /// </summary>
-        /// <typeparam name="T">Attribute type</typeparam>
-        /// <param name="memberInfo">Property info</param>
-        /// <returns></returns>
-        public static T GetAttribute<T>(this MemberInfo memberInfo)
-            where T : Attribute
-        {
-            try
-            {
-                var def = (T)memberInfo.GetCustomAttributes(typeof(T), false)[0];
-                return def;
-            }
-            catch (IndexOutOfRangeException e)
-            {
-                throw new IndexOutOfRangeException($"Attribute {nameof(T)} not found on property {memberInfo.Name} on object {memberInfo.DeclaringType.Name}", e);
             }
         }
     }

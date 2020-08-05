@@ -17,7 +17,7 @@ namespace Exa.Grids.Blueprints.Thumbnails
             RuntimePreviewGenerator.MarkTextureNonReadable = false;
         }
 
-        public IEnumerator GenerateThumbnail(Blueprint blueprint)
+        public void GenerateThumbnail(Blueprint blueprint)
         {
             // Generate ship
             foreach (var block in blueprint.Blocks.GridMembers)
@@ -26,13 +26,9 @@ namespace Exa.Grids.Blueprints.Thumbnails
                 blockGO.SetActive(true);
             }
 
-            yield return null;
-
             RuntimePreviewGenerator.PreviewDirection = transform.forward;
             var tex = RuntimePreviewGenerator.GenerateModelPreview(transform, 512, 512, false);
             blueprint.Thumbnail = tex;
-
-            yield return null;
 
             // Cleaup ship
             foreach (var child in transform.GetChildren())
