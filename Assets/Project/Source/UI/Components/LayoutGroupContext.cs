@@ -12,11 +12,6 @@ namespace Exa.UI.Components
     {
         [SerializeField] private LayoutElement layoutElement;
 
-        private void OnTransformChildrenChanged()
-        {
-            UpdateActiveSelf();
-        }
-
         public void UpdateActiveSelf()
         {
             layoutElement.ignoreLayout = transform

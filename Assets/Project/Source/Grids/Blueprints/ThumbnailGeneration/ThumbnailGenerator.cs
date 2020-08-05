@@ -16,25 +16,22 @@ namespace Exa.Grids.Blueprints.Thumbnails
             RuntimePreviewGenerator.MarkTextureNonReadable = false;
         }
 
-        public Texture2D GenerateThumbnail(Blueprint blueprint)
+        public void GenerateThumbnail(Blueprint blueprint)
         {
-            GenerateShip(blueprint);
+            // Generate ship
+            foreach (var block in blueprint.Blocks.GridMembers)
+            {
+                block.CreateInertBehaviourInGrid(transform);
+            }
+
             RuntimePreviewGenerator.PreviewDirection = transform.forward;
             var tex = RuntimePreviewGenerator.GenerateModelPreview(transform, 512, 512, false);
+            blueprint.Thumbnail = tex;
 
+            // Cleaup ship
             foreach (var child in transform.GetChildren())
             {
                 child.gameObject.SetActive(false);
-            }
-
-            return tex;
-        }
-
-        private void GenerateShip(Blueprint blueprint)
-        {
-            foreach (var block in blueprint.Blocks)
-            {
-                block.CreateInertBehaviourInGrid(transform);
             }
         }
     }

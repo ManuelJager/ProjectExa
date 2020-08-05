@@ -20,5 +20,14 @@ namespace Exa.IO
         {
             return GlobalDirectories[name].Value;
         }
+
+        public static string CombineWithDirectory(string name, params string[] paths)
+        {
+            var pathList = new List<string>();
+            pathList.Add(GetPath(name));
+            pathList.AddRange(paths);
+
+            return CombinePath(pathList.ToArray());
+        }
     }
 }

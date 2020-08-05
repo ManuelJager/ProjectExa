@@ -1613,7 +1613,7 @@ GameObject:
   - component: {fileID: 5910685093444210421}
   - component: {fileID: 3040736624674294022}
   m_Layer: 5
-  m_Name: Blueprint
+  m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2182,7 +2182,7 @@ PrefabInstance:
     - target: {fileID: 3896904596393045585, guid: 3b615f3a5808fcd4da198ad89c20ad8f,
         type: 3}
       propertyPath: m_Name
-      value: InputField
+      value: BlueprintName
       objectReference: {fileID: 0}
     - target: {fileID: 4363731104572988121, guid: 3b615f3a5808fcd4da198ad89c20ad8f,
         type: 3}
@@ -2313,7 +2313,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5157a3ba8273db419f9d1e5eb80ae26, type: 3}
+  m_Script: {fileID: 11500000, guid: bf8fba0da7edddb4ebd669167b4814e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4393015937855230145

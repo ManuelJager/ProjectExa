@@ -10,8 +10,8 @@ namespace Exa.Grids.Blueprints
 {
     public class BlueprintManager : MonoBehaviour
     {
-        [HideInInspector] public ObservableBlueprintCollection observableUserBlueprints = new ObservableBlueprintCollection();
-        [HideInInspector] public ObservableDictionary<string, ObservableBlueprint> observableDefaultBlueprints = new ObservableDictionary<string, ObservableBlueprint>();
+        [HideInInspector] public BlueprintContainerCollection observableUserBlueprints = new BlueprintContainerCollection();
+        [HideInInspector] public ObservableDictionary<string, BlueprintContainer> observableDefaultBlueprints = new ObservableDictionary<string, BlueprintContainer>();
         public BlueprintTypeBag blueprintTypes;
 
         [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
@@ -21,6 +21,7 @@ namespace Exa.Grids.Blueprints
             var userBlueprintPaths = CollectionUtils
                 .GetJsonPathsFromDirectory(IOUtils.GetPath("blueprints"))
                 .ToList();
+
             var defaultBlueprints = defaultBlueprintBag.ToList();
             var iterator = 0;
             var blueprintTotal = userBlueprintPaths.Count + defaultBlueprints.Count;
@@ -39,7 +40,7 @@ namespace Exa.Grids.Blueprints
             foreach (var blueprintPath in userBlueprintPaths)
             {
                 var blueprint = IOUtils.JsonDeserializeFromPath<Blueprint>(blueprintPath);
-                AddUserBlueprint(blueprint);
+                AddUserBlueprint(blueprint, blueprintPath);
 
                 yield return null;
                 iterator++;
@@ -47,13 +48,7 @@ namespace Exa.Grids.Blueprints
             }
         }
 
-        // Has a dependency on block factory
-        [ContextMenu("Load")]
-        public void Load()
-        {
-        }
-
-        public ObservableBlueprint GetBlueprint(string name)
+        public BlueprintContainer GetBlueprint(string name)
         {
             if (observableDefaultBlueprints.ContainsKey(name))
             {
@@ -77,15 +72,16 @@ namespace Exa.Grids.Blueprints
         private void AddDefaultBlueprint(DefaultBlueprint defaultBlueprint)
         {
             var blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(defaultBlueprint.blueprintJson, SerializationMode.readable);
-            var observableBlueprint = new ObservableBlueprint(blueprint, false);
+            var observableBlueprint = new BlueprintContainer(blueprint, false);
             observableDefaultBlueprints.Add(observableBlueprint);
         }
 
-        private void AddUserBlueprint(Blueprint blueprint)
+        private void AddUserBlueprint(Blueprint blueprint, string path)
         {
             if (blueprint == null || BlueprintNameExists(blueprint.name)) return;
 
-            var observableBlueprint = new ObservableBlueprint(blueprint);
+            var observableBlueprint = new BlueprintContainer(blueprint, true, false);
+            observableBlueprint.BlueprintFileHandle.CurrentPath = path;
             observableBlueprint.LoadThumbnail();
             observableUserBlueprints.Add(observableBlueprint);
         }

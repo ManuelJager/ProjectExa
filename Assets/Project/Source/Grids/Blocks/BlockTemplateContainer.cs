@@ -6,9 +6,9 @@ namespace Exa.Grids.Blocks
     /// Observable container for block templates
     /// Used by the editor inventory to keep track of block template updates
     /// </summary>
-    public class ObservableBlockTemplate : Observable<BlockTemplate>
+    public class BlockTemplateContainer : Observable<BlockTemplate>
     {
-        public ObservableBlockTemplate(BlockTemplate data)
+        public BlockTemplateContainer(BlockTemplate data)
             : base(data)
         {
         }

@@ -2,7 +2,7 @@
 
 namespace Exa.Grids.Blueprints
 {
-    internal class ObservableBlueprintConverter : ObservableConverter<ObservableBlueprint, Blueprint>
+    internal class ObservableBlueprintConverter : ObservableConverter<BlueprintContainer, Blueprint>
     {
     }
 }

@@ -10,24 +10,24 @@ namespace Exa.Bindings
     /// </para>
     /// </summary>
     /// <typeparam name="TView">View type, must be an observer of <see cref="{TModel}"/></typeparam>
-    /// <typeparam name="TModelObservable">Model observable type</typeparam>
+    /// <typeparam name="TContainer">Model observable type</typeparam>
     /// <typeparam name="TModel">Model type</typeparam>
-    public class ViewController<TView, TModelObservable, TModel> : MonoBehaviour, ICollectionObserver<TModelObservable>
+    public class ViewController<TView, TContainer, TModel> : MonoBehaviour, ICollectionObserver<TContainer>
         where TView : MonoBehaviour, IObserver<TModel>
-        where TModelObservable : Observable<TModel>
+        where TContainer : Observable<TModel>
         where TModel : class
     {
         [SerializeField] protected Transform viewContainer;
         [SerializeField] protected GameObject viewPrefab;
 
-        protected Dictionary<TModelObservable, TView> views = new Dictionary<TModelObservable, TView>();
+        protected Dictionary<TContainer, TView> views = new Dictionary<TContainer, TView>();
 
-        private IObservableCollection<TModelObservable> source = null;
+        private IObservableCollection<TContainer> source = null;
 
         /// <summary>
         /// Views data source
         /// </summary>
-        public virtual IObservableCollection<TModelObservable> Source
+        public virtual IObservableCollection<TContainer> Source
         {
             get => source;
             set
@@ -71,7 +71,7 @@ namespace Exa.Bindings
         /// Add Collection of observables
         /// </summary>
         /// <param name="collection"></param>
-        public virtual void AddRange(IEnumerable<TModelObservable> collection)
+        public virtual void AddRange(IEnumerable<TContainer> collection)
         {
             foreach (var item in source)
             {
@@ -83,7 +83,7 @@ namespace Exa.Bindings
         /// Add observable
         /// </summary>
         /// <param name="observer"></param>
-        public virtual void OnAdd(TModelObservable observer)
+        public virtual void OnAdd(TContainer observer)
         {
             OnAdd(observer, viewContainer);
         }
@@ -93,7 +93,7 @@ namespace Exa.Bindings
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="container"></param>
-        protected virtual void OnAdd(TModelObservable observer, Transform container)
+        protected virtual void OnAdd(TContainer observer, Transform container)
         {
             var blockObject = Instantiate(viewPrefab, container);
             var view = blockObject.GetComponent<TView>();
@@ -108,7 +108,7 @@ namespace Exa.Bindings
         /// </summary>
         /// <param name="view"></param>
         /// <param name="observer"></param>
-        public virtual void ViewCreation(TView view, TModelObservable observer)
+        public virtual void ViewCreation(TView view, TContainer observer)
         {
         }
 
@@ -122,10 +122,10 @@ namespace Exa.Bindings
                 OnRemove(key);
             }
 
-            views = new Dictionary<TModelObservable, TView>();
+            views = new Dictionary<TContainer, TView>();
         }
 
-        public virtual void OnInsert(int index, TModelObservable observer)
+        public virtual void OnInsert(int index, TContainer observer)
         {
             throw new System.NotImplementedException();
         }
@@ -134,7 +134,7 @@ namespace Exa.Bindings
         /// Remove view
         /// </summary>
         /// <param name="observer"></param>
-        public virtual void OnRemove(TModelObservable observer)
+        public virtual void OnRemove(TContainer observer)
         {
             var view = views[observer];
             observer.Unregister(view);
@@ -146,7 +146,7 @@ namespace Exa.Bindings
             throw new System.NotImplementedException();
         }
 
-        public virtual void OnSet(int index, TModelObservable observer)
+        public virtual void OnSet(int index, TContainer observer)
         {
             throw new System.NotImplementedException();
         }

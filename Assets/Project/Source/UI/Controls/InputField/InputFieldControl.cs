@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Exa.UI.Controls
 {
-    public class ExaInputField : InputControl<string>
+    public class InputFieldControl : InputControl<string>
     {
         public Text nameText;
         public Text placeholderText;

@@ -52,7 +52,7 @@ namespace Exa.UI.Components
 
         public void CreateInputFieldControl(PropertyContext propertyContext, ModelDescriptor modelDescriptor)
         {
-            var control = Instantiate(inputFieldPrefab, controlsContainer).GetComponent<ExaInputField>();
+            var control = Instantiate(inputFieldPrefab, controlsContainer).GetComponent<InputFieldControl>();
             var name = propertyContext.propertyInfo.Name;
             control.Setup(name, $"input {name.ToLower()}...");
             control.inputField.onValueChanged.AddListener((value) =>

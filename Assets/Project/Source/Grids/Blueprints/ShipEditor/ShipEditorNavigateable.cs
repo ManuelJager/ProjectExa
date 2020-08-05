@@ -7,13 +7,7 @@ namespace Exa.Grids.Blueprints.Editor
     [RequireComponent(typeof(ShipEditor))]
     public class ShipEditorNavigateable : ReturnNavigateable
     {
-        private ShipEditor shipEditor;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            shipEditor = GetComponent<ShipEditor>();
-        }
+        [SerializeField] private ShipEditor shipEditor;
 
         protected override void Return(bool force = false)
         {

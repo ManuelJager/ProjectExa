@@ -66,11 +66,6 @@ namespace Exa.Grids.Blueprints.Editor
 
         public void OnRotateLeft(InputAction.CallbackContext context)
         {
-            if (lockMovement)
-            {
-                return;
-            }
-
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -84,11 +79,6 @@ namespace Exa.Grids.Blueprints.Editor
 
         public void OnRotateRight(InputAction.CallbackContext context)
         {
-            if (lockMovement)
-            {
-                return;
-            }
-
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -115,7 +105,7 @@ namespace Exa.Grids.Blueprints.Editor
 
         public void OnZoom(InputAction.CallbackContext context)
         {
-            if (BlockedByUI) return;
+            if (MouseOverUI) return;
 
             if (context.phase == InputActionPhase.Performed)
             {
@@ -127,19 +117,6 @@ namespace Exa.Grids.Blueprints.Editor
                 Zoom = Mathf.Clamp(Zoom + (-yDelta * zoomSpeed), 3, 15);
                 Camera.main.DOOrthoSize(Zoom, 0.5f);
             }
-        }
-
-        public void OnBlueprintClear()
-        {
-            // Hide block ghost and ask user for blueprint clear confirmation
-            Systems.MainUI.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
-            {
-                if (yes)
-                {
-                    IsSaved = false;
-                    editorGrid.ClearBlueprint();
-                }
-            });
         }
     }
 }

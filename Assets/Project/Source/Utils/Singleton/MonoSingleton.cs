@@ -25,7 +25,7 @@ namespace Exa.Utils
             {
                 if (instance == null)
                 {
-                    throw new System.Exception($"Missing instance on type {typeof(T)}");
+                    throw new MissingReferenceException($"Missing instance on type {typeof(T)}");
                 }
                 return instance;
             }

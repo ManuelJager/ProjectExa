@@ -9,9 +9,9 @@ using UnityEngine;
 
 namespace Exa.UI
 {
-    internal class BlueprintViewController : ViewController<BlueprintView, ObservableBlueprint, Blueprint>, IUIGroup
+    internal class BlueprintViewController : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
     {
-        public ObservableBlueprintCollection collectionContext;
+        public BlueprintContainerCollection collectionContext;
         public ShipEditor shipEditor;
 
         [SerializeField] private ReturnNavigateable shipEditorBlueprintSelector;
@@ -62,30 +62,30 @@ namespace Exa.UI
                 return;
             }
 
-            var observableBlueprint = new ObservableBlueprint(blueprint);
+            var container = new BlueprintContainer(blueprint);
 
-            if (Source.Contains(observableBlueprint))
+            if (Source.Contains(container))
             {
                 UserExceptionLogger.Instance.Log("Blueprint with given name already added");
                 return;
             }
 
             // Save blueprint and generate thumbnail
-            TrySave(observableBlueprint);
+            TrySave(container);
 
             // Navigate to editor and import blueprint
             shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
-            shipEditor.Import(observableBlueprint, TrySave);
+            shipEditor.Import(container, TrySave);
         }
 
-        public override void ViewCreation(BlueprintView view, ObservableBlueprint observer)
+        public override void ViewCreation(BlueprintView view, BlueprintContainer container)
         {
             view.button.onClick.AddListener(() =>
             {
                 if (!Interactable) return;
 
                 shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
-                shipEditor.Import(observer, TrySave);
+                shipEditor.Import(container, TrySave);
             });
             view.deleteButton.onClick.AddListener(() =>
             {
@@ -95,13 +95,13 @@ namespace Exa.UI
                 {
                     if (yes)
                     {
-                        Source.Remove(observer);
+                        Source.Remove(container);
                     }
                 });
             });
             view.hoverable.onPointerEnter.AddListener(() =>
             {
-                blueprintDetails.Reflect(observer.Data);
+                blueprintDetails.Reflect(container.Data);
             });
             view.hoverable.onPointerExit.AddListener(() =>
             {
@@ -109,22 +109,21 @@ namespace Exa.UI
             });
         }
 
-        public void TrySave(ObservableBlueprint observableBlueprint)
+        public void TrySave(BlueprintContainer container)
         {
-            if (!Source.Contains(observableBlueprint))
+            if (!Source.Contains(container))
             {
-                Source.Add(observableBlueprint);
+                Source.Add(container);
             }
-            if (observableBlueprint.Data.Blocks != null)
-            {
-                observableBlueprint.GenerateThumbnail();
-                observableBlueprint.BlueprintFileHandle.UpdatePath();
-            }
+
+            Systems.ThumbnailGenerator.GenerateThumbnail(container.Data);
+            container.ThumbnailFileHandle.Refresh();
+            container.BlueprintFileHandle.Refresh();
         }
 
         private void ImportBlueprintWithOptions(BlueprintCreationOptions options)
         {
-            var observableBlueprint = new ObservableBlueprint(new Blueprint(options));
+            var observableBlueprint = new BlueprintContainer(new Blueprint(options));
 
             shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
             shipEditor.Import(observableBlueprint, TrySave);

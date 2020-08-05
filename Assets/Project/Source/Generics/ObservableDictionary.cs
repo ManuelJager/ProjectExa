@@ -6,7 +6,17 @@ namespace Exa.Generics
     public class ObservableDictionary<TKey, TValue> : ObservableCollection<TValue>
         where TValue : IKeySelector<TKey>
     {
-        private readonly Dictionary<TKey, TValue> dict = new Dictionary<TKey, TValue>();
+        private readonly Dictionary<TKey, TValue> dict;
+
+        public ObservableDictionary()
+        {
+            dict = new Dictionary<TKey, TValue>();
+        }
+
+        public ObservableDictionary(IEqualityComparer<TKey> comparer)
+        {
+            dict = new Dictionary<TKey, TValue>(comparer);
+        }
 
         public TValue this[TKey key]
         {

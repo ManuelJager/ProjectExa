@@ -15,7 +15,7 @@ namespace Exa.Grids.Blueprints.Editor
         [SerializeField] private float movementSpeed;
         private bool interactible = true;
         private bool mirrorEnabled = false;
-        private bool blockedByUI = false;
+        private bool mouseOverUI = false;
         private bool canPlaceGhost = false;
         private Vector2 centerPos;
         private Vector2 playerPos = Vector2.zero;
@@ -63,14 +63,14 @@ namespace Exa.Grids.Blueprints.Editor
         /// <summary>
         /// Wether or not the mouse is over UI
         /// </summary>
-        public bool BlockedByUI
+        public bool MouseOverUI
         {
-            get => blockedByUI;
+            get => mouseOverUI;
             set
             {
-                blockedByUI = value;
+                mouseOverUI = value;
 
-                ghostLayer.BlockedByUI = value;
+                ghostLayer.MouseOverUI = value;
                 CalculateGhostEnabled();
             }
         }
@@ -168,7 +168,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             if (!ghostLayer.GhostCreated) return;
 
-            if (BlockedByUI)
+            if (MouseOverUI)
             {
                 canPlaceGhost = false;
                 return;

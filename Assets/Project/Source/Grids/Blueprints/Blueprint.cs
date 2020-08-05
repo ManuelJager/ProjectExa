@@ -34,9 +34,10 @@ namespace Exa.Grids.Blueprints
         {
             this.name = name;
             this.shipClass = shipClass;
+
             this.Blocks = blocks;
 
-            foreach (var block in blocks)
+            foreach (var block in blocks.GridMembers)
             {
                 AddContext(block);
             }
@@ -72,6 +73,7 @@ namespace Exa.Grids.Blueprints
             Blocks = new BlueprintBlocks();
             Mass = 0;
             PeakPowerGeneration = 0f;
+            Thumbnail = null;
         }
 
         public Blueprint Clone()

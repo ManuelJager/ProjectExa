@@ -25,7 +25,7 @@ namespace Exa.Grids
 
         public virtual void Import(Blueprint blueprint)
         {
-            foreach (var anchoredBlueprintBlock in blueprint.Blocks)
+            foreach (var anchoredBlueprintBlock in blueprint.Blocks.GridMembers)
             {
                 blockGrid.Add(CreateBlock(anchoredBlueprintBlock));
             }

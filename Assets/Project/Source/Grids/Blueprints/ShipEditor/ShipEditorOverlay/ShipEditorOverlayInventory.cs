@@ -3,22 +3,27 @@ using Exa.Grids.Blocks;
 using Exa.UI.Controls;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Exa.Grids.Blueprints.Editor
 {
-    public class ShipEditorOverlayInventory : ViewController<BlockTemplateView, ObservableBlockTemplate, BlockTemplate>
+    public class BlockSelectedEvent : UnityEvent<BlockTemplate>
     {
+    }
+
+    public class ShipEditorOverlayInventory : ViewController<BlockTemplateView, BlockTemplateContainer, BlockTemplate>
+    {
+        public BlockSelectedEvent blockSelected = new BlockSelectedEvent();
+
         [SerializeField] private GameObject expandableItemPrefab;
         private readonly Dictionary<string, ExpandableItem> blockCategories = new Dictionary<string, ExpandableItem>();
-
-        public event BlockSelectedDelegate BlockSelected;
 
         private void Start()
         {
             Source = Systems.BlockFactory.availibleBlockTemplates;
         }
 
-        public override void OnAdd(ObservableBlockTemplate observer)
+        public override void OnAdd(BlockTemplateContainer observer)
         {
             var category = observer.Data.category;
             var displayCategory = observer.Data.displayCategory;
@@ -35,11 +40,11 @@ namespace Exa.Grids.Blueprints.Editor
             base.OnAdd(observer, categoryItem.content);
         }
 
-        public override void ViewCreation(BlockTemplateView view, ObservableBlockTemplate observer)
+        public override void ViewCreation(BlockTemplateView view, BlockTemplateContainer observer)
         {
             view.button.onClick.AddListener(() =>
             {
-                BlockSelected?.Invoke(observer.Data);
+                blockSelected?.Invoke(observer.Data);
             });
         }
     }

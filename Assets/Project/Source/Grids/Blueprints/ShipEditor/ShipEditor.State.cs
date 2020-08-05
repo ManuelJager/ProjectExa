@@ -1,4 +1,6 @@
 ﻿using Exa.Utils;
+using Exa.Validation;
+using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.Editor
@@ -7,16 +9,16 @@ namespace Exa.Grids.Blueprints.Editor
     {
         private bool leftButtonPressed = false;
         private bool rightButtonPressed = false;
-        private bool lockMovement = false;
         private bool mirrorEnabled = false;
+        private bool mouseOverUI = false;
         private bool interactible = true;
-        private bool blockedByUI;
-        private ObservableBlueprint blueprintContainer;
+        private float zoom;
+        private BlueprintContainer blueprintContainer;
+        private Action<BlueprintContainer> saveCallback;
 
         public bool IsSaved { get; private set; }
-        public bool NameIsValid { get; private set; }
-
-        // Keep track of time elapsed from last blueprint edit
+        public ValidationResult NameValidationResult { get; private set; }
+        public ValidationResult GridValidationResult { get; private set; }
 
         public bool MirrorEnabled
         {
@@ -51,28 +53,51 @@ namespace Exa.Grids.Blueprints.Editor
             }
         }
 
-        public bool Active
+        public bool MouseOverUI
         {
+            get => mouseOverUI;
             set
             {
-                MiscUtils.InvokeIfNotQuitting(() => shipEditorOverlay.gameObject.TrySetActive(value));
+                mouseOverUI = value;
+
+                editorGrid.MouseOverUI = value;
             }
         }
 
-        public bool BlockedByUI
+        public float Zoom
         {
-            get => blockedByUI;
+            get => zoom;
             set
             {
-                blockedByUI = value;
+                zoom = value;
 
-                editorGrid.BlockedByUI = value;
+                editorGrid.ZoomScale = value / 5f;
             }
+        }
+
+        private bool ShouldSave
+        {
+            get => !IsSaved && NameValidationResult && GridValidationResult;
+        }
+
+        private void ResetState()
+        {
+            Zoom = 5f;
+
+            IsSaved = true;
+            NameValidationResult = new ValidationResult();
+            GridValidationResult = new ValidationResult();
+
+            Camera.main.orthographicSize = Zoom;
         }
 
         public void UpdateSaveButtonActive()
         {
-            var valid = !IsSaved && NameIsValid;
+            var valid = ShouldSave;
+
+            print($"IsSaved: {IsSaved}");
+            print($"NameValidationResult: {(bool)(dynamic)NameValidationResult}");
+            print($"GridValidationResult: {(bool)(dynamic)GridValidationResult}");
 
             shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.interactable = valid;
             shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;

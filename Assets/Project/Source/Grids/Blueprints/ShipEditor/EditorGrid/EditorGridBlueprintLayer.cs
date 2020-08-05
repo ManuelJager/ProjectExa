@@ -14,14 +14,21 @@ namespace Exa.Grids.Blueprints.Editor
 
         public Blueprint ActiveBlueprint { get; private set; }
 
+        private void OnDisable()
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+
+            blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
+        }
+
         public void Import(Blueprint blueprint)
         {
-            ClearBlueprint();
-
             ActiveBlueprint = blueprint;
-            blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
 
-            foreach (var block in blueprint.Blocks)
+            foreach (var block in blueprint.Blocks.GridMembers)
             {
                 PlaceBlock(block);
             }

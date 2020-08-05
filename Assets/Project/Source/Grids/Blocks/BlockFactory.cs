@@ -16,7 +16,7 @@ namespace Exa.Grids.Blocks
         userGroup,
     }
 
-    public class ObservableBlockTemplateCollection : ObservableCollection<ObservableBlockTemplate>
+    public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer>
     {
     }
 
@@ -62,7 +62,7 @@ namespace Exa.Grids.Blocks
         /// <param name="blockTemplate"></param>
         private IEnumerator RegisterBlockTemplate(BlockTemplate blockTemplate)
         {
-            availibleBlockTemplates.Add(new ObservableBlockTemplate(blockTemplate));
+            availibleBlockTemplates.Add(new BlockTemplateContainer(blockTemplate));
 
             if (blockTemplatesDict.ContainsKey(blockTemplate.id))
             {

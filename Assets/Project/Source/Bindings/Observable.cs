@@ -11,24 +11,19 @@ namespace Exa.Bindings
     public class Observable<T> : IEquatable<Observable<T>>
         where T : class
     {
-        private T data;
-
-        public T Data
-        {
-            get => data;
-        }
+        public T Data { get; private set; }
 
         [JsonIgnore]
         protected List<IObserver<T>> observers = new List<IObserver<T>>();
 
         public Observable(T data)
         {
-            this.data = data;
+            this.Data = data;
         }
 
         public void SetData(T data, bool notify = true)
         {
-            this.data = data;
+            this.Data = data;
             if (notify) Notify();
         }
 
@@ -36,7 +31,7 @@ namespace Exa.Bindings
         {
             foreach (var observer in observers)
             {
-                observer.OnUpdate(data);
+                observer.OnUpdate(Data);
             }
         }
 
@@ -58,7 +53,7 @@ namespace Exa.Bindings
         {
             if (other == null) return false;
 
-            return data.Equals(other.data);
+            return Data.Equals(other.Data);
         }
 
         public override bool Equals(object obj)
@@ -69,7 +64,7 @@ namespace Exa.Bindings
 
             var other = obj as Observable<T>;
 
-            return data.Equals(other.data);
+            return Data.Equals(other.Data);
         }
 
         public static bool operator ==(Observable<T> a, Observable<T> b)
@@ -77,7 +72,7 @@ namespace Exa.Bindings
             if (ReferenceEquals(a, b)) return true;
             if (a is null) return false;
             if (b is null) return false;
-            return a.data.Equals(b.data);
+            return a.Data.Equals(b.Data);
         }
 
         public static bool operator !=(Observable<T> a, Observable<T> b)
@@ -87,12 +82,12 @@ namespace Exa.Bindings
 
         public override int GetHashCode()
         {
-            return data.GetHashCode();
+            return Data.GetHashCode();
         }
 
         public override string ToString()
         {
-            return data.ToString();
+            return Data.ToString();
         }
     }
 }

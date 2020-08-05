@@ -16,10 +16,15 @@ namespace Exa.Validation
             set => collection[index] = value;
         }
 
+        public ValidationResult()
+        {
+            collection = new List<ValidationError>();
+        }
+
         internal ValidationResult(Type validationContext)
+            : this()
         {
             ContextID = validationContext.Name;
-            collection = new List<ValidationError>();
         }
 
         public void Throw<TError>(string errorMessage)
@@ -64,11 +69,6 @@ namespace Exa.Validation
             }
         }
 
-        public bool Valid
-        {
-            get => collection.Count() == 0;
-        }
-
         public IEnumerator<ValidationError> GetEnumerator()
         {
             return collection.GetEnumerator();
@@ -77,6 +77,11 @@ namespace Exa.Validation
         IEnumerator IEnumerable.GetEnumerator()
         {
             return collection.GetEnumerator();
+        }
+
+        public static implicit operator bool(ValidationResult errors)
+        {
+            return !ReferenceEquals(errors, null) && errors.Count() == 0;
         }
     }
 }

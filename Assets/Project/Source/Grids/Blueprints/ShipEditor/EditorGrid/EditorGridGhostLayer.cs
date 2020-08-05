@@ -7,7 +7,7 @@ namespace Exa.Grids.Blueprints.Editor
     {
         private bool ghostVisible = true;
         private bool mirrorEnabled = false;
-        private bool blockedByUI = false;
+        private bool mouseOverUI = false;
 
         public GameObject ghostPrefab;
         public BlockGhost ghost;
@@ -46,12 +46,12 @@ namespace Exa.Grids.Blueprints.Editor
         /// <summary>
         /// If player is hovering over ui
         /// </summary>
-        public bool BlockedByUI
+        public bool MouseOverUI
         {
-            get => blockedByUI;
+            get => mouseOverUI;
             set
             {
-                blockedByUI = value;
+                mouseOverUI = value;
 
                 CalculateGhostEnabled();
             }
@@ -123,13 +123,13 @@ namespace Exa.Grids.Blueprints.Editor
         {
             ghost.gameObject.SetActive(
                 GhostVisible &&
-                !BlockedByUI);
+                !mouseOverUI);
 
             mirrorGhost.gameObject.SetActive(
                 MirrorEnabled &&
                 GhostVisible &&
                 ghost.AnchoredBlueprintBlock.gridAnchor != mirrorGhost.AnchoredBlueprintBlock.gridAnchor
-                && !BlockedByUI);
+                && !mouseOverUI);
         }
     }
 }

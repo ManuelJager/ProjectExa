@@ -2,8 +2,8 @@
 {
     public class BlueprintNameValidationArgs
     {
-        public ObservableBlueprintCollection collectionContext;
-        public ObservableBlueprint blueprintContainer;
+        public BlueprintContainerCollection collectionContext;
+        public BlueprintContainer blueprintContainer;
         public string requestedName;
     }
 }

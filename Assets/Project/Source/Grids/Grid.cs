@@ -10,12 +10,12 @@ using UnityEngine;
 
 namespace Exa.Grids
 {
-    public class Grid<T> : IEnumerable<T>
+    public class Grid<T>
         where T : IGridMember
     {
         public LazyCache<Vector2Int> Size { get; protected set; }
         public LazyCache<Vector2> CentreOfMass { get; protected set; }
-        protected List<T> GridMembers { get; set; }
+        public List<T> GridMembers { get; protected set; }
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
 
@@ -128,16 +128,6 @@ namespace Exa.Grids
             {
                 NeighbourDict[gridMember] = new List<T>();
             }
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return GridMembers.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GridMembers.GetEnumerator();
         }
     }
 }
