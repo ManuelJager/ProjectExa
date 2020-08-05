@@ -33,7 +33,7 @@ namespace Exa.Grids.Blocks
             pool.Configure(settings);
         }
 
-        public GameObject GetBlock(string id, Transform parent)
+        public GameObject GetInactiveBlock(string id, Transform parent)
         {
             var blockGO = poolById[id].Retrieve().gameObject;
 

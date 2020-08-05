@@ -11,7 +11,7 @@ namespace Exa.Grids.Blueprints
     public class BlueprintManager : MonoBehaviour
     {
         [HideInInspector] public BlueprintContainerCollection observableUserBlueprints = new BlueprintContainerCollection();
-        [HideInInspector] public ObservableDictionary<string, BlueprintContainer> observableDefaultBlueprints = new ObservableDictionary<string, BlueprintContainer>();
+        [HideInInspector] public BlueprintContainerCollection observableDefaultBlueprints = new BlueprintContainerCollection();
         public BlueprintTypeBag blueprintTypes;
 
         [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
@@ -29,7 +29,7 @@ namespace Exa.Grids.Blueprints
             // Load default blueprints
             foreach (var defaultBlueprint in defaultBlueprintBag)
             {
-                AddDefaultBlueprint(defaultBlueprint);
+                observableDefaultBlueprints.Add(defaultBlueprint.ToContainer());
 
                 yield return null;
                 iterator++;
@@ -67,13 +67,6 @@ namespace Exa.Grids.Blueprints
         {
             return observableDefaultBlueprints.ContainsKey(name)
                 || observableUserBlueprints.ContainsKey(name);
-        }
-
-        private void AddDefaultBlueprint(DefaultBlueprint defaultBlueprint)
-        {
-            var blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(defaultBlueprint.blueprintJson, SerializationMode.readable);
-            var observableBlueprint = new BlueprintContainer(blueprint, false);
-            observableDefaultBlueprints.Add(observableBlueprint);
         }
 
         private void AddUserBlueprint(Blueprint blueprint, string path)

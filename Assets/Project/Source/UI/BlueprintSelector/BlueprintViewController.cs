@@ -5,6 +5,7 @@ using Exa.Grids.Blueprints;
 using Exa.Grids.Blueprints.Editor;
 using Exa.IO;
 using Exa.UI.Components;
+using System.Collections;
 using UnityEngine;
 
 namespace Exa.UI
@@ -71,11 +72,7 @@ namespace Exa.UI
             }
 
             // Save blueprint and generate thumbnail
-            TrySave(container);
-
-            // Navigate to editor and import blueprint
-            shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
-            shipEditor.Import(container, TrySave);
+            StartCoroutine(TrySaveAndImport(container));
         }
 
         public override void ViewCreation(BlueprintView view, BlueprintContainer container)
@@ -109,14 +106,14 @@ namespace Exa.UI
             });
         }
 
-        public void TrySave(BlueprintContainer container)
+        public IEnumerator TrySave(BlueprintContainer container)
         {
             if (!Source.Contains(container))
             {
                 Source.Add(container);
             }
 
-            Systems.ThumbnailGenerator.GenerateThumbnail(container.Data);
+            yield return Systems.ThumbnailGenerator.GenerateThumbnail(container.Data);
             container.ThumbnailFileHandle.Refresh();
             container.BlueprintFileHandle.Refresh();
         }
@@ -127,6 +124,15 @@ namespace Exa.UI
 
             shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
             shipEditor.Import(observableBlueprint, TrySave);
+        }
+
+        private IEnumerator TrySaveAndImport(BlueprintContainer container)
+        {
+            yield return TrySave(container);
+
+            // Navigate to editor and import blueprint
+            shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
+            shipEditor.Import(container, TrySave);
         }
     }
 }

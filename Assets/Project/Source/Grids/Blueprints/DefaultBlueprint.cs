@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.IO;
+using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
@@ -6,5 +7,11 @@ namespace Exa.Grids.Blueprints
     public class DefaultBlueprint : ScriptableObject
     {
         [TextArea] public string blueprintJson;
+
+        public BlueprintContainer ToContainer()
+        {
+            var blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(blueprintJson, SerializationMode.readable);
+            return new BlueprintContainer(blueprint, false);
+        }
     }
 }

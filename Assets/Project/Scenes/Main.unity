@@ -168,7 +168,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &53928246
 MonoBehaviour:
@@ -257,7 +257,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &60919910
 MonoBehaviour:
@@ -992,6 +992,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 60919911}
     m_Modifications:
+    - target: {fileID: 680531341154943963, guid: 227f073157b96bf478a074d8927023ce,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2719377549866276367, guid: 227f073157b96bf478a074d8927023ce,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5057754596078983127, guid: 227f073157b96bf478a074d8927023ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1057,6 +1067,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5057754596078983129, guid: 227f073157b96bf478a074d8927023ce,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029322592615761839, guid: 227f073157b96bf478a074d8927023ce,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 227f073157b96bf478a074d8927023ce, type: 3}
 --- !u!1 &1314948434
@@ -1074,7 +1094,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1314948435
 MonoBehaviour:
@@ -1098,7 +1118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1314948434}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10000, y: 10000, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 60919911}
@@ -1123,7 +1143,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1644759580
 MonoBehaviour:
@@ -3321,6 +3341,11 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5028175358376604503, guid: 2661b46a09dd09949b76373e7086f5b1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5367371599174022517, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4084,6 +4109,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 60919911}
     m_Modifications:
+    - target: {fileID: 1808218022457454919, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953528372697732043, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 8427892475349134144, guid: f8050f98786d9b74e9fbedc18db8c4a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4143,6 +4178,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8427892475349134150, guid: f8050f98786d9b74e9fbedc18db8c4a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8050f98786d9b74e9fbedc18db8c4a7, type: 3}

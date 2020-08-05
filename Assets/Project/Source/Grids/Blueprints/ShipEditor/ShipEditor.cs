@@ -4,6 +4,7 @@ using Exa.IO;
 using Exa.UI;
 using Exa.Utils;
 using System;
+using System.Collections;
 using UnityEngine;
 using static Exa.Input.GameControls;
 
@@ -72,9 +73,9 @@ namespace Exa.Grids.Blueprints.Editor
             }
         }
 
-        public void Import(BlueprintContainer blueprintContainer, Action<BlueprintContainer> saveCallback)
+        public void Import(BlueprintContainer blueprintContainer, Func<BlueprintContainer, IEnumerator> saveCallback)
         {
-            this.blueprintContainer = blueprintContainer;
+            this.container = blueprintContainer;
             this.saveCallback = saveCallback;
 
             var newBlueprint = blueprintContainer.Data.Clone();

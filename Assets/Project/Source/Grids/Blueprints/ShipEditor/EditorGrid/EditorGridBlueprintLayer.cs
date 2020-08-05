@@ -70,7 +70,7 @@ namespace Exa.Grids.Blueprints.Editor
 
         public void PlaceBlock(AnchoredBlueprintBlock block)
         {
-            var blockGO = block.CreateInertBehaviourInGrid(transform);
+            var blockGO = block.CreateInactiveInertBlockInGrid(transform);
             blockGO.SetActive(true);
             blocksByBlueprintAnchor[block.gridAnchor] = blockGO;
         }

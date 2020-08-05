@@ -11,7 +11,6 @@ namespace Exa.Grids.Blocks
 {
     public enum BlockPrefabType
     {
-        inertGroup,
         defaultGroup,
         userGroup,
     }
@@ -39,9 +38,9 @@ namespace Exa.Grids.Blocks
             while (enumerator.MoveNext()) yield return enumerator.Current;
         }
 
-        public GameObject GetInertBlock(string id, Transform transform)
+        public GameObject GetInactiveInertBlock(string id, Transform transform)
         {
-            return inertPrefabGroup.GetBlock(id, transform);
+            return inertPrefabGroup.GetInactiveBlock(id, transform);
         }
 
         /// <summary>
@@ -49,10 +48,10 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Block GetBlock(string id, Transform transform, BlockPrefabType blockPrefabType)
+        public Block GetInactiveBlock(string id, Transform transform, BlockPrefabType blockPrefabType)
         {
             return GetGroup(blockPrefabType)
-                .GetBlock(id, transform)
+                .GetInactiveBlock(id, transform)
                 .GetComponent<Block>();
         }
 

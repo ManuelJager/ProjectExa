@@ -27,7 +27,7 @@ namespace Exa.Grids.Blueprints.Editor
             {
                 collectionContext = blueprintCollection,
                 requestedName = name,
-                blueprintContainer = blueprintContainer
+                blueprintContainer = container
             };
 
             NameValidationResult = shipEditorOverlay

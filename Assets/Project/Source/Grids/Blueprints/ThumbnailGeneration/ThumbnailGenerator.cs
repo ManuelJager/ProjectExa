@@ -1,4 +1,5 @@
 ﻿using Exa.Utils;
+using System.Collections;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.Thumbnails
@@ -16,17 +17,22 @@ namespace Exa.Grids.Blueprints.Thumbnails
             RuntimePreviewGenerator.MarkTextureNonReadable = false;
         }
 
-        public void GenerateThumbnail(Blueprint blueprint)
+        public IEnumerator GenerateThumbnail(Blueprint blueprint)
         {
             // Generate ship
             foreach (var block in blueprint.Blocks.GridMembers)
             {
-                block.CreateInertBehaviourInGrid(transform);
+                var blockGO = block.CreateInactiveInertBlockInGrid(transform);
+                blockGO.SetActive(true);
             }
+
+            yield return null;
 
             RuntimePreviewGenerator.PreviewDirection = transform.forward;
             var tex = RuntimePreviewGenerator.GenerateModelPreview(transform, 512, 512, false);
             blueprint.Thumbnail = tex;
+
+            yield return null;
 
             // Cleaup ship
             foreach (var child in transform.GetChildren())

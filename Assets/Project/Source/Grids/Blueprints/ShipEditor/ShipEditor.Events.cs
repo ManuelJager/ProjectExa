@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,16 +62,22 @@ namespace Exa.Grids.Blueprints.Editor
 
             if (!ShouldSave) return;
 
-            // Set the value of the observable
-            blueprintContainer.SetData(editorGrid.blueprintLayer.ActiveBlueprint, false);
-
-            // Save the blueprint, generate the thumbnail
-            saveCallback(blueprintContainer);
-
             IsSaved = true;
+            UpdateSaveButtonActive();
+
+            // Set the value of the observable
+            container.SetData(editorGrid.blueprintLayer.ActiveBlueprint, false);
+
+            StartCoroutine(Save());
+        }
+
+        private IEnumerator Save()
+        {
+            // Save the blueprint, generate the thumbnail
+            yield return saveCallback(container);
 
             // Notify after saving as observers require the thumbnail to be generated
-            blueprintContainer.Notify();
+            container.Notify();
         }
     }
 }

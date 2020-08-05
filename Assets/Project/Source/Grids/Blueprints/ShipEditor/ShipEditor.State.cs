@@ -1,6 +1,7 @@
 ﻿using Exa.Utils;
 using Exa.Validation;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.Editor
@@ -13,8 +14,8 @@ namespace Exa.Grids.Blueprints.Editor
         private bool mouseOverUI = false;
         private bool interactible = true;
         private float zoom;
-        private BlueprintContainer blueprintContainer;
-        private Action<BlueprintContainer> saveCallback;
+        private BlueprintContainer container;
+        private Func<BlueprintContainer, IEnumerator> saveCallback;
 
         public bool IsSaved { get; private set; }
         public ValidationResult NameValidationResult { get; private set; }
@@ -83,7 +84,6 @@ namespace Exa.Grids.Blueprints.Editor
         private void ResetState()
         {
             Zoom = 5f;
-
             IsSaved = true;
             NameValidationResult = new ValidationResult();
             GridValidationResult = new ValidationResult();
@@ -94,10 +94,6 @@ namespace Exa.Grids.Blueprints.Editor
         public void UpdateSaveButtonActive()
         {
             var valid = ShouldSave;
-
-            print($"IsSaved: {IsSaved}");
-            print($"NameValidationResult: {(bool)(dynamic)NameValidationResult}");
-            print($"GridValidationResult: {(bool)(dynamic)GridValidationResult}");
 
             shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.interactable = valid;
             shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;

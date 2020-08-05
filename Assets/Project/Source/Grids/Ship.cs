@@ -37,7 +37,7 @@ namespace Exa.Grids
 
         private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
-            var block = anchoredBlueprintBlock.CreateBehaviourInGrid(pivot, BlockPrefabType.userGroup);
+            var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(pivot, BlockPrefabType.userGroup);
             block.ship = this;
             block.gameObject.SetActive(true);
             return block;
