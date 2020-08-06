@@ -11,10 +11,10 @@ namespace Exa.Gameplay
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (shipSelection != null && shipSelection.CanControl)
+                    if (ShipSelection != null && ShipSelection.CanControl)
                     {
                         var point = Systems.InputManager.MouseWorldPoint;
-                        shipSelection.MoveTo(point);
+                        ShipSelection.MoveTo(point);
                         return;
                     }
 
@@ -22,7 +22,7 @@ namespace Exa.Gameplay
 
                     if (raycastTarget is FriendlyShip)
                     {
-                        shipSelection = new FriendlyShipSelection(raycastTarget as FriendlyShip);
+                        ShipSelection = new FriendlyShipSelection(raycastTarget as FriendlyShip);
                         return;
                     }
 
@@ -60,9 +60,9 @@ namespace Exa.Gameplay
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (shipSelection != null)
+                    if (ShipSelection != null)
                     {
-                        shipSelection = null;
+                        ShipSelection = null;
                     }
                     break;
             }

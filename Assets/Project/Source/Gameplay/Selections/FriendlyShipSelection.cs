@@ -16,7 +16,7 @@ namespace Exa.Gameplay
         public FriendlyShipSelection(FriendlyShip friendlyShip)
         {
             this.friendlyShip = friendlyShip;
-
+            Add(friendlyShip);
             CanControl = true;
         }
 

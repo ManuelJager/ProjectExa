@@ -33,6 +33,7 @@ namespace Exa.Grids
             }
         }
 
+        // TODO: Apply actual mass
         public static Vector2 CalculateCentreOfMass<T>(this Grid<T> grid)
             where T : IGridMember
         {

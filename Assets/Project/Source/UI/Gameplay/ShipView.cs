@@ -29,7 +29,7 @@ namespace Exa.UI.Gameplay
             thumbnailImage.sprite = Sprite.Create(thumbnail, thumbnailRect, thumbnailPivot);
         }
 
-        public void SetHealth(float value)
+        public void SetHull(float value)
         {
             slider.value = value;
             sliderImage.color = colorGradient.Evaluate(value);

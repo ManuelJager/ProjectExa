@@ -15,7 +15,8 @@ namespace Exa.Grids
         [SerializeField] protected Transform pivot;
         protected Blueprint blueprint;
 
-        public Blueprint Blueprint { get; }
+        public Blueprint Blueprint => blueprint;
+        public float Hull { get; private set; } = 1;
 
         private void Awake()
         {

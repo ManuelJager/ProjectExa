@@ -55,10 +55,7 @@ namespace Exa.Bindings
 
         public abstract void OnAdd(T data);
 
-        public virtual void OnClear()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void OnClear();
 
         public virtual void OnInsert(int index, T item)
         {

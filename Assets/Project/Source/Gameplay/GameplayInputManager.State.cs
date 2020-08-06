@@ -10,5 +10,15 @@ namespace Exa.Gameplay
     {
         private IRaycastTarget raycastTarget = null;
         private ShipSelection shipSelection;
+
+        public ShipSelection ShipSelection
+        {
+            get => shipSelection;
+            set
+            {
+                shipSelection = value;
+                GameplayManager.GameplayUI.selectionOverlay.Reflect(value);
+            }
+        }
     }
 }

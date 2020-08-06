@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4924561022885033855}
   - component: {fileID: 4924561022885033849}
+  - component: {fileID: 5703805380652302080}
   m_Layer: 5
   m_Name: SelectionOverlay
   m_TagString: Untagged
@@ -45,6 +46,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4924561022885033854}
   m_CullTransparentMesh: 0
+--- !u!114 &5703805380652302080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4924561022885033854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae052b8b1f7b08e478b64bb8968ef17d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipViewPrefab: {fileID: 7724885182315924385, guid: f8cbee4147d06f84ba34dc8fa3ad4fc7,
+    type: 3}
+  container: {fileID: 4924561024025163782}
 --- !u!1 &4924561024025163781
 GameObject:
   m_ObjectHideFlags: 0
