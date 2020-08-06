@@ -55,6 +55,16 @@ namespace Exa.UI
             }
         }
 
+        public void OnEnterViewport()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void OnExitViewport()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void SwitchActive(CursorState state, bool active)
         {
             switch (state)

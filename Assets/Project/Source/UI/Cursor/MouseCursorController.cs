@@ -33,6 +33,18 @@ namespace Exa.UI
             cursor.SetState(cursorState);
         }
 
+        public void SetMouseInViewport(bool value)
+        {
+            if (value)
+            {
+                cursor.OnEnterViewport();
+            }
+            else
+            {
+                cursor.OnExitViewport();
+            }
+        }
+
         private ICursor GetCursor(CursorType cursorType)
         {
             switch (cursorType)

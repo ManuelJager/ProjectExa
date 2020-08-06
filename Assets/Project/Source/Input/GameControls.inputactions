@@ -275,6 +275,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "124fa870-a9a7-4c9a-a2f6-5462f85096a9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -363,6 +371,17 @@
                     "processors": "",
                     "groups": "MouseKb",
                     "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05f9f505-f901-4b0a-a703-43e6e97b6bcb",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MouseKb",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

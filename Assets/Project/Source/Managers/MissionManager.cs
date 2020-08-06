@@ -10,7 +10,7 @@ namespace Exa
         public Navigateable navigateable;
         public ShipFactory shipFactory;
 
-        [SerializeField] private GameplayInputController gameplayInputController;
+        [SerializeField] private GameplayInputManager gameplayInputController;
 
         protected override void Awake()
         {

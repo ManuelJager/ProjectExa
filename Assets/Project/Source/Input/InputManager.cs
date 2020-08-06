@@ -19,6 +19,8 @@ namespace Exa.Input
             get => Mouse.current.position.ReadValue() / root.scaleFactor;
         }
 
+        public Vector2 MouseWorldPoint { get; private set; }
+
         private void Awake()
         {
             mouseCursor = Systems.MainUI.mouseCursor;
@@ -28,6 +30,7 @@ namespace Exa.Input
         private void Update()
         {
             var mousePos = Mouse.current.position.ReadValue();
+            MouseWorldPoint = Camera.main.ScreenToWorldPoint(mousePos);
             var posInViewport = Camera.main.ScreenToViewportPoint(mousePos);
 
             var currFrameMouseInViewport = !(
@@ -38,8 +41,8 @@ namespace Exa.Input
 
             if (currFrameMouseInViewport != mouseInViewport)
             {
-                mouseCursor.gameObject.SetActive(currFrameMouseInViewport);
                 mouseInViewport = currFrameMouseInViewport;
+                mouseCursor.SetMouseInViewport(mouseInViewport);
             }
         }
 

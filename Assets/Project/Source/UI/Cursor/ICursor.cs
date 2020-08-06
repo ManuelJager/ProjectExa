@@ -13,5 +13,7 @@
     {
         void SetActive(bool active);
         void SetState(CursorState cursorState);
+        void OnEnterViewport();
+        void OnExitViewport();
     }
 }

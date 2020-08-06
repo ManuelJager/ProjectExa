@@ -26,6 +26,14 @@ namespace Exa.UI
             Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
         }
 
+        public void OnEnterViewport()
+        {
+        }
+
+        public void OnExitViewport()
+        {
+        }
+
         private Texture2D GetTexture(CursorState cursorState)
         {
             switch (cursorState)
