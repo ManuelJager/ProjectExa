@@ -6,19 +6,19 @@ namespace Exa.Bindings
     /// <summary>
     /// Provides
     /// </summary>
-    /// <typeparam name="TData"></typeparam>
-    public interface IObservableCollection<TData> :
-        ICollection<TData>,
-        IEnumerable<TData>,
+    /// <typeparam name="T"></typeparam>
+    public interface IObservableCollection<T> :
+        ICollection<T>,
+        IEnumerable<T>,
         IEnumerable,
-        IList<TData>,
-        IReadOnlyCollection<TData>,
-        IReadOnlyList<TData>
+        IList<T>,
+        IReadOnlyCollection<T>,
+        IReadOnlyList<T>
     {
-        List<ICollectionObserver<TData>> Observers { get; }
+        List<ICollectionObserver<T>> Observers { get; }
 
-        void Register(ICollectionObserver<TData> observer);
+        void Register(ICollectionObserver<T> observer);
 
-        void Unregister(ICollectionObserver<TData> observer);
+        void Unregister(ICollectionObserver<T> observer);
     }
 }

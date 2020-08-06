@@ -12,78 +12,21 @@ namespace Exa.Bindings
     /// <typeparam name="TView">View type, must be an observer of <see cref="{TModel}"/></typeparam>
     /// <typeparam name="TContainer">Model observable type</typeparam>
     /// <typeparam name="TModel">Model type</typeparam>
-    public class ViewController<TView, TContainer, TModel> : MonoBehaviour, ICollectionObserver<TContainer>
-        where TView : MonoBehaviour, IObserver<TModel>
-        where TContainer : Observable<TModel>
-        where TModel : class
+    public class ViewController<TView, TContainer, TModel> : AbstractCollectionObserver<TContainer>
+    where TView : MonoBehaviour, IObserver<TModel>
+    where TContainer : Observable<TModel>
+    where TModel : class
     {
         [SerializeField] protected Transform viewContainer;
         [SerializeField] protected GameObject viewPrefab;
 
         protected Dictionary<TContainer, TView> views = new Dictionary<TContainer, TView>();
 
-        private IObservableCollection<TContainer> source = null;
-
-        /// <summary>
-        /// Views data source
-        /// </summary>
-        public virtual IObservableCollection<TContainer> Source
-        {
-            get => source;
-            set
-            {
-                // If the new source is the same, do nothing
-                if (source == value)
-                {
-                    return;
-                }
-
-                // If there is already a source, unregister
-                if (source != null)
-                {
-                    // Unregistered if we are registered
-                    if (source.Observers.Contains(this))
-                    {
-                        source.Unregister(this);
-                    }
-                    source = null;
-                }
-
-                // if the new value is supossed to be null, clear views and return
-                if (value == null)
-                {
-                    OnClear();
-                    return;
-                }
-
-                // Set source and register
-                source = value;
-                source.Register(this);
-
-                // Clear views
-                OnClear();
-
-                AddRange(source);
-            }
-        }
-
-        /// <summary>
-        /// Add Collection of observables
-        /// </summary>
-        /// <param name="collection"></param>
-        public virtual void AddRange(IEnumerable<TContainer> collection)
-        {
-            foreach (var item in source)
-            {
-                OnAdd(item);
-            }
-        }
-
         /// <summary>
         /// Add observable
         /// </summary>
         /// <param name="observer"></param>
-        public virtual void OnAdd(TContainer observer)
+        public override void OnAdd(TContainer observer)
         {
             OnAdd(observer, viewContainer);
         }
@@ -115,7 +58,7 @@ namespace Exa.Bindings
         /// <summary>
         /// Clear views
         /// </summary>
-        public virtual void OnClear()
+        public override void OnClear()
         {
             foreach (var key in views.Keys)
             {
@@ -125,7 +68,7 @@ namespace Exa.Bindings
             views = new Dictionary<TContainer, TView>();
         }
 
-        public virtual void OnInsert(int index, TContainer observer)
+        public override void OnInsert(int index, TContainer observer)
         {
             throw new System.NotImplementedException();
         }
@@ -134,19 +77,19 @@ namespace Exa.Bindings
         /// Remove view
         /// </summary>
         /// <param name="observer"></param>
-        public virtual void OnRemove(TContainer observer)
+        public override void OnRemove(TContainer observer)
         {
             var view = views[observer];
             observer.Unregister(view);
             Destroy(view.gameObject);
         }
 
-        public virtual void OnRemoveAt(int index)
+        public override void OnRemoveAt(int index)
         {
             throw new System.NotImplementedException();
         }
 
-        public virtual void OnSet(int index, TContainer observer)
+        public override void OnSet(int index, TContainer observer)
         {
             throw new System.NotImplementedException();
         }

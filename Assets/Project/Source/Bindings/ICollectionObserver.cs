@@ -3,26 +3,26 @@
     /// <summary>
     /// Interface used by <see cref="IObservableCollection{TData}"/> to add and remove models from a view controller
     /// </summary>
-    /// <typeparam name="TData">Model type</typeparam>
-    public interface ICollectionObserver<TData>
+    /// <typeparam name="T">Model type</typeparam>
+    public interface ICollectionObserver<T>
     {
         /// <summary>
         /// Data source used by the observer
         /// </summary>
-        IObservableCollection<TData> Source { get; set; }
+        IObservableCollection<T> Source { get; set; }
 
         /// <summary>
         /// On replace model
         /// </summary>
         /// <param name="index"></param>
         /// <param name="item"></param>
-        void OnSet(int index, TData item);
+        void OnSet(int index, T item);
 
         /// <summary>
         /// On add model
         /// </summary>
         /// <param name="data"></param>
-        void OnAdd(TData data);
+        void OnAdd(T data);
 
         /// <summary>
         /// On clear all models
@@ -34,13 +34,13 @@
         /// </summary>
         /// <param name="index"></param>
         /// <param name="item"></param>
-        void OnInsert(int index, TData item);
+        void OnInsert(int index, T item);
 
         /// <summary>
         /// On remove a model
         /// </summary>
         /// <param name="data"></param>
-        void OnRemove(TData data);
+        void OnRemove(T data);
 
         /// <summary>
         /// On remove a model in the specified index

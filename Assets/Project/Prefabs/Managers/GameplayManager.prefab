@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3971752618548431334}
   - component: {fileID: 3971752618548431333}
   m_Layer: 0
-  m_Name: MissionManager
+  m_Name: GameplayManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3304b620dfa6b4dabc0b9f2596f496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayInputManager: {fileID: 3971752618548431335}
   navigateable: {fileID: 3971752618548431334}
   shipFactory: {fileID: 3971752618548431333}
-  gameplayInputController: {fileID: 3971752618548431335}
+  gameplayUI: {fileID: 0}
 --- !u!114 &3971752618548431335
 MonoBehaviour:
   m_ObjectHideFlags: 0
