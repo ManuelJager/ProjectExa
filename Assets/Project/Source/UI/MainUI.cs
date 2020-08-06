@@ -16,7 +16,7 @@ namespace Exa.UI
         public VariableTooltipManager variableTooltipManager;
         public Console console;
         public UserExceptionLogger userExceptionLogger;
-        public MousePointer mousePointer;
+        public MouseCursorController mouseCursor;
         public PromptController promptController;
         public Diagnostics diagnostics;
         public SettingsManager settingsManager;

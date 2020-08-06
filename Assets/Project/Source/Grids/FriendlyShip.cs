@@ -19,12 +19,12 @@ namespace Exa.Grids
 
         public void OnRaycastEnter()
         {
-            Systems.MainUI.mousePointer.SetState(UI.CursorState.active);
+            Systems.MainUI.mouseCursor.SetState(UI.CursorState.active);
         }
 
         public void OnRaycastExit()
         {
-            Systems.MainUI.mousePointer.SetState(UI.CursorState.idle);
+            Systems.MainUI.mouseCursor.SetState(UI.CursorState.idle);
         }
     }
 }

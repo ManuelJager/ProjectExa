@@ -177,7 +177,6 @@ GameObject:
   - component: {fileID: 5275778777171052439}
   - component: {fileID: 2967199621578181922}
   - component: {fileID: 1349345412720912538}
-  - component: {fileID: 1555887941218357833}
   m_Layer: 5
   m_Name: ValueContainer
   m_TagString: Untagged
@@ -254,26 +253,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1555887941218357833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2649312683169987619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fb55c9353d5f9f4b90f125ad87129d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onPointerEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  onPointerExit:
-    m_PersistentCalls:
-      m_Calls: []
-  invokeStateChangeOnHover: 1
-  cursorState: 3
 --- !u!1 &2655153584110127498
 GameObject:
   m_ObjectHideFlags: 0

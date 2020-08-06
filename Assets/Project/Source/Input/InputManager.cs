@@ -10,7 +10,7 @@ namespace Exa.Input
         [HideInInspector] public bool inputIsCaptured;
 
         private bool mouseInViewport = false;
-        private MousePointer mousePointer;
+        private MouseCursorController mouseCursor;
         private Canvas root;
         private Stack<Hoverable> hoverableStack = new Stack<Hoverable>();
 
@@ -21,9 +21,8 @@ namespace Exa.Input
 
         private void Awake()
         {
-            mousePointer = Systems.MainUI.mousePointer;
+            mouseCursor = Systems.MainUI.mouseCursor;
             root = Systems.MainUI.root;
-            mousePointer.SetState(CursorState.idle);
         }
 
         private void Update()
@@ -39,14 +38,14 @@ namespace Exa.Input
 
             if (currFrameMouseInViewport != mouseInViewport)
             {
-                mousePointer.gameObject.SetActive(currFrameMouseInViewport);
+                mouseCursor.gameObject.SetActive(currFrameMouseInViewport);
                 mouseInViewport = currFrameMouseInViewport;
             }
         }
 
         public void OnHoverOverControl(Hoverable hoverable)
         {
-            mousePointer.SetState(hoverable.cursorState);
+            mouseCursor.SetState(hoverable.cursorState);
             hoverableStack.Push(hoverable);
         }
 
@@ -54,7 +53,7 @@ namespace Exa.Input
         {
             hoverableStack.Pop();
 
-            mousePointer.SetState(hoverableStack.Count == 0
+            mouseCursor.SetState(hoverableStack.Count == 0
                 ? CursorState.idle
                 : hoverableStack.Peek().cursorState);
         }

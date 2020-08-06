@@ -140,18 +140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetAtmosphere: 0
---- !u!114 &25622853 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 595289767640309664, guid: 2ad423a5fb9787f44988bd055461ea3c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2056015434}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 673de599071ca5e46adf1055d8b3f9fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &53928245
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +368,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8427892475244407036}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &128550126 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8616462259687657524, guid: 2ad423a5fb9787f44988bd055461ea3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2056015434}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b5098a8ea0d1e4d891e243d9588286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &179197179 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7721263539799423029, guid: 2661b46a09dd09949b76373e7086f5b1,
@@ -1253,7 +1253,7 @@ MonoBehaviour:
   variableTooltipManager: {fileID: 740591096}
   console: {fileID: 2053960249}
   userExceptionLogger: {fileID: 1807045425}
-  mousePointer: {fileID: 25622853}
+  mouseCursor: {fileID: 128550126}
   promptController: {fileID: 414348130}
   diagnostics: {fileID: 577818068}
   settingsManager: {fileID: 206546701406750977}
