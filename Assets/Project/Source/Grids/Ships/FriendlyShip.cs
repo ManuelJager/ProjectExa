@@ -1,5 +1,6 @@
 ﻿using Exa.Gameplay;
 using Exa.Grids.Blueprints;
+using Exa.UI;
 using UnityEngine;
 
 namespace Exa.Grids.Ships
@@ -7,6 +8,8 @@ namespace Exa.Grids.Ships
     public class FriendlyShip : Ship, IRaycastTarget
     {
         [SerializeField] private CircleCollider2D mouseOverCollider;
+
+        private static CursorOverride cursorOverride = new CursorOverride(CursorState.active);
 
         public override void Import(Blueprint blueprint)
         {
@@ -18,12 +21,12 @@ namespace Exa.Grids.Ships
 
         public void OnRaycastEnter()
         {
-            Systems.MainUI.mouseCursor.SetState(UI.CursorState.active);
+            Systems.MainUI.mouseCursor.AddOverride(cursorOverride);
         }
 
         public void OnRaycastExit()
         {
-            Systems.MainUI.mouseCursor.SetState(UI.CursorState.idle);
+            Systems.MainUI.mouseCursor.RemoveOverride(cursorOverride);
         }
     }
 }

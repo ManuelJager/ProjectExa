@@ -12,7 +12,6 @@ namespace Exa.Input
         private bool mouseInViewport = false;
         private MouseCursorController mouseCursor;
         private Canvas root;
-        private Stack<Hoverable> hoverableStack = new Stack<Hoverable>();
 
         public Vector2 ScaledMousePosition
         {
@@ -44,21 +43,6 @@ namespace Exa.Input
                 mouseInViewport = currFrameMouseInViewport;
                 mouseCursor.SetMouseInViewport(mouseInViewport);
             }
-        }
-
-        public void OnHoverOverControl(Hoverable hoverable)
-        {
-            mouseCursor.SetState(hoverable.cursorState);
-            hoverableStack.Push(hoverable);
-        }
-
-        public void OnExitControl()
-        {
-            hoverableStack.Pop();
-
-            mouseCursor.SetState(hoverableStack.Count == 0
-                ? CursorState.idle
-                : hoverableStack.Peek().cursorState);
         }
     }
 }

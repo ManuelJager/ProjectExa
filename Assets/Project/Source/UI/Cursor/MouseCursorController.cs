@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Exa.UI
 {
@@ -14,6 +16,7 @@ namespace Exa.UI
         [SerializeField] private VirtualMouseCursor virtualMouseCursor;
         [SerializeField] private HardwareMouseCursor hardwareMouseCursor;
         private ICursor cursor;
+        private List<CursorOverride> cursorOverrides = new List<CursorOverride>();
 
         private void Start()
         {
@@ -28,7 +31,33 @@ namespace Exa.UI
             cursor.SetActive(true);
         }
 
-        public void SetState(CursorState cursorState)
+        public void AddOverride(CursorOverride cursorOverride)
+        {
+            cursorOverrides.Add(cursorOverride);
+
+            SetState(cursorOverride.cursorState);
+        }
+
+        public void RemoveOverride(CursorOverride cursorOverride)
+        {
+            cursorOverrides.Remove(cursorOverride);
+
+            SetState(SelectStateFromOverrides());
+        }
+
+        private CursorState SelectStateFromOverrides()
+        {
+            if (cursorOverrides.Count == 0)
+            {
+                return CursorState.idle;
+            }
+            else
+            {
+                return cursorOverrides.Last().cursorState;
+            }
+        }
+
+        private void SetState(CursorState cursorState)
         {
             cursor.SetState(cursorState);
         }

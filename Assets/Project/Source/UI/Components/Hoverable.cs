@@ -12,6 +12,7 @@ namespace Exa.UI
         public UnityEvent onPointerEnter = new UnityEvent();
         public UnityEvent onPointerExit = new UnityEvent();
 
+        public CursorOverride cursorOverride;
         public bool invokeStateChangeOnHover;
         public CursorState cursorState;
 
@@ -26,6 +27,7 @@ namespace Exa.UI
 
         private void Awake()
         {
+            cursorOverride = new CursorOverride(cursorState);
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
         }
@@ -39,7 +41,7 @@ namespace Exa.UI
 
             if (InvokeStateChange)
             {
-                Systems.InputManager.OnHoverOverControl(this);
+                OnEnter();
             }
         }
 
@@ -52,7 +54,7 @@ namespace Exa.UI
 
             if (InvokeStateChange)
             {
-                Systems.InputManager.OnExitControl();
+                OnExit();
             }
         }
 
@@ -70,7 +72,7 @@ namespace Exa.UI
 
                     if (InvokeStateChange)
                     {
-                        Systems.InputManager.OnHoverOverControl(this);
+                        OnEnter();
                     }
                 }
             });
@@ -85,9 +87,19 @@ namespace Exa.UI
 
                 if (InvokeStateChange)
                 {
-                    MiscUtils.InvokeIfNotQuitting(() => Systems.InputManager.OnExitControl());
+                    MiscUtils.InvokeIfNotQuitting(OnExit);
                 }
             }
+        }
+
+        private void OnEnter()
+        {
+            Systems.MainUI.mouseCursor.AddOverride(cursorOverride);
+        }
+
+        private void OnExit()
+        {
+            Systems.MainUI.mouseCursor.RemoveOverride(cursorOverride);
         }
     }
 }
