@@ -28,7 +28,7 @@ namespace Exa.Grids.Blueprints.Editor
         {
             ActiveBlueprint = blueprint;
 
-            foreach (var block in blueprint.Blocks.GridMembers)
+            foreach (var block in blueprint.Blocks)
             {
                 PlaceBlock(block);
             }

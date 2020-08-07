@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/PowerGenerator")]
-    public class PowerGeneratorTemplate : PhysicalBlockTemplate<PowerGenerator>
+    public class PowerGeneratorTemplate : PhysicalBlockTemplate<PowerGenerator>, IPowerGeneratorTemplatePartial
     {
         [SerializeField] private PowerGeneratorTemplatePartial powerGeneratorTemplatePartial;
 

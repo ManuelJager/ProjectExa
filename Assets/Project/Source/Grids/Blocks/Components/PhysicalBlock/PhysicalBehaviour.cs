@@ -1,4 +1,6 @@
-﻿namespace Exa.Grids.Blocks.Components
+﻿using UnityEngine;
+
+namespace Exa.Grids.Blocks.Components
 {
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
     {
@@ -8,12 +10,23 @@
 
             if (trueDamage < 0f) return;
 
-            data.hull -= trueDamage;
+            // Get the min between the current hull and damage that should be applied
+            // This prevents the block from receiving too much damage
+            var appliedDamage = Mathf.Min(data.hull, trueDamage);
+            data.hull -= appliedDamage;
 
-            if (base.data.hull < 0)
+            // Notify the grid the current amount of hull points is decreased
+            ship.blockGrid.CurrentHull -= appliedDamage;
+
+            if (data.hull <= 0)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
+        }
+
+        protected override void OnAdd()
+        {
+            ship.blockGrid.CurrentHull += data.hull;
         }
     }
 }

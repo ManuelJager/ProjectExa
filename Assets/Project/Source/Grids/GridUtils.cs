@@ -39,7 +39,7 @@ namespace Exa.Grids
         {
             var total = new Vector2();
 
-            foreach (var block in grid.GridMembers)
+            foreach (var block in grid)
             {
                 total += block.GetLocalPosition();
             }

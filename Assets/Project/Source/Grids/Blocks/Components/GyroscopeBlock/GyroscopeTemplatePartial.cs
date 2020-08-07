@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
+    public interface IGyroscopeTemplatePartial
+    {
+        GyroscopeTemplatePartial GyroscopeTemplatePartial { get; }
+    }
+
     [Serializable]
     public class GyroscopeTemplatePartial : TemplatePartial<GyroscopeData>
     {

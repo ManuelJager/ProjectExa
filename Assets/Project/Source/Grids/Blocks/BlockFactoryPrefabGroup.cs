@@ -35,6 +35,7 @@ namespace Exa.Grids.Blocks
 
             var id = blockTemplate.id;
             var pool = CreatePool<BlockPool>(rootInstance.gameObject, $"Block pool: {id}", out var settings);
+            pool.blockTemplate = blockTemplate;
             poolById[id] = pool;
             pool.Configure(settings);
         }

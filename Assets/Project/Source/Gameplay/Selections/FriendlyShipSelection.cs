@@ -1,10 +1,5 @@
 ﻿using Exa.Grids;
-using Exa.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Exa.Grids.Ships;
 using UnityEngine;
 
 namespace Exa.Gameplay
@@ -23,7 +18,7 @@ namespace Exa.Gameplay
         public override void MoveTo(Vector2 position)
         {
             var delta = position - (Vector2)friendlyShip.transform.position;
-            friendlyShip.transform.rotation.SetLookRotation(delta);
+            friendlyShip.transform.right = delta;
             friendlyShip.transform.position = position;
         }
     }

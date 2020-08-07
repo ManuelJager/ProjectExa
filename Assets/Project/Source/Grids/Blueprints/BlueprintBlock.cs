@@ -2,6 +2,7 @@
 using Exa.Utils;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
@@ -33,6 +34,11 @@ namespace Exa.Grids.Blueprints
             {
                 if (runtimeContext == null)
                 {
+                    if (!Systems.BlockFactory.blockTemplatesDict.ContainsKey(id))
+                    {
+                        throw new KeyNotFoundException($"Block template with id: {id} doesn't exist");
+                    }
+
                     runtimeContext = Systems.BlockFactory.blockTemplatesDict[id];
                 }
                 return runtimeContext;

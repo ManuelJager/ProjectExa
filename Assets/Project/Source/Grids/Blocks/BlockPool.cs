@@ -5,17 +5,14 @@ namespace Exa.Grids.Blocks
 {
     public class BlockPool : Pool<BlockPoolMember>
     {
-        public override bool Return(PoolMember poolMember)
-        {
-            var result = base.Return(poolMember);
-            if (result)
-            {
-                var block = ((BlockPoolMember)poolMember).block;
+        public BlockTemplate blockTemplate;
 
-                // Reset values
-                block.anchoredBlueprintBlock.BlueprintBlock.RuntimeContext.SetValues(block);
-            }
-            return result;
+        public override BlockPoolMember Retrieve()
+        {
+            var member = base.Retrieve();
+            var block = member.block;
+            blockTemplate.SetValues(block);
+            return member;
         }
 
         protected override BlockPoolMember InstantiatePrefab()

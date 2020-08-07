@@ -13,19 +13,20 @@ namespace Exa.Grids.Blueprints
         [JsonIgnore] public FileHandle ThumbnailFileHandle { get; set; }
         [JsonIgnore] public string Key => Data.name;
 
-        public BlueprintContainer(Blueprint blueprint, bool generateBlueprintFileHandle = true, bool generateBlueprintFileName = true)
-            : base(blueprint)
+        public BlueprintContainer(BlueprintContainerArgs args)
+            : base(args.blueprint)
         {
-            if (generateBlueprintFileHandle)
+            if (args.generateBlueprintFileHandle)
             {
                 BlueprintFileHandle = new FileHandle(this,
                     (name) => IOUtils.CombineWithDirectory("blueprints", $"{name}.json"),
                     (path) => IOUtils.JsonSerializeToPath(Data, path),
-                    generateBlueprintFileName);
+                    args.generateBlueprintFileName);
             }
 
+            var thumbnailDirectory = args.useDefaultThumbnailFolder ? "defaultThumbnails" : "thumbnails";
             ThumbnailFileHandle = new FileHandle(this,
-                (name) => IOUtils.CombineWithDirectory("thumbnails", $"{name}.png"),
+                (name) => IOUtils.CombineWithDirectory(thumbnailDirectory, $"{name}.png"),
                 (path) => IOUtils.SaveTexture2D(Data.Thumbnail, path));
         }
 

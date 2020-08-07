@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+﻿using Exa.Grids;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using Exa.Grids.Ships;
 
 namespace Exa.UI.Gameplay
 {
@@ -11,15 +15,22 @@ namespace Exa.UI.Gameplay
         [SerializeField] private Image sliderImage;
         [SerializeField] private Image thumbnailImage;
         private int count;
+        private List<Ship> ships = new List<Ship>();
 
         public int Count
         {
             get => count;
-            set
+            private set
             {
                 count = value;
                 countText.text = count.ToString();
             }
+        }
+
+        private void Update()
+        {
+            var total = ships.Average((ship) => ship.Hull);
+            SetHull(total);
         }
 
         public void SetThumbnail(Texture2D thumbnail)
@@ -29,7 +40,19 @@ namespace Exa.UI.Gameplay
             thumbnailImage.sprite = Sprite.Create(thumbnail, thumbnailRect, thumbnailPivot);
         }
 
-        public void SetHull(float value)
+        public void Add(Ship ship)
+        {
+            ships.Add(ship);
+            Count++;
+        }
+
+        public void Remove(Ship ship)
+        {
+            ships.Remove(ship);
+            Count--;
+        }
+
+        private void SetHull(float value)
         {
             slider.value = value;
             sliderImage.color = colorGradient.Evaluate(value);

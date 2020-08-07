@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1907754239003912359}
   - component: {fileID: 1907754239003912352}
+  - component: {fileID: 5955771735733772327}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -71,7 +72,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1907754239003912354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf63e7e2c6159744d87de68bfccefaa0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a1d3a8eeb45bea46b9ee37a8f8bf4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  references: {fileID: 5955771735733772327}
+  overlay: {fileID: 0}
+  destroyEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5955771735733772327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61562e0da05925d429af7f0d6465b142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 990860952733176915}
+  canvasScaleMultiplier: 2

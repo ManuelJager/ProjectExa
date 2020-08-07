@@ -6,12 +6,22 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
+    public interface IPhysicalTemplatePartial
+    {
+        PhysicalTemplatePartial PhysicalTemplatePartial { get; }
+    }
+
     [Serializable]
     public class PhysicalTemplatePartial : TemplatePartial<PhysicalData>, IBlueprintTotalsModifier
     {
         [SerializeField] private float maxHull;
         [SerializeField] private float armor;
         [SerializeField] private short mass; // In kg
+
+
+        public float MaxHull => maxHull;
+        public float Armor => armor;
+        public float Mass => mass;
 
         public override PhysicalData Convert() => new PhysicalData
         {

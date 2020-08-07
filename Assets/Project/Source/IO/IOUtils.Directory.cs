@@ -11,6 +11,7 @@ namespace Exa.IO
                 { "blueprints", new ExaDirectory(CombinePathWithDataPath("blueprints")) },
                 { "settings", new ExaDirectory(CombinePathWithDataPath("settings")) },
                 { "thumbnails", new ExaDirectory(CombinePathWithDataPath("thumbnails")) },
+                { "defaultThumbnails", new ExaDirectory(CombinePathWithDataPath("defaultThumbnails")) }
             };
         }
 

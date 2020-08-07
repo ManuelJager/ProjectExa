@@ -2,7 +2,7 @@
 using Exa.Grids.Blueprints;
 using UnityEngine;
 
-namespace Exa.Grids
+namespace Exa.Grids.Ships
 {
     public class FriendlyShip : Ship, IRaycastTarget
     {
@@ -12,8 +12,7 @@ namespace Exa.Grids
         {
             base.Import(blueprint);
             
-            var bpSize = blueprint.Blocks.Size.Value;
-            var radius = Mathf.Max(bpSize.x, bpSize.y) / 2f;
+            var radius = blueprint.Blocks.MaxSize / 2f;
             mouseOverCollider.radius = radius;
         }
 

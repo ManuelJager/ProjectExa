@@ -41,10 +41,10 @@ namespace Exa.UI
                 onSubmit: ImportBlueprintWithOptions);
         }
 
-        public void OnImportBlueprintFromClipboard()
-        {
-            Blueprint blueprint;
+        #region Clipboard import
 
+        public void OnClipboardImport()
+        {
             var clipboardText = GUIUtility.systemCopyBuffer;
 
             if (string.IsNullOrEmpty(clipboardText))
@@ -53,18 +53,12 @@ namespace Exa.UI
                 return;
             }
 
-            try
-            {
-                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(clipboardText);
-            }
-            catch
-            {
-                UserExceptionLogger.Instance.Log("Clipboard data is formatted incorrectly");
-                return;
-            }
+            if (!OnClipboardImportDeserialize(clipboardText, out var blueprint)) return;
 
-            var container = new BlueprintContainer(blueprint);
+            var args = new BlueprintContainerArgs(blueprint);
+            var container = new BlueprintContainer(args);
 
+            // TODO: Replace this by a method on the blueprint manager that validates the name 
             if (Source.Contains(container))
             {
                 UserExceptionLogger.Instance.Log("Blueprint with given name already added");
@@ -73,11 +67,24 @@ namespace Exa.UI
 
             // Save blueprint and generate thumbnail
             TrySave(container);
-
-            //// Navigate to editor and import blueprint
-            //shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
-            //shipEditor.Import(container, TrySave);
         }
+
+        private bool OnClipboardImportDeserialize(string json, out Blueprint blueprint)
+        {
+            try
+            {
+                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(json);
+                return true;
+            }
+            catch
+            {
+                UserExceptionLogger.Instance.Log("Clipboard data is formatted incorrectly");
+                blueprint = null;
+                return false;
+            }
+        }
+
+        #endregion
 
         public override void ViewCreation(BlueprintView view, BlueprintContainer container)
         {
@@ -124,7 +131,8 @@ namespace Exa.UI
 
         private void ImportBlueprintWithOptions(BlueprintOptions options)
         {
-            var observableBlueprint = new BlueprintContainer(new Blueprint(options));
+            var args = new BlueprintContainerArgs(new Blueprint(options));
+            var observableBlueprint = new BlueprintContainer(args);
 
             shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
             shipEditor.Import(observableBlueprint, TrySave);

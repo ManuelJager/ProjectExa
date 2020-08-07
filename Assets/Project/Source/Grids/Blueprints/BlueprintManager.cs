@@ -73,7 +73,13 @@ namespace Exa.Grids.Blueprints
         {
             if (blueprint == null || BlueprintNameExists(blueprint.name)) return;
 
-            var observableBlueprint = new BlueprintContainer(blueprint, true, false);
+            var args = new BlueprintContainerArgs(blueprint)
+            {
+                generateBlueprintFileHandle = true,
+                generateBlueprintFileName = false
+            };
+
+            var observableBlueprint = new BlueprintContainer(args);
             observableBlueprint.BlueprintFileHandle.CurrentPath = path;
             observableBlueprint.LoadThumbnail();
             observableUserBlueprints.Add(observableBlueprint);

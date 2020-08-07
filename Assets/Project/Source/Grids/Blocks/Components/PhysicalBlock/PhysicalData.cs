@@ -1,5 +1,8 @@
-﻿namespace Exa.Grids.Blocks.Components
+﻿using System;
+
+namespace Exa.Grids.Blocks.Components
 {
+    [Serializable]
     public struct PhysicalData : IBlockComponentData
     {
         public float hull;

@@ -30,11 +30,13 @@ namespace Exa.Debugging
             exception.OnAssignableFrom<UserException>(LogUserException);
         }
 
+        [System.Diagnostics.DebuggerHidden]
         public void LogUserException(UserException exception)
         {
             userExceptionLogger.Log(exception);
         }
 
+        [System.Diagnostics.DebuggerHidden]
         public void LogFormat(LogType logType, UnityEngine.Object context, string format, params object[] args)
         {
             defaultLogHandler.LogFormat(logType, context, format, args);

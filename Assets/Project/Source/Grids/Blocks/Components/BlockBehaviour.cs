@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Ships;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
@@ -7,10 +8,40 @@ namespace Exa.Grids.Blocks.Components
         where T : IBlockComponentData
     {
         public T data;
+        protected Ship ship;
+
+        public Ship Ship
+        {
+            get => ship;
+            set
+            {
+                if (ship == value) return;
+
+                if (ship != null)
+                {
+                    OnRemove();
+                }
+
+                ship = value;
+
+                if (ship != null)
+                {
+                    OnAdd();
+                }
+            }
+        }
 
         public override void SetData(object data)
         {
             this.data = (T)data;
+        }
+
+        protected virtual void OnAdd()
+        {
+        }
+
+        protected virtual void OnRemove()
+        {
         }
     }
 

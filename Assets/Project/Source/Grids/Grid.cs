@@ -1,21 +1,18 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blueprints;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Exa.Grids
 {
-    public class Grid<T>
+    public class Grid<T> : IEnumerable<T>
         where T : IGridMember
     {
         public LazyCache<Vector2Int> Size { get; protected set; }
         public LazyCache<Vector2> CentreOfMass { get; protected set; }
-        public List<T> GridMembers { get; protected set; }
+        protected List<T> GridMembers { get; set; }
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
 
@@ -128,6 +125,16 @@ namespace Exa.Grids
             {
                 NeighbourDict[gridMember] = new List<T>();
             }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return GridMembers.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GridMembers.GetEnumerator();
         }
     }
 }

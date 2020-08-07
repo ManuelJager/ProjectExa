@@ -37,7 +37,7 @@ namespace Exa.Grids.Blueprints
 
             this.Blocks = blocks;
 
-            foreach (var block in blocks.GridMembers)
+            foreach (var block in blocks)
             {
                 AddContext(block);
             }

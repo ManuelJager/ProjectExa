@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0738d1bbb4d7714cb2e0f540f5f4151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundColor: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
   padding: 0.02
 --- !u!1001 &4193704451295621140
 PrefabInstance:

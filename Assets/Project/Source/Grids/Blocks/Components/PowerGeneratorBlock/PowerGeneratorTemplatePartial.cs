@@ -6,6 +6,11 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
+    public interface IPowerGeneratorTemplatePartial
+    {
+        PowerGeneratorTemplatePartial PowerGeneratorTemplatePartial { get; }
+    }
+
     [Serializable]
     public class PowerGeneratorTemplatePartial : TemplatePartial<PowerGeneratorData>, IBlueprintTotalsModifier
     {

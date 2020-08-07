@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blueprints;
+using Exa.Grids.Ships;
 using Unity.Entities;
 using UnityEngine;
 
@@ -10,15 +11,25 @@ namespace Exa.Grids.Blocks.BlockTypes
     public class Block : MonoBehaviour, IBlock, IConvertGameObjectToEntity, IGridMember
     {
         public AnchoredBlueprintBlock anchoredBlueprintBlock;
-        public Ship ship;
+
+        private Ship ship;
 
         public Vector2Int GridAnchor => anchoredBlueprintBlock.gridAnchor;
 
         public BlueprintBlock BlueprintBlock => anchoredBlueprintBlock.blueprintBlock;
 
-        private void OnDisable()
+        public virtual Ship Ship
+        {
+            set
+            {
+                this.ship = value;
+            }
+        }
+
+        protected virtual void OnDisable()
         {
             ship.blockGrid.Remove(GridAnchor);
+            Ship = null;
         }
 
         // TODO: Convert gameobject to entity

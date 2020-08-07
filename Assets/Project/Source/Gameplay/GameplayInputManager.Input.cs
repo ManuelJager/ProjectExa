@@ -1,4 +1,4 @@
-﻿using Exa.Grids;
+﻿using Exa.Grids.Ships;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

@@ -30,7 +30,7 @@ namespace Exa.IO
 
         public void Delete()
         {
-            if (File.Exists(CurrentPath))
+            if (CurrentPath != "" && File.Exists(CurrentPath))
             {
                 File.Delete(CurrentPath);
             }

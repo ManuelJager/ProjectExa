@@ -11,7 +11,16 @@ namespace Exa.Grids.Blueprints
         public BlueprintContainer ToContainer()
         {
             var blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(blueprintJson, SerializationMode.readable);
-            return new BlueprintContainer(blueprint, false);
+
+            var args = new BlueprintContainerArgs(blueprint)
+            {
+                generateBlueprintFileHandle = false,
+                useDefaultThumbnailFolder = true
+            };
+
+            var container = new BlueprintContainer(args);
+            container.LoadThumbnail();
+            return container;
         }
     }
 }

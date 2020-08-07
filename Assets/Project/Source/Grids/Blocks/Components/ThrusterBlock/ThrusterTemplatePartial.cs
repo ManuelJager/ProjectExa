@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
+    public interface IThrusterTemplatePartial
+    {
+        ThrusterTemplatePartial ThrusterTemplatePartial { get; }
+    }
+
     [Serializable]
     public class ThrusterTemplatePartial : TemplatePartial<ThrusterData>
     {

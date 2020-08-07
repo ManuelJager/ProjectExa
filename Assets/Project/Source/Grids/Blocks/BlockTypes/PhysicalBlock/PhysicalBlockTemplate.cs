@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class PhysicalBlockTemplate<T> : BlockTemplate<T>
+    public class PhysicalBlockTemplate<T> : BlockTemplate<T>, IPhysicalTemplatePartial
         where T : PhysicalBlock
     {
         [SerializeField] private PhysicalTemplatePartial physicalTemplatePartial;

@@ -1,7 +1,6 @@
 ﻿using Exa.Bindings;
 using Exa.Gameplay;
-using Exa.Grids;
-using Exa.Utils;
+using Exa.Grids.Ships;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,26 +22,27 @@ namespace Exa.UI.Gameplay
                 var viewGO = Instantiate(shipViewPrefab, container);
                 var newView = viewGO.GetComponent<ShipView>();
                 newView.SetThumbnail(ship.Blueprint.Thumbnail);
-                newView.SetHull(ship.Hull);
                 shipViews.Add(key, newView);
             }
 
             var view = shipViews[key];
-            view.Count++;
+            view.Add(ship);
         }
 
-        public override void OnRemove(Ship data)
+        public override void OnRemove(Ship ship)
         {
-            var key = data.Blueprint.name;
+            var key = ship.Blueprint.name;
             var view = shipViews[key];
 
-            view.Count--;
-
-            if (view.Count == 0)
+            // Destroy the view if there are ships it could represent
+            // A 1 is used here instead of a 0 as we assume the ship will be removed from the view
+            if (view.Count == 1)
             {
                 shipViews.Remove(key);
                 Destroy(view.gameObject);
             }
+
+            view.Remove(ship);
         }
 
         public override void OnClear()
