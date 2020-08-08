@@ -3,6 +3,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Grids.Ships;
+using UCommandConsole;
 using UnityEngine;
 
 namespace Exa.Grids
@@ -19,6 +20,8 @@ namespace Exa.Grids
         {
             this.container = container;
             this.ship = ship;
+
+            Systems.MainUI.console.Container.AddGetter(() => new MethodCommand(this, "Damage"));
         }
 
         internal void Import(Blueprint blueprint)
@@ -44,6 +47,11 @@ namespace Exa.Grids
             block.Ship = ship;
             block.gameObject.SetActive(true);
             return block;
+        }
+
+        public void Damage(float damage)
+        {
+            CurrentHull -= damage;
         }
     }
 }

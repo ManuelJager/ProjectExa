@@ -93,4 +93,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 990860952733176915}
-  canvasScaleMultiplier: 2
+  canvasScaleMultiplier: 1.5

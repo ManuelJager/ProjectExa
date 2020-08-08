@@ -16,6 +16,22 @@
             return a;
         }
 
+        public static float Increment(float from, float to, float by)
+        {
+            if (from == to) return from;
+
+            if (from < to)
+            {
+                var result = from + by;
+                return result < to ? result : to; 
+            }
+            else
+            {
+                var result = from - by;
+                return result > to ? result : to;
+            }
+        }
+
         public static float Remap(
             this float value,
             float from1,

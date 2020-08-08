@@ -68,8 +68,8 @@ namespace Exa.Grids.Ships
 
         private void UpdateCanvasSize(Blueprint blueprint)
         {
-            var scale = blueprint.Blocks.MaxSize * 0.01f * references.canvasScaleMultiplier;
-            overlay.canvas.transform.localScale = new Vector3(scale, scale, 1);
+            var scale = blueprint.Blocks.MaxSize * 10 * references.canvasScaleMultiplier;
+            overlay.rectContainer.sizeDelta = new Vector2(scale, scale);
         }
     }
 }
