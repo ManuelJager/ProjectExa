@@ -3,6 +3,7 @@ using Exa.UI;
 using Exa.Utils;
 using System;
 using UnityEngine;
+using Exa.Misc;
 
 namespace Exa.Debugging
 {
@@ -27,7 +28,10 @@ namespace Exa.Debugging
             }
 
             defaultLogHandler.LogException(exception, context);
-            exception.OnAssignableFrom<UserException>(LogUserException);
+            if (exception is UserException)
+            {
+                LogUserException(exception as UserException);
+            }
         }
 
         [System.Diagnostics.DebuggerHidden]

@@ -2,7 +2,7 @@
 using Exa.UI.Controls;
 using UnityEngine;
 
-namespace Exa.UI.Components
+namespace Exa.UI
 {
     public class FormGenerator : MonoBehaviour
     {

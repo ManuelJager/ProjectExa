@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.UI.Components
+namespace Exa.UI.Diagnostics
 {
     public class FpsCounter : MonoBehaviour
     {

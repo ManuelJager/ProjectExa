@@ -1,7 +1,6 @@
-﻿using Exa.UI.Tooltips;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Exa.Generics
+namespace Exa.UI.Tooltips
 {
     public struct TooltipTitle : ITooltipComponent
     {

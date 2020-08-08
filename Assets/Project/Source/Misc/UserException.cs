@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exa.Generics
+namespace Exa.Misc
 {
     /// <summary>
     /// Base class for any exception that should be logged directly to the user

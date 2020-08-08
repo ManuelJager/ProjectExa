@@ -28,6 +28,11 @@ namespace Exa.UI.Controls
             return container.Control(validator, args);
         }
 
+        public void ApplyResults(ValidationResult errors)
+        {
+            container.ApplyResults(errors);
+        }
+
         public void OnEnable()
         {
             foreach (Transform child in transform)
@@ -45,10 +50,10 @@ namespace Exa.UI.Controls
         public virtual ValidationErrorContainerBuilder CreateSchemaBuilder()
         {
             return new ValidationErrorContainerBuilder()
-                .OnUnhandledError(OnUnhandledErrorHandler, OnUnhandledErrorCleaner);
+                .OnUnhandledError(UnhandledErrorHandler, UnhandledErrorCleaner);
         }
 
-        public virtual void OnUnhandledErrorHandler(ValidationError validationError)
+        public virtual void UnhandledErrorHandler(ValidationError validationError)
         {
             var id = validationError.Id;
             if (!panelByError.ContainsKey(id))
@@ -65,7 +70,7 @@ namespace Exa.UI.Controls
             }
         }
 
-        public virtual void OnUnhandledErrorCleaner(ValidationError validationError)
+        public virtual void UnhandledErrorCleaner(ValidationError validationError)
         {
             var id = validationError.Id;
             panelByError[id].gameObject.SetActive(false);

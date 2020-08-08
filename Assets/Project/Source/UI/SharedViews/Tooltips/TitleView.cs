@@ -1,4 +1,4 @@
-﻿using Exa.Generics;
+﻿using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.UI;
 

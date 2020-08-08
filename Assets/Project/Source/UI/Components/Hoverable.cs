@@ -82,9 +82,9 @@ namespace Exa.UI
             mouseOverControl = false;
             onPointerExit?.Invoke();
 
-            if (InvokeStateChange)
+            if (InvokeStateChange && !Systems.IsQuitting)
             {
-                MiscUtils.InvokeIfNotQuitting(OnExit);
+                OnExit();
             }
         }
 

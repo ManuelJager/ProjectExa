@@ -1,5 +1,6 @@
 ﻿using Exa.Data;
 using Exa.Grids.Blueprints.Editor;
+using Exa.UI.Diagnostics;
 using Exa.UI.Tooltips;
 using UCommandConsole;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Exa.UI
         public UserExceptionLogger userExceptionLogger;
         public MouseCursorController mouseCursor;
         public PromptController promptController;
-        public Diagnostics diagnostics;
+        public DiagnosticsPanel diagnostics;
         public SettingsManager settingsManager;
 
         private void Awake()

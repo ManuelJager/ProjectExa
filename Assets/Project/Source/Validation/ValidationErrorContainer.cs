@@ -33,12 +33,20 @@ namespace Exa.Validation
         public ValidationResult Control<TArgs>(IValidator<TArgs> validator, TArgs args)
         {
             // Get errors
-            var currErrors = validator.Validate(args);
-            var currValidator = currErrors.ContextID;
-            var currErrorIds = currErrors.Select(error => error.Id);
+            var errors = validator.Validate(args);
+
+            ApplyResults(errors);
+
+            return errors;
+        }
+
+        public void ApplyResults(ValidationResult errors)
+        {
+            var currValidator = errors.ContextID;
+            var currErrorIds = errors.Select(error => error.Id);
 
             // Error handlers
-            foreach (var currentError in currErrors)
+            foreach (var currentError in errors)
             {
                 // Check if there is a specific error handler for the error, otherwise use the default one
                 if (errorHandlers.ContainsKey(currValidator) &&
@@ -73,9 +81,7 @@ namespace Exa.Validation
             }
 
             // Keep track of the thrown errors for the current validator
-            lastControlErrors[currValidator] = currErrors;
-
-            return currErrors;
+            lastControlErrors[currValidator] = errors;
         }
     }
 }
