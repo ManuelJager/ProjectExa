@@ -13,10 +13,11 @@ namespace Exa.Input
         private MouseCursorController mouseCursor;
         private Canvas root;
 
-        public Vector2 ScaledMousePosition
-        {
-            get => Mouse.current.position.ReadValue() / root.scaleFactor;
-        }
+        public Vector2 ScaledViewportPoint { get; private set; }
+
+        public Vector2 ScreenPoint { get; private set; }
+
+        public Vector2 ViewportPoint { get; private set; }
 
         public Vector2 MouseWorldPoint { get; private set; }
 
@@ -29,14 +30,16 @@ namespace Exa.Input
         private void Update()
         {
             var mousePos = Mouse.current.position.ReadValue();
+            ScaledViewportPoint = mousePos / root.scaleFactor;
+            ScreenPoint = mousePos;
             MouseWorldPoint = Camera.main.ScreenToWorldPoint(mousePos);
-            var posInViewport = Camera.main.ScreenToViewportPoint(mousePos);
+            ViewportPoint = Camera.main.ScreenToViewportPoint(mousePos);
 
             var currFrameMouseInViewport = !(
-                posInViewport.x < 0f ||
-                posInViewport.x > 1f ||
-                posInViewport.y < 0f ||
-                posInViewport.y > 1f);
+                ViewportPoint.x < 0f ||
+                ViewportPoint.x > 1f ||
+                ViewportPoint.y < 0f ||
+                ViewportPoint.y > 1f);
 
             if (currFrameMouseInViewport != mouseInViewport)
             {

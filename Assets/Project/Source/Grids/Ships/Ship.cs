@@ -28,7 +28,7 @@ namespace Exa.Grids.Ships
             }
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             blockGrid = new BlockGrid(references.pivot, this);
         }

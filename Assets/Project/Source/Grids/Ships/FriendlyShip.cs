@@ -9,7 +9,13 @@ namespace Exa.Grids.Ships
     {
         [SerializeField] private CircleCollider2D mouseOverCollider;
 
-        private static CursorOverride cursorOverride = new CursorOverride(CursorState.active);
+        private static CursorOverride cursorOverride;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            cursorOverride = new CursorOverride(CursorState.active, this);
+        }
 
         public override void Import(Blueprint blueprint)
         {

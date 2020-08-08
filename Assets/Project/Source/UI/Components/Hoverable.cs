@@ -27,7 +27,7 @@ namespace Exa.UI
 
         private void Awake()
         {
-            cursorOverride = new CursorOverride(cursorState);
+            cursorOverride = new CursorOverride(cursorState, this);
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
         }
@@ -60,35 +60,31 @@ namespace Exa.UI
 
         public void OnEnable()
         {
-            this.DelayOneFrame(() =>
+            if (mouseOverControl) return;
+
+            var mousePos = Systems.InputManager.ScreenPoint;
+            if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos, Camera.main))
             {
-                if (mouseOverControl) return;
+                mouseOverControl = true;
+                onPointerEnter?.Invoke();
 
-                var mousePos = Systems.InputManager.ScaledMousePosition;
-                if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos))
+                if (InvokeStateChange)
                 {
-                    mouseOverControl = true;
-                    onPointerEnter?.Invoke();
-
-                    if (InvokeStateChange)
-                    {
-                        OnEnter();
-                    }
+                    OnEnter();
                 }
-            });
+            }
         }
 
         public void OnDisable()
         {
-            if (mouseOverControl)
-            {
-                mouseOverControl = false;
-                onPointerExit?.Invoke();
+            if (!mouseOverControl) return;
 
-                if (InvokeStateChange)
-                {
-                    MiscUtils.InvokeIfNotQuitting(OnExit);
-                }
+            mouseOverControl = false;
+            onPointerExit?.Invoke();
+
+            if (InvokeStateChange)
+            {
+                MiscUtils.InvokeIfNotQuitting(OnExit);
             }
         }
 

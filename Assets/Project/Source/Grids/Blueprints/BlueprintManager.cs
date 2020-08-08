@@ -39,7 +39,14 @@ namespace Exa.Grids.Blueprints
             // Load user defined blueprints
             foreach (var blueprintPath in userBlueprintPaths)
             {
-                AddUserBlueprint(blueprintPath);
+                try
+                {
+                    AddUserBlueprint(blueprintPath);
+                }
+                catch (Exception e)
+                {
+                    Systems.MainUI.userExceptionLogger.Log($"Error loading blueprint: {e.Message}");
+                }
 
                 yield return null;
                 iterator++;
@@ -74,7 +81,7 @@ namespace Exa.Grids.Blueprints
 
             if (ContainsName(blueprint.Data.name))
             {
-                throw new ArgumentException("Blueprint name is duplicate");
+                throw new ArgumentException("Blueprint named is duplicate");
             }
 
             observableDefaultBlueprints.Add(blueprint);
@@ -91,7 +98,7 @@ namespace Exa.Grids.Blueprints
 
             if (ContainsName(blueprint.name))
             {
-                throw new ArgumentException("Blueprint name is duplicate");
+                throw new ArgumentException($"Blueprint named \"{blueprint.name}\" is duplicate");
             }
 
             var args = new BlueprintContainerArgs(blueprint)

@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Exa.UI
+﻿namespace Exa.UI
 {
     public class CursorOverride
     {
         public readonly CursorState cursorState;
+        private readonly object invoker;
 
         public CursorOverride(CursorState cursorState)
         {
             this.cursorState = cursorState;
+        }
+
+        public CursorOverride(CursorState cursorState, object invoker)
+        {
+            this.cursorState = cursorState;
+            this.invoker = invoker;
         }
     }
 }

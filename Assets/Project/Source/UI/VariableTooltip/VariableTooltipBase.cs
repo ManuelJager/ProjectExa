@@ -32,7 +32,7 @@ namespace Exa.UI.Tooltips
         public void SetContainerPosition()
         {
             // Get the mouse position
-            var mousePos = Systems.InputManager.ScaledMousePosition;
+            var mousePos = Systems.InputManager.ScaledViewportPoint;
 
             // Get the edge of the container by adding the mouse position to the container size
             var edge = mousePos + container.sizeDelta;
