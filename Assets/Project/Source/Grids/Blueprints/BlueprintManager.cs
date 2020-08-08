@@ -29,7 +29,7 @@ namespace Exa.Grids.Blueprints
             // Load default blueprints
             foreach (var defaultBlueprint in defaultBlueprintBag)
             {
-                observableDefaultBlueprints.Add(defaultBlueprint.ToContainer());
+                AddDefaultBlueprint(defaultBlueprint);
 
                 yield return null;
                 iterator++;
@@ -39,8 +39,7 @@ namespace Exa.Grids.Blueprints
             // Load user defined blueprints
             foreach (var blueprintPath in userBlueprintPaths)
             {
-                var blueprint = IOUtils.JsonDeserializeFromPath<Blueprint>(blueprintPath);
-                AddUserBlueprint(blueprint, blueprintPath);
+                AddUserBlueprint(blueprintPath);
 
                 yield return null;
                 iterator++;
@@ -63,15 +62,37 @@ namespace Exa.Grids.Blueprints
             throw new KeyNotFoundException();
         }
 
-        public bool BlueprintNameExists(string name)
+        public bool ContainsName(string name)
         {
             return observableDefaultBlueprints.ContainsKey(name)
                 || observableUserBlueprints.ContainsKey(name);
         }
 
-        private void AddUserBlueprint(Blueprint blueprint, string path)
+        private void AddDefaultBlueprint(DefaultBlueprint defaultBlueprint)
         {
-            if (blueprint == null || BlueprintNameExists(blueprint.name)) return;
+            var blueprint = defaultBlueprint.ToContainer();
+
+            if (ContainsName(blueprint.Data.name))
+            {
+                throw new ArgumentException("Blueprint name is duplicate");
+            }
+
+            observableDefaultBlueprints.Add(blueprint);
+        }
+
+        private void AddUserBlueprint(string path)
+        {
+            var blueprint = IOUtils.JsonDeserializeFromPath<Blueprint>(path);
+
+            if (blueprint == null)
+            {
+                throw new ArgumentNullException("blueprint");
+            }
+
+            if (ContainsName(blueprint.name))
+            {
+                throw new ArgumentException("Blueprint name is duplicate");
+            }
 
             var args = new BlueprintContainerArgs(blueprint)
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Exa.Generics
 {
-    // TODO: Fix this horribleness
+    // NOTE: Poor lookup time, don't use for large datasets
     public class ObservableDictionary<TKey, TValue> : ObservableCollection<TValue>
         where TValue : IKeySelector<TKey>
     {

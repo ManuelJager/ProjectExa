@@ -75,27 +75,5 @@ namespace Exa.Grids.Ships
             block.gameObject.SetActive(true);
             return block;
         }
-
-        // TODO: Optimize this by creating subgrids
-        private Vector2 CalculateCentreOfMass()
-        {
-            var total = new Vector2();
-            var totalMass = 0f;
-
-            foreach (var block in this)
-            {
-                if (block is IPhysical)
-                {
-                    var physicalBehaviour = (block as IPhysical).PhysicalBehaviour;
-                    var position = block.GetLocalPosition();
-                    var mass = physicalBehaviour.data.mass;
-
-                    total += position * mass;
-                    totalMass += mass;
-                }
-            }
-
-            return total / totalMass;
-        }
     }
 }

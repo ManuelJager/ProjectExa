@@ -58,8 +58,7 @@ namespace Exa.UI
             var args = new BlueprintContainerArgs(blueprint);
             var container = new BlueprintContainer(args);
 
-            // TODO: Replace this by a method on the blueprint manager that validates the name 
-            if (Source.Contains(container))
+            if (Systems.BlueprintManager.ContainsName(blueprint.name))
             {
                 UserExceptionLogger.Instance.Log("Blueprint with given name already added");
                 return;
@@ -131,11 +130,19 @@ namespace Exa.UI
 
         private void ImportBlueprintWithOptions(BlueprintOptions options)
         {
-            var args = new BlueprintContainerArgs(new Blueprint(options));
-            var observableBlueprint = new BlueprintContainer(args);
+            var blueprint = new Blueprint(options);
+
+            if (Systems.BlueprintManager.ContainsName(blueprint.name))
+            {
+                Systems.MainUI.userExceptionLogger.Log($"Blueprint name \"{blueprint.name}\" is already used");
+                return;
+            }
+
+            var args = new BlueprintContainerArgs(blueprint);
+            var container = new BlueprintContainer(args);
 
             shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
-            shipEditor.Import(observableBlueprint, TrySave);
+            shipEditor.Import(container, TrySave);
         }
     }
 }
