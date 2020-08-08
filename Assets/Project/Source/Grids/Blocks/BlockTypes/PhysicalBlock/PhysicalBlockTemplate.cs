@@ -15,13 +15,13 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public override void SetValues(T block)
         {
-            block.PhysicalBlockBehaviour.data = physicalTemplatePartial.Convert();
+            block.PhysicalBehaviour.data = physicalTemplatePartial.Convert();
         }
 
         protected override T BuildOnGameObject(GameObject gameObject)
         {
             var instance = base.BuildOnGameObject(gameObject);
-            instance.PhysicalBlockBehaviour = AddBlockBehaviour<PhysicalBehaviour>(instance);
+            instance.PhysicalBehaviour = AddBlockBehaviour<PhysicalBehaviour>(instance);
             return instance;
         }
 

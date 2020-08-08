@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Thruster : PhysicalBlock
+    public class Thruster : PhysicalBlock, IThruster
     {
         [SerializeField] private ThrusterBehaviour thrusterBehaviour;
 

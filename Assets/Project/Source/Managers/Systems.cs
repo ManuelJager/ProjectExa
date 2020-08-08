@@ -15,6 +15,8 @@ using UnityEngine;
 
 namespace Exa
 {
+    public delegate void DebugChangeDelegate(bool state);
+
     public class Systems : MonoSingleton<Systems>
     {
         [Header("References")]
@@ -29,6 +31,8 @@ namespace Exa
         [SerializeField] private LoggerInterceptor logger;
         [SerializeField] private MainUI mainUI;
 
+        private static bool debugIsEnabled = false;
+
         public static BlockFactory BlockFactory => Instance.blockFactory;
         public static BlueprintManager BlueprintManager => Instance.blueprintManager;
         public static ShipEditor ShipEditor => Instance.shipEditor;
@@ -41,6 +45,17 @@ namespace Exa
         public static MainUI MainUI => Instance.mainUI;
 
         public static bool IsQuitting { get; set; } = false;
+        public static bool DebugIsEnabled
+        {
+            get => debugIsEnabled;
+            set
+            {
+                debugIsEnabled = false;
+                DebugChange.Invoke(value);
+            }
+        }
+
+        public static event DebugChangeDelegate DebugChange;
 
         private void Start()
         {

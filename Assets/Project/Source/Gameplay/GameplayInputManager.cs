@@ -50,7 +50,7 @@ namespace Exa.Gameplay
 
             var hits = Physics2D.RaycastAll(worldPoint, Vector2.zero);
 
-            // TODO: Fix this as it doesn't actually support multiple ray
+            // TODO: Fix this as it doesn't actually support multiple rays
             var foundTarget = false;
             foreach (var hit in hits)
             {

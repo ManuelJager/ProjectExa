@@ -15,7 +15,7 @@ namespace Exa.Grids.Ships
         {
             base.Import(blueprint);
             
-            var radius = blueprint.Blocks.MaxSize / 2f;
+            var radius = blueprint.Blocks.MaxSize / 2f + 12;
             mouseOverCollider.radius = radius;
         }
 

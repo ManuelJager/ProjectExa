@@ -33,13 +33,9 @@ namespace Exa.Grids.Ships
             blockGrid = new BlockGrid(references.pivot, this);
         }
 
-        private void Update()
-        {
-            Hull = blockGrid.CurrentHull / blockGrid.TotalHull;
-        }
-
         private void LateUpdate()
         {
+            Hull = blockGrid.CurrentHull / blockGrid.TotalHull;
             UpdateCentreOfMassPivot(true);
         }
 
@@ -52,9 +48,14 @@ namespace Exa.Grids.Ships
             UpdateCentreOfMassPivot(false);
         }
 
+        public string GetInstanceString()
+        {
+            return $"{blueprint.name} : {gameObject.GetInstanceID()}";
+        }
+
         private void UpdateCentreOfMassPivot(bool updateSelf)
         {
-            var COMOffset = -blockGrid.CentreOfMass.Value;
+            var COMOffset = -blockGrid.CentreOfMass.GetCentreOfMass();
 
             if (updateSelf)
             {

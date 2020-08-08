@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class PhysicalBlock : Block
+    public class PhysicalBlock : Block, IPhysical
     {
-        [SerializeField] private PhysicalBehaviour physicalBlockBehaviour;
+        [SerializeField] private PhysicalBehaviour physicalBehaviour;
 
-        public PhysicalBehaviour PhysicalBlockBehaviour { get => physicalBlockBehaviour; set => physicalBlockBehaviour = value; }
+        public PhysicalBehaviour PhysicalBehaviour { get => physicalBehaviour; set => physicalBehaviour = value; }
 
         public override Ship Ship
         {
             set
             {
                 base.Ship = value;
-                physicalBlockBehaviour.Ship = value;
+                physicalBehaviour.Ship = value;
             }
         }
     }

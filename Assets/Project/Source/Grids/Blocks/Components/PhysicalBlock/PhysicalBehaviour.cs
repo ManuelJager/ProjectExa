@@ -2,6 +2,11 @@
 
 namespace Exa.Grids.Blocks.Components
 {
+    public interface IPhysical
+    {
+        PhysicalBehaviour PhysicalBehaviour { get; }
+    }
+
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
     {
         public void TakeDamage(float damage, ref PhysicalData data)

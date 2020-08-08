@@ -11,7 +11,6 @@ namespace Exa.Grids
         where T : IGridMember
     {
         public LazyCache<Vector2Int> Size { get; protected set; }
-        public LazyCache<Vector2> CentreOfMass { get; protected set; }
         protected List<T> GridMembers { get; set; }
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
@@ -24,7 +23,6 @@ namespace Exa.Grids
                 return bounds.GetDelta();
             });
 
-            CentreOfMass = new LazyCache<Vector2>(this.CalculateCentreOfMass);
             GridMembers = new List<T>();
             OccupiedTiles = new Dictionary<Vector2Int, T>();
             NeighbourDict = new Dictionary<T, List<T>>();
@@ -33,7 +31,6 @@ namespace Exa.Grids
         public virtual void Add(T gridMember)
         {
             Size.Invalidate();
-            CentreOfMass.Invalidate();
 
             GridMembers.Add(gridMember);
 
@@ -58,7 +55,6 @@ namespace Exa.Grids
         public virtual T Remove(Vector2Int key)
         {
             Size.Invalidate();
-            CentreOfMass.Invalidate();
 
             var gridMember = GetMember(key);
             var tilePositions = GridUtils.GetOccupiedTilesByAnchor(gridMember);

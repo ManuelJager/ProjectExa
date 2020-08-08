@@ -33,20 +33,6 @@ namespace Exa.Grids
             }
         }
 
-        // TODO: Apply actual mass
-        public static Vector2 CalculateCentreOfMass<T>(this Grid<T> grid)
-            where T : IGridMember
-        {
-            var total = new Vector2();
-
-            foreach (var block in grid)
-            {
-                total += block.GetLocalPosition();
-            }
-
-            return total / grid.GetMemberCount();
-        }
-
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(IGridMember gridMember)
         {
             var block = gridMember.BlueprintBlock;

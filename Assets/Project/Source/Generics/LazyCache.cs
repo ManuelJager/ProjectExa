@@ -8,9 +8,9 @@ namespace Exa.Generics
     /// <typeparam name="T"></typeparam>
     public class LazyCache<T>
     {
-        private T value;
-        private Func<T> valueFactory;
-        private bool valueUpdated = false;
+        protected Func<T> valueFactory;
+        protected T value;
+        protected bool valueUpdated = false;
 
         public T Value
         {
@@ -25,6 +25,10 @@ namespace Exa.Generics
 
                 return value;
             }
+        }
+
+        public LazyCache()
+        {
         }
 
         public LazyCache(Func<T> valueFactory)

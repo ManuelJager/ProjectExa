@@ -21,17 +21,23 @@ namespace Exa.Gameplay
         {
             var ship = shipGO.GetComponent<T>();
             var blueprint = Systems.BlueprintManager.GetBlueprint(name);
-            CreateOverlay(ship);
+            var overlay = CreateOverlay(ship);
             ship.Import(blueprint.Data);
+
+            var instanceString = ship.GetInstanceString();
+            overlay.gameObject.name = $"Overlay: {instanceString}";
+            shipGO.name = $"{typeof(T).Name} - {instanceString}";
+
             return ship;
         }
 
-        private void CreateOverlay(Ship ship)
+        private ShipOverlay CreateOverlay(Ship ship)
         {
             var overlayGO = Instantiate(shipOverlayPrefab, overlayContainer);
             var overlay = overlayGO.GetComponent<ShipOverlay>();
             overlay.ship = ship;
             ship.overlay = overlay;
+            return overlay;
         }
     }
 }
