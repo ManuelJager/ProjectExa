@@ -10,9 +10,10 @@ namespace Exa.Gameplay
         [SerializeField] private Transform shipContainer;
         [SerializeField] private Transform overlayContainer;
 
-        public FriendlyShip CreateFriendly(string name)
+        public FriendlyShip CreateFriendly(string name, Vector2 worldPos = new Vector2())
         {
             var shipGO = Instantiate(friendlyShipPrefab, shipContainer);
+            shipGO.transform.position = worldPos;
             return Configure<FriendlyShip>(shipGO, name);
         }
 

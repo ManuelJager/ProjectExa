@@ -19,6 +19,11 @@ namespace Exa.Gameplay
         public void Update()
         {
             UpdateRaycastTarget();
+
+            if (IsSelectingArea)
+            {
+                OnUpdateSelectionArea();
+            }
         }
 
         public void OnEnable()
@@ -45,9 +50,7 @@ namespace Exa.Gameplay
                 raycastTarget = null;
             }
 
-            var mousePos = Mouse.current.position.ReadValue();
-            var worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
-
+            var worldPoint = Systems.InputManager.MouseWorldPoint;
             var hits = Physics2D.RaycastAll(worldPoint, Vector2.zero);
 
             // TODO: Fix this as it doesn't actually support multiple rays
@@ -63,6 +66,7 @@ namespace Exa.Gameplay
 
                     if (this.raycastTarget != raycastTarget)
                     {
+                        OnExit();
                         OnEnter(raycastTarget);
                         return;
                     }

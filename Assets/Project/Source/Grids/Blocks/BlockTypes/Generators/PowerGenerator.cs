@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class PowerGenerator : PhysicalBlock, IPowerGeneratorBehaviour
+    public class PowerGenerator : Block, IPowerGeneratorBehaviour
     {
         [SerializeField] private PowerGeneratorBehaviour powerGeneratorBehaviour;
 

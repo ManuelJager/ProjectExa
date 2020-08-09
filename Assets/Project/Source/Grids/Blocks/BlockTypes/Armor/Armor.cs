@@ -1,6 +1,6 @@
 ﻿namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Armor : PhysicalBlock
+    public class Armor : Block
     {
     }
 }

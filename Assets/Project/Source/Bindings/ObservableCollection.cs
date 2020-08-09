@@ -138,7 +138,6 @@ namespace Exa.Bindings
             if (Observers.Contains(observer)) return;
 
             Observers.Add(observer);
-            observer.Source = this;
         }
 
         /// <summary>
@@ -150,7 +149,6 @@ namespace Exa.Bindings
             if (!Observers.Contains(observer)) return;
 
             Observers.Remove(observer);
-            observer.Source = null;
         }
     }
 }

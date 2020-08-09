@@ -1,18 +1,16 @@
-﻿using Exa.Grids.Ships;
-using Exa.Utils;
+﻿using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Exa.Gameplay
 {
-    public class ShipOverlay : MonoBehaviour
+    public class ShipOverlayHullBar : MonoBehaviour
     {
-        public Ship ship;
-        public RectTransform rectContainer;
         public Image actualFillImage;
         public Image rememberedFillImage;
-        
+
         [SerializeField] private float timeToUpdateRememberedFill = 3f;
+        [SerializeField] private float rememberedFillSpeed = 0.4f;
         private float actualFill = 1f;
         private float rememberedFill = 1f;
         private float timeSinceFillChange;
@@ -39,13 +37,12 @@ namespace Exa.Gameplay
 
         private void Update()
         {
-            transform.position = ship.transform.position;
-
             timeSinceFillChange += Time.deltaTime;
 
             if (timeSinceFillChange > timeToUpdateRememberedFill)
             {
-                RememberedFill = MathUtils.Increment(RememberedFill, ActualFill, Time.deltaTime * 0.2f);
+                var speed = Time.deltaTime * rememberedFillSpeed;
+                RememberedFill = MathUtils.Increment(RememberedFill, ActualFill, speed);
             }
         }
 

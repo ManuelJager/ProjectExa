@@ -5,7 +5,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/Armor")]
-    public class ArmorTemplate : PhysicalBlockTemplate<Armor>
+    public class ArmorTemplate : BlockTemplate<Armor>
     {
     }
 }

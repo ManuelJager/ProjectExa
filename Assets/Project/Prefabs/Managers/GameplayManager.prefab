@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3971752618548431335}
   - component: {fileID: 3971752618548431352}
   - component: {fileID: 3971752618548431334}
-  - component: {fileID: 3971752618548431333}
+  - component: {fileID: -5148195961969832546}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayInputManager: {fileID: 3971752618548431335}
   navigateable: {fileID: 3971752618548431334}
-  shipFactory: {fileID: 3971752618548431333}
+  shipFactory: {fileID: -5148195961969832546}
   gameplayUI: {fileID: 0}
 --- !u!114 &3971752618548431335
 MonoBehaviour:
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c5382a2a987e246b59a59e5e0fa77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3971752618548431333
+--- !u!114 &-5148195961969832546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3971752618548431355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bb80d05867d65f43a0a35488ea04284, type: 3}
+  m_Script: {fileID: 11500000, guid: 40bcd5a6fb36f8443b4ca9f352fbc92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   friendlyShipPrefab: {fileID: 6183172587043395867, guid: 3aea6e1a07124344f96c6f74c03a53bb,

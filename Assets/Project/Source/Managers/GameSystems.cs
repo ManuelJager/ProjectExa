@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Exa
 {
-    public class GameplayManager : MonoSingleton<GameplayManager>
+    public class GameSystems : MonoSingleton<GameSystems>
     {
         [SerializeField] private GameplayInputManager gameplayInputManager;
         [SerializeField] private Navigateable navigateable;
@@ -21,7 +21,9 @@ namespace Exa
         protected override void Awake()
         {
             base.Awake();
-            shipFactory.CreateFriendly("defaultMothership");
+            shipFactory.CreateFriendly("defaultScout", new Vector2(-20, 20));
+            shipFactory.CreateFriendly("defaultScout", new Vector2(0, 20));
+            shipFactory.CreateFriendly("defaultScout", new Vector2(20, 20));
         }
     }
 }

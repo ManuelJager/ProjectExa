@@ -15,14 +15,27 @@ namespace Exa.Grids.Blocks
     /// Provides a generic base class for storing and setting the base values of blocks
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BlockTemplate<T> : BlockTemplate
+    public class BlockTemplate<T> : BlockTemplate, IPhysicalTemplatePartial
         where T : Block
     {
-        public abstract void SetValues(T block);
+        [SerializeField] private PhysicalTemplatePartial physicalTemplatePartial;
+
+        public PhysicalTemplatePartial PhysicalTemplatePartial 
+        { 
+            get => physicalTemplatePartial; 
+            set => physicalTemplatePartial = value; 
+        }
+
+        public virtual void SetValues(T block)
+        {
+            block.PhysicalBehaviour.data = physicalTemplatePartial.Convert();
+        }
 
         protected virtual T BuildOnGameObject(GameObject gameObject)
         {
-            return gameObject.AddComponent<T>();
+            var instance = gameObject.AddComponent<T>();
+            instance.PhysicalBehaviour = AddBlockBehaviour<PhysicalBehaviour>(instance);
+            return instance;
         }
 
         public override Block AddBlockOnGameObject(GameObject gameObject)
@@ -41,6 +54,12 @@ namespace Exa.Grids.Blocks
             var behaviour = blockInstance.gameObject.AddComponent<S>();
             behaviour.block = blockInstance;
             return behaviour;
+        }
+
+        protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
+        {
+            return base.TooltipComponentFactory()
+                .Concat(physicalTemplatePartial.GetTooltipComponents());
         }
     }
 

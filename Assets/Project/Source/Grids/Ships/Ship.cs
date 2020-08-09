@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Exa.Grids.Ships
 {
-    public class Ship : MonoBehaviour
+    public class Ship : MonoBehaviour, IRaycastTarget
     {
         public BlockGrid blockGrid;
         public ShipReferences references;
@@ -24,7 +24,7 @@ namespace Exa.Grids.Ships
             set
             {
                 hull = value;
-                overlay.SetFill(value);
+                overlay.overlayHullBar.SetFill(value);
             }
         }
 
@@ -53,6 +53,26 @@ namespace Exa.Grids.Ships
             return $"{blueprint.name} : {gameObject.GetInstanceID()}";
         }
 
+        public virtual void OnRaycastEnter()
+        {
+            overlay.overlayCircle.IsHovered = true;
+        }
+
+        public virtual void OnRaycastExit()
+        {
+            overlay.overlayCircle.IsHovered = false;
+        }
+
+        public virtual ShipSelection GetAppropriateSelection()
+        {
+            return new ShipSelection();
+        }
+
+        public virtual bool MatchesSelection(ShipSelection selection)
+        {
+            return selection is ShipSelection;
+        }
+
         private void UpdateCentreOfMassPivot(bool updateSelf)
         {
             var COMOffset = -blockGrid.CentreOfMass.GetCentreOfMass();
@@ -69,8 +89,8 @@ namespace Exa.Grids.Ships
 
         private void UpdateCanvasSize(Blueprint blueprint)
         {
-            var scale = blueprint.Blocks.MaxSize * 10 * references.canvasScaleMultiplier;
-            overlay.rectContainer.sizeDelta = new Vector2(scale, scale);
+            var size = blueprint.Blocks.MaxSize * 10 * references.canvasScaleMultiplier;
+            overlay.rectContainer.sizeDelta = new Vector2(size, size);
         }
     }
 }

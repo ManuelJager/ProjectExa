@@ -1,6 +1,6 @@
 ﻿namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Controller : PhysicalBlock
+    public class Controller : Block
     {
     }
 }

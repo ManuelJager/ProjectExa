@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Ships
 {
-    public class FriendlyShip : Ship, IRaycastTarget
+    public class FriendlyShip : Ship
     {
         [SerializeField] private CircleCollider2D mouseOverCollider;
 
@@ -21,18 +21,30 @@ namespace Exa.Grids.Ships
         {
             base.Import(blueprint);
             
-            var radius = blueprint.Blocks.MaxSize / 2f + 12;
+            var radius = blueprint.Blocks.MaxSize / 2f * references.canvasScaleMultiplier;
             mouseOverCollider.radius = radius;
         }
 
-        public void OnRaycastEnter()
+        public override void OnRaycastEnter()
         {
+            base.OnRaycastEnter();
             Systems.MainUI.mouseCursor.AddOverride(cursorOverride);
         }
 
-        public void OnRaycastExit()
+        public override void OnRaycastExit()
         {
+            base.OnRaycastExit();
             Systems.MainUI.mouseCursor.RemoveOverride(cursorOverride);
+        }
+
+        public override ShipSelection GetAppropriateSelection()
+        {
+            return new FriendlyShipSelection();
+        }
+
+        public override bool MatchesSelection(ShipSelection selection)
+        {
+            return selection is FriendlyShipSelection;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Exa.UI
 
             transition.onPrepared.AddListener(() =>
             {
-                self.NavigateTo(GameplayManager.Navigateable);
+                self.NavigateTo(GameSystems.Navigateable);
             });
         }
 

@@ -273,12 +273,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3971752618548431333, guid: 5b47039535f26ce4a84ca29216ae1814,
+    - target: {fileID: -5148195961969832546, guid: 5b47039535f26ce4a84ca29216ae1814,
         type: 3}
       propertyPath: shipContainer
       value: 
       objectReference: {fileID: 2101903111}
-    - target: {fileID: 3971752618548431333, guid: 5b47039535f26ce4a84ca29216ae1814,
+    - target: {fileID: -5148195961969832546, guid: 5b47039535f26ce4a84ca29216ae1814,
         type: 3}
       propertyPath: overlayContainer
       value: 

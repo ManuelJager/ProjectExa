@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Exa.Gameplay
+﻿namespace Exa.Gameplay
 {
     public partial class GameplayInputManager
     {
         private IRaycastTarget raycastTarget = null;
         private ShipSelection shipSelection;
+
+        private bool HasSelection
+        {
+            get => shipSelection != null;
+        }
+
+        private bool IsSelectingArea
+        {
+            get => selectionBuilder != null;
+        }
 
         public ShipSelection ShipSelection
         {
@@ -17,7 +21,7 @@ namespace Exa.Gameplay
             set
             {
                 shipSelection = value;
-                GameplayManager.GameplayUI.selectionOverlay.Reflect(value);
+                GameSystems.GameplayUI.selectionOverlay.Reflect(value);
             }
         }
     }

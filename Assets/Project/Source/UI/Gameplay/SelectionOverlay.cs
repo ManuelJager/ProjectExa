@@ -1,7 +1,9 @@
 ﻿using Exa.Bindings;
 using Exa.Gameplay;
 using Exa.Grids.Ships;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.UI.Gameplay
@@ -13,20 +15,16 @@ namespace Exa.UI.Gameplay
 
         private Dictionary<string, ShipView> shipViews = new Dictionary<string, ShipView>();
 
+        private void Awake()
+        {
+            container.gameObject.SetActive(false);
+        }
+
         public override void OnAdd(Ship ship)
         {
-            var key = ship.Blueprint.name;
-
-            if (!shipViews.ContainsKey(key))
-            {
-                var viewGO = Instantiate(shipViewPrefab, container);
-                var newView = viewGO.GetComponent<ShipView>();
-                newView.SetThumbnail(ship.Blueprint.Thumbnail);
-                shipViews.Add(key, newView);
-            }
-
-            var view = shipViews[key];
+            var view = SelectOrCreateView(ship);
             view.Add(ship);
+            ProcessEnabled();
         }
 
         public override void OnRemove(Ship ship)
@@ -43,6 +41,7 @@ namespace Exa.UI.Gameplay
             }
 
             view.Remove(ship);
+            ProcessEnabled();
         }
 
         public override void OnClear()
@@ -53,12 +52,36 @@ namespace Exa.UI.Gameplay
             }
 
             shipViews.Clear();
+            ProcessEnabled();
         }
 
         public void Reflect(ShipSelection shipSelection)
         {
             this.Source = shipSelection;
-            container.gameObject.SetActive(shipSelection != null);
+            ProcessEnabled();
+        }
+
+        private ShipView SelectOrCreateView(Ship ship)
+        {
+            var key = ship.Blueprint.name;
+            if (!shipViews.ContainsKey(key))
+            {
+                var viewGO = Instantiate(shipViewPrefab, container);
+                var view = viewGO.GetComponent<ShipView>();
+                view.SetThumbnail(ship.Blueprint.Thumbnail);
+                shipViews.Add(key, view);
+                return view;
+            }
+            else
+            {
+                return shipViews[key];
+            }
+        }
+
+        private void ProcessEnabled()
+        {
+            var active = Source != null && Source.Count() > 0;
+            container.gameObject.SetActive(active);
         }
     }
 }
