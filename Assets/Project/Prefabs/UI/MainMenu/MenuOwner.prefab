@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildMessageText: {fileID: 7055817685026536776}
-  buildMessage: {fileID: 11400000, guid: 3f502d16a53f20b4eaeeb61f44761a7f, type: 2}
+  buildMessage: {fileID: 11400000, guid: f6485442c6fc73b45a24319c826b76f9, type: 2}
 --- !u!1 &3008538960454719081
 GameObject:
   m_ObjectHideFlags: 0

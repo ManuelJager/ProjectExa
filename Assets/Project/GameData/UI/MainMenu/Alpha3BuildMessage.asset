@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af089c8e6cc9c9f4eae72cf6cbf22524, type: 3}
+  m_Name: Alpha3BuildMessage
+  m_EditorClassIdentifier: 
+  buildMessage: 'Hello there!
+
+
+    This is the third update for the game, it''s
+    not as big as the others, but it''s something.
+
+    I''ve reworked the console,
+    fixed some bugs with the editor and worked on cleaning up current systems and
+    making stuff like grids and such more performant.
+
+
+    You can now actually
+    press play and select ships and stuff. Next update ill work on unit movement,
+    and more advanced controls. '

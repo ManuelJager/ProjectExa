@@ -51,7 +51,7 @@ namespace Exa
             set
             {
                 Instance.debugIsEnabled = false;
-                DebugChange.Invoke(value);
+                DebugChange?.Invoke(value);
             }
         }
         public static bool GodModeIsAnabled

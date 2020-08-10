@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildMessage: 'Hello there!
 
+
     This is my first build for Project Exa.
 
     I''ve
@@ -24,6 +25,4 @@ MonoBehaviour:
     with 3 blocks, but i hope to release a new build at the second sunday of every
     month.
 
-    Oh, and the game will be some kind of wave survival strategy.
-
-'
+    Oh, and the game will be some kind of wave survival strategy.'
