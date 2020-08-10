@@ -35,16 +35,16 @@ namespace Exa
         [SerializeField] private bool debugIsEnabled = false;
         [SerializeField] private bool godModeIsAnabled = false;
 
-        public static BlockFactory BlockFactory => Instance.blockFactory;
-        public static BlueprintManager BlueprintManager => Instance.blueprintManager;
+        public static BlockFactory Blocks => Instance.blockFactory;
+        public static BlueprintManager Blueprints => Instance.blueprintManager;
         public static ShipEditor ShipEditor => Instance.shipEditor;
-        public static AudioManager AudioManager => Instance.audioManager;
-        public static ThumbnailGenerator ThumbnailGenerator => Instance.thumbnailGenerator;
-        public static DebugManager DebugManager => Instance.debugManager;
-        public static InputManager InputManager => Instance.inputManager;
-        public static ExaSceneManager SceneManager => Instance.sceneManager;
+        public static AudioManager Audio => Instance.audioManager;
+        public static ThumbnailGenerator Thumbnails => Instance.thumbnailGenerator;
+        public static DebugManager Debug => Instance.debugManager;
+        public static InputManager Input => Instance.inputManager;
+        public static ExaSceneManager Scenes => Instance.sceneManager;
         public static LoggerInterceptor Logger => Instance.logger;
-        public static MainUI MainUI => Instance.mainUI;
+        public static MainUI UI => Instance.mainUI;
         public static bool DebugIsEnabled
         {
             get => Instance.debugIsEnabled;
@@ -81,24 +81,24 @@ namespace Exa
         private IEnumerator Load()
         {
             // Allow the screen to be shown
-            MainUI.loadingScreen.ShowScreen();
+            UI.loadingScreen.ShowScreen();
             yield return 0;
 
-            var targetFrameRate = MainUI.settingsManager.videoSettings.current.Values.resolution.refreshRate;
+            var targetFrameRate = UI.settingsManager.videoSettings.current.Values.resolution.refreshRate;
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.StartUp(new Progress<float>((value) =>
             {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)} % complete) ...";
-                MainUI.loadingScreen.ShowMessage(message);
+                UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.StartUp(new Progress<float>((value) =>
             {
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)} % complete) ...";
-                MainUI.loadingScreen.ShowMessage(message);
+                UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate); 
 
-            MainUI.loadingScreen.HideScreen();
+            UI.loadingScreen.HideScreen();
         }
     }
 }

@@ -298,6 +298,14 @@ namespace Exa.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""NumKeys"",
+                    ""type"": ""Value"",
+                    ""id"": ""f1457bf0-3320-4d7d-86b7-f7ddc25cd9e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -399,6 +407,116 @@ namespace Exa.Input
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""575af4d0-e09b-4525-aee3-a94e51b2bbff"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""604737ac-8321-462d-b3aa-8e72f348fbdc"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c74fed5-23ba-4264-9f93-91e461a1ad8a"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58683b3d-93f4-4246-9eb2-e295fd21a6a3"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d4a7c05-d969-4aec-8a36-bffe7da6e4e7"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ea73dbb-4b0a-438b-9080-3d0fdaf70939"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=6)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c2efd8d0-0116-4309-9404-dbf51f179155"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=7)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec1355f6-abd8-4305-8180-4cd1ff49fa90"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=8)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""885ff937-4a91-45cb-9f6d-c5651d283870"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=9)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8debbf68-4854-4872-9467-6bd60d8596f5"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""NumKeys"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -444,6 +562,7 @@ namespace Exa.Input
             m_Gameplay_LeftClick = m_Gameplay.FindAction("LeftClick", throwIfNotFound: true);
             m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
             m_Gameplay_Escape = m_Gameplay.FindAction("Escape", throwIfNotFound: true);
+            m_Gameplay_NumKeys = m_Gameplay.FindAction("NumKeys", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -645,6 +764,7 @@ namespace Exa.Input
         private readonly InputAction m_Gameplay_LeftClick;
         private readonly InputAction m_Gameplay_Movement;
         private readonly InputAction m_Gameplay_Escape;
+        private readonly InputAction m_Gameplay_NumKeys;
         public struct GameplayActions
         {
             private @GameControls m_Wrapper;
@@ -654,6 +774,7 @@ namespace Exa.Input
             public InputAction @LeftClick => m_Wrapper.m_Gameplay_LeftClick;
             public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
             public InputAction @Escape => m_Wrapper.m_Gameplay_Escape;
+            public InputAction @NumKeys => m_Wrapper.m_Gameplay_NumKeys;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -678,6 +799,9 @@ namespace Exa.Input
                     @Escape.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
                     @Escape.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
                     @Escape.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
+                    @NumKeys.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
+                    @NumKeys.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
+                    @NumKeys.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -697,6 +821,9 @@ namespace Exa.Input
                     @Escape.started += instance.OnEscape;
                     @Escape.performed += instance.OnEscape;
                     @Escape.canceled += instance.OnEscape;
+                    @NumKeys.started += instance.OnNumKeys;
+                    @NumKeys.performed += instance.OnNumKeys;
+                    @NumKeys.canceled += instance.OnNumKeys;
                 }
             }
         }
@@ -735,6 +862,7 @@ namespace Exa.Input
             void OnLeftClick(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnEscape(InputAction.CallbackContext context);
+            void OnNumKeys(InputAction.CallbackContext context);
         }
     }
 }

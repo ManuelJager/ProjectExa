@@ -46,7 +46,7 @@ namespace Exa.Gameplay
                 case InputActionPhase.Started:
                     if (HasSelection && ShipSelection.CanControl)
                     {
-                        var point = Systems.InputManager.MouseWorldPoint;
+                        var point = Systems.Input.MouseWorldPoint;
                         ShipSelection.MoveTo(point);
                         return;
                     }
@@ -74,30 +74,50 @@ namespace Exa.Gameplay
             }
         }
 
-        private void OnStartSelectionArea() 
+        public void OnNumKeys(InputAction.CallbackContext context)
         {
-            if (!HasSelection)
+            switch (context.phase)
             {
-                var worldPoint = Systems.InputManager.MouseWorldPoint;
-                selectionBuilder = new SelectionBuilder(worldPoint);
-                GameSystems.GameplayUI.selectionArea.Show(worldPoint);
+                case InputActionPhase.Performed:
+                    var rawValue = context.ReadValue<float>();
+                    var index = Mathf.RoundToInt(rawValue);
+                    OnNumKey(index);
+                    break;
             }
+        }
+
+        private void OnStartSelectionArea()
+        {
+            var worldPoint = Systems.Input.MouseWorldPoint;
+            selectionBuilder = new SelectionBuilder(worldPoint);
+            GameSystems.UI.selectionArea.Show(worldPoint);
         }
 
         private void OnUpdateSelectionArea()
         {
-            var worldPoint = Systems.InputManager.MouseWorldPoint;
-            GameSystems.GameplayUI.selectionArea.SetEnd(worldPoint);
+            var worldPoint = Systems.Input.MouseWorldPoint;
+            GameSystems.UI.selectionArea.SetEnd(worldPoint);
         }
 
         private void OnEndSelectionArea()
         {
             if (IsSelectingArea)
             {
-                var worldPoint = Systems.InputManager.MouseWorldPoint;
+                // Update selection builder
+                var worldPoint = Systems.Input.MouseWorldPoint;
                 selectionBuilder.UpdateSelection(worldPoint);
-                GameSystems.GameplayUI.selectionArea.Hide();
-                ShipSelection = selectionBuilder.Build();
+
+                // Hide the selection area overlay
+                GameSystems.UI.selectionArea.Hide();
+
+                // Get the selection and save it in the hotbar if possible
+                var selection = selectionBuilder.Build();
+                GameSystems.UI.selectionHotbar.Save(selection);
+
+                // Clear the current selection and assign the new one
+                ShipSelection?.Clear();
+                ShipSelection = selection;
+
                 selectionBuilder = null;
             }
         }
@@ -106,8 +126,31 @@ namespace Exa.Gameplay
         {
             if (HasSelection && !IsSelectingArea)
             {
+                // Deselect current selection
+                var currentHotbarSelection = GameSystems.UI.selectionHotbar.CurrentSelection;
+                if (currentHotbarSelection != null)
+                {
+                    // Update the view
+                    currentHotbarSelection.Selected = false;
+                }
+
+                // Clear the selection
                 ShipSelection.Clear();
                 ShipSelection = null;
+            }
+        }
+
+        private void OnNumKey(int index)
+        {
+            if (HasSelection && GameSystems.UI.selectionHotbar.CurrentSelection == null)
+            {
+                GameSystems.UI.selectionHotbar.Select(index);
+                GameSystems.UI.selectionHotbar.Save(ShipSelection);
+            }
+            else
+            {
+                ShipSelection?.Clear();
+                ShipSelection = GameSystems.UI.selectionHotbar.Select(index);
             }
         }
     }

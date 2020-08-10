@@ -28,13 +28,13 @@ namespace Exa.Grids.Ships
         public override void OnRaycastEnter()
         {
             base.OnRaycastEnter();
-            Systems.MainUI.mouseCursor.AddOverride(cursorOverride);
+            Systems.UI.mouseCursor.AddOverride(cursorOverride);
         }
 
         public override void OnRaycastExit()
         {
             base.OnRaycastExit();
-            Systems.MainUI.mouseCursor.RemoveOverride(cursorOverride);
+            Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
         }
 
         public override ShipSelection GetAppropriateSelection()

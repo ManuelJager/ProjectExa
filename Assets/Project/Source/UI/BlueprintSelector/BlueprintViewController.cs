@@ -34,7 +34,7 @@ namespace Exa.UI
 
         public void OnAddNewBlueprint()
         {
-            Systems.MainUI.promptController.PromptForm(
+            Systems.UI.promptController.PromptForm(
                 message: "Add blueprint",
                 uiGroup: this,
                 modelDescriptor: new BlueprintOptionsDescriptor(),
@@ -58,7 +58,7 @@ namespace Exa.UI
             var args = new BlueprintContainerArgs(blueprint);
             var container = new BlueprintContainer(args);
 
-            if (Systems.BlueprintManager.ContainsName(blueprint.name))
+            if (Systems.Blueprints.ContainsName(blueprint.name))
             {
                 UserExceptionLogger.Instance.Log("Blueprint with given name already added");
                 return;
@@ -98,7 +98,7 @@ namespace Exa.UI
             {
                 if (!Interactable) return;
 
-                Systems.MainUI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
+                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
                 {
                     if (yes)
                     {
@@ -118,7 +118,7 @@ namespace Exa.UI
 
         public void TrySave(BlueprintContainer container)
         {
-            Systems.ThumbnailGenerator.GenerateThumbnail(container.Data);
+            Systems.Thumbnails.GenerateThumbnail(container.Data);
             container.ThumbnailFileHandle.Refresh();
             container.BlueprintFileHandle.Refresh();
 
@@ -132,9 +132,9 @@ namespace Exa.UI
         {
             var blueprint = new Blueprint(options);
 
-            if (Systems.BlueprintManager.ContainsName(blueprint.name))
+            if (Systems.Blueprints.ContainsName(blueprint.name))
             {
-                Systems.MainUI.userExceptionLogger.Log($"Blueprint name \"{blueprint.name}\" is already used");
+                Systems.UI.userExceptionLogger.Log($"Blueprint name \"{blueprint.name}\" is already used");
                 return;
             }
 

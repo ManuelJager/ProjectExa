@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Exa.Gameplay
 {
-    public class ShipSelection : ObservableCollection<Ship>
+    public class ShipSelection : ObservableCollection<Ship>, ICloneable
     {
         public bool CanControl { get; protected set; }
 
@@ -54,6 +54,16 @@ namespace Exa.Gameplay
             var callback = callbackDict[ship];
             callbackDict.Remove(ship);
             ship.destroyEvent.RemoveListener(callback);
+        }
+
+        public object Clone()
+        {
+            var newSelection = new ShipSelection();
+            foreach (var item in this)
+            {
+                newSelection.Add(item);
+            }
+            return newSelection;
         }
     }
 }

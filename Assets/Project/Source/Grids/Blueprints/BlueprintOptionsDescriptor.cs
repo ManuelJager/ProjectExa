@@ -9,7 +9,7 @@ namespace Exa.Grids.Blueprints
     {
         public IEnumerable<NamedWrapper<object>> GetValues()
         {
-            var types = Systems.BlueprintManager.blueprintTypes.objects;
+            var types = Systems.Blueprints.blueprintTypes.objects;
             foreach (var type in types)
             {
                 yield return new NamedWrapper<object>
@@ -25,11 +25,11 @@ namespace Exa.Grids.Blueprints
             var hoverable = viewObject.AddComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() =>
             {
-                Systems.MainUI.variableTooltipManager.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
+                Systems.UI.variableTooltipManager.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
-                Systems.MainUI.variableTooltipManager.blueprintTypeTooltip.HideTooltip();
+                Systems.UI.variableTooltipManager.blueprintTypeTooltip.HideTooltip();
             });
         }
     }

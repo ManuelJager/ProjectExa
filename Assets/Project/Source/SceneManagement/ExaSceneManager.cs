@@ -25,7 +25,7 @@ namespace Exa.SceneManagement
 
         private void Awake()
         {
-            loadingScreen = Systems.MainUI.loadingScreen;
+            loadingScreen = Systems.UI.loadingScreen;
         }
 
         public SceneTransition Transition(string name, TransitionArgs transitionArgs)

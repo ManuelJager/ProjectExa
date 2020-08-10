@@ -23,8 +23,8 @@ namespace Exa.Input
 
         private void Awake()
         {
-            mouseCursor = Systems.MainUI.mouseCursor;
-            root = Systems.MainUI.root;
+            mouseCursor = Systems.UI.mouseCursor;
+            root = Systems.UI.root;
         }
 
         private void Update()

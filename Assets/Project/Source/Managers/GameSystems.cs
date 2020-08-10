@@ -16,7 +16,7 @@ namespace Exa
         public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
         public static Navigateable Navigateable => Instance.navigateable;
         public static ShipFactory ShipFactory => Instance.shipFactory;
-        public static GameplayUI GameplayUI => Instance.gameplayUI;
+        public static GameplayUI UI => Instance.gameplayUI;
 
         protected override void Awake()
         {
@@ -24,6 +24,7 @@ namespace Exa
             shipFactory.CreateFriendly("defaultScout", new Vector2(-20, 20));
             shipFactory.CreateFriendly("defaultScout", new Vector2(0, 20));
             shipFactory.CreateFriendly("defaultScout", new Vector2(20, 20));
+            shipFactory.CreateFriendly("defaultMothership", new Vector2(0, -20));
         }
     }
 }

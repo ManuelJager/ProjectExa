@@ -50,7 +50,7 @@ namespace Exa.Gameplay
                 raycastTarget = null;
             }
 
-            var worldPoint = Systems.InputManager.MouseWorldPoint;
+            var worldPoint = Systems.Input.MouseWorldPoint;
             var hits = Physics2D.RaycastAll(worldPoint, Vector2.zero);
 
             // TODO: Fix this as it doesn't actually support multiple rays

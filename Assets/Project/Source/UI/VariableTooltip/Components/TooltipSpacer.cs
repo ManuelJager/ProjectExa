@@ -6,7 +6,7 @@ namespace Exa.UI.Tooltips
     {
         public TooltipComponentBundle InstantiateComponentView(Transform parent)
         {
-            return Systems.MainUI.variableTooltipManager.tooltipGenerator.GenerateTooltipSpacer(this, parent);
+            return Systems.UI.variableTooltipManager.tooltipGenerator.GenerateTooltipSpacer(this, parent);
         }
     }
 }

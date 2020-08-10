@@ -38,7 +38,7 @@ namespace Exa.Grids.Blueprints
             }
             else
             {
-                Systems.ThumbnailGenerator.GenerateThumbnail(Data);
+                Systems.Thumbnails.GenerateThumbnail(Data);
                 ThumbnailFileHandle.Refresh();
             }
         }

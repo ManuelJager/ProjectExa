@@ -22,7 +22,7 @@ namespace Exa.UI
 
         private void Update()
         {
-            rectTransform.anchoredPosition = Systems.InputManager.ScaledViewportPoint;
+            rectTransform.anchoredPosition = Systems.Input.ScaledViewportPoint;
         }
 
         public void SetActive(bool active)

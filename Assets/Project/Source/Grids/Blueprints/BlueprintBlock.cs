@@ -34,12 +34,12 @@ namespace Exa.Grids.Blueprints
             {
                 if (runtimeContext == null)
                 {
-                    if (!Systems.BlockFactory.blockTemplatesDict.ContainsKey(id))
+                    if (!Systems.Blocks.blockTemplatesDict.ContainsKey(id))
                     {
                         throw new KeyNotFoundException($"Block template with id: {id} doesn't exist");
                     }
 
-                    runtimeContext = Systems.BlockFactory.blockTemplatesDict[id];
+                    runtimeContext = Systems.Blocks.blockTemplatesDict[id];
                 }
                 return runtimeContext;
             }

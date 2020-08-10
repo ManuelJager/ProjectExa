@@ -10,7 +10,7 @@ namespace Exa.Debugging
 
         private void Start()
         {
-            console = Systems.MainUI.console;
+            console = Systems.UI.console;
 
             console.Container.AddGetter(() => new ClsCommand());
             console.Container.AddGetter(() => new ToggleDebugCommand());

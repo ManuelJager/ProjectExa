@@ -21,7 +21,7 @@ namespace Exa.Gameplay
             where T : Ship
         {
             var ship = shipGO.GetComponent<T>();
-            var blueprint = Systems.BlueprintManager.GetBlueprint(name);
+            var blueprint = Systems.Blueprints.GetBlueprint(name);
             var overlay = CreateOverlay(ship);
             ship.Import(blueprint.Data);
 

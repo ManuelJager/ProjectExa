@@ -23,7 +23,7 @@ namespace Exa.UI
 
         public void NavigateToMission()
         {
-            var transition = Systems.SceneManager.Transition("Mission", new TransitionArgs
+            var transition = Systems.Scenes.Transition("Mission", new TransitionArgs
             {
                 SetActiveScene = true
             });
@@ -37,8 +37,8 @@ namespace Exa.UI
         public void NavigateToEditor()
         {
             self.NavigateTo(shipEditorBlueprintSelector);
-            blueprintViewController.Source = Systems.BlueprintManager.observableUserBlueprints;
-            blueprintViewController.shipEditor.blueprintCollection = Systems.BlueprintManager.observableUserBlueprints;
+            blueprintViewController.Source = Systems.Blueprints.observableUserBlueprints;
+            blueprintViewController.shipEditor.blueprintCollection = Systems.Blueprints.observableUserBlueprints;
         }
 
         public void NavigateToSettings()

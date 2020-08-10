@@ -21,7 +21,7 @@
             set
             {
                 shipSelection = value;
-                GameSystems.GameplayUI.selectionOverlay.Reflect(value);
+                GameSystems.UI.selectionOverlay.Reflect(value);
             }
         }
     }

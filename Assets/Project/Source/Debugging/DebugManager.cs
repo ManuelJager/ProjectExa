@@ -13,7 +13,7 @@ namespace Exa.Debugging
 
         public void Awake()
         {
-            console = Systems.MainUI.console;
+            console = Systems.UI.console;
             gameControls = new GameControls();
             gameControls.Debug.SetCallbacks(this);
         }

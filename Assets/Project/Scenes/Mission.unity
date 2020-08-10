@@ -365,7 +365,7 @@ PrefabInstance:
     - target: {fileID: 4757615415602663733, guid: 64bc5546e16bfaf46aa70beef1bfc706,
         type: 3}
       propertyPath: m_Name
-      value: GameplayCanvas
+      value: GameplayUI
       objectReference: {fileID: 0}
     - target: {fileID: 4757615415602663758, guid: 64bc5546e16bfaf46aa70beef1bfc706,
         type: 3}

@@ -9,7 +9,7 @@ namespace Exa.Grids.Blueprints.Editor
     {
         public void OnMovement(InputAction.CallbackContext context)
         {
-            if (Systems.InputManager.inputIsCaptured)
+            if (Systems.Input.inputIsCaptured)
             {
                 editorGrid.MovementVector = Vector2.zero;
                 return;

@@ -54,7 +54,7 @@ namespace Exa.UI.Components
 
         public void QueryUserConfirmation(Action<bool> onClosePrompt)
         {
-            Systems.MainUI.promptController.PromptYesNo(
+            Systems.UI.promptController.PromptYesNo(
                 "Changes were not saved, do you wish to apply the changes?",
                 canvasGroupInteractibleAdapter,
                 onClosePrompt);

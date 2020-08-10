@@ -62,7 +62,7 @@ namespace Exa.UI
         {
             if (mouseOverControl) return;
 
-            var mousePos = Systems.InputManager.ScreenPoint;
+            var mousePos = Systems.Input.ScreenPoint;
             if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos, Camera.main))
             {
                 mouseOverControl = true;
@@ -90,12 +90,12 @@ namespace Exa.UI
 
         private void OnEnter()
         {
-            Systems.MainUI.mouseCursor.AddOverride(cursorOverride);
+            Systems.UI.mouseCursor.AddOverride(cursorOverride);
         }
 
         private void OnExit()
         {
-            Systems.MainUI.mouseCursor.RemoveOverride(cursorOverride);
+            Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
         }
     }
 }

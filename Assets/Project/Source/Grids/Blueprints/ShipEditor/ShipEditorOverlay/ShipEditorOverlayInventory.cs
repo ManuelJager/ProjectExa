@@ -20,7 +20,7 @@ namespace Exa.Grids.Blueprints.Editor
 
         private void Start()
         {
-            Source = Systems.BlockFactory.availibleBlockTemplates;
+            Source = Systems.Blocks.availibleBlockTemplates;
         }
 
         public override void OnAdd(BlockTemplateContainer observer)
