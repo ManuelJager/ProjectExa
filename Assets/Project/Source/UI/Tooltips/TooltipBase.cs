@@ -2,28 +2,13 @@
 
 namespace Exa.UI.Tooltips
 {
-    public abstract class VariableTooltipBase<T> : MonoBehaviour
-        where T : ITooltipPresenter
+    public abstract class TooltipBase : MonoBehaviour
     {
         [SerializeField] protected RectTransform container;
 
-        private TooltipBinder<T> binder;
-
-        private void Update()
+        protected virtual void Update()
         {
             SetContainerPosition();
-        }
-
-        public void ShowTooltip(T data)
-        {
-            gameObject.SetActive(true);
-            SetValues(data);
-            SetContainerPosition();
-        }
-
-        public void HideTooltip()
-        {
-            gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -52,15 +37,6 @@ namespace Exa.UI.Tooltips
 
             // Set position of container
             container.anchoredPosition = mousePos + offset;
-        }
-
-        public virtual void SetValues(T data)
-        {
-            if (binder == null)
-            {
-                binder = Systems.UI.variableTooltipManager.tooltipGenerator.GenerateTooltip(data, container);
-            }
-            binder.Update(data);
         }
     }
 }

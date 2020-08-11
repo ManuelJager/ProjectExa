@@ -32,7 +32,6 @@ namespace Exa
         [SerializeField] private MainUI mainUI;
         
         [Header("Settings")]
-        [SerializeField] private bool debugIsEnabled = false;
         [SerializeField] private bool godModeIsAnabled = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
@@ -45,15 +44,6 @@ namespace Exa
         public static ExaSceneManager Scenes => Instance.sceneManager;
         public static LoggerInterceptor Logger => Instance.logger;
         public static MainUI UI => Instance.mainUI;
-        public static bool DebugIsEnabled
-        {
-            get => Instance.debugIsEnabled;
-            set
-            {
-                Instance.debugIsEnabled = false;
-                DebugChange?.Invoke(value);
-            }
-        }
         public static bool GodModeIsAnabled
         {
             get => Instance.godModeIsAnabled;

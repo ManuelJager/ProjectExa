@@ -137,9 +137,9 @@ MonoBehaviour:
   root: {fileID: 5526384382514086166}
   rootTransform: {fileID: 5526384382514086167}
   loadingScreen: {fileID: 7751970417597339210}
-  shipEditorOverlay: {fileID: 2233408752986145814}
+  editorOverlay: {fileID: 2233408752986145814}
   mainMenu: {fileID: 1868554947585687268}
-  variableTooltipManager: {fileID: 13180186456054701}
+  tooltips: {fileID: 13180186456054701}
   console: {fileID: 6015331161847257150}
   userExceptionLogger: {fileID: 1164198441621280979}
   mouseCursor: {fileID: 4261104078228002166}

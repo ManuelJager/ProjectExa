@@ -25,11 +25,11 @@ namespace Exa.Grids.Blueprints
             var hoverable = viewObject.AddComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() =>
             {
-                Systems.UI.variableTooltipManager.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
+                Systems.UI.tooltips.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
-                Systems.UI.variableTooltipManager.blueprintTypeTooltip.HideTooltip();
+                Systems.UI.tooltips.blueprintTypeTooltip.HideTooltip();
             });
         }
     }

@@ -12,9 +12,9 @@ namespace Exa.UI
         public Canvas root;
         public RectTransform rootTransform;
         public LoadingScreen loadingScreen;
-        public ShipEditorOverlay shipEditorOverlay;
+        public ShipEditorOverlay editorOverlay;
         public MainMenu mainMenu;
-        public VariableTooltipManager variableTooltipManager;
+        public VariableTooltipManager tooltips;
         public Console console;
         public UserExceptionLogger userExceptionLogger;
         public MouseCursorController mouseCursor;

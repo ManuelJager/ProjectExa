@@ -19,11 +19,11 @@ namespace Exa.Grids.Blueprints.Editor
         {
             hoverable.onPointerEnter.AddListener(() =>
             {
-                Systems.UI.variableTooltipManager.blockTemplateTooltip.ShowTooltip(data);
+                Systems.UI.tooltips.blockTemplateTooltip.ShowTooltip(data);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
-                Systems.UI.variableTooltipManager.blockTemplateTooltip.HideTooltip();
+                Systems.UI.tooltips.blockTemplateTooltip.HideTooltip();
             });
         }
 

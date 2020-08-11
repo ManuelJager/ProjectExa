@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 1907754239003912359}
   - component: {fileID: 1907754239003912352}
   - component: {fileID: 5955771735733772327}
+  - component: {fileID: 1129475341720404000}
   m_Layer: 8
   m_Name: Ship
   m_TagString: Untagged
@@ -93,4 +94,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 990860952733176915}
+  shipAI: {fileID: 1129475341720404000}
   canvasScaleMultiplier: 1.5
+--- !u!114 &1129475341720404000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424b8bc5bf4d72044a855d1a2c92a5ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 1907754239003912352}
+  activeValueThreshold: 0

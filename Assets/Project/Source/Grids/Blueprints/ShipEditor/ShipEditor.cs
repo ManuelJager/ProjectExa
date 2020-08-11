@@ -25,7 +25,7 @@ namespace Exa.Grids.Blueprints.Editor
 
         private void Awake()
         {
-            shipEditorOverlay = Systems.UI.shipEditorOverlay;
+            shipEditorOverlay = Systems.UI.editorOverlay;
 
             gameControls = new GameControls();
             gameControls.Editor.SetCallbacks(this);

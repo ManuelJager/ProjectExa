@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks
     public class BlockTemplateTooltip : VariableTooltipBase<BlockTemplate>
     {
         [SerializeField] private GameObject tooltipContainerPrefab;
-        private Dictionary<string, Transform> tooltips = new Dictionary<string, Transform>();
+        private Dictionary<string, RectTransform> tooltips = new Dictionary<string, RectTransform>();
         private string activeTooltip = "";
 
         public override void SetValues(BlockTemplate data)
@@ -34,15 +34,15 @@ namespace Exa.Grids.Blocks
             // Generate a tooltip if it doesn't already exist or it is out of date
             if (!tooltips.ContainsKey(id) || result.IsDirty)
             {
-                var tooltipContainer = Instantiate(tooltipContainerPrefab, transform).transform;
+                var tooltipContainer = Instantiate(tooltipContainerPrefab, transform).transform as RectTransform;
                 tooltipContainer.gameObject.name = id;
-                var binder = Systems.UI.variableTooltipManager.tooltipGenerator.GenerateTooltip(data, tooltipContainer);
+                var binder = Systems.UI.tooltips.tooltipGenerator.GenerateTooltip(data, tooltipContainer);
                 binder.Update(data);
                 tooltips[id] = tooltipContainer;
             }
 
             activeTooltip = id;
-            container = tooltips[activeTooltip] as RectTransform;
+            container = tooltips[activeTooltip];
             tooltips[activeTooltip].gameObject.SetActive(true);
         }
     }

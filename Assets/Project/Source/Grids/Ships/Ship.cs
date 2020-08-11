@@ -1,4 +1,6 @@
-﻿using Exa.Gameplay;
+﻿using Exa.AI;
+using Exa.Debugging;
+using Exa.Gameplay;
 using Exa.Grids.Blueprints;
 using Exa.Utils;
 using UnityEngine;
@@ -56,11 +58,21 @@ namespace Exa.Grids.Ships
         public virtual void OnRaycastEnter()
         {
             overlay.overlayCircle.IsHovered = true;
+
+            if (Systems.Debug.DebugMode.HasFlag(DebugMode.DebuggingAI))
+            {
+                Systems.UI.tooltips.shipAIDebugTooltip.Show(references.shipAI);
+            }
         }
 
         public virtual void OnRaycastExit()
         {
             overlay.overlayCircle.IsHovered = false;
+
+            if (Systems.Debug.DebugMode.HasFlag(DebugMode.DebuggingAI))
+            {
+                Systems.UI.tooltips.shipAIDebugTooltip.Hide();
+            }
         }
 
         public virtual ShipSelection GetAppropriateSelection()

@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks;
+﻿using Exa.AI;
+using Exa.Grids.Blocks;
 using UnityEngine;
 
 namespace Exa.UI.Tooltips
@@ -8,5 +9,6 @@ namespace Exa.UI.Tooltips
         public TooltipGenerator tooltipGenerator;
         public BlockTemplateTooltip blockTemplateTooltip;
         public BlueprintTypeTooltip blueprintTypeTooltip;
+        public ShipAIDebugTooltip shipAIDebugTooltip;
     }
 }
