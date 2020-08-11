@@ -2,12 +2,12 @@
 
 namespace Exa.AI.Actions
 {
-    public class AMoveToPosition : AIAction
+    public class AMoveToPosition : Action
     {
-        public override AIActionLane Lanes => AIActionLane.Movement;
+        public override ActionLane Lanes => ActionLane.Movement;
         public override float Priority => 10;
 
-        public override void Run(ref AIActionLane blockedLanes)
+        public override void Run(ref ActionLane blockedLanes)
         {
         }
     }

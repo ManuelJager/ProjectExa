@@ -1,4 +1,5 @@
-﻿using Exa.Gameplay;
+﻿using Exa.AI;
+using Exa.Gameplay;
 using Exa.UI.Components;
 using Exa.UI.Gameplay;
 using Exa.Utils;
@@ -12,11 +13,13 @@ namespace Exa
         [SerializeField] private Navigateable navigateable;
         [SerializeField] private ShipFactory shipFactory;
         [SerializeField] private GameplayUI gameplayUI;
+        [SerializeField] private AIManager aIManager;
 
         public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
         public static Navigateable Navigateable => Instance.navigateable;
         public static ShipFactory ShipFactory => Instance.shipFactory;
         public static GameplayUI UI => Instance.gameplayUI;
+        public static AIManager AI => Instance.aIManager;
 
         protected override void Awake()
         {

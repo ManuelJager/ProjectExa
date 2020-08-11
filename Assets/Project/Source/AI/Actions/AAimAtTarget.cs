@@ -2,12 +2,12 @@
 
 namespace Exa.AI.Actions
 {
-    public class AAimAtTarget : AIAction
+    public class AAimAtTarget : Action
     {
-        public override AIActionLane Lanes => AIActionLane.Target;
+        public override ActionLane Lanes => ActionLane.Target;
         public override float Priority => 10;
 
-        public override void Run(ref AIActionLane blockedLanes)
+        public override void Run(ref ActionLane blockedLanes)
         {
         }
     }

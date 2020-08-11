@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3971752618548431352}
   - component: {fileID: 3971752618548431334}
   - component: {fileID: -5148195961969832546}
+  - component: {fileID: 1150010444763719143}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: Untagged
@@ -51,6 +52,7 @@ MonoBehaviour:
   navigateable: {fileID: 3971752618548431334}
   shipFactory: {fileID: -5148195961969832546}
   gameplayUI: {fileID: 0}
+  aIManager: {fileID: 0}
 --- !u!114 &3971752618548431335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,3 +109,16 @@ MonoBehaviour:
     type: 3}
   shipContainer: {fileID: 0}
   overlayContainer: {fileID: 0}
+--- !u!114 &1150010444763719143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971752618548431355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a0fc9470aa90d34f8ee0356cf5a6112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ticksPerSecond: 10

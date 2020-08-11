@@ -3,7 +3,7 @@
 namespace Exa.AI
 {
     [Flags]
-    public enum AIActionLane : uint
+    public enum ActionLane : uint
     {
         Movement    = 1 << 0,
         Target      = 1 << 1,

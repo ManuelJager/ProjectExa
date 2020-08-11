@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Exa.AI
 {
-    public class ShipAI : MonoBehaviour
+    public class ShipAI : Agent
     {
         [SerializeField] private Ship ship;
         [SerializeField] private float activeValueThreshold;
-        private AIActionList actionList;
+        private ActionList actionList;
 
         public AAimAtTarget aAimAtTarget;
         public AMoveToPosition AMoveToTarget;
@@ -16,12 +16,16 @@ namespace Exa.AI
         private void Awake()
         {
             actionList = BuildActionList();
+        }
+
+        public override void AIUpdate()
+        {
             actionList.RunActions();
         }
 
-        protected virtual AIActionList BuildActionList()
+        protected virtual ActionList BuildActionList()
         {
-            return new AIActionList(activeValueThreshold, new IAIAction[]
+            return new ActionList(activeValueThreshold, new IAction[]
             {
                 aAimAtTarget = new AAimAtTarget(),
                 AMoveToTarget = new AMoveToPosition()

@@ -4,25 +4,25 @@ using System.Linq;
 
 namespace Exa.AI
 {
-    public class AIActionList
+    public class ActionList
     {
-        private List<IAIAction> actions;
+        private List<IAction> actions;
         private float priorityThreshold;
 
-        public AIActionList(float priorityThreshold, IAIAction[] actions)
+        public ActionList(float priorityThreshold, IAction[] actions)
         {
-            this.actions = new List<IAIAction>(actions);
+            this.actions = new List<IAction>(actions);
             this.priorityThreshold = priorityThreshold;
         }
 
-        public void Add(IAIAction action)
+        public void Add(IAction action)
         {
             actions.Add(action);
         }
 
         public void RunActions()
         {
-            AIActionLane mask = 0;
+            ActionLane mask = 0;
 
             foreach (var action in SortActions())
             {
@@ -38,7 +38,7 @@ namespace Exa.AI
             }
         }
 
-        private IEnumerable<IAIAction> SortActions()
+        private IEnumerable<IAction> SortActions()
         {
             return actions
                 .Where((action) => action.Priority > priorityThreshold)
