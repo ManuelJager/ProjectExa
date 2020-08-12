@@ -1,13 +1,11 @@
-﻿using Exa.Grids.Ships;
-using Exa.Utils;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-namespace Exa.Gameplay
+namespace Exa.Ships
 {
     public class ShipOverlay : MonoBehaviour
     {
         public Ship ship;
+
         public RectTransform rectContainer;
         public ShipOverlayHullBar overlayHullBar;
         public ShipOverlayCircle overlayCircle;

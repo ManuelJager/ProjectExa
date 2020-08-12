@@ -1,5 +1,6 @@
 ﻿using Exa.AI;
 using Exa.Gameplay;
+using Exa.Ships;
 using Exa.UI.Components;
 using Exa.UI.Gameplay;
 using Exa.Utils;

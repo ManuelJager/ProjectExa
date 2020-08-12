@@ -1,4 +1,4 @@
-﻿using Exa.Utils;
+﻿using Exa.Math;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints.Editor

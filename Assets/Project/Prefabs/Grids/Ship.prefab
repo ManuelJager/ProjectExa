@@ -39,9 +39,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1907754239003912359}
-  - component: {fileID: 1907754239003912352}
-  - component: {fileID: 5955771735733772327}
   - component: {fileID: 1129475341720404000}
+  - component: {fileID: 7313425749043291350}
+  - component: {fileID: 8714678710057436949}
+  - component: {fileID: 5914226467058081227}
   m_Layer: 8
   m_Name: Ship
   m_TagString: Untagged
@@ -64,38 +65,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1907754239003912352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907754239003912354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a1d3a8eeb45bea46b9ee37a8f8bf4f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  references: {fileID: 5955771735733772327}
-  overlay: {fileID: 0}
-  destroyEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &5955771735733772327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907754239003912354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61562e0da05925d429af7f0d6465b142, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pivot: {fileID: 990860952733176915}
-  shipAI: {fileID: 1129475341720404000}
-  canvasScaleMultiplier: 1.5
 --- !u!114 &1129475341720404000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,5 +77,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424b8bc5bf4d72044a855d1a2c92a5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 1907754239003912352}
-  activeValueThreshold: 0
+  ship: {fileID: 0}
+  activeValueThreshold: 1
+--- !u!114 &7313425749043291350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c406b3e613e26a4c8aaa68539b8dd2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5914226467058081227}
+  ship: {fileID: 0}
+  proportionalBase: 30
+  integral: 0.01
+  derivitive: 0.15
+--- !u!114 &8714678710057436949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbac3dbbc1c2fcc42874dd2c059632be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 0}
+--- !u!54 &5914226467058081227
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

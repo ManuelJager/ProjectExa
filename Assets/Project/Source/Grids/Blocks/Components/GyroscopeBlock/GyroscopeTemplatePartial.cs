@@ -13,7 +13,7 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class GyroscopeTemplatePartial : TemplatePartial<GyroscopeData>
     {
-        [SerializeField] private float turningRate; // In tons it can rotate 360 degrees per second
+        [SerializeField] private float turningRate; // In tons it supposed to support
 
         public override GyroscopeData Convert() => new GyroscopeData
         {

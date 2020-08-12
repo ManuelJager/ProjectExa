@@ -2,12 +2,12 @@
 
 namespace Exa.AI.Actions
 {
-    public class AAimAtTarget : ShipAIAction
+    public class AMoveToTarget : ShipAIAction
     {
-        public override ActionLane Lanes => ActionLane.Target;
+        public override ActionLane Lanes => ActionLane.Movement;
         public override float Priority => 10;
 
-        public AAimAtTarget(ShipAI shipAI)
+        public AMoveToTarget(ShipAI shipAI)
             : base(shipAI)
         {
         }

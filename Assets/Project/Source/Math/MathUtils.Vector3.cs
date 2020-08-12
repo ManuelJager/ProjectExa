@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.Utils
+namespace Exa.Math
 {
     public static partial class MathUtils
     {

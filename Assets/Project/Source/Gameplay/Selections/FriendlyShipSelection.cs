@@ -1,6 +1,4 @@
-﻿using Exa.Grids;
-using Exa.Grids.Ships;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.Gameplay
 {
@@ -11,12 +9,29 @@ namespace Exa.Gameplay
             CanControl = true;
         }
 
-        public override void MoveTo(Vector2 position)
+        public void MoveTo(Vector2 position)
         {
-
             //var delta = position - (Vector2)friendlyShip.transform.position;
             //friendlyShip.transform.right = delta;
             //friendlyShip.transform.position = position;
+        }
+
+        public void LookAt(Vector2 position)
+        {
+            foreach (var ship in this)
+            {
+                ship.shipAI.lookAtTarget.Target = position;
+            }
+        }
+
+        public override ShipSelection Clone()
+        {
+            var selection = new FriendlyShipSelection();
+            foreach (var ship in this)
+            {
+                selection.Add(ship);
+            }
+            return selection;
         }
     }
 }

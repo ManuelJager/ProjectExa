@@ -1,5 +1,7 @@
 ﻿using Exa.Generics;
+using Exa.Utils;
 using Newtonsoft.Json;
+using System.Text;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -79,6 +81,16 @@ namespace Exa.Grids.Blueprints
         public Blueprint Clone()
         {
             return new Blueprint(name, shipClass, Blocks.Clone());
+        }
+
+        public string ToString(int tabs = 0)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLineIndented($"Name: {name}", tabs);
+            sb.AppendLineIndented($"Class: {shipClass}", tabs);
+            sb.AppendLineIndented($"Size: {Blocks.Size.Value}", tabs);
+            sb.AppendLineIndented($"Block count: {Blocks.GetMemberCount()}", tabs);
+            return sb.ToString();
         }
     }
 }

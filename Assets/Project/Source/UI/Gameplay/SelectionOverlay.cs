@@ -1,7 +1,6 @@
 ﻿using Exa.Bindings;
 using Exa.Gameplay;
-using Exa.Grids.Ships;
-using System;
+using Exa.Ships;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;

@@ -2,10 +2,26 @@
 {
     public interface IAction
     {
-        bool IsRunning { get; set; }
+        /// <summary>
+        /// The lanes required for an action to be updated
+        /// </summary>
         ActionLane Lanes { get; }
+
+        /// <summary>
+        /// The lanes that this action blocks
+        /// </summary>
+        ActionLane Blocking { get; set; }
+
+        /// <summary>
+        /// The priority of this action
+        /// </summary>
         float Priority { get; }
 
-        void Run(ref ActionLane blockedLanes);
+        /// <summary>
+        /// Update the action
+        /// </summary>
+        /// <param name="blockedLanes">Currently blocked lanes on the action list</param>
+        /// <returns>The lanes that this action has blocked</returns>
+        ActionLane Update(ActionLane blockedLanes);
     }
 }

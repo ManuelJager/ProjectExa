@@ -1,4 +1,4 @@
-﻿using Exa.Grids.Ships;
+﻿using Exa.Ships;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,17 +44,19 @@ namespace Exa.Gameplay
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (HasSelection && ShipSelection.CanControl)
+                    if (HasSelection && ShipSelection is FriendlyShipSelection)
                     {
+                        var selection = ShipSelection as FriendlyShipSelection; 
                         var point = Systems.Input.MouseWorldPoint;
-                        ShipSelection.MoveTo(point);
+                        selection.MoveTo(point);
+                        selection.LookAt(point);
                         return;
                     }
 
                     if (Systems.GodModeIsAnabled && raycastTarget != null && raycastTarget is Ship)
                     {
                         var ship = raycastTarget as Ship;
-                        ship.blockGrid.CurrentHull -= 50f;
+                        ship.state.CurrentHull -= 50f;
                     }
                     break;
             }

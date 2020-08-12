@@ -1,6 +1,7 @@
 ﻿using Exa.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Exa.AI
 {
@@ -28,12 +29,10 @@ namespace Exa.AI
             {
                 var shouldRun = (mask & action.Lanes) == 0;
 
-                action.IsRunning = shouldRun;
-
-                if (shouldRun && !action.IsRunning)
+                if (shouldRun)
                 {
-                    mask |= action.Lanes;
-                    action.Run(ref mask);
+                    action.Blocking = action.Update(mask);
+                    mask |= action.Blocking;
                 }
             }
         }
@@ -45,12 +44,18 @@ namespace Exa.AI
                 .OrderBy((action) => action.Priority);
         }
 
-        public override string ToString()
+        public string ToString(int tabs = 0)
         {
-            return actions.ToStringTable(
+            var sb = new StringBuilder();
+            var tableString = actions.ToStringTable(new string[] {
+                "Action name",
+                "Priority",
+                "Blocking lane"},
                 (action) => action.GetType().Name,
                 (action) => action.Priority,
-                (action) => action.IsRunning);
+                (action) => action.Blocking);
+            sb.AppendLineIndented(tableString, tabs);
+            return sb.ToString();
         }
     }
 }

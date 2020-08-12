@@ -3,7 +3,7 @@ using Exa.Grids.Blueprints;
 using Exa.UI;
 using UnityEngine;
 
-namespace Exa.Grids.Ships
+namespace Exa.Ships
 {
     public class FriendlyShip : Ship
     {
@@ -21,7 +21,7 @@ namespace Exa.Grids.Ships
         {
             base.Import(blueprint);
             
-            var radius = blueprint.Blocks.MaxSize / 2f * references.canvasScaleMultiplier;
+            var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
             mouseOverCollider.radius = radius;
         }
 

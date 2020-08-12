@@ -71,7 +71,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -520,7 +520,7 @@ PrefabInstance:
     - target: {fileID: 7958867593275252583, guid: 3f9795a009dcf044ea0fe2b5c4330424,
         type: 3}
       propertyPath: m_Name
-      value: TooltipContainer
+      value: ShipTooltip
       objectReference: {fileID: 0}
     - target: {fileID: 7958867593275252583, guid: 3f9795a009dcf044ea0fe2b5c4330424,
         type: 3}

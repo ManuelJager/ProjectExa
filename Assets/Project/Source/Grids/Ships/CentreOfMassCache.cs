@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Exa.Grids.Ships
@@ -28,6 +29,13 @@ namespace Exa.Grids.Ships
         public Vector2 GetCentreOfMass()
         {
             return vectoredTotal / totalMass;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append($"Centre of mass: {GetCentreOfMass()}");
+            return sb.ToString();
         }
     }
 }

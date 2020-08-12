@@ -1,17 +1,19 @@
 ﻿using Exa.AI.Actions;
-using Exa.Grids.Ships;
+using Exa.Ships;
 using UnityEngine;
 
 namespace Exa.AI
 {
     public class ShipAI : Agent
     {
-        [SerializeField] private Ship ship;
+        public Ship ship;
+
         [SerializeField] private float activeValueThreshold;
         private ActionList actionList;
 
-        public AAimAtTarget aAimAtTarget;
-        public AMoveToPosition AMoveToTarget;
+        public AAimAtTarget aimAtTarget;
+        public ALookAtTarget lookAtTarget;
+        public AMoveToTarget moveToTarget;
 
         private void Awake()
         {
@@ -27,16 +29,15 @@ namespace Exa.AI
         {
             return new ActionList(activeValueThreshold, new IAction[]
             {
-                aAimAtTarget = new AAimAtTarget(),
-                AMoveToTarget = new AMoveToPosition()
+                aimAtTarget = new AAimAtTarget(this),
+                lookAtTarget = new ALookAtTarget(this),
+                moveToTarget = new AMoveToTarget(this)
             });
         }
 
-        public override string ToString()
+        public string ToString(int tabs = 0)
         {
-            return 
-                $"{GetType().Name}\n" +
-                actionList.ToString();
+            return actionList.ToString(tabs);
         }
     }
 }

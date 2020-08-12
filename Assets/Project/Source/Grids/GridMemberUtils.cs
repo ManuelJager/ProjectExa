@@ -1,9 +1,4 @@
-﻿using Exa.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Exa.Math;
 using UnityEngine;
 
 namespace Exa.Grids
@@ -25,12 +20,12 @@ namespace Exa.Grids
         {
             var blueprintBlock = gridMember.BlueprintBlock;
 
-            spriteRenderer.flipX = blueprintBlock.Rotation % 2 == 0 
-                ? blueprintBlock.flippedX 
+            spriteRenderer.flipX = blueprintBlock.Rotation % 2 == 0
+                ? blueprintBlock.flippedX
                 : blueprintBlock.flippedY;
 
-            spriteRenderer.flipY = blueprintBlock.Rotation % 2 == 0 
-                ? blueprintBlock.flippedY 
+            spriteRenderer.flipY = blueprintBlock.Rotation % 2 == 0
+                ? blueprintBlock.flippedY
                 : blueprintBlock.flippedX;
         }
 

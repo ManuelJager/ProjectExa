@@ -1,7 +1,6 @@
-﻿using Exa.Grids.Ships;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Exa.Gameplay
+namespace Exa.Ships
 {
     public class ShipFactory : MonoBehaviour
     {

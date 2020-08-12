@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.Gameplay
+namespace Exa.Ships
 {
     public class ShipOverlayCircle : MonoBehaviour
     {

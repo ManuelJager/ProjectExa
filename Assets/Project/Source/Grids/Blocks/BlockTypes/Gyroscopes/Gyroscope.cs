@@ -1,5 +1,5 @@
-﻿using Exa.Grids.Blocks.Components;
-using Exa.Grids.Ships;
+﻿using Exa.Ships;
+using Exa.Grids.Blocks.Components;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes

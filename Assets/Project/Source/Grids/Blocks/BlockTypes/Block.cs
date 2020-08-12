@@ -1,6 +1,6 @@
-﻿using Exa.Grids.Blocks.Components;
+﻿using Exa.Ships;
+using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
-using Exa.Grids.Ships;
 using Unity.Entities;
 using UnityEngine;
 
@@ -21,7 +21,6 @@ namespace Exa.Grids.Blocks.BlockTypes
         public BlueprintBlock BlueprintBlock => anchoredBlueprintBlock.blueprintBlock;
 
         public PhysicalBehaviour PhysicalBehaviour { get => physicalBehaviour; set => physicalBehaviour = value; }
-
 
         public virtual Ship Ship
         {

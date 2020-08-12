@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.Gameplay
+namespace Exa.Ships
 {
     public class ShipOverlayHullBar : MonoBehaviour
     {

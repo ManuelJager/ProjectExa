@@ -21,7 +21,7 @@ namespace Exa.Grids.Blocks.Components
             data.hull -= appliedDamage;
 
             // Notify the grid the current amount of hull points is decreased
-            ship.blockGrid.CurrentHull -= appliedDamage;
+            ship.state.CurrentHull -= appliedDamage;
 
             if (data.hull <= 0)
             {
@@ -31,7 +31,13 @@ namespace Exa.Grids.Blocks.Components
 
         protected override void OnAdd()
         {
-            ship.blockGrid.CurrentHull += data.hull;
+            ship.state.CurrentHull += data.hull;
+            ship.state.TotalMass += data.mass;
+        }
+
+        protected override void OnRemove()
+        {
+            ship.state.TotalMass -= data.mass;
         }
     }
 }

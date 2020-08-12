@@ -12,7 +12,8 @@ namespace Exa.Debugging
     public enum DebugMode
     {
         Global      = 1 << 0,
-        DebuggingAI = 1 << 1
+        Ships       = 1 << 1,
+        Navigation  = 1 << 2
     }
 
     public class DebugManager : MonoBehaviour, IDebugActions
@@ -32,24 +33,6 @@ namespace Exa.Debugging
             console = Systems.UI.console;
             gameControls = new GameControls();
             gameControls.Debug.SetCallbacks(this);
-        }
-
-        // TODO: this is broken. Fuck this console
-        public void SetFlag(string debugName)
-        {
-            if (Enum.TryParse<DebugMode>(debugName, out var mode))
-            {
-                Systems.Debug.DebugMode ^= mode;
-                var set = Systems.Debug.DebugMode.HasFlag(mode);
-                var enabledMessage = set ? "enabled" : "disabled";
-                console.output.Print($"Debug {mode} is now {enabledMessage}", OutputColor.accent);
-            }
-            else
-            {
-                var names = Enum.GetNames(typeof(DebugMode));
-                console.output.Print($"Debug name {debugName} is not valid", OutputColor.warning);
-                console.output.Print($"Availible flags: {string.Join(" | ", names)}", OutputColor.warning);
-            }
         }
 
         public void OnEnable()

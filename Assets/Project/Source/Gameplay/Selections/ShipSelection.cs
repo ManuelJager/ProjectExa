@@ -1,5 +1,6 @@
 ﻿using Exa.Bindings;
-using Exa.Grids.Ships;
+using Exa.Generics;
+using Exa.Ships;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,27 +8,22 @@ using UnityEngine.Events;
 
 namespace Exa.Gameplay
 {
-    public class ShipSelection : ObservableCollection<Ship>, ICloneable
+    public abstract class ShipSelection : ObservableCollection<Ship>, ICloneable<ShipSelection>
     {
         public bool CanControl { get; protected set; }
 
         private Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
 
-        public virtual void MoveTo(Vector2 position)
+        public override void Add(Ship ship)
         {
-            throw new NotImplementedException();
-        }
+            base.Add(ship);
 
-        public override void Add(Ship item)
-        {
-            base.Add(item);
-
-            item.overlay.overlayCircle.IsSelected = true;
+            ship.overlay.overlayCircle.IsSelected = true;
 
             // Set a callback that removes the ship from the collection when destroyed
-            UnityAction callback = () => Remove(item);
-            callbackDict.Add(item, callback);
-            item.destroyEvent.AddListener(callback);
+            UnityAction callback = () => Remove(ship);
+            callbackDict.Add(ship, callback);
+            ship.destroyEvent.AddListener(callback);
         }
 
         public override bool Remove(Ship ship)
@@ -56,14 +52,6 @@ namespace Exa.Gameplay
             ship.destroyEvent.RemoveListener(callback);
         }
 
-        public object Clone()
-        {
-            var newSelection = new ShipSelection();
-            foreach (var item in this)
-            {
-                newSelection.Add(item);
-            }
-            return newSelection;
-        }
+        public abstract ShipSelection Clone();
     }
 }

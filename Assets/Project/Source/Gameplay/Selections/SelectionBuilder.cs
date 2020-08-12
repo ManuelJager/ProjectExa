@@ -1,5 +1,5 @@
-﻿using Exa.Generics;
-using Exa.Grids.Ships;
+﻿using Exa.Ships;
+using Exa.Generics;
 using UnityEngine;
 
 namespace Exa.Gameplay

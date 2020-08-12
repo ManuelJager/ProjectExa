@@ -1,9 +1,8 @@
-﻿using Exa.Grids;
+﻿using Exa.Ships;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
-using Exa.Grids.Ships;
 
 namespace Exa.UI.Gameplay
 {
@@ -29,7 +28,7 @@ namespace Exa.UI.Gameplay
 
         private void Update()
         {
-            var total = ships.Average((ship) => ship.Hull);
+            var total = ships.Average((ship) => ship.state.Hull);
             SetHull(total);
         }
 

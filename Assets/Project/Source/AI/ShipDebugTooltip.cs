@@ -1,17 +1,18 @@
-﻿using Exa.UI.Tooltips;
+﻿using Exa.Ships;
+using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Exa.AI
 {
-    public class ShipAIDebugTooltip : TooltipBase
+    public class ShipDebugTooltip : TooltipBase
     {
         [SerializeField] private Text text;
-        private ShipAI shipAI;
+        private Ship ship;
 
-        public void Show(ShipAI shipAI)
+        public void Show(Ship ship)
         {
-            this.shipAI = shipAI;
+            this.ship = ship;
             gameObject.SetActive(true);
             Update();
         }
@@ -19,7 +20,7 @@ namespace Exa.AI
         protected override void Update()
         {
             base.Update();
-            text.text = shipAI.ToString();
+            text.text = ship.ToString(0);
         }
 
         public void Hide()

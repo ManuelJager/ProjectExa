@@ -1,5 +1,4 @@
 ﻿using Exa.Audio;
-using Exa.Data;
 using Exa.Debugging;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
@@ -30,7 +29,7 @@ namespace Exa
         [SerializeField] private ExaSceneManager sceneManager;
         [SerializeField] private LoggerInterceptor logger;
         [SerializeField] private MainUI mainUI;
-        
+
         [Header("Settings")]
         [SerializeField] private bool godModeIsAnabled = false;
 
@@ -44,6 +43,7 @@ namespace Exa
         public static ExaSceneManager Scenes => Instance.sceneManager;
         public static LoggerInterceptor Logger => Instance.logger;
         public static MainUI UI => Instance.mainUI;
+
         public static bool GodModeIsAnabled
         {
             get => Instance.godModeIsAnabled;
@@ -57,6 +57,21 @@ namespace Exa
         private void Start()
         {
             StartCoroutine(Load());
+        }
+
+        public static bool IsDebugging(DebugMode debugMode)
+        {
+            return Debug.DebugMode.HasFlag(debugMode);
+        }
+
+        public static void SetFlag(DebugMode debugMode)
+        {
+            Debug.DebugMode |= debugMode;
+        }
+
+        public static void ToggleFlag(DebugMode debugMode)
+        {
+            Debug.DebugMode ^= debugMode;
         }
 
         [RuntimeInitializeOnLoadMethod]
@@ -86,7 +101,7 @@ namespace Exa
             {
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)} % complete) ...";
                 UI.loadingScreen.ShowMessage(message);
-            })), targetFrameRate); 
+            })), targetFrameRate);
 
             UI.loadingScreen.HideScreen();
         }

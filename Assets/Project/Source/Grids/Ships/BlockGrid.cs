@@ -1,10 +1,10 @@
-﻿using Exa.Generics;
-using Exa.Grids.Blocks;
+﻿using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
-using Exa.Grids.Ships;
-using UCommandConsole;
+using Exa.Ships;
+using Exa.Utils;
+using System.Text;
 using UnityEngine;
 
 namespace Exa.Grids.Ships
@@ -14,8 +14,6 @@ namespace Exa.Grids.Ships
         private Transform container;
         private Ship ship;
 
-        public float TotalHull { get; private set; }
-        public float CurrentHull { get; set; }
         public CentreOfMassCache CentreOfMass { get; protected set; }
 
         public BlockGrid(Transform container, Ship ship)
@@ -29,24 +27,18 @@ namespace Exa.Grids.Ships
         {
             base.Add(block);
 
-            if (block is IPhysical)
-            {
-                var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-                var iPhysical = block as IPhysical;
-                var mass = iPhysical.PhysicalBehaviour.data.mass;
-                CentreOfMass.Add(localPos, mass);
-            }
+            var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
+            var iPhysical = block as IPhysical;
+            var mass = iPhysical.PhysicalBehaviour.data.mass;
+            CentreOfMass.Add(localPos, mass);
         }
 
         public override Block Remove(Vector2Int key)
         {
             var block = base.Remove(key);
-            
-            if (block is IPhysical)
-            {
-                var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-                CentreOfMass.Remove(localPos);
-            }
+
+            var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
+            CentreOfMass.Remove(localPos);
 
             return block;
         }
@@ -57,12 +49,9 @@ namespace Exa.Grids.Ships
             {
                 var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
 
-                if (context is IPhysicalTemplatePartial)
-                {
-                    var partial = context as IPhysicalTemplatePartial;
-                    var maxHull = partial.PhysicalTemplatePartial.MaxHull;
-                    TotalHull += maxHull;
-                }
+                var partial = context as IPhysicalTemplatePartial;
+                var maxHull = partial.PhysicalTemplatePartial.MaxHull;
+                ship.state.TotalHull += maxHull;
 
                 Add(CreateBlock(anchoredBlueprintBlock));
             }
@@ -74,6 +63,13 @@ namespace Exa.Grids.Ships
             block.Ship = ship;
             block.gameObject.SetActive(true);
             return block;
+        }
+
+        public string ToString(int tabs = 0)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLineIndented(CentreOfMass.ToString(), tabs);
+            return sb.ToString();
         }
     }
 }

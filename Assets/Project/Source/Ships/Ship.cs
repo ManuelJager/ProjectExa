@@ -2,42 +2,37 @@
 using Exa.Debugging;
 using Exa.Gameplay;
 using Exa.Grids.Blueprints;
-using Exa.Utils;
+using Exa.Grids.Ships;
+using Exa.Math;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Exa.Grids.Ships
+namespace Exa.Ships
 {
-    public class Ship : MonoBehaviour, IRaycastTarget
+    public abstract class Ship : MonoBehaviour, IRaycastTarget
     {
+        [HideInInspector] public ShipOverlay overlay;
         public BlockGrid blockGrid;
-        public ShipReferences references;
-        public ShipOverlay overlay;
+        public float canvasScaleMultiplier = 1f;
+        public ShipNavigation navigation;
+        public ShipAI shipAI;
+        public Transform pivot;
+        public ShipState state;
+
         public UnityEvent destroyEvent = new UnityEvent();
 
         protected Blueprint blueprint;
-        private float hull;
 
         public Blueprint Blueprint => blueprint;
 
-        public float Hull
-        {
-            get => hull;
-            set
-            {
-                hull = value;
-                overlay.overlayHullBar.SetFill(value);
-            }
-        }
-
         protected virtual void Awake()
         {
-            blockGrid = new BlockGrid(references.pivot, this);
+            blockGrid = new BlockGrid(pivot, this);
         }
 
         private void LateUpdate()
         {
-            Hull = blockGrid.CurrentHull / blockGrid.TotalHull;
             UpdateCentreOfMassPivot(true);
         }
 
@@ -59,9 +54,9 @@ namespace Exa.Grids.Ships
         {
             overlay.overlayCircle.IsHovered = true;
 
-            if (Systems.Debug.DebugMode.HasFlag(DebugMode.DebuggingAI))
+            if (Systems.IsDebugging(DebugMode.Ships))
             {
-                Systems.UI.tooltips.shipAIDebugTooltip.Show(references.shipAI);
+                Systems.UI.tooltips.shipAIDebugTooltip.Show(this);
             }
         }
 
@@ -69,21 +64,15 @@ namespace Exa.Grids.Ships
         {
             overlay.overlayCircle.IsHovered = false;
 
-            if (Systems.Debug.DebugMode.HasFlag(DebugMode.DebuggingAI))
+            if (Systems.IsDebugging(DebugMode.Ships))
             {
                 Systems.UI.tooltips.shipAIDebugTooltip.Hide();
             }
         }
 
-        public virtual ShipSelection GetAppropriateSelection()
-        {
-            return new ShipSelection();
-        }
+        public abstract ShipSelection GetAppropriateSelection();
 
-        public virtual bool MatchesSelection(ShipSelection selection)
-        {
-            return selection is ShipSelection;
-        }
+        public abstract bool MatchesSelection(ShipSelection selection);
 
         private void UpdateCentreOfMassPivot(bool updateSelf)
         {
@@ -91,18 +80,34 @@ namespace Exa.Grids.Ships
 
             if (updateSelf)
             {
-                var currentPosition = references.pivot.localPosition.ToVector2();
+                var currentPosition = pivot.localPosition.ToVector2();
                 var diff = currentPosition - COMOffset;
                 transform.localPosition += diff.ToVector3();
             }
 
-            references.pivot.localPosition = COMOffset;
+            pivot.localPosition = COMOffset;
         }
 
         private void UpdateCanvasSize(Blueprint blueprint)
         {
-            var size = blueprint.Blocks.MaxSize * 10 * references.canvasScaleMultiplier;
+            var size = blueprint.Blocks.MaxSize * 10 * canvasScaleMultiplier;
             overlay.rectContainer.sizeDelta = new Vector2(size, size);
+        }
+
+        public string ToString(int tabs = 0)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(GetInstanceString());
+            sb.AppendLine("------------------------------------------------------------");
+            sb.AppendLine("Blueprint:");
+            sb.AppendLine(blueprint.ToString(tabs + 1));
+            sb.AppendLine("BlockGrid:");
+            sb.AppendLine(blockGrid.ToString(tabs + 1));
+            sb.AppendLine("State:");
+            sb.AppendLine(state.ToString(tabs + 1));
+            sb.AppendLine("AI:");
+            sb.AppendLine(shipAI.ToString(tabs + 1));
+            return sb.ToString();
         }
     }
 }
