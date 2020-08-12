@@ -43,8 +43,7 @@ namespace Exa.UI.Controls
         {
             if (string.IsNullOrEmpty(value)) return;
 
-            float floatValue;
-            var valid = float.TryParse(value, out floatValue);
+            var valid = float.TryParse(value, out var floatValue);
 
             if (!valid)
             {
@@ -63,7 +62,7 @@ namespace Exa.UI.Controls
 
             if (valid)
             {
-                slider.value = (float)Math.Round(floatValue, 2);
+                slider.value = (float)System.Math.Round(floatValue, 2);
             }
             else
             {
@@ -73,7 +72,7 @@ namespace Exa.UI.Controls
 
         private string FormatFloat(float value)
         {
-            return Math.Round(value, 2).ToString();
+            return System.Math.Round(value, 2).ToString();
         }
     }
 }
