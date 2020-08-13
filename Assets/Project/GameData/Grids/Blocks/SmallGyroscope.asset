@@ -27,4 +27,4 @@ MonoBehaviour:
     armor: 0
     mass: 1000
   gyroscopeTemplatePartial:
-    turningRate: 10
+    turningRate: 15

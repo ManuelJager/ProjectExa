@@ -2,7 +2,6 @@
 
 using Exa.Bindings;
 using Exa.Grids.Blueprints;
-using Exa.Grids.Blueprints.Editor;
 using Exa.IO;
 using Exa.UI.Components;
 using System.Collections;
@@ -13,7 +12,7 @@ namespace Exa.UI
     internal class BlueprintViewController : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
     {
         public BlueprintContainerCollection collectionContext;
-        public ShipEditor shipEditor;
+        public ShipEditor.ShipEditor shipEditor;
 
         [SerializeField] private ReturnNavigateable shipEditorBlueprintSelector;
         [SerializeField] private Navigateable shipEditorNavigateable;

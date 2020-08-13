@@ -2,8 +2,7 @@
 using Exa.Debugging;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
-using Exa.Grids.Blueprints.Editor;
-using Exa.Grids.Blueprints.Thumbnails;
+using Exa.ShipEditor;
 using Exa.Input;
 using Exa.SceneManagement;
 using Exa.UI;
@@ -21,7 +20,7 @@ namespace Exa
         [Header("References")]
         [SerializeField] private BlockFactory blockFactory;
         [SerializeField] private BlueprintManager blueprintManager;
-        [SerializeField] private ShipEditor shipEditor;
+        [SerializeField] private ShipEditor.ShipEditor shipEditor;
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private ThumbnailGenerator thumbnailGenerator;
         [SerializeField] private DebugManager debugManager;
@@ -35,7 +34,7 @@ namespace Exa
 
         public static BlockFactory Blocks => Instance.blockFactory;
         public static BlueprintManager Blueprints => Instance.blueprintManager;
-        public static ShipEditor ShipEditor => Instance.shipEditor;
+        public static ShipEditor.ShipEditor ShipEditor => Instance.shipEditor;
         public static AudioManager Audio => Instance.audioManager;
         public static ThumbnailGenerator Thumbnails => Instance.thumbnailGenerator;
         public static DebugManager Debug => Instance.debugManager;

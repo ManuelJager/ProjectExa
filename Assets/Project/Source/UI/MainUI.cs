@@ -1,5 +1,5 @@
 ﻿using Exa.Data;
-using Exa.Grids.Blueprints.Editor;
+using Exa.ShipEditor;
 using Exa.UI.Diagnostics;
 using Exa.UI.Tooltips;
 using UCommandConsole;
