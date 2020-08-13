@@ -6,9 +6,8 @@ namespace Exa.UI.Controls
 {
     public class PropertyView : MonoBehaviour
     {
-        [SerializeField] private Transform keyContainer;
+        [Header("References")]
         [SerializeField] private Text keyText;
-        [SerializeField] private Transform valueContainer;
         [SerializeField] private Text valueText;
 
         public void Reflect<T>(NamedValue<T> valueContext)

@@ -166,7 +166,7 @@ PrefabInstance:
     - target: {fileID: 1192672273512161639, guid: ee9987c9c591276448d04c256085f97e,
         type: 3}
       propertyPath: m_Name
-      value: EditorGridv2
+      value: EditorGrid
       objectReference: {fileID: 0}
     - target: {fileID: 7112577619619822814, guid: ee9987c9c591276448d04c256085f97e,
         type: 3}

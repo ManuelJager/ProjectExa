@@ -12,5 +12,6 @@ namespace Exa.ShipEditor
         public InputFieldControl blueprintNameInput;
         public BlueprintErrorListController errorListController;
         public CanvasGroup saveButtonCanvasGroup;
+        public GridTotalsView gridTotalsView;
     }
 }
