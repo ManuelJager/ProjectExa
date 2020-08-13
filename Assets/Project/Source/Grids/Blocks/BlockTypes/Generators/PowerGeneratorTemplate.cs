@@ -1,5 +1,4 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +12,10 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private PowerGeneratorTemplatePartial powerGeneratorTemplatePartial;
 
-        public PowerGeneratorTemplatePartial PowerGeneratorTemplatePartial { get => powerGeneratorTemplatePartial; set => powerGeneratorTemplatePartial = value; }
-
-        public override void SetValues(PowerGenerator block)
+        public PowerGeneratorTemplatePartial PowerGeneratorTemplatePartial 
         {
-            base.SetValues(block);
-            block.PowerGeneratorBehaviour.data = powerGeneratorTemplatePartial.Convert();
+            get => powerGeneratorTemplatePartial; 
+            set => powerGeneratorTemplatePartial = value; 
         }
 
         protected override PowerGenerator BuildOnGameObject(GameObject gameObject)
@@ -28,10 +25,10 @@ namespace Exa.Grids.Blocks.BlockTypes
             return instance;
         }
 
-        protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
+        protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
-            return base.TooltipComponentFactory()
-                .Concat(powerGeneratorTemplatePartial.GetComponents());
+            return base.GetTemplatePartials()
+                .Append(powerGeneratorTemplatePartial);
         }
     }
 }

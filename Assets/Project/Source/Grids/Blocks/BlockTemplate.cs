@@ -26,11 +26,6 @@ namespace Exa.Grids.Blocks
             set => physicalTemplatePartial = value; 
         }
 
-        public virtual void SetValues(T block)
-        {
-            block.PhysicalBehaviour.data = physicalTemplatePartial.Convert();
-        }
-
         protected virtual T BuildOnGameObject(GameObject gameObject)
         {
             var instance = gameObject.AddComponent<T>();
@@ -43,11 +38,6 @@ namespace Exa.Grids.Blocks
              return BuildOnGameObject(gameObject);
         }
 
-        public override void SetValues(Block block)
-        {
-            SetValues((T)block);
-        }
-
         protected S AddBlockBehaviour<S>(T blockInstance)
             where S : BlockBehaviourBase
         {
@@ -56,14 +46,16 @@ namespace Exa.Grids.Blocks
             return behaviour;
         }
 
-        protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
+        protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
-            return base.TooltipComponentFactory()
-                .Concat(physicalTemplatePartial.GetTooltipComponents());
+            return new TemplatePartialBase[]
+            {
+                physicalTemplatePartial
+            };
         }
     }
 
-    public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter
+    public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter, IGridTotalsModifier
     {
         public string id;
         public string displayId;
@@ -75,38 +67,31 @@ namespace Exa.Grids.Blocks
         public GameObject alivePrefab;
 
         private Tooltip tooltip;
-        private IEnumerable<Func<BlockTemplate, IBlueprintTotalsModifier>> modifierGetters;
 
         public bool GeneratePrefab { get; private set; }
 
         private void OnEnable()
         {
-            tooltip = new Tooltip(TooltipComponentFactory);
-            modifierGetters = TypeUtils.GetPropertyGetters<BlockTemplate, IBlueprintTotalsModifier>(GetType()).ToList();
+            tooltip = new Tooltip(SelectTooltipComponents);
             if (!inertPrefab) throw new Exception("inertPrefab must have a prefab reference");
             GeneratePrefab = !alivePrefab;
         }
 
-        public abstract void SetValues(Block block);
 
-        public abstract Block AddBlockOnGameObject(GameObject gameObject);
-
-        public void DynamicallyAddTotals(Blueprint blueprint)
+        public void AddGridTotals(GridTotals totals)
         {
-            foreach (var blueprintModifierGetter in modifierGetters)
+            foreach (var partial in GetTemplatePartials())
             {
-                var blueprintModifier = blueprintModifierGetter(this);
-                blueprintModifier.AddBlueprintTotals(blueprint);
+                partial.AddGridTotals(totals);
             }
         }
 
-        public void DynamicallyRemoveTotals(Blueprint blueprint)
+        public void RemoveGridTotals(GridTotals totals)
         {
-            foreach (var blueprintModifierGetter in modifierGetters)
+            foreach(var partial in GetTemplatePartials())
             {
-                var blueprintModifier = blueprintModifierGetter(this);
-                blueprintModifier.AddBlueprintTotals(blueprint);
-            }
+                partial.RemoveGridTotals(totals);
+            } 
         }
 
         public Tooltip GetTooltip()
@@ -114,9 +99,31 @@ namespace Exa.Grids.Blocks
             return tooltip;
         }
 
-        protected virtual IEnumerable<ITooltipComponent> TooltipComponentFactory() => new ITooltipComponent[]
+        public void SetValues(Block block)
         {
-            new TooltipTitle(displayId)
-        };
+            foreach (var partial in GetTemplatePartials())
+            {
+                partial.SetValues(block);
+            }
+        }
+
+        public abstract Block AddBlockOnGameObject(GameObject gameObject);
+
+        protected abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();
+
+        private IEnumerable<ITooltipComponent> SelectTooltipComponents()
+        {
+            var components = new ITooltipComponent[]
+            {
+                new TooltipTitle(displayId)
+            } as IEnumerable<ITooltipComponent>;
+
+            foreach (var partial in GetTemplatePartials())
+            {
+                components.Concat(partial.GetTooltipComponents());
+            }
+
+            return components;
+        }
     }
 }

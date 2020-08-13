@@ -1,5 +1,4 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +12,10 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private ThrusterTemplatePartial thrusterTemplatePartial;
 
-        public ThrusterTemplatePartial ThrusterTemplatePartial { get => thrusterTemplatePartial; set => thrusterTemplatePartial = value; }
-
-        public override void SetValues(Thruster block)
-        {
-            base.SetValues(block);
-            block.ThrusterBehaviour.data = thrusterTemplatePartial.Convert();
+        public ThrusterTemplatePartial ThrusterTemplatePartial 
+        { 
+            get => thrusterTemplatePartial; 
+            set => thrusterTemplatePartial = value; 
         }
 
         protected override Thruster BuildOnGameObject(GameObject gameObject)
@@ -28,10 +25,10 @@ namespace Exa.Grids.Blocks.BlockTypes
             return instance;
         }
 
-        protected override IEnumerable<ITooltipComponent> TooltipComponentFactory()
+        protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
-            return base.TooltipComponentFactory()
-                .Concat(thrusterTemplatePartial.GetComponents());
+            return base.GetTemplatePartials()
+                .Append(thrusterTemplatePartial);
         }
     }
 }

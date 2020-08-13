@@ -24,7 +24,7 @@ namespace Exa.Grids.Blueprints
 
         public IEnumerable<ITooltipComponent> ComponentFactory() => new ITooltipComponent[]
         {
-            new NamedWrapper<string>("Max size", $"{maxSize.x}x{maxSize.y}")
+            new NamedValue<string>("Max size", $"{maxSize.x}x{maxSize.y}")
         };
 
         public Tooltip GetTooltip()

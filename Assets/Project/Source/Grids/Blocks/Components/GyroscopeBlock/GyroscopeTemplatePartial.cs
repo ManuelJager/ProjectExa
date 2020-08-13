@@ -1,4 +1,5 @@
 ﻿using Exa.Generics;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.UI.Tooltips;
 using System;
 using UnityEngine;
@@ -20,10 +21,15 @@ namespace Exa.Grids.Blocks.Components
             turningRate = turningRate
         };
 
-        public ITooltipComponent[] GetComponents() => new ITooltipComponent[]
+        public override void SetValues(Block block)
+        {
+            (block as IGyroscope).GyroscopeBehaviour.SetData(Convert());
+        }
+
+        public override ITooltipComponent[] GetTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipSpacer(),
-            new NamedWrapper<string>("Turning Rate", turningRate.ToString())
+            new NamedValue<string>("Turning Rate", turningRate.ToString())
         };
     }
 }

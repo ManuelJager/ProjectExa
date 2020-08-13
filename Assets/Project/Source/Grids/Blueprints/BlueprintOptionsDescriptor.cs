@@ -7,12 +7,12 @@ namespace Exa.Grids.Blueprints
 {
     public class BlueprintClassSource : IDataSourceProvider
     {
-        public IEnumerable<NamedWrapper<object>> GetValues()
+        public IEnumerable<NamedValue<object>> GetValues()
         {
             var types = Systems.Blueprints.blueprintTypes.objects;
             foreach (var type in types)
             {
-                yield return new NamedWrapper<object>
+                yield return new NamedValue<object>
                 {
                     Name = type.displayName,
                     Value = type

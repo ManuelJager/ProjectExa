@@ -56,7 +56,7 @@ namespace Exa.Gameplay
                     if (Systems.GodModeIsAnabled && raycastTarget != null && raycastTarget is Ship)
                     {
                         var ship = raycastTarget as Ship;
-                        ship.state.CurrentHull -= 50f;
+                        ship.blockGrid.Totals.Hull -= 50f;
                     }
                     break;
             }

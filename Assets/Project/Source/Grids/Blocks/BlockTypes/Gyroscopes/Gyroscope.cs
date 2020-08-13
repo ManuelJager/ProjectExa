@@ -1,6 +1,8 @@
 ﻿using Exa.Ships;
 using Exa.Grids.Blocks.Components;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
@@ -8,15 +10,16 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private GyroscopeBehaviour gyroscopeBehaviour;
 
-        public GyroscopeBehaviour GyroscopeBehaviour { get => gyroscopeBehaviour; set => gyroscopeBehaviour = value; }
-
-        public override Ship Ship
+        public GyroscopeBehaviour GyroscopeBehaviour 
         {
-            set
-            {
-                base.Ship = value;
-                gyroscopeBehaviour.Ship = value;
-            }
+            get => gyroscopeBehaviour; 
+            set => gyroscopeBehaviour = value;
+        }
+
+        protected override IEnumerable<BlockBehaviourBase> GetBehaviours()
+        {
+            return base.GetBehaviours()
+                .Append(gyroscopeBehaviour);
         }
     }
 }

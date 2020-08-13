@@ -28,8 +28,7 @@ namespace Exa.Grids.Ships
             base.Add(block);
 
             var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-            var iPhysical = block as IPhysical;
-            var mass = iPhysical.PhysicalBehaviour.data.mass;
+            var mass = block.PhysicalBehaviour.Data.mass;
             CentreOfMass.Add(localPos, mass);
         }
 
@@ -47,12 +46,6 @@ namespace Exa.Grids.Ships
         {
             foreach (var anchoredBlueprintBlock in blueprint.Blocks)
             {
-                var context = anchoredBlueprintBlock.blueprintBlock.RuntimeContext;
-
-                var partial = context as IPhysicalTemplatePartial;
-                var maxHull = partial.PhysicalTemplatePartial.MaxHull;
-                ship.state.TotalHull += maxHull;
-
                 Add(CreateBlock(anchoredBlueprintBlock));
             }
         }
@@ -62,6 +55,7 @@ namespace Exa.Grids.Ships
             var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(container, BlockPrefabType.userGroup);
             block.Ship = ship;
             block.gameObject.SetActive(true);
+            anchoredBlueprintBlock.blueprintBlock.RuntimeContext.SetValues(block);
             return block;
         }
 

@@ -8,7 +8,7 @@ namespace Exa.Generics
     /// </summary>
     public interface IDataSourceProvider
     {
-        IEnumerable<NamedWrapper<object>> GetValues();
+        IEnumerable<NamedValue<object>> GetValues();
 
         void OnOptionCreation(object value, GameObject viewObject);
     }

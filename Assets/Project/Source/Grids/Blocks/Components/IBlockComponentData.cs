@@ -1,6 +1,6 @@
 ﻿namespace Exa.Grids.Blocks.Components
 {
-    public interface IBlockComponentData
+    public interface IBlockComponentData : IGridTotalsModifier
     {
     }
 }

@@ -1,22 +1,25 @@
 ﻿using Exa.Ships;
 using Exa.Grids.Blocks.Components;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class PowerGenerator : Block, IPowerGeneratorBehaviour
+    public class PowerGenerator : Block, IPowerGenerator
     {
         [SerializeField] private PowerGeneratorBehaviour powerGeneratorBehaviour;
 
-        public PowerGeneratorBehaviour PowerGeneratorBehaviour { get => powerGeneratorBehaviour; set => powerGeneratorBehaviour = value; }
+        public PowerGeneratorBehaviour PowerGeneratorBehaviour 
+        { 
+            get => powerGeneratorBehaviour; 
+            set => powerGeneratorBehaviour = value; 
+        }
 
-        public override Ship Ship
+        protected override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
-            set
-            {
-                base.Ship = value;
-                powerGeneratorBehaviour.Ship = value;
-            }
+            return base.GetBehaviours()
+                .Append(powerGeneratorBehaviour);
         }
     }
 }

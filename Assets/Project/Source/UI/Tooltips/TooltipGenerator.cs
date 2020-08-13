@@ -33,7 +33,7 @@ namespace Exa.UI.Tooltips
         {
             var propertyObject = Instantiate(propertyPrefab, parent);
             var propertyView = propertyObject.GetComponent<PropertyView>();
-            Action<object> update = (obj) => propertyView.Reflect((NamedWrapper<T>)obj);
+            Action<object> update = (obj) => propertyView.Reflect((NamedValue<T>)obj);
             var componentBinder = new TooltipComponentBinder(update);
 
             return new TooltipComponentBundle

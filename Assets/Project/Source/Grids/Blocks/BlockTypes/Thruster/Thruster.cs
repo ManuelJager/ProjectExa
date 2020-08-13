@@ -1,6 +1,8 @@
 ﻿using Exa.Ships;
 using Exa.Grids.Blocks.Components;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
@@ -14,13 +16,10 @@ namespace Exa.Grids.Blocks.BlockTypes
             set => thrusterBehaviour = value;
         }
 
-        public override Ship Ship
+        protected override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
-            set
-            {
-                base.Ship = value;
-                thrusterBehaviour.Ship = value;
-            }
+            return base.GetBehaviours()
+                .Append(thrusterBehaviour);
         }
     }
 }

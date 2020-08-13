@@ -1,4 +1,5 @@
 ﻿using Exa.Generics;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System;
@@ -12,12 +13,11 @@ namespace Exa.Grids.Blocks.Components
     }
 
     [Serializable]
-    public class PhysicalTemplatePartial : TemplatePartial<PhysicalData>, IBlueprintTotalsModifier
+    public class PhysicalTemplatePartial : TemplatePartial<PhysicalData>
     {
         [SerializeField] private float maxHull;
         [SerializeField] private float armor;
         [SerializeField] private short mass; // In kg
-
 
         public float MaxHull => maxHull;
         public float Armor => armor;
@@ -30,22 +30,17 @@ namespace Exa.Grids.Blocks.Components
             mass = mass
         };
 
-        public virtual void AddBlueprintTotals(Blueprint blueprint)
+        public override void SetValues(Block block)
         {
-            blueprint.Mass += mass;
+            (block as IPhysical).PhysicalBehaviour.SetData(Convert());
         }
 
-        public virtual void RemoveBlueprintTotals(Blueprint blueprint)
-        {
-            blueprint.Mass -= mass;
-        }
-
-        public ITooltipComponent[] GetTooltipComponents() => new ITooltipComponent[]
+        public override ITooltipComponent[] GetTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipSpacer(),
-            new NamedWrapper<string>("Hull", maxHull.ToString()),
-            new NamedWrapper<string>("Armor", armor.ToString()),
-            new NamedWrapper<string>("Mass", mass.ToString())
+            new NamedValue<string>("Hull", maxHull.ToString()),
+            new NamedValue<string>("Armor", armor.ToString()),
+            new NamedValue<string>("Mass", mass.ToString())
         };
     }
 }

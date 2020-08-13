@@ -20,24 +20,10 @@ namespace Exa.Grids.Blocks.Components
             var appliedDamage = Mathf.Min(data.hull, trueDamage);
             data.hull -= appliedDamage;
 
-            // Notify the grid the current amount of hull points is decreased
-            ship.state.CurrentHull -= appliedDamage;
-
             if (data.hull <= 0)
             {
                 gameObject.SetActive(false);
             }
-        }
-
-        protected override void OnAdd()
-        {
-            ship.state.CurrentHull += data.hull;
-            ship.state.TotalMass += data.mass;
-        }
-
-        protected override void OnRemove()
-        {
-            ship.state.TotalMass -= data.mass;
         }
     }
 }

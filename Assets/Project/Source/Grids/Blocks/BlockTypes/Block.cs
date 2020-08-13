@@ -3,6 +3,7 @@ using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Unity.Entities;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
@@ -20,14 +21,22 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public BlueprintBlock BlueprintBlock => anchoredBlueprintBlock.blueprintBlock;
 
-        public PhysicalBehaviour PhysicalBehaviour { get => physicalBehaviour; set => physicalBehaviour = value; }
+        public PhysicalBehaviour PhysicalBehaviour 
+        {
+            get => physicalBehaviour; 
+            set => physicalBehaviour = value; 
+        }
 
-        public virtual Ship Ship
+        public Ship Ship
         {
             set
             {
                 this.ship = value;
-                physicalBehaviour.Ship = value;
+
+                foreach (var behaviour in GetBehaviours())
+                {
+                    behaviour.Ship = value;
+                }
             }
         }
 
@@ -37,10 +46,34 @@ namespace Exa.Grids.Blocks.BlockTypes
             Ship = null;
         }
 
+        public void AddGridTotals(GridTotals totals)
+        {
+            foreach (var behaviour in GetBehaviours())
+            {
+                behaviour.BlockComponentData.AddGridTotals(totals);
+            }
+        }
+
+        public void RemoveGridTotals(GridTotals totals)
+        {
+            foreach (var behaviour in GetBehaviours())
+            {
+                behaviour.BlockComponentData.RemoveGridTotals(totals);
+            }
+        }
+
         // TODO: Convert gameobject to entity
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
             throw new System.NotImplementedException();
+        }
+
+        protected virtual IEnumerable<BlockBehaviourBase> GetBehaviours()
+        {
+            return new BlockBehaviourBase[]
+            {
+                PhysicalBehaviour
+            };
         }
     }
 }

@@ -52,5 +52,15 @@ namespace Exa.Grids.Blueprints
         {
             return new AnchoredBlueprintBlock(gridAnchor, blueprintBlock);
         }
+
+        public void AddGridTotals(GridTotals totals)
+        {
+            blueprintBlock.RuntimeContext.AddGridTotals(totals);
+        }
+
+        public void RemoveGridTotals(GridTotals totals)
+        {
+            blueprintBlock.RuntimeContext.RemoveGridTotals(totals);
+        }
     }
 }

@@ -8,40 +8,35 @@ namespace Exa.Ships
     {
         public Ship ship;
 
-        private float hull;
+        private float hullIntegrity;
 
-        public float TotalMass { get; set; }
-        public float TotalHull { get; set; }
-        public float CurrentHull { get; set; }
-        public float Hull
+        public float HullIntegrity
         {
-            get => hull;
+            get => hullIntegrity;
             set
             {
-                hull = value;
+                hullIntegrity = value;
                 ship.overlay.overlayHullBar.SetFill(value);
             }
         }
-        public float TotalTurningPower { get; set; }
+
         public float TurningRate
         {
-            get => TotalTurningPower * 1000 / TotalMass;
+            get => ship.blockGrid.Totals.TurningPower * 1000 / ship.blockGrid.Totals.Mass;
         }
 
         public void Update()
         {
             ship.navigation.SetTurningMultiplier(TurningRate);
-            Hull = CurrentHull / TotalHull;
+            var currentHull = ship.blockGrid.Totals.Hull;
+            var totalHull = ship.Blueprint.Blocks.Totals.Hull;
+            HullIntegrity = currentHull / totalHull; 
         }
 
         public string ToString(int tabs = 0)
         {
             var sb = new StringBuilder();
-            sb.AppendLineIndented($"TotalMass: {TotalMass}", tabs);
-            sb.AppendLineIndented($"TotalHull: {TotalHull}", tabs);
-            sb.AppendLineIndented($"CurrentHull: {CurrentHull}", tabs);
-            sb.AppendLineIndented($"Hull: {Hull}", tabs);
-            sb.AppendLineIndented($"TotalTurningPower: {TotalTurningPower}", tabs);
+            sb.AppendLineIndented($"HullIntegrity: {HullIntegrity}", tabs);
             sb.AppendLineIndented($"TurningRate: {TurningRate}", tabs);
             return sb.ToString();
         }

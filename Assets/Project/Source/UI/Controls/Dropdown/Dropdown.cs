@@ -17,10 +17,10 @@ namespace Exa.UI.Controls
     }
 
     [Serializable]
-    public class Dropdown : InputControl<NamedWrapper<object>>
+    public class Dropdown : InputControl<NamedValue<object>>
     {
         // Stores the tabs by the value hash code
-        public Dictionary<NamedWrapper<object>, DropdownTab> tabByOption = new Dictionary<NamedWrapper<object>, DropdownTab>();
+        public Dictionary<NamedValue<object>, DropdownTab> tabByOption = new Dictionary<NamedValue<object>, DropdownTab>();
 
         [SerializeField] private Text selectedName;
         [SerializeField] private Text selectedText;
@@ -29,14 +29,14 @@ namespace Exa.UI.Controls
         [SerializeField] private Button button;
         [SerializeField] private Transform tabContainer;
         [SerializeField] private GameObject tabPrefab;
-        private NamedWrapper<object> value;
-        private Dictionary<object, NamedWrapper<object>> contextByValue = new Dictionary<object, NamedWrapper<object>>();
+        private NamedValue<object> value;
+        private Dictionary<object, NamedValue<object>> contextByValue = new Dictionary<object, NamedValue<object>>();
 
         public DropdownTabSelected onDropdownTabValueSelected;
 
-        public override NamedWrapper<object> CleanValue { get; set; }
+        public override NamedValue<object> CleanValue { get; set; }
 
-        public override NamedWrapper<object> Value
+        public override NamedValue<object> Value
         {
             get => value;
             set => SetSelected(value.Value);
@@ -47,14 +47,14 @@ namespace Exa.UI.Controls
             button.onClick.AddListener(ToggleContainer);
         }
 
-        public virtual void CreateTabs(string name, IEnumerable<NamedWrapper<object>> options)
+        public virtual void CreateTabs(string name, IEnumerable<NamedValue<object>> options)
         {
             this.selectedName.text = name;
 
             CreateTabs(options);
         }
 
-        public virtual void CreateTabs(IEnumerable<NamedWrapper<object>> options)
+        public virtual void CreateTabs(IEnumerable<NamedValue<object>> options)
         {
             foreach (var option in options)
             {

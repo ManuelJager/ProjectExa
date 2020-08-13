@@ -6,5 +6,15 @@ namespace Exa.Grids.Blocks.Components
     public struct GyroscopeData : IBlockComponentData
     {
         public float turningRate;
+
+        public void AddGridTotals(GridTotals totals)
+        {
+            totals.TurningPower += turningRate;
+        }
+
+        public void RemoveGridTotals(GridTotals totals)
+        {
+            totals.TurningPower -= turningRate;
+        }
     }
 }

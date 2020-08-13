@@ -12,14 +12,18 @@ namespace Exa.Ships
 {
     public abstract class Ship : MonoBehaviour, IRaycastTarget
     {
+        [Header("References")]
         [HideInInspector] public ShipOverlay overlay;
         public BlockGrid blockGrid;
-        public float canvasScaleMultiplier = 1f;
         public ShipNavigation navigation;
         public ShipAI shipAI;
         public Transform pivot;
         public ShipState state;
 
+        [Header("Settings")]
+        public float canvasScaleMultiplier = 1f;
+        
+        [Header("Events")]
         public UnityEvent destroyEvent = new UnityEvent();
 
         protected Blueprint blueprint;

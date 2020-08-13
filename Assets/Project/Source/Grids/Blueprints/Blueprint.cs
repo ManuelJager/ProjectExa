@@ -12,8 +12,6 @@ namespace Exa.Grids.Blueprints
         public string shipClass;
 
         [JsonProperty("blocks")] public BlueprintBlocks Blocks { get; private set; }
-        [JsonIgnore] public long Mass { get; set; }
-        [JsonIgnore] public float PeakPowerGeneration { get; set; }
         [JsonIgnore] public Texture2D Thumbnail { get; set; }
 
         public static readonly string DEFAULT_BLUEPRINT_NAME = "New blueprint";
@@ -36,45 +34,22 @@ namespace Exa.Grids.Blueprints
         {
             this.name = name;
             this.shipClass = shipClass;
-
             this.Blocks = blocks;
-
-            foreach (var block in blocks)
-            {
-                AddContext(block);
-            }
         }
 
         public void Add(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
             Blocks.Add(anchoredBlueprintBlock);
-            AddContext(anchoredBlueprintBlock);
-        }
-
-        public void AddContext(AnchoredBlueprintBlock anchoredBlueprintBlock)
-        {
-            var context = anchoredBlueprintBlock.BlueprintBlock.RuntimeContext;
-            context.DynamicallyAddTotals(this);
         }
 
         public void Remove(Vector2Int gridPos)
         {
-            RemoveContext(gridPos);
             Blocks.Remove(gridPos);
-        }
-
-        public void RemoveContext(Vector2Int gridPos)
-        {
-            var anchoredBlueprintBlock = Blocks.GetMember(gridPos);
-            var context = anchoredBlueprintBlock.BlueprintBlock.RuntimeContext;
-            context.DynamicallyRemoveTotals(this);
         }
 
         public void ClearBlocks()
         {
             Blocks = new BlueprintBlocks();
-            Mass = 0;
-            PeakPowerGeneration = 0f;
             Thumbnail = null;
         }
 
@@ -89,7 +64,8 @@ namespace Exa.Grids.Blueprints
             sb.AppendLineIndented($"Name: {name}", tabs);
             sb.AppendLineIndented($"Class: {shipClass}", tabs);
             sb.AppendLineIndented($"Size: {Blocks.Size.Value}", tabs);
-            sb.AppendLineIndented($"Block count: {Blocks.GetMemberCount()}", tabs);
+            sb.AppendLineIndented($"Blocks (Count: {Blocks.GetMemberCount()}):", tabs);
+            sb.AppendLine(Blocks.Totals.ToString(tabs + 1));
             return sb.ToString();
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Exa.Grids.Blocks.Components
 {
-    public interface IPowerGeneratorBehaviour
+    public interface IPowerGenerator
     {
         PowerGeneratorBehaviour PowerGeneratorBehaviour { get; }
     }
