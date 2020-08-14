@@ -28,7 +28,7 @@ namespace Exa.Grids.Ships
             base.Add(block);
 
             var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-            var mass = block.PhysicalBehaviour.Data.mass;
+            var mass = (block as IPhysical).Component.Data.mass;
             CentreOfMass.Add(localPos, mass);
         }
 

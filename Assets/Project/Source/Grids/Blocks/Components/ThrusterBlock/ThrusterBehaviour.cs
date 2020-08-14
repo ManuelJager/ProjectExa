@@ -1,9 +1,9 @@
 ﻿namespace Exa.Grids.Blocks.Components
 {
-    public interface IThruster
+    public interface IThruster : IBehaviourMarker<ThrusterData>
     {
-        ThrusterBehaviour ThrusterBehaviour { get; }
     }
+
     public class ThrusterBehaviour : BlockBehaviour<ThrusterData>
     {
     }

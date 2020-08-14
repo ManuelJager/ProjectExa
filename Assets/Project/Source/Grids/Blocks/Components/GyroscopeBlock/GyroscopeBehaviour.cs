@@ -1,8 +1,7 @@
 ﻿namespace Exa.Grids.Blocks.Components
 {
-    public interface IGyroscope
+    public interface IGyroscope : IBehaviourMarker<GyroscopeData>
     {
-        GyroscopeBehaviour GyroscopeBehaviour { get; }
     }
 
     public class GyroscopeBehaviour : BlockBehaviour<GyroscopeData>

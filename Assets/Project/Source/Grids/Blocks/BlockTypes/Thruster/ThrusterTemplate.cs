@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/Thruster")]
-    public class ThrusterTemplate : BlockTemplate<Thruster>, IThrusterTemplatePartial
+    public class ThrusterTemplate : BlockTemplate<Thruster>
     {
         [SerializeField] private ThrusterTemplatePartial thrusterTemplatePartial;
 
@@ -16,13 +16,6 @@ namespace Exa.Grids.Blocks.BlockTypes
         { 
             get => thrusterTemplatePartial; 
             set => thrusterTemplatePartial = value; 
-        }
-
-        protected override Thruster BuildOnGameObject(GameObject gameObject)
-        {
-            var instance = base.BuildOnGameObject(gameObject);
-            instance.ThrusterBehaviour = AddBlockBehaviour<ThrusterBehaviour>(instance);
-            return instance;
         }
 
         protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()

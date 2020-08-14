@@ -2,9 +2,8 @@
 
 namespace Exa.Grids.Blocks.Components
 {
-    public interface IPhysical
+    public interface IPhysical : IBehaviourMarker<PhysicalData>
     {
-        PhysicalBehaviour PhysicalBehaviour { get; }
     }
 
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>

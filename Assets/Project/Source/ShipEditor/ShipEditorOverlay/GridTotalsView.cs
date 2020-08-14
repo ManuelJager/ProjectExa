@@ -13,19 +13,13 @@ namespace Exa.ShipEditor
         [SerializeField] private PropertyView peakPowerGenerationView;
         [SerializeField] private PropertyView turningPower;
 
-        private GridTotals totals;
-
-        public void Setup(GridTotals totals)
-        {
-            this.totals = totals;
-        }
-
         public void Update()
         {
-            Render();
+            var totals = Systems.ShipEditor.editorGrid.blueprintLayer.ActiveBlueprint.Blocks.Totals;
+            Render(totals);
         }
 
-        private void Render()
+        private void Render(GridTotals totals)
         {
             massView.Reflect(new NamedValue<string>("Mass", $"{totals.Mass:0} KG"));
             hullView.Reflect(new NamedValue<string>("Hull", $"{totals.Hull:0}"));

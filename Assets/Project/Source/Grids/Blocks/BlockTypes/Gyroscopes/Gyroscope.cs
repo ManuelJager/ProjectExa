@@ -10,10 +10,10 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private GyroscopeBehaviour gyroscopeBehaviour;
 
-        public GyroscopeBehaviour GyroscopeBehaviour 
+        BlockBehaviour<GyroscopeData> IBehaviourMarker<GyroscopeData>.Component
         {
             get => gyroscopeBehaviour; 
-            set => gyroscopeBehaviour = value;
+            set => gyroscopeBehaviour = value as GyroscopeBehaviour;
         }
 
         protected override IEnumerable<BlockBehaviourBase> GetBehaviours()

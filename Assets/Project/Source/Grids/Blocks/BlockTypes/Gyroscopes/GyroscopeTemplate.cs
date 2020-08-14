@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/Gyroscope")]
-    public class GyroscopeTemplate : BlockTemplate<Gyroscope>, IGyroscopeTemplatePartial
+    public class GyroscopeTemplate : BlockTemplate<Gyroscope>
     {
         [SerializeField] private GyroscopeTemplatePartial gyroscopeTemplatePartial;
 
@@ -16,13 +16,6 @@ namespace Exa.Grids.Blocks.BlockTypes
         { 
             get => gyroscopeTemplatePartial; 
             set => gyroscopeTemplatePartial = value; 
-        }
-
-        protected override Gyroscope BuildOnGameObject(GameObject gameObject)
-        {
-            var instance = base.BuildOnGameObject(gameObject);
-            instance.GyroscopeBehaviour = AddBlockBehaviour<GyroscopeBehaviour>(instance);
-            return instance;
         }
 
         protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()

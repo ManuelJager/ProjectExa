@@ -21,10 +21,10 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public BlueprintBlock BlueprintBlock => anchoredBlueprintBlock.blueprintBlock;
 
-        public PhysicalBehaviour PhysicalBehaviour 
+        BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component
         {
             get => physicalBehaviour; 
-            set => physicalBehaviour = value; 
+            set => physicalBehaviour = value as PhysicalBehaviour; 
         }
 
         public Ship Ship
@@ -72,7 +72,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         {
             return new BlockBehaviourBase[]
             {
-                PhysicalBehaviour
+                physicalBehaviour
             };
         }
     }

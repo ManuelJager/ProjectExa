@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/PowerGenerator")]
-    public class PowerGeneratorTemplate : BlockTemplate<PowerGenerator>, IPowerGeneratorTemplatePartial
+    public class PowerGeneratorTemplate : BlockTemplate<PowerGenerator>
     {
         [SerializeField] private PowerGeneratorTemplatePartial powerGeneratorTemplatePartial;
 
@@ -16,13 +16,6 @@ namespace Exa.Grids.Blocks.BlockTypes
         {
             get => powerGeneratorTemplatePartial; 
             set => powerGeneratorTemplatePartial = value; 
-        }
-
-        protected override PowerGenerator BuildOnGameObject(GameObject gameObject)
-        {
-            var instance = base.BuildOnGameObject(gameObject);
-            instance.PowerGeneratorBehaviour = AddBlockBehaviour<PowerGeneratorBehaviour>(instance);
-            return instance;
         }
 
         protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()

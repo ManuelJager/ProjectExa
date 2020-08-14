@@ -34,11 +34,7 @@ namespace Exa.Grids.Blocks.Components
         public T Data
         {
             get => data;
-        }
-
-        public override void SetData(object data)
-        {
-            this.data = (T)data;
+            set => data = value;
         }
 
         public override IBlockComponentData BlockComponentData => data;
@@ -61,7 +57,5 @@ namespace Exa.Grids.Blocks.Components
         public abstract Ship Ship { get; set; }
 
         public abstract IBlockComponentData BlockComponentData { get; }
-
-        public abstract void SetData(object data);
     }
 }

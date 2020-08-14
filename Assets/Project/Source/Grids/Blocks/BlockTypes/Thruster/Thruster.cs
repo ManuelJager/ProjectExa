@@ -10,10 +10,10 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private ThrusterBehaviour thrusterBehaviour;
 
-        public ThrusterBehaviour ThrusterBehaviour
+        BlockBehaviour<ThrusterData> IBehaviourMarker<ThrusterData>.Component
         {
             get => thrusterBehaviour;
-            set => thrusterBehaviour = value;
+            set => thrusterBehaviour = value as ThrusterBehaviour;
         }
 
         protected override IEnumerable<BlockBehaviourBase> GetBehaviours()

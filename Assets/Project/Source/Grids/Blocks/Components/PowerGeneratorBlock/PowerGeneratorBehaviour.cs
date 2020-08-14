@@ -1,8 +1,7 @@
 ﻿namespace Exa.Grids.Blocks.Components
 {
-    public interface IPowerGenerator
+    public interface IPowerGenerator : IBehaviourMarker<PowerGeneratorData>
     {
-        PowerGeneratorBehaviour PowerGeneratorBehaviour { get; }
     }
 
     public class PowerGeneratorBehaviour : BlockBehaviour<PowerGeneratorData>

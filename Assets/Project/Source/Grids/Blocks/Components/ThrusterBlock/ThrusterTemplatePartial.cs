@@ -2,15 +2,11 @@
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.UI.Tooltips;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public interface IThrusterTemplatePartial
-    {
-        ThrusterTemplatePartial ThrusterTemplatePartial { get; }
-    }
-
     [Serializable]
     public class ThrusterTemplatePartial : TemplatePartial<ThrusterData>
     {
@@ -18,17 +14,17 @@ namespace Exa.Grids.Blocks.Components
 
         public int NewtonThrust => newtonThrust;
 
+        public override BlockBehaviourBase AddSelf(Block block)
+        {
+            return SetupBehaviour<ThrusterBehaviour>(block);
+        }
+
         public override ThrusterData Convert() => new ThrusterData
         {
             newtonThrust = newtonThrust
         };
 
-        public override void SetValues(Block block)
-        {
-            (block as IThruster).ThrusterBehaviour.SetData(Convert());
-        }
-
-        public override ITooltipComponent[] GetTooltipComponents() => new ITooltipComponent[]
+        public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipSpacer(),
             new NamedValue<string>("Thrust", $"{newtonThrust}N")

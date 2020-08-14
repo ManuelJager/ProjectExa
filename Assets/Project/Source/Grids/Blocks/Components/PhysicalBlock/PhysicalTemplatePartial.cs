@@ -1,17 +1,12 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blocks.BlockTypes;
-using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public interface IPhysicalTemplatePartial
-    {
-        PhysicalTemplatePartial PhysicalTemplatePartial { get; }
-    }
-
     [Serializable]
     public class PhysicalTemplatePartial : TemplatePartial<PhysicalData>
     {
@@ -23,6 +18,11 @@ namespace Exa.Grids.Blocks.Components
         public float Armor => armor;
         public float Mass => mass;
 
+        public override BlockBehaviourBase AddSelf(Block block)
+        {
+            return SetupBehaviour<PhysicalBehaviour>(block);
+        }
+
         public override PhysicalData Convert() => new PhysicalData
         {
             armor = armor,
@@ -30,12 +30,7 @@ namespace Exa.Grids.Blocks.Components
             mass = mass
         };
 
-        public override void SetValues(Block block)
-        {
-            (block as IPhysical).PhysicalBehaviour.SetData(Convert());
-        }
-
-        public override ITooltipComponent[] GetTooltipComponents() => new ITooltipComponent[]
+        public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipSpacer(),
             new NamedValue<string>("Hull", maxHull.ToString()),

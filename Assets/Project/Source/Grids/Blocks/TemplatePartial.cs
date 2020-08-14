@@ -1,6 +1,8 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.UI.Tooltips;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks
 {
@@ -8,6 +10,20 @@ namespace Exa.Grids.Blocks
         where T : IBlockComponentData
     {
         public abstract T Convert();
+
+        public override void SetValues(Block block)
+        {
+            (block as IBehaviourMarker<T>).Component.Data = Convert();
+        }
+
+        protected S SetupBehaviour<S>(Block block)
+            where S : BlockBehaviour<T>
+        {
+            var behaviour = block.gameObject.AddComponent<S>();
+            behaviour.block = block;
+            (block as IBehaviourMarker<T>).Component = behaviour;
+            return behaviour;
+        }
 
         public override void AddGridTotals(GridTotals totals)
         {
@@ -24,7 +40,9 @@ namespace Exa.Grids.Blocks
     {
         public abstract void SetValues(Block block);
 
-        public abstract ITooltipComponent[] GetTooltipComponents();
+        public abstract BlockBehaviourBase AddSelf(Block block);
+
+        public abstract IEnumerable<ITooltipComponent> GetTooltipComponents();
 
         public abstract void AddGridTotals(GridTotals totals);
 

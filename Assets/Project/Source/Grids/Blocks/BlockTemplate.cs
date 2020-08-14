@@ -1,9 +1,6 @@
-﻿using Exa.Generics;
-using Exa.Grids.Blocks.BlockTypes;
+﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
-using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
-using Exa.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,35 +12,32 @@ namespace Exa.Grids.Blocks
     /// Provides a generic base class for storing and setting the base values of blocks
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BlockTemplate<T> : BlockTemplate, IPhysicalTemplatePartial
+    public class BlockTemplate<T> : BlockTemplate
         where T : Block
     {
         [SerializeField] private PhysicalTemplatePartial physicalTemplatePartial;
 
-        public PhysicalTemplatePartial PhysicalTemplatePartial 
-        { 
-            get => physicalTemplatePartial; 
-            set => physicalTemplatePartial = value; 
+        public PhysicalTemplatePartial PhysicalTemplatePartial
+        {
+            get => physicalTemplatePartial;
+            set => physicalTemplatePartial = value;
+        }
+
+        public override Block AddBlockOnGameObject(GameObject gameObject)
+        {
+            return BuildOnGameObject(gameObject);
         }
 
         protected virtual T BuildOnGameObject(GameObject gameObject)
         {
             var instance = gameObject.AddComponent<T>();
-            instance.PhysicalBehaviour = AddBlockBehaviour<PhysicalBehaviour>(instance);
+
+            foreach (var partial in GetTemplatePartials())
+            {
+                partial.AddSelf(instance);
+            }
+
             return instance;
-        }
-
-        public override Block AddBlockOnGameObject(GameObject gameObject)
-        {
-             return BuildOnGameObject(gameObject);
-        }
-
-        protected S AddBlockBehaviour<S>(T blockInstance)
-            where S : BlockBehaviourBase
-        {
-            var behaviour = blockInstance.gameObject.AddComponent<S>();
-            behaviour.block = blockInstance;
-            return behaviour;
         }
 
         protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()
@@ -77,7 +71,6 @@ namespace Exa.Grids.Blocks
             GeneratePrefab = !alivePrefab;
         }
 
-
         public void AddGridTotals(GridTotals totals)
         {
             foreach (var partial in GetTemplatePartials())
@@ -88,10 +81,10 @@ namespace Exa.Grids.Blocks
 
         public void RemoveGridTotals(GridTotals totals)
         {
-            foreach(var partial in GetTemplatePartials())
+            foreach (var partial in GetTemplatePartials())
             {
                 partial.RemoveGridTotals(totals);
-            } 
+            }
         }
 
         public Tooltip GetTooltip()
