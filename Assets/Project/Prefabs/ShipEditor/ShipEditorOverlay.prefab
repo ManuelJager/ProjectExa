@@ -622,7 +622,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 20, y: 29}
-  m_SizeDelta: {x: 360, y: 0}
+  m_SizeDelta: {x: 440, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &2337189572060791900
 CanvasRenderer:
@@ -1883,7 +1883,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20, y: -20}
-  m_SizeDelta: {x: 360, y: 0}
+  m_SizeDelta: {x: 440, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7210131190310212549
 CanvasRenderer:
@@ -2806,7 +2806,7 @@ PrefabInstance:
     - target: {fileID: 4991562525011218996, guid: 3b615f3a5808fcd4da198ad89c20ad8f,
         type: 3}
       propertyPath: m_Text
-      value: 'Blueprint name
+      value: 'Name
 
 '
       objectReference: {fileID: 0}

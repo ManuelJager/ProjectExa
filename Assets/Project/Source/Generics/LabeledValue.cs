@@ -4,21 +4,21 @@ using UnityEngine;
 
 namespace Exa.Generics
 {
-    public struct NamedValue<T> : ITooltipComponent, INamedValue<T>, IEquatable<NamedValue<T>>
+    public struct LabeledValue<T> : ITooltipComponent, ILabeledValue<T>, IEquatable<LabeledValue<T>>
     {
-        public string Name { get; set; }
+        public string Label { get; set; }
         public T Value { get; set; }
 
-        public NamedValue(string name, T value)
+        public LabeledValue(string label, T value)
         {
-            Name = name;
+            Label = label;
             Value = value;
         }
 
-        public bool Equals(NamedValue<T> other)
+        public bool Equals(LabeledValue<T> other)
         {
             return
-                Name.Equals(other.Name) &&
+                Label.Equals(other.Label) &&
                 Value.Equals(other.Value);
         }
 
@@ -28,7 +28,7 @@ namespace Exa.Generics
         }
     }
 
-    public interface INamedValue<out T>
+    public interface ILabeledValue<out T>
     {
         T Value { get; }
     }

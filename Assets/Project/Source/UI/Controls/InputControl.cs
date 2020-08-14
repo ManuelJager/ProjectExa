@@ -1,10 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
-namespace Exa.UI.Components
+namespace Exa.UI.Controls
 {
     public abstract class InputControl<T> : InputControl
-        where T : IEquatable<T>
     {
         /// <summary>
         /// Gets the unupdated value
@@ -15,6 +15,8 @@ namespace Exa.UI.Components
         /// Gets the current value
         /// </summary>
         public abstract T Value { get; set; }
+
+        public abstract UnityEvent<T> OnValueChange { get; }
 
         /// <inheritdoc cref="InputControl.IsDirty"/>
         public override bool IsDirty => !CleanValue.Equals(Value);
@@ -33,6 +35,8 @@ namespace Exa.UI.Components
 
     public abstract class InputControl : MonoBehaviour, IControl
     {
+        [SerializeField] private Text labelText;
+
         /// <summary>
         /// Checks if the value is up-to-date
         /// </summary>
@@ -42,5 +46,10 @@ namespace Exa.UI.Components
         /// Marks the control as being updated
         /// </summary>
         public abstract void SetClean();
+
+        public void SetLabelText(string label)
+        {
+            labelText.text = label;
+        }
     }
 }

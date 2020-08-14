@@ -1,49 +1,55 @@
 ﻿using Exa.Generics;
 using Exa.UI;
+using Exa.UI.Controls;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
-    public class BlueprintClassSource : IDataSourceProvider
+    public class BlueprintOptionsDescriptor : ModelDescriptor<BlueprintOptions>
     {
-        public IEnumerable<NamedValue<object>> GetValues()
+        private string blueprintName;
+
+        private BlueprintType blueprintClass;
+
+        public override BlueprintOptions FromDescriptor()
+        {
+            return new BlueprintOptions(blueprintName, blueprintClass.typeGuid);
+        }
+
+        public override void GenerateView(Transform container)
+        {
+            Systems.UI.controlFactory.CreateInputField(container, "Name", SetBlueprintName);
+            Systems.UI.controlFactory.CreateDropdown(container, "Class", GetPossibleBlueprintClasses(), SetBlueprintClass, OnOptionCreation);
+        }
+
+        private void SetBlueprintName(string blueprintName) => this.blueprintName = blueprintName;
+        private void SetBlueprintClass(object blueprintClass) => this.blueprintClass = blueprintClass as BlueprintType;
+
+        private IEnumerable<LabeledValue<object>> GetPossibleBlueprintClasses()
         {
             var types = Systems.Blueprints.blueprintTypes.objects;
             foreach (var type in types)
             {
-                yield return new NamedValue<object>
+                yield return new LabeledValue<object>
                 {
-                    Name = type.displayName,
+                    Label = type.displayName,
                     Value = type
                 };
             }
         }
 
-        public void OnOptionCreation(object value, GameObject viewObject)
+        private void OnOptionCreation(object value, DropdownTab tab)
         {
-            var hoverable = viewObject.AddComponent<Hoverable>();
+            var hoverable = tab.gameObject.AddComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() =>
             {
-                Systems.UI.tooltips.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
+                Systems.UI.tooltips.blueprintTypeTooltip.ShowTooltip(value as BlueprintType);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
                 Systems.UI.tooltips.blueprintTypeTooltip.HideTooltip();
             });
-        }
-    }
-
-    public class BlueprintOptionsDescriptor : ModelDescriptor<BlueprintOptions>
-    {
-        public string Name { get; set; }
-
-        [Source(typeof(BlueprintClassSource))]
-        public BlueprintType Class { get; set; }
-
-        public override BlueprintOptions FromDescriptor()
-        {
-            return new BlueprintOptions(Name, Class.typeGuid);
         }
     }
 }

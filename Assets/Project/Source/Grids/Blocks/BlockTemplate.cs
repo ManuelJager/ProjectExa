@@ -15,13 +15,8 @@ namespace Exa.Grids.Blocks
     public class BlockTemplate<T> : BlockTemplate
         where T : Block
     {
-        [SerializeField] private PhysicalTemplatePartial physicalTemplatePartial;
-
-        public PhysicalTemplatePartial PhysicalTemplatePartial
-        {
-            get => physicalTemplatePartial;
-            set => physicalTemplatePartial = value;
-        }
+        [Header("Template partials")]
+        [SerializeField] protected PhysicalTemplatePartial physicalTemplatePartial;
 
         public override Block AddBlockOnGameObject(GameObject gameObject)
         {
@@ -51,6 +46,7 @@ namespace Exa.Grids.Blocks
 
     public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter, IGridTotalsModifier
     {
+        [Header("Settings")]
         public string id;
         public string displayId;
         public string category;

@@ -25,7 +25,7 @@ namespace Exa.Grids.Blocks.Components
         public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipSpacer(),
-            new NamedValue<string>("Power generation", $"{peakGeneration} KW")
+            new LabeledValue<string>("Power generation", $"{peakGeneration} KW")
         };
     }
 }

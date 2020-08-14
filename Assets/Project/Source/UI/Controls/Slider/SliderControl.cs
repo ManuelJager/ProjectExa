@@ -1,18 +1,17 @@
-﻿using Exa.UI.Components;
+﻿using Exa.Generics;
+using Exa.UI.Components;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEngine.UI.Slider;
 
 namespace Exa.UI.Controls
 {
-    public class ExaSlider : InputControl<float>
+    public class SliderControl : InputControl<float>
     {
         [SerializeField] private Slider slider;
         [SerializeField] private ExtendedInputField inputField;
-
-        public SliderEvent onValueChanged = new SliderEvent();
-
         public override float CleanValue { get; set; }
 
         public override float Value
@@ -25,6 +24,10 @@ namespace Exa.UI.Controls
             }
         }
 
+        [SerializeField] private SliderEvent onValueChanged = new SliderEvent();
+
+        public override UnityEvent<float> OnValueChange => onValueChanged;
+
         private void Awake()
         {
             slider.onValueChanged.AddListener(OnSliderValueChanged);
@@ -32,6 +35,12 @@ namespace Exa.UI.Controls
             inputField.onValueChanged.AddListener(OnInputFieldValueChanged);
             inputField.onEndEdit.AddListener(OnInputFieldEndEdit);
             inputField.text = FormatFloat(slider.value);
+        }
+
+        public void SetMinMax(MinMax<float> minMax)
+        {
+            slider.minValue = minMax.min;
+            slider.maxValue = minMax.max;
         }
 
         private void OnSliderValueChanged(float value)
@@ -57,12 +66,12 @@ namespace Exa.UI.Controls
 
         private void OnInputFieldEndEdit(string value)
         {
-            float floatValue;
-            var valid = float.TryParse(value, out floatValue);
+            var valid = float.TryParse(value, out var floatValue);
 
             if (valid)
             {
                 slider.value = (float)System.Math.Round(floatValue, 2);
+                onValueChanged.Invoke(floatValue);
             }
             else
             {

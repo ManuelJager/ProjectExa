@@ -35,7 +35,7 @@ namespace Exa.Data
 
             // Get resolition view models
             var resolutions = selectedResolutions
-                .Select((resolution) => new NamedValue<object>($"{resolution.width}x{resolution.height}", resolution))
+                .Select((resolution) => new LabeledValue<object>($"{resolution.width}x{resolution.height}", resolution))
                 .Reverse();
 
             // Get Refresh rate view models
@@ -43,15 +43,17 @@ namespace Exa.Data
                 .Select((resolution) => resolution.refreshRate)
                 .Distinct()
                 .OrderByDescending((resolution) => resolution)
-                .Select((refreshRate) => new NamedValue<object>($"{refreshRate} hz", refreshRate));
+                .Select((refreshRate) => new LabeledValue<object>($"{refreshRate} hz", refreshRate));
 
-            videoSettings.refreshRatesDropdown.CreateTabs("Refresh rate", refreshRates);
+            videoSettings.refreshRatesDropdown.SetLabelText("Refresh rates");
+            videoSettings.refreshRatesDropdown.CreateTabs(refreshRates);
 
             // Get first refresh rate
-            var firstRefreshRate = (int)videoSettings.refreshRatesDropdown.Value.Value;
-            videoSettings.resolutionDropdown.CreateTabs("Resolution", resolutions);
+            var firstRefreshRate = (int)videoSettings.refreshRatesDropdown.Value;
+            videoSettings.resolutionDropdown.SetLabelText("Resolutions");
+            videoSettings.resolutionDropdown.CreateTabs(resolutions);
             videoSettings.resolutionDropdown.FilterByRefreshRate(firstRefreshRate);
-            videoSettings.refreshRatesDropdown.SelectFirstActive();
+            videoSettings.refreshRatesDropdown.SelectFirst();
         }
 
         private bool IsAcceptedRefreshRate(Resolution resolution)

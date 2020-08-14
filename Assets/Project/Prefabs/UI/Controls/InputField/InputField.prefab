@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7053518636932664407}
   - component: {fileID: 6821260194692825911}
   m_Layer: 5
-  m_Name: KeyContainer
+  m_Name: LabelContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -264,9 +264,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8fba0da7edddb4ebd669167b4814e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 4991562525011218996}
+  labelText: {fileID: 4991562525011218996}
   placeholderText: {fileID: 944948028832328603}
   inputField: {fileID: 7708740270969503004}
+  onValueChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5888731697039593107
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +282,7 @@ GameObject:
   - component: {fileID: 1258129536440358606}
   - component: {fileID: 4991562525011218996}
   m_Layer: 5
-  m_Name: KeyText
+  m_Name: LabelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -344,7 +347,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Key
+  m_Text: 'Label
+
+'
 --- !u!1 &6511784458255876398
 GameObject:
   m_ObjectHideFlags: 0

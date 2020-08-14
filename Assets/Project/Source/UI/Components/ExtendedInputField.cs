@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Exa.UI
+namespace Exa.UI.Components
 {
     public class ExtendedInputField : InputField
     {

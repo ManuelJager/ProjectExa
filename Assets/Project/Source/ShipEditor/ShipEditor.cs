@@ -32,7 +32,7 @@ namespace Exa.ShipEditor
             shipEditorOverlay.inventory.blockSelected.AddListener(editorGrid.OnBlockSelected);
             shipEditorOverlay.onPointerEnter.AddListener(OnOverlayPointerEnter);
             shipEditorOverlay.onPointerExit.AddListener(OnOverlayPointerExit);
-            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged.AddListener(OnBlueprintNameInputChanged);
+            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.OnValueChange.AddListener(OnBlueprintNameInputChanged);
             shipEditorOverlay.blueprintInfoPanel.saveButton.onClick.AddListener(OnBlueprintSave);
 
             editorGrid.blueprintLayer.onBlueprintChanged.AddListener(OnBlueprintChanged);
@@ -81,7 +81,7 @@ namespace Exa.ShipEditor
 
             ValidateName(newBlueprint.name);
 
-            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.SetTextWithoutNotify(newBlueprint.name);
+            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.SetValueWithoutNotify(newBlueprint.name);
         }
 
         public void ExportToClipboard()

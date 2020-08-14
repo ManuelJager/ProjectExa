@@ -27,7 +27,7 @@ namespace Exa.Grids.Blocks.Components
         public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipSpacer(),
-            new NamedValue<string>("Thrust", $"{newtonThrust}N")
+            new LabeledValue<string>("Thrust", $"{newtonThrust}N")
         };
     }
 }

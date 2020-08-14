@@ -61,8 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1dba15de04f214d96a3f366c29745e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedOption: 0
-  selectedName: {fileID: 6665540959298001051}
+  labelText: {fileID: 6665540959298001051}
   selectedText: {fileID: 7791772207032264622}
   playerProxy: {fileID: 8619676640294347819}
   tabArrow: {fileID: 7658791969648165921}
@@ -70,7 +69,7 @@ MonoBehaviour:
   tabContainer: {fileID: 85489826556136895}
   tabPrefab: {fileID: 558324496665500032, guid: 2480b9a91f14c96409357a23f527187a,
     type: 3}
-  onDropdownTabValueSelected:
+  onValueChange:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6775417220227922033
@@ -375,7 +374,7 @@ GameObject:
   - component: {fileID: 2459834998346000563}
   - component: {fileID: 6665540959298001051}
   m_Layer: 5
-  m_Name: KeyText
+  m_Name: LabelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,7 +439,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Key
+  m_Text: 'Label
+
+'
 --- !u!1 &5688586671363765935
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +619,7 @@ GameObject:
   - component: {fileID: 3650004895593038783}
   - component: {fileID: 2200079629635903882}
   m_Layer: 5
-  m_Name: KeyContainer
+  m_Name: LabelContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

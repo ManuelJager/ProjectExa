@@ -1,4 +1,4 @@
-﻿namespace Exa.UI.Components
+﻿namespace Exa.UI.Controls
 {
     /// <summary>
     /// Supports a user control that can be checked for a changed value

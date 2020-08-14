@@ -10,9 +10,9 @@ namespace Exa.UI.Controls
         [SerializeField] private Text keyText;
         [SerializeField] private Text valueText;
 
-        public void Reflect<T>(NamedValue<T> valueContext)
+        public void Reflect<T>(LabeledValue<T> valueContext)
         {
-            keyText.text = valueContext.Name;
+            keyText.text = valueContext.Label;
             valueText.text = valueContext.Value.ToString();
         }
     }

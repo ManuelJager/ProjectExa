@@ -12,6 +12,11 @@ namespace Exa.UI.Controls
         [SerializeField] private Color activeColor;
         [SerializeField] private Color inactiveColor;
 
+        private void Awake()
+        {
+            Selected = false;
+        }
+
         public string Text
         {
             set

@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88398897426a0ce4d821c2bde5262c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedName: {fileID: 5239954905765319396}
+  labelText: {fileID: 5239954905765319396}
   selectedText: {fileID: 8653986215014985169}
   playerProxy: {fileID: 7180975494870412884}
   tabArrow: {fileID: 9111261026569768542}
@@ -116,7 +116,7 @@ MonoBehaviour:
   tabContainer: {fileID: 1519812720193095616}
   tabPrefab: {fileID: 558324496665500032, guid: 2480b9a91f14c96409357a23f527187a,
     type: 3}
-  onDropdownTabValueSelected:
+  onValueChange:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2322821473846597781
@@ -178,10 +178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tabName: Video Settings
-  controls:
-  - {fileID: 7729941999011253060}
-  - {fileID: 8445864769931092280}
-  - {fileID: 512310819487940272}
   resolutionDropdown: {fileID: 7729941999011253060}
   refreshRatesDropdown: {fileID: 512310819487940272}
   fullscreenRadio: {fileID: 8445864769931092280}
@@ -529,7 +525,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a5aeeb307a35034e99977a196586f06, type: 3}
+  m_Script: {fileID: 11500000, guid: 5077d5a1fcdac6549814aa9a09c95e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5902618993494367076

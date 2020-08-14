@@ -1,18 +1,30 @@
 ﻿using Exa.UI.Controls;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.UI.Settings
 {
-    public class ResolutionDropdown : Dropdown
+    public class ResolutionDropdown : DropdownControl
     {
         public void FilterByRefreshRate(int refreshRate)
         {
-            foreach (var tab in tabByOption)
+            foreach (var value in stateContainer)
             {
-                var tabRefreshRate = ((Resolution)tab.Key.Value).refreshRate;
+                var resolution = (Resolution)value;
+                var tabRefreshRate = resolution.refreshRate;
                 var matches = tabRefreshRate == refreshRate;
-                tab.Value.gameObject.SetActive(matches);
+                stateContainer.GetTab(value).gameObject.SetActive(matches);
             }
+        }
+
+        public override void SelectFirst()
+        {
+            // Get the first value that has a corresponding active dropdown tab
+            var query = stateContainer
+                .Where((value) => stateContainer.GetTab(value).gameObject.activeSelf)
+                .FirstOrDefault();
+
+            SetSelected(query);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Exa.Data;
 using Exa.ShipEditor;
+using Exa.UI.Controls;
 using Exa.UI.Diagnostics;
 using Exa.UI.Tooltips;
 using UCommandConsole;
@@ -21,6 +22,7 @@ namespace Exa.UI
         public PromptController promptController;
         public DiagnosticsPanel diagnostics;
         public SettingsManager settingsManager;
+        public ControlFactory controlFactory;
 
         private void Awake()
         {

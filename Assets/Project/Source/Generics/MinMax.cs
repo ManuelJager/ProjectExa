@@ -10,5 +10,10 @@
             this.min = min;
             this.max = max;
         }
+
+        public static MinMax<float> ZeroOne
+        {
+            get => new MinMax<float>(0f, 1f);
+        }
     }
 }

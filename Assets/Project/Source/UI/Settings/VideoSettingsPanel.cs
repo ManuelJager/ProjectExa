@@ -8,8 +8,8 @@ namespace Exa.UI.Settings
     public class VideoSettingsPanel : SettingsTab<ExaVideoSettings, VideoSettingsValues>
     {
         public ResolutionDropdown resolutionDropdown;
-        public Dropdown refreshRatesDropdown;
-        public Radio fullscreenRadio;
+        public DropdownControl refreshRatesDropdown;
+        public RadioControl fullscreenRadio;
 
         private InputControl[] controls;
 
@@ -22,10 +22,10 @@ namespace Exa.UI.Settings
                 fullscreenRadio
             };
 
-            refreshRatesDropdown.onDropdownTabValueSelected.AddListener((obj) =>
+            refreshRatesDropdown.OnValueChange.AddListener((obj) =>
             {
                 resolutionDropdown.FilterByRefreshRate((int)obj);
-                resolutionDropdown.SelectFirstActive();
+                resolutionDropdown.SelectFirst();
             });
         }
 
@@ -33,7 +33,7 @@ namespace Exa.UI.Settings
         {
             return new VideoSettingsValues
             {
-                resolution = (Resolution)resolutionDropdown.Value.Value,
+                resolution = (Resolution)resolutionDropdown.Value,
                 fullscreen = fullscreenRadio.Value
             };
         }

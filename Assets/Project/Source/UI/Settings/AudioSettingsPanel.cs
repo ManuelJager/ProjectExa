@@ -6,9 +6,9 @@ namespace Exa.UI.Settings
 {
     public class AudioSettingsPanel : SettingsTab<ExaAudioSettings, AudioSettingsValues>
     {
-        public ExaSlider masterVolumeSlider;
-        public ExaSlider musicVolumeSlider;
-        public ExaSlider effectsVolumeSlider;
+        public SliderControl masterVolumeSlider;
+        public SliderControl musicVolumeSlider;
+        public SliderControl effectsVolumeSlider;
 
         private InputControl[] controls;
 

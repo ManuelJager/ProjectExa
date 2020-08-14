@@ -33,9 +33,9 @@ namespace Exa.Grids.Blocks.Components
         public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipSpacer(),
-            new NamedValue<string>("Hull", maxHull.ToString()),
-            new NamedValue<string>("Armor", armor.ToString()),
-            new NamedValue<string>("Mass", mass.ToString())
+            new LabeledValue<string>("Hull", maxHull.ToString()),
+            new LabeledValue<string>("Armor", armor.ToString()),
+            new LabeledValue<string>("Mass", mass.ToString())
         };
     }
 }

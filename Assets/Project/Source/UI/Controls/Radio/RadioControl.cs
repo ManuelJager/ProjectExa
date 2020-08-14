@@ -1,12 +1,13 @@
 ﻿using Exa.UI.Components;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Exa.UI.Controls
 {
     [Serializable]
-    public class Radio : InputControl<bool>
+    public class RadioControl : InputControl<bool>
     {
         [SerializeField] private Image buttonImage;
         [SerializeField] private Color inactiveColor;
@@ -26,9 +27,21 @@ namespace Exa.UI.Controls
             }
         }
 
+        private RadioCheckEvent onValueChange = new RadioCheckEvent();
+
+        public override UnityEvent<bool> OnValueChange 
+        { 
+            get => onValueChange; 
+        }
+
         public void Toggle()
         {
             Value = !value;
+        }
+
+        [Serializable]
+        public class RadioCheckEvent : UnityEvent<bool>
+        {
         }
     }
 }

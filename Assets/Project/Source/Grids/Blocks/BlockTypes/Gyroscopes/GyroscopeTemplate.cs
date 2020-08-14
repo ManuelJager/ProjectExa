@@ -10,13 +10,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     [CreateAssetMenu(menuName = "Grids/Blocks/Gyroscope")]
     public class GyroscopeTemplate : BlockTemplate<Gyroscope>
     {
-        [SerializeField] private GyroscopeTemplatePartial gyroscopeTemplatePartial;
-
-        public GyroscopeTemplatePartial GyroscopeTemplatePartial 
-        { 
-            get => gyroscopeTemplatePartial; 
-            set => gyroscopeTemplatePartial = value; 
-        }
+        [SerializeField] protected GyroscopeTemplatePartial gyroscopeTemplatePartial;
 
         protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {

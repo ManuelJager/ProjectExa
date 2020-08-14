@@ -25,7 +25,7 @@ namespace Exa.Grids.Blocks.Components
         public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipSpacer(),
-            new NamedValue<string>("Turning Rate", turningRate.ToString())
+            new LabeledValue<string>("Turning Rate", turningRate.ToString())
         };
     }
 }

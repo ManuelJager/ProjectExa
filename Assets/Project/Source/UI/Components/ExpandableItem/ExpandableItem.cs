@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.UI.Controls
+namespace Exa.UI.Components
 {
     public class ExpandableItem : MonoBehaviour
     {
