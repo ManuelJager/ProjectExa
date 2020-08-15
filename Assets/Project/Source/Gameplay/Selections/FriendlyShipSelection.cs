@@ -11,9 +11,10 @@ namespace Exa.Gameplay
 
         public void MoveTo(Vector2 position)
         {
-            //var delta = position - (Vector2)friendlyShip.transform.position;
-            //friendlyShip.transform.right = delta;
-            //friendlyShip.transform.position = position;
+            foreach (var ship in this)
+            {
+                ship.shipAI.moveToTarget.Target = position;
+            }
         }
 
         public void LookAt(Vector2 position)

@@ -60,7 +60,7 @@ namespace Exa
 
         public static bool IsDebugging(DebugMode debugMode)
         {
-            return Debug.DebugMode.HasFlag(debugMode);
+            return (Debug.DebugMode & debugMode) != 0;
         }
 
         public static void SetFlag(DebugMode debugMode)

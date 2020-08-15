@@ -4,6 +4,18 @@ namespace Exa.Math
 {
     public static partial class MathUtils
     {
+        public static void Rotate(ref Vector2 vector, float angle)
+        {
+            var sin = Mathf.Sin(angle * Mathf.Deg2Rad);
+            var cos = Mathf.Cos(angle * Mathf.Deg2Rad);
+
+            var tx = vector.x;
+            var ty = vector.y;
+
+            vector.x = Mathf.RoundToInt((cos * tx) - (sin * ty));
+            vector.y = Mathf.RoundToInt((sin * tx) + (cos * ty));
+        }
+
         /// <summary>
         /// Rotate a vector2int by the given count of quarter turns
         /// </summary>

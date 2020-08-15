@@ -81,6 +81,7 @@ namespace Exa.UI
         {
             ownerObject.gameObject.SetActive(false);
             uiGroup.Interactable = true;
+            okButton.onClick.RemoveAllListeners();
             yesButton.onClick.RemoveAllListeners();
             noButton.onClick.RemoveAllListeners();
         }

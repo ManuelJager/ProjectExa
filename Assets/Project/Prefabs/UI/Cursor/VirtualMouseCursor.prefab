@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 3819413289171662562}
   - component: {fileID: 8616462259687657524}
   m_Layer: 5
-  m_Name: MouseCursor
+  m_Name: VirtualMouseCursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

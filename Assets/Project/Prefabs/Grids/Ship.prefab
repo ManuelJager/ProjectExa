@@ -93,9 +93,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5914226467058081227}
   ship: {fileID: 0}
-  proportionalBase: 30
-  integral: 0.01
-  derivitive: 0.15
+  continouslyApplySettings: 1
+  qProportionalBase: 30
+  qIntegral: 0.01
+  qDerivitive: 0.15
+  pProportional: 2
+  pDerivitive: 5
+  maxVel: 35
 --- !u!114 &8714678710057436949
 MonoBehaviour:
   m_ObjectHideFlags: 0

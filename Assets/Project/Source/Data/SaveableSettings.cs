@@ -31,7 +31,7 @@ namespace Exa.Data
         /// </summary>
         public virtual void Save()
         {
-            var path = IOUtils.CombinePath(IOUtils.GetPath("settings"), $"{Key}.json");
+            var path = IOUtils.CombineWithDirectory("settings", $"{Key}.json");
             IOUtils.JsonSerializeToPath(Values, path, SerializationMode.readable);
         }
 
@@ -40,7 +40,7 @@ namespace Exa.Data
         /// </summary>
         public virtual void Load()
         {
-            var path = IOUtils.CombinePath(IOUtils.GetPath("settings"), $"{Key}.json");
+            var path = IOUtils.CombineWithDirectory("settings", $"{Key}.json");
             Values = File.Exists(path)
                 ? IOUtils.JsonDeserializeFromPath<T>(path)
                 : DefaultValues;
