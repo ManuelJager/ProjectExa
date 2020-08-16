@@ -9,7 +9,7 @@ namespace Exa.Gameplay
     {
         private readonly float echelonAngle;
 
-        public VicFormation(float echelonAngle = -40f)
+        public VicFormation(float echelonAngle = -130f)
         {
             this.echelonAngle = echelonAngle;
         }
@@ -39,7 +39,7 @@ namespace Exa.Gameplay
                 if (!enumerator.MoveNext()) break;
 
                 // Get left echelon positon
-                yield return GetLocalPosition(enumerator.Current, ref leftEchelonSize, ref leftEchelonPivot, 180f - echelonAngle);
+                yield return GetLocalPosition(enumerator.Current, ref leftEchelonSize, ref leftEchelonPivot, -echelonAngle);
             }
         }
 

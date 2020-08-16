@@ -37,9 +37,9 @@ namespace Exa.Ships
             Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
         }
 
-        public override ShipSelection GetAppropriateSelection()
+        public override ShipSelection GetAppropriateSelection(Formation formation)
         {
-            return new FriendlyShipSelection();
+            return new FriendlyShipSelection(formation);
         }
 
         public override bool MatchesSelection(ShipSelection selection)

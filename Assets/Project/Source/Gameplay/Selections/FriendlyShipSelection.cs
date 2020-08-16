@@ -5,12 +5,13 @@ namespace Exa.Gameplay
 {
     public class FriendlyShipSelection : ShipSelection
     {
-        public FriendlyShipSelection()
+        public FriendlyShipSelection(Formation formation)
+            : base(formation)
         {
             CanControl = true;
         }
 
-        public void MoveLookAt(Vector2 point, Formation formation)
+        public void MoveLookAt(Vector2 point)
         {
             var formationEnumerator = formation.GetGlobalLayout(this, point).GetEnumerator();
 
@@ -26,7 +27,7 @@ namespace Exa.Gameplay
 
         public override ShipSelection Clone()
         {
-            var selection = new FriendlyShipSelection();
+            var selection = new FriendlyShipSelection(formation);
             foreach (var ship in this)
             {
                 selection.Add(ship);

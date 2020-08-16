@@ -20,7 +20,7 @@ namespace Exa.Gameplay
 
             // Direction is right aligned, so we subtract 90 degrees to correct
             var direction = point - ships.AveragePosition;
-            var angle = direction.GetAngle() - 90f;
+            var angle = direction.GetAngle();
 
             foreach (var localShipPos in GetLocalLayout(ships))
             {

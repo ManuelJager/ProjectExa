@@ -12,6 +12,13 @@ namespace Exa.Gameplay
 {
     public abstract class ShipSelection : ObservableCollection<Ship>, ICloneable<ShipSelection>
     {
+        protected Formation formation;
+
+        public ShipSelection(Formation formation)
+        {
+            this.formation = formation;
+        }
+
         public bool CanControl { get; protected set; }
         public Vector2 AveragePosition
         {

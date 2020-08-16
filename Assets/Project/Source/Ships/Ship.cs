@@ -74,7 +74,7 @@ namespace Exa.Ships
             }
         }
 
-        public abstract ShipSelection GetAppropriateSelection();
+        public abstract ShipSelection GetAppropriateSelection(Formation formation);
 
         public abstract bool MatchesSelection(ShipSelection selection);
 

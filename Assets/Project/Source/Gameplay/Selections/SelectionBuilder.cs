@@ -25,7 +25,7 @@ namespace Exa.Gameplay
 
                 if (selection == null)
                 {
-                    selection = ship.GetAppropriateSelection();
+                    selection = ship.GetAppropriateSelection(new VicFormation());
                 }
 
                 if (ship != null && !selection.Contains(ship) && ship.MatchesSelection(selection))
