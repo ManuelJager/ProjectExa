@@ -1,9 +1,51 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Exa.Math
 {
     public static partial class MathUtils
     {
+        public static float GetAngle(this Vector2 vector2)
+        {
+            return Mathf.Atan2(vector2.y, vector2.x) * Mathf.Rad2Deg;
+        }
+
+        public static Vector2 Average(IEnumerable<Vector2> positions)
+        {
+            var count = positions.Count();
+            var total = Vector2.zero;
+
+            foreach (var position in positions)
+            {
+                total += position;
+            }
+
+            return total / count;
+        }
+
+        public static Vector2 FromAngledMagnitude(float magnitude, float angle)
+        {
+            var vector = Vector2.right;
+            Rotate(ref vector, angle);
+            return vector * magnitude;
+        }
+
+        public static Vector2 Rotate(this Vector2 vector, float angle)
+        {
+            var sin = Mathf.Sin(angle * Mathf.Deg2Rad);
+            var cos = Mathf.Cos(angle * Mathf.Deg2Rad);
+
+            var tx = vector.x;
+            var ty = vector.y;
+
+            return new Vector2
+            {
+                x = (cos * tx) - (sin * ty),
+                y = (sin * tx) + (cos * ty)
+            };
+        }
+
         public static void Rotate(ref Vector2 vector, float angle)
         {
             var sin = Mathf.Sin(angle * Mathf.Deg2Rad);
@@ -12,8 +54,31 @@ namespace Exa.Math
             var tx = vector.x;
             var ty = vector.y;
 
-            vector.x = Mathf.RoundToInt((cos * tx) - (sin * ty));
-            vector.y = Mathf.RoundToInt((sin * tx) + (cos * ty));
+            vector.x = (cos * tx) - (sin * ty);
+            vector.y = (sin * tx) + (cos * ty);
+        }
+
+        /// <summary>
+        /// Rotate a vector2 by the given count of quarter turns
+        /// </summary>
+        /// <param name="vector">Vector2 to be rotated</param>
+        /// <param name="quarterTurns">Amount of 90 degree turns</param>
+        /// <returns></returns>
+        public static Vector2 Rotate(this Vector2 vector, int quarterTurns)
+        {
+            // if the vector is rotated by 360 degrees we dont need to calculate anything
+            if (quarterTurns % 4 == 0) return vector;
+
+            var sin = Mathf.Sin(quarterTurns * 90 * Mathf.Deg2Rad);
+            var cos = Mathf.Cos(quarterTurns * 90 * Mathf.Deg2Rad);
+
+            var tx = vector.x;
+            var ty = vector.y;
+
+            vector.x = (cos * tx) - (sin * ty);
+            vector.y = (sin * tx) + (cos * ty);
+
+            return vector;
         }
 
         /// <summary>
@@ -39,32 +104,14 @@ namespace Exa.Math
             return vector;
         }
 
-        public static string ToShortString(this Vector2Int vector)
+        public static Vector2Int GetRatio(Vector2Int value)
         {
-            return $"{vector.x},{vector.y}";
-        }
-
-        /// <summary>
-        /// Rotate a vector2 by the given count of quarter turns
-        /// </summary>
-        /// <param name="vector">Vector2 to be rotated</param>
-        /// <param name="quarterTurns">Amount of 90 degree turns</param>
-        /// <returns></returns>
-        public static Vector2 Rotate(this Vector2 vector, int quarterTurns)
-        {
-            // if the vector is rotated by 360 degrees we dont need to calculate anything
-            if (quarterTurns % 4 == 0) return vector;
-
-            var sin = Mathf.Sin(quarterTurns * 90 * Mathf.Deg2Rad);
-            var cos = Mathf.Cos(quarterTurns * 90 * Mathf.Deg2Rad);
-
-            var tx = vector.x;
-            var ty = vector.y;
-
-            vector.x = (cos * tx) - (sin * ty);
-            vector.y = (sin * tx) + (cos * ty);
-
-            return vector;
+            var gdc = GreatestCommonDevisor(value.x, value.y);
+            return new Vector2Int
+            {
+                x = value.x / gdc,
+                y = value.y / gdc
+            };
         }
 
         /// <summary>
@@ -94,14 +141,9 @@ namespace Exa.Math
             return new Vector2(from.x, from.y);
         }
 
-        public static Vector2Int GetRatio(Vector2Int value)
+        public static string ToShortString(this Vector2Int vector)
         {
-            var gdc = GreatestCommonDevisor(value.x, value.y);
-            return new Vector2Int
-            {
-                x = value.x / gdc,
-                y = value.y / gdc
-            };
+            return $"{vector.x},{vector.y}";
         }
     }
 }

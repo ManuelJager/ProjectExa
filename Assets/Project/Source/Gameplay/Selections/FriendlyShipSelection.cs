@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 
 namespace Exa.Gameplay
 {
@@ -9,19 +11,17 @@ namespace Exa.Gameplay
             CanControl = true;
         }
 
-        public void MoveTo(Vector2 position)
+        public void MoveLookAt(Vector2 point, Formation formation)
         {
-            foreach (var ship in this)
-            {
-                ship.shipAI.moveToTarget.Target = position;
-            }
-        }
+            var formationEnumerator = formation.GetGlobalLayout(this, point).GetEnumerator();
 
-        public void LookAt(Vector2 position)
-        {
-            foreach (var ship in this)
+            foreach (var ship in this.OrderByDescending((ship) => ship.Blueprint.Blocks.MaxSize))
             {
-                ship.shipAI.lookAtTarget.Target = position;
+                formationEnumerator.MoveNext();
+                var formationPosition = formationEnumerator.Current;
+
+                ship.shipAI.moveToTarget.Target = formationPosition;
+                ship.shipAI.lookAtTarget.Target = formationPosition;
             }
         }
 

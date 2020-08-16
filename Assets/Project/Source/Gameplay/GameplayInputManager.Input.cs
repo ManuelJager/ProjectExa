@@ -48,8 +48,7 @@ namespace Exa.Gameplay
                     {
                         var selection = ShipSelection as FriendlyShipSelection; 
                         var point = Systems.Input.MouseWorldPoint;
-                        selection.MoveTo(point);
-                        selection.LookAt(point);
+                        selection.MoveLookAt(point, new VicFormation());
                         return;
                     }
 

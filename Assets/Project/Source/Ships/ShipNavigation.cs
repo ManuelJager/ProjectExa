@@ -122,7 +122,7 @@ namespace Exa.Ships
             }
 
             // Get the desired rotation
-            angleHint = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg;
+            angleHint = distance.GetAngle();
 
             AddTorqueTowards(angleHint);
         }

@@ -1,8 +1,10 @@
 ﻿using Exa.Bindings;
 using Exa.Generics;
+using Exa.Math;
 using Exa.Ships;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +13,18 @@ namespace Exa.Gameplay
     public abstract class ShipSelection : ObservableCollection<Ship>, ICloneable<ShipSelection>
     {
         public bool CanControl { get; protected set; }
+        public Vector2 AveragePosition
+        {
+            get
+            {
+                var positions = this.Select((ship) => 
+                {
+                    return ship.gameObject.transform.position.ToVector2();
+                });
+
+                return MathUtils.Average(positions);
+            }
+        }
 
         private Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
 
