@@ -333,7 +333,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1787738287343351759}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -732,6 +732,7 @@ MonoBehaviour:
       m_Calls: []
   invokeStateChangeOnHover: 0
   cursorState: 0
+  checkMouseInsideRectOnEnable: 1
 --- !u!114 &229453432178233258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,8 +1347,8 @@ RectTransform:
   - {fileID: 3875207306295828178}
   - {fileID: 5204696006304160261}
   - {fileID: 2706301229408136624}
-  - {fileID: 7729614257948850543}
   - {fileID: 4658757715829701963}
+  - {fileID: 7729614257948850543}
   m_Father: {fileID: 4103814012636034508}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1527,6 +1528,7 @@ MonoBehaviour:
       m_Calls: []
   invokeStateChangeOnHover: 0
   cursorState: 0
+  checkMouseInsideRectOnEnable: 1
 --- !u!1 &7005863946417993431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,6 +1993,7 @@ MonoBehaviour:
       m_Calls: []
   invokeStateChangeOnHover: 0
   cursorState: 0
+  checkMouseInsideRectOnEnable: 1
 --- !u!114 &1711626291552416733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2305,7 +2308,7 @@ PrefabInstance:
     - target: {fileID: 4922099915345720378, guid: c63a451a37c9c354cb774213e6858958,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4922099915345720378, guid: c63a451a37c9c354cb774213e6858958,
         type: 3}

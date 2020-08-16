@@ -16,6 +16,7 @@ namespace Exa.UI
         public bool invokeStateChangeOnHover;
         public CursorState cursorState;
 
+        [SerializeField] private bool checkMouseInsideRectOnEnable = true;
         private RectTransform rectTransform;
         private CanvasGroup canvasGroup;
         private bool mouseOverControl = false;
@@ -32,7 +33,30 @@ namespace Exa.UI
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
+        private void OnEnable()
+        {
+            if (checkMouseInsideRectOnEnable)
+            {
+                CheckMouseInsideRect();
+            }
+        }
+
+        private void OnDisable()
+        {
+            TryExit();
+        }
+
         public void OnPointerEnter(PointerEventData eventData)
+        {
+            TryEnter();   
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            TryExit();
+        }
+
+        private void TryEnter()
         {
             if (mouseOverControl) return;
 
@@ -45,7 +69,7 @@ namespace Exa.UI
             }
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        private void TryExit()
         {
             if (!mouseOverControl) return;
 
@@ -58,33 +82,14 @@ namespace Exa.UI
             }
         }
 
-        public void OnEnable()
+        private void CheckMouseInsideRect()
         {
             if (mouseOverControl) return;
 
             var mousePos = Systems.Input.ScreenPoint;
             if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos, Camera.main))
             {
-                mouseOverControl = true;
-                onPointerEnter?.Invoke();
-
-                if (InvokeStateChange)
-                {
-                    OnEnter();
-                }
-            }
-        }
-
-        public void OnDisable()
-        {
-            if (!mouseOverControl) return;
-
-            mouseOverControl = false;
-            onPointerExit?.Invoke();
-
-            if (InvokeStateChange && !Systems.IsQuitting)
-            {
-                OnExit();
+                TryEnter();
             }
         }
 

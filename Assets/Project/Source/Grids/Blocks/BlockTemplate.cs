@@ -102,14 +102,17 @@ namespace Exa.Grids.Blocks
 
         private IEnumerable<ITooltipComponent> SelectTooltipComponents()
         {
-            var components = new ITooltipComponent[]
+            var components = new List<ITooltipComponent>
             {
                 new TooltipTitle(displayId)
-            } as IEnumerable<ITooltipComponent>;
+            };
 
             foreach (var partial in GetTemplatePartials())
             {
-                components.Concat(partial.GetTooltipComponents());
+                foreach (var component in partial.GetTooltipComponents())
+                {
+                    components.Add(component);
+                }
             }
 
             return components;

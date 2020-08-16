@@ -263,6 +263,7 @@ MonoBehaviour:
         m_CallState: 2
   invokeStateChangeOnHover: 1
   cursorState: 3
+  checkMouseInsideRectOnEnable: 0
 --- !u!114 &7603576357248119542
 MonoBehaviour:
   m_ObjectHideFlags: 0

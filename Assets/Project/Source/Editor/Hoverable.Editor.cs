@@ -11,6 +11,7 @@ namespace Exa.CustomEditors
         private SerializedProperty onPointerExit;
         private SerializedProperty invokeStateChangeOnHover;
         private SerializedProperty cursorState;
+        private SerializedProperty checkMouseInsideRectOnEnable;
 
         protected void OnEnable()
         {
@@ -18,6 +19,7 @@ namespace Exa.CustomEditors
             onPointerExit = serializedObject.FindProperty("onPointerExit");
             invokeStateChangeOnHover = serializedObject.FindProperty("invokeStateChangeOnHover");
             cursorState = serializedObject.FindProperty("cursorState");
+            checkMouseInsideRectOnEnable = serializedObject.FindProperty("checkMouseInsideRectOnEnable");
         }
 
         public override void OnInspectorGUI()
@@ -26,6 +28,7 @@ namespace Exa.CustomEditors
 
             EditorGUILayout.PropertyField(onPointerEnter);
             EditorGUILayout.PropertyField(onPointerExit);
+            EditorGUILayout.PropertyField(checkMouseInsideRectOnEnable);
             EditorGUILayout.PropertyField(invokeStateChangeOnHover);
 
             if (invokeStateChangeOnHover.boolValue)

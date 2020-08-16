@@ -104,6 +104,9 @@ namespace Exa.Gameplay
         {
             if (IsSelectingArea)
             {
+                // Clear the current selection
+                ShipSelection?.Clear();
+
                 // Update selection builder
                 var worldPoint = Systems.Input.MouseWorldPoint;
                 selectionBuilder.UpdateSelection(worldPoint);
@@ -115,8 +118,6 @@ namespace Exa.Gameplay
                 var selection = selectionBuilder.Build();
                 GameSystems.UI.selectionHotbar.Save(selection);
 
-                // Clear the current selection and assign the new one
-                ShipSelection?.Clear();
                 ShipSelection = selection;
 
                 selectionBuilder = null;
