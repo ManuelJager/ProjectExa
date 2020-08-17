@@ -51,7 +51,7 @@ namespace Exa.Ships
             }
 
             UpdateHeading(ref angleHint);
-            UpdateThrustVectors();
+            UpdateThrustVectors(Time.fixedDeltaTime);
         }
 
         public void SetTurningMultiplier(float rate)
@@ -69,7 +69,7 @@ namespace Exa.Ships
             this.moveTo = moveTo;
         }
 
-        private void UpdateThrustVectors()
+        private void UpdateThrustVectors(float deltaTime)
         {
             // NOTE: This currently doesn't try to brake when no target is active
             if (moveTo == null) return;
@@ -88,7 +88,10 @@ namespace Exa.Ships
                 moveTo.Value,
                 rb.velocity);
 
-            rb.AddForce(acceleration, ForceMode.Force);
+            // NOTE: Clamping the acceleration will usually result in drifting if the side thrusters aren't as powerful
+            var clampedAcceleration = ClampAcceleration(acceleration, deltaTime);
+
+            rb.AddForce(clampedAcceleration, ForceMode.Force);
         }
 
         /// <summary>
@@ -139,6 +142,24 @@ namespace Exa.Ships
                 Time.fixedDeltaTime);
 
             rb.AddTorque(angularAcceleration, ForceMode.Acceleration);
+        }
+
+        // TODO: preserve acceleration angle after clamping x and y components to prevent drifting
+        private Vector2 ClampAcceleration(Vector2 acceleration, float deltaTime)
+        {
+            // Get the angle the ship is currently facing
+            var rotationAngle = transform.localRotation.eulerAngles.z;
+
+            // Rotate the acceleration needed to local space
+            var localAcceleration = MathUtils.Rotate(acceleration, -rotationAngle);
+
+            // Clamp the acceleration using the thrust vectors of the current ship
+            ship.blockGrid.ThrustVectors.ClampThrustVector(ref localAcceleration, deltaTime);
+
+            // Transform clamped local acceleration back to global acceleration
+            var clampedAcceleration = MathUtils.Rotate(localAcceleration, rotationAngle);
+
+            return clampedAcceleration;
         }
     }
 }

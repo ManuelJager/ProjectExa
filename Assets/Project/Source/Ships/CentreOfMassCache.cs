@@ -2,7 +2,7 @@
 using System.Text;
 using UnityEngine;
 
-namespace Exa.Grids.Ships
+namespace Exa.Ships
 {
     public partial class CentreOfMassCache : Dictionary<Vector2, float>
     {

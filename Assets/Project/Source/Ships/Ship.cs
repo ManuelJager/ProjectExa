@@ -2,7 +2,6 @@
 using Exa.Debugging;
 using Exa.Gameplay;
 using Exa.Grids.Blueprints;
-using Exa.Grids.Ships;
 using Exa.Math;
 using System.Text;
 using UnityEngine;

@@ -21,5 +21,15 @@ namespace Exa.Grids.Blocks.BlockTypes
             return base.GetBehaviours()
                 .Append(thrusterBehaviour);
         }
+
+        protected override void OnAdd()
+        {
+            Ship.blockGrid.ThrustVectors.Register(this);
+        }
+
+        protected override void OnRemove()
+        {
+            Ship.blockGrid.ThrustVectors.Unregister(this);
+        }
     }
 }

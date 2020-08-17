@@ -136,6 +136,11 @@ namespace Exa.Math
             return new Vector3(from.x, from.y, z);
         }
 
+        public static Vector2Int ToVector2Int(this Vector2 from)
+        {
+            return new Vector2Int((int)from.x, (int)from.y);
+        }
+
         public static Vector2 ToVector2(this Vector2Int from)
         {
             return new Vector2(from.x, from.y);

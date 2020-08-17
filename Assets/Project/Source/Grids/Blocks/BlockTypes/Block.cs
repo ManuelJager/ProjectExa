@@ -29,9 +29,19 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public Ship Ship
         {
+            protected get => ship;
             set
             {
                 this.ship = value;
+
+                if (ship != null)
+                {
+                    OnAdd();
+                }
+                else if (!Systems.IsQuitting)
+                {
+                    OnRemove();
+                }
 
                 foreach (var behaviour in GetBehaviours())
                 {
@@ -74,6 +84,14 @@ namespace Exa.Grids.Blocks.BlockTypes
             {
                 physicalBehaviour
             };
+        }
+
+        protected virtual void OnAdd()
+        {
+        }
+
+        protected virtual void OnRemove()
+        {
         }
     }
 }
