@@ -14,8 +14,9 @@ namespace Exa.AI
         public AAimAtTarget aimAtTarget;
         public ALookAtTarget lookAtTarget;
         public AMoveToTarget moveToTarget;
+        public AAvoidCollision avoidCollision;
 
-        private void Awake()
+        public void Initialize()
         {
             actionList = BuildActionList();
         }
@@ -31,7 +32,14 @@ namespace Exa.AI
             {
                 aimAtTarget = new AAimAtTarget(this),
                 lookAtTarget = new ALookAtTarget(this),
-                moveToTarget = new AMoveToTarget(this)
+                moveToTarget = new AMoveToTarget(this),
+                avoidCollision = new AAvoidCollision(this, new AAvoidCollisionSettings 
+                {
+                    detectionRadius = ship.blockGrid.MaxSize, 
+                    priorityMultiplier = 1, 
+                    priorityBase = 10,
+                    headingCorrectionMultiplier = 8
+                })
             });
         }
 

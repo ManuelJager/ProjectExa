@@ -4,10 +4,9 @@
     {
         protected ShipAI shipAI;
 
-        public bool IsRunning { get; set; }
         public abstract ActionLane Lanes { get; }
         public ActionLane Blocking { get; set; }
-        public abstract float Priority { get; }
+        public float Priority { get; private set; }
 
         public ShipAIAction(ShipAI shipAI)
         {
@@ -15,5 +14,12 @@
         }
 
         public abstract ActionLane Update(ActionLane blockedLanes);
+
+        public void UpdatePriority()
+        {
+            Priority = CalculatePriority();
+        }
+
+        protected abstract float CalculatePriority();
     }
 }

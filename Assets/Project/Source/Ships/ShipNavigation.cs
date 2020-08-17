@@ -8,7 +8,7 @@ namespace Exa.Ships
 {
     public class ShipNavigation : MonoBehaviour
     {
-        [SerializeField] private Rigidbody rb;
+        public Rigidbody rb;
         private PidQuaternionController pidQuaternionController;
         private PdVector2Controller pdVector2Controller;
 
@@ -106,19 +106,19 @@ namespace Exa.Ships
 
             var distance = lookAt.Value - (Vector2)transform.position;
 
-            // Don't update the heading if target is very close. This is to prevent weird rotations
-            if (distance.magnitude < 1f)
-            {
-                AddTorqueTowards(angleHint);
-                return;
-            }
-
             if (Systems.IsDebugging(DebugMode.Navigation))
             {
                 Debug.DrawRay(transform.position, distance, Color.red);
 
                 var headingDir = transform.right * ship.Blueprint.Blocks.MaxSize;
                 Debug.DrawRay(transform.position, headingDir, Color.blue);
+            }
+
+            // Don't update the heading if target is very close. This is to prevent weird rotations
+            if (distance.magnitude < 1f)
+            {
+                AddTorqueTowards(angleHint);
+                return;
             }
 
             // Get the desired rotation

@@ -40,20 +40,26 @@ namespace Exa.AI
         private IEnumerable<IAction> SortActions()
         {
             return actions
-                .Where((action) => action.Priority > priorityThreshold)
-                .OrderBy((action) => action.Priority);
+                .OrderByDescending((action) => 
+                {
+                    action.UpdatePriority();
+                    return action.Priority;
+                })
+                .Where((action) => action.Priority > priorityThreshold);
         }
 
         public string ToString(int tabs = 0)
         {
             var sb = new StringBuilder();
-            var tableString = actions.ToStringTable(new string[] {
-                "Action name",
-                "Priority",
-                "Blocking lane"},
-                (action) => action.GetType().Name,
-                (action) => action.Priority,
-                (action) => action.Blocking);
+            var tableString = actions
+                .OrderByDescending((action) => action.Priority)
+                .ToStringTable(new string[] {
+                    "Action name",
+                    "Priority",
+                    "Blocking lane"},
+                    (action) => action.GetType().Name,
+                    (action) => action.Priority,
+                    (action) => action.Blocking);
             sb.AppendLineIndented(tableString, tabs);
             return sb.ToString();
         }

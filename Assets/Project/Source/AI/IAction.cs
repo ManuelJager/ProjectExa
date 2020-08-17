@@ -23,5 +23,10 @@
         /// <param name="blockedLanes">Currently blocked lanes on the action list</param>
         /// <returns>The lanes that this action has blocked</returns>
         ActionLane Update(ActionLane blockedLanes);
+
+        /// <summary>
+        /// Updates the priority of the action
+        /// </summary>
+        void UpdatePriority();
     }
 }

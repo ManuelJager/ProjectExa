@@ -19,6 +19,15 @@ namespace Exa.Grids
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
 
+        public float MaxSize
+        {
+            get
+            {
+                var size = Size.Value;
+                return Mathf.Max(size.x, size.y);
+            }
+        }
+
         public Grid()
         {
             totals = new GridTotals();
