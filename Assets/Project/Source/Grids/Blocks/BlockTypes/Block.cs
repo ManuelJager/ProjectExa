@@ -50,7 +50,7 @@ namespace Exa.Grids.Blocks.BlockTypes
             }
         }
 
-        protected virtual void OnDisable()
+        private void OnDisable()
         {
             ship.blockGrid.Remove(GridAnchor);
             Ship = null;

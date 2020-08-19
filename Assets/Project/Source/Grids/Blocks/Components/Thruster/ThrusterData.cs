@@ -2,7 +2,7 @@
 {
     public struct ThrusterData : IBlockComponentData
     {
-        public float newtonThrust;
+        public float thrust;
 
         public void AddGridTotals(GridTotals totals)
         {

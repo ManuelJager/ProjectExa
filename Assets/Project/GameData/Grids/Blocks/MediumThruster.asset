@@ -28,3 +28,5 @@ MonoBehaviour:
     mass: 1500
   thrusterTemplatePartial:
     newtonThrust: 20
+  powerGeneratorTemplatePartial:
+    peakGeneration: 3

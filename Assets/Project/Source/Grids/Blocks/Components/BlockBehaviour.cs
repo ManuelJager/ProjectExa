@@ -33,6 +33,7 @@ namespace Exa.Grids.Blocks.Components
 
         public T Data
         {
+            get => data;
             set => data = value;
         }
 

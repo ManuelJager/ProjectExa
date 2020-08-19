@@ -1,33 +1,32 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
-using Exa.Grids.Blocks.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Ships
 {
     public class ThrusterGroup
     {
-        private List<ThrusterBehaviour> thrusters;
+        private Dictionary<GameObject, ThrusterArchetype> thrusters;
         private float totalThrust;
         private float totalConsumption;
 
         public ThrusterGroup()
         {
-            thrusters = new List<ThrusterBehaviour>();
+            thrusters = new Dictionary<GameObject, ThrusterArchetype>();
         }
 
-        public void Register(ThrusterBehaviour thruster, float thrust, float consumption)
+        public void Register(GameObject key, ThrusterArchetype archetype)
         {
-            thrusters.Add(thruster);
-            totalThrust += thrust * 1000;
-            totalConsumption += consumption;
+            thrusters.Add(key, archetype);
+            totalThrust += archetype.thrusterBehaviour.Data.thrust * 1000;
+            totalConsumption += archetype.powerConsumerBehaviour.Data.powerConsumption;
         }
 
-        public void Unregister(ThrusterBehaviour thruster, float thrust, float consumption)
+        public void Unregister(GameObject key)
         {
-            thrusters.Remove(thruster);
-            totalThrust -= thrust * 1000;
-            totalConsumption -= consumption;
+            var archetype = thrusters[key];
+            totalThrust -= archetype.thrusterBehaviour.Data.thrust * 1000;
+            totalConsumption -= archetype.powerConsumerBehaviour.Data.powerConsumption;
+            thrusters.Remove(key);
         }
 
         public float GetThrustCoefficient(float thrust, float deltaTime)
@@ -42,7 +41,6 @@ namespace Exa.Ships
 
         public void Fire(float coefficient)
         {
-
         }
 
         public override string ToString()

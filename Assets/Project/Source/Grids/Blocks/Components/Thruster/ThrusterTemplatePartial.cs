@@ -21,7 +21,7 @@ namespace Exa.Grids.Blocks.Components
 
         public override ThrusterData Convert() => new ThrusterData
         {
-            newtonThrust = newtonThrust
+            thrust = newtonThrust
         };
 
         public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]

@@ -19,7 +19,7 @@ namespace Exa.Grids.Blocks.Components
 
         public override PowerGeneratorData Convert() => new PowerGeneratorData
         {
-            peakGeneration = peakGeneration
+            powerGeneration = peakGeneration
         };
 
         public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]

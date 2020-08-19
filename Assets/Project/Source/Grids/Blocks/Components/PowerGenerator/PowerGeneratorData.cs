@@ -2,16 +2,16 @@
 {
     public struct PowerGeneratorData : IBlockComponentData
     {
-        public float peakGeneration;
+        public float powerGeneration;
 
         public void AddGridTotals(GridTotals totals)
         {
-            totals.PeakPowerGeneration += peakGeneration;
+            totals.PeakPowerGeneration += powerGeneration;
         }
 
         public void RemoveGridTotals(GridTotals totals)
         {
-            totals.PeakPowerGeneration -= peakGeneration;
+            totals.PeakPowerGeneration -= powerGeneration;
         }
     }
 }

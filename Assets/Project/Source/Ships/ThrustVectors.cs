@@ -10,6 +10,12 @@ using UnityEngine;
 
 namespace Exa.Ships
 {
+    public struct ThrusterArchetype
+    {
+        public ThrusterBehaviour thrusterBehaviour;
+        public PowerConsumerBehaviour powerConsumerBehaviour;
+    }
+
     public class ThrustVectors
     {
         private readonly BlockGrid blocks;
@@ -32,14 +38,14 @@ namespace Exa.Ships
         public ThrusterGroup Left => thrusterGroups[Vector2Int.left];
         public ThrusterGroup Up => thrusterGroups[Vector2Int.up];
 
-        public void Register(ThrusterBehaviour thruster, float thrust)
+        public void Register(GameObject key, ThrusterArchetype thrusterArchetype)
         {
-            SelectGroup(thruster).Register(thruster, thrust, 1);
+            SelectGroup(key).Register(key, thrusterArchetype);
         }
 
-        public void Unregister(ThrusterBehaviour thruster, float thrust)
+        public void Unregister(GameObject key)
         {
-            SelectGroup(thruster).Unregister(thruster, thrust, 1);
+            SelectGroup(key).Unregister(key);
         }
 
         // TODO: use ship mass to calculate max thrust
@@ -47,8 +53,8 @@ namespace Exa.Ships
         {
             return new Vector2
             {
-                x = SelectHorizontalGroup(thrust) .GetThrustCoefficient(Mathf.Abs(thrust.x), deltaTime),
-                y = SelectVerticalGroup(thrust)   .GetThrustCoefficient(Mathf.Abs(thrust.y), deltaTime)
+                x = SelectHorizontalGroup(thrust)   .GetThrustCoefficient(Mathf.Abs(thrust.x), deltaTime),
+                y = SelectVerticalGroup(thrust)     .GetThrustCoefficient(Mathf.Abs(thrust.y), deltaTime)
             };
         }
 
@@ -79,9 +85,9 @@ namespace Exa.Ships
             return thrusterGroups[new Vector2Int(0, RoundTo1(thrust.y))];
         }
 
-        private ThrusterGroup SelectGroup(ThrusterBehaviour thruster)
+        private ThrusterGroup SelectGroup(GameObject holder)
         {
-            var rotation = thruster.transform.localRotation;
+            var rotation = holder.transform.localRotation;
             var angle = rotation.eulerAngles.z - 180f;
             var key = MathUtils.FromAngledMagnitude(1, angle);
             return thrusterGroups[key.ToVector2Int()];

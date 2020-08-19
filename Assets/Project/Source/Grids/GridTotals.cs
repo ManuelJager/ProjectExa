@@ -9,6 +9,7 @@ namespace Exa.Grids
         private long mass;
         private float hull;
         private float peakPowerGeneration;
+        private float peakPowerConsumption;
         private float turningPower;
 
         public virtual long Mass
@@ -27,6 +28,12 @@ namespace Exa.Grids
         {
             get => peakPowerGeneration;
             set => peakPowerGeneration = value;
+        }
+
+        public virtual float PeakPowerConsumption
+        {
+            get => peakPowerConsumption;
+            set => peakPowerConsumption = value;
         }
 
         public virtual float TurningPower

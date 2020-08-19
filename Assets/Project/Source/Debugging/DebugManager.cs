@@ -1,6 +1,8 @@
 ﻿using Exa.Input;
 using System;
+using System.Reflection;
 using UCommandConsole;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
@@ -51,6 +53,16 @@ namespace Exa.Debugging
 
             var consoleGO = console.gameObject;
             consoleGO.SetActive(!consoleGO.activeSelf);
+        }
+
+        public static void ClearLog()
+        {
+            #if UNITY_EDITOR
+            var assembly = Assembly.GetAssembly(typeof(SceneView));
+            var type = assembly.GetType("UnityEditor.LogEntries");
+            var method = type.GetMethod("Clear");
+            method.Invoke(new object(), null);
+            #endif
         }
     }
 }
