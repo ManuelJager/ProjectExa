@@ -1,6 +1,8 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
+﻿using Exa.Debugging;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.UI.Tooltips;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,16 +15,13 @@ namespace Exa.Grids.Blocks
 
         public override void SetValues(Block block)
         {
-            (block as IBehaviourMarker<T>).Component.Data = Convert();
-        }
+            var partial = block as IBehaviourMarker<T>;
+            if (partial == null)
+            {
+                throw new Exception($"Partial {typeof(IBehaviourMarker<T>)} is not supported on block: {block}");
+            }
 
-        protected S SetupBehaviour<S>(Block block)
-            where S : BlockBehaviour<T>
-        {
-            var behaviour = block.gameObject.AddComponent<S>();
-            behaviour.block = block;
-            (block as IBehaviourMarker<T>).Component = behaviour;
-            return behaviour;
+            partial.Component.Data = Convert();
         }
 
         public override void AddGridTotals(GridTotals totals)
@@ -39,8 +38,6 @@ namespace Exa.Grids.Blocks
     public abstract class TemplatePartialBase : IGridTotalsModifier
     {
         public abstract void SetValues(Block block);
-
-        public abstract BlockBehaviourBase AddSelf(Block block);
 
         public abstract IEnumerable<ITooltipComponent> GetTooltipComponents();
 

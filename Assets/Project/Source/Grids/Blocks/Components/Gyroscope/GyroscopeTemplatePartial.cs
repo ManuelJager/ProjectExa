@@ -12,11 +12,6 @@ namespace Exa.Grids.Blocks.Components
     {
         [SerializeField] private float turningRate; // In tons it supposed to support
 
-        public override BlockBehaviourBase AddSelf(Block block)
-        {
-            return SetupBehaviour<GyroscopeBehaviour>(block);
-        }
-
         public override GyroscopeData Convert() => new GyroscopeData
         {
             turningRate = turningRate

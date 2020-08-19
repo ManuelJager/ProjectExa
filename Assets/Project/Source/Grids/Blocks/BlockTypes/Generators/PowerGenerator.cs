@@ -16,7 +16,7 @@ namespace Exa.Grids.Blocks.BlockTypes
             set => powerGeneratorBehaviour = value as PowerGeneratorBehaviour; 
         }
 
-        protected override IEnumerable<BlockBehaviourBase> GetBehaviours()
+        public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
                 .Append(powerGeneratorBehaviour);

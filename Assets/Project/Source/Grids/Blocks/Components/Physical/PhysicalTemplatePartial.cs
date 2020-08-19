@@ -18,11 +18,6 @@ namespace Exa.Grids.Blocks.Components
         public float Armor => armor;
         public float Mass => mass;
 
-        public override BlockBehaviourBase AddSelf(Block block)
-        {
-            return SetupBehaviour<PhysicalBehaviour>(block);
-        }
-
         public override PhysicalData Convert() => new PhysicalData
         {
             armor = armor,

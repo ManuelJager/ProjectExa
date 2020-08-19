@@ -41,7 +41,14 @@ namespace Exa.Ships
             {
                 // Calculate the energy coefficient the action can use
                 var energyTaken = TryTake(actionCache.consumption);
-                var energyCoefficient = energyTaken / actionCache.consumption;
+                var energyCoefficient = Mathf.Clamp01(energyTaken / actionCache.consumption);
+
+                // This is a result of an action that uses no power and has no storage
+                if (float.IsNaN(energyCoefficient))
+                {
+                    energyCoefficient = 0f;
+                }
+
                 actionCache.action.Update(energyCoefficient, deltaTime);
                 stored -= energyTaken;
             }

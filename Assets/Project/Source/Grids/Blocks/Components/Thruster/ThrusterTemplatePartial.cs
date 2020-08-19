@@ -1,5 +1,4 @@
 ﻿using Exa.Generics;
-using Exa.Grids.Blocks.BlockTypes;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -13,11 +12,6 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private int newtonThrust; // In newton
 
         public int NewtonThrust => newtonThrust;
-
-        public override BlockBehaviourBase AddSelf(Block block)
-        {
-            return SetupBehaviour<ThrusterBehaviour>(block);
-        }
 
         public override ThrusterData Convert() => new ThrusterData
         {

@@ -18,23 +18,6 @@ namespace Exa.Grids.Blocks
         [Header("Template partials")]
         [SerializeField] protected PhysicalTemplatePartial physicalTemplatePartial;
 
-        public override Block AddBlockOnGameObject(GameObject gameObject)
-        {
-            return BuildOnGameObject(gameObject);
-        }
-
-        protected virtual T BuildOnGameObject(GameObject gameObject)
-        {
-            var instance = gameObject.AddComponent<T>();
-
-            foreach (var partial in GetTemplatePartials())
-            {
-                partial.AddSelf(instance);
-            }
-
-            return instance;
-        }
-
         protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
             return new TemplatePartialBase[]
@@ -58,13 +41,10 @@ namespace Exa.Grids.Blocks
 
         private Tooltip tooltip;
 
-        public bool GeneratePrefab { get; private set; }
-
         private void OnEnable()
         {
             tooltip = new Tooltip(SelectTooltipComponents);
             if (!inertPrefab) throw new Exception("inertPrefab must have a prefab reference");
-            GeneratePrefab = !alivePrefab;
         }
 
         public void AddGridTotals(GridTotals totals)
@@ -92,11 +72,16 @@ namespace Exa.Grids.Blocks
         {
             foreach (var partial in GetTemplatePartials())
             {
-                partial.SetValues(block);
+                try
+                {
+                    partial.SetValues(block);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception($"Exception while setting values of {partial.GetType().Name} partial", e);
+                }
             }
         }
-
-        public abstract Block AddBlockOnGameObject(GameObject gameObject);
 
         protected abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();
 

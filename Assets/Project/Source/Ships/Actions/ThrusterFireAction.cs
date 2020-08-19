@@ -48,7 +48,11 @@ namespace Exa.Ships
                 rotationAngle = rotationAngle
             };
 
-            return thrustVectors.GetFireCoefficientConsumption(localForce, forceCoefficient);
+            var consumption = thrustVectors.GetFireCoefficientConsumption(localForce, forceCoefficient) * deltaTime;
+
+            Debug.Log($"calculated consumption: {consumption}");
+
+            return consumption;
         }
 
         public override void Update(float energyCoefficient, float deltaTime)
@@ -56,10 +60,9 @@ namespace Exa.Ships
             // Don't need to operate on a zero vecot
             if (rawForce == Vector2.zero) return;
 
-            DebugManager.ClearLog();
-            Debug.Log(tempValues.localForce);
-            Debug.Log(tempValues.forceCoefficient);
-            Debug.Log(energyCoefficient);
+            //Debug.Log(tempValues.localForce);
+            //Debug.Log(tempValues.forceCoefficient);
+            //Debug.Log(energyCoefficient);
 
             // Apply the normalization to the local acceleration
             var calculatedLocalForce = tempValues.localForce * tempValues.forceCoefficient * energyCoefficient;
@@ -74,8 +77,6 @@ namespace Exa.Ships
         {
             // Clamp the acceleration using the thrust vectors of the current ship
             var coefficient = thrustVectors.GetThrustCoefficient(localAcceleration, deltaTime);
-
-            Debug.Log(coefficient);
 
             // Keep ratio to prevent drifting
             return MathUtils.ClampToLowestComponent(coefficient);

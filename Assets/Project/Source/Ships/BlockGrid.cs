@@ -38,7 +38,6 @@ namespace Exa.Ships
             var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(container, BlockPrefabType.userGroup);
             block.Ship = ship;
             block.gameObject.SetActive(true);
-            anchoredBlueprintBlock.blueprintBlock.RuntimeContext.SetValues(block);
             return block;
         }
 

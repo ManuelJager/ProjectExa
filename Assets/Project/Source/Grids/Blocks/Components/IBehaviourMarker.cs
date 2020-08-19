@@ -2,9 +2,9 @@
 
 namespace Exa.Grids.Blocks
 {
-    public interface IBehaviourMarker<S>
-        where S : IBlockComponentData
+    public interface IBehaviourMarker<T>
+        where T : IBlockComponentData
     {
-        BlockBehaviour<S> Component { get; set; }
+        BlockBehaviour<T> Component { get; set; }
     }
 }

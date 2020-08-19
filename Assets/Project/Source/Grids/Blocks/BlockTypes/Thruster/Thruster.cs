@@ -23,7 +23,7 @@ namespace Exa.Grids.Blocks.BlockTypes
             set => powerConsumerBehaviour = value as PowerConsumerBehaviour; 
         }
 
-        protected override IEnumerable<BlockBehaviourBase> GetBehaviours()
+        public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
                 .Append(thrusterBehaviour)

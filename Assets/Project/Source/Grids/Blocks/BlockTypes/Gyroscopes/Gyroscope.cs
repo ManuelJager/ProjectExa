@@ -1,8 +1,7 @@
-﻿using Exa.Ships;
-using Exa.Grids.Blocks.Components;
-using UnityEngine;
+﻿using Exa.Grids.Blocks.Components;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
@@ -12,11 +11,11 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         BlockBehaviour<GyroscopeData> IBehaviourMarker<GyroscopeData>.Component
         {
-            get => gyroscopeBehaviour; 
+            get => gyroscopeBehaviour;
             set => gyroscopeBehaviour = value as GyroscopeBehaviour;
         }
 
-        protected override IEnumerable<BlockBehaviourBase> GetBehaviours()
+        public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
                 .Append(gyroscopeBehaviour);

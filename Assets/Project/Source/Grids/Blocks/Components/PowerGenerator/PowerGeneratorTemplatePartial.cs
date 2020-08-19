@@ -12,11 +12,6 @@ namespace Exa.Grids.Blocks.Components
     {
         [SerializeField] private float peakGeneration; // In MW
 
-        public override BlockBehaviourBase AddSelf(Block block)
-        {
-            return SetupBehaviour<PowerGeneratorBehaviour>(block);
-        }
-
         public override PowerGeneratorData Convert() => new PowerGeneratorData
         {
             powerGeneration = peakGeneration

@@ -4,6 +4,7 @@ using Exa.Grids.Blueprints;
 using Unity.Entities;
 using UnityEngine;
 using System.Collections.Generic;
+using Exa.Debugging;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
@@ -12,7 +13,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     /// </summary>
     public class Block : MonoBehaviour, IBlock, IConvertGameObjectToEntity, IGridMember, IPhysical
     {
-        public AnchoredBlueprintBlock anchoredBlueprintBlock;
+        [HideInInspector] public AnchoredBlueprintBlock anchoredBlueprintBlock;
 
         [SerializeField] private PhysicalBehaviour physicalBehaviour;
         private Ship ship;
@@ -32,15 +33,18 @@ namespace Exa.Grids.Blocks.BlockTypes
             protected get => ship;
             set
             {
-                this.ship = value;
+                if (ship == value) return;
+
+                if (ship != null && !Systems.IsQuitting)
+                {
+                    OnRemove();
+                }
+
+                ship = value;
 
                 if (ship != null)
                 {
                     OnAdd();
-                }
-                else if (!Systems.IsQuitting)
-                {
-                    OnRemove();
                 }
 
                 foreach (var behaviour in GetBehaviours())
@@ -52,6 +56,8 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         private void OnDisable()
         {
+            if (Systems.IsQuitting) return;
+
             ship.blockGrid.Remove(GridAnchor);
             Ship = null;
         }
@@ -78,7 +84,8 @@ namespace Exa.Grids.Blocks.BlockTypes
             throw new System.NotImplementedException();
         }
 
-        protected virtual IEnumerable<BlockBehaviourBase> GetBehaviours()
+        // TODO: cache the result of this operation
+        public virtual IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return new BlockBehaviourBase[]
             {
