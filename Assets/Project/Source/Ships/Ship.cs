@@ -28,10 +28,18 @@ namespace Exa.Ships
         protected Blueprint blueprint;
 
         public Blueprint Blueprint => blueprint;
+        public ActionScheduler ActionScheduler { get; private set; }
 
         protected virtual void Awake()
         {
             blockGrid = new BlockGrid(pivot, this);
+            ActionScheduler = new ActionScheduler(this);
+        }
+
+        private void FixedUpdate()
+        {
+            navigation.UserFixedUpdate();
+            ActionScheduler.ExecuteActions(Time.fixedDeltaTime);
         }
 
         private void LateUpdate()

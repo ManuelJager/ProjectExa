@@ -1,12 +1,14 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
 using Exa.Math;
 using Exa.Ships;
 using Exa.Utils;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace Exa.Grids
+namespace Exa.Ships
 {
     public class ThrustVectors
     {
@@ -30,41 +32,54 @@ namespace Exa.Grids
         public ThrusterGroup Left => thrusterGroups[Vector2Int.left];
         public ThrusterGroup Up => thrusterGroups[Vector2Int.up];
 
-        public void Register(Thruster thruster)
+        public void Register(ThrusterBehaviour thruster, float thrust)
         {
-            SelectGroup(thruster).Register(thruster);
+            SelectGroup(thruster).Register(thruster, thrust, 1);
         }
 
-        public void Unregister(Thruster thruster)
+        public void Unregister(ThrusterBehaviour thruster, float thrust)
         {
-            SelectGroup(thruster).Unregister(thruster);
+            SelectGroup(thruster).Unregister(thruster, thrust, 1);
         }
 
-        // TODO: make this less ugly, also use ship mass to calculate max thrust
-        public void ClampThrustVector(ref Vector2 vectorThrust, float deltaTime)
+        // TODO: use ship mass to calculate max thrust
+        public Vector2 GetThrustCoefficient(Vector2 thrust, float deltaTime)
         {
-            if (vectorThrust.x > 0)
+            return new Vector2
             {
-                vectorThrust.x =    Right.ClampThrust(vectorThrust.x, deltaTime);
-            }
-
-            if (vectorThrust.y < 0)
-            {
-                vectorThrust.y = -  Down.ClampThrust(-vectorThrust.y, deltaTime);
-            }
-
-            if (vectorThrust.x < 0)
-            {
-                vectorThrust.x = -  Left.ClampThrust(-vectorThrust.x, deltaTime);
-            }
-
-            if (vectorThrust.y > 0)
-            {
-                vectorThrust.y =    Up.ClampThrust(vectorThrust.y, deltaTime);
-            }
+                x = SelectHorizontalGroup(thrust) .GetThrustCoefficient(Mathf.Abs(thrust.x), deltaTime),
+                y = SelectVerticalGroup(thrust)   .GetThrustCoefficient(Mathf.Abs(thrust.y), deltaTime)
+            };
         }
 
-        private ThrusterGroup SelectGroup(Thruster thruster)
+        public float GetFireCoefficientConsumption(Vector2 thrust, Vector2 coefficient)
+        {
+            return 
+                SelectHorizontalGroup(thrust)   .GetCoefficientConsumption(coefficient.x) +
+                SelectVerticalGroup(thrust)     .GetCoefficientConsumption(coefficient.y);
+        }
+
+        public void Fire(Vector2 thrust)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int RoundTo1(float value)
+        {
+            return value > 0 ? 1 : -1;
+        }
+
+        private ThrusterGroup SelectHorizontalGroup(Vector2 thrust)
+        {
+            return thrusterGroups[new Vector2Int(RoundTo1(thrust.x), 0)];
+        }
+
+        private ThrusterGroup SelectVerticalGroup(Vector2 thrust)
+        {
+            return thrusterGroups[new Vector2Int(0, RoundTo1(thrust.y))];
+        }
+
+        private ThrusterGroup SelectGroup(ThrusterBehaviour thruster)
         {
             var rotation = thruster.transform.localRotation;
             var angle = rotation.eulerAngles.z - 180f;

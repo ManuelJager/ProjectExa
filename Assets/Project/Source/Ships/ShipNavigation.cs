@@ -11,6 +11,7 @@ namespace Exa.Ships
         public Rigidbody rb;
         private PidQuaternionController pidQuaternionController;
         private PdVector2Controller pdVector2Controller;
+        private ThrusterFireAction thrusterFireAction;
 
         private float angleHint = 0f;
 
@@ -38,7 +39,13 @@ namespace Exa.Ships
             pdVector2Controller = new PdVector2Controller(pProportional, pDerivitive, 50f);
         }
 
-        private void FixedUpdate()
+        private void Start()
+        {
+            thrusterFireAction = new ThrusterFireAction(ship);
+            ship.ActionScheduler.Add(thrusterFireAction);
+        }
+
+        public void UserFixedUpdate()
         {
             if (continouslyApplySettings)
             {
@@ -51,7 +58,7 @@ namespace Exa.Ships
             }
 
             UpdateHeading(ref angleHint);
-            UpdateThrustVectors(Time.fixedDeltaTime);
+            UpdateThrustVectors();
         }
 
         public void SetTurningMultiplier(float rate)
@@ -69,10 +76,14 @@ namespace Exa.Ships
             this.moveTo = moveTo;
         }
 
-        private void UpdateThrustVectors(float deltaTime)
+        private void UpdateThrustVectors()
         {
             // NOTE: This currently doesn't try to brake when no target is active
-            if (moveTo == null) return;
+            if (moveTo == null)
+            {
+                thrusterFireAction.Update(Vector2.zero);
+                return;
+            }
 
             // Get the difference between the current position and the target position
             // Transform the difference to a local target vector for the pid controller
@@ -89,9 +100,7 @@ namespace Exa.Ships
                 rb.velocity);
 
             // NOTE: Clamping the acceleration will usually result in drifting if the side thrusters aren't as powerful
-            var clampedAcceleration = ClampAcceleration(acceleration, deltaTime);
-
-            rb.AddForce(clampedAcceleration, ForceMode.Force);
+            thrusterFireAction.Update(acceleration);
         }
 
         /// <summary>
@@ -142,24 +151,6 @@ namespace Exa.Ships
                 Time.fixedDeltaTime);
 
             rb.AddTorque(angularAcceleration, ForceMode.Acceleration);
-        }
-
-        // TODO: preserve acceleration angle after clamping x and y components to prevent drifting
-        private Vector2 ClampAcceleration(Vector2 acceleration, float deltaTime)
-        {
-            // Get the angle the ship is currently facing
-            var rotationAngle = transform.localRotation.eulerAngles.z;
-
-            // Rotate the acceleration needed to local space
-            var localAcceleration = MathUtils.Rotate(acceleration, -rotationAngle);
-
-            // Clamp the acceleration using the thrust vectors of the current ship
-            ship.blockGrid.ThrustVectors.ClampThrustVector(ref localAcceleration, deltaTime);
-
-            // Transform clamped local acceleration back to global acceleration
-            var clampedAcceleration = MathUtils.Rotate(localAcceleration, rotationAngle);
-
-            return clampedAcceleration;
         }
     }
 }

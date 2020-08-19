@@ -7,33 +7,42 @@ namespace Exa.Ships
 {
     public class ThrusterGroup
     {
-        private List<Thruster> thrusters;
+        private List<ThrusterBehaviour> thrusters;
         private float totalThrust;
+        private float totalConsumption;
 
         public ThrusterGroup()
         {
-            thrusters = new List<Thruster>();
+            thrusters = new List<ThrusterBehaviour>();
         }
 
-        public void Register(Thruster thruster)
+        public void Register(ThrusterBehaviour thruster, float thrust, float consumption)
         {
             thrusters.Add(thruster);
-            totalThrust += (thruster as IThruster).Component.Data.newtonThrust * 1000;
+            totalThrust += thrust * 1000;
+            totalConsumption += consumption;
         }
 
-        public void Unregister(Thruster thruster)
+        public void Unregister(ThrusterBehaviour thruster, float thrust, float consumption)
         {
             thrusters.Remove(thruster);
-            totalThrust -= (thruster as IThruster).Component.Data.newtonThrust * 1000;
+            totalThrust -= thrust * 1000;
+            totalConsumption -= consumption;
         }
 
-        /// <summary>
-        /// Fire the thrusters
-        /// </summary>
-        /// <returns>Force this group should apply</returns>
-        public float ClampThrust(float thrust, float deltaTime)
+        public float GetThrustCoefficient(float thrust, float deltaTime)
         {
-            return Mathf.Clamp(thrust, 0f, totalThrust * deltaTime);
+            return Mathf.Clamp(thrust, 0f, totalThrust * deltaTime) / thrust;
+        }
+
+        public float GetCoefficientConsumption(float coefficient)
+        {
+            return totalConsumption * coefficient;
+        }
+
+        public void Fire(float coefficient)
+        {
+
         }
 
         public override string ToString()

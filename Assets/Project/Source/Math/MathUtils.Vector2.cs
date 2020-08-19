@@ -11,6 +11,16 @@ namespace Exa.Math
             return Mathf.Atan2(vector2.y, vector2.x) * Mathf.Rad2Deg;
         }
 
+        public static Vector2 ClampToLowestComponent(Vector2 vector)
+        {
+            var smallest = Mathf.Min(vector.x, vector.y);
+            return new Vector2
+            {
+                x = smallest,
+                y = smallest
+            };
+        }
+
         public static Vector2 Average(IEnumerable<Vector2> positions)
         {
             var count = positions.Count();

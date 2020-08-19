@@ -24,5 +24,17 @@ namespace Exa.Grids.Blocks.Components
                 gameObject.SetActive(false);
             }
         }
+
+        protected override void OnAdd()
+        {
+            var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
+            Ship.blockGrid.CentreOfMass.Add(localPos, data.mass);
+        }
+
+        protected override void OnRemove()
+        {
+            var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
+            Ship.blockGrid.CentreOfMass.Remove(localPos);
+        }
     }
 }

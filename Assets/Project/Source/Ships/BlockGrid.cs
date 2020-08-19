@@ -25,25 +25,6 @@ namespace Exa.Ships
             ThrustVectors = new ThrustVectors(this);
         }
 
-        public override void Add(Block block)
-        {
-            base.Add(block);
-
-            var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-            var mass = (block as IPhysical).Component.Data.mass;
-            CentreOfMass.Add(localPos, mass);
-        }
-
-        public override Block Remove(Vector2Int key)
-        {
-            var block = base.Remove(key);
-
-            var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-            CentreOfMass.Remove(localPos);
-
-            return block;
-        }
-
         internal void Import(Blueprint blueprint)
         {
             foreach (var anchoredBlueprintBlock in blueprint.Blocks)
