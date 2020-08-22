@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using Exa.Data;
+using Exa.Generics;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.UI.Tooltips;
 using System;
@@ -10,7 +11,7 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class PowerGeneratorTemplatePartial : TemplatePartial<PowerGeneratorData>
     {
-        [SerializeField] private float peakGeneration; // In MW
+        [SerializeField] private Percentage peakGeneration;
 
         public override PowerGeneratorData Convert() => new PowerGeneratorData
         {

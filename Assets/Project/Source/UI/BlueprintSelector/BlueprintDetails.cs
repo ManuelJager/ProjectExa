@@ -61,7 +61,7 @@ namespace Exa.UI
             peakPowerGenerationView.Reflect(new LabeledValue<string>
             {
                 Label = "Power generation",
-                Value = $"{blueprint.Blocks.Totals.PeakPowerGeneration:0} KW"
+                Value = $"{blueprint.Blocks.Totals.PowerGeneration:0} KW"
             });
         }
 

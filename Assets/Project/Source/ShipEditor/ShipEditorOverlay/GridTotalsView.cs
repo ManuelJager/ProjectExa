@@ -23,8 +23,8 @@ namespace Exa.ShipEditor
         {
             massView.Reflect(new LabeledValue<string>("Mass", $"{totals.Mass:0} KG"));
             hullView.Reflect(new LabeledValue<string>("Hull", $"{totals.Hull:0}"));
-            peakPowerGenerationView.Reflect(new LabeledValue<string>("Energy", $"{totals.PeakPowerGeneration:0} KW"));
-            turningPower.Reflect(new LabeledValue<string>("Torque", $"{totals.TurningPower:0}"));
+            peakPowerGenerationView.Reflect(new LabeledValue<string>("Energy", $"{totals.PowerGenerationModifier:0} KW"));
+            turningPower.Reflect(new LabeledValue<string>("Torque", $"{totals.TurningPowerModifier:0}"));
         }
     }
 }

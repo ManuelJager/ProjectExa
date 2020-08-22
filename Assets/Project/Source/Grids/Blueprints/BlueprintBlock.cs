@@ -28,7 +28,7 @@ namespace Exa.Grids.Blueprints
         }
 
         [JsonIgnore]
-        public BlockTemplate RuntimeContext
+        public BlockTemplate Template
         {
             get
             {
@@ -53,7 +53,7 @@ namespace Exa.Grids.Blueprints
 
         public Vector2Int CalculateSizeDelta()
         {
-            var area = RuntimeContext.size.Rotate(Rotation);
+            var area = Template.size.Rotate(Rotation);
 
             if (flippedX) area.x = -area.x;
             if (flippedY) area.y = -area.y;

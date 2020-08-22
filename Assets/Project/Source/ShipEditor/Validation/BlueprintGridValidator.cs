@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blueprints;
+﻿using Exa.Grids.Blocks;
+using Exa.Grids.Blueprints;
 using Exa.Validation;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Exa.ShipEditor
             var result = new ValidationResult(GetType());
 
             var controllers = validationArgs.blueprintBlocks
-                .Where((block) => block.BlueprintBlock.RuntimeContext.category == "Controller");
+                .Where((block) => block.BlueprintBlock.Template.category.HasFlag(BlockCategory.Controller));
 
             var controllerCount = controllers.Count();
 

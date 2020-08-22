@@ -38,7 +38,7 @@ namespace Exa.Grids
         {
             var block = gridMember.BlueprintBlock;
             var gridAnchor = gridMember.GridAnchor;
-            var area = block.RuntimeContext.size.Rotate(block.Rotation);
+            var area = block.Template.size.Rotate(block.Rotation);
 
             if (block.flippedX) area.x = -area.x;
             if (block.flippedY) area.y = -area.y;

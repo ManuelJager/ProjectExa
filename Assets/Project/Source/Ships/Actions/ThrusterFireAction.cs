@@ -11,7 +11,6 @@ namespace Exa.Ships
     public class ThrusterFireAction : ShipAction
     {
         private Vector2 rawForce;
-        private ThrustVectors thrustVectors;
         private Rigidbody rb;
         private Transform transform;
 
@@ -20,7 +19,6 @@ namespace Exa.Ships
         public ThrusterFireAction(Ship ship)
             : base(ship)
         {
-            this.thrustVectors  = ship.blockGrid.ThrustVectors;
             this.rb             = ship.navigation.rb;
             this.transform      = ship.transform;
         }
@@ -39,20 +37,15 @@ namespace Exa.Ships
 
             // Rotate the acceleration needed to local space
             var localForce = MathUtils.Rotate(rawForce, -rotationAngle);
-            var forceCoefficient = GetClampedCoefficient(localForce, deltaTime);
 
             tempValues = new TempValues
             {
                 localForce = localForce,
-                forceCoefficient = forceCoefficient,
                 rotationAngle = rotationAngle
             };
 
-            var consumption = thrustVectors.GetFireCoefficientConsumption(localForce, forceCoefficient) * deltaTime;
-
-            Debug.Log($"calculated consumption: {consumption}");
-
-            return consumption;
+            // TODO: Replace this with an actual value
+            return 1f;
         }
 
         public override void Update(float energyCoefficient, float deltaTime)
@@ -65,7 +58,7 @@ namespace Exa.Ships
             //Debug.Log(energyCoefficient);
 
             // Apply the normalization to the local acceleration
-            var calculatedLocalForce = tempValues.localForce * tempValues.forceCoefficient * energyCoefficient;
+            var calculatedLocalForce = tempValues.localForce * energyCoefficient;
 
             // Transform clamped local acceleration back to global acceleration
             var finalForce = MathUtils.Rotate(calculatedLocalForce, tempValues.rotationAngle);
@@ -73,19 +66,9 @@ namespace Exa.Ships
             rb.AddForce(finalForce, ForceMode.Force);
         }
 
-        private Vector2 GetClampedCoefficient(Vector2 localAcceleration, float deltaTime)
-        {
-            // Clamp the acceleration using the thrust vectors of the current ship
-            var coefficient = thrustVectors.GetThrustCoefficient(localAcceleration, deltaTime);
-
-            // Keep ratio to prevent drifting
-            return MathUtils.ClampToLowestComponent(coefficient);
-        }
-
         private struct TempValues
         {
             public Vector2 localForce;
-            public Vector2 forceCoefficient;
             public float rotationAngle;
         }
     }

@@ -1,20 +1,21 @@
-﻿using System;
+﻿using Exa.Data;
+using System;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
     public struct GyroscopeData : IBlockComponentData
     {
-        public float turningRate;
+        public Percentage turningRate;
 
         public void AddGridTotals(GridTotals totals)
         {
-            totals.TurningPower += turningRate;
+            totals.TurningPowerModifier += turningRate;
         }
 
         public void RemoveGridTotals(GridTotals totals)
         {
-            totals.TurningPower -= turningRate;
+            totals.TurningPowerModifier -= turningRate;
         }
     }
 }

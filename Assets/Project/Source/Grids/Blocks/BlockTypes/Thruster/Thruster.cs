@@ -32,18 +32,10 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         protected override void OnAdd()
         {
-            var archetype = new ThrusterArchetype
-            {
-                thrusterBehaviour = thrusterBehaviour,
-                powerConsumerBehaviour = powerConsumerBehaviour
-            };
-
-            Ship.blockGrid.ThrustVectors.Register(gameObject, archetype);
         }
 
         protected override void OnRemove()
         {
-            Ship.blockGrid.ThrustVectors.Unregister(gameObject);
         }
     }
 }

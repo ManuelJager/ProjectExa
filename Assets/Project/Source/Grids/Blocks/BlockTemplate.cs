@@ -3,7 +3,6 @@ using Exa.Grids.Blocks.Components;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
@@ -32,8 +31,7 @@ namespace Exa.Grids.Blocks
         [Header("Settings")]
         public string id;
         public string displayId;
-        public string category;
-        public string displayCategory;
+        public BlockCategory category;
         public Sprite thumbnail;
         public Vector2Int size;
         public GameObject inertPrefab;

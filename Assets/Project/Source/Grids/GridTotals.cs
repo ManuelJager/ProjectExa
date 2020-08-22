@@ -1,4 +1,6 @@
-﻿using Exa.Generics;
+﻿using Exa.Data;
+using Exa.Generics;
+using Exa.Grids.Blocks.Components;
 using Exa.Utils;
 using System.Text;
 
@@ -6,49 +8,79 @@ namespace Exa.Grids
 {
     public class GridTotals : ICloneable<GridTotals>
     {
+        public ControllerData controllerData;
+
         private long mass;
         private float hull;
-        private float peakPowerGeneration;
-        private float peakPowerConsumption;
-        private float turningPower;
+        private Percentage powerGenerationModifier;
+        private Percentage peakPowerConsumptionModifier;
+        private Percentage powerStorageModifier;
+        private Percentage turningPowerModifier;
 
-        public virtual long Mass
+        public long Mass
         {
             get => mass;
             set => mass = value;
         }
 
-        public virtual float Hull
+        public float Hull
         {
             get => hull;
             set => hull = value;
         }
 
-        public virtual float PeakPowerGeneration
+        public Percentage PowerGenerationModifier
         {
-            get => peakPowerGeneration;
-            set => peakPowerGeneration = value;
+            get => powerGenerationModifier;
+            set => powerGenerationModifier = value;
         }
 
-        public virtual float PeakPowerConsumption
+        public Percentage PowerConsumptionModifier
         {
-            get => peakPowerConsumption;
-            set => peakPowerConsumption = value;
+            get => peakPowerConsumptionModifier;
+            set => peakPowerConsumptionModifier = value;
         }
 
-        public virtual float TurningPower
+        public Percentage PowerStorageModifier
         {
-            get => turningPower;
-            set => turningPower = value;
+            get => powerStorageModifier;
+            set => powerStorageModifier = value;
+        }
+
+        public Percentage TurningPowerModifier
+        {
+            get => turningPowerModifier;
+            set => turningPowerModifier = value;
+        }
+
+        public float PowerGeneration
+        {
+            get => PowerGenerationModifier.GetValue(controllerData.powerGeneration);
+        }
+
+        public float PowerConsumption
+        {
+            get => PowerConsumptionModifier.GetValue(controllerData.powerConsumption);
+        }
+
+        public float PowerStorage
+        {
+            get => PowerStorageModifier.GetValue(controllerData.powerStorage);
+        }
+
+        public float TurningPower
+        {
+            get => TurningPowerModifier.GetValue(controllerData.turningRate);
         }
 
         public GridTotals Clone()
         {
             return new GridTotals()
             {
+                controllerData = controllerData,
                 mass = mass,
-                peakPowerGeneration = peakPowerGeneration,
-                turningPower = turningPower,
+                powerGenerationModifier = powerGenerationModifier,
+                turningPowerModifier = turningPowerModifier,
                 hull = hull
             };
         }
@@ -58,8 +90,8 @@ namespace Exa.Grids
             var sb = new StringBuilder();
             sb.AppendLineIndented($"Mass: {Mass}", tabs);
             sb.AppendLineIndented($"Hull: {Hull}", tabs);
-            sb.AppendLineIndented($"PeakPowerGeneration: {PeakPowerGeneration}", tabs);
-            sb.AppendLineIndented($"TurningPower: {TurningPower}", tabs);
+            sb.AppendLineIndented($"PeakPowerGeneration: {PowerGenerationModifier}", tabs);
+            sb.AppendLineIndented($"TurningPower: {TurningPowerModifier}", tabs);
             return sb.ToString();
         }
     }

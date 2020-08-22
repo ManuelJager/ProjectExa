@@ -1,7 +1,6 @@
 ﻿using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
-using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Utils;
 using System.Text;
@@ -15,14 +14,39 @@ namespace Exa.Ships
         private Ship ship;
 
         public CentreOfMassCache CentreOfMass { get; protected set; }
-        public ThrustVectors ThrustVectors { get; protected set; }
+
+        // As this is a special member, we keep a separate reference
+        public Block Controller { get; private set; }
 
         public BlockGrid(Transform container, Ship ship)
         {
             this.container = container;
             this.ship = ship;
             CentreOfMass = new CentreOfMassCache();
-            ThrustVectors = new ThrustVectors(this);
+        }
+
+        public override void Add(Block gridMember)
+        {
+            if (gridMember.BlueprintBlock.Template.category == BlockCategory.Controller)
+            {
+                if (Controller != null)
+                {
+                    throw new DuplicateControllerException(gridMember.GridAnchor);
+                }
+
+                Controller = gridMember;
+            }
+            base.Add(gridMember);
+        }
+
+        public override Block Remove(Vector2Int key)
+        {
+            var block = base.Remove(key);
+            if (ReferenceEquals(block, Controller))
+            {
+                Controller = null;
+            }
+            return block;
         }
 
         internal void Import(Blueprint blueprint)
@@ -45,8 +69,6 @@ namespace Exa.Ships
         {
             var sb = new StringBuilder();
             sb.AppendLineIndented(CentreOfMass.ToString(), tabs);
-            sb.AppendLineIndented("Thrust vectors: ", tabs);
-            sb.Append(ThrustVectors.ToString(tabs + 1));
             return sb.ToString();
         }
     }

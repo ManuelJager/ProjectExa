@@ -19,6 +19,7 @@ MonoBehaviour:
       flippedX: 0
       flippedY: 0
   physicalBehaviour: {fileID: 3478639850444596420}
+  controllerBehaviour: {fileID: 4752509573575635510}
 --- !u!114 &3478639850444596420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,6 +30,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2fb983101d6f86459a22fa5772742fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  block: {fileID: 0}
+--- !u!114 &4752509573575635510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3867314681599816325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e83929f83919b44fb9534624d29b042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}

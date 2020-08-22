@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using Exa.Data;
+using Exa.Generics;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class PowerConsumerTemplatePartial : TemplatePartial<PowerConsumerData>
     {
-        [SerializeField] private float powerConsumption; // In MW
+        [SerializeField] private Percentage powerConsumption; // In MW
 
         public override PowerConsumerData Convert() => new PowerConsumerData
         {

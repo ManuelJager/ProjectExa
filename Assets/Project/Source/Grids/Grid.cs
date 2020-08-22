@@ -1,4 +1,5 @@
 ﻿using Exa.Generics;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,9 @@ namespace Exa.Grids
         private GridTotals totals;
 
         public LazyCache<Vector2Int> Size { get; protected set; }
+
         // NOTE: Grid totals are affected by the context of the blueprint, since they will be subject to change because of tech
+        // TODO: Replace the reference by a manager that handles totals versioning
         public GridTotals Totals => totals;
         protected List<T> GridMembers { get; set; }
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
@@ -73,6 +76,7 @@ namespace Exa.Grids
             Size.Invalidate();
 
             var gridMember = GetMember(key);
+
             var tilePositions = GridUtils.GetOccupiedTilesByAnchor(gridMember);
 
             GridMembers.Remove(gridMember);

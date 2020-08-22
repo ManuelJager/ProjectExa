@@ -24,8 +24,8 @@ namespace Exa.ShipEditor
         /// <param name="block"></param>
         public void ImportBlock(BlueprintBlock block)
         {
-            ghostImage.sprite = block.RuntimeContext.thumbnail;
-            filterTransform.localScale = block.RuntimeContext.size.ToVector3();
+            ghostImage.sprite = block.Template.thumbnail;
+            filterTransform.localScale = block.Template.size.ToVector3();
             AnchoredBlueprintBlock = new AnchoredBlueprintBlock(new Vector2Int(), block);
             AnchoredBlueprintBlock.UpdateSpriteRenderer(ghostImage);
             AnchoredBlueprintBlock.UpdateLocals(gameObject);

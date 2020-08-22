@@ -14,19 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: MediumThruster
   displayId: Medium Thruster
-  category: Thruster
-  displayCategory: Thruster
+  category: 4
   thumbnail: {fileID: 4400518260287964509, guid: cb750ca62cc8eb04bbaefe5c1601e073,
     type: 3}
   size: {x: 3, y: 1}
-  inertPrefab: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
+  inertPrefab: {fileID: 5368107407437591167, guid: c93d52622cd16214ab9e1aceda9f5920,
     type: 3}
-  alivePrefab: {fileID: 0}
+  alivePrefab: {fileID: 6789153558413497451, guid: 199178b81140ae14d816e1dcba5546a0,
+    type: 3}
   physicalTemplatePartial:
     maxHull: 50
     armor: 5
     mass: 1500
   thrusterTemplatePartial:
     newtonThrust: 20
-  powerGeneratorTemplatePartial:
-    peakGeneration: 3
+  powerConsumerTemplatePartial:
+    powerConsumption:
+      ratio: 0.2

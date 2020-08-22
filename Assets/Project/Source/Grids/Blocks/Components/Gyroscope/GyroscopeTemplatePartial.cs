@@ -1,5 +1,5 @@
-﻿using Exa.Generics;
-using Exa.Grids.Blocks.BlockTypes;
+﻿using Exa.Data;
+using Exa.Generics;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class GyroscopeTemplatePartial : TemplatePartial<GyroscopeData>
     {
-        [SerializeField] private float turningRate; // In tons it supposed to support
+        [SerializeField] private Percentage turningRate;
 
         public override GyroscopeData Convert() => new GyroscopeData
         {

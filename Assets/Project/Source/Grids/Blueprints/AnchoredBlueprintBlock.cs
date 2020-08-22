@@ -55,12 +55,12 @@ namespace Exa.Grids.Blueprints
 
         public void AddGridTotals(GridTotals totals)
         {
-            blueprintBlock.RuntimeContext.AddGridTotals(totals);
+            blueprintBlock.Template.AddGridTotals(totals);
         }
 
         public void RemoveGridTotals(GridTotals totals)
         {
-            blueprintBlock.RuntimeContext.RemoveGridTotals(totals);
+            blueprintBlock.Template.RemoveGridTotals(totals);
         }
     }
 }

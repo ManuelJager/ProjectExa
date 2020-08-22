@@ -10,7 +10,7 @@ namespace Exa.Grids
             var blueprintBlock = gridMember.BlueprintBlock;
             var gridAnchor = gridMember.GridAnchor;
 
-            blockGO.name = $"{blueprintBlock.RuntimeContext.displayId} {gridAnchor}";
+            blockGO.name = $"{blueprintBlock.Template.displayId} {gridAnchor}";
             var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
             gridMember.UpdateSpriteRenderer(spriteRenderer);
             gridMember.UpdateLocals(blockGO);
@@ -39,7 +39,7 @@ namespace Exa.Grids
 
         public static Vector2 GetLocalPosition(this IGridMember gridMember)
         {
-            var size = gridMember.BlueprintBlock.RuntimeContext.size - Vector2Int.one;
+            var size = gridMember.BlueprintBlock.Template.size - Vector2Int.one;
 
             var offset = new Vector2
             {

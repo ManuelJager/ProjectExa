@@ -3,7 +3,7 @@
 namespace Exa.Grids.Blocks
 {
     public interface IBehaviourMarker<T>
-        where T : IBlockComponentData
+        where T : struct, IBlockComponentData
     {
         BlockBehaviour<T> Component { get; set; }
     }

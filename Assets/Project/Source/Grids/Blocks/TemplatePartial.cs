@@ -1,24 +1,28 @@
-﻿using Exa.Debugging;
-using Exa.Grids.Blocks.BlockTypes;
+﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Exa.Grids.Blocks
 {
     public abstract class TemplatePartial<T> : TemplatePartialBase, ITemplatePartial<T>
-        where T : IBlockComponentData
+        where T : struct, IBlockComponentData
     {
         public abstract T Convert();
 
         public override void SetValues(Block block)
         {
             var partial = block as IBehaviourMarker<T>;
+
             if (partial == null)
             {
                 throw new Exception($"Partial {typeof(IBehaviourMarker<T>)} is not supported on block: {block}");
+            }
+
+            if (partial.Component == null)
+            {
+                throw new Exception($"Block behaviour for {typeof(T).Name} is null");
             }
 
             partial.Component.Data = Convert();

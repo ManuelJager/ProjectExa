@@ -1,17 +1,19 @@
-﻿namespace Exa.Grids.Blocks.Components
+﻿using Exa.Data;
+
+namespace Exa.Grids.Blocks.Components
 {
     public struct PowerGeneratorData : IBlockComponentData
     {
-        public float powerGeneration;
+        public Percentage powerGeneration;
 
         public void AddGridTotals(GridTotals totals)
         {
-            totals.PeakPowerGeneration += powerGeneration;
+            totals.PowerGenerationModifier += powerGeneration;
         }
 
         public void RemoveGridTotals(GridTotals totals)
         {
-            totals.PeakPowerGeneration -= powerGeneration;
+            totals.PowerGenerationModifier -= powerGeneration;
         }
     }
 }
