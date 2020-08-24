@@ -1,7 +1,4 @@
-﻿using Exa.Generics;
-using Exa.UI.Tooltips;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
@@ -16,12 +13,6 @@ namespace Exa.Grids.Blocks.Components
         public override ThrusterData Convert() => new ThrusterData
         {
             thrust = newtonThrust
-        };
-
-        public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
-            new TooltipSpacer(),
-            new LabeledValue<string>("Thrust", $"{newtonThrust}N")
         };
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace Exa.Grids.Blocks.Components
+﻿using Exa.Generics;
+using Exa.UI.Tooltips;
+using System.Collections.Generic;
+
+namespace Exa.Grids.Blocks.Components
 {
     public struct ControllerData : IBlockComponentData
     {
@@ -15,5 +19,13 @@
         public void RemoveGridTotals(GridTotals totals)
         {
         }
+
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
+        {
+            new LabeledValue<string>("Power generation", $"{powerGeneration} KW"),
+            new LabeledValue<string>("Power consumption", $"{powerConsumption} KW"),
+            new LabeledValue<string>("Power storage", $"{powerStorage} KJ"),
+            new LabeledValue<string>("Turning rate", $"{turningRate}")
+        };
     }
 }

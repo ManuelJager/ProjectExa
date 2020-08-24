@@ -13,33 +13,34 @@ namespace Exa.UI.Tooltips
         [SerializeField] private GameObject titlePrefab;
         [SerializeField] private GameObject spacerPrefab;
 
-        public TooltipBinder<T> GenerateTooltip<T>(T value, Transform parent)
+        public void GenerateTooltip<T>(T value, Transform parent)
             where T : ITooltipPresenter
         {
             var result = value.GetTooltip();
-            var binders = new List<TooltipComponentBinder>();
+            GenerateTooltip(result, parent);
+        }
 
-            foreach (var property in result.GetComponents())
+        public void GenerateTooltip(Tooltip tooltip, Transform parent)
+        {
+            foreach (var property in tooltip.GetComponents())
             {
                 var tooltipComponentBundle = property.InstantiateComponentView(parent);
                 tooltipComponentBundle.componentView.transform.SetParent(parent);
-                binders.Add(tooltipComponentBundle.componentBinder);
             }
-
-            return new TooltipBinder<T>(binders);
         }
 
-        public TooltipComponentBundle GenerateTooltipProperty<T>(Transform parent)
+        public TooltipComponentBundle GenerateTooltipProperty<T>(LabeledValue<T> labeledValue, Transform parent)
         {
             var propertyObject = Instantiate(propertyPrefab, parent);
             var propertyView = propertyObject.GetComponent<PropertyView>();
-            Action<object> update = (obj) => propertyView.Reflect((LabeledValue<T>)obj);
-            var componentBinder = new TooltipComponentBinder(update);
+            propertyView.Reflect(labeledValue);
+            //Action<object> update = (obj) => propertyView.Reflect((LabeledValue<T>)obj);
+            //var componentBinder = new TooltipComponentBinder(update);
 
             return new TooltipComponentBundle
             {
                 componentView = propertyObject,
-                componentBinder = componentBinder
+                //componentBinder = componentBinder
             };
         }
 
@@ -47,13 +48,14 @@ namespace Exa.UI.Tooltips
         {
             var titleObject = Instantiate(titlePrefab, parent);
             var titleView = titleObject.GetComponent<TitleView>();
-            Action<object> update = (obj) => titleView.Reflect((TooltipTitle)obj);
-            var componentBinder = new TooltipComponentBinder(update);
+            titleView.Reflect(value);
+            //Action<object> update = (obj) => titleView.Reflect((TooltipTitle)obj);
+            //var componentBinder = new TooltipComponentBinder(update);
 
             return new TooltipComponentBundle
             {
                 componentView = titleObject,
-                componentBinder = componentBinder
+                //componentBinder = componentBinder
             };
         }
 
@@ -64,7 +66,7 @@ namespace Exa.UI.Tooltips
             return new TooltipComponentBundle
             {
                 componentView = spacerObject,
-                componentBinder = new TooltipComponentBinder()
+                //componentBinder = new TooltipComponentBinder()
             };
         }
     }

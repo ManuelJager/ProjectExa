@@ -16,11 +16,5 @@ namespace Exa.Grids.Blocks.Components
         {
             powerConsumption = powerConsumption
         };
-
-        public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
-            new TooltipSpacer(),
-            new LabeledValue<string>("Power consumption", $"{powerConsumption} KW")
-        };
     }
 }

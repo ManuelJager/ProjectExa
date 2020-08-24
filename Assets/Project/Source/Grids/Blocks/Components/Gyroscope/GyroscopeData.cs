@@ -1,5 +1,8 @@
 ﻿using Exa.Data;
+using Exa.Generics;
+using Exa.UI.Tooltips;
 using System;
+using System.Collections.Generic;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -17,5 +20,10 @@ namespace Exa.Grids.Blocks.Components
         {
             totals.TurningPowerModifier -= turningRate;
         }
+
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
+        {
+            new LabeledValue<string>("Turning Rate", turningRate.ToString())
+        };
     }
 }

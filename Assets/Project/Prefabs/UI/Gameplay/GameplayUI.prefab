@@ -302,11 +302,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4924561022885033855, guid: 384299567496b2d4d8fa47638ba976a5,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 4924561022885033855, guid: 384299567496b2d4d8fa47638ba976a5,
-        type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -344,6 +339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844954096403671788, guid: 384299567496b2d4d8fa47638ba976a5,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 116
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 384299567496b2d4d8fa47638ba976a5, type: 3}

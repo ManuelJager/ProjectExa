@@ -16,7 +16,6 @@ namespace Exa.Grids.Blueprints
         [DefaultValue(false)] public bool flippedY;
 
         [JsonIgnore] private int rotation;
-        [JsonIgnore] private BlockTemplate runtimeContext;
 
         public int Rotation
         {
@@ -32,16 +31,12 @@ namespace Exa.Grids.Blueprints
         {
             get
             {
-                if (runtimeContext == null)
+                if (!Systems.Blocks.blockTemplatesDict.ContainsKey(id))
                 {
-                    if (!Systems.Blocks.blockTemplatesDict.ContainsKey(id))
-                    {
-                        throw new KeyNotFoundException($"Block template with id: {id} doesn't exist");
-                    }
-
-                    runtimeContext = Systems.Blocks.blockTemplatesDict[id];
+                    throw new KeyNotFoundException($"Block template with id: {id} doesn't exist");
                 }
-                return runtimeContext;
+
+                return Systems.Blocks.blockTemplatesDict[id];
             }
         }
 

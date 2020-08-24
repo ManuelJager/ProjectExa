@@ -1,8 +1,6 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
-using Exa.UI.Tooltips;
 using System;
-using System.Collections.Generic;
 
 namespace Exa.Grids.Blocks
 {
@@ -12,12 +10,9 @@ namespace Exa.Grids.Blocks
         public abstract T Convert();
 
         // TODO: Use the given context to apply value modifiers in the conversion step
-        public override IBlockComponentData SetValues(Block block, BlockContext blockContext)
+        public override IBlockComponentData GetValues(BlockContext blockContext)
         {
-            var partial = GetMarker(block);
-            var values = Convert();
-            partial.Component.Data = values;
-            return values;
+            return Convert();
         }
 
         public override void SetValues(Block block, IBlockComponentData data)
@@ -56,10 +51,9 @@ namespace Exa.Grids.Blocks
 
     public abstract class TemplatePartialBase : IGridTotalsModifier
     {
-        public abstract IBlockComponentData SetValues(Block block, BlockContext blockContext);
-        public abstract void SetValues(Block block, IBlockComponentData data);
+        public abstract IBlockComponentData GetValues(BlockContext blockContext);
 
-        public abstract IEnumerable<ITooltipComponent> GetTooltipComponents();
+        public abstract void SetValues(Block block, IBlockComponentData data);
 
         public abstract void AddGridTotals(GridTotals totals);
 

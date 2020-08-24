@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System;
 using Exa.Grids.Blocks.Components;
+using Exa.UI.Tooltips;
+using System.Linq;
 
 namespace Exa.Grids.Blocks
 {
@@ -14,10 +16,11 @@ namespace Exa.Grids.Blocks
             contextDict = new Dictionary<BlockContext, BundleDictionary>();
         }
 
-        public void Register(BlockContext blockContext, string id, BlockTemplate blockTemplate)
+        public void Register(BlockContext blockContext, BlockTemplate blockTemplate)
         {
             var templateDict = EnsureCreated(blockContext);
-            
+            var id = blockTemplate.id;
+
             if (templateDict.ContainsKey(id))
             {
                 throw new ArgumentException("Block template with given Id is already registered");
@@ -26,11 +29,23 @@ namespace Exa.Grids.Blocks
             var bundle = new TemplateBundle
             {
                 template = blockTemplate,
-                valuesCache = null,
-                isDirty = true
+                valuesCache = GetValues(blockContext, blockTemplate),
+                valuesAreDirty = false
             };
 
             templateDict.Add(id, bundle);
+        }
+
+        public void SetDirty(BlockContext blockContext, string id)
+        {
+            var bundle = contextDict[blockContext][id];
+            bundle.valuesAreDirty = true;
+            bundle.tooltip.IsDirty = true;
+        }
+
+        public Tooltip GetTooltip(BlockContext blockContext, string id)
+        {
+            return contextDict[blockContext][id].tooltip;
         }
 
         public void SetValues(BlockContext blockContext, string id, Block block)
@@ -38,18 +53,16 @@ namespace Exa.Grids.Blocks
             var templateDict = contextDict[blockContext];
             var bundle = templateDict[id];
 
-            if (bundle.isDirty)
+            if (bundle.valuesAreDirty)
             {
-                bundle.valuesCache = CreateAndSetValues(blockContext, bundle.template, block);
-                bundle.isDirty = false;
+                bundle.valuesCache = GetValues(blockContext, bundle.template);
+                bundle.valuesAreDirty = false;
             }
-            else
-            {
-                bundle.valuesCache.ApplyValues(block);
-            }
+
+            bundle.valuesCache.ApplyValues(block);
         }
 
-        private TemplateValuesCache CreateAndSetValues(BlockContext blockContext, BlockTemplate template, Block block)
+        private TemplateValuesCache GetValues(BlockContext blockContext, BlockTemplate template)
         {
             var dict = new TemplateValuesCache();
 
@@ -57,7 +70,7 @@ namespace Exa.Grids.Blocks
             {
                 try
                 {
-                    var data = partial.SetValues(block, blockContext);
+                    var data = partial.GetValues(blockContext);
                     dict.Add(partial, data);
                 }
                 catch (Exception e)
@@ -100,7 +113,29 @@ namespace Exa.Grids.Blocks
         {
             public BlockTemplate template;
             public TemplateValuesCache valuesCache;
-            public bool isDirty;
+            public bool valuesAreDirty;
+            public Tooltip tooltip;
+
+            public TemplateBundle()
+            {
+                tooltip = new Tooltip(SelectTooltipComponents);
+            }
+
+            private IEnumerable<ITooltipComponent> SelectTooltipComponents()
+            {
+                var components = new List<ITooltipComponent>
+                {
+                    new TooltipTitle(template.displayId)
+                };
+
+                foreach (var componentData in valuesCache.Values)
+                {
+                    components.Add(new TooltipSpacer());
+                    components.AddRange(componentData.GetTooltipComponents());
+                }
+
+                return components;
+            }
         }
     }
 }

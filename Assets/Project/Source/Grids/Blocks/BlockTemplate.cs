@@ -26,7 +26,7 @@ namespace Exa.Grids.Blocks
         }
     }
 
-    public abstract class BlockTemplate : ScriptableObject, ITooltipPresenter, IGridTotalsModifier
+    public abstract class BlockTemplate : ScriptableObject, IGridTotalsModifier
     {
         [Header("Settings")]
         public string id;
@@ -37,12 +37,8 @@ namespace Exa.Grids.Blocks
         public GameObject inertPrefab;
         public GameObject alivePrefab;
 
-        private Tooltip tooltip;
-
         private void OnEnable()
         {
-            tooltip = new Tooltip(SelectTooltipComponents);
-
             if (!inertPrefab)
             {
                 throw new Exception("inertPrefab must have a prefab reference");
@@ -65,29 +61,6 @@ namespace Exa.Grids.Blocks
             }
         }
 
-        public Tooltip GetTooltip()
-        {
-            return tooltip;
-        }
-
         public abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();
-
-        private IEnumerable<ITooltipComponent> SelectTooltipComponents()
-        {
-            var components = new List<ITooltipComponent>
-            {
-                new TooltipTitle(displayId)
-            };
-
-            foreach (var partial in GetTemplatePartials())
-            {
-                foreach (var component in partial.GetTooltipComponents())
-                {
-                    components.Add(component);
-                }
-            }
-
-            return components;
-        }
     }
 }

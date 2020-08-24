@@ -17,5 +17,21 @@ namespace Exa.Utils
                 yield return child;
             }
         }
+
+        public static void ChildrenSetActive(this Transform transform, bool active)
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(active);
+            }
+        }
+
+        public static void DestroyChildren(this Transform transform)
+        {
+            foreach (Transform child in transform)
+            {
+                Object.Destroy(child.gameObject);
+            }
+        }
     }
 }

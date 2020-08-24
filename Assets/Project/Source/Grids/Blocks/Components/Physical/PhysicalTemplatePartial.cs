@@ -24,13 +24,5 @@ namespace Exa.Grids.Blocks.Components
             hull = maxHull,
             mass = mass
         };
-
-        public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
-            new TooltipSpacer(),
-            new LabeledValue<string>("Hull", maxHull.ToString()),
-            new LabeledValue<string>("Armor", armor.ToString()),
-            new LabeledValue<string>("Mass", mass.ToString())
-        };
     }
 }

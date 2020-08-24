@@ -21,14 +21,5 @@ namespace Exa.Grids.Blocks.Components
             powerStorage = powerStorage,
             turningRate = turningRate
         };
-
-        public override IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
-            new TooltipSpacer(),
-            new LabeledValue<string>("Power generation", $"{powerGeneration} KW"),
-            new LabeledValue<string>("Power consumption", $"{powerConsumption} KW"),
-            new LabeledValue<string>("Power storage", $"{powerStorage} KJ"),
-            new LabeledValue<string>("Turning rate", $"{turningRate}")
-        };
     }
 }

@@ -74,8 +74,8 @@ namespace Exa.Grids.Blocks
                 throw new Exception("Duplicate block id found");
             }
 
-            valuesStore.Register(BlockContext.defaultGroup, blockTemplate.id, blockTemplate);
-            valuesStore.Register(BlockContext.userGroup,    blockTemplate.id, blockTemplate);
+            valuesStore.Register(BlockContext.defaultGroup, blockTemplate);
+            valuesStore.Register(BlockContext.userGroup,    blockTemplate);
 
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 

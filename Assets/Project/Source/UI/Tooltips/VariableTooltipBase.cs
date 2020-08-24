@@ -1,9 +1,11 @@
-﻿namespace Exa.UI.Tooltips
+﻿using UnityEngine;
+
+namespace Exa.UI.Tooltips
 {
     public abstract class VariableTooltipBase<T> : TooltipBase
         where T : ITooltipPresenter
     {
-        private TooltipBinder<T> binder;
+        //private TooltipBinder<T> binder;
 
         public void ShowTooltip(T data)
         {
@@ -19,11 +21,12 @@
 
         public virtual void SetValues(T data)
         {
-            if (binder == null)
+            foreach (Transform child in container)
             {
-                binder = Systems.UI.tooltips.tooltipGenerator.GenerateTooltip(data, container);
+                Destroy(child.gameObject);
             }
-            binder.Update(data);
+
+            Systems.UI.tooltips.tooltipGenerator.GenerateTooltip(data, container);
         }
     }
 }

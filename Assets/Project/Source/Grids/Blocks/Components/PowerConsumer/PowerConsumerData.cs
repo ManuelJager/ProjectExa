@@ -1,4 +1,7 @@
 ﻿using Exa.Data;
+using Exa.Generics;
+using Exa.UI.Tooltips;
+using System.Collections.Generic;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -15,5 +18,10 @@ namespace Exa.Grids.Blocks.Components
         {
             totals.PowerConsumptionModifier -= powerConsumption;
         }
+
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
+        {
+            new LabeledValue<string>("Power consumption", $"{powerConsumption} KW")
+        };
     }
 }

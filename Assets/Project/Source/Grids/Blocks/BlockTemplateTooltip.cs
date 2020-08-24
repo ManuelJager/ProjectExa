@@ -6,44 +6,74 @@ using UnityEngine;
 namespace Exa.Grids.Blocks
 {
     [Serializable]
-    public class BlockTemplateTooltip : VariableTooltipBase<BlockTemplate>
+    public class BlockTemplateTooltip : TooltipBase
     {
         [SerializeField] private GameObject tooltipContainerPrefab;
-        private Dictionary<string, RectTransform> tooltips = new Dictionary<string, RectTransform>();
+        private ContextDict contextDict = new ContextDict();
         private string activeTooltip = "";
 
-        public override void SetValues(BlockTemplate data)
+        public void SetValues(BlockContext blockContext, BlockTemplate data)
         {
-            var result = data.GetTooltip();
+            var result = Systems.Blocks.valuesStore.GetTooltip(blockContext, data.id);
             var id = data.id;
+            var tooltipDict = EnsureCreated(blockContext);
 
             // If the given block already has a tooltip
-            if (tooltips.ContainsKey(activeTooltip))
+            if (tooltipDict.ContainsKey(activeTooltip))
             {
                 if (activeTooltip == id) return;
 
-                tooltips[activeTooltip].gameObject.SetActive(false);
+                tooltipDict[activeTooltip].gameObject.SetActive(false);
             }
 
             // Destroy the tooltip for the given block if the tooltip is out of date
-            if (tooltips.ContainsKey(id) && result.IsDirty)
+            if (tooltipDict.ContainsKey(id) && result.IsDirty)
             {
-                Destroy(tooltips[id].gameObject);
+                Destroy(tooltipDict[id].gameObject);
             }
 
             // Generate a tooltip if it doesn't already exist or it is out of date
-            if (!tooltips.ContainsKey(id) || result.IsDirty)
+            if (!tooltipDict.ContainsKey(id) || result.IsDirty)
             {
                 var tooltipContainer = Instantiate(tooltipContainerPrefab, transform).transform as RectTransform;
                 tooltipContainer.gameObject.name = id;
-                var binder = Systems.UI.tooltips.tooltipGenerator.GenerateTooltip(data, tooltipContainer);
-                binder.Update(data);
-                tooltips[id] = tooltipContainer;
+                Systems.UI.tooltips.tooltipGenerator.GenerateTooltip(result, tooltipContainer);
+                tooltipDict[id] = tooltipContainer;
             }
 
             activeTooltip = id;
-            container = tooltips[activeTooltip];
-            tooltips[activeTooltip].gameObject.SetActive(true);
+            container = tooltipDict[activeTooltip];
+            tooltipDict[activeTooltip].gameObject.SetActive(true);
+        }
+
+        public void ShowTooltip(BlockContext blockContext, BlockTemplate data)
+        {
+            gameObject.SetActive(true);
+            SetValues(blockContext, data);
+            SetContainerPosition();
+        }
+
+        public void HideTooltip()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private TooltipDict EnsureCreated(BlockContext blockContext)
+        {
+            if (!contextDict.ContainsKey(blockContext))
+            {
+                contextDict.Add(blockContext, new TooltipDict());
+            }
+
+            return contextDict[blockContext];
+        }
+
+        private class ContextDict : Dictionary<BlockContext, TooltipDict>
+        {
+        }
+
+        private class TooltipDict : Dictionary<string, RectTransform>
+        {
         }
     }
 }
