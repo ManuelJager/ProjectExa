@@ -11,13 +11,11 @@ namespace Exa.Grids
     public class Grid<T> : IEnumerable<T>
         where T : IGridMember
     {
-        private GridTotals totals;
-
         public LazyCache<Vector2Int> Size { get; protected set; }
 
         // NOTE: Grid totals are affected by the context of the blueprint, since they will be subject to change because of tech
         // TODO: Replace the reference by a manager that handles totals versioning
-        public GridTotals Totals => totals;
+        public GridTotals Totals { get; }
         protected List<T> GridMembers { get; set; }
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
@@ -33,14 +31,13 @@ namespace Exa.Grids
 
         public Grid()
         {
-            totals = new GridTotals();
-
             Size = new LazyCache<Vector2Int>(() =>
             {
                 var bounds = new GridBounds(OccupiedTiles.Keys);
                 return bounds.GetDelta();
             });
 
+            Totals = new GridTotals();
             GridMembers = new List<T>();
             OccupiedTiles = new Dictionary<Vector2Int, T>();
             NeighbourDict = new Dictionary<T, List<T>>();
@@ -51,7 +48,7 @@ namespace Exa.Grids
             Size.Invalidate();
 
             GridMembers.Add(gridMember);
-            gridMember.AddGridTotals(totals);
+            gridMember.AddGridTotals(Totals);
 
             // Get grid positions of blueprint block
             var tilePositions = GridUtils.GetOccupiedTilesByAnchor(gridMember);
@@ -80,7 +77,7 @@ namespace Exa.Grids
             var tilePositions = GridUtils.GetOccupiedTilesByAnchor(gridMember);
 
             GridMembers.Remove(gridMember);
-            gridMember.RemoveGridTotals(totals);
+            gridMember.RemoveGridTotals(Totals);
 
             // Remove neighbour references
             foreach (var neighbour in NeighbourDict[gridMember])

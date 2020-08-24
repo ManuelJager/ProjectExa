@@ -1,37 +1,20 @@
 ﻿using Exa.Pooling;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
 {
-    public enum BlockTemplatePrefabType
-    {
-        inert,
-        alive
-    }
-
-    public class InertBlockFactoryPrefabGroup : MonoBehaviour
+    public abstract class BlockPoolGroupBase : MonoBehaviour
     {
         protected Dictionary<string, IPool<PoolMember>> poolById = new Dictionary<string, IPool<PoolMember>>();
 
         [SerializeField] private PoolSettings defaultPoolSettings;
 
-        protected virtual BlockTemplatePrefabType PrefabType => BlockTemplatePrefabType.inert; 
-
-        /// <summary>
-        /// Creates an inert block prefab on this group
-        /// </summary> 
-        /// <param name="blockTemplate"></param>
-        /// <returns></returns>
-        public void CreateInertPrefab(BlockTemplate blockTemplate)
-        {
-            var id = blockTemplate.id;
-            var prefab = CreatePrefab(blockTemplate, PrefabType);
-            var pool = CreatePool<Pool>(prefab, $"Inert block pool: {id}", out var settings);
-            poolById[id] = pool;
-            pool.Configure(settings);
-        }
+        protected abstract BlockTemplatePrefabType PrefabType { get; }
 
         public GameObject GetInactiveBlock(string id, Transform parent)
         {
@@ -54,17 +37,11 @@ namespace Exa.Grids.Blocks
             var instance = Instantiate(prefab, transform);
             instance.name = $"{blockTemplate.displayId}";
 
-            // Set the sprite for the sprite renderer
-            if (prefabType == BlockTemplatePrefabType.inert)
-            {
-                instance.GetComponent<SpriteRenderer>().sprite = blockTemplate.thumbnail;
-            }
-
             return instance;
         }
 
         protected T CreatePool<T>(GameObject prefab, string name, out PoolSettings settings)
-            where T : Component, IPool<PoolMember> 
+            where T : Component, IPool<PoolMember>
         {
             var poolGO = new GameObject(name);
             poolGO.transform.SetParent(transform);

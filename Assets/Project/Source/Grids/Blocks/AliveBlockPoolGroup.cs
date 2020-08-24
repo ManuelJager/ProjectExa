@@ -1,9 +1,8 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
-using System;
 
 namespace Exa.Grids.Blocks
 {
-    public class BlockFactoryPrefabGroup : InertBlockFactoryPrefabGroup
+    public class AliveBlockPoolGroup : BlockPoolGroupBase
     {
         protected override BlockTemplatePrefabType PrefabType => BlockTemplatePrefabType.alive;
 
@@ -12,7 +11,7 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="blockTemplate"></param>
         /// <returns></returns>
-        public void CreateAlivePrefabGroup(BlockTemplate blockTemplate)
+        public void CreateAlivePrefabGroup(BlockTemplate blockTemplate, BlockContext blockContext)
         {
             var rootInstanceGO = CreatePrefab(blockTemplate, PrefabType);
             var rootInstance = rootInstanceGO.GetComponent<Block>();
@@ -22,18 +21,10 @@ namespace Exa.Grids.Blocks
                 component.block = rootInstance;
             }
 
-            //try
-            //{
-            //    blockTemplate.SetValues(rootInstance);
-            //}
-            //catch (Exception e)
-            //{
-            //    throw new Exception($"Error on setting value for block template with id: {blockTemplate.id}", e);
-            //}
-
             var id = blockTemplate.id;
             var pool = CreatePool<BlockPool>(rootInstanceGO, $"Block pool: {id}", out var settings);
             pool.blockTemplate = blockTemplate;
+            pool.blockContext = blockContext;
             poolById[id] = pool;
             pool.Configure(settings);
         }

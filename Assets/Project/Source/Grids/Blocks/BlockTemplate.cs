@@ -17,7 +17,7 @@ namespace Exa.Grids.Blocks
         [Header("Template partials")]
         [SerializeField] protected PhysicalTemplatePartial physicalTemplatePartial;
 
-        protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()
+        public override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
             return new TemplatePartialBase[]
             {
@@ -42,7 +42,11 @@ namespace Exa.Grids.Blocks
         private void OnEnable()
         {
             tooltip = new Tooltip(SelectTooltipComponents);
-            if (!inertPrefab) throw new Exception("inertPrefab must have a prefab reference");
+
+            if (!inertPrefab)
+            {
+                throw new Exception("inertPrefab must have a prefab reference");
+            }
         }
 
         public void AddGridTotals(GridTotals totals)
@@ -66,22 +70,7 @@ namespace Exa.Grids.Blocks
             return tooltip;
         }
 
-        public void SetValues(Block block)
-        {
-            foreach (var partial in GetTemplatePartials())
-            {
-                try
-                {
-                    partial.SetValues(block);
-                }
-                catch (Exception e)
-                {
-                    throw new Exception($"Exception while setting values of {partial.GetType().Name} partial", e);
-                }
-            }
-        }
-
-        protected abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();
+        public abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();
 
         private IEnumerable<ITooltipComponent> SelectTooltipComponents()
         {

@@ -5,13 +5,14 @@ namespace Exa.Grids.Blocks
 {
     public class BlockPool : Pool<BlockPoolMember>
     {
+        public BlockContext blockContext;
         public BlockTemplate blockTemplate;
 
         public override BlockPoolMember Retrieve()
         {
             var member = base.Retrieve();
             var block = member.block;
-            blockTemplate.SetValues(block);
+            Systems.Blocks.valuesStore.SetValues(blockContext, blockTemplate.id, block);
             return member;
         }
 

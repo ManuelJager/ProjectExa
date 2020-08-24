@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] protected PowerGeneratorTemplatePartial powerGeneratorTemplatePartial;
 
-        protected override IEnumerable<TemplatePartialBase> GetTemplatePartials()
+        public override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
             return base.GetTemplatePartials()
                 .Append(powerGeneratorTemplatePartial);

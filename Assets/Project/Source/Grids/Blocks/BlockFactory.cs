@@ -9,7 +9,10 @@ using Exa.Utils;
 
 namespace Exa.Grids.Blocks
 {
-    public enum BlockPrefabType
+    /// <summary>
+    /// Enum used to identify to which group a block belongs
+    /// </summary>
+    public enum BlockContext
     {
         defaultGroup,
         userGroup,
@@ -20,7 +23,7 @@ namespace Exa.Grids.Blocks
     }
 
     /// <summary>
-    /// Registers block types and sets default values
+    /// Registers block types and creates block pools
     /// </summary>
     public class BlockFactory : MonoBehaviour
     {
@@ -28,12 +31,15 @@ namespace Exa.Grids.Blocks
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
         [SerializeField] private BlockTemplateBag blockTemplateBag;
-        [SerializeField] private InertBlockFactoryPrefabGroup inertPrefabGroup;
-        [SerializeField] private BlockFactoryPrefabGroup defaultPrefabGroup;
-        [SerializeField] private BlockFactoryPrefabGroup userPrefabGroup;
+        [SerializeField] private InertBlockPoolGroup inertPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup defaultPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup userPrefabGroup;
+
+        public BlockValuesStore valuesStore;
 
         public IEnumerator StartUp(IProgress<float> progress)
         {
+            valuesStore = new BlockValuesStore();
             var enumerator = EnumeratorUtils.ReportForeachOperation(blockTemplateBag, RegisterBlockTemplate, progress);
             while (enumerator.MoveNext()) yield return enumerator.Current;
         }
@@ -48,7 +54,7 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Block GetInactiveBlock(string id, Transform transform, BlockPrefabType blockPrefabType)
+        public Block GetInactiveBlock(string id, Transform transform, BlockContext blockPrefabType)
         {
             return GetGroup(blockPrefabType)
                 .GetInactiveBlock(id, transform)
@@ -68,24 +74,27 @@ namespace Exa.Grids.Blocks
                 throw new Exception("Duplicate block id found");
             }
 
+            valuesStore.Register(BlockContext.defaultGroup, blockTemplate.id, blockTemplate);
+            valuesStore.Register(BlockContext.userGroup,    blockTemplate.id, blockTemplate);
+
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
             yield return null;
-            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate);
+            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.defaultGroup);
             yield return null;
-            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate);
+            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.userGroup);
             yield return null;
         }
 
-        private BlockFactoryPrefabGroup GetGroup(BlockPrefabType blockPrefabType)
+        private AliveBlockPoolGroup GetGroup(BlockContext blockContext)
         {
-            switch (blockPrefabType)
+            switch (blockContext)
             {
-                case BlockPrefabType.defaultGroup:
+                case BlockContext.defaultGroup:
                     return defaultPrefabGroup;
 
-                case BlockPrefabType.userGroup:
+                case BlockContext.userGroup:
                     return userPrefabGroup;
 
                 default:
