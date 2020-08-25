@@ -1,4 +1,5 @@
 ﻿using Exa.Math;
+using Exa.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -42,10 +43,7 @@ namespace Exa.ShipEditor
 
             this.size = size;
 
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
+            transform.DestroyChildren();
 
             gridItems.Clear();
 

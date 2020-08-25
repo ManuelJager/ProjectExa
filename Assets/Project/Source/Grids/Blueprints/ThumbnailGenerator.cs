@@ -30,7 +30,7 @@ namespace Exa.Grids.Blueprints
             blueprint.Thumbnail = tex;
 
             // Cleaup ship
-            transform.ChildrenSetActive(false);
+            transform.SetActiveChildren(false);
         }
     }
 }

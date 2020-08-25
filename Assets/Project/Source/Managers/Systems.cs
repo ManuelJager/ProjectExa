@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Exa
 {
-    public delegate void DebugChangeDelegate(bool state);
+    public delegate void DebugChangeDelegate(DebugMode mode);
 
     public class Systems : MonoSingleton<Systems>
     {
@@ -66,11 +66,13 @@ namespace Exa
         public static void SetFlag(DebugMode debugMode)
         {
             Debug.DebugMode |= debugMode;
+            DebugChange(Debug.DebugMode);
         }
 
         public static void ToggleFlag(DebugMode debugMode)
         {
             Debug.DebugMode ^= debugMode;
+            DebugChange(Debug.DebugMode);
         }
 
         [RuntimeInitializeOnLoadMethod]

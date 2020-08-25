@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blueprints;
+using Exa.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,10 +17,7 @@ namespace Exa.ShipEditor
 
         private void OnDisable()
         {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);
-            }
+            transform.SetActiveChildren(false);
 
             blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
         }
@@ -60,10 +58,7 @@ namespace Exa.ShipEditor
 
         public void ClearBlueprint()
         {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);
-            }
+            transform.SetActiveChildren(false);
 
             ActiveBlueprint?.ClearBlocks();
         }

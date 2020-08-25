@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.UI.Tooltips
 {
@@ -21,10 +22,7 @@ namespace Exa.UI.Tooltips
 
         public virtual void SetValues(T data)
         {
-            foreach (Transform child in container)
-            {
-                Destroy(child.gameObject);
-            }
+            container.DestroyChildren();
 
             Systems.UI.tooltips.tooltipGenerator.GenerateTooltip(data, container);
         }

@@ -1,5 +1,6 @@
 ﻿using Exa.Generics;
 using Exa.UI.Controls;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.UI
@@ -10,10 +11,7 @@ namespace Exa.UI
 
         public void GenerateForm<T>(ModelDescriptor<T> modelDescriptor)
         {
-            foreach (Transform child in controlsContainer)
-            {
-                Destroy(child.gameObject);
-            }
+            controlsContainer.DestroyChildren();
 
             modelDescriptor.GenerateView(controlsContainer);
         }

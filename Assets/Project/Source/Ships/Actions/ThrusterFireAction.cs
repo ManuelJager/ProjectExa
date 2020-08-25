@@ -50,7 +50,7 @@ namespace Exa.Ships
 
         public override void Update(float energyCoefficient, float deltaTime)
         {
-            // Don't need to operate on a zero vecot
+            // Don't need to operate on a zero vector
             if (rawForce == Vector2.zero) return;
 
             //Debug.Log(tempValues.localForce);

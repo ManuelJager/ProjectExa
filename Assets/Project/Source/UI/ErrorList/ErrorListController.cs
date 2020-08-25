@@ -1,4 +1,5 @@
-﻿using Exa.Validation;
+﻿using Exa.Utils;
+using Exa.Validation;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,10 +36,7 @@ namespace Exa.UI.Controls
 
         public void OnEnable()
         {
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
+            transform.DestroyChildren();
             panelByError = new Dictionary<string, ValidationErrorPanel>();
             container.lastControlErrors = new Dictionary<string, IEnumerable<ValidationError>>();
         }

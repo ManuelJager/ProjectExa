@@ -18,7 +18,7 @@ namespace Exa.Utils
             }
         }
 
-        public static void ChildrenSetActive(this Transform transform, bool active)
+        public static void SetActiveChildren(this Transform transform, bool active)
         {
             foreach (Transform child in transform)
             {
