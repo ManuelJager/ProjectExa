@@ -1,6 +1,7 @@
 ﻿using Exa.AI;
 using Exa.Debugging;
 using Exa.Gameplay;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Math;
 using System.Text;
@@ -29,6 +30,7 @@ namespace Exa.Ships
 
         public Blueprint Blueprint => blueprint;
         public ActionScheduler ActionScheduler { get; private set; }
+        public Controller Controller { get; internal set; }
 
         protected virtual void Awake()
         {
@@ -38,7 +40,7 @@ namespace Exa.Ships
 
         private void FixedUpdate()
         {
-            navigation.UserFixedUpdate();
+            navigation.ScheduledFixedUpdate();
             ActionScheduler.ExecuteActions(Time.fixedDeltaTime);
         }
 

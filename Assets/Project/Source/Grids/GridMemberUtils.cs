@@ -12,21 +12,8 @@ namespace Exa.Grids
 
             blockGO.name = $"{blueprintBlock.Template.displayId} {gridAnchor}";
             var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
-            gridMember.UpdateSpriteRenderer(spriteRenderer);
+            gridMember.BlueprintBlock.SetSpriteRendererFlips(spriteRenderer);
             gridMember.UpdateLocals(blockGO);
-        }
-
-        public static void UpdateSpriteRenderer(this IGridMember gridMember, SpriteRenderer spriteRenderer)
-        {
-            var blueprintBlock = gridMember.BlueprintBlock;
-
-            spriteRenderer.flipX = blueprintBlock.Rotation % 2 == 0
-                ? blueprintBlock.flippedX
-                : blueprintBlock.flippedY;
-
-            spriteRenderer.flipY = blueprintBlock.Rotation % 2 == 0
-                ? blueprintBlock.flippedY
-                : blueprintBlock.flippedX;
         }
 
         public static void UpdateLocals(this IGridMember gridMember, GameObject blockGO)
@@ -47,8 +34,7 @@ namespace Exa.Grids
                 y = size.y / 2f
             }.Rotate(gridMember.BlueprintBlock.Rotation);
 
-            if (gridMember.BlueprintBlock.flippedX) offset.x = -offset.x;
-            if (gridMember.BlueprintBlock.flippedY) offset.y = -offset.y;
+            offset *= gridMember.BlueprintBlock.FlipVector;
 
             return offset + gridMember.GridAnchor;
         }

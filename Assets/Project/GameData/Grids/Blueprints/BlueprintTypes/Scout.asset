@@ -15,6 +15,4 @@ MonoBehaviour:
   displayName: Scout
   typeGuid: Scout
   maxSize: {x: 8, y: 5}
-  disallowedBlockCategories:
-  - storage
-  - worker
+  disallowedBlockCategories: 32

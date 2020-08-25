@@ -12,10 +12,10 @@ namespace Exa.Grids
 
         private long mass;
         private float hull;
-        private Percentage powerGenerationModifier;
-        private Percentage peakPowerConsumptionModifier;
-        private Percentage powerStorageModifier;
-        private Percentage turningPowerModifier;
+        private Percentage powerGenerationModifier      = new Percentage(1);
+        private Percentage peakPowerConsumptionModifier = new Percentage(1);
+        private Percentage powerStorageModifier         = new Percentage(1);
+        private Percentage turningPowerModifier         = new Percentage(1);
 
         public long Mass
         {

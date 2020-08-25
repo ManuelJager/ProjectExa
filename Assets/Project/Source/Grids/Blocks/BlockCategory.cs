@@ -9,6 +9,7 @@ namespace Exa.Grids.Blocks
         Controller  = 1 << 1,
         Thruster    = 1 << 2,
         Gyroscope   = 1 << 3,
-        Power       = 1 << 4
+        Power       = 1 << 4,
+        Worker      = 1 << 5
     }
 }

@@ -23,6 +23,11 @@ namespace Exa.Grids.Blocks.BlockTypes
             set => powerConsumerBehaviour = value as PowerConsumerBehaviour; 
         }
 
+        public void Fire(float strength)
+        {
+            thrusterBehaviour.Fire(strength);
+        }
+
         public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
@@ -32,10 +37,12 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         protected override void OnAdd()
         {
+            Ship.navigation.thrustVectors.Register(this);
         }
 
         protected override void OnRemove()
         {
+            Ship.navigation.thrustVectors.Unregister(this);
         }
     }
 }

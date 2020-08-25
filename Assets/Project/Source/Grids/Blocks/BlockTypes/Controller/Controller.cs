@@ -1,4 +1,6 @@
 ﻿using Exa.Grids.Blocks.Components;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
@@ -11,6 +13,22 @@ namespace Exa.Grids.Blocks.BlockTypes
         {
             get => controllerBehaviour;
             set => controllerBehaviour = value as ControllerBehaviour;
+        }
+
+        public override IEnumerable<BlockBehaviourBase> GetBehaviours()
+        {
+            return base.GetBehaviours()
+                .Append(controllerBehaviour);
+        }
+
+        protected override void OnAdd()
+        {
+            Ship.Controller = this;
+        }
+
+        protected override void OnRemove()
+        {
+            Ship.Controller = null;
         }
     }
 }

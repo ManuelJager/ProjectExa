@@ -51,7 +51,11 @@ namespace Exa.Ships
         public override void Update(float energyCoefficient, float deltaTime)
         {
             // Don't need to operate on a zero vector
-            if (rawForce == Vector2.zero) return;
+            if (rawForce == Vector2.zero)
+            {
+                ship.navigation.thrustVectors.Fire(Vector2.zero);
+                return;
+            }
 
             //Debug.Log(tempValues.localForce);
             //Debug.Log(tempValues.forceCoefficient);
@@ -62,6 +66,7 @@ namespace Exa.Ships
 
             // Transform clamped local acceleration back to global acceleration
             var finalForce = MathUtils.Rotate(calculatedLocalForce, tempValues.rotationAngle);
+            ship.navigation.thrustVectors.Fire(calculatedLocalForce);
 
             rb.AddForce(finalForce, ForceMode.Force);
         }

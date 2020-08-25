@@ -30,4 +30,4 @@ MonoBehaviour:
     powerGeneration: 100
     powerConsumption: 100
     powerStorage: 500
-    turningRate: 1
+    turningRate: 100

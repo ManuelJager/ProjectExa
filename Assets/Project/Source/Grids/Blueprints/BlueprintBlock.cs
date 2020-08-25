@@ -19,12 +19,24 @@ namespace Exa.Grids.Blueprints
 
         public int Rotation
         {
-            get => rotation;
-            set
+            get
             {
-                rotation = value % 4;
+                var remainder = rotation % 4;
+                if (remainder < 0)
+                {
+                    remainder += 4;
+                }
+                return remainder;
             }
+            set => rotation = value;
         }
+
+        [JsonIgnore]
+        public Vector2 FlipVector => new Vector2
+        {
+            x = flippedX ? -1 : 1,
+            y = flippedY ? -1 : 1
+        };
 
         [JsonIgnore]
         public BlockTemplate Template
@@ -54,6 +66,17 @@ namespace Exa.Grids.Blueprints
             if (flippedY) area.y = -area.y;
 
             return area;
+        }
+
+        public void SetSpriteRendererFlips(SpriteRenderer spriteRenderer)
+        {
+            spriteRenderer.flipX = Rotation % 2 == 0
+                ? flippedX
+                : flippedY;
+
+            spriteRenderer.flipY = Rotation % 2 == 0
+                ? flippedY
+                : flippedX;
         }
     }
 }

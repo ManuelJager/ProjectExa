@@ -15,5 +15,4 @@ MonoBehaviour:
   displayName: Corvette
   typeGuid: Corvette
   maxSize: {x: 14, y: 9}
-  disallowedBlockCategories:
-  - worker
+  disallowedBlockCategories: 32

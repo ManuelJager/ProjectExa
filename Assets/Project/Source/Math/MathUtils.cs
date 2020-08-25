@@ -1,4 +1,6 @@
-﻿namespace Exa.Math
+﻿using UnityEngine;
+
+namespace Exa.Math
 {
     public static partial class MathUtils
     {
@@ -39,6 +41,8 @@
             float from2,
             float to2)
         {
+            value = Mathf.Clamp(value, from1, to1);
+
             return
                 // Get base value
                 (value - from1) /

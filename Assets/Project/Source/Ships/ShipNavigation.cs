@@ -16,6 +16,7 @@ namespace Exa.Ships
         private float angleHint = 0f;
 
         public Ship ship;
+        public ThrustVectors thrustVectors;
 
         [SerializeField] private bool continouslyApplySettings;
 
@@ -35,6 +36,7 @@ namespace Exa.Ships
 
         private void Awake()
         {
+            thrustVectors = new ThrustVectors();
             pidQuaternionController = new PidQuaternionController(qProportionalBase, qIntegral, qDerivitive);
             pdVector2Controller = new PdVector2Controller(pProportional, pDerivitive, 50f);
         }
@@ -45,7 +47,10 @@ namespace Exa.Ships
             ship.ActionScheduler.Add(thrusterFireAction);
         }
 
-        public void UserFixedUpdate()
+        /// <summary>
+        /// Formely just a FixedUpdate, it gets called on the ship's FixedUpdate instead.
+        /// </summary>
+        public void ScheduledFixedUpdate()
         {
             if (continouslyApplySettings)
             {

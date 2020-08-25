@@ -15,5 +15,4 @@ MonoBehaviour:
   displayName: Fighter
   typeGuid: Fighter
   maxSize: {x: 9, y: 7}
-  disallowedBlockCategories:
-  - worker
+  disallowedBlockCategories: 32

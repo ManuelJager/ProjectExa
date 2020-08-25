@@ -15,7 +15,7 @@ MonoBehaviour:
   blueprintJson: "{\r\n   \"name\":\"defaultMothership\",\r\n   \"shipClass\":\"Mothership\",\r\n  
     \"blocks\":{\r\n      \"18,12\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n     
     },\r\n      \"18,8\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true\r\n     
-    },\r\n      \"23,9\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":-3\r\n     
+    },\r\n      \"23,9\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":1\r\n     
     },\r\n      \"18,10\":{\r\n         \"id\":\"MediumCockpit\"\r\n      },\r\n     
     \"15,8\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"15,12\":{\r\n        
     \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true\r\n      },\r\n     
@@ -27,7 +27,7 @@ MonoBehaviour:
     \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n      },\r\n     
     \"17,10\":{\r\n         \"id\":\"SmallReactor\"\r\n      },\r\n      \"16,10\":{\r\n        
     \"id\":\"SmallReactor\"\r\n      },\r\n      \"15,10\":{\r\n         \"id\":\"SmallReactor\"\r\n     
-    },\r\n      \"10,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":-1\r\n     
+    },\r\n      \"10,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":3\r\n     
     },\r\n      \"13,11\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
     \"12,11\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n      \"11,11\":{\r\n        
     \"id\":\"SmallGyroscope\"\r\n      },\r\n      \"11,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n     
@@ -41,32 +41,26 @@ MonoBehaviour:
     \"11,8\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"7,8\":{\r\n        
     \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"7,12\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
     \"flippedY\":true\r\n      },\r\n      \"14,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n        
-    \"Rotation\":-1\r\n      },\r\n      \"9,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n     
+    \"Rotation\":3\r\n      },\r\n      \"9,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n     
     },\r\n      \"9,11\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
     },\r\n      \"8,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
     \"8,11\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
     },\r\n      \"7,9\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
     \"7,11\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
-    },\r\n      \"14,8\":{\r\n         \"id\":\"SmallThruster\",\r\n         \"Rotation\":-1\r\n     
-    },\r\n      \"14,12\":{\r\n         \"id\":\"SmallThruster\",\r\n         \"flippedY\":true,\r\n        
-    \"Rotation\":-1\r\n      },\r\n      \"10,8\":{\r\n         \"id\":\"SmallThruster\",\r\n        
-    \"Rotation\":-1\r\n      },\r\n      \"10,12\":{\r\n         \"id\":\"SmallThruster\",\r\n        
-    \"flippedY\":true,\r\n         \"Rotation\":-1\r\n      },\r\n      \"21,8\":{\r\n        
-    \"id\":\"LargeHeavyArmor\"\r\n      },\r\n      \"21,12\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
-    \"flippedY\":true\r\n      },\r\n      \"24,11\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n        
-    \"Rotation\":-1\r\n      },\r\n      \"18,9\":{\r\n         \"id\":\"LargeLightArmor\"\r\n     
-    },\r\n      \"18,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"flippedY\":true\r\n     
-    },\r\n      \"21,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":-1\r\n     
-    },\r\n      \"22,11\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":-1\r\n     
-    },\r\n      \"6,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":-1\r\n     
+    },\r\n      \"21,8\":{\r\n         \"id\":\"LargeHeavyArmor\"\r\n      },\r\n     
+    \"21,12\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"24,11\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":3\r\n     
+    },\r\n      \"18,9\":{\r\n         \"id\":\"LargeLightArmor\"\r\n      },\r\n     
+    \"18,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"21,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":3\r\n     
+    },\r\n      \"22,11\":{\r\n         \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":3\r\n     
+    },\r\n      \"6,11\":{\r\n         \"id\":\"LargeLightArmor\",\r\n         \"Rotation\":3\r\n     
     },\r\n      \"3,11\":{\r\n         \"id\":\"MediumThruster\"\r\n      },\r\n     
     \"3,10\":{\r\n         \"id\":\"MediumThruster\"\r\n      },\r\n      \"3,9\":{\r\n        
-    \"id\":\"MediumThruster\"\r\n      },\r\n      \"6,8\":{\r\n         \"id\":\"SmallThruster\",\r\n        
-    \"Rotation\":3\r\n      },\r\n      \"6,12\":{\r\n         \"id\":\"SmallThruster\",\r\n        
-    \"flippedY\":true,\r\n         \"Rotation\":3\r\n      },\r\n      \"5,8\":{\r\n        
-    \"id\":\"LightArmor\"\r\n      },\r\n      \"5,12\":{\r\n         \"id\":\"LightArmor\",\r\n        
-    \"flippedY\":true\r\n      },\r\n      \"4,8\":{\r\n         \"id\":\"LightArmor\"\r\n     
-    },\r\n      \"4,12\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    \"id\":\"MediumThruster\"\r\n      },\r\n      \"5,8\":{\r\n         \"id\":\"LightArmor\"\r\n     
+    },\r\n      \"5,12\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
+    },\r\n      \"4,8\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
+    \"4,12\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
     },\r\n      \"3,8\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
     \"3,12\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
     },\r\n      \"1,15\":{\r\n         \"id\":\"MediumThruster\"\r\n      },\r\n     
@@ -107,9 +101,9 @@ MonoBehaviour:
     \"4,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
     },\r\n      \"12,4\":{\r\n         \"id\":\"SmallGyroscope\"\r\n      },\r\n     
     \"12,16\":{\r\n         \"id\":\"SmallGyroscope\",\r\n         \"flippedY\":true\r\n     
-    },\r\n      \"15,4\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"Rotation\":-2\r\n     
+    },\r\n      \"15,4\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"Rotation\":2\r\n     
     },\r\n      \"15,16\":{\r\n         \"id\":\"MediumThruster\",\r\n         \"flippedY\":true,\r\n        
-    \"Rotation\":-2\r\n      },\r\n      \"13,3\":{\r\n         \"id\":\"LightArmor\"\r\n     
+    \"Rotation\":2\r\n      },\r\n      \"13,3\":{\r\n         \"id\":\"LightArmor\"\r\n     
     },\r\n      \"13,17\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
     },\r\n      \"14,3\":{\r\n         \"id\":\"LightArmor\"\r\n      },\r\n     
     \"14,17\":{\r\n         \"id\":\"LightArmor\",\r\n         \"flippedY\":true\r\n     
@@ -128,4 +122,11 @@ MonoBehaviour:
     \"flippedY\":true,\r\n         \"Rotation\":1\r\n      },\r\n      \"4,5\":{\r\n        
     \"id\":\"LargeHeavyArmor\",\r\n         \"Rotation\":1\r\n      },\r\n      \"4,15\":{\r\n        
     \"id\":\"LargeHeavyArmor\",\r\n         \"flippedY\":true,\r\n         \"Rotation\":1\r\n     
+    },\r\n      \"14,12\":{\r\n         \"id\":\"SmallThruster\",\r\n         \"Rotation\":3\r\n     
+    },\r\n      \"14,8\":{\r\n         \"id\":\"SmallThruster\",\r\n         \"flippedY\":true,\r\n        
+    \"Rotation\":3\r\n      },\r\n      \"10,12\":{\r\n         \"id\":\"SmallThruster\",\r\n        
+    \"Rotation\":3\r\n      },\r\n      \"10,8\":{\r\n         \"id\":\"SmallThruster\",\r\n        
+    \"flippedY\":true,\r\n         \"Rotation\":3\r\n      },\r\n      \"6,12\":{\r\n        
+    \"id\":\"SmallThruster\",\r\n         \"Rotation\":3\r\n      },\r\n      \"6,8\":{\r\n        
+    \"id\":\"SmallThruster\",\r\n         \"flippedY\":true,\r\n         \"Rotation\":3\r\n     
     }\r\n   }\r\n}"

@@ -27,7 +27,7 @@ namespace Exa.ShipEditor
             ghostImage.sprite = block.Template.thumbnail;
             filterTransform.localScale = block.Template.size.ToVector3();
             AnchoredBlueprintBlock = new AnchoredBlueprintBlock(new Vector2Int(), block);
-            AnchoredBlueprintBlock.UpdateSpriteRenderer(ghostImage);
+            AnchoredBlueprintBlock.BlueprintBlock.SetSpriteRendererFlips(ghostImage);
             AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }
 
@@ -38,7 +38,7 @@ namespace Exa.ShipEditor
 
         public void ReflectState()
         {
-            AnchoredBlueprintBlock.UpdateSpriteRenderer(ghostImage);
+            AnchoredBlueprintBlock.BlueprintBlock.SetSpriteRendererFlips(ghostImage);
             AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }
     }

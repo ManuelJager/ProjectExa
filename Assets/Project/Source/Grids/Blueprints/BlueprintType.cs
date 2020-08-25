@@ -1,4 +1,5 @@
 ﻿using Exa.Generics;
+using Exa.Grids.Blocks;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Exa.Grids.Blueprints
         public string displayName;
         public string typeGuid;
         public Vector2Int maxSize;
-        public List<string> disallowedBlockCategories;
+        public BlockCategory disallowedBlockCategories;
 
         private Tooltip tooltipResult;
 

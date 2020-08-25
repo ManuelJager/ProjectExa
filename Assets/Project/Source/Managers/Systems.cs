@@ -10,6 +10,7 @@ using Exa.Utils;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Exa
 {
