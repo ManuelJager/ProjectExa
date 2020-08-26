@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Generics;
+using UnityEngine;
 
 namespace Exa.Math
 {
@@ -51,6 +52,34 @@ namespace Exa.Math
                 (to2 - from2) +
                 // Apply base
                 from2;
+        }
+
+        /// <summary>
+        /// Normalizes a given float value between the float range
+        /// </summary>
+        /// <para>
+        /// Values over or under the min and max wrap to a value inside the range
+        /// </para>
+        public static float NormalizeWrap(float value, MinMax<float> minMax)
+        {
+            value %= minMax.max;
+
+            if (value < minMax.min)
+            {
+                value += minMax.max;
+            }
+
+            return value;
+        }
+
+        public static float NormalizeAngle360(float angle)
+        {
+            return NormalizeWrap(angle, new MinMax<float>(0f, 360f));
+        }
+
+        public static int NormalizeAngle04(int quarterAngle)
+        {
+            return (int)NormalizeWrap(quarterAngle, new MinMax<float>(0, 4));
         }
     }
 }

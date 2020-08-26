@@ -10,7 +10,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     [CreateAssetMenu(menuName = "Grids/Blocks/Controller")]
     public class ControllerTemplate : BlockTemplate<Controller>
     {
-        [SerializeField] protected ControllerTemplatePartial controllerTemplatePartial;
+        [SerializeField] public ControllerTemplatePartial controllerTemplatePartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {

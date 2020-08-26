@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using Exa.Data;
+using Exa.Generics;
 using Exa.UI.Tooltips;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace Exa.Grids.Blocks.Components
 {
     public struct ThrusterData : IBlockComponentData
     {
-        public float thrust;
+        public Percentage thrust;
 
         public void AddGridTotals(GridTotals totals)
         {
@@ -18,7 +19,7 @@ namespace Exa.Grids.Blocks.Components
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
-            new LabeledValue<string>("Thrust", $"{thrust}N")
+            new LabeledValue<string>("Thrust", $"{thrust} %")
         };
     }
 }

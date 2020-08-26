@@ -15,10 +15,8 @@ namespace Exa.Ships
 
         public CentreOfMassCache CentreOfMass { get; protected set; }
 
-        // As this is a special member, we keep a separate reference
-        public Block Controller { get; private set; }
-
         public BlockGrid(Transform container, Ship ship)
+            : base(totals: new ShipGridTotals(ship.rigidbody))
         {
             this.container = container;
             this.ship = ship;
@@ -27,39 +25,25 @@ namespace Exa.Ships
 
         public override void Add(Block gridMember)
         {
-            if (gridMember.BlueprintBlock.Template.category == BlockCategory.Controller)
+            var isController = gridMember.BlueprintBlock.Template.category.Is(BlockCategory.Controller);
+            if (isController && Controller != null)
             {
-                if (Controller != null)
-                {
-                    throw new DuplicateControllerException(gridMember.GridAnchor);
-                }
-
-                Controller = gridMember;
+                throw new DuplicateControllerException(gridMember.GridAnchor);
             }
             base.Add(gridMember);
         }
 
-        public override Block Remove(Vector2Int key)
-        {
-            var block = base.Remove(key);
-            if (ReferenceEquals(block, Controller))
-            {
-                Controller = null;
-            }
-            return block;
-        }
-
-        internal void Import(Blueprint blueprint)
+        internal void Import(Blueprint blueprint, BlockContext blockContext)
         {
             foreach (var anchoredBlueprintBlock in blueprint.Blocks)
             {
-                Add(CreateBlock(anchoredBlueprintBlock));
+                Add(CreateBlock(anchoredBlueprintBlock, blockContext));
             }
         }
 
-        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock)
+        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock, BlockContext blockContext)
         {
-            var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(container, BlockContext.userGroup);
+            var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(container, blockContext);
             block.Ship = ship;
             block.gameObject.SetActive(true);
             return block;

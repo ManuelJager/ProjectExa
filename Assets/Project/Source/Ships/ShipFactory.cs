@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Grids.Blocks;
+using UnityEngine;
 
 namespace Exa.Ships
 {
@@ -13,16 +14,16 @@ namespace Exa.Ships
         {
             var shipGO = Instantiate(friendlyShipPrefab, shipContainer);
             shipGO.transform.position = worldPos;
-            return Configure<FriendlyShip>(shipGO, name);
+            return Configure<FriendlyShip>(shipGO, name, BlockContext.userGroup);
         }
 
-        private T Configure<T>(GameObject shipGO, string name)
+        private T Configure<T>(GameObject shipGO, string name, BlockContext blockContext)
             where T : Ship
         {
             var ship = shipGO.GetComponent<T>();
             var blueprint = Systems.Blueprints.GetBlueprint(name);
             var overlay = CreateOverlay(ship);
-            ship.Import(blueprint.Data);
+            ship.Import(blueprint.Data, blockContext);
 
             var instanceString = ship.GetInstanceString();
             overlay.gameObject.name = $"Overlay: {instanceString}";

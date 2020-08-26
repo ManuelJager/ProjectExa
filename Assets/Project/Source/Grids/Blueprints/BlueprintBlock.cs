@@ -19,20 +19,18 @@ namespace Exa.Grids.Blueprints
 
         public int Rotation
         {
-            get
-            {
-                var remainder = rotation % 4;
-                if (remainder < 0)
-                {
-                    remainder += 4;
-                }
-                return remainder;
-            }
+            get => MathUtils.NormalizeAngle04(rotation);
             set => rotation = value;
         }
 
         [JsonIgnore]
-        public Vector2 FlipVector => new Vector2
+        public int Direction
+        {
+            get => (Vector2Int.right.Rotate(Rotation) * FlipVector).GetRotation();
+        }
+
+        [JsonIgnore]
+        public Vector2Int FlipVector => new Vector2Int
         {
             x = flippedX ? -1 : 1,
             y = flippedY ? -1 : 1

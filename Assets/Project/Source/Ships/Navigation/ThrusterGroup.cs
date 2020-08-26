@@ -1,0 +1,52 @@
+﻿using Exa.Data;
+using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
+using Exa.Math;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Exa.Ships
+{
+    public class ThrusterGroup : List<IThruster>
+    {
+        private float directionalThrust;
+        private Percentage thrustModifier = new Percentage(1);
+
+        private float Thrust
+        {
+            get => thrustModifier.GetValue(directionalThrust);
+        }
+
+        public ThrusterGroup(float directionalThrust)
+        {
+            this.directionalThrust = directionalThrust;
+        } 
+
+        public new void Add(IThruster thruster)
+        {
+            base.Add(thruster);
+            thrustModifier += thruster.Component.Data.thrust;
+        }
+
+        public new bool Remove(IThruster thruster)
+        {
+            var result = base.Remove(thruster);
+
+            if (result)
+            {
+                thrustModifier -= thruster.Component.Data.thrust;
+            }
+
+            return result;
+        }
+
+        public void Fire(float force)
+        {
+            var strenth = Mathf.Clamp01(force / Thrust);
+            foreach (var item in this)
+            {
+                item.Fire(strenth);
+            }
+        }
+    }
+}

@@ -8,7 +8,8 @@ namespace Exa.Math
     {
         public static float GetAngle(this Vector2 vector2)
         {
-            return Mathf.Atan2(vector2.y, vector2.x) * Mathf.Rad2Deg;
+            var theta = Mathf.Atan2(vector2.y, vector2.x);
+            return NormalizeAngle360(theta * Mathf.Rad2Deg);
         }
 
         public static Vector2 ClampToLowestComponent(Vector2 vector)
@@ -89,6 +90,12 @@ namespace Exa.Math
             vector.y = (sin * tx) + (cos * ty);
 
             return vector;
+        }
+
+        public static int GetRotation(this Vector2Int vector)
+        {
+            var angle = ((Vector2)vector).GetAngle();
+            return Mathf.RoundToInt(angle / 90f);
         }
 
         /// <summary>

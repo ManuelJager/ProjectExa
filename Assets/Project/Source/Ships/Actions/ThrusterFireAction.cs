@@ -11,21 +11,16 @@ namespace Exa.Ships
     public class ThrusterFireAction : ShipAction
     {
         private Vector2 rawForce;
-        private Rigidbody rb;
-        private Transform transform;
-
         private TempValues tempValues;
-
-        public ThrusterFireAction(Ship ship)
-            : base(ship)
-        {
-            this.rb             = ship.navigation.rb;
-            this.transform      = ship.transform;
-        }
 
         public void Update(Vector2 rawForce)
         {
             this.rawForce = rawForce;
+        }
+
+        public ThrusterFireAction(Ship ship)
+            : base(ship)
+        {
         }
 
         public override float CalculateConsumption(float deltaTime)
@@ -33,7 +28,7 @@ namespace Exa.Ships
             if (rawForce == Vector2.zero) return 0f;
 
             // Get the angle the ship is currently facing
-            var rotationAngle = transform.localRotation.eulerAngles.z;
+            var rotationAngle = ship.transform.localRotation.eulerAngles.z;
 
             // Rotate the acceleration needed to local space
             var localForce = MathUtils.Rotate(rawForce, -rotationAngle);
@@ -68,7 +63,7 @@ namespace Exa.Ships
             var finalForce = MathUtils.Rotate(calculatedLocalForce, tempValues.rotationAngle);
             ship.navigation.thrustVectors.Fire(calculatedLocalForce);
 
-            rb.AddForce(finalForce, ForceMode.Force);
+            ship.rigidbody.AddForce(finalForce, ForceMode.Force);
         }
 
         private struct TempValues

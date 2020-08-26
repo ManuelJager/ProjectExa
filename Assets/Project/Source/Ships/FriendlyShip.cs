@@ -1,4 +1,5 @@
 ﻿using Exa.Gameplay;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.UI;
 using UnityEngine;
@@ -11,15 +12,14 @@ namespace Exa.Ships
 
         private static CursorOverride cursorOverride;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             cursorOverride = new CursorOverride(CursorState.active, this);
         }
 
-        public override void Import(Blueprint blueprint)
+        public override void Import(Blueprint blueprint, BlockContext blockContext)
         {
-            base.Import(blueprint);
+            base.Import(blueprint, blockContext);
             
             var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
             mouseOverCollider.radius = radius;

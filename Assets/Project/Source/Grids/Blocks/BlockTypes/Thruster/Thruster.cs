@@ -6,21 +6,14 @@ using System.Linq;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Thruster : Block, IThruster, IPowerConsumer
+    public class Thruster : Block, IThruster
     {
         [SerializeField] private ThrusterBehaviour thrusterBehaviour;
-        [SerializeField] private PowerConsumerBehaviour powerConsumerBehaviour;
 
         BlockBehaviour<ThrusterData> IBehaviourMarker<ThrusterData>.Component
         {
             get => thrusterBehaviour;
             set => thrusterBehaviour = value as ThrusterBehaviour;
-        }
-
-        BlockBehaviour<PowerConsumerData> IBehaviourMarker<PowerConsumerData>.Component 
-        { 
-            get => powerConsumerBehaviour; 
-            set => powerConsumerBehaviour = value as PowerConsumerBehaviour; 
         }
 
         public void Fire(float strength)
@@ -31,8 +24,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
-                .Append(thrusterBehaviour)
-                .Append(powerConsumerBehaviour);
+                .Append(thrusterBehaviour);
         }
 
         protected override void OnAdd()

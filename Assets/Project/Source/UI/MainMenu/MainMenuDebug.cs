@@ -1,4 +1,5 @@
 ﻿using Exa.Debugging;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.UI
@@ -9,7 +10,7 @@ namespace Exa.UI
 
         public override void OnDebugStateChange(DebugMode state)
         {
-            gameEditorButton.SetActive(state.HasFlag(DebugMode.Global));
+            gameEditorButton.SetActive(state.Is(DebugMode.Global));
         }
     }
 }

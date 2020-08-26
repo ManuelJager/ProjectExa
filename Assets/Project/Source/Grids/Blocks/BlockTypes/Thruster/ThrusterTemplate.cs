@@ -11,13 +11,11 @@ namespace Exa.Grids.Blocks.BlockTypes
     public class ThrusterTemplate : BlockTemplate<Thruster>
     {
         [SerializeField] protected ThrusterTemplatePartial thrusterTemplatePartial;
-        [SerializeField] protected PowerConsumerTemplatePartial powerConsumerTemplatePartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
             return base.GetTemplatePartials()
-                .Append(thrusterTemplatePartial)
-                .Append(powerConsumerTemplatePartial);
+                .Append(thrusterTemplatePartial);
         }
     }
 }

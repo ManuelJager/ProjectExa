@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
+using Exa.Utils;
 
 namespace Exa.Grids
 {
@@ -15,10 +17,12 @@ namespace Exa.Grids
 
         // NOTE: Grid totals are affected by the context of the blueprint, since they will be subject to change because of tech
         // TODO: Replace the reference by a manager that handles totals versioning
-        public GridTotals Totals { get; }
+        public virtual GridTotals Totals { get; }
         protected List<T> GridMembers { get; set; }
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
+
+        public T Controller { get; protected set; }
 
         public float MaxSize
         {
@@ -29,23 +33,35 @@ namespace Exa.Grids
             }
         }
 
-        public Grid()
+        public Grid(
+            LazyCache<Vector2Int> size = null, 
+            GridTotals totals = null, 
+            List<T> gridMembers = null, 
+            Dictionary<Vector2Int, T> occupiedTiles = null, 
+            Dictionary<T, List<T>> neighbourDict = null)
         {
-            Size = new LazyCache<Vector2Int>(() =>
+            Size = size ?? new LazyCache<Vector2Int>(() =>
             {
                 var bounds = new GridBounds(OccupiedTiles.Keys);
                 return bounds.GetDelta();
             });
 
-            Totals = new GridTotals();
-            GridMembers = new List<T>();
-            OccupiedTiles = new Dictionary<Vector2Int, T>();
-            NeighbourDict = new Dictionary<T, List<T>>();
+            Totals = totals ?? new GridTotals();
+            GridMembers = gridMembers ?? new List<T>();
+            OccupiedTiles = occupiedTiles ?? new Dictionary<Vector2Int, T>();
+            NeighbourDict = neighbourDict ?? new Dictionary<T, List<T>>();
         }
 
         public virtual void Add(T gridMember)
         {
             Size.Invalidate();
+
+            // Assign controller reference
+            var isController = gridMember.BlueprintBlock.Template.category.Is(BlockCategory.Controller);
+            if (isController && Controller == null)
+            {
+                Controller = gridMember;
+            }
 
             GridMembers.Add(gridMember);
             gridMember.AddGridTotals(Totals);
@@ -73,6 +89,12 @@ namespace Exa.Grids
             Size.Invalidate();
 
             var gridMember = GetMember(key);
+
+            // Remove controller reference
+            if (ReferenceEquals(gridMember, Controller))
+            {
+                Controller = default;
+            }
 
             var tilePositions = GridUtils.GetOccupiedTilesByAnchor(gridMember);
 

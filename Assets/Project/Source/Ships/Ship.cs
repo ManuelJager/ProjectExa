@@ -1,9 +1,11 @@
 ﻿using Exa.AI;
 using Exa.Debugging;
 using Exa.Gameplay;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Math;
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,34 +15,30 @@ namespace Exa.Ships
     public abstract class Ship : MonoBehaviour, IRaycastTarget
     {
         [Header("References")]
-        [HideInInspector] public ShipOverlay overlay;
-        public BlockGrid blockGrid;
-        public ShipNavigation navigation;
         public ShipAI shipAI;
-        public Transform pivot;
         public ShipState state;
+        public new Rigidbody rigidbody;
+        public Transform pivot;
 
         [Header("Settings")]
         public float canvasScaleMultiplier = 1f;
-        
+        public NavigationOptions navigationOptions;
+
+        [HideInInspector] public ShipOverlay overlay;
+        public ShipNavigation navigation;
+        public BlockGrid blockGrid;
+        protected Blueprint blueprint;
+
         [Header("Events")]
         public UnityEvent destroyEvent = new UnityEvent();
-
-        protected Blueprint blueprint;
 
         public Blueprint Blueprint => blueprint;
         public ActionScheduler ActionScheduler { get; private set; }
         public Controller Controller { get; internal set; }
 
-        protected virtual void Awake()
-        {
-            blockGrid = new BlockGrid(pivot, this);
-            ActionScheduler = new ActionScheduler(this);
-        }
-
         private void FixedUpdate()
         {
-            navigation.ScheduledFixedUpdate();
+            navigation?.ScheduledFixedUpdate();
             ActionScheduler.ExecuteActions(Time.fixedDeltaTime);
         }
 
@@ -49,9 +47,22 @@ namespace Exa.Ships
             UpdateCentreOfMassPivot(true);
         }
 
-        public virtual void Import(Blueprint blueprint)
+        public virtual void Import(Blueprint blueprint, BlockContext blockContext)
         {
-            blockGrid.Import(blueprint);
+            if (blueprint.Blocks.Controller == null)
+            {
+                throw new ArgumentException("Blueprint must have a controller reference");
+            }
+
+            // Initialization
+            ActionScheduler = new ActionScheduler(this);
+            blockGrid = new BlockGrid(pivot, this);
+
+            var template = blueprint.Blocks.Controller.BlueprintBlock.Template as ControllerTemplate;
+            var controllerValues = template.controllerTemplatePartial.Convert();
+            navigation = new ShipNavigation(this, navigationOptions, controllerValues.directionalForce);
+
+            blockGrid.Import(blueprint, blockContext);
             this.blueprint = blueprint;
 
             UpdateCanvasSize(blueprint);

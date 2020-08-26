@@ -27,7 +27,5 @@ MonoBehaviour:
     armor: 5
     mass: 1500
   thrusterTemplatePartial:
-    newtonThrust: 20
-  powerConsumerTemplatePartial:
-    powerConsumption:
-      ratio: 0.2
+    thrust:
+      ratio: 0.15

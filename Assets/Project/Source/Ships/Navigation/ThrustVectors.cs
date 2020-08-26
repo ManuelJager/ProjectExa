@@ -1,33 +1,32 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Ships
 {
-    // TODO: Rework this to hell and back
-    // REVIEW: thrust vectors should have a default minimum value of thrust in each direction that's decided by the
-    // ship controller
+    // TODO: Clamp the requested thrust vector to what the ship can output
     public class ThrustVectors
     {
         private Dictionary<int, ThrusterGroup> thrusterDict;
 
-        public ThrustVectors()
+        public ThrustVectors(float directionalThrust)
         {
             thrusterDict = new Dictionary<int, ThrusterGroup>
             {
-                { 0, new ThrusterGroup() },
-                { 1, new ThrusterGroup() },
-                { 2, new ThrusterGroup() },
-                { 3, new ThrusterGroup() }
+                { 0, new ThrusterGroup(directionalThrust) },
+                { 1, new ThrusterGroup(directionalThrust) },
+                { 2, new ThrusterGroup(directionalThrust) },
+                { 3, new ThrusterGroup(directionalThrust) }
             };
         }
 
-        public void Register(Thruster thruster)
+        public void Register(IThruster thruster)
         {
             SelectGroup(thruster)?.Add(thruster);
         }
 
-        public void Unregister(Thruster thruster)
+        public void Unregister(IThruster thruster)
         {
             SelectGroup(thruster)?.Remove(thruster);
         }
@@ -40,9 +39,9 @@ namespace Exa.Ships
             SelectVerticalGroup(force.y, true).Fire(0);
         }
 
-        private ThrusterGroup SelectGroup(Thruster thruster)
+        private ThrusterGroup SelectGroup(IThruster thruster)
         {
-            var rotation = GetRotation(thruster);
+            var rotation = GetDirection(thruster);
             try
             {
                 return thrusterDict[rotation];
@@ -64,9 +63,9 @@ namespace Exa.Ships
                 ? thrusterDict[1]
                 : thrusterDict[3];
 
-        private int GetRotation(Thruster thruster)
+        private int GetDirection(IThruster thruster)
         {
-            return thruster.anchoredBlueprintBlock.blueprintBlock.Rotation;
+            return thruster.Component.block.anchoredBlueprintBlock.blueprintBlock.Direction;
         }
     }
 }

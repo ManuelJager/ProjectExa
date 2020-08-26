@@ -1,7 +1,4 @@
-﻿using Exa.Generics;
-using Exa.UI.Tooltips;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
@@ -13,13 +10,15 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private float powerConsumption;
         [SerializeField] private float powerStorage;
         [SerializeField] private float turningRate;
+        [SerializeField] private float directionalForce;
 
         public override ControllerData Convert() => new ControllerData
         {
             powerGeneration = powerGeneration,
             powerConsumption = powerConsumption,
             powerStorage = powerStorage,
-            turningRate = turningRate
+            turningRate = turningRate,
+            directionalForce = directionalForce
         };
     }
 }

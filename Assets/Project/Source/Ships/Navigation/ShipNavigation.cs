@@ -6,44 +6,31 @@ using UnityEngine;
 
 namespace Exa.Ships
 {
-    public class ShipNavigation : MonoBehaviour
+    public class ShipNavigation
     {
-        public Rigidbody rb;
-        private PidQuaternionController pidQuaternionController;
-        private PdVector2Controller pdVector2Controller;
-        private ThrusterFireAction thrusterFireAction;
-
-        private float angleHint = 0f;
-
         public Ship ship;
         public ThrustVectors thrustVectors;
 
-        [SerializeField] private bool continouslyApplySettings;
-
-        [Header("PID-Quaternion-parameters")]
-        [SerializeField] private float qProportionalBase;
-        [SerializeField] private float qIntegral;
-        [SerializeField] private float qDerivitive;
-
-        [Header("PD-Position-parameters")]
-        [SerializeField] private float pProportional;
-        [SerializeField] private float pDerivitive;
-        [SerializeField] private float maxVel;
+        private PidQuaternionController pidQuaternionController;
+        private PdVector2Controller pdVector2Controller;
+        private ThrusterFireAction thrusterFireAction;
+        private NavigationOptions options;
 
         // NOTE: Replace this by a target interface
         private Vector2? lookAt = null;
         private Vector2? moveTo = null;
+        private float angleHint = 0f;
 
-        private void Awake()
+        public ShipNavigation(Ship ship, NavigationOptions options, float directionalThrust)
         {
-            thrustVectors = new ThrustVectors();
-            pidQuaternionController = new PidQuaternionController(qProportionalBase, qIntegral, qDerivitive);
-            pdVector2Controller = new PdVector2Controller(pProportional, pDerivitive, 50f);
-        }
+            this.ship = ship;
+            this.options = options;
 
-        private void Start()
-        {
+            thrustVectors = new ThrustVectors(directionalThrust);
+            pidQuaternionController = new PidQuaternionController(options.qProportionalBase, options.qIntegral, options. qDerivitive);
+            pdVector2Controller = new PdVector2Controller(options.pProportional, options.pDerivitive, options.maxVel);
             thrusterFireAction = new ThrusterFireAction(ship);
+
             ship.ActionScheduler.Add(thrusterFireAction);
         }
 
@@ -52,14 +39,14 @@ namespace Exa.Ships
         /// </summary>
         public void ScheduledFixedUpdate()
         {
-            if (continouslyApplySettings)
+            if (options.continouslyApplySettings)
             {
-                pidQuaternionController.Integral = qIntegral;
-                pidQuaternionController.Derivitive = qDerivitive;
+                pidQuaternionController.Integral = options.qIntegral;
+                pidQuaternionController.Derivitive = options.qDerivitive;
 
-                pdVector2Controller.Proportional = pProportional;
-                pdVector2Controller.Derivitive = pDerivitive;
-                pdVector2Controller.MaxVel = maxVel;
+                pdVector2Controller.Proportional = options.pProportional;
+                pdVector2Controller.Derivitive = options.pDerivitive;
+                pdVector2Controller.MaxVel = options.maxVel;
             }
 
             UpdateHeading(ref angleHint);
@@ -68,7 +55,7 @@ namespace Exa.Ships
 
         public void SetTurningMultiplier(float rate)
         {
-            pidQuaternionController.Proportional = qProportionalBase * rate;
+            pidQuaternionController.Proportional = options.qProportionalBase * rate;
         }
 
         public void SetLookAt(Vector2? lookAt)
@@ -92,20 +79,20 @@ namespace Exa.Ships
 
             // Get the difference between the current position and the target position
             // Transform the difference to a local target vector for the pid controller
-            var localTarget = moveTo.Value - (Vector2)transform.position;
+            var localTarget = moveTo.Value - (Vector2)options.transform.position;
 
             if (Systems.IsDebugging(DebugMode.Navigation))
             {
-                Debug.DrawRay(transform.position, localTarget, Color.green);
+                Debug.DrawRay(options.transform.position, localTarget, Color.green);
             }
 
             var acceleration = pdVector2Controller.CalculateRequiredVelocity(
-                transform.position,
+                options.transform.position,
                 moveTo.Value,
-                rb.velocity);
+                ship.rigidbody.velocity);
 
             // NOTE: Clamping the acceleration will usually result in drifting if the side thrusters aren't as powerful
-            thrusterFireAction.Update(acceleration);
+            thrusterFireAction.Update(acceleration * ship.rigidbody.mass);
         }
 
         /// <summary>
@@ -121,14 +108,14 @@ namespace Exa.Ships
                 return;
             }
 
-            var distance = lookAt.Value - (Vector2)transform.position;
+            var distance = lookAt.Value - (Vector2)options.transform.position;
 
             if (Systems.IsDebugging(DebugMode.Navigation))
             {
-                Debug.DrawRay(transform.position, distance, Color.red);
+                Debug.DrawRay(options.transform.position, distance, Color.red);
 
-                var headingDir = transform.right * ship.Blueprint.Blocks.MaxSize;
-                Debug.DrawRay(transform.position, headingDir, Color.blue);
+                var headingDir = options.transform.right * ship.Blueprint.Blocks.MaxSize;
+                Debug.DrawRay(options.transform.position, headingDir, Color.blue);
             }
 
             // Don't update the heading if target is very close. This is to prevent weird rotations
@@ -150,12 +137,12 @@ namespace Exa.Ships
 
             // Calculate the angular acceleration 
             var angularAcceleration = pidQuaternionController.ComputeRequiredAngularAcceleration(
-                transform.rotation,
+                options.transform.rotation,
                 desiredOrientation,
-                rb.angularVelocity,
+                ship.rigidbody.angularVelocity,
                 Time.fixedDeltaTime);
 
-            rb.AddTorque(angularAcceleration, ForceMode.Acceleration);
+            ship.rigidbody.AddTorque(angularAcceleration, ForceMode.Acceleration);
         }
     }
 }
