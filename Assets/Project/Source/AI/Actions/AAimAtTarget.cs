@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Exa.AI.Actions
+﻿namespace Exa.AI.Actions
 {
     public class AAimAtTarget : ShipAIAction
     {

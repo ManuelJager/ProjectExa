@@ -96,7 +96,7 @@ namespace Exa.Grids.Blocks
         {
         }
 
-        private class TemplateValuesCache : Dictionary<TemplatePartialBase, IBlockComponentData>
+        private class TemplateValuesCache : Dictionary<TemplatePartialBase, IBlockComponentValues>
         {
             public void ApplyValues(Block block)
             {

@@ -1,5 +1,6 @@
 ﻿using Exa.Math;
 using Exa.Ships;
+using Exa.Ships.Targetting;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,7 +42,8 @@ namespace Exa.AI.Actions
             }
 
             headingVector = headingVector.normalized;
-            var target = globalPos + Vector2.ClampMagnitude(headingVector * settings.headingCorrectionMultiplier, settings.detectionRadius);
+            var offset = Vector2.ClampMagnitude(headingVector * settings.headingCorrectionMultiplier, settings.detectionRadius);
+            var target = new StaticPositionTarget(globalPos + offset);
 
             shipAI.ship.navigation.SetMoveTo(target);
 

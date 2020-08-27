@@ -3,7 +3,7 @@ using Exa.Grids.Blocks.Components;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Ships
+namespace Exa.Ships.Navigations
 {
     public class ThrusterGroup : List<IThruster>
     {

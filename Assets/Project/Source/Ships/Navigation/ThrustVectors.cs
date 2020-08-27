@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Ships
+namespace Exa.Ships.Navigations
 {
     // TODO: Clamp the requested thrust vector to what the ship can output
     public class ThrustVectors

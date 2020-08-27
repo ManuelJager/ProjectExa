@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using Exa.Math;
+using Exa.Ships.Targetting;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.Gameplay
@@ -18,10 +20,11 @@ namespace Exa.Gameplay
             foreach (var ship in this.OrderByDescending((ship) => ship.Blueprint.Blocks.MaxSize))
             {
                 formationEnumerator.MoveNext();
+                var currentPosition = ship.transform.position.ToVector2();
                 var formationPosition = formationEnumerator.Current;
 
-                ship.shipAI.moveToTarget.Target = formationPosition;
-                ship.shipAI.lookAtTarget.Target = formationPosition;
+                ship.shipAI.moveToTarget.Target = new StaticPositionTarget(formationPosition);
+                ship.shipAI.lookAtTarget.Target = new StaticAngleTarget(currentPosition, formationPosition);
             }
         }
 

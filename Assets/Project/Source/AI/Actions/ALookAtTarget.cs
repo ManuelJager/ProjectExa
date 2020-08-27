@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using Exa.Ships.Targetting;
 
 namespace Exa.AI
 {
@@ -6,7 +6,7 @@ namespace Exa.AI
     {
         public override ActionLane Lanes => ActionLane.Rotation;
 
-        public Vector2? Target { get; set; } = null;
+        public ITarget Target { get; set; } = null;
 
         public ALookAtTarget(ShipAI shipAI)
             : base(shipAI)

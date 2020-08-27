@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.Components
 {
     public abstract class BlockBehaviour<T> : BlockBehaviourBase
-        where T : IBlockComponentData
+        where T : IBlockComponentValues
     {
         protected T data;
         protected Ship ship;
@@ -37,7 +37,7 @@ namespace Exa.Grids.Blocks.Components
             set => data = value;
         }
 
-        public override IBlockComponentData BlockComponentData => data;
+        public override IBlockComponentValues BlockComponentData => data;
 
         protected virtual void OnAdd()
         {
@@ -56,6 +56,6 @@ namespace Exa.Grids.Blocks.Components
 
         public abstract Ship Ship { get; set; }
 
-        public abstract IBlockComponentData BlockComponentData { get; }
+        public abstract IBlockComponentValues BlockComponentData { get; }
     }
 }

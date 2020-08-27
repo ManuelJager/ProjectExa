@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public struct PhysicalData : IBlockComponentData
+    public struct PhysicalData : IBlockComponentValues
     {
         public float hull;
         public float armor;

@@ -30,5 +30,5 @@ MonoBehaviour:
     powerGeneration: 100
     powerConsumption: 100
     powerStorage: 500
-    turningRate: 100
-    directionalForce: 50
+    turningRate: 30
+    directionalForce: 4000

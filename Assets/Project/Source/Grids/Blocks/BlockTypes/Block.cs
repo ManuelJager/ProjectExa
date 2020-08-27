@@ -25,7 +25,6 @@ namespace Exa.Grids.Blocks.BlockTypes
         BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component
         {
             get => physicalBehaviour; 
-            set => physicalBehaviour = value as PhysicalBehaviour; 
         }
 
         public Ship Ship

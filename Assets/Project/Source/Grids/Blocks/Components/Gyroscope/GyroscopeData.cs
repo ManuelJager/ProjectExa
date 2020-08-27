@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public struct GyroscopeData : IBlockComponentData
+    public struct GyroscopeData : IBlockComponentValues
     {
         public Percentage turningRate;
 

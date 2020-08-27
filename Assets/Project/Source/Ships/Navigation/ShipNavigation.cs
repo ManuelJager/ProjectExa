@@ -1,10 +1,11 @@
 ﻿using Exa.Debugging;
 using Exa.Math;
 using Exa.Math.ControlSystems;
+using Exa.Ships.Targetting;
 using System;
 using UnityEngine;
 
-namespace Exa.Ships
+namespace Exa.Ships.Navigations
 {
     public class ShipNavigation
     {
@@ -17,8 +18,8 @@ namespace Exa.Ships
         private NavigationOptions options;
 
         // NOTE: Replace this by a target interface
-        private Vector2? lookAt = null;
-        private Vector2? moveTo = null;
+        private ITarget lookTarget = null;
+        private ITarget moveTarget = null;
         private float angleHint = 0f;
 
         public ShipNavigation(Ship ship, NavigationOptions options, float directionalThrust)
@@ -58,37 +59,40 @@ namespace Exa.Ships
             pidQuaternionController.Proportional = options.qProportionalBase * rate;
         }
 
-        public void SetLookAt(Vector2? lookAt)
+        public void SetLookAt(ITarget lookTarget)
         {
-            this.lookAt = lookAt;
+            this.lookTarget = lookTarget;
         }
 
-        public void SetMoveTo(Vector2? moveTo)
+        public void SetMoveTo(ITarget moveTarget)
         {
-            this.moveTo = moveTo;
+            this.moveTarget = moveTarget;
         }
 
         private void UpdateThrustVectors()
         {
             // NOTE: This currently doesn't try to brake when no target is active
-            if (moveTo == null)
+            if (moveTarget == null)
             {
                 thrusterFireAction.Update(Vector2.zero);
                 return;
             }
 
+            var currentPosition = (Vector2)options.transform.position;
+            var targetPosition = moveTarget.GetPosition(currentPosition);
+
             // Get the difference between the current position and the target position
             // Transform the difference to a local target vector for the pid controller
-            var localTarget = moveTo.Value - (Vector2)options.transform.position;
+            var distance = targetPosition - currentPosition;
 
             if (Systems.IsDebugging(DebugMode.Navigation))
             {
-                Debug.DrawRay(options.transform.position, localTarget, Color.green);
+                Debug.DrawRay(options.transform.position, distance, Color.green);
             }
 
             var acceleration = pdVector2Controller.CalculateRequiredVelocity(
                 options.transform.position,
-                moveTo.Value,
+                targetPosition,
                 ship.rigidbody.velocity);
 
             // NOTE: Clamping the acceleration will usually result in drifting if the side thrusters aren't as powerful
@@ -99,16 +103,18 @@ namespace Exa.Ships
         /// Rotate the ship towards a position in world space
         /// </summary>
         /// <param name="angleHint">The angle we are currently targetting, this angle is updated when there's a valid position to rotate to</param>
-        private void UpdateHeading(ref float angleHint)
+        private void UpdateHeading(ref float angleHint) 
         {
             // NOTE: This currently doesn't try to stop rotation when no target is active
-            if (lookAt == null)
+            if (lookTarget == null)
             {
                 AddTorqueTowards(angleHint);
                 return;
             }
 
-            var distance = lookAt.Value - (Vector2)options.transform.position;
+            var currentPosition = (Vector2)options.transform.position;
+            var targetPosition = lookTarget.GetPosition(currentPosition);
+            var distance = targetPosition - currentPosition;
 
             if (Systems.IsDebugging(DebugMode.Navigation))
             {
@@ -118,12 +124,12 @@ namespace Exa.Ships
                 Debug.DrawRay(options.transform.position, headingDir, Color.blue);
             }
 
-            // Don't update the heading if target is very close. This is to prevent weird rotations
-            if (distance.magnitude < 1f)
-            {
-                AddTorqueTowards(angleHint);
-                return;
-            }
+            //// Don't update the heading if target is very close. This is to prevent weird rotations
+            //if (distance.magnitude < 1f)
+            //{
+            //    AddTorqueTowards(angleHint);
+            //    return;
+            //}
 
             // Get the desired rotation
             angleHint = distance.GetAngle();

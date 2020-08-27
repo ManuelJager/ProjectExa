@@ -1,4 +1,5 @@
 ﻿using Exa.Math;
+using Exa.Ships.Targetting;
 using UnityEngine;
 
 namespace Exa.AI.Actions
@@ -7,7 +8,7 @@ namespace Exa.AI.Actions
     {
         public override ActionLane Lanes => ActionLane.Movement;
 
-        public Vector2? Target { get; set; } = null;
+        public ITarget Target { get; set; } = null;
 
         public AMoveToTarget(ShipAI shipAI)
             : base(shipAI)
@@ -19,7 +20,8 @@ namespace Exa.AI.Actions
             if (Target == null) return ActionLane.None;
 
             var currentPosition = shipAI.transform.position.ToVector2();
-            var distanceToTarget = (Target.Value - currentPosition).magnitude;
+            var targetPositon = Target.GetPosition(currentPosition);
+            var distanceToTarget = (targetPositon - currentPosition).magnitude;
 
             // If we are close enough to the target, discard the action
             if (distanceToTarget < 1)

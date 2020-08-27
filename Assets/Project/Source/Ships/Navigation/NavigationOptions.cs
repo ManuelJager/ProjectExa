@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.Ships
+namespace Exa.Ships.Navigations
 {
     public class NavigationOptions : MonoBehaviour
     {

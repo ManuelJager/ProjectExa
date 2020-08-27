@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public interface IBlockComponentData : IGridTotalsModifier
+    public interface IBlockComponentValues : IGridTotalsModifier
     {
         IEnumerable<ITooltipComponent> GetTooltipComponents();
     }

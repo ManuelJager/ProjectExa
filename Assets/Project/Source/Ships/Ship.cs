@@ -5,6 +5,7 @@ using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Math;
+using Exa.Ships.Navigations;
 using System;
 using System.Text;
 using UnityEngine;

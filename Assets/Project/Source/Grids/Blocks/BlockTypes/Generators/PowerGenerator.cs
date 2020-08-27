@@ -10,11 +10,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private PowerGeneratorBehaviour powerGeneratorBehaviour;
 
-        BlockBehaviour<PowerGeneratorData> IBehaviourMarker<PowerGeneratorData>.Component
-        { 
-            get => powerGeneratorBehaviour; 
-            set => powerGeneratorBehaviour = value as PowerGeneratorBehaviour; 
-        }
+        public BlockBehaviour<PowerGeneratorData> Component => powerGeneratorBehaviour;
 
         public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {

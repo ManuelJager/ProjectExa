@@ -5,17 +5,17 @@ using System;
 namespace Exa.Grids.Blocks
 {
     public abstract class TemplatePartial<T> : TemplatePartialBase, ITemplatePartial<T>
-        where T : struct, IBlockComponentData
+        where T : struct, IBlockComponentValues
     {
         public abstract T Convert();
 
         // TODO: Use the given context to apply value modifiers in the conversion step
-        public override IBlockComponentData GetValues(BlockContext blockContext)
+        public override IBlockComponentValues GetValues(BlockContext blockContext)
         {
             return Convert();
         }
 
-        public override void SetValues(Block block, IBlockComponentData data)
+        public override void SetValues(Block block, IBlockComponentValues data)
         {
             var partial = GetMarker(block);
             partial.Component.Data = (T)data;
@@ -51,9 +51,9 @@ namespace Exa.Grids.Blocks
 
     public abstract class TemplatePartialBase : IGridTotalsModifier
     {
-        public abstract IBlockComponentData GetValues(BlockContext blockContext);
+        public abstract IBlockComponentValues GetValues(BlockContext blockContext);
 
-        public abstract void SetValues(Block block, IBlockComponentData data);
+        public abstract void SetValues(Block block, IBlockComponentValues data);
 
         public abstract void AddGridTotals(GridTotals totals);
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public struct ControllerData : IBlockComponentData
+    public struct ControllerData : IBlockComponentValues
     {
         public float powerGeneration;
         public float powerConsumption;

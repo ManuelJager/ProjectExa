@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public struct PowerGeneratorData : IBlockComponentData
+    public struct PowerGeneratorData : IBlockComponentValues
     {
         public Percentage powerGeneration;
 

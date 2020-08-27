@@ -15,7 +15,7 @@ MonoBehaviour:
   id: SmallReactor
   displayId: Small Reactor
   category: 16
-  thumbnail: {fileID: 1621632156944642556, guid: b83defb4a441e484193ddcc29009f684,
+  thumbnail: {fileID: 816631776277785474, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
   inertPrefab: {fileID: 3981359817624512356, guid: a036b52ecda087642a569e5bb8c537ca,

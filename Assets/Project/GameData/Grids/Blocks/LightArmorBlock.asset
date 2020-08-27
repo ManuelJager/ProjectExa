@@ -15,7 +15,7 @@ MonoBehaviour:
   id: LightArmor
   displayId: Light Armor
   category: 1
-  thumbnail: {fileID: -8622130350348527361, guid: b83defb4a441e484193ddcc29009f684,
+  thumbnail: {fileID: 8968284143069025193, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
   inertPrefab: {fileID: 99981650681454060, guid: 97bc4225b763ee14693b5f3a172d9f7e,

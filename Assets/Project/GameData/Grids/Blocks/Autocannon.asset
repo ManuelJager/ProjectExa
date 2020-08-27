@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a516d605b21754d45b3117a73fc4774d, type: 3}
+  m_Name: Autocannon
+  m_EditorClassIdentifier: 
+  id: Autocannon
+  displayId: Autocannon
+  category: 64
+  thumbnail: {fileID: 4028293609388341736, guid: b83defb4a441e484193ddcc29009f684,
+    type: 3}
+  size: {x: 1, y: 1}
+  inertPrefab: {fileID: 3381617769083692569, guid: 32232d525af1553449ae80920da2fe74,
+    type: 3}
+  alivePrefab: {fileID: 5632532741842114357, guid: 67dc6d15d140c08438680a80282db6af,
+    type: 3}
+  physicalTemplatePartial:
+    maxHull: 50
+    armor: 15
+    mass: 3000
+  turretTemplatePartial:
+    turningRate: 100
+    firingRate: 0.5
+    damage: 40
