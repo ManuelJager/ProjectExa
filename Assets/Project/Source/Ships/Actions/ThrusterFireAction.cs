@@ -39,8 +39,7 @@ namespace Exa.Ships
                 rotationAngle = rotationAngle
             };
 
-            // TODO: Replace this with an actual value
-            return 1f;
+            return 0f;
         }
 
         public override void Update(float energyCoefficient, float deltaTime)
@@ -48,20 +47,16 @@ namespace Exa.Ships
             // Don't need to operate on a zero vector
             if (rawForce == Vector2.zero)
             {
-                ship.navigation.thrustVectors.Fire(Vector2.zero);
+                ship.navigation.thrustVectors.Fire(Vector2.zero, deltaTime);
                 return;
             }
 
-            //Debug.Log(tempValues.localForce);
-            //Debug.Log(tempValues.forceCoefficient);
-            //Debug.Log(energyCoefficient);
-
             // Apply the normalization to the local acceleration
-            var calculatedLocalForce = tempValues.localForce * energyCoefficient;
+            var calculatedLocalForce = ship.navigation.thrustVectors.ClampForce(tempValues.localForce, deltaTime);
 
             // Transform clamped local acceleration back to global acceleration
             var finalForce = MathUtils.Rotate(calculatedLocalForce, tempValues.rotationAngle);
-            ship.navigation.thrustVectors.Fire(calculatedLocalForce);
+            ship.navigation.thrustVectors.Fire(calculatedLocalForce, deltaTime);
 
             ship.rigidbody.AddForce(finalForce, ForceMode.Force);
         }

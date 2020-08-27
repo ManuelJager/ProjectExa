@@ -1,5 +1,7 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
+using Exa.Math;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,12 +33,23 @@ namespace Exa.Ships
             SelectGroup(thruster)?.Remove(thruster);
         }
 
-        public void Fire(Vector2 force)
+        public void Fire(Vector2 force, float deltaTime)
         {
-            SelectHorizontalGroup(force.x, false).Fire(Mathf.Abs(force.x));
-            SelectHorizontalGroup(force.x, true).Fire(0);
-            SelectVerticalGroup(force.y, false).Fire(Mathf.Abs(force.y));
-            SelectVerticalGroup(force.y, true).Fire(0);
+            SelectHorizontalGroup(force.x, false)   .Fire(Mathf.Abs(force.x),   deltaTime);
+            SelectHorizontalGroup(force.x, true)    .Fire(0,                    deltaTime);
+            SelectVerticalGroup(force.y, false)     .Fire(Mathf.Abs(force.y),   deltaTime);
+            SelectVerticalGroup(force.y, true)      .Fire(0,                    deltaTime);
+        }
+
+        public Vector2 ClampForce(Vector2 localForce, float deltaTime)
+        {
+            var forceCoefficient = new Vector2
+            {
+                x = SelectHorizontalGroup(localForce.x).ClampThrustCoefficient(Mathf.Abs(localForce.x), deltaTime),
+                y = SelectVerticalGroup(localForce.y).ClampThrustCoefficient(Mathf.Abs(localForce.y), deltaTime)
+            };
+
+            return MathUtils.ClampToLowestComponent(forceCoefficient) * localForce;
         }
 
         private ThrusterGroup SelectGroup(IThruster thruster)
@@ -53,12 +66,12 @@ namespace Exa.Ships
             }
         }
 
-        private ThrusterGroup SelectHorizontalGroup(float x, bool revert) =>
+        private ThrusterGroup SelectHorizontalGroup(float x, bool revert = false) =>
             x > 0 ^ revert
                 ? thrusterDict[0]
                 : thrusterDict[2];
 
-        private ThrusterGroup SelectVerticalGroup(float y, bool revert) =>
+        private ThrusterGroup SelectVerticalGroup(float y, bool revert = false) =>
             y > 0 ^ revert
                 ? thrusterDict[1]
                 : thrusterDict[3];

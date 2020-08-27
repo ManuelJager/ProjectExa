@@ -1,7 +1,5 @@
 ﻿using Exa.Data;
-using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
-using Exa.Math;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +18,7 @@ namespace Exa.Ships
         public ThrusterGroup(float directionalThrust)
         {
             this.directionalThrust = directionalThrust;
-        } 
+        }
 
         public new void Add(IThruster thruster)
         {
@@ -40,13 +38,19 @@ namespace Exa.Ships
             return result;
         }
 
-        public void Fire(float force)
+        public void Fire(float force, float deltaTime)
         {
-            var strenth = Mathf.Clamp01(force / Thrust);
+            var strength = Mathf.Clamp01(force / (Thrust * deltaTime));
+
             foreach (var item in this)
             {
-                item.Fire(strenth);
+                item.Fire(strength);
             }
+        }
+
+        public float ClampThrustCoefficient(float force, float deltaTime)
+        {
+            return Mathf.Clamp01(Thrust * deltaTime / force);
         }
     }
 }

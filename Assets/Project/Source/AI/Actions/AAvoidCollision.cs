@@ -13,6 +13,7 @@ namespace Exa.AI.Actions
         public float headingCorrectionMultiplier;
     }
 
+    // TODO: Use position prediction and target paths to increase accuracy
     public class AAvoidCollision : ShipAIAction
     {
         public override ActionLane Lanes => ActionLane.Movement;
@@ -47,6 +48,7 @@ namespace Exa.AI.Actions
             return ActionLane.Movement;
         }
 
+        // TODO: Improve detection of large ships, as this only registers other ships whose centre overlaps the detection radius
         protected override float CalculatePriority()
         {
             var globalPos = shipAI.transform.position;
@@ -58,7 +60,7 @@ namespace Exa.AI.Actions
             foreach (var collider in colliders)
             {
                 var neighbour = collider.gameObject.GetComponent<Ship>();
-                if (neighbour != null && !ReferenceEquals(neighbour, shipAI.ship))
+                if (neighbour != null && !ReferenceEquals(neighbour, shipAI.ship) && ShouldYield(neighbour))
                 {
                     var neighbourPos = neighbour.transform.position;
                     var dist = (globalPos - neighbourPos).magnitude;
@@ -85,10 +87,24 @@ namespace Exa.AI.Actions
 
         private void MofidyHeading(ref Vector2 heading, Vector2 direction, Ship other)
         {
+            if (ShouldYield(other))
+            {
+                var headingModification = direction / settings.detectionRadius;
+                heading -= headingModification;
+            }
+        }
+
+        private bool ShouldYield(Ship other)
+        {
             var thisMass = shipAI.ship.Blueprint.Blocks.Totals.Mass;
             var otherMass = other.Blueprint.Blocks.Totals.Mass;
-            var headingModification = direction * (otherMass / thisMass) / settings.detectionRadius;
-            heading -= headingModification;
+
+            if (otherMass != thisMass)
+            {
+                return otherMass > thisMass;
+            }
+
+            return other.GetInstanceID() > shipAI.ship.GetInstanceID();
         }
     }
 }
