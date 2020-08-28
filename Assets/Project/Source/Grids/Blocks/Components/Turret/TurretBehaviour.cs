@@ -35,7 +35,7 @@ namespace Exa.Grids.Blocks.Components
             var targetAngle = difference.GetAngle();
             RotateTowards(targetAngle);
 
-            var currentAngle = transform.rotation.eulerAngles.z;
+            var currentAngle = turret.rotation.eulerAngles.z;
             if (WithinFiringFrustum(currentAngle, targetAngle) && timeSinceFire > data.firingRate)
             {
                 timeSinceFire = 0f;
@@ -53,7 +53,7 @@ namespace Exa.Grids.Blocks.Components
 
         private bool WithinFiringFrustum(float currentAngle, float targetAngle)
         {
-            return Mathf.DeltaAngle(currentAngle, targetAngle) < 1f;
+            return Mathf.DeltaAngle(currentAngle, targetAngle) < 2.5f;
         }
     }
 }

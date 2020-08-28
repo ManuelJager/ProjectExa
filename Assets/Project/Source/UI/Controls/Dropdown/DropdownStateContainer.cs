@@ -29,7 +29,14 @@ namespace Exa.UI.Controls
 
         public string GetName(T value)
         {
-            return contextByValue[value].Label;
+            try
+            {
+                return contextByValue[value].Label;
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new KeyNotFoundException($"value {value} doesn't exist");
+            }
         }
 
         public DropdownTab GetTab(T value)

@@ -5,14 +5,22 @@ namespace Exa.Weapons
 {
     public class AutocannonBehaviour : TurretBehaviour
     {
-        [SerializeField] private FiringPoint[] firingPoints;
+        [SerializeField] private AutocannonPart[] parts;
         private int currentPoint = 0;
+
+        private void Start()
+        {
+            foreach (var part in parts)
+            {
+                part.Setup(data.firingRate);
+            }
+        }
 
         public override void Fire()
         {
-            firingPoints[currentPoint].Fire(data.damage);
+            parts[currentPoint].Fire(data.damage);
             currentPoint++;
-            currentPoint %= firingPoints.Length;
+            currentPoint %= parts.Length;
         }
     }
 }

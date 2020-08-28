@@ -11,7 +11,7 @@ namespace Exa.Weapons
         {
             // TODO: Pool projectiles
             var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
-            projectile.Setup(spawnPoint.position, spawnPoint.right * 10, damage);
+            projectile.Setup(spawnPoint.position, spawnPoint.right * 80, damage, 10f);
         }
     }
 }

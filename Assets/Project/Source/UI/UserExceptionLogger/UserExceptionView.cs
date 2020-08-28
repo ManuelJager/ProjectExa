@@ -20,15 +20,15 @@ namespace Exa.UI
             canvasGroup.alpha = 0f;
             canvasGroup.DOFade(1, 0.2f);
 
-            StartCoroutine(EnumeratorUtils.Delay(3f, () =>
+            StartCoroutine(EnumeratorUtils.Delay(() =>
             {
                 canvasGroup.DOFade(0f, 0.2f);
-            }));
+            }, 3f));
 
-            StartCoroutine(EnumeratorUtils.Delay(3.2f, () =>
+            StartCoroutine(EnumeratorUtils.Delay(() =>
             {
                 Destroy(gameObject);
-            }));
+            }, 3.2f));
         }
     }
 }
