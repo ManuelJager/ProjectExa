@@ -127,6 +127,7 @@ Transform:
   - {fileID: 712550352310523090}
   - {fileID: 8741426249900839396}
   - {fileID: 4646414832741551928}
+  - {fileID: 3981802245246700827}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -146,6 +147,7 @@ MonoBehaviour:
   inertPrefabGroup: {fileID: 3938496695803358877}
   defaultPrefabGroup: {fileID: 1587025755745182148}
   userPrefabGroup: {fileID: 2465793233296236832}
+  enemyPrefabGroup: {fileID: 304371978879303954}
 --- !u!1 &6029322592615761839
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +189,54 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d137aed641943b04a8dfc97e4029737d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultPoolSettings:
+    maxSize: 1000
+    preferredSize: 100
+    growToPreferredSize: 1
+    prefab: {fileID: 0}
+--- !u!1 &9005568462626186029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3981802245246700827}
+  - component: {fileID: 304371978879303954}
+  m_Layer: 0
+  m_Name: EnemyBlockFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 0
+--- !u!4 &3981802245246700827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9005568462626186029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5057754596078983127}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &304371978879303954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9005568462626186029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d6ff87bd9d1894983fe9deb8f33a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   defaultPoolSettings:

@@ -19,7 +19,7 @@ namespace Exa.ShipEditor
         {
             hoverable.onPointerEnter.AddListener(() =>
             {
-                Systems.UI.tooltips.blockTemplateTooltip.ShowTooltip(BlockContext.defaultGroup, data);
+                Systems.UI.tooltips.blockTemplateTooltip.ShowTooltip(BlockContext.DefaultGroup, data);
             });
             hoverable.onPointerExit.AddListener(() =>
             {

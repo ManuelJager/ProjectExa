@@ -28,5 +28,5 @@ MonoBehaviour:
     mass: 3000
   turretTemplatePartial:
     turningRate: 100
-    firingRate: 0.5
+    firingRate: 0.4
     damage: 40

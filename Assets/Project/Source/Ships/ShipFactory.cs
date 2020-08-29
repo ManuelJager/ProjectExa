@@ -6,15 +6,25 @@ namespace Exa.Ships
     public class ShipFactory : MonoBehaviour
     {
         [SerializeField] private GameObject friendlyShipPrefab;
+        [SerializeField] private GameObject enemyShipPrefab;
         [SerializeField] private GameObject shipOverlayPrefab;
         [SerializeField] private Transform shipContainer;
         [SerializeField] private Transform overlayContainer;
 
-        public FriendlyShip CreateFriendly(string name, Vector2 worldPos = new Vector2())
+        public FriendlyShip CreateFriendly(string blueprintName, Vector2 worldPos)
         {
             var shipGO = Instantiate(friendlyShipPrefab, shipContainer);
             shipGO.transform.position = worldPos;
-            return Configure<FriendlyShip>(shipGO, name, BlockContext.userGroup);
+
+            return Configure<FriendlyShip>(shipGO, blueprintName, BlockContext.UserGroup);
+        }
+
+        public EnemyShip CreateEnemy(string blueprintName, Vector2 worldPos)
+        {
+            var shipGO = Instantiate(enemyShipPrefab, shipContainer);
+            shipGO.transform.position = worldPos;
+
+            return Configure<EnemyShip>(shipGO, blueprintName, BlockContext.EnemyGroup);
         }
 
         private T Configure<T>(GameObject shipGO, string name, BlockContext blockContext)
@@ -27,7 +37,7 @@ namespace Exa.Ships
 
             var instanceString = ship.GetInstanceString();
             overlay.gameObject.name = $"Overlay: {instanceString}";
-            shipGO.name = $"{typeof(T).Name} - {instanceString}";
+            shipGO.name = $"{typeof(FriendlyShip).Name} - {instanceString}";
 
             return ship;
         }

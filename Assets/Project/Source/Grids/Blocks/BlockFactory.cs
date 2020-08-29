@@ -12,10 +12,13 @@ namespace Exa.Grids.Blocks
     /// <summary>
     /// Enum used to identify to which group a block belongs
     /// </summary>
+    [Flags]
     public enum BlockContext
     {
-        defaultGroup,
-        userGroup,
+        None            = 0,
+        DefaultGroup    = 1 << 0,
+        UserGroup       = 1 << 1,
+        EnemyGroup      = 1 << 2,
     }
 
     public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer>
@@ -34,6 +37,7 @@ namespace Exa.Grids.Blocks
         [SerializeField] private InertBlockPoolGroup inertPrefabGroup;
         [SerializeField] private AliveBlockPoolGroup defaultPrefabGroup;
         [SerializeField] private AliveBlockPoolGroup userPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup enemyPrefabGroup;
 
         public BlockValuesStore valuesStore;
 
@@ -54,9 +58,9 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Block GetInactiveBlock(string id, Transform transform, BlockContext blockPrefabType)
+        public Block GetInactiveBlock(string id, Transform transform, BlockContext blockContext)
         {
-            return GetGroup(blockPrefabType)
+            return GetGroup(blockContext)
                 .GetInactiveBlock(id, transform)
                 .GetComponent<Block>();
         }
@@ -74,16 +78,19 @@ namespace Exa.Grids.Blocks
                 throw new Exception("Duplicate block id found");
             }
 
-            valuesStore.Register(BlockContext.defaultGroup, blockTemplate);
-            valuesStore.Register(BlockContext.userGroup,    blockTemplate);
+            valuesStore.Register(BlockContext.DefaultGroup, blockTemplate);
+            valuesStore.Register(BlockContext.UserGroup, blockTemplate);
+            valuesStore.Register(BlockContext.EnemyGroup, blockTemplate);
 
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
             yield return null;
-            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.defaultGroup);
+            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.DefaultGroup);
             yield return null;
-            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.userGroup);
+            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.UserGroup);
+            yield return null;
+            enemyPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.EnemyGroup);
             yield return null;
         }
 
@@ -91,11 +98,14 @@ namespace Exa.Grids.Blocks
         {
             switch (blockContext)
             {
-                case BlockContext.defaultGroup:
+                case BlockContext n when n.Is(BlockContext.DefaultGroup):
                     return defaultPrefabGroup;
 
-                case BlockContext.userGroup:
+                case BlockContext n when n.Is(BlockContext.UserGroup):
                     return userPrefabGroup;
+
+                case BlockContext n when n.Is(BlockContext.EnemyGroup):
+                    return enemyPrefabGroup;
 
                 default:
                     return null;

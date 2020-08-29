@@ -44,7 +44,7 @@ MonoBehaviour:
   light2D: {fileID: 1438504005122936366}
   xScale:
     min: 0.7
-    max: 7
+    max: 9
   yScale:
     min: 0.7
     max: 1.1
@@ -71,7 +71,6 @@ MonoBehaviour:
       flippedY: 0
   physicalBehaviour: {fileID: 1022594578289778706}
   thrusterBehaviour: {fileID: 3812031072145920918}
-  powerConsumerBehaviour: {fileID: 2439175266936420258}
 --- !u!1001 &281837097860091350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97,7 +96,7 @@ PrefabInstance:
     - target: {fileID: 6364988630516286956, guid: c04c0d84aa0b0a34b878448035dfa275,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7494413989538873605, guid: c04c0d84aa0b0a34b878448035dfa275,
         type: 3}

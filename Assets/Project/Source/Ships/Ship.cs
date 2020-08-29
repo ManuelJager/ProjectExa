@@ -7,6 +7,7 @@ using Exa.Grids.Blueprints;
 using Exa.Math;
 using Exa.Ships.Navigations;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,10 +21,10 @@ namespace Exa.Ships
         public ShipState state;
         public new Rigidbody rigidbody;
         public Transform pivot;
+        public NavigationOptions navigationOptions;
 
         [Header("Settings")]
         public float canvasScaleMultiplier = 1f;
-        public NavigationOptions navigationOptions;
 
         [HideInInspector] public ShipOverlay overlay;
         public ShipNavigation navigation;
@@ -36,6 +37,8 @@ namespace Exa.Ships
         public Blueprint Blueprint => blueprint;
         public ActionScheduler ActionScheduler { get; private set; }
         public Controller Controller { get; internal set; }
+        public TurretList Turrets { get; private set; }
+        public BlockContext BlockContext { get; private set; }
 
         private void FixedUpdate()
         {
@@ -55,9 +58,12 @@ namespace Exa.Ships
                 throw new ArgumentException("Blueprint must have a controller reference");
             }
 
+            blockGrid = new BlockGrid(pivot, this);
+
             // Initialization
             ActionScheduler = new ActionScheduler(this);
-            blockGrid = new BlockGrid(pivot, this);
+            Turrets = new TurretList();
+            BlockContext = blockContext;
 
             var template = blueprint.Blocks.Controller.BlueprintBlock.Template as ControllerTemplate;
             var controllerValues = template.controllerTemplatePartial.Convert();

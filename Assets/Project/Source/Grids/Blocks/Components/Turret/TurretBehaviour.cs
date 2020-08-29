@@ -13,11 +13,6 @@ namespace Exa.Grids.Blocks.Components
 
         public ITarget Target { get; set; }
 
-        private void Awake()
-        {
-            Target = new StaticAngleTarget(0f);
-        }
-
         public void Update()
         {
             timeSinceFire += Time.deltaTime;

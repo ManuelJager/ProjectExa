@@ -7,7 +7,7 @@ namespace Exa.AI
     {
         None        = 0,
         Movement    = 1 << 0,
-        Target      = 1 << 1,
+        AimTurrets  = 1 << 1,
         Rotation    = 1 << 2,
     }
 }

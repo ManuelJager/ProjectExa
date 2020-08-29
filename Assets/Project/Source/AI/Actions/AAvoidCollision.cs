@@ -1,4 +1,5 @@
-﻿using Exa.Math;
+﻿using Exa.Grids.Blocks;
+using Exa.Math;
 using Exa.Ships;
 using Exa.Ships.Targetting;
 using System.Collections.Generic;
@@ -54,15 +55,15 @@ namespace Exa.AI.Actions
         protected override float CalculatePriority()
         {
             var globalPos = shipAI.transform.position;
-            var mask = LayerMask.GetMask("unit");
-            var colliders = Physics2D.OverlapCircleAll(globalPos, settings.detectionRadius, mask);
+            var layerMask = LayerMask.GetMask("unit");
             var shortestDistance = float.MaxValue;
 
-            neighbourCache = new List<Ship>();
-            foreach (var collider in colliders)
+            neighbourCache?.Clear();
+            neighbourCache = neighbourCache ?? new List<Ship>();
+
+            foreach (var neighbour in shipAI.QueryNeighbours<Ship>(settings.detectionRadius, layerMask, ~BlockContext.None))
             {
-                var neighbour = collider.gameObject.GetComponent<Ship>();
-                if (neighbour != null && !ReferenceEquals(neighbour, shipAI.ship) && ShouldYield(neighbour))
+                if (ShouldYield(neighbour))
                 {
                     var neighbourPos = neighbour.transform.position;
                     var dist = (globalPos - neighbourPos).magnitude;
