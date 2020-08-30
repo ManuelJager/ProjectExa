@@ -7,15 +7,15 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
-    [CreateAssetMenu(menuName = "Grids/Blocks/Turret")]
-    public class TurretTemplate : BlockTemplate<Turret>
+    [CreateAssetMenu(menuName = "Grids/Blocks/Autocannon")]
+    public class AutocannonTemplate : BlockTemplate<Autocannon>
     {
-        [SerializeField] private TurretTemplatePartial turretTemplatePartial;
+        [SerializeField] private AutocannonTemplatePartial autocannonTemplatePartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
             return base.GetTemplatePartials()
-                .Append(turretTemplatePartial);
+                .Append(autocannonTemplatePartial);
         }
     }
 }

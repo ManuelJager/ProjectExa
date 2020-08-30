@@ -55,13 +55,13 @@ namespace Exa.AI.Actions
         protected override float CalculatePriority()
         {
             var globalPos = shipAI.transform.position;
-            var layerMask = LayerMask.GetMask("unit");
+            var shipMask = new ShipMask(~ShipContext.None);
             var shortestDistance = float.MaxValue;
 
             neighbourCache?.Clear();
             neighbourCache = neighbourCache ?? new List<Ship>();
 
-            foreach (var neighbour in shipAI.QueryNeighbours<Ship>(settings.detectionRadius, layerMask, ~BlockContext.None))
+            foreach (var neighbour in shipAI.QueryNeighbours<Ship>(settings.detectionRadius, shipMask))
             {
                 if (ShouldYield(neighbour))
                 {

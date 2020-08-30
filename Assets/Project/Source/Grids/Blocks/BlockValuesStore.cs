@@ -9,14 +9,14 @@ namespace Exa.Grids.Blocks
 {
     public class BlockValuesStore
     {
-        private Dictionary<BlockContext, BundleDictionary> contextDict;
+        private Dictionary<ShipContext, BundleDictionary> contextDict;
 
         public BlockValuesStore()
         {
-            contextDict = new Dictionary<BlockContext, BundleDictionary>();
+            contextDict = new Dictionary<ShipContext, BundleDictionary>();
         }
 
-        public void Register(BlockContext blockContext, BlockTemplate blockTemplate)
+        public void Register(ShipContext blockContext, BlockTemplate blockTemplate)
         {
             var templateDict = EnsureCreated(blockContext);
             var id = blockTemplate.id;
@@ -36,19 +36,19 @@ namespace Exa.Grids.Blocks
             templateDict.Add(id, bundle);
         }
 
-        public void SetDirty(BlockContext blockContext, string id)
+        public void SetDirty(ShipContext blockContext, string id)
         {
             var bundle = contextDict[blockContext][id];
             bundle.valuesAreDirty = true;
             bundle.tooltip.IsDirty = true;
         }
 
-        public Tooltip GetTooltip(BlockContext blockContext, string id)
+        public Tooltip GetTooltip(ShipContext blockContext, string id)
         {
             return contextDict[blockContext][id].tooltip;
         }
 
-        public void SetValues(BlockContext blockContext, string id, Block block)
+        public void SetValues(ShipContext blockContext, string id, Block block)
         {
             var templateDict = contextDict[blockContext];
             var bundle = templateDict[id];
@@ -62,7 +62,7 @@ namespace Exa.Grids.Blocks
             bundle.valuesCache.ApplyValues(block);
         }
 
-        private TemplateValuesCache GetValues(BlockContext blockContext, BlockTemplate template)
+        private TemplateValuesCache GetValues(ShipContext blockContext, BlockTemplate template)
         {
             var dict = new TemplateValuesCache();
 
@@ -82,7 +82,7 @@ namespace Exa.Grids.Blocks
             return dict;
         }
 
-        private BundleDictionary EnsureCreated(BlockContext blockContext)
+        private BundleDictionary EnsureCreated(ShipContext blockContext)
         {
             if (!contextDict.ContainsKey(blockContext))
             {

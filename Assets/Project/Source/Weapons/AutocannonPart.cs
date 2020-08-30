@@ -20,9 +20,14 @@ namespace Exa.Weapons
 
         private float animTime;
 
-        public void Setup(float firingSpeed)
+        private void OnDisable()
         {
-            animTime = firingSpeed * 1.5f;
+            StopAllCoroutines();
+        }
+
+        public void Setup(float animTime)
+        {
+            this.animTime = animTime;
             barrelAnimator["BarrelAnimation"].speed = 1f / animTime;
         }
 
@@ -35,6 +40,7 @@ namespace Exa.Weapons
 
             light2D.intensity = peakIntensity;
             DOTween.To(() => light2D.intensity, (value) => light2D.intensity = value, 0, 0.1f);
+
             this.Delay(SetCyclingDrumSprite, animTime * 0.25f);
             this.Delay(SetNormalDrumSprite, animTime * 0.5f);
         }

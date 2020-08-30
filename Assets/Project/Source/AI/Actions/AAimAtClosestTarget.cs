@@ -30,11 +30,10 @@ namespace Exa.AI.Actions
 
         protected override float CalculatePriority()
         {
-            var layerMask = LayerMask.GetMask("unit");
-            var blockMask = ~shipAI.ship.BlockContext;
+            var blockMask = new ShipMask(~shipAI.ship.BlockContext);
             var closestDistance = float.MaxValue;
 
-            foreach (var enemy in shipAI.QueryNeighbours<Ship>(detectionRadius, layerMask, blockMask))
+            foreach (var enemy in shipAI.QueryNeighbours<Ship>(detectionRadius, blockMask))
             {
                 var distance = (enemy.transform.position - shipAI.transform.position).magnitude;
 

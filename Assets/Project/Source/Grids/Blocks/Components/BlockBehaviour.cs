@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.Components
 {
     public abstract class BlockBehaviour<T> : BlockBehaviourBase
-        where T : IBlockComponentValues
+        where T : struct, IBlockComponentValues
     {
         protected T data;
         protected Ship ship;

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Thruster : Block, IThruster
+    public class Thruster : Block, IBehaviourMarker<ThrusterData>, IThruster
     {
         [SerializeField] private ThrusterBehaviour thrusterBehaviour;
 

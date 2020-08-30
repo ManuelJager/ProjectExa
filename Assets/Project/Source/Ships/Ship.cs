@@ -41,7 +41,7 @@ namespace Exa.Ships
         public ActionScheduler ActionScheduler { get; private set; }
         public Controller Controller { get; internal set; }
         public TurretList Turrets { get; private set; }
-        public BlockContext BlockContext { get; private set; }
+        public ShipContext BlockContext { get; private set; }
 
         protected virtual void Awake()
         {
@@ -64,7 +64,7 @@ namespace Exa.Ships
             UpdateCentreOfMassPivot(true);
         }
 
-        public virtual void Import(Blueprint blueprint, BlockContext blockContext)
+        public virtual void Import(Blueprint blueprint, ShipContext blockContext)
         {
             if (blueprint.Blocks.Controller == null)
             {

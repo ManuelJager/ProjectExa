@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks
         private ContextDict contextDict = new ContextDict();
         private string activeTooltip = "";
 
-        public void SetValues(BlockContext blockContext, BlockTemplate data)
+        public void SetValues(ShipContext blockContext, BlockTemplate data)
         {
             var result = Systems.Blocks.valuesStore.GetTooltip(blockContext, data.id);
             var id = data.id;
@@ -46,7 +46,7 @@ namespace Exa.Grids.Blocks
             tooltipDict[activeTooltip].gameObject.SetActive(true);
         }
 
-        public void ShowTooltip(BlockContext blockContext, BlockTemplate data)
+        public void ShowTooltip(ShipContext blockContext, BlockTemplate data)
         {
             gameObject.SetActive(true);
             SetValues(blockContext, data);
@@ -58,7 +58,7 @@ namespace Exa.Grids.Blocks
             gameObject.SetActive(false);
         }
 
-        private TooltipDict EnsureCreated(BlockContext blockContext)
+        private TooltipDict EnsureCreated(ShipContext blockContext)
         {
             if (!contextDict.ContainsKey(blockContext))
             {
@@ -68,7 +68,7 @@ namespace Exa.Grids.Blocks
             return contextDict[blockContext];
         }
 
-        private class ContextDict : Dictionary<BlockContext, TooltipDict>
+        private class ContextDict : Dictionary<ShipContext, TooltipDict>
         {
         }
 

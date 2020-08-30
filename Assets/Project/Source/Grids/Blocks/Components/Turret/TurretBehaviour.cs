@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public abstract class TurretBehaviour : BlockBehaviour<TurretData>
+    public abstract class TurretBehaviour<T> : BlockBehaviour<T>
+        where T : struct, ITurretValues
     {
         [Header("References")]
         [SerializeField] private Transform turret;
@@ -31,7 +32,7 @@ namespace Exa.Grids.Blocks.Components
             RotateTowards(targetAngle);
 
             var currentAngle = turret.rotation.eulerAngles.z;
-            if (WithinFiringFrustum(currentAngle, targetAngle) && timeSinceFire > data.firingRate)
+            if (WithinFiringFrustum(currentAngle, targetAngle) && timeSinceFire > data.FiringRate)
             {
                 timeSinceFire = 0f;
                 Fire();

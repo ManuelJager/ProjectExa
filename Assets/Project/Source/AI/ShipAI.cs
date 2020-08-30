@@ -50,15 +50,16 @@ namespace Exa.AI
         }
 
         // TODO: Somehow cache this, or let the results come from a central manager
-        public IEnumerable<T> QueryNeighbours<T>(float radius, LayerMask layerMask, BlockContext blockContextMask)
+        public IEnumerable<T> QueryNeighbours<T>(float radius, ShipMask shipMask)
             where T : Ship
         {
-            var colliders = Physics2D.OverlapCircleAll(ship.transform.position, radius, layerMask);
+            var colliders = Physics2D.OverlapCircleAll(ship.transform.position, radius, shipMask.LayerMask);
 
             foreach (var collider in colliders)
             {
                 var neighbour = collider.gameObject.GetComponent<T>();
-                if (neighbour != null && !ReferenceEquals(neighbour, ship) && ship.BlockContext.Is(blockContextMask))
+                var passesContextMask = (neighbour.BlockContext & shipMask.ContextMask) != 0;
+                if (neighbour != null && !ReferenceEquals(neighbour, ship) && passesContextMask)
                 {
                     yield return neighbour;
                 }

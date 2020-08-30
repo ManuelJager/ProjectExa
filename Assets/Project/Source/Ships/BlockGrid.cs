@@ -36,7 +36,7 @@ namespace Exa.Ships
             base.Add(gridMember);
         }
 
-        internal void Import(Blueprint blueprint, BlockContext blockContext)
+        internal void Import(Blueprint blueprint, ShipContext blockContext)
         {
             foreach (var anchoredBlueprintBlock in blueprint.Blocks)
             {
@@ -44,7 +44,7 @@ namespace Exa.Ships
             }
         }
 
-        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock, BlockContext blockContext)
+        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock, ShipContext blockContext)
         {
             var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(container, blockContext);
             block.Ship = ship;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Controller : Block, IController
+    public class Controller : Block, IBehaviourMarker<ControllerData>
     {
         [SerializeField] private ControllerBehaviour controllerBehaviour;
 

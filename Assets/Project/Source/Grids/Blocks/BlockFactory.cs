@@ -1,11 +1,10 @@
 ﻿using Exa.Bindings;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Utils;
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Exa.Utils;
 
 namespace Exa.Grids.Blocks
 {
@@ -13,12 +12,12 @@ namespace Exa.Grids.Blocks
     /// Enum used to identify to which group a block belongs
     /// </summary>
     [Flags]
-    public enum BlockContext
+    public enum ShipContext : uint
     {
-        None            = 0,
-        DefaultGroup    = 1 << 0,
-        UserGroup       = 1 << 1,
-        EnemyGroup      = 1 << 2,
+        None = 0,
+        DefaultGroup = 1 << 0,
+        UserGroup = 1 << 1,
+        EnemyGroup = 1 << 2,
     }
 
     public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer>
@@ -58,7 +57,7 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Block GetInactiveBlock(string id, Transform transform, BlockContext blockContext)
+        public Block GetInactiveBlock(string id, Transform transform, ShipContext blockContext)
         {
             return GetGroup(blockContext)
                 .GetInactiveBlock(id, transform)
@@ -78,33 +77,33 @@ namespace Exa.Grids.Blocks
                 throw new Exception("Duplicate block id found");
             }
 
-            valuesStore.Register(BlockContext.DefaultGroup, blockTemplate);
-            valuesStore.Register(BlockContext.UserGroup, blockTemplate);
-            valuesStore.Register(BlockContext.EnemyGroup, blockTemplate);
+            valuesStore.Register(ShipContext.DefaultGroup, blockTemplate);
+            valuesStore.Register(ShipContext.UserGroup, blockTemplate);
+            valuesStore.Register(ShipContext.EnemyGroup, blockTemplate);
 
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
             yield return null;
-            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.DefaultGroup);
+            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate, ShipContext.DefaultGroup);
             yield return null;
-            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.UserGroup);
+            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate, ShipContext.UserGroup);
             yield return null;
-            enemyPrefabGroup.CreateAlivePrefabGroup(blockTemplate, BlockContext.EnemyGroup);
+            enemyPrefabGroup.CreateAlivePrefabGroup(blockTemplate, ShipContext.EnemyGroup);
             yield return null;
         }
 
-        private AliveBlockPoolGroup GetGroup(BlockContext blockContext)
+        private AliveBlockPoolGroup GetGroup(ShipContext blockContext)
         {
             switch (blockContext)
             {
-                case BlockContext n when n.Is(BlockContext.DefaultGroup):
+                case ShipContext n when n.Is(ShipContext.DefaultGroup):
                     return defaultPrefabGroup;
 
-                case BlockContext n when n.Is(BlockContext.UserGroup):
+                case ShipContext n when n.Is(ShipContext.UserGroup):
                     return userPrefabGroup;
 
-                case BlockContext n when n.Is(BlockContext.EnemyGroup):
+                case ShipContext n when n.Is(ShipContext.EnemyGroup):
                     return enemyPrefabGroup;
 
                 default:

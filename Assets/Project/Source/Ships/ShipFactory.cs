@@ -16,7 +16,7 @@ namespace Exa.Ships
             var shipGO = Instantiate(friendlyShipPrefab, shipContainer);
             shipGO.transform.position = worldPos;
 
-            return Configure<FriendlyShip>(shipGO, blueprintName, BlockContext.UserGroup);
+            return Configure<FriendlyShip>(shipGO, blueprintName, ShipContext.UserGroup);
         }
 
         public EnemyShip CreateEnemy(string blueprintName, Vector2 worldPos)
@@ -24,10 +24,10 @@ namespace Exa.Ships
             var shipGO = Instantiate(enemyShipPrefab, shipContainer);
             shipGO.transform.position = worldPos;
 
-            return Configure<EnemyShip>(shipGO, blueprintName, BlockContext.EnemyGroup);
+            return Configure<EnemyShip>(shipGO, blueprintName, ShipContext.EnemyGroup);
         }
 
-        private T Configure<T>(GameObject shipGO, string name, BlockContext blockContext)
+        private T Configure<T>(GameObject shipGO, string name, ShipContext blockContext)
             where T : Ship
         {
             var ship = shipGO.GetComponent<T>();

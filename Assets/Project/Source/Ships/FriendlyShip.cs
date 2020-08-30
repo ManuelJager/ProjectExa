@@ -18,7 +18,7 @@ namespace Exa.Ships
             cursorOverride = new CursorOverride(CursorState.active, this);
         }
 
-        public override void Import(Blueprint blueprint, BlockContext blockContext)
+        public override void Import(Blueprint blueprint, ShipContext blockContext)
         {
             base.Import(blueprint, blockContext);
             

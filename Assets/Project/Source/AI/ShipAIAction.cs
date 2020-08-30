@@ -7,6 +7,7 @@
         public abstract ActionLane Lanes { get; }
         public ActionLane Blocking { get; set; }
         public float Priority { get; private set; }
+        public string DebugString { get; protected set; }
 
         public ShipAIAction(ShipAI shipAI)
         {

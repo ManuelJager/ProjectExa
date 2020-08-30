@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Gyroscope : Block, IGyroscope
+    public class Gyroscope : Block, IBehaviourMarker<GyroscopeData>
     {
         [SerializeField] private GyroscopeBehaviour gyroscopeBehaviour;
 

@@ -1,12 +1,11 @@
-﻿using Exa.Ships;
-using Exa.Grids.Blocks.Components;
-using UnityEngine;
+﻿using Exa.Grids.Blocks.Components;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class PowerGenerator : Block, IPowerGenerator
+    public class PowerGenerator : Block, IBehaviourMarker<PowerGeneratorData>
     {
         [SerializeField] private PowerGeneratorBehaviour powerGeneratorBehaviour;
 

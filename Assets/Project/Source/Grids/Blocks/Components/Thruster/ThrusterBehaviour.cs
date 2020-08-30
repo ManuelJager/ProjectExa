@@ -5,11 +5,6 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public interface IThruster : IBehaviourMarker<ThrusterData>
-    {
-        void Fire(float strength);
-    }
-
     public class ThrusterBehaviour : BlockBehaviour<ThrusterData>
     {
         [Header("References")]

@@ -34,6 +34,10 @@ namespace Exa.AI
                     action.Blocking = action.Update(mask);
                     mask |= action.Blocking;
                 }
+                else
+                {
+                    action.Blocking = ActionLane.None;
+                }
             }
         }
 
@@ -56,10 +60,12 @@ namespace Exa.AI
                 .ToStringTable(new string[] {
                     "Action name",
                     "Priority",
-                    "Blocking lane"},
+                    "Blocking lane",
+                    "Debug string"},
                     (action) => action.GetType().Name,
                     (action) => action.Priority,
-                    (action) => action.Blocking);
+                    (action) => action.Blocking,
+                    (action) => action.DebugString);
             sb.AppendLineIndented(tableString, tabs);
             return sb.ToString();
         }

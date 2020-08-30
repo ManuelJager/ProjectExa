@@ -4,11 +4,18 @@ using System.Collections.Generic;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public struct TurretData : ITurretValues
+    public enum CycleMode
     {
-        public float turningRate; 
-        public float firingRate; 
+        Cycling,
+        Volley
+    }
+
+    public struct AutocannonData : ITurretValues
+    {
+        public float turningRate;
+        public float firingRate;
         public float damage;
+        public CycleMode cycleMode;
 
         public float TurningRate => turningRate;
         public float FiringRate => firingRate;
@@ -26,7 +33,8 @@ namespace Exa.Grids.Blocks.Components
         {
             new LabeledValue<string>("Turning rate", $"{turningRate}°/s"),
             new LabeledValue<string>("Firing rate", $"{firingRate * 60} RPM"),
-            new LabeledValue<string>("Damage", $"{damage}")
+            new LabeledValue<string>("Damage", $"{damage}"),
+            new LabeledValue<string>("Cycle mode", $"{cycleMode}")
         };
     }
 }

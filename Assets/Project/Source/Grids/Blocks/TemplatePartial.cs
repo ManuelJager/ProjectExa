@@ -10,7 +10,7 @@ namespace Exa.Grids.Blocks
         public abstract T Convert();
 
         // TODO: Use the given context to apply value modifiers in the conversion step
-        public override IBlockComponentValues GetValues(BlockContext blockContext)
+        public override IBlockComponentValues GetValues(ShipContext blockContext)
         {
             return Convert();
         }
@@ -51,7 +51,7 @@ namespace Exa.Grids.Blocks
 
     public abstract class TemplatePartialBase : IGridTotalsModifier
     {
-        public abstract IBlockComponentValues GetValues(BlockContext blockContext);
+        public abstract IBlockComponentValues GetValues(ShipContext blockContext);
 
         public abstract void SetValues(Block block, IBlockComponentValues data);
 

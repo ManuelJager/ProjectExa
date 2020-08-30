@@ -6,16 +6,15 @@
         /// The lanes required for an action to be updated
         /// </summary>
         ActionLane Lanes { get; }
-
         /// <summary>
         /// The lanes that this action blocks
         /// </summary>
         ActionLane Blocking { get; set; }
-
         /// <summary>
         /// The priority of this action
         /// </summary>
         float Priority { get; }
+        string DebugString { get; }
 
         /// <summary>
         /// Update the action

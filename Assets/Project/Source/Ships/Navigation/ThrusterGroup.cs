@@ -1,5 +1,5 @@
 ﻿using Exa.Data;
-using Exa.Grids.Blocks.Components;
+using Exa.Grids.Blocks.BlockTypes;
 using System.Collections.Generic;
 using UnityEngine;
 
