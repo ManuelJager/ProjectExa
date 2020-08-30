@@ -1,21 +1,32 @@
 ﻿using Exa.Utils;
-using UnityEngine;
 
 namespace Exa.UI.Tooltips
 {
     public abstract class VariableTooltipBase<T> : TooltipBase
         where T : ITooltipPresenter
     {
-        //private TooltipBinder<T> binder;
+        private T currentPresenter;
+        private Tooltip tooltip;
 
-        public void ShowTooltip(T data)
+        public void Show(T presenter)
         {
             gameObject.SetActive(true);
-            SetValues(data);
+            this.currentPresenter = presenter;
+            SetValues(presenter);
             SetContainerPosition();
         }
 
-        public void HideTooltip()
+        protected override void Update()
+        {
+            if (tooltip != null && tooltip.IsDirty)
+            {
+                SetValues(currentPresenter);
+            }
+
+            base.Update();
+        }
+
+        public void Hide()
         {
             gameObject.SetActive(false);
         }
@@ -24,7 +35,7 @@ namespace Exa.UI.Tooltips
         {
             container.DestroyChildren();
 
-            Systems.UI.tooltips.tooltipGenerator.GenerateTooltip(data, container);
+            tooltip = Systems.UI.tooltips.tooltipGenerator.GenerateTooltip(data, container);
         }
     }
 }

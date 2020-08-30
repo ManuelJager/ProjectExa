@@ -20,17 +20,17 @@ namespace Exa.Grids.Blueprints
 
         private void OnEnable()
         {
-            tooltipResult = new Tooltip(ComponentFactory);
+            tooltipResult = new Tooltip(GetTooltipContainer);
         }
-
-        public IEnumerable<ITooltipComponent> ComponentFactory() => new ITooltipComponent[]
-        {
-            new LabeledValue<string>("Max size", $"{maxSize.x}x{maxSize.y}")
-        };
 
         public Tooltip GetTooltip()
         {
             return tooltipResult;
         }
+
+        private TooltipContainer GetTooltipContainer() => new TooltipContainer(new ITooltipComponent[]
+        {
+            new LabeledValue<string>("Max size", $"{maxSize.x}x{maxSize.y}")
+        });
     }
 }

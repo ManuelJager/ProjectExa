@@ -1,8 +1,4 @@
 ﻿using Exa.Generics;
-using Exa.UI.Controls;
-using Exa.UI.SharedViews;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.UI.Tooltips
@@ -10,64 +6,73 @@ namespace Exa.UI.Tooltips
     public class TooltipGenerator : MonoBehaviour
     {
         [SerializeField] private GameObject propertyPrefab;
+        [SerializeField] private GameObject containerPrefab;
         [SerializeField] private GameObject titlePrefab;
         [SerializeField] private GameObject spacerPrefab;
+        [SerializeField] private GameObject textPrefab;
 
-        public void GenerateTooltip<T>(T value, Transform parent)
+        private Tooltip currentTooltip;
+
+        public Tooltip GenerateTooltip<T>(T value, Transform parent)
             where T : ITooltipPresenter
         {
-            var result = value.GetTooltip();
-            GenerateTooltip(result, parent);
+            var tooltip = value.GetTooltip();
+            GenerateTooltipView(tooltip, parent);
+            return tooltip;
         }
 
-        public void GenerateTooltip(Tooltip tooltip, Transform parent)
+        public void GenerateTooltipView(Tooltip tooltip, Transform parent)
         {
-            foreach (var property in tooltip.GetComponents())
+            currentTooltip = tooltip;
+            var container = tooltip.GetContainer();
+            container.InstantiateComponentView(parent);
+            tooltip.IsDirty = false;
+        }
+
+        public PropertyView GenerateTooltipProperty(Transform parent)
+        {
+            var view = Instantiate(propertyPrefab, parent).GetComponent<PropertyView>();
+
+            if (currentTooltip.Font)
             {
-                var tooltipComponentBundle = property.InstantiateComponentView(parent);
-                tooltipComponentBundle.componentView.transform.SetParent(parent);
+                view.SetFont(currentTooltip.Font);
             }
+
+            return view;
         }
 
-        public TooltipComponentBundle GenerateTooltipProperty<T>(LabeledValue<T> labeledValue, Transform parent)
+        public ContainerView GenerateTooltipContainer(Transform parent)
         {
-            var propertyObject = Instantiate(propertyPrefab, parent);
-            var propertyView = propertyObject.GetComponent<PropertyView>();
-            propertyView.Reflect(labeledValue);
-            //Action<object> update = (obj) => propertyView.Reflect((LabeledValue<T>)obj);
-            //var componentBinder = new TooltipComponentBinder(update);
-
-            return new TooltipComponentBundle
-            {
-                componentView = propertyObject,
-                //componentBinder = componentBinder
-            };
+            return Instantiate(containerPrefab, parent).GetComponent<ContainerView>();
         }
 
-        public TooltipComponentBundle GenerateTooltipTitle(TooltipTitle value, Transform parent)
+        public TitleView GenerateTooltipTitle(Transform parent)
         {
-            var titleObject = Instantiate(titlePrefab, parent);
-            var titleView = titleObject.GetComponent<TitleView>();
-            titleView.Reflect(value);
-            //Action<object> update = (obj) => titleView.Reflect((TooltipTitle)obj);
-            //var componentBinder = new TooltipComponentBinder(update);
+            var view = Instantiate(titlePrefab, parent).GetComponent<TitleView>();
 
-            return new TooltipComponentBundle
+            if (currentTooltip.Font)
             {
-                componentView = titleObject,
-                //componentBinder = componentBinder
-            };
+                view.SetFont(currentTooltip.Font);
+            }
+
+            return view;
         }
 
-        public TooltipComponentBundle GenerateTooltipSpacer(TooltipSpacer value, Transform parent)
+        public SpacerView GenerateTooltipSpacer(Transform parent)
         {
-            var spacerObject = Instantiate(spacerPrefab, parent);
+            return Instantiate(spacerPrefab, parent).GetComponent<SpacerView>();
+        }
 
-            return new TooltipComponentBundle
+        public TextView GenerateTooltipText(Transform parent)
+        {
+            var view = Instantiate(textPrefab, parent).GetComponent<TextView>();
+
+            if (currentTooltip.Font)
             {
-                componentView = spacerObject,
-                //componentBinder = new TooltipComponentBinder()
-            };
+                view.SetFont(currentTooltip.Font);
+            }
+
+            return view;
         }
     }
 }

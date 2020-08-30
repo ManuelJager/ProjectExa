@@ -1,28 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace Exa.UI.Tooltips
 {
     public class Tooltip
     {
-        private Func<IEnumerable<ITooltipComponent>> factory;
-        private IEnumerable<ITooltipComponent> components;
+        private Func<TooltipContainer> factory;
+        private TooltipContainer container;
         public bool IsDirty { get; set; }
+        public Font Font { get; private set; }
 
-        public Tooltip(Func<IEnumerable<ITooltipComponent>> factory)
+        public Tooltip(Func<TooltipContainer> factory, Font font = null)
         {
             this.factory = factory;
             IsDirty = true;
+            Font = font;
         }
 
-        public IEnumerable<ITooltipComponent> GetComponents()
+        public TooltipContainer GetContainer()
         {
             if (IsDirty)
             {
-                components = factory();
-                IsDirty = false;
+                container = factory();
             }
-            return components;
+            return container;
         }
     }
 }

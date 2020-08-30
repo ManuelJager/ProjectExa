@@ -1,4 +1,7 @@
-﻿using Exa.Utils;
+﻿using Exa.UI.Tooltips;
+using Exa.Utils;
+using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -33,12 +36,10 @@ namespace Exa.Ships
             HullIntegrity = currentHull / totalHull; 
         }
 
-        public string ToString(int tabs = 0)
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
         {
-            var sb = new StringBuilder();
-            sb.AppendLineIndented($"HullIntegrity: {HullIntegrity}", tabs);
-            sb.AppendLineIndented($"TurningRate: {TurningRate}", tabs);
-            return sb.ToString();
-        }
+            new TooltipText($"HullIntegrity: {HullIntegrity}"),
+            new TooltipText($"TurningRate: {TurningRate}")
+        };
     }
 }

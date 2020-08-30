@@ -6,6 +6,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Math;
 using Exa.Ships.Navigations;
+using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +15,7 @@ using UnityEngine.Events;
 
 namespace Exa.Ships
 {
-    public abstract class Ship : MonoBehaviour, IRaycastTarget
+    public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter
     {
         [Header("References")]
         public ShipAI shipAI;
@@ -25,11 +26,13 @@ namespace Exa.Ships
 
         [Header("Settings")]
         public float canvasScaleMultiplier = 1f;
+        public Font shipDebugFont;
 
         [HideInInspector] public ShipOverlay overlay;
         public ShipNavigation navigation;
         public BlockGrid blockGrid;
         protected Blueprint blueprint;
+        private Tooltip debugTooltip;
 
         [Header("Events")]
         public UnityEvent destroyEvent = new UnityEvent();
@@ -40,10 +43,20 @@ namespace Exa.Ships
         public TurretList Turrets { get; private set; }
         public BlockContext BlockContext { get; private set; }
 
+        protected virtual void Awake()
+        {
+            debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
+        }
+
         private void FixedUpdate()
         {
             navigation?.ScheduledFixedUpdate();
             ActionScheduler.ExecuteActions(Time.fixedDeltaTime);
+
+            if (debugTooltip != null)
+            {
+                debugTooltip.IsDirty = true;
+            }
         }
 
         private void LateUpdate()
@@ -127,20 +140,26 @@ namespace Exa.Ships
             overlay.rectContainer.sizeDelta = new Vector2(size, size);
         }
 
-        public string ToString(int tabs = 0)
+        public Tooltip GetTooltip()
         {
-            var sb = new StringBuilder();
-            sb.AppendLine(GetInstanceString());
-            sb.AppendLine("------------------------------------------------------------");
-            sb.AppendLine("Blueprint:");
-            sb.AppendLine(blueprint.ToString(tabs + 1));
-            sb.AppendLine("BlockGrid:");
-            sb.AppendLine(blockGrid.ToString(tabs + 1));
-            sb.AppendLine("State:");
-            sb.AppendLine(state.ToString(tabs + 1));
-            sb.AppendLine("AI:");
-            sb.AppendLine(shipAI.ToString(tabs + 1));
-            return sb.ToString();
+            return debugTooltip;
         }
+
+        private TooltipContainer GetDebugTooltipComponents() => new TooltipContainer(new ITooltipComponent[]
+        {
+            new TooltipTitle(GetInstanceString(), false),
+            new TooltipSpacer(),
+            new TooltipText("Blueprint:"),
+            new TooltipContainer(blueprint.GetDebugTooltipComponents(), 1),
+            new TooltipSpacer(),
+            new TooltipText("BlockGrid:"),
+            new TooltipContainer(blockGrid.GetDebugTooltipComponents(), 1),
+            new TooltipSpacer(),
+            new TooltipText("State:"),
+            new TooltipContainer(state.GetDebugTooltipComponents(), 1),
+            new TooltipSpacer(),
+            new TooltipText("AI:"),
+            new TooltipContainer(shipAI.GetDebugTooltipComponents(), 1)
+        });
     }
 }

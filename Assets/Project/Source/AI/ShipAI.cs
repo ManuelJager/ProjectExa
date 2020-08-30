@@ -1,7 +1,9 @@
 ﻿using Exa.AI.Actions;
 using Exa.Grids.Blocks;
 using Exa.Ships;
+using Exa.UI.Tooltips;
 using Exa.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,19 +39,14 @@ namespace Exa.AI
                 aimAtTarget = new AAimAtClosestTarget(this, 200f),
                 lookAtTarget = new ALookAtTarget(this),
                 moveToTarget = new AMoveToTarget(this),
-                avoidCollision = new AAvoidCollision(this, new AAvoidCollisionSettings 
+                avoidCollision = new AAvoidCollision(this, new AAvoidCollisionSettings
                 {
-                    detectionRadius = ship.blockGrid.MaxSize, 
-                    priorityMultiplier = 1, 
+                    detectionRadius = ship.blockGrid.MaxSize,
+                    priorityMultiplier = 1,
                     priorityBase = 10,
                     headingCorrectionMultiplier = 8
                 })
             });
-        }
-
-        public string ToString(int tabs = 0)
-        {
-            return actionList.ToString(tabs);
         }
 
         // TODO: Somehow cache this, or let the results come from a central manager
@@ -67,5 +64,10 @@ namespace Exa.AI
                 }
             }
         }
+
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
+        {
+            new TooltipText(actionList.ToString())
+        };
     }
 }

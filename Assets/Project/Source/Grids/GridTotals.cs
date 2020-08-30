@@ -1,7 +1,9 @@
 ﻿using Exa.Data;
 using Exa.Generics;
 using Exa.Grids.Blocks.Components;
+using Exa.UI.Tooltips;
 using Exa.Utils;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Exa.Grids
@@ -12,10 +14,10 @@ namespace Exa.Grids
 
         private long mass;
         private float hull;
-        private Percentage powerGenerationModifier      = new Percentage(1);
+        private Percentage powerGenerationModifier = new Percentage(1);
         private Percentage peakPowerConsumptionModifier = new Percentage(1);
-        private Percentage powerStorageModifier         = new Percentage(1);
-        private Percentage turningPowerModifier         = new Percentage(1);
+        private Percentage powerStorageModifier = new Percentage(1);
+        private Percentage turningPowerModifier = new Percentage(1);
 
         public long Mass
         {
@@ -85,14 +87,12 @@ namespace Exa.Grids
             };
         }
 
-        public string ToString(int tabs = 0)
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
         {
-            var sb = new StringBuilder();
-            sb.AppendLineIndented($"Mass: {Mass}", tabs);
-            sb.AppendLineIndented($"Hull: {Hull}", tabs);
-            sb.AppendLineIndented($"PeakPowerGeneration: {PowerGenerationModifier}", tabs);
-            sb.AppendLineIndented($"TurningPower: {TurningPowerModifier}", tabs);
-            return sb.ToString();
-        }
+            new TooltipText($"Mass: {Mass}"),
+            new TooltipText($"Hull: {Hull}"),
+            new TooltipText($"PeakPowerGeneration: {PowerGenerationModifier}"),
+            new TooltipText($"TurningPower: {TurningPowerModifier}"),
+        };
     }
 }

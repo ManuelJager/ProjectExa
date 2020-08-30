@@ -32,8 +32,9 @@ MonoBehaviour:
   state: {fileID: 3983008322526082732}
   rigidbody: {fileID: 2136169987671370866}
   pivot: {fileID: 4789156142645388778}
-  canvasScaleMultiplier: 1
   navigationOptions: {fileID: 8455648041380527334}
+  canvasScaleMultiplier: 1
+  shipDebugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
   overlay: {fileID: 0}
   destroyEvent:
     m_PersistentCalls:

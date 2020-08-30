@@ -44,11 +44,11 @@ namespace Exa.Grids.Blueprints
             var hoverable = tab.gameObject.AddComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() =>
             {
-                Systems.UI.tooltips.blueprintTypeTooltip.ShowTooltip(value as BlueprintType);
+                Systems.UI.tooltips.blueprintTypeTooltip.Show(value as BlueprintType);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
-                Systems.UI.tooltips.blueprintTypeTooltip.HideTooltip();
+                Systems.UI.tooltips.blueprintTypeTooltip.Hide();
             });
         }
     }

@@ -12,8 +12,9 @@ namespace Exa.Ships
 
         private static CursorOverride cursorOverride;
 
-        protected void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             cursorOverride = new CursorOverride(CursorState.active, this);
         }
 

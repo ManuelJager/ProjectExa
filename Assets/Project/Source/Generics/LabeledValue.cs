@@ -22,9 +22,11 @@ namespace Exa.Generics
                 Value.Equals(other.Value);
         }
 
-        public TooltipComponentBundle InstantiateComponentView(Transform parent)
+        public Component InstantiateComponentView(Transform parent)
         {
-            return Systems.UI.tooltips.tooltipGenerator.GenerateTooltipProperty<T>(this, parent);
+            var propertyView = Systems.UI.tooltips.tooltipGenerator.GenerateTooltipProperty(parent);
+            propertyView.Reflect(this);
+            return propertyView;
         }
     }
 

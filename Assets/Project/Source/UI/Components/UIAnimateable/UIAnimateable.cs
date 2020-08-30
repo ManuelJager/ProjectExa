@@ -79,6 +79,11 @@ namespace Exa.UI.Components
 
         private void OnDisable()
         {
+            SkipAnimations();
+        }
+
+        public void SkipAnimations()
+        {
             StopAllCoroutines();
 
             Alpha = originalAlpha;

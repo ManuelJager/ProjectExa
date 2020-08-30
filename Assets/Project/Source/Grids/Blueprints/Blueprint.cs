@@ -1,6 +1,9 @@
 ﻿using Exa.Generics;
+using Exa.UI.Tooltips;
 using Exa.Utils;
 using Newtonsoft.Json;
+using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -58,15 +61,13 @@ namespace Exa.Grids.Blueprints
             return new Blueprint(name, shipClass, Blocks.Clone());
         }
 
-        public string ToString(int tabs = 0)
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
         {
-            var sb = new StringBuilder();
-            sb.AppendLineIndented($"Name: {name}", tabs);
-            sb.AppendLineIndented($"Class: {shipClass}", tabs);
-            sb.AppendLineIndented($"Size: {Blocks.Size.Value}", tabs);
-            sb.AppendLineIndented($"Blocks (Count: {Blocks.GetMemberCount()}):", tabs);
-            sb.AppendLine(Blocks.Totals.ToString(tabs + 1));
-            return sb.ToString();
-        }
+            new TooltipText($"Name: {name}"),
+            new TooltipText($"Class: {shipClass}"),
+            new TooltipText($"Size: {Blocks.Size.Value}"),
+            new TooltipText($"Blocks (Count: {Blocks.GetMemberCount()}):"),
+            new TooltipContainer(Blocks.Totals.GetDebugTooltipComponents(), 1)
+        };
     }
 }

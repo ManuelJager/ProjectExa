@@ -18,6 +18,7 @@ MonoBehaviour:
   pivot: {fileID: 2317665541009772918}
   navigationOptions: {fileID: 1658731707252705402}
   canvasScaleMultiplier: 1
+  shipDebugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
   overlay: {fileID: 0}
   destroyEvent:
     m_PersistentCalls:

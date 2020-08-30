@@ -1,6 +1,6 @@
 ﻿using Exa.Generics;
 using Exa.Grids;
-using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using UnityEngine;
 
 namespace Exa.ShipEditor

@@ -2,7 +2,10 @@
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
+using Exa.UI.Tooltips;
 using Exa.Utils;
+using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -49,11 +52,9 @@ namespace Exa.Ships
             return block;
         }
 
-        public string ToString(int tabs = 0)
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
         {
-            var sb = new StringBuilder();
-            sb.AppendLineIndented(CentreOfMass.ToString(), tabs);
-            return sb.ToString();
-        }
+            new TooltipText(CentreOfMass.ToString())
+        };
     }
 }

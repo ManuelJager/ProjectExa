@@ -118,8 +118,10 @@ namespace Exa.Grids.Blocks
 
             public TemplateBundle()
             {
-                tooltip = new Tooltip(SelectTooltipComponents);
+                tooltip = new Tooltip(GetTooltipContainer);
             }
+
+            private TooltipContainer GetTooltipContainer() => new TooltipContainer(SelectTooltipComponents());
 
             private IEnumerable<ITooltipComponent> SelectTooltipComponents()
             {
