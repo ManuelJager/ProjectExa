@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a516d605b21754d45b3117a73fc4774d, type: 3}
-  m_Name: Autocannon
+  m_Script: {fileID: 11500000, guid: 5c3e5976c8f49134d8b10816d7c76254, type: 3}
+  m_Name: TwinAutocannon
   m_EditorClassIdentifier: 
-  id: Autocannon
-  displayId: Autocannon
+  id: TwinAutocannon
+  displayId: Twin Autocannon
   category: 64
   thumbnail: {fileID: 4028293609388341736, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
@@ -25,7 +25,9 @@ MonoBehaviour:
   physicalTemplatePartial:
     maxHull: 50
     armor: 15
-  turretTemplatePartial:
+    mass: 3000
+  autocannonTemplatePartial:
     turningRate: 100
     firingRate: 0.25
     damage: 40
+    cycleMode: 1

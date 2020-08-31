@@ -31,4 +31,5 @@ MonoBehaviour:
     },\r\n      \"5,3\":{\r\n         \"id\":\"SmallThruster\",\r\n         \"Rotation\":3\r\n     
     },\r\n      \"5,1\":{\r\n         \"id\":\"SmallThruster\",\r\n         \"flippedY\":true,\r\n        
     \"Rotation\":3\r\n      },\r\n      \"6,2\":{\r\n         \"id\":\"HeavyArmor\"\r\n     
-    },\r\n      \"2,2\":{\r\n         \"id\":\"Autocannon\"\r\n      }\r\n   }\r\n}"
+    },\r\n      \"2,2\":{\r\n         \"id\":\"TwinAutocannon\"\r\n      }\r\n  
+    }\r\n}"

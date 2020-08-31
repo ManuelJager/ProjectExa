@@ -44,6 +44,8 @@ namespace Exa.AI.Actions
                 }
             }
 
+            DebugString = $"Target: {shipAI.ship.GetInstanceString()}"; 
+
             if (closestDistance == float.MaxValue)
             {
                 enemyTarget = null;

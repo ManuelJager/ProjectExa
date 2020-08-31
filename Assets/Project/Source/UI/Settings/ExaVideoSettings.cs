@@ -14,13 +14,8 @@ namespace Exa.UI.Settings
     {
         public override VideoSettingsValues DefaultValues => new VideoSettingsValues
         {
-            resolution = new Resolution
-            {
-                height = Display.main.systemHeight,
-                width = Display.main.systemWidth,
-                refreshRate = 60
-            },
-            fullscreen = true
+            resolution = Screen.currentResolution,
+            fullscreen = false
         };
 
         public override void Load()
