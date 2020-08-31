@@ -1,4 +1,5 @@
 ﻿using Exa.Utils;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -54,6 +55,22 @@ namespace Exa.UI
         public void OnPointerExit(PointerEventData eventData)
         {
             TryExit();
+        }
+
+        public void ForceExit()
+        {
+            if (!mouseOverControl)
+            {
+                throw new InvalidOperationException("May not force exit the control when not selected");
+            }
+
+            mouseOverControl = false;
+            onPointerExit?.Invoke();
+
+            if (InvokeStateChange)
+            {
+                OnExit();
+            }
         }
 
         private void TryEnter()
