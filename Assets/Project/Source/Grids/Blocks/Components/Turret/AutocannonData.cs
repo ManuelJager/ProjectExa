@@ -32,7 +32,7 @@ namespace Exa.Grids.Blocks.Components
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
             new LabeledValue<string>("Turning rate", $"{turningRate}°/s"),
-            new LabeledValue<string>("Firing rate", $"{firingRate * 60} RPM"),
+            new LabeledValue<string>("Firing rate", $"{60 / firingRate} RPM"),
             new LabeledValue<string>("Damage", $"{damage}"),
             new LabeledValue<string>("Cycle mode", $"{cycleMode}")
         };
