@@ -27,22 +27,6 @@ namespace Exa.Bindings
             this.collection = collection;
         }
 
-        #region IList<TData> implementation
-
-        public T this[int index]
-        {
-            get => collection[index];
-            set
-            {
-                collection[index] = value;
-
-                foreach (var observer in Observers)
-                {
-                    observer.OnSet(index, value);
-                }
-            }
-        }
-
         public int Count => collection.Count;
 
         public bool IsReadOnly => false;
@@ -82,21 +66,6 @@ namespace Exa.Bindings
             return collection.GetEnumerator();
         }
 
-        public virtual int IndexOf(T item)
-        {
-            return collection.IndexOf(item);
-        }
-
-        public virtual void Insert(int index, T item)
-        {
-            collection.Insert(index, item);
-
-            foreach (var observer in Observers)
-            {
-                observer.OnInsert(index, item);
-            }
-        }
-
         public virtual bool Remove(T item)
         {
             var removed = collection.Remove(item);
@@ -112,22 +81,10 @@ namespace Exa.Bindings
             return removed;
         }
 
-        public virtual void RemoveAt(int index)
-        {
-            collection.RemoveAt(index);
-
-            foreach (var observer in Observers)
-            {
-                observer.OnRemoveAt(index);
-            }
-        }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return collection.GetEnumerator();
         }
-
-        #endregion IList<TData> implementation
 
         /// <summary>
         /// Add an observer to the observer collection

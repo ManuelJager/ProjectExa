@@ -4,6 +4,6 @@ namespace Exa.UI.Tooltips
 {
     public interface ITooltipComponent
     {
-        Component InstantiateComponentView(Transform parent);
+        TooltipComponentView InstantiateComponentView(Transform parent);
     }
 }

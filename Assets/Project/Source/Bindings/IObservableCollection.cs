@@ -7,13 +7,7 @@ namespace Exa.Bindings
     /// Provides
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IObservableCollection<T> :
-        ICollection<T>,
-        IEnumerable<T>,
-        IEnumerable,
-        IList<T>,
-        IReadOnlyCollection<T>,
-        IReadOnlyList<T>
+    public interface IObservableCollection<T> : ICollection<T>
     {
         List<ICollectionObserver<T>> Observers { get; }
 

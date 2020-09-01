@@ -607,6 +607,7 @@ MonoBehaviour:
       m_Calls: []
   invokeStateChangeOnHover: 1
   cursorState: 1
+  checkMouseInsideRectOnEnable: 1
 --- !u!1 &6343929331892565463
 GameObject:
   m_ObjectHideFlags: 0

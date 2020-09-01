@@ -40,7 +40,7 @@ namespace Exa.Grids.Blocks
         {
             var bundle = contextDict[blockContext][id];
             bundle.valuesAreDirty = true;
-            bundle.tooltip.IsDirty = true;
+            bundle.tooltip.ShouldRefresh = true;
         }
 
         public Tooltip GetTooltip(ShipContext blockContext, string id)
@@ -118,10 +118,10 @@ namespace Exa.Grids.Blocks
 
             public TemplateBundle()
             {
-                tooltip = new Tooltip(GetTooltipContainer);
+                tooltip = new Tooltip(GetTooltipGroup);
             }
 
-            private TooltipContainer GetTooltipContainer() => new TooltipContainer(SelectTooltipComponents());
+            private TooltipGroup GetTooltipGroup() => new TooltipGroup(SelectTooltipComponents());
 
             private IEnumerable<ITooltipComponent> SelectTooltipComponents()
             {

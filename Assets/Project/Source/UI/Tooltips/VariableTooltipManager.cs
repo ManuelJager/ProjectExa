@@ -7,7 +7,7 @@ namespace Exa.UI.Tooltips
 {
     public class VariableTooltipManager : MonoBehaviour
     {
-        public TooltipGenerator tooltipGenerator;
+        public TooltipFactory tooltipGenerator;
         public BlockTemplateTooltip blockTemplateTooltip;
         public BlueprintTypeTooltip blueprintTypeTooltip;
         public ShipDebugTooltip shipAIDebugTooltip;

@@ -4,9 +4,9 @@ namespace Exa.UI.Tooltips
 {
     public struct TooltipSpacer : ITooltipComponent
     {
-        public Component InstantiateComponentView(Transform parent)
+        public TooltipComponentView InstantiateComponentView(Transform parent)
         {
-            return Systems.UI.tooltips.tooltipGenerator.GenerateTooltipSpacer(parent);
+            return Systems.UI.tooltips.tooltipGenerator.GenerateTooltipSpacer(parent, this);
         }
     }
 }

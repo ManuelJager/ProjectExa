@@ -25,7 +25,7 @@ namespace Exa
         protected override void Awake()
         {
             base.Awake();
-            shipFactory.CreateFriendly("defaultScout", new Vector2(-20, 20));
+            shipFactory.CreateFriendly("motherScout", new Vector2(-20, 20));
             shipFactory.CreateFriendly("defaultMothership", new Vector2(0, -20));
 
             shipFactory.CreateEnemy("defaultScout", new Vector2(20, 20));

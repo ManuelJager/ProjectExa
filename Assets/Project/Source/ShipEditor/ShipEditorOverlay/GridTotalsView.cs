@@ -21,10 +21,10 @@ namespace Exa.ShipEditor
 
         private void Render(GridTotals totals)
         {
-            massView.Reflect(new LabeledValue<string>("Mass", $"{totals.Mass:0} KG"));
-            hullView.Reflect(new LabeledValue<string>("Hull", $"{totals.Hull:0}"));
-            peakPowerGenerationView.Reflect(new LabeledValue<string>("Energy", $"{totals.PowerGenerationModifier:0}"));
-            turningPower.Reflect(new LabeledValue<string>("Torque", $"{totals.TurningPowerModifier:0}"));
+            massView.Refresh(new LabeledValue<string>("Mass", $"{totals.Mass:0} KG"));
+            hullView.Refresh(new LabeledValue<string>("Hull", $"{totals.Hull:0}"));
+            peakPowerGenerationView.Refresh(new LabeledValue<string>("Energy", $"{totals.PowerGenerationModifier:0}"));
+            turningPower.Refresh(new LabeledValue<string>("Torque", $"{totals.TurningPowerModifier:0}"));
         }
     }
 }

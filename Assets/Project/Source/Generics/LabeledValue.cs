@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Exa.Generics
 {
-    public struct LabeledValue<T> : ITooltipComponent, ILabeledValue<T>, IEquatable<LabeledValue<T>>
+    public struct LabeledValue<T> : ILabeledValue<T>, IEquatable<LabeledValue<T>>
     {
         public string Label { get; set; }
         public T Value { get; set; }
@@ -22,16 +22,15 @@ namespace Exa.Generics
                 Value.Equals(other.Value);
         }
 
-        public Component InstantiateComponentView(Transform parent)
+        public TooltipComponentView InstantiateComponentView(Transform parent)
         {
-            var propertyView = Systems.UI.tooltips.tooltipGenerator.GenerateTooltipProperty(parent);
-            propertyView.Reflect(this);
-            return propertyView;
+            return Systems.UI.tooltips.tooltipGenerator.GenerateTooltipProperty(parent, this as ILabeledValue<object>);
         }
     }
 
-    public interface ILabeledValue<out T>
+    public interface ILabeledValue<out T> : ITooltipComponent
     {
+        string Label { get; }
         T Value { get; }
     }
 }

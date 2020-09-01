@@ -68,11 +68,6 @@ namespace Exa.Bindings
             views = new Dictionary<TContainer, TView>();
         }
 
-        public override void OnInsert(int index, TContainer observer)
-        {
-            throw new System.NotImplementedException();
-        }
-
         /// <summary>
         /// Remove view
         /// </summary>
@@ -82,16 +77,6 @@ namespace Exa.Bindings
             var view = views[observer];
             observer.Unregister(view);
             Destroy(view.gameObject);
-        }
-
-        public override void OnRemoveAt(int index)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void OnSet(int index, TContainer observer)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

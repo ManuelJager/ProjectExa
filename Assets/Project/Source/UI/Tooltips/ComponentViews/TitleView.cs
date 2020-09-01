@@ -1,18 +1,15 @@
 ﻿using Exa.UI.Components;
 using Exa.UI.Tooltips;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Exa.UI.Tooltips
 {
-    public class TitleView : MonoBehaviour
+    [Serializable]
+    public class TitleView : TooltipComponentView<TooltipTitle>
     {
         [SerializeField] private Text text;
-
-        public void Reflect(TooltipTitle data)
-        {
-            text.text = data.Text;
-        }
 
         public void SetFont(Font font)
         {
@@ -23,6 +20,11 @@ namespace Exa.UI.Tooltips
         {
             var animator = text.gameObject.AddComponent<UIAnimateable>();
             animator.msLocalAnimationOffset = 200f;
+        }
+
+        protected override void Refresh(TooltipTitle data)
+        {
+            text.text = data.Text;
         }
     }
 }

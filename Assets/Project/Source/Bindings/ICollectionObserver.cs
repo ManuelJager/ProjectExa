@@ -12,13 +12,6 @@
         IObservableCollection<T> Source { get; set; }
 
         /// <summary>
-        /// On replace model
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="item"></param>
-        void OnSet(int index, T item);
-
-        /// <summary>
         /// On add model
         /// </summary>
         /// <param name="data"></param>
@@ -30,22 +23,9 @@
         void OnClear();
 
         /// <summary>
-        /// On insert a model in the specified index
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="item"></param>
-        void OnInsert(int index, T item);
-
-        /// <summary>
         /// On remove a model
         /// </summary>
         /// <param name="data"></param>
         void OnRemove(T data);
-
-        /// <summary>
-        /// On remove a model in the specified index
-        /// </summary>
-        /// <param name="index"></param>
-        void OnRemoveAt(int index);
     }
 }

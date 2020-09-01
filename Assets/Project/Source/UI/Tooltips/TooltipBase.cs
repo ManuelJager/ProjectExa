@@ -2,7 +2,7 @@
 
 namespace Exa.UI.Tooltips
 {
-    public abstract class TooltipBase : MonoBehaviour
+    public abstract class TooltipView : MonoBehaviour
     {
         [SerializeField] protected RectTransform container;
 

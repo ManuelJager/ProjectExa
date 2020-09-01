@@ -55,7 +55,7 @@ namespace Exa.Ships
 
             if (debugTooltip != null)
             {
-                debugTooltip.IsDirty = true;
+                debugTooltip.ShouldRefresh = true;
             }
         }
 
@@ -145,21 +145,21 @@ namespace Exa.Ships
             return debugTooltip;
         }
 
-        private TooltipContainer GetDebugTooltipComponents() => new TooltipContainer(new ITooltipComponent[]
+        private TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(new ITooltipComponent[]
         {
             new TooltipTitle(GetInstanceString(), false),
             new TooltipSpacer(),
             new TooltipText("Blueprint:"),
-            new TooltipContainer(blueprint.GetDebugTooltipComponents(), 1),
+            new TooltipGroup(blueprint.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
             new TooltipText("BlockGrid:"),
-            new TooltipContainer(blockGrid.GetDebugTooltipComponents(), 1),
+            new TooltipGroup(blockGrid.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
             new TooltipText("State:"),
-            new TooltipContainer(state.GetDebugTooltipComponents(), 1),
+            new TooltipGroup(state.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
             new TooltipText("AI:"),
-            new TooltipContainer(shipAI.GetDebugTooltipComponents(), 1)
+            new TooltipGroup(shipAI.GetDebugTooltipComponents(), 1)
         });
     }
 }

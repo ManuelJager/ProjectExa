@@ -3,27 +3,29 @@ using UnityEngine;
 
 namespace Exa.UI.Tooltips
 {
+    // TODO: Support value refreshing, without destroying and instantiating ui objects
     public class Tooltip
     {
-        private Func<TooltipContainer> factory;
-        private TooltipContainer container;
-        public bool IsDirty { get; set; }
+        private Func<TooltipGroup> factory;
+        private TooltipGroup group;
+
+        public bool ShouldRefresh { get; set; }
         public Font Font { get; private set; }
 
-        public Tooltip(Func<TooltipContainer> factory, Font font = null)
+        public Tooltip(Func<TooltipGroup> factory, Font font = null)
         {
             this.factory = factory;
-            IsDirty = true;
+            ShouldRefresh = true;
             Font = font;
         }
 
-        public TooltipContainer GetContainer()
+        public TooltipGroup GetRootData()
         {
-            if (IsDirty)
+            if (ShouldRefresh)
             {
-                container = factory();
+                group = factory();
             }
-            return container;
+            return group;
         }
     }
 }
