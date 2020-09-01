@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks
 {
-    public enum BlockTemplatePrefabType
+    public enum PrefabType
     {
         inert,
         alive
@@ -13,7 +13,7 @@ namespace Exa.Grids.Blocks
 
     public class InertBlockPoolGroup : BlockPoolGroupBase
     {
-        protected override BlockTemplatePrefabType PrefabType => BlockTemplatePrefabType.inert; 
+        protected override PrefabType PrefabType => PrefabType.inert; 
 
         /// <summary>
         /// Creates an inert block prefab on this group

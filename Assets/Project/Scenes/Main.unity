@@ -708,6 +708,21 @@ PrefabInstance:
       propertyPath: m_ChildForceExpandWidth
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6965219600009126161, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_Name
+      value: BlueprintSelectorOwner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6965219600009126161, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6965219600009126161, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7563839883208159963, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_AnchorMin.y

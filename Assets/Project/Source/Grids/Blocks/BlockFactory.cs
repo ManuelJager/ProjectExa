@@ -70,45 +70,38 @@ namespace Exa.Grids.Blocks
         /// <param name="blockTemplate"></param>
         private IEnumerator RegisterBlockTemplate(BlockTemplate blockTemplate)
         {
-            availibleBlockTemplates.Add(new BlockTemplateContainer(blockTemplate));
-
             if (blockTemplatesDict.ContainsKey(blockTemplate.id))
             {
                 throw new Exception("Duplicate block id found");
             }
 
-            valuesStore.Register(ShipContext.DefaultGroup, blockTemplate);
-            valuesStore.Register(ShipContext.UserGroup, blockTemplate);
-            valuesStore.Register(ShipContext.EnemyGroup, blockTemplate);
-
+            availibleBlockTemplates.Add(new BlockTemplateContainer(blockTemplate));
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
             yield return null;
-            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate, ShipContext.DefaultGroup);
-            yield return null;
-            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate, ShipContext.UserGroup);
-            yield return null;
-            enemyPrefabGroup.CreateAlivePrefabGroup(blockTemplate, ShipContext.EnemyGroup);
-            yield return null;
+
+            foreach (var context in GetContexts())
+            {
+                valuesStore.Register(context, blockTemplate);
+                GetGroup(context).CreateAlivePrefabGroup(blockTemplate, context);
+                yield return null;
+            }
         }
 
         private AliveBlockPoolGroup GetGroup(ShipContext blockContext)
         {
-            switch (blockContext)
-            {
-                case ShipContext n when n.Is(ShipContext.DefaultGroup):
-                    return defaultPrefabGroup;
+            return blockContext.Is(ShipContext.DefaultGroup) ? defaultPrefabGroup
+                : blockContext.Is(ShipContext.UserGroup) ? userPrefabGroup
+                : blockContext.Is(ShipContext.EnemyGroup) ? enemyPrefabGroup
+                : null;
+        }
 
-                case ShipContext n when n.Is(ShipContext.UserGroup):
-                    return userPrefabGroup;
-
-                case ShipContext n when n.Is(ShipContext.EnemyGroup):
-                    return enemyPrefabGroup;
-
-                default:
-                    return null;
-            }
+        private IEnumerable<ShipContext> GetContexts()
+        {
+            yield return ShipContext.DefaultGroup;
+            yield return ShipContext.UserGroup;
+            yield return ShipContext.EnemyGroup;
         }
     }
 }

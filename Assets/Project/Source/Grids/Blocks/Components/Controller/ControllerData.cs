@@ -24,9 +24,9 @@ namespace Exa.Grids.Blocks.Components
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
-            new LabeledValue<string>("Power generation", $"{powerGeneration} KW"),
-            new LabeledValue<string>("Power consumption", $"{powerConsumption} KW"),
-            new LabeledValue<string>("Power storage", $"{powerStorage} KJ"),
+            new LabeledValue<string>("Generation", $"{powerGeneration} KW"),
+            new LabeledValue<string>("Consumption", $"{powerConsumption} KW"),
+            new LabeledValue<string>("Storage", $"{powerStorage} KJ"),
             new LabeledValue<string>("Turning rate", $"{turningRate}"),
             new LabeledValue<string>("Directional force", $"{directionalForce} N")
         };

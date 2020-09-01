@@ -19,9 +19,8 @@ namespace Exa.Grids.Blocks
         public void Register(ShipContext blockContext, BlockTemplate blockTemplate)
         {
             var templateDict = EnsureCreated(blockContext);
-            var id = blockTemplate.id;
 
-            if (templateDict.ContainsKey(id))
+            if (templateDict.ContainsKey(blockTemplate))
             {
                 throw new ArgumentException("Block template with given Id is already registered");
             }
@@ -33,25 +32,24 @@ namespace Exa.Grids.Blocks
                 valuesAreDirty = false
             };
 
-            templateDict.Add(id, bundle);
+            templateDict.Add(blockTemplate, bundle);
         }
 
-        public void SetDirty(ShipContext blockContext, string id)
+        public void SetDirty(ShipContext blockContext, BlockTemplate blockTemplate)
         {
-            var bundle = contextDict[blockContext][id];
+            var bundle = contextDict[blockContext][blockTemplate];
             bundle.valuesAreDirty = true;
             bundle.tooltip.ShouldRefresh = true;
         }
 
-        public Tooltip GetTooltip(ShipContext blockContext, string id)
+        public Tooltip GetTooltip(ShipContext blockContext, BlockTemplate blockTemplate)
         {
-            return contextDict[blockContext][id].tooltip;
+            return contextDict[blockContext][blockTemplate].tooltip;
         }
 
-        public void SetValues(ShipContext blockContext, string id, Block block)
+        public void SetValues(ShipContext blockContext, BlockTemplate blockTemplate, Block block)
         {
-            var templateDict = contextDict[blockContext];
-            var bundle = templateDict[id];
+            var bundle = contextDict[blockContext][blockTemplate];
 
             if (bundle.valuesAreDirty)
             {
@@ -92,7 +90,7 @@ namespace Exa.Grids.Blocks
             return contextDict[blockContext];
         }
 
-        private class BundleDictionary : Dictionary<string, TemplateBundle>
+        private class BundleDictionary : Dictionary<BlockTemplate, TemplateBundle>
         {
         }
 

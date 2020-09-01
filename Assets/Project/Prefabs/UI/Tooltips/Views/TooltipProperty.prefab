@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8627451, g: 0.8627451, b: 0.8627451, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 6228571799257515533}
   - component: {fileID: 6686136345054778047}
   - component: {fileID: 987773853525342457}
-  - component: {fileID: 4622038966046284500}
+  - component: {fileID: 4971312076097552230}
   m_Layer: 5
   m_Name: TooltipProperty
   m_TagString: Untagged
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyText: {fileID: 438599937416983596}
   valueText: {fileID: 3942644137778613017}
---- !u!114 &4622038966046284500
+--- !u!114 &4971312076097552230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

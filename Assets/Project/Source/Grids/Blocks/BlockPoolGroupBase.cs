@@ -14,7 +14,7 @@ namespace Exa.Grids.Blocks
 
         [SerializeField] private PoolSettings defaultPoolSettings;
 
-        protected abstract BlockTemplatePrefabType PrefabType { get; }
+        protected abstract PrefabType PrefabType { get; }
 
         public GameObject GetInactiveBlock(string id, Transform parent)
         {
@@ -31,7 +31,7 @@ namespace Exa.Grids.Blocks
         /// <param name="blockTemplate"></param>
         /// <param name="inert"></param>
         /// <returns></returns>
-        protected GameObject CreatePrefab(BlockTemplate blockTemplate, BlockTemplatePrefabType prefabType)
+        protected GameObject CreatePrefab(BlockTemplate blockTemplate, PrefabType prefabType)
         {
             var prefab = GetBasePrefab(blockTemplate, prefabType);
             var instance = Instantiate(prefab, transform);
@@ -54,14 +54,14 @@ namespace Exa.Grids.Blocks
             return pool;
         }
 
-        private GameObject GetBasePrefab(BlockTemplate blockTemplate, BlockTemplatePrefabType prefabType)
+        private GameObject GetBasePrefab(BlockTemplate blockTemplate, PrefabType prefabType)
         {
             switch (prefabType)
             {
-                case BlockTemplatePrefabType.inert:
+                case PrefabType.inert:
                     return blockTemplate.inertPrefab;
 
-                case BlockTemplatePrefabType.alive:
+                case PrefabType.alive:
                     return blockTemplate.alivePrefab;
 
                 default:

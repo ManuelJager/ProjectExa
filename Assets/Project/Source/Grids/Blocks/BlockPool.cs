@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks
         {
             var member = base.Retrieve();
             var block = member.block;
-            Systems.Blocks.valuesStore.SetValues(blockContext, blockTemplate.id, block);
+            Systems.Blocks.valuesStore.SetValues(blockContext, blockTemplate, block);
             return member;
         }
 

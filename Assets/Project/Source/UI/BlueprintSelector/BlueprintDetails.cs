@@ -14,7 +14,7 @@ namespace Exa.UI
         [SerializeField] private PropertyView blockCountView;
         [SerializeField] private PropertyView sizeView;
         [SerializeField] private PropertyView massView;
-        [SerializeField] private PropertyView peakPowerGenerationView;
+        [SerializeField] private PropertyView energyView;
 
         public void Reflect(Blueprint blueprint)
         {
@@ -38,31 +38,12 @@ namespace Exa.UI
             }
 
             nameText.text = blueprint.name;
-
-            blockCountView.Refresh(new LabeledValue<string>
-            {
-                Label = "Blocks",
-                Value = blueprint.Blocks.GetMemberCount().ToString()
-            });
-
             var size = blueprint.Blocks.Size.Value;
-            sizeView.Refresh(new LabeledValue<string>
-            {
-                Label = "Size",
-                Value = $"{size.x}x{size.y}"
-            });
 
-            massView.Refresh(new LabeledValue<string>
-            {
-                Label = "Mass",
-                Value = $"{blueprint.Blocks.Totals.Mass / 1000f:0} Tons"
-            });
-
-            peakPowerGenerationView.Refresh(new LabeledValue<string>
-            {
-                Label = "Power generation",
-                Value = $"{blueprint.Blocks.Totals.PowerGeneration:0} KW"
-            });
+            blockCountView.SetValue(blueprint.Blocks.GetMemberCount());
+            sizeView.SetValue($"{size.x}x{size.y}");
+            massView.SetValue($"{blueprint.Blocks.Totals.Mass / 1000f:0} Tons");
+            energyView.SetValue($"{blueprint.Blocks.Totals.PowerGeneration:0} KW");
         }
 
         private void OnEnable()

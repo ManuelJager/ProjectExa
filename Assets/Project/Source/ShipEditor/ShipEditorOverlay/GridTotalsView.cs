@@ -10,7 +10,7 @@ namespace Exa.ShipEditor
         [Header("References")]
         [SerializeField] private PropertyView massView;
         [SerializeField] private PropertyView hullView;
-        [SerializeField] private PropertyView peakPowerGenerationView;
+        [SerializeField] private PropertyView energyView;
         [SerializeField] private PropertyView turningPower;
 
         public void Update()
@@ -21,10 +21,10 @@ namespace Exa.ShipEditor
 
         private void Render(GridTotals totals)
         {
-            massView.Refresh(new LabeledValue<string>("Mass", $"{totals.Mass:0} KG"));
-            hullView.Refresh(new LabeledValue<string>("Hull", $"{totals.Hull:0}"));
-            peakPowerGenerationView.Refresh(new LabeledValue<string>("Energy", $"{totals.PowerGenerationModifier:0}"));
-            turningPower.Refresh(new LabeledValue<string>("Torque", $"{totals.TurningPowerModifier:0}"));
+            massView.SetValue($"{totals.Mass:0} KG");
+            hullView.SetValue($"{totals.Hull:0}");
+            energyView.SetValue($"{totals.PowerGenerationModifier:0}");
+            turningPower.SetValue($"{totals.TurningPowerModifier:0}");
         }
     }
 }

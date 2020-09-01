@@ -18,6 +18,11 @@ namespace Exa.UI.Tooltips
             valueText.font = font;
         }
 
+        public void SetValue(object value)
+        {
+            valueText.text = value.ToString();
+        }
+
         protected override void Refresh(ILabeledValue<object> labeledValue)
         {
             keyText.text = labeledValue.Label;

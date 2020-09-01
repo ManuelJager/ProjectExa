@@ -4,7 +4,7 @@ namespace Exa.Grids.Blocks
 {
     public class AliveBlockPoolGroup : BlockPoolGroupBase
     {
-        protected override BlockTemplatePrefabType PrefabType => BlockTemplatePrefabType.alive;
+        protected override PrefabType PrefabType => PrefabType.alive;
 
         /// <summary>
         /// Creates an alive prefab on this group.

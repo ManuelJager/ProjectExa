@@ -1234,21 +1234,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3252290418631415401, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.078431375
-      objectReference: {fileID: 0}
-    - target: {fileID: 3252290418631415401, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.078431375
-      objectReference: {fileID: 0}
-    - target: {fileID: 3252290418631415401, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.11764706
-      objectReference: {fileID: 0}
     - target: {fileID: 3376785686518237414, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1536,33 +1521,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5884525049298447935, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5884525049298447935, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5884525049298447935, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
-        type: 3}
-      propertyPath: m_AnchorMin.y
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5998593450497219900, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5998593450497219900, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5998593450497219900, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -20
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6143364050457924303, guid: 6dcacaa133fbe944c8903baf6dd2a0ee,
         type: 3}

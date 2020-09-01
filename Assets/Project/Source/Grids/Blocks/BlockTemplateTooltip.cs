@@ -5,10 +5,10 @@ namespace Exa.Grids.Blocks
 {
     public class BlockTemplateTooltip : TooltipView
     {
-        public void Show(ShipContext shipContext, string id)
+        public void Show(ShipContext shipContext, BlockTemplate blockTemplate)
         {
             gameObject.SetActive(true);
-            var tooltip = Systems.Blocks.valuesStore.GetTooltip(shipContext, id);
+            var tooltip = Systems.Blocks.valuesStore.GetTooltip(shipContext, blockTemplate);
             Systems.UI.tooltips.tooltipGenerator.CreateRootView(tooltip, container);
             SetContainerPosition();
         }
