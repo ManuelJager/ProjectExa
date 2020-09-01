@@ -19,7 +19,7 @@ namespace Exa.Grids.Blocks.Components
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
-            new LabeledValue<string>("Thrust", $"{thrust} %")
+            new LabeledValue<string>("Thrust", $"{thrust}")
         };
     }
 }

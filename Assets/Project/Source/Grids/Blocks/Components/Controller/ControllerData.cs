@@ -28,7 +28,7 @@ namespace Exa.Grids.Blocks.Components
             new LabeledValue<string>("Consumption", $"{powerConsumption} KW"),
             new LabeledValue<string>("Storage", $"{powerStorage} KJ"),
             new LabeledValue<string>("Turning rate", $"{turningRate}"),
-            new LabeledValue<string>("Directional force", $"{directionalForce} N")
+            new LabeledValue<string>("Thrust", $"{directionalForce} N")
         };
     }
 }
