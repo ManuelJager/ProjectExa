@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 1129475341720404000}
   - component: {fileID: 8714678710057436949}
   - component: {fileID: 4246544794668748127}
-  - component: {fileID: 4523544312057797766}
-  - component: {fileID: 5077528517824424536}
+  - component: {fileID: 6644560729486729102}
+  - component: {fileID: 6788651837707687535}
   m_Layer: 8
   m_Name: Ship
   m_TagString: Untagged
@@ -106,13 +106,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   continouslyApplySettings: 1
-  qProportionalBase: 30
-  qIntegral: 0.01
-  qDerivitive: 0.15
+  qProportionalBase: 50
+  qIntegral: 2
+  qDerivitive: 5
   pProportional: 2
   pDerivitive: 5
   maxVel: 50
---- !u!58 &4523544312057797766
+--- !u!50 &6644560729486729102
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &6788651837707687535
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,24 +149,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!50 &5077528517824424536
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907754239003912354}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

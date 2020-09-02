@@ -12,13 +12,11 @@ namespace Exa.Ships.Navigations
         public Ship ship;
         public ThrustVectors thrustVectors;
 
-        private PidQuaternionController pidQuaternionController;
-        //private PidAngleController angleController;
-        private PdVector2Controller pdVector2Controller;
-        private ThrusterFireAction thrusterFireAction;
-        private NavigationOptions options;
+        private readonly PidQuaternionController pidQuaternionController;
+        private readonly PdVector2Controller pdVector2Controller;
+        private readonly ThrusterFireAction thrusterFireAction;
+        private readonly NavigationOptions options;
 
-        // NOTE: Replace this by a target interface
         private ITarget lookTarget = null;
         private ITarget moveTarget = null;
         private float angleHint = 0f;
@@ -151,7 +149,7 @@ namespace Exa.Ships.Navigations
                 options.transform.rotation,
                 desiredOrientation,
                 currentAngularVelocity,
-                Time.fixedDeltaTime).z * Mathf.Rad2Deg;
+                Time.fixedDeltaTime).z;
 
             ship.rb.AddTorque(requiredAngularAcceleration, ForceMode2D.Force);
         }

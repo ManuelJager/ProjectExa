@@ -19,12 +19,12 @@ namespace Exa.Ships
     public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter
     {
         [Header("References")]
+        public Transform pivot;
         public ShipAI shipAI;
         public ShipState state;
         public Rigidbody2D rb;
-        public Transform pivot;
+        public CircleCollider2D mouseOverCollider;
         public NavigationOptions navigationOptions;
-        [SerializeField] protected CircleCollider2D mouseOverCollider;
 
         [Header("Settings")]
         public float canvasScaleMultiplier = 1f;

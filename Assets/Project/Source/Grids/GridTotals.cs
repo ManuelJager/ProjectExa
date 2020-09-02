@@ -19,58 +19,58 @@ namespace Exa.Grids
         private Percentage powerStorageModifier = new Percentage(1);
         private Percentage turningPowerModifier = new Percentage(1);
 
-        public long Mass
+        public virtual long Mass
         {
             get => mass;
             set => mass = value;
         }
 
-        public float Hull
+        public virtual float Hull
         {
             get => hull;
             set => hull = value;
         }
 
-        public Percentage PowerGenerationModifier
+        public virtual Percentage PowerGenerationModifier
         {
             get => powerGenerationModifier;
             set => powerGenerationModifier = value;
         }
 
-        public Percentage PowerConsumptionModifier
+        public virtual Percentage PowerConsumptionModifier
         {
             get => peakPowerConsumptionModifier;
             set => peakPowerConsumptionModifier = value;
         }
 
-        public Percentage PowerStorageModifier
+        public virtual Percentage PowerStorageModifier
         {
             get => powerStorageModifier;
             set => powerStorageModifier = value;
         }
 
-        public Percentage TurningPowerModifier
+        public virtual Percentage TurningPowerModifier
         {
             get => turningPowerModifier;
             set => turningPowerModifier = value;
         }
 
-        public float PowerGeneration
+        public virtual float PowerGeneration
         {
             get => PowerGenerationModifier.GetValue(controllerData.powerGeneration);
         }
 
-        public float PowerConsumption
+        public virtual float PowerConsumption
         {
             get => PowerConsumptionModifier.GetValue(controllerData.powerConsumption);
         }
 
-        public float PowerStorage
+        public virtual float PowerStorage
         {
             get => PowerStorageModifier.GetValue(controllerData.powerStorage);
         }
 
-        public float TurningPower
+        public virtual float TurningPower
         {
             get => TurningPowerModifier.GetValue(controllerData.turningRate);
         }

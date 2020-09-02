@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipAI: {fileID: 4619018923079872921}
   state: {fileID: 3983008322526082732}
-  rb: {fileID: 703053723057937377}
+  rb: {fileID: 1405270612991307319}
   pivot: {fileID: 4789156142645388778}
   navigationOptions: {fileID: 8455648041380527334}
-  mouseOverCollider: {fileID: 8174144923583704383}
+  mouseOverCollider: {fileID: 1261179465907300310}
   canvasScaleMultiplier: 1
   shipDebugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
   onHoverState: 1
@@ -97,6 +97,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3939905641687402070, guid: c338b1f640f93a541a625245831a6e85,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5955771735733772327, guid: c338b1f640f93a541a625245831a6e85,
         type: 3}
       propertyPath: ship
@@ -158,15 +163,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb6d5e7b3de0924296a6e549ee48670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &8174144923583704383 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4523544312057797766, guid: c338b1f640f93a541a625245831a6e85,
+--- !u!50 &1405270612991307319 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6644560729486729102, guid: c338b1f640f93a541a625245831a6e85,
     type: 3}
   m_PrefabInstance: {fileID: 5743988287613530553}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &703053723057937377 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 5077528517824424536, guid: c338b1f640f93a541a625245831a6e85,
+--- !u!58 &1261179465907300310 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6788651837707687535, guid: c338b1f640f93a541a625245831a6e85,
     type: 3}
   m_PrefabInstance: {fileID: 5743988287613530553}
   m_PrefabAsset: {fileID: 0}
