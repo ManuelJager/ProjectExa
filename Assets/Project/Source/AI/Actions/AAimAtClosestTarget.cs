@@ -14,7 +14,7 @@ namespace Exa.AI.Actions
         private Ship enemyTarget = null;
         private float detectionRadius;
 
-        public AAimAtClosestTarget(ShipAI shipAI, float detectionRadius)
+        internal AAimAtClosestTarget(ShipAI shipAI, float detectionRadius)
             : base(shipAI)
         {
             this.detectionRadius = detectionRadius;

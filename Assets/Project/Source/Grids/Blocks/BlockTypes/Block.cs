@@ -29,7 +29,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public Ship Ship
         {
-            protected get => ship;
+            get => ship;
             set
             {
                 if (ship == value) return;

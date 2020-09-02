@@ -2,6 +2,7 @@
 using UnityEngine.Experimental.Rendering.Universal;
 using DG.Tweening;
 using Exa.Utils;
+using Exa.Grids.Blocks;
 
 namespace Exa.Weapons
 {
@@ -25,10 +26,11 @@ namespace Exa.Weapons
             StopAllCoroutines();
         }
 
-        public void Setup(float animTime)
+        public void Setup(float animTime, ShipContext damageMask)
         {
             this.animTime = animTime;
             barrelAnimator["BarrelAnimation"].speed = 1f / animTime;
+            firingPoint.Setup(damageMask);
         }
 
         public void Fire(float damage)

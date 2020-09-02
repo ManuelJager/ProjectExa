@@ -5,11 +5,11 @@ namespace Exa.Ships
 {
     public class ShipGridTotals : GridTotals
     {
-        private Rigidbody rb;
+        private Ship ship;
 
-        public ShipGridTotals(Rigidbody rb)
+        public ShipGridTotals(Ship ship)
         {
-            this.rb = rb;
+            this.ship = ship;
         }
 
         public new long Mass
@@ -17,7 +17,7 @@ namespace Exa.Ships
             get => base.Mass;
             set
             {
-                rb.mass = value / 1000f;
+                ship.rb.mass = value / 1000f;
                 base.Mass = value;
             }
         }

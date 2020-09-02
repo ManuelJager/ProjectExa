@@ -6,7 +6,7 @@ namespace Exa.Ships
     {
         protected override void Update()
         {
-            Root.Refresh(tooltip.GetRootData());
+            Root?.Refresh(tooltip.GetRootData());
 
             base.Update();
         }

@@ -23,7 +23,7 @@ namespace Exa.AI.Actions
         private List<Ship> neighbourCache;
         private AAvoidCollisionSettings settings;
 
-        public AAvoidCollision(ShipAI shipAI, AAvoidCollisionSettings settings) 
+        internal AAvoidCollision(ShipAI shipAI, AAvoidCollisionSettings settings) 
             : base(shipAI)
         {
             this.settings = settings;
@@ -32,7 +32,7 @@ namespace Exa.AI.Actions
         public override ActionLane Update(ActionLane blockedLanes)
         {
             var globalPos = shipAI.transform.position.ToVector2();
-            var currentVel = shipAI.ship.rigidbody.velocity.ToVector2();
+            var currentVel = shipAI.ship.rb.velocity;
             var headingVector = currentVel.normalized;
 
             foreach (var neighbour in neighbourCache)

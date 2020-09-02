@@ -58,7 +58,7 @@ namespace Exa.Ships
             var finalForce = MathUtils.Rotate(calculatedLocalForce, tempValues.rotationAngle);
             ship.navigation.thrustVectors.Fire(calculatedLocalForce, deltaTime);
 
-            ship.rigidbody.AddForce(finalForce, ForceMode.Force);
+            ship.rb.AddForce(finalForce, ForceMode2D.Force);
         }
 
         private struct TempValues

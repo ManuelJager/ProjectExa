@@ -1,4 +1,7 @@
-﻿using Exa.Math;
+﻿using Exa.Grids.Blocks;
+using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
+using Exa.Math;
 using UnityEngine;
 
 namespace Exa.Weapons
@@ -8,15 +11,16 @@ namespace Exa.Weapons
         private Vector2 direction;
         private float damage;
         private float lifeTime;
+        private ShipContext damageMask;
         private float timeAlive;
 
-        public void Setup(Vector2 position, Vector2 direction, float damage, float lifeTime)
+        public void Setup(Transform transform, float speed, float range, float damage, ShipContext damageMask)
         {
-            transform.position = position;
-
-            this.direction = direction;
+            this.transform.position = transform.position;
             this.damage = damage;
-            this.lifeTime = lifeTime;
+            this.direction = transform.right * speed;
+            this.lifeTime = range / speed;
+            this.damageMask = damageMask;
         }
 
         public void Update()
@@ -28,7 +32,19 @@ namespace Exa.Weapons
 
             if (timeAlive > lifeTime)
             {
-                Destroy(this);
+                Destroy(gameObject);
+            }
+        }
+
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+            var block = collision.transform.GetComponent<Block>();
+            if (!block) return;
+            
+            if ((block.Ship.BlockContext & damageMask) != 0)
+            {
+                var physicalBehaviour = (block as IBehaviourMarker<PhysicalData>).Component as PhysicalBehaviour;
+                physicalBehaviour.TakeDamage(damage);
             }
         }
     }

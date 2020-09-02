@@ -8,7 +8,7 @@ namespace Exa.AI
 
         public ITarget Target { get; set; } = null;
 
-        public ALookAtTarget(ShipAI shipAI)
+        internal ALookAtTarget(ShipAI shipAI)
             : base(shipAI)
         {
         }

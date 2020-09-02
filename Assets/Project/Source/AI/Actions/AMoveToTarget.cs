@@ -10,7 +10,7 @@ namespace Exa.AI.Actions
 
         public ITarget Target { get; set; } = null;
 
-        public AMoveToTarget(ShipAI shipAI)
+        internal AMoveToTarget(ShipAI shipAI)
             : base(shipAI)
         {
         }

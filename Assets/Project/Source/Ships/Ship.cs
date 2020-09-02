@@ -6,6 +6,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Math;
 using Exa.Ships.Navigations;
+using Exa.UI;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
@@ -20,19 +21,22 @@ namespace Exa.Ships
         [Header("References")]
         public ShipAI shipAI;
         public ShipState state;
-        public new Rigidbody rigidbody;
+        public Rigidbody2D rb;
         public Transform pivot;
         public NavigationOptions navigationOptions;
+        [SerializeField] protected CircleCollider2D mouseOverCollider;
 
         [Header("Settings")]
         public float canvasScaleMultiplier = 1f;
         public Font shipDebugFont;
+        [SerializeField] private CursorState onHoverState;
 
         [HideInInspector] public ShipOverlay overlay;
         public ShipNavigation navigation;
         public BlockGrid blockGrid;
         protected Blueprint blueprint;
         private Tooltip debugTooltip;
+        private CursorOverride cursorOverride;
 
         [Header("Events")]
         public UnityEvent destroyEvent = new UnityEvent();
@@ -46,6 +50,7 @@ namespace Exa.Ships
         protected virtual void Awake()
         {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
+            cursorOverride = new CursorOverride(onHoverState, this);
         }
 
         private void FixedUpdate()
@@ -78,6 +83,9 @@ namespace Exa.Ships
             Turrets = new TurretList();
             BlockContext = blockContext;
 
+            var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
+            mouseOverCollider.radius = radius;
+
             var template = blueprint.Blocks.Controller.BlueprintBlock.Template as ControllerTemplate;
             var controllerValues = template.controllerTemplatePartial.Convert();
             navigation = new ShipNavigation(this, navigationOptions, controllerValues.directionalForce);
@@ -99,6 +107,7 @@ namespace Exa.Ships
         public virtual void OnRaycastEnter()
         {
             overlay.overlayCircle.IsHovered = true;
+            Systems.UI.mouseCursor.AddOverride(cursorOverride);
 
             if (Systems.IsDebugging(DebugMode.Ships))
             {
@@ -109,6 +118,7 @@ namespace Exa.Ships
         public virtual void OnRaycastExit()
         {
             overlay.overlayCircle.IsHovered = false;
+            Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
 
             if (Systems.IsDebugging(DebugMode.Ships))
             {

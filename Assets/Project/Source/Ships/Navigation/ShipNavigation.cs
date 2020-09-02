@@ -13,6 +13,7 @@ namespace Exa.Ships.Navigations
         public ThrustVectors thrustVectors;
 
         private PidQuaternionController pidQuaternionController;
+        //private PidAngleController angleController;
         private PdVector2Controller pdVector2Controller;
         private ThrusterFireAction thrusterFireAction;
         private NavigationOptions options;
@@ -29,6 +30,7 @@ namespace Exa.Ships.Navigations
 
             thrustVectors = new ThrustVectors(directionalThrust);
             pidQuaternionController = new PidQuaternionController(options.qProportionalBase, options.qIntegral, options. qDerivitive);
+            //angleController = new PidAngleController(options.qProportionalBase, options.qIntegral, options.qDerivitive);
             pdVector2Controller = new PdVector2Controller(options.pProportional, options.pDerivitive, options.maxVel);
             thrusterFireAction = new ThrusterFireAction(ship);
 
@@ -42,8 +44,8 @@ namespace Exa.Ships.Navigations
         {
             if (options.continouslyApplySettings)
             {
-                pidQuaternionController.Integral = options.qIntegral;
-                pidQuaternionController.Derivitive = options.qDerivitive;
+                //pidQuaternionController.Integral = options.qIntegral;
+                //pidQuaternionController.Derivitive = options.qDerivitive;
 
                 pdVector2Controller.Proportional = options.pProportional;
                 pdVector2Controller.Derivitive = options.pDerivitive;
@@ -56,6 +58,7 @@ namespace Exa.Ships.Navigations
 
         public void SetTurningMultiplier(float rate)
         {
+            //angleController.Proportional = options.qProportionalBase * rate;
             pidQuaternionController.Proportional = options.qProportionalBase * rate;
         }
 
@@ -93,10 +96,10 @@ namespace Exa.Ships.Navigations
             var acceleration = pdVector2Controller.CalculateRequiredVelocity(
                 options.transform.position,
                 targetPosition,
-                ship.rigidbody.velocity);
+                ship.rb.velocity);
 
             // NOTE: Clamping the acceleration will usually result in drifting if the side thrusters aren't as powerful
-            thrusterFireAction.Update(acceleration * ship.rigidbody.mass);
+            thrusterFireAction.Update(acceleration * ship.rb.mass);
         }
 
         /// <summary>
@@ -141,14 +144,16 @@ namespace Exa.Ships.Navigations
         {
             var desiredOrientation = Quaternion.Euler(0, 0, angle);
 
-            // Calculate the angular acceleration 
-            var angularAcceleration = pidQuaternionController.ComputeRequiredAngularAcceleration(
+            var currentAngularVelocity = new Vector3(0, 0, ship.rb.angularVelocity * Mathf.Deg2Rad);
+
+            // Calculate the angular acceleration
+            var requiredAngularAcceleration = pidQuaternionController.ComputeRequiredAngularAcceleration(
                 options.transform.rotation,
                 desiredOrientation,
-                ship.rigidbody.angularVelocity,
-                Time.fixedDeltaTime);
+                currentAngularVelocity,
+                Time.fixedDeltaTime).z * Mathf.Rad2Deg;
 
-            ship.rigidbody.AddTorque(angularAcceleration, ForceMode.Acceleration);
+            ship.rb.AddTorque(requiredAngularAcceleration, ForceMode2D.Force);
         }
     }
-}
+}   

@@ -1,21 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!58 &6256243013809764537
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6183172587043395867}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &2479367940092683939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipAI: {fileID: 4619018923079872921}
   state: {fileID: 3983008322526082732}
-  rigidbody: {fileID: 2136169987671370866}
+  rb: {fileID: 703053723057937377}
   pivot: {fileID: 4789156142645388778}
   navigationOptions: {fileID: 8455648041380527334}
+  mouseOverCollider: {fileID: 8174144923583704383}
   canvasScaleMultiplier: 1
   shipDebugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
+  onHoverState: 1
   overlay: {fileID: 0}
   destroyEvent:
     m_PersistentCalls:
       m_Calls: []
-  mouseOverCollider: {fileID: 6256243013809764537}
 --- !u!1001 &5743988287613530553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,12 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbac3dbbc1c2fcc42874dd2c059632be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &2136169987671370866 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 5914226467058081227, guid: c338b1f640f93a541a625245831a6e85,
-    type: 3}
-  m_PrefabInstance: {fileID: 5743988287613530553}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8455648041380527334 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4246544794668748127, guid: c338b1f640f93a541a625245831a6e85,
@@ -179,6 +158,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb6d5e7b3de0924296a6e549ee48670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &8174144923583704383 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4523544312057797766, guid: c338b1f640f93a541a625245831a6e85,
+    type: 3}
+  m_PrefabInstance: {fileID: 5743988287613530553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &703053723057937377 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 5077528517824424536, guid: c338b1f640f93a541a625245831a6e85,
+    type: 3}
+  m_PrefabInstance: {fileID: 5743988287613530553}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4789156142645388778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 990860952733176915, guid: c338b1f640f93a541a625245831a6e85,

@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks.Components
 
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
     {
-        public void TakeDamage(float damage, ref PhysicalData data)
+        public void TakeDamage(float damage)
         {
             var trueDamage = damage - data.armor;
 

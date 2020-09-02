@@ -30,4 +30,4 @@ MonoBehaviour:
     turningRate: 100
     firingRate: 0.25
     damage: 40
-    cycleMode: 1
+    cycleMode: 0

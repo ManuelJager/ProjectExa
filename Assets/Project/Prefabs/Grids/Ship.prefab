@@ -41,8 +41,9 @@ GameObject:
   - component: {fileID: 1907754239003912359}
   - component: {fileID: 1129475341720404000}
   - component: {fileID: 8714678710057436949}
-  - component: {fileID: 5914226467058081227}
   - component: {fileID: 4246544794668748127}
+  - component: {fileID: 4523544312057797766}
+  - component: {fileID: 5077528517824424536}
   m_Layer: 8
   m_Name: Ship
   m_TagString: Untagged
@@ -92,22 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 0}
---- !u!54 &5914226467058081227
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907754239003912354}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &4246544794668748127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb6d5e7b3de0924296a6e549ee48670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 5914226467058081227}
   continouslyApplySettings: 1
   qProportionalBase: 30
   qIntegral: 0.01
@@ -128,3 +112,40 @@ MonoBehaviour:
   pProportional: 2
   pDerivitive: 5
   maxVel: 50
+--- !u!58 &4523544312057797766
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &5077528517824424536
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

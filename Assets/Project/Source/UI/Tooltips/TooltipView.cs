@@ -3,7 +3,7 @@ using System;
 
 namespace Exa.UI.Tooltips
 {
-    public abstract class TooltipView<T> : TooltipView, Bindings.IObserver<T>
+    public abstract class TooltipView<T> : TooltipView
         where T : ITooltipPresenter
     {
         protected Tooltip tooltip;
@@ -25,14 +25,9 @@ namespace Exa.UI.Tooltips
         public void Rebuild(T data)
         {
             container.DestroyChildren();
-            var tooltip = data.GetTooltip();
+            tooltip = data.GetTooltip();
             Root = Systems.UI.tooltips.tooltipGenerator.CreateRootView(tooltip, container);
             tooltip.ShouldRefresh = false;
-        }
-
-        public void OnUpdate(T data)
-        {
-            throw new NotImplementedException();
         }
     }
 }

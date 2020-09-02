@@ -9,7 +9,7 @@
         public float Priority { get; private set; }
         public string DebugString { get; protected set; }
 
-        public ShipAIAction(ShipAI shipAI)
+        internal ShipAIAction(ShipAI shipAI)
         {
             this.shipAI = shipAI;
         }

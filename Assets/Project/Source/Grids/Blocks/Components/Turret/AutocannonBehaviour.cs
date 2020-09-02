@@ -12,9 +12,11 @@ namespace Exa.Grids.Blocks.Components
         private void Start()
         {
             var animTime = GetAnimTime();
+            var damageMask = ~Ship.BlockContext;
+
             foreach (var part in parts)
             {
-                part.Setup(animTime);
+                part.Setup(animTime, damageMask);
             }
         }
 
