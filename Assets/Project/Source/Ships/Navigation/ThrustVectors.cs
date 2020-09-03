@@ -1,11 +1,12 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Math;
+using Exa.Math.ControlSystems;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Ships.Navigations
+namespace Exa.Ships.Navigation
 {
     // TODO: Clamp the requested thrust vector to what the ship can output
     public class ThrustVectors
@@ -35,10 +36,29 @@ namespace Exa.Ships.Navigations
 
         public void Fire(Vector2 force, float deltaTime)
         {
-            SelectHorizontalGroup(force.x, false)   .Fire(Mathf.Abs(force.x),   deltaTime);
-            SelectHorizontalGroup(force.x, true)    .Fire(0,                    deltaTime);
-            SelectVerticalGroup(force.y, false)     .Fire(Mathf.Abs(force.y),   deltaTime);
-            SelectVerticalGroup(force.y, true)      .Fire(0,                    deltaTime);
+            SelectHorizontalGroup(force.x, false).Fire(Mathf.Abs(force.x),   deltaTime);
+            SelectHorizontalGroup(force.x, true).Fire(0,                    deltaTime);
+            SelectVerticalGroup(force.y, false).Fire(Mathf.Abs(force.y),   deltaTime);
+            SelectVerticalGroup(force.y, true).Fire(0,                    deltaTime);
+        }
+
+        public void SetGraphics(Vector2? nDirection)
+        {
+            if (nDirection == null)
+            {
+                foreach (var group in thrusterDict.Values)
+                {
+                    group.SetFireStrength(0);
+                }
+                return;
+            }
+
+            var direction = nDirection.GetValueOrDefault();
+
+            SelectHorizontalGroup(direction.x, false).SetFireStrength(Mathf.Abs(direction.x));
+            SelectHorizontalGroup(direction.x, true).SetFireStrength(0);
+            SelectVerticalGroup(direction.y, false).SetFireStrength(Mathf.Abs(direction.y));
+            SelectVerticalGroup(direction.y, true).SetFireStrength(0);
         }
 
         public Vector2 ClampForce(Vector2 localForce, float deltaTime)

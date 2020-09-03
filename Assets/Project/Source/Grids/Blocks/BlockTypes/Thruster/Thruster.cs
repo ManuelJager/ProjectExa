@@ -25,12 +25,12 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         protected override void OnAdd()
         {
-            Ship.navigation.thrustVectors.Register(this);
+            Ship.navigation.ThrustVectors.Register(this);
         }
 
         protected override void OnRemove()
         {
-            Ship.navigation.thrustVectors.Unregister(this);
+            Ship.navigation.ThrustVectors.Unregister(this);
         }
     }
 }

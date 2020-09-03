@@ -3,7 +3,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Ships.Navigations
+namespace Exa.Ships.Navigation
 {
     public class ThrusterGroup : List<IThruster>
     {
@@ -41,7 +41,11 @@ namespace Exa.Ships.Navigations
         public void Fire(float force, float deltaTime)
         {
             var strength = Mathf.Clamp01(force / (Thrust * deltaTime));
+            SetFireStrength(strength);
+        }
 
+        public void SetFireStrength(float strength)
+        {
             foreach (var item in this)
             {
                 item.Fire(strength);

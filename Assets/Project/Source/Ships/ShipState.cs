@@ -30,7 +30,6 @@ namespace Exa.Ships
 
         public void Update()
         {
-            ship.navigation.SetTurningMultiplier(TurningRate);
             var currentHull = ship.blockGrid.Totals.Hull;
             var totalHull = ship.Blueprint.Blocks.Totals.Hull;
             HullIntegrity = currentHull / totalHull; 

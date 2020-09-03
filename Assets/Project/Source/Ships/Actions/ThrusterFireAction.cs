@@ -47,16 +47,16 @@ namespace Exa.Ships
             // Don't need to operate on a zero vector
             if (rawForce == Vector2.zero)
             {
-                ship.navigation.thrustVectors.Fire(Vector2.zero, deltaTime);
+                ship.navigation.ThrustVectors.Fire(Vector2.zero, deltaTime);
                 return;
             }
 
             // Apply the normalization to the local acceleration
-            var calculatedLocalForce = ship.navigation.thrustVectors.ClampForce(tempValues.localForce, deltaTime);
+            var calculatedLocalForce = ship.navigation.ThrustVectors.ClampForce(tempValues.localForce, deltaTime);
 
             // Transform clamped local acceleration back to global acceleration
             var finalForce = MathUtils.Rotate(calculatedLocalForce, tempValues.rotationAngle);
-            ship.navigation.thrustVectors.Fire(calculatedLocalForce, deltaTime);
+            ship.navigation.ThrustVectors.Fire(calculatedLocalForce, deltaTime);
 
             ship.rb.AddForce(finalForce, ForceMode2D.Force);
         }

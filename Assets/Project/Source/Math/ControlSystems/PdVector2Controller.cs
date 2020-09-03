@@ -33,6 +33,12 @@ namespace Exa.Math.ControlSystems
             this.maxVel = maxVel;
         }
 
+        public void SetSettings(PdSettings pdSettings)
+        {
+            this.Proportional = pdSettings.proportional;
+            this.Derivitive = pdSettings.derivitive;
+        }
+
         public Vector2 CalculateRequiredVelocity(Vector2 currentPos, Vector2 targetPos, Vector2 currentVelocity)
         {
             var dist = targetPos - currentPos;

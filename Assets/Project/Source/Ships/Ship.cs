@@ -5,7 +5,7 @@ using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Math;
-using Exa.Ships.Navigations;
+using Exa.Ships.Navigation;
 using Exa.UI;
 using Exa.UI.Tooltips;
 using System;
@@ -32,7 +32,7 @@ namespace Exa.Ships
         [SerializeField] private CursorState onHoverState;
 
         [HideInInspector] public ShipOverlay overlay;
-        public ShipNavigation navigation;
+        public INavigation navigation;
         public BlockGrid blockGrid;
         protected Blueprint blueprint;
         private Tooltip debugTooltip;
@@ -86,9 +86,7 @@ namespace Exa.Ships
             var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
             mouseOverCollider.radius = radius;
 
-            var template = blueprint.Blocks.Controller.BlueprintBlock.Template as ControllerTemplate;
-            var controllerValues = template.controllerTemplatePartial.Convert();
-            navigation = new ShipNavigation(this, navigationOptions, controllerValues.directionalForce);
+            navigation = navigationOptions.GetNavigation(this, blueprint);
 
             blockGrid.Import(blueprint, blockContext);
             this.blueprint = blueprint;

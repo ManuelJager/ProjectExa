@@ -5,30 +5,30 @@ using Exa.Ships.Targetting;
 using System;
 using UnityEngine;
 
-namespace Exa.Ships.Navigations
+namespace Exa.Ships.Navigation
 {
-    public class ShipNavigation
+    public class PhysicsNavigation : INavigation
     {
         public Ship ship;
-        public ThrustVectors thrustVectors;
 
+        private readonly ThrustVectors thrustVectors;
         private readonly PidQuaternionController pidQuaternionController;
         private readonly PdVector2Controller pdVector2Controller;
         private readonly ThrusterFireAction thrusterFireAction;
         private readonly NavigationOptions options;
-
         private ITarget lookTarget = null;
         private ITarget moveTarget = null;
         private float angleHint = 0f;
 
-        public ShipNavigation(Ship ship, NavigationOptions options, float directionalThrust)
+        public ThrustVectors ThrustVectors => thrustVectors;
+
+        public PhysicsNavigation(Ship ship, NavigationOptions options, float directionalThrust)
         {
             this.ship = ship;
             this.options = options;
 
             thrustVectors = new ThrustVectors(directionalThrust);
             pidQuaternionController = new PidQuaternionController(options.qProportionalBase, options.qIntegral, options. qDerivitive);
-            //angleController = new PidAngleController(options.qProportionalBase, options.qIntegral, options.qDerivitive);
             pdVector2Controller = new PdVector2Controller(options.pProportional, options.pDerivitive, options.maxVel);
             thrusterFireAction = new ThrusterFireAction(ship);
 
@@ -42,8 +42,9 @@ namespace Exa.Ships.Navigations
         {
             if (options.continouslyApplySettings)
             {
-                //pidQuaternionController.Integral = options.qIntegral;
-                //pidQuaternionController.Derivitive = options.qDerivitive;
+                pidQuaternionController.Proportional = options.qProportionalBase * ship.state.TurningRate;
+                pidQuaternionController.Integral = options.qIntegral;
+                pidQuaternionController.Derivitive = options.qDerivitive;
 
                 pdVector2Controller.Proportional = options.pProportional;
                 pdVector2Controller.Derivitive = options.pDerivitive;
@@ -52,12 +53,6 @@ namespace Exa.Ships.Navigations
 
             UpdateHeading(ref angleHint);
             UpdateThrustVectors();
-        }
-
-        public void SetTurningMultiplier(float rate)
-        {
-            //angleController.Proportional = options.qProportionalBase * rate;
-            pidQuaternionController.Proportional = options.qProportionalBase * rate;
         }
 
         public void SetLookAt(ITarget lookTarget)
@@ -151,7 +146,7 @@ namespace Exa.Ships.Navigations
                 currentAngularVelocity,
                 Time.fixedDeltaTime).z;
 
-            ship.rb.AddTorque(requiredAngularAcceleration, ForceMode2D.Force);
+            ship.rb.AddTorque(requiredAngularAcceleration * ship.rb.mass, ForceMode2D.Force);
         }
     }
 }   
