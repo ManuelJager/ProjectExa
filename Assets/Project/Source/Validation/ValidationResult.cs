@@ -7,7 +7,7 @@ namespace Exa.Validation
 {
     public class ValidationResult : IEnumerable<ValidationError>
     {
-        private List<ValidationError> collection;
+        private readonly List<ValidationError> collection;
         public string ContextID { get; private set; }
 
         public ValidationError this[int index]

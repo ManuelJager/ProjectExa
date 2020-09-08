@@ -13,8 +13,8 @@ namespace Exa.Ships
 {
     public class BlockGrid : Grid<Block>
     {
-        private Transform container;
-        private Ship ship;
+        private readonly Transform container;
+        private readonly Ship ship;
 
         public CentreOfMassCache CentreOfMass { get; protected set; }
 

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
+#pragma warning disable 649
 
 namespace Exa.Gameplay
 {
@@ -60,17 +61,15 @@ namespace Exa.Gameplay
                 var go = hit.transform.gameObject;
                 var raycastTarget = go.GetComponent<IRaycastTarget>();
 
-                if (raycastTarget != null)
-                {
-                    foundTarget = true;
+                if (raycastTarget == null) continue;
 
-                    if (this.raycastTarget != raycastTarget)
-                    {
-                        OnExit();
-                        OnEnter(raycastTarget);
-                        return;
-                    }
-                }
+                foundTarget = true;
+
+                if (this.raycastTarget == raycastTarget) continue;
+
+                OnExit();
+                OnEnter(raycastTarget);
+                return;
             }
 
             if (!foundTarget)

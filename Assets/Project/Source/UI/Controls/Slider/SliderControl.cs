@@ -24,7 +24,7 @@ namespace Exa.UI.Controls
             }
         }
 
-        [SerializeField] private SliderEvent onValueChanged = new SliderEvent();
+        [SerializeField] private readonly SliderEvent onValueChanged = new SliderEvent();
 
         public override UnityEvent<float> OnValueChange => onValueChanged;
 

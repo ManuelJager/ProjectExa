@@ -7,8 +7,8 @@ namespace Exa.AI
 {
     public class ActionList
     {
-        private List<IAction> actions;
-        private float priorityThreshold;
+        private readonly List<IAction> actions;
+        private readonly float priorityThreshold;
 
         public ActionList(float priorityThreshold, IAction[] actions)
         {

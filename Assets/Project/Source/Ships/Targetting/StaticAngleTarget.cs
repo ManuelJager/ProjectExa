@@ -5,8 +5,8 @@ namespace Exa.Ships.Targetting
 {
     public struct StaticAngleTarget : ITarget
     {
-        private float directionAngle;
-        private float magnitude;
+        private readonly float directionAngle;
+        private readonly float magnitude;
 
         public StaticAngleTarget(float directionAngle, float magnitude = 10)
         {

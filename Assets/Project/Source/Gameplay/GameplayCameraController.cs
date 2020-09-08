@@ -9,7 +9,7 @@ namespace Exa.Gameplay
     {
         [SerializeField] private float movementSpeed;
         private Camera target;
-        private UserCameraTarget userCameraTarget = new UserCameraTarget();
+        private readonly UserCameraTarget userCameraTarget = new UserCameraTarget();
         private ICameraTarget currentTarget;
         private Vector2 movementDelta;
 

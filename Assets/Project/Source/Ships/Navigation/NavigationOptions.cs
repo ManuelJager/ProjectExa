@@ -37,7 +37,7 @@ namespace Exa.Ships.Navigation
                     return new SimpleNavigation(ship, this, controllerValues.directionalForce);
 
                 case NavigationType.PhysicsBased:
-                    return new PhysicsNavigation(ship, this, controllerValues.directionalForce);
+                    return new PidPhysicsNavigation(ship, this, controllerValues.directionalForce);
 
                 default:
                     return null;

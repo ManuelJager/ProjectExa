@@ -9,9 +9,9 @@ using UnityEngine;
 namespace Exa.Ships.Navigation
 {
     // TODO: Clamp the requested thrust vector to what the ship can output
-    public class ThrustVectors
+    public class ThrustVectors : IThrustVectors
     {
-        private Dictionary<int, ThrusterGroup> thrusterDict;
+        private readonly Dictionary<int, ThrusterGroup> thrusterDict;
 
         public ThrustVectors(float directionalThrust)
         {
@@ -34,42 +34,17 @@ namespace Exa.Ships.Navigation
             SelectGroup(thruster)?.Remove(thruster);
         }
 
-        public void Fire(Vector2 force, float deltaTime)
+        /// <summary>
+        /// Sets the graphics using a local space scalar vector
+        /// </summary>
+        /// <param name="directionScalar"></param>
+        public void SetGraphics(Vector2 directionScalar)
         {
-            SelectHorizontalGroup(force.x, false).Fire(Mathf.Abs(force.x),   deltaTime);
-            SelectHorizontalGroup(force.x, true).Fire(0,                    deltaTime);
-            SelectVerticalGroup(force.y, false).Fire(Mathf.Abs(force.y),   deltaTime);
-            SelectVerticalGroup(force.y, true).Fire(0,                    deltaTime);
-        }
 
-        public void SetGraphics(Vector2? nDirection)
-        {
-            if (nDirection == null)
-            {
-                foreach (var group in thrusterDict.Values)
-                {
-                    group.SetFireStrength(0);
-                }
-                return;
-            }
-
-            var direction = nDirection.GetValueOrDefault();
-
-            SelectHorizontalGroup(direction.x, false).SetFireStrength(Mathf.Abs(direction.x));
-            SelectHorizontalGroup(direction.x, true).SetFireStrength(0);
-            SelectVerticalGroup(direction.y, false).SetFireStrength(Mathf.Abs(direction.y));
-            SelectVerticalGroup(direction.y, true).SetFireStrength(0);
-        }
-
-        public Vector2 ClampForce(Vector2 localForce, float deltaTime)
-        {
-            var forceCoefficient = new Vector2
-            {
-                x = SelectHorizontalGroup(localForce.x).ClampThrustCoefficient(Mathf.Abs(localForce.x), deltaTime),
-                y = SelectVerticalGroup(localForce.y).ClampThrustCoefficient(Mathf.Abs(localForce.y), deltaTime)
-            };
-
-            return MathUtils.ClampToLowestComponent(forceCoefficient) * localForce;
+            SelectHorizontalGroup(directionScalar.x, false).SetFireStrength(Mathf.Abs(directionScalar.x));
+            SelectHorizontalGroup(directionScalar.x, true).SetFireStrength(0);
+            SelectVerticalGroup(directionScalar.y, false).SetFireStrength(Mathf.Abs(directionScalar.y));
+            SelectVerticalGroup(directionScalar.y, true).SetFireStrength(0);
         }
 
         private ThrusterGroup SelectGroup(IThruster thruster)
@@ -86,12 +61,12 @@ namespace Exa.Ships.Navigation
             }
         }
 
-        private ThrusterGroup SelectHorizontalGroup(float x, bool revert = false) =>
+        private ThrusterGroup SelectHorizontalGroup(float x, bool revert) =>
             x > 0 ^ revert
                 ? thrusterDict[0]
                 : thrusterDict[2];
 
-        private ThrusterGroup SelectVerticalGroup(float y, bool revert = false) =>
+        private ThrusterGroup SelectVerticalGroup(float y, bool revert) =>
             y > 0 ^ revert
                 ? thrusterDict[1]
                 : thrusterDict[3];

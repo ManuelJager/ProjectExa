@@ -4,7 +4,7 @@ namespace Exa.Audio
 {
     public class SoundHandleGroupDictionary
     {
-        private Dictionary<string, SoundHandleGroup> dict = new Dictionary<string, SoundHandleGroup>();
+        private readonly Dictionary<string, SoundHandleGroup> dict = new Dictionary<string, SoundHandleGroup>();
 
         public void Add(SoundHandle handle)
         {

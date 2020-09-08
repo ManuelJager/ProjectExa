@@ -28,4 +28,4 @@ MonoBehaviour:
     mass: 1500
   thrusterTemplatePartial:
     thrust:
-      ratio: 0.15
+      ratio: 0.6

@@ -8,7 +8,7 @@ namespace Exa.Ships
     /// <summary>
     /// Class that handles the firing of thrusters
     /// </summary>
-    public class ThrusterFireAction : ShipAction
+    public class PidThrusterFireAction : ShipAction
     {
         private Vector2 rawForce;
         private TempValues tempValues;
@@ -18,7 +18,7 @@ namespace Exa.Ships
             this.rawForce = rawForce;
         }
 
-        public ThrusterFireAction(Ship ship)
+        public PidThrusterFireAction(Ship ship)
             : base(ship)
         {
         }
@@ -44,19 +44,19 @@ namespace Exa.Ships
 
         public override void Update(float energyCoefficient, float deltaTime)
         {
-            // Don't need to operate on a zero vector
+            // Don't need to operate on a zero vectors
             if (rawForce == Vector2.zero)
             {
-                ship.navigation.ThrustVectors.Fire(Vector2.zero, deltaTime);
+                ship.navigation.ThrustVectors.SetGraphics(Vector2.zero);
                 return;
             }
 
             // Apply the normalization to the local acceleration
-            var calculatedLocalForce = ship.navigation.ThrustVectors.ClampForce(tempValues.localForce, deltaTime);
+            var calculatedLocalForce = tempValues.localForce;
 
             // Transform clamped local acceleration back to global acceleration
-            var finalForce = MathUtils.Rotate(calculatedLocalForce, tempValues.rotationAngle);
-            ship.navigation.ThrustVectors.Fire(calculatedLocalForce, deltaTime);
+            var finalForce = calculatedLocalForce.Rotate(tempValues.rotationAngle);
+            //ship.navigation.ThrustVectors.SetGraphics(calculatedLocalForce, deltaTime);
 
             ship.rb.AddForce(finalForce, ForceMode2D.Force);
         }

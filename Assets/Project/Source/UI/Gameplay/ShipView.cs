@@ -14,7 +14,7 @@ namespace Exa.UI.Gameplay
         [SerializeField] private Image sliderImage;
         [SerializeField] private Image thumbnailImage;
         private int count;
-        private List<Ship> ships = new List<Ship>();
+        private readonly List<Ship> ships = new List<Ship>();
 
         public int Count
         {

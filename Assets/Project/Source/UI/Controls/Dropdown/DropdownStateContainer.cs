@@ -6,9 +6,9 @@ namespace Exa.UI.Controls
 {
     public class DropdownStateContainer<T> : IEnumerable<T>
     {
-        private HashSet<T> values = new HashSet<T>();
-        private Dictionary<T, LabeledValue<T>> contextByValue = new Dictionary<T, LabeledValue<T>>();
-        private Dictionary<T, DropdownTab> tabByValue = new Dictionary<T, DropdownTab>();
+        private readonly HashSet<T> values = new HashSet<T>();
+        private readonly Dictionary<T, LabeledValue<T>> contextByValue = new Dictionary<T, LabeledValue<T>>();
+        private readonly Dictionary<T, DropdownTab> tabByValue = new Dictionary<T, DropdownTab>();
 
         public void Add(LabeledValue<T> namedValue, DropdownTab tab)
         {

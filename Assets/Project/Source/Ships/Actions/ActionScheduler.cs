@@ -9,11 +9,11 @@ namespace Exa.Ships
 {
     public class ActionScheduler
     {
-        private Ship ship;
-        private List<ShipAction> shipActions = new List<ShipAction>();
-        private float generation;
+        private readonly Ship ship;
+        private readonly List<ShipAction> shipActions = new List<ShipAction>();
+        private readonly float generation;
         private float stored;
-        private float storage;
+        private readonly float storage;
 
         public ActionScheduler(Ship ship)
         {

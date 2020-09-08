@@ -621,7 +621,7 @@ namespace Exa.Input
         private readonly InputAction m_Editor_Zoom;
         public struct EditorActions
         {
-            private @GameControls m_Wrapper;
+            private readonly @GameControls m_Wrapper;
             public EditorActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Editor_Movement;
             public InputAction @LeftClick => m_Wrapper.m_Editor_LeftClick;
@@ -696,7 +696,7 @@ namespace Exa.Input
         private readonly InputAction m_Debug_ToggleConsole;
         public struct DebugActions
         {
-            private @GameControls m_Wrapper;
+            private readonly @GameControls m_Wrapper;
             public DebugActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
             public InputActionMap Get() { return m_Wrapper.m_Debug; }
@@ -729,7 +729,7 @@ namespace Exa.Input
         private readonly InputAction m_ReturnNavigateable_Return;
         public struct ReturnNavigateableActions
         {
-            private @GameControls m_Wrapper;
+            private readonly @GameControls m_Wrapper;
             public ReturnNavigateableActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Return => m_Wrapper.m_ReturnNavigateable_Return;
             public InputActionMap Get() { return m_Wrapper.m_ReturnNavigateable; }
@@ -767,7 +767,7 @@ namespace Exa.Input
         private readonly InputAction m_Gameplay_NumKeys;
         public struct GameplayActions
         {
-            private @GameControls m_Wrapper;
+            private readonly @GameControls m_Wrapper;
             public GameplayActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
             public InputAction @RightClick => m_Wrapper.m_Gameplay_RightClick;

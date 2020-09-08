@@ -6,7 +6,7 @@ namespace Exa.Gameplay
 {
     public class SelectionBuilder : IBuilder<ShipSelection>
     {
-        private Vector2 startSelectionPos;
+        private readonly Vector2 startSelectionPos;
         private ShipSelection selection;
 
         public SelectionBuilder(Vector2 startSelectionPos)

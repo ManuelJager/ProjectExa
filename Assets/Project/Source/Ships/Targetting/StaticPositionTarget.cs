@@ -4,7 +4,7 @@ namespace Exa.Ships.Targetting
 {
     public struct StaticPositionTarget : ITarget
     {
-        private Vector2 position;
+        private readonly Vector2 position;
 
         public StaticPositionTarget(Vector2 position)
         {

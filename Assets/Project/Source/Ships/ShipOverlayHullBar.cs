@@ -9,8 +9,8 @@ namespace Exa.Ships
         public Image actualFillImage;
         public Image rememberedFillImage;
 
-        [SerializeField] private float timeToUpdateRememberedFill = 3f;
-        [SerializeField] private float rememberedFillSpeed = 0.4f;
+        [SerializeField] private readonly float timeToUpdateRememberedFill = 3f;
+        [SerializeField] private readonly float rememberedFillSpeed = 0.4f;
         private float actualFill = 1f;
         private float rememberedFill = 1f;
         private float timeSinceFillChange;

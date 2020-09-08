@@ -33,7 +33,7 @@ namespace Exa.Gameplay
             }
         }
 
-        private Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
+        private readonly Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
 
         public override void Add(Ship ship)
         {

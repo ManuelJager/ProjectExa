@@ -4,7 +4,7 @@ namespace Exa.Ships.Targetting
 {
     public struct ShipTarget : ITarget
     {
-        private Ship ship;
+        private readonly Ship ship;
 
         public ShipTarget(Ship ship)
         {

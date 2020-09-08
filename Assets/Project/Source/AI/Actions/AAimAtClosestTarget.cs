@@ -12,10 +12,10 @@ namespace Exa.AI.Actions
         public override ActionLane Lanes => ActionLane.AimTurrets;
 
         private Ship enemyTarget = null;
-        private float detectionRadius;
+        private readonly float detectionRadius;
 
-        internal AAimAtClosestTarget(ShipAI shipAI, float detectionRadius)
-            : base(shipAI)
+        internal AAimAtClosestTarget(ShipAI shipAi, float detectionRadius)
+            : base(shipAi)
         {
             this.detectionRadius = detectionRadius;
         }

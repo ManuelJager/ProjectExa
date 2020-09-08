@@ -10,7 +10,7 @@ namespace Exa.Audio
         public MusicTrack ST_AudioTrack;
         public AudioTrack UI_SFX_AudioTrack;
 
-        private Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
+        private readonly Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
 
         private void Awake()
         {

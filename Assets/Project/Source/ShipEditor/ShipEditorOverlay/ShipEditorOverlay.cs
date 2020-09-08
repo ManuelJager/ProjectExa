@@ -10,7 +10,7 @@ namespace Exa.ShipEditor
         [SerializeField] private Hoverable blueprintInfoPanelHoverable;
         [SerializeField] private Hoverable editorStatePanelHoverable;
 
-        public CanvasGroupInteractibleAdapter editorOverlayCanvasGroup;
+        public CanvasGroupInteractableAdapter editorOverlayCanvasGroup;
         public ShipEditorOverlayInfoPanel blueprintInfoPanel;
         public ShipEditorOverlayInventory inventory;
         public MirrorView mirrorView;

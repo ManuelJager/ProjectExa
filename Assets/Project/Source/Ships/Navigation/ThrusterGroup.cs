@@ -7,13 +7,10 @@ namespace Exa.Ships.Navigation
 {
     public class ThrusterGroup : List<IThruster>
     {
-        private float directionalThrust;
+        private readonly float directionalThrust;
         private Percentage thrustModifier = new Percentage(1);
 
-        private float Thrust
-        {
-            get => thrustModifier.GetValue(directionalThrust);
-        }
+        private float Thrust => thrustModifier.GetValue(directionalThrust);
 
         public ThrusterGroup(float directionalThrust)
         {
@@ -38,23 +35,12 @@ namespace Exa.Ships.Navigation
             return result;
         }
 
-        public void Fire(float force, float deltaTime)
-        {
-            var strength = Mathf.Clamp01(force / (Thrust * deltaTime));
-            SetFireStrength(strength);
-        }
-
         public void SetFireStrength(float strength)
         {
             foreach (var item in this)
             {
                 item.Fire(strength);
             }
-        }
-
-        public float ClampThrustCoefficient(float force, float deltaTime)
-        {
-            return Mathf.Clamp01(Thrust * deltaTime / force);
         }
     }
 }

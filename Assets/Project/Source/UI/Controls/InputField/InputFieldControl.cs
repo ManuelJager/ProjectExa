@@ -19,7 +19,7 @@ namespace Exa.UI.Controls
             set => inputField.text = value;
         }
 
-        [SerializeField] private InputFieldEvent onValueChange = new InputFieldEvent();
+        [SerializeField] private readonly InputFieldEvent onValueChange = new InputFieldEvent();
 
         public override UnityEvent<string> OnValueChange => onValueChange;
 

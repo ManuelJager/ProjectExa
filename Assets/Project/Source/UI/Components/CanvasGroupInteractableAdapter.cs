@@ -3,7 +3,7 @@
 namespace Exa.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class CanvasGroupInteractibleAdapter : MonoBehaviour, IUIGroup
+    public class CanvasGroupInteractableAdapter : MonoBehaviour, IUIGroup
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private bool setAlpha;

@@ -11,6 +11,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#pragma warning disable 649
 
 namespace Exa
 {
@@ -31,7 +32,7 @@ namespace Exa
         [SerializeField] private MainUI mainUI;
 
         [Header("Settings")]
-        [SerializeField] private bool godModeIsAnabled = false;
+        [SerializeField] private bool godModeIsEnabled = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
         public static BlueprintManager Blueprints => Instance.blueprintManager;
@@ -44,10 +45,10 @@ namespace Exa
         public static LoggerInterceptor Logger => Instance.logger;
         public static MainUI UI => Instance.mainUI;
 
-        public static bool GodModeIsAnabled
+        public static bool GodModeIsEnabled
         {
-            get => Instance.godModeIsAnabled;
-            set => Instance.godModeIsAnabled = value;
+            get => Instance.godModeIsEnabled;
+            set => Instance.godModeIsEnabled = value;
         }
 
         public static bool IsQuitting { get; set; } = false;

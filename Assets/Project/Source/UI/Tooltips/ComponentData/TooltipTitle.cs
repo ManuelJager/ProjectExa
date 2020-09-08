@@ -4,7 +4,7 @@ namespace Exa.UI.Tooltips
 {
     public struct TooltipTitle : ITooltipComponent
     {
-        private bool animated;
+        private readonly bool animated;
 
         public string Text { get; private set; }
 

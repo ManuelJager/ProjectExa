@@ -6,8 +6,8 @@ namespace Exa.Validation
 {
     public class ValidationErrorContainerBuilder : IBuilder<ValidationErrorContainer>
     {
-        private ValidationErrorContainer container;
-        private bool OnUnhandledErrorSet;
+        private readonly ValidationErrorContainer container;
+        private bool onUnhandledErrorSet;
 
         /// <summary>
         /// Get the error handler for a given validator
@@ -40,7 +40,7 @@ namespace Exa.Validation
         public ValidationErrorContainerBuilder()
         {
             container = new ValidationErrorContainer();
-            OnUnhandledErrorSet = false;
+            onUnhandledErrorSet = false;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Exa.Validation
         {
             container.defaultErrorHandler = fallbackHandler;
             container.defaultErrorCleaner = fallbackCleaner;
-            OnUnhandledErrorSet = true;
+            onUnhandledErrorSet = true;
             return this;
         }
 
@@ -80,7 +80,7 @@ namespace Exa.Validation
         /// <returns></returns>
         public ValidationErrorContainer Build()
         {
-            if (!OnUnhandledErrorSet)
+            if (!onUnhandledErrorSet)
             {
                 throw new BuilderException("OnUnhandledError must be called");
             }

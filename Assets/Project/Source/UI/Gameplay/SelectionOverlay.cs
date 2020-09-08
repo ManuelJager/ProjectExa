@@ -12,7 +12,7 @@ namespace Exa.UI.Gameplay
         [SerializeField] private GameObject shipViewPrefab;
         [SerializeField] private Transform container;
 
-        private Dictionary<string, ShipView> shipViews = new Dictionary<string, ShipView>();
+        private readonly Dictionary<string, ShipView> shipViews = new Dictionary<string, ShipView>();
 
         private void Awake()
         {

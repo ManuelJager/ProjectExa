@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks
 {
     public class BlockValuesStore
     {
-        private Dictionary<ShipContext, BundleDictionary> contextDict;
+        private readonly Dictionary<ShipContext, BundleDictionary> contextDict;
 
         public BlockValuesStore()
         {
@@ -112,7 +112,7 @@ namespace Exa.Grids.Blocks
             public BlockTemplate template;
             public TemplateValuesCache valuesCache;
             public bool valuesAreDirty;
-            public Tooltip tooltip;
+            public readonly Tooltip tooltip;
 
             public TemplateBundle()
             {

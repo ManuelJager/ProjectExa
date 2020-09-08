@@ -1,5 +1,7 @@
-﻿using Exa.Generics;
+﻿using System;
+using Exa.Generics;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -14,7 +16,7 @@ namespace Exa.Grids.Blueprints
                 return GetBlueprintTypeSize(x) - GetBlueprintTypeSize(y);
             }
 
-            private int GetBlueprintTypeSize(BlueprintType blueprintType)
+            private static int GetBlueprintTypeSize(BlueprintType blueprintType)
             {
                 return blueprintType.maxSize.x * blueprintType.maxSize.y;
             }

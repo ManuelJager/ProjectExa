@@ -18,7 +18,7 @@ namespace Exa.ShipEditor
 
         [SerializeField] private GameObject gridItemPrefab;
         private KeyValuePair<Vector2Int, EditorGridItem>? currActiveGridItem;
-        private Dictionary<Vector2Int, EditorGridItem> gridItems = new Dictionary<Vector2Int, EditorGridItem>();
+        private readonly Dictionary<Vector2Int, EditorGridItem> gridItems = new Dictionary<Vector2Int, EditorGridItem>();
         private Vector2Int size = Vector2Int.zero;
 
         private void OnDisable()

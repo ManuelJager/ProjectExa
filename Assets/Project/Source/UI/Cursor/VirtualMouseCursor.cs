@@ -13,7 +13,7 @@ namespace Exa.UI
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private RectTransform normalCursor;
         [SerializeField] private RectTransform inputCursor;
-        private CursorState cursorState = CursorState.idle;
+        private readonly CursorState cursorState = CursorState.idle;
 
         private void OnEnable()
         {

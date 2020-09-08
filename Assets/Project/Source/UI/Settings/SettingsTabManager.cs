@@ -9,11 +9,11 @@ namespace Exa.UI.Components
     {
         [HideInInspector] public SettingsTabBase activeTab;
 
-        [SerializeField] private CanvasGroupInteractibleAdapter applyButton;
-        [SerializeField] private CanvasGroupInteractibleAdapter setDefaultButton;
+        [SerializeField] private CanvasGroupInteractableAdapter applyButton;
+        [SerializeField] private CanvasGroupInteractableAdapter setDefaultButton;
         [SerializeField] private Text activeTabText;
         [SerializeField] private SettingsTabBase defaultTab;
-        [SerializeField] private CanvasGroupInteractibleAdapter canvasGroupInteractibleAdapter;
+        [SerializeField] private CanvasGroupInteractableAdapter canvasGroupInteractableAdapter;
 
         private void OnEnable()
         {
@@ -56,7 +56,7 @@ namespace Exa.UI.Components
         {
             Systems.UI.promptController.PromptYesNo(
                 "Changes were not saved, do you wish to apply the changes?",
-                canvasGroupInteractibleAdapter,
+                canvasGroupInteractableAdapter,
                 onClosePrompt);
         }
 

@@ -12,11 +12,11 @@ namespace Exa.UI
 
     public class MouseCursorController : MonoBehaviour
     {
-        [SerializeField] private CursorType cursorType = CursorType.hardwareCursor;
+        [SerializeField] private readonly CursorType cursorType = CursorType.hardwareCursor;
         [SerializeField] private VirtualMouseCursor virtualMouseCursor;
         [SerializeField] private HardwareMouseCursor hardwareMouseCursor;
         private ICursor cursor;
-        private List<CursorOverride> cursorOverrides = new List<CursorOverride>();
+        private readonly List<CursorOverride> cursorOverrides = new List<CursorOverride>();
 
         private void Start()
         {

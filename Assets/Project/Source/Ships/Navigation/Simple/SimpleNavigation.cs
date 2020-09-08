@@ -18,7 +18,7 @@ namespace Exa.Ships.Navigation
         private ITarget moveToTarget;
         private ITarget lookAtTarget;
 
-        public ThrustVectors ThrustVectors => thrustVectors;
+        public IThrustVectors ThrustVectors => thrustVectors;
 
         public SimpleNavigation(Ship ship, NavigationOptions options, float directionalThrust)
         {

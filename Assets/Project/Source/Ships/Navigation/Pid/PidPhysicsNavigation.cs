@@ -7,22 +7,22 @@ using UnityEngine;
 
 namespace Exa.Ships.Navigation
 {
-    public class PhysicsNavigation : INavigation
+    public class PidPhysicsNavigation : INavigation
     {
         public Ship ship;
 
         private readonly ThrustVectors thrustVectors;
         private readonly PidQuaternionController pidQuaternionController;
         private readonly PdVector2Controller pdVector2Controller;
-        private readonly ThrusterFireAction thrusterFireAction;
+        private readonly PidThrusterFireAction pidThrusterFireAction;
         private readonly NavigationOptions options;
         private ITarget lookTarget = null;
         private ITarget moveTarget = null;
         private float angleHint = 0f;
 
-        public ThrustVectors ThrustVectors => thrustVectors;
+        public IThrustVectors ThrustVectors => thrustVectors;
 
-        public PhysicsNavigation(Ship ship, NavigationOptions options, float directionalThrust)
+        public PidPhysicsNavigation(Ship ship, NavigationOptions options, float directionalThrust)
         {
             this.ship = ship;
             this.options = options;
@@ -30,9 +30,9 @@ namespace Exa.Ships.Navigation
             thrustVectors = new ThrustVectors(directionalThrust);
             pidQuaternionController = new PidQuaternionController(options.qProportionalBase, options.qIntegral, options. qDerivitive);
             pdVector2Controller = new PdVector2Controller(options.pProportional, options.pDerivitive, options.maxVel);
-            thrusterFireAction = new ThrusterFireAction(ship);
+            pidThrusterFireAction = new PidThrusterFireAction(ship);
 
-            ship.ActionScheduler.Add(thrusterFireAction);
+            ship.ActionScheduler.Add(pidThrusterFireAction);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Exa.Ships.Navigation
             // NOTE: This currently doesn't try to brake when no target is active
             if (moveTarget == null)
             {
-                thrusterFireAction.Update(Vector2.zero);
+                pidThrusterFireAction.Update(Vector2.zero);
                 return;
             }
 
@@ -92,7 +92,7 @@ namespace Exa.Ships.Navigation
                 ship.rb.velocity);
 
             // NOTE: Clamping the acceleration will usually result in drifting if the side thrusters aren't as powerful
-            thrusterFireAction.Update(acceleration * ship.rb.mass);
+            pidThrusterFireAction.Update(acceleration * ship.rb.mass);
         }
 
         /// <summary>

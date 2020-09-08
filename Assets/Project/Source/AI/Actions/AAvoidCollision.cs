@@ -63,18 +63,17 @@ namespace Exa.AI.Actions
 
             foreach (var neighbour in shipAI.QueryNeighbours<Ship>(settings.detectionRadius, shipMask))
             {
-                if (ShouldYield(neighbour))
+                if (!ShouldYield(neighbour)) continue;
+
+                var neighbourPos = neighbour.transform.position;
+                var dist = (globalPos - neighbourPos).magnitude;
+
+                if (shortestDistance > dist)
                 {
-                    var neighbourPos = neighbour.transform.position;
-                    var dist = (globalPos - neighbourPos).magnitude;
-
-                    if (shortestDistance > dist)
-                    {
-                        shortestDistance = dist;
-                    }
-
-                    neighbourCache.Add(neighbour);
+                    shortestDistance = dist;
                 }
+
+                neighbourCache.Add(neighbour);
             }
 
             if (shortestDistance == float.MaxValue)
@@ -90,11 +89,10 @@ namespace Exa.AI.Actions
 
         private void MofidyHeading(ref Vector2 heading, Vector2 direction, Ship other)
         {
-            if (ShouldYield(other))
-            {
-                var headingModification = direction / settings.detectionRadius;
-                heading -= headingModification;
-            }
+            if (!ShouldYield(other)) return;
+
+            var headingModification = direction / settings.detectionRadius;
+            heading -= headingModification;
         }
 
         private bool ShouldYield(Ship other)
