@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Exa.Ships.Navigation
 {
-    // TODO: Clamp the requested thrust vector to what the ship can output
+    // TODO: Clamp the requested thrust vector to what the Ship can output
     public class ThrustVectors : IThrustVectors
     {
         private readonly Dictionary<int, ThrusterGroup> thrusterDict;

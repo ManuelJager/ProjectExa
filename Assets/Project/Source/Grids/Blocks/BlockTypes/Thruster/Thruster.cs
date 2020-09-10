@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Thruster : Block, IBehaviourMarker<ThrusterData>, IThruster
+    public class Thruster : Block, IThruster
     {
         [SerializeField] private ThrusterBehaviour thrusterBehaviour;
 
@@ -25,12 +25,12 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         protected override void OnAdd()
         {
-            Ship.navigation.ThrustVectors.Register(this);
+            Ship.Navigation.ThrustVectors.Register(this);
         }
 
         protected override void OnRemove()
         {
-            Ship.navigation.ThrustVectors.Unregister(this);
+            Ship.Navigation.ThrustVectors.Unregister(this);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Exa.Ships.Targetting;
+﻿using Exa.Ships;
+using Exa.Ships.Targetting;
 
 namespace Exa.AI
 {
@@ -8,8 +9,8 @@ namespace Exa.AI
 
         public ITarget Target { get; set; } = null;
 
-        internal ALookAtTarget(ShipAI shipAI)
-            : base(shipAI)
+        internal ALookAtTarget(Ship ship)
+            : base(ship)
         {
         }
 
@@ -17,7 +18,7 @@ namespace Exa.AI
         {
             if (Target == null) return ActionLane.None;
 
-            shipAI.ship.navigation.LookAt = Target;
+            ship.Navigation.LookAt = Target;
             return ActionLane.Rotation;
         }
 

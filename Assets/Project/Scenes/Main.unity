@@ -907,6 +907,11 @@ PrefabInstance:
       propertyPath: godModeIsAnabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5676475580568291470, guid: 29d1d30fcec04de40816d90ac6e32d7e,
+        type: 3}
+      propertyPath: godModeIsEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5676475580568291471, guid: 29d1d30fcec04de40816d90ac6e32d7e,
         type: 3}
       propertyPath: m_LocalPosition.x

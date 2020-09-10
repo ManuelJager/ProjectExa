@@ -46,9 +46,8 @@ namespace Exa.Gameplay
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (HasSelection && CurrentSelection is FriendlyShipSelection)
+                    if (HasSelection && CurrentSelection is FriendlyShipSelection selection)
                     {
-                        var selection = CurrentSelection as FriendlyShipSelection; 
                         var point = Systems.Input.MouseWorldPoint;
                         selection.MoveLookAt(point);
                         return;
@@ -57,13 +56,12 @@ namespace Exa.Gameplay
                     //if (Systems.GodModeIsEnabled && raycastTarget != null && raycastTarget is Ship)
                     //{
                     //    var ship = raycastTarget as Ship;
-                    //    ship.blockGrid.Totals.Hull -= 50f;
+                    //    ship.BlockGrid.Totals.Hull -= 50f;
                     //}
-                    if (HasSelection && CurrentSelection.Count == 1)
+                    if (Systems.GodModeIsEnabled && raycastTarget is Ship ship)
                     {
-                        var ship = CurrentSelection.First();
                         var worldPos = ship.transform.position.ToVector2();
-                        var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * 50f;
+                        var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * ship.Totals.Mass;
                         ship.rb.AddForce(direction, ForceMode2D.Force);
                     }
                     break;

@@ -57,7 +57,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         {
             if (Systems.IsQuitting) return;
 
-            ship.blockGrid.Remove(GridAnchor);
+            ship.BlockGrid.Remove(GridAnchor);
             Ship = null;
         }
 

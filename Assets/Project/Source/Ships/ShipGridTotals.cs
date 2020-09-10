@@ -17,7 +17,7 @@ namespace Exa.Ships
             get => base.Mass;
             set
             {
-                ship.rb.mass = value / 1000f;
+                ship.rb.mass = value;
                 base.Mass = value;
             }
         }

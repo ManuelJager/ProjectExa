@@ -23,8 +23,8 @@ namespace Exa.Gameplay
                 var currentPosition = ship.transform.position.ToVector2();
                 var formationPosition = formationEnumerator.Current;
 
-                ship.shipAI.moveToTarget.Target = new StaticPositionTarget(formationPosition);
-                ship.shipAI.lookAtTarget.Target = new StaticAngleTarget(currentPosition, formationPosition);
+                ship.shipAi.moveToTarget.Target = new StaticPositionTarget(formationPosition);
+                ship.shipAi.lookAtTarget.Target = new StaticAngleTarget(currentPosition, formationPosition);
             }
         }
 

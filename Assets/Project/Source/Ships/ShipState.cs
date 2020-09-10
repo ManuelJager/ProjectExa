@@ -25,14 +25,14 @@ namespace Exa.Ships
 
         public void Update()
         {
-            var currentHull = ship.blockGrid.Totals.Hull;
+            var currentHull = ship.BlockGrid.Totals.Hull;
             var totalHull = ship.Blueprint.Blocks.Totals.Hull;
             HullIntegrity = currentHull / totalHull; 
         }
 
         public float GetTurningRate()
         {
-            return ship.blockGrid.Totals.TurningPower / ship.blockGrid.Totals.Mass;
+            return ship.BlockGrid.Totals.TurningPower / ship.BlockGrid.Totals.Mass;
         }
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]

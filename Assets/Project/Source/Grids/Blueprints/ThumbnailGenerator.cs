@@ -18,7 +18,7 @@ namespace Exa.Grids.Blueprints
 
         public void GenerateThumbnail(Blueprint blueprint)
         {
-            // Generate ship
+            // Generate Ship
             foreach (var block in blueprint.Blocks)
             {
                 var blockGO = block.CreateInactiveInertBlockInGrid(transform);
@@ -29,7 +29,7 @@ namespace Exa.Grids.Blueprints
             var tex = RuntimePreviewGenerator.GenerateModelPreview(transform, 512, 512, false);
             blueprint.Thumbnail = tex;
 
-            // Cleaup ship
+            // Cleaup Ship
             transform.SetActiveChildren(false);
         }
     }

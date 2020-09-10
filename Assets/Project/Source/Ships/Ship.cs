@@ -20,7 +20,7 @@ namespace Exa.Ships
     {
         [Header("References")]
         public Transform pivot;
-        public ShipAI shipAI;
+        public ShipAi shipAi;
         public ShipState state;
         public Rigidbody2D rb;
         public CircleCollider2D mouseOverCollider;
@@ -32,20 +32,20 @@ namespace Exa.Ships
         [SerializeField] private CursorState onHoverState;
 
         [HideInInspector] public ShipOverlay overlay;
-        public INavigation navigation;
-        public BlockGrid blockGrid;
-        protected Blueprint blueprint;
         private Tooltip debugTooltip;
         private CursorOverride cursorOverride;
 
         [Header("Events")]
         public UnityEvent destroyEvent = new UnityEvent();
 
-        public Blueprint Blueprint => blueprint;
         public ActionScheduler ActionScheduler { get; private set; }
-        public Controller Controller { get; internal set; }
-        public TurretList Turrets { get; private set; }
         public ShipContext BlockContext { get; private set; }
+        public BlockGrid BlockGrid { get; private set; }
+        public Blueprint Blueprint { get; private set; }
+        public Controller Controller { get; internal set; }
+        public INavigation Navigation { get; private set; }
+        public ShipGridTotals Totals { get; private set; }
+        public TurretList Turrets { get; private set; }
 
         protected virtual void Awake()
         {
@@ -55,7 +55,7 @@ namespace Exa.Ships
 
         private void FixedUpdate()
         {
-            navigation?.ScheduledFixedUpdate();
+            Navigation?.ScheduledFixedUpdate();
             ActionScheduler.ExecuteActions(Time.fixedDeltaTime);
 
             if (debugTooltip != null)
@@ -76,30 +76,27 @@ namespace Exa.Ships
                 throw new ArgumentException("Blueprint must have a controller reference");
             }
 
-            blockGrid = new BlockGrid(pivot, this);
-
-            // Initialization
+            Totals = new ShipGridTotals(this);
+            BlockGrid = new BlockGrid(pivot, this);
             ActionScheduler = new ActionScheduler(this);
             Turrets = new TurretList();
             BlockContext = blockContext;
 
             var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
             mouseOverCollider.radius = radius;
-
-            navigation = navigationOptions.GetNavigation(this, blueprint);
-
-            blockGrid.Import(blueprint, blockContext);
-            this.blueprint = blueprint;
+            Navigation = navigationOptions.GetNavigation(this, blueprint);
+            BlockGrid.Import(blueprint, blockContext);
+            Blueprint = blueprint;
 
             UpdateCanvasSize(blueprint);
             UpdateCentreOfMassPivot(false);
 
-            shipAI.Initialize();
+            shipAi.Initialize();
         }
 
         public string GetInstanceString()
         {
-            return $"{blueprint.name} : {gameObject.GetInstanceID()}";
+            return $"{Blueprint.name} : {gameObject.GetInstanceID()}";
         }
 
         public virtual void OnRaycastEnter()
@@ -124,22 +121,44 @@ namespace Exa.Ships
             }
         }
 
+        // TODO: Somehow cache this, or let the results come from a central manager
+        public IEnumerable<T> QueryNeighbours<T>(float radius, ShipMask shipMask)
+            where T : Ship
+        {
+            var colliders = Physics2D.OverlapCircleAll(transform.position, radius, shipMask.LayerMask);
+
+            foreach (var collider in colliders)
+            {
+                var neighbour = collider.gameObject.GetComponent<T>();
+                var passesContextMask = (neighbour.BlockContext & shipMask.ContextMask) != 0;
+                if (neighbour != null && !ReferenceEquals(neighbour, this) && passesContextMask)
+                {
+                    yield return neighbour;
+                }
+            }
+        }
+
+        public Tooltip GetTooltip()
+        {
+            return debugTooltip;
+        }
+
         public abstract ShipSelection GetAppropriateSelection(Formation formation);
 
         public abstract bool MatchesSelection(ShipSelection selection);
 
         private void UpdateCentreOfMassPivot(bool updateSelf)
         {
-            var COMOffset = -blockGrid.CentreOfMass.GetCentreOfMass();
+            var comOffset = -BlockGrid.CentreOfMass.GetCentreOfMass();
 
             if (updateSelf)
             {
                 var currentPosition = pivot.localPosition.ToVector2();
-                var diff = currentPosition - COMOffset;
+                var diff = currentPosition - comOffset;
                 transform.localPosition += diff.ToVector3();
             }
 
-            pivot.localPosition = COMOffset;
+            pivot.localPosition = comOffset;
         }
 
         private void UpdateCanvasSize(Blueprint blueprint)
@@ -148,26 +167,21 @@ namespace Exa.Ships
             overlay.rectContainer.sizeDelta = new Vector2(size, size);
         }
 
-        public Tooltip GetTooltip()
-        {
-            return debugTooltip;
-        }
-
         private TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(new ITooltipComponent[]
         {
             new TooltipTitle(GetInstanceString(), false),
             new TooltipSpacer(),
             new TooltipText("Blueprint:"),
-            new TooltipGroup(blueprint.GetDebugTooltipComponents(), 1),
+            new TooltipGroup(Blueprint.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
             new TooltipText("BlockGrid:"),
-            new TooltipGroup(blockGrid.GetDebugTooltipComponents(), 1),
+            new TooltipGroup(BlockGrid.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
             new TooltipText("State:"),
             new TooltipGroup(state.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
             new TooltipText("AI:"),
-            new TooltipGroup(shipAI.GetDebugTooltipComponents(), 1)
+            new TooltipGroup(shipAi.GetDebugTooltipComponents(), 1)
         });
     }
 }

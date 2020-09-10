@@ -37,7 +37,7 @@ namespace Exa.Ships.Navigation
         }
 
         /// <summary>
-        /// Formerly just a FixedUpdate, it gets called on the ship's FixedUpdate instead.
+        /// Formerly just a FixedUpdate, it gets called on the Ship's FixedUpdate instead.
         /// </summary>
         public void ScheduledFixedUpdate()
         {
@@ -87,7 +87,7 @@ namespace Exa.Ships.Navigation
         }
 
         /// <summary>
-        /// Rotate the ship towards a position in world space
+        /// Rotate the Ship towards a position in world space
         /// </summary>
         /// <param name="angleHint">The angle we are currently targeting, this angle is updated when there's a valid position to rotate to</param>
         private void UpdateHeading(ref float angleHint) 

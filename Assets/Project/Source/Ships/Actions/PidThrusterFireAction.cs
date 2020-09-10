@@ -27,7 +27,7 @@ namespace Exa.Ships
         {
             if (rawForce == Vector2.zero) return 0f;
 
-            // Get the angle the ship is currently facing
+            // Get the angle the Ship is currently facing
             var rotationAngle = ship.transform.localRotation.eulerAngles.z;
 
             // Rotate the acceleration needed to local space
@@ -47,7 +47,7 @@ namespace Exa.Ships
             // Don't need to operate on a zero vectors
             if (rawForce == Vector2.zero)
             {
-                ship.navigation.ThrustVectors.SetGraphics(Vector2.zero);
+                ship.Navigation.ThrustVectors.SetGraphics(Vector2.zero);
                 return;
             }
 
@@ -56,7 +56,7 @@ namespace Exa.Ships
 
             // Transform clamped local acceleration back to global acceleration
             var finalForce = calculatedLocalForce.Rotate(tempValues.rotationAngle);
-            //ship.navigation.ThrustVectors.SetGraphics(calculatedLocalForce, deltaTime);
+            //Ship.Navigation.ThrustVectors.SetGraphics(calculatedLocalForce, deltaTime);
 
             ship.rb.AddForce(finalForce, ForceMode2D.Force);
         }

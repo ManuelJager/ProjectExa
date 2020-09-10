@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Exa.ShipEditor
 {
     /// <summary>
-    /// Grid layer for the ship layer
+    /// Grid layer for the Ship layer
     /// </summary>
     public partial class EditorGrid : MonoBehaviour, IUIGroup
     {

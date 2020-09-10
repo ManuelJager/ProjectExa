@@ -19,7 +19,7 @@ namespace Exa.Ships
         public CentreOfMassCache CentreOfMass { get; protected set; }
 
         public BlockGrid(Transform container, Ship ship)
-            : base(totals: new ShipGridTotals(ship))
+            : base(totals: ship.Totals)
         {
             this.container = container;
             this.ship = ship;

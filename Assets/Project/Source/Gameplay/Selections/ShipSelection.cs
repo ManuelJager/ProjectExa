@@ -41,7 +41,7 @@ namespace Exa.Gameplay
 
             ship.overlay.overlayCircle.IsSelected = true;
 
-            // Set a callback that removes the ship from the collection when destroyed
+            // Set a callback that removes the Ship from the collection when destroyed
             UnityAction callback = () => Remove(ship);
             callbackDict.Add(ship, callback);
             ship.destroyEvent.AddListener(callback);

@@ -1,17 +1,19 @@
-﻿namespace Exa.AI
+﻿using Exa.Ships;
+
+namespace Exa.AI
 {
     public abstract class ShipAIAction : IAction
     {
-        protected ShipAI shipAI;
+        protected Ship ship;
 
         public abstract ActionLane Lanes { get; }
         public ActionLane Blocking { get; set; }
         public float Priority { get; private set; }
         public string DebugString { get; protected set; }
 
-        internal ShipAIAction(ShipAI shipAI)
+        internal ShipAIAction(Ship ship)
         {
-            this.shipAI = shipAI;
+            this.ship = ship;
         }
 
         public abstract ActionLane Update(ActionLane blockedLanes);

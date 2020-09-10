@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ff8179fdc65574fbfb0e2b1fac9914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipAI: {fileID: 2469817130048324869}
+  pivot: {fileID: 2317665541009772918}
+  shipAi: {fileID: 2469817130048324869}
   state: {fileID: 6132491278611923504}
   rb: {fileID: 8204439809409374891}
-  pivot: {fileID: 2317665541009772918}
-  navigationOptions: {fileID: 1658731707252705402}
   mouseOverCollider: {fileID: 8348579343947322186}
+  navigationOptions: {fileID: 1658731707252705402}
   canvasScaleMultiplier: 1
   shipDebugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
   onHoverState: 2

@@ -32,7 +32,7 @@ namespace Exa.UI.Gameplay
             var view = shipViews[key];
 
             // Destroy the view if there are ships it could represent
-            // A 1 is used here instead of a 0 as we assume the ship will be removed from the view
+            // A 1 is used here instead of a 0 as we assume the Ship will be removed from the view
             if (view.Count == 1)
             {
                 shipViews.Remove(key);
