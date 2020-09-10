@@ -30,7 +30,7 @@ namespace Exa.AI.Actions
                 return ActionLane.None;
             }
 
-            shipAI.ship.navigation.SetMoveTo(Target);
+            shipAI.ship.navigation.MoveTo = Target;
             return ActionLane.Movement;
         }
 

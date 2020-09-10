@@ -23,11 +23,6 @@ namespace Exa.Ships
             }
         }
 
-        public float TurningRate
-        {
-            get => ship.blockGrid.Totals.TurningPower * 1000 / ship.blockGrid.Totals.Mass;
-        }
-
         public void Update()
         {
             var currentHull = ship.blockGrid.Totals.Hull;
@@ -35,10 +30,15 @@ namespace Exa.Ships
             HullIntegrity = currentHull / totalHull; 
         }
 
+        public float GetTurningRate()
+        {
+            return ship.blockGrid.Totals.TurningPower / ship.blockGrid.Totals.Mass;
+        }
+
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
         {
             new TooltipText($"HullIntegrity: {HullIntegrity}"),
-            new TooltipText($"TurningRate: {TurningRate}")
+            new TooltipText($"TurningRate: {GetTurningRate()}")
         };
     }
 }

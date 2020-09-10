@@ -105,12 +105,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb6d5e7b3de0924296a6e549ee48670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  continouslyApplySettings: 1
+  continuouslyApplySettings: 0
+  navigationType: 2
   qProportionalBase: 50
   qIntegral: 2
-  qDerivitive: 5
+  qDerivative: 0
   pProportional: 2
-  pDerivitive: 5
+  pDerivative: 0
   maxVel: 50
 --- !u!50 &6644560729486729102
 Rigidbody2D:

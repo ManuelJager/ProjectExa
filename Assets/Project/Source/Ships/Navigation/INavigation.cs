@@ -9,10 +9,10 @@ namespace Exa.Ships.Navigation
 {
     public interface INavigation
     {
+        ITarget LookAt { set; }
+        ITarget MoveTo { set; }
         IThrustVectors ThrustVectors { get; }
 
         void ScheduledFixedUpdate();
-        void SetLookAt(ITarget target);
-        void SetMoveTo(ITarget target);
     }
 }

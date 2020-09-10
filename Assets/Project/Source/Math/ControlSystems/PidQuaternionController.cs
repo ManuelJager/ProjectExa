@@ -37,12 +37,12 @@ namespace Exa.Math.ControlSystems
             }
         }
 
-        public float Derivitive
+        public float Derivative
         {
             get => internalControllers[0].Derivitive;
             set
             {
-                EnsureNonNegative(value, "Derivitive");
+                EnsureNonNegative(value, "Derivative");
 
                 this.internalControllers[0].Derivitive = value;
                 this.internalControllers[1].Derivitive = value;

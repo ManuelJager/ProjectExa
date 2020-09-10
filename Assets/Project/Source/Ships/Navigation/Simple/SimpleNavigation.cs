@@ -15,9 +15,8 @@ namespace Exa.Ships.Navigation
         private readonly Ship ship;
         private readonly NavigationOptions options;
 
-        private ITarget moveToTarget;
-        private ITarget lookAtTarget;
-
+        public ITarget LookAt { private get; set; }
+        public ITarget MoveTo { private get; set; }
         public IThrustVectors ThrustVectors => thrustVectors;
 
         public SimpleNavigation(Ship ship, NavigationOptions options, float directionalThrust)
@@ -29,31 +28,21 @@ namespace Exa.Ships.Navigation
 
         public void ScheduledFixedUpdate()
         {
-            if (lookAtTarget != null)
+            if (LookAt != null)
             {
                 UpdateRotation();
             }
 
-            if (moveToTarget != null)
+            if (MoveTo != null)
             {
                 UpdatePosition();
             }
         }
 
-        public void SetLookAt(ITarget target)
-        {
-            lookAtTarget = target;
-        }
-
-        public void SetMoveTo(ITarget target)
-        {
-            moveToTarget = target;
-        }
-
         private void UpdatePosition()
         {
             var currentPosition = (Vector2)ship.transform.position;
-            var moveToTargetPosition = moveToTarget.GetPosition(currentPosition);
+            var moveToTargetPosition = MoveTo.GetPosition(currentPosition);
 
             if (currentPosition == moveToTargetPosition)
             {
@@ -74,7 +63,7 @@ namespace Exa.Ships.Navigation
         private void UpdateRotation()
         {
             var currentPosition = (Vector2)ship.transform.position;
-            var lookAtTargetPosition = lookAtTarget.GetPosition(currentPosition);
+            var lookAtTargetPosition = LookAt.GetPosition(currentPosition);
 
             var lookAtDelta = lookAtTargetPosition - currentPosition;
             var currentRotation = ship.transform.rotation.eulerAngles;

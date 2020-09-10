@@ -8,6 +8,8 @@ namespace Exa.Ships.Navigation
         private readonly NavigationOptions options;
         private readonly AxisThrustVectors thrustVectors;
 
+        public ITarget LookAt { private get; set; }
+        public ITarget MoveTo { private get; set; }
         public IThrustVectors ThrustVectors => thrustVectors;
 
         public DirectionalNavigation(Ship ship, NavigationOptions options, float directionalThrust)
@@ -20,17 +22,7 @@ namespace Exa.Ships.Navigation
 
         public void ScheduledFixedUpdate()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void SetLookAt(ITarget target)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void SetMoveTo(ITarget target)
-        {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

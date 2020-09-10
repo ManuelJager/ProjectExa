@@ -58,7 +58,7 @@ namespace Exa.Math.ControlSystems
             get => derivitive;
             set
             {
-                EnsureNonNegative(value, "Derivitive");
+                EnsureNonNegative(value, "Derivative");
                 this.derivitive = value;
             }
         }

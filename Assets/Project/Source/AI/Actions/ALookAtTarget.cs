@@ -17,7 +17,7 @@ namespace Exa.AI
         {
             if (Target == null) return ActionLane.None;
 
-            shipAI.ship.navigation.SetLookAt(Target);
+            shipAI.ship.navigation.LookAt = Target;
             return ActionLane.Rotation;
         }
 

@@ -1,4 +1,6 @@
-﻿using Exa.Ships;
+﻿using System.Linq;
+using Exa.Math;
+using Exa.Ships;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,18 +46,25 @@ namespace Exa.Gameplay
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (HasSelection && ShipSelection is FriendlyShipSelection)
+                    if (HasSelection && CurrentSelection is FriendlyShipSelection)
                     {
-                        var selection = ShipSelection as FriendlyShipSelection; 
+                        var selection = CurrentSelection as FriendlyShipSelection; 
                         var point = Systems.Input.MouseWorldPoint;
                         selection.MoveLookAt(point);
                         return;
                     }
 
-                    if (Systems.GodModeIsEnabled && raycastTarget != null && raycastTarget is Ship)
+                    //if (Systems.GodModeIsEnabled && raycastTarget != null && raycastTarget is Ship)
+                    //{
+                    //    var ship = raycastTarget as Ship;
+                    //    ship.blockGrid.Totals.Hull -= 50f;
+                    //}
+                    if (HasSelection && CurrentSelection.Count == 1)
                     {
-                        var ship = raycastTarget as Ship;
-                        ship.blockGrid.Totals.Hull -= 50f;
+                        var ship = CurrentSelection.First();
+                        var worldPos = ship.transform.position.ToVector2();
+                        var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * 50f;
+                        ship.rb.AddForce(direction, ForceMode2D.Force);
                     }
                     break;
             }
@@ -105,7 +114,7 @@ namespace Exa.Gameplay
             if (IsSelectingArea)
             {
                 // Clear the current selection
-                ShipSelection?.Clear();
+                CurrentSelection?.Clear();
 
                 // Update selection builder
                 var worldPoint = Systems.Input.MouseWorldPoint;
@@ -118,7 +127,7 @@ namespace Exa.Gameplay
                 var selection = selectionBuilder.Build();
                 GameSystems.UI.selectionHotbar.Save(selection);
 
-                ShipSelection = selection;
+                CurrentSelection = selection;
 
                 selectionBuilder = null;
             }
@@ -137,8 +146,8 @@ namespace Exa.Gameplay
                 }
 
                 // Clear the selection
-                ShipSelection.Clear();
-                ShipSelection = null;
+                CurrentSelection.Clear();
+                CurrentSelection = null;
             }
         }
 
@@ -147,12 +156,12 @@ namespace Exa.Gameplay
             if (HasSelection && GameSystems.UI.selectionHotbar.CurrentSelection == null)
             {
                 GameSystems.UI.selectionHotbar.Select(index);
-                GameSystems.UI.selectionHotbar.Save(ShipSelection);
+                GameSystems.UI.selectionHotbar.Save(CurrentSelection);
             }
             else
             {
-                ShipSelection?.Clear();
-                ShipSelection = GameSystems.UI.selectionHotbar.Select(index);
+                CurrentSelection?.Clear();
+                CurrentSelection = GameSystems.UI.selectionHotbar.Select(index);
             }
         }
     }

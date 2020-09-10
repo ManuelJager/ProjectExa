@@ -46,7 +46,7 @@ namespace Exa.AI.Actions
             var offset = Vector2.ClampMagnitude(headingVector * settings.headingCorrectionMultiplier, settings.detectionRadius);
             var target = new StaticPositionTarget(globalPos + offset);
 
-            shipAI.ship.navigation.SetMoveTo(target);
+            shipAI.ship.navigation.MoveTo = target;
 
             return ActionLane.Movement;
         }

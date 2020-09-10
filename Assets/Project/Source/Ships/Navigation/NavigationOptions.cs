@@ -7,23 +7,24 @@ namespace Exa.Ships.Navigation
     public enum NavigationType
     {
         Simple,
-        PhysicsBased
+        Pid,
+        Directional
     }
 
     public class NavigationOptions : MonoBehaviour
     {
         [Header("Options")]
-        public bool continouslyApplySettings;
+        public bool continuouslyApplySettings;
         public NavigationType navigationType;
 
         [Header("PID-Quaternion-parameters")]
         public float qProportionalBase;
         public float qIntegral;
-        public float qDerivitive;
+        public float qDerivative;
 
         [Header("PD-Position-parameters")]
         public float pProportional;
-        public float pDerivitive;
+        public float pDerivative;
         public float maxVel;
 
         public INavigation GetNavigation(Ship ship, Blueprint blueprint)
@@ -36,8 +37,11 @@ namespace Exa.Ships.Navigation
                 case NavigationType.Simple:
                     return new SimpleNavigation(ship, this, controllerValues.directionalForce);
 
-                case NavigationType.PhysicsBased:
-                    return new PidPhysicsNavigation(ship, this, controllerValues.directionalForce);
+                case NavigationType.Pid:
+                    return new PidNavigation(ship, this, controllerValues.directionalForce);
+
+                case NavigationType.Directional:
+                    return new DirectionalNavigation(ship, this, controllerValues.directionalForce);
 
                 default:
                     return null;
