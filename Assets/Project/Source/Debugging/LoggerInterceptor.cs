@@ -14,7 +14,7 @@ namespace Exa.Debugging
 
         private void Awake()
         {
-            userExceptionLogger = Systems.UI.userExceptionLogger;
+            userExceptionLogger = Systems.UI.logger;
             defaultLogHandler = Debug.unityLogger.logHandler;
             Debug.unityLogger.logHandler = this;
         }

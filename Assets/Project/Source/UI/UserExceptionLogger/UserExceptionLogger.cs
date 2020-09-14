@@ -5,7 +5,7 @@ using Exa.Misc;
 
 namespace Exa.UI
 {
-    public class UserExceptionLogger : MonoSingleton<UserExceptionLogger>
+    public class UserExceptionLogger : MonoBehaviour
     {
         [SerializeField] private GameObject userExceptionPrefab;
         [SerializeField] private Transform container;

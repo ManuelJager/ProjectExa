@@ -212,6 +212,14 @@ namespace Exa.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Drag"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b87a355-27b6-40d2-842e-51238e7d1ac3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -223,6 +231,17 @@ namespace Exa.Input
                     ""processors"": """",
                     ""groups"": ""MouseKb"",
                     ""action"": ""ToggleConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02fde2ea-86ba-48b5-9360-8600e5ef0a0e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Drag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -552,6 +571,7 @@ namespace Exa.Input
             // Debug
             m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
             m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
+            m_Debug_Drag = m_Debug.FindAction("Drag", throwIfNotFound: true);
             // ReturnNavigateable
             m_ReturnNavigateable = asset.FindActionMap("ReturnNavigateable", throwIfNotFound: true);
             m_ReturnNavigateable_Return = m_ReturnNavigateable.FindAction("Return", throwIfNotFound: true);
@@ -621,7 +641,7 @@ namespace Exa.Input
         private readonly InputAction m_Editor_Zoom;
         public struct EditorActions
         {
-            private readonly @GameControls m_Wrapper;
+            private @GameControls m_Wrapper;
             public EditorActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Editor_Movement;
             public InputAction @LeftClick => m_Wrapper.m_Editor_LeftClick;
@@ -694,11 +714,13 @@ namespace Exa.Input
         private readonly InputActionMap m_Debug;
         private IDebugActions m_DebugActionsCallbackInterface;
         private readonly InputAction m_Debug_ToggleConsole;
+        private readonly InputAction m_Debug_Drag;
         public struct DebugActions
         {
-            private readonly @GameControls m_Wrapper;
+            private @GameControls m_Wrapper;
             public DebugActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
+            public InputAction @Drag => m_Wrapper.m_Debug_Drag;
             public InputActionMap Get() { return m_Wrapper.m_Debug; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -711,6 +733,9 @@ namespace Exa.Input
                     @ToggleConsole.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
                     @ToggleConsole.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
                     @ToggleConsole.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @Drag.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
+                    @Drag.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
+                    @Drag.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
                 }
                 m_Wrapper.m_DebugActionsCallbackInterface = instance;
                 if (instance != null)
@@ -718,6 +743,9 @@ namespace Exa.Input
                     @ToggleConsole.started += instance.OnToggleConsole;
                     @ToggleConsole.performed += instance.OnToggleConsole;
                     @ToggleConsole.canceled += instance.OnToggleConsole;
+                    @Drag.started += instance.OnDrag;
+                    @Drag.performed += instance.OnDrag;
+                    @Drag.canceled += instance.OnDrag;
                 }
             }
         }
@@ -729,7 +757,7 @@ namespace Exa.Input
         private readonly InputAction m_ReturnNavigateable_Return;
         public struct ReturnNavigateableActions
         {
-            private readonly @GameControls m_Wrapper;
+            private @GameControls m_Wrapper;
             public ReturnNavigateableActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Return => m_Wrapper.m_ReturnNavigateable_Return;
             public InputActionMap Get() { return m_Wrapper.m_ReturnNavigateable; }
@@ -767,7 +795,7 @@ namespace Exa.Input
         private readonly InputAction m_Gameplay_NumKeys;
         public struct GameplayActions
         {
-            private readonly @GameControls m_Wrapper;
+            private @GameControls m_Wrapper;
             public GameplayActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
             public InputAction @RightClick => m_Wrapper.m_Gameplay_RightClick;
@@ -850,6 +878,7 @@ namespace Exa.Input
         public interface IDebugActions
         {
             void OnToggleConsole(InputAction.CallbackContext context);
+            void OnDrag(InputAction.CallbackContext context);
         }
         public interface IReturnNavigateableActions
         {

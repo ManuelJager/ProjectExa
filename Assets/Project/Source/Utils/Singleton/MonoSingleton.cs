@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Exa.Utils
 {
@@ -25,7 +26,7 @@ namespace Exa.Utils
             {
                 if (instance == null)
                 {
-                    throw new MissingReferenceException($"Missing instance on type {typeof(T)}");
+                    throw new NullReferenceException($"Missing instance on type {typeof(T)}");
                 }
                 return instance;
             }

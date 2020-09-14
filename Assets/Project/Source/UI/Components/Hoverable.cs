@@ -29,7 +29,7 @@ namespace Exa.UI
 
         private void Awake()
         {
-            cursorOverride = new CursorOverride(cursorState, this);
+            cursorOverride = new CursorOverride(cursorState);
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
         }

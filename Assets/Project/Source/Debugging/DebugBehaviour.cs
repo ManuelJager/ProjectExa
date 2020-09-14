@@ -9,7 +9,7 @@ namespace Exa.Debugging
 
         protected virtual void Awake()
         {
-            Systems.DebugChange += OnDebugStateChange;
+            DebugManager.DebugChange += OnDebugStateChange;
         }
     }
 }

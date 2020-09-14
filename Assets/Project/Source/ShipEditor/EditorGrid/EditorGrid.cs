@@ -141,7 +141,7 @@ namespace Exa.ShipEditor
         public void Import(Blueprint blueprint)
         {
             // Get size of blueprint class and resize the grid accordingly
-            var editorSize = blueprint.blueprintType.maxSize;
+            var editorSize = blueprint.BlueprintType.maxSize;
             GenerateGrid(editorSize);
 
             // Import the blueprint

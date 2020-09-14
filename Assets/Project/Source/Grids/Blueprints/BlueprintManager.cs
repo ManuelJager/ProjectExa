@@ -45,7 +45,7 @@ namespace Exa.Grids.Blueprints
                 }
                 catch (Exception e)
                 {
-                    Systems.UI.userExceptionLogger.Log($"Error loading blueprint: {e.Message}");
+                    Systems.UI.logger.Log($"Error loading blueprint: {e.Message}");
                 }
 
                 yield return null;

@@ -72,7 +72,7 @@ namespace Exa.Ships.Navigation
             // Transform the difference to a local target vector for the pid controller
             var distance = targetPosition - currentPosition;
 
-            if (Systems.IsDebugging(DebugMode.Navigation))
+            if (DebugMode.Navigation.GetEnabled())
             {
                 Debug.DrawRay(options.transform.position, distance, Color.green);
             }
@@ -103,7 +103,7 @@ namespace Exa.Ships.Navigation
             var targetPosition = LookAt.GetPosition(currentPosition);
             var distance = targetPosition - currentPosition;
 
-            if (Systems.IsDebugging(DebugMode.Navigation))
+            if (DebugMode.Navigation.GetEnabled())
             {
                 Debug.DrawRay(options.transform.position, distance, Color.red);
 

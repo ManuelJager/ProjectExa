@@ -16,7 +16,7 @@ using UnityEngine.Events;
 
 namespace Exa.Ships
 {
-    public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter
+    public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable
     {
         [Header("References")]
         public Transform pivot;
@@ -50,7 +50,7 @@ namespace Exa.Ships
         protected virtual void Awake()
         {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
-            cursorOverride = new CursorOverride(onHoverState, this);
+            cursorOverride = new CursorOverride(onHoverState);
         }
 
         private void FixedUpdate()
@@ -69,7 +69,7 @@ namespace Exa.Ships
             UpdateCentreOfMassPivot(true);
         }
 
-        public virtual void Import(Blueprint blueprint, ShipContext blockContext)
+        public virtual void Import(Blueprint blueprint, ShipContext shipContext)
         {
             if (blueprint.Blocks.Controller == null)
             {
@@ -80,12 +80,12 @@ namespace Exa.Ships
             BlockGrid = new BlockGrid(pivot, this);
             ActionScheduler = new ActionScheduler(this);
             Turrets = new TurretList();
-            BlockContext = blockContext;
+            BlockContext = shipContext;
 
             var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
             mouseOverCollider.radius = radius;
             Navigation = navigationOptions.GetNavigation(this, blueprint);
-            BlockGrid.Import(blueprint, blockContext);
+            BlockGrid.Import(blueprint, shipContext);
             Blueprint = blueprint;
 
             UpdateCanvasSize(blueprint);
@@ -104,7 +104,7 @@ namespace Exa.Ships
             overlay.overlayCircle.IsHovered = true;
             Systems.UI.mouseCursor.AddOverride(cursorOverride);
 
-            if (Systems.IsDebugging(DebugMode.Ships))
+            if (DebugMode.Ships.GetEnabled())
             {
                 Systems.UI.tooltips.shipAIDebugTooltip.Show(this);
             }
@@ -115,7 +115,7 @@ namespace Exa.Ships
             overlay.overlayCircle.IsHovered = false;
             Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
 
-            if (Systems.IsDebugging(DebugMode.Ships))
+            if (DebugMode.Ships.GetEnabled())
             {
                 Systems.UI.tooltips.shipAIDebugTooltip.Hide();
             }
@@ -183,5 +183,16 @@ namespace Exa.Ships
             new TooltipText("AI:"),
             new TooltipGroup(shipAi.GetDebugTooltipComponents(), 1)
         });
+
+        public Vector2 GetPosition()
+        {
+            return transform.position;
+        }
+
+        public void SetGlobals(Vector2 position, Vector2 velocity)
+        {
+            transform.position = position;
+            rb.velocity = velocity;
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace Exa.Gameplay
         [SerializeField] private GameplayCameraController gameplayCameraController;
         private GameControls gameControls;
 
+        public IRaycastTarget RaycastTarget => raycastTarget;
+
         public void Awake()
         {
             gameControls = new GameControls();

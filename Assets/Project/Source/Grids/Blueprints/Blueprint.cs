@@ -11,19 +11,16 @@ namespace Exa.Grids.Blueprints
 {
     public class Blueprint : ICloneable<Blueprint>
     {
+        public static readonly string DEFAULT_BLUEPRINT_NAME = "New blueprint";
+
         public string name;
         public string shipClass;
 
         [JsonProperty("blocks")] public BlueprintBlocks Blocks { get; private set; }
         [JsonIgnore] public Texture2D Thumbnail { get; set; }
 
-        public static readonly string DEFAULT_BLUEPRINT_NAME = "New blueprint";
-
         [JsonIgnore]
-        public BlueprintType blueprintType
-        {
-            get => Systems.Blueprints.blueprintTypes.typesById[shipClass];
-        }
+        public BlueprintType BlueprintType => Systems.Blueprints.blueprintTypes.typesById[shipClass];
 
         public Blueprint(BlueprintOptions options)
         {

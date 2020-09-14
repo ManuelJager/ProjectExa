@@ -53,28 +53,9 @@ namespace Exa
 
         public static bool IsQuitting { get; set; } = false;
 
-        public static event DebugChangeDelegate DebugChange;
-
         private void Start()
         {
             StartCoroutine(Load());
-        }
-
-        public static bool IsDebugging(DebugMode debugMode)
-        {
-            return (Debug.DebugMode & debugMode) != 0;
-        }
-
-        public static void SetFlag(DebugMode debugMode)
-        {
-            Debug.DebugMode |= debugMode;
-            DebugChange(Debug.DebugMode);
-        }
-
-        public static void ToggleFlag(DebugMode debugMode)
-        {
-            Debug.DebugMode ^= debugMode;
-            DebugChange(Debug.DebugMode);
         }
 
         [RuntimeInitializeOnLoadMethod]

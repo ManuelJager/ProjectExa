@@ -9,11 +9,5 @@
         {
             this.cursorState = cursorState;
         }
-
-        public CursorOverride(CursorState cursorState, object invoker)
-        {
-            this.cursorState = cursorState;
-            this.invoker = invoker;
-        }
     }
 }

@@ -48,7 +48,7 @@ namespace Exa.UI
 
             if (string.IsNullOrEmpty(clipboardText))
             {
-                UserExceptionLogger.Instance.Log("Clipboard is empty");
+                Systems.UI.logger.Log("Clipboard is empty");
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace Exa.UI
 
             if (Systems.Blueprints.ContainsName(blueprint.name))
             {
-                UserExceptionLogger.Instance.Log("Blueprint with given name already added");
+                Systems.UI.logger.Log("Blueprint with given name already added");
                 return;
             }
 
@@ -76,7 +76,7 @@ namespace Exa.UI
             }
             catch
             {
-                UserExceptionLogger.Instance.Log("Clipboard data is formatted incorrectly");
+                Systems.UI.logger.Log("Clipboard data is formatted incorrectly");
                 blueprint = null;
                 return false;
             }
@@ -133,7 +133,7 @@ namespace Exa.UI
 
             if (Systems.Blueprints.ContainsName(blueprint.name))
             {
-                Systems.UI.userExceptionLogger.Log($"Blueprint name \"{blueprint.name}\" is already used");
+                Systems.UI.logger.Log($"Blueprint name \"{blueprint.name}\" is already used");
                 return;
             }
 
