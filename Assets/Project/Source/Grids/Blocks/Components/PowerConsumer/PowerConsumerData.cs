@@ -7,7 +7,7 @@ namespace Exa.Grids.Blocks.Components
 {
     public struct PowerConsumerData : IBlockComponentValues
     {
-        public Percentage powerConsumption;
+        public Scalar powerConsumption;
 
         public void AddGridTotals(GridTotals totals)
         {

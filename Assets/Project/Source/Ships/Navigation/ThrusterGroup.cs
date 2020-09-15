@@ -7,20 +7,20 @@ namespace Exa.Ships.Navigation
 {
     public class ThrusterGroup : List<IThruster>
     {
-        private readonly float directionalThrust;
-        private Percentage thrustModifier = new Percentage(1);
+        private Scalar thrustModifier;
+        private float thrust = 0f;
 
-        private float Thrust => thrustModifier.GetValue(directionalThrust);
+        public float Thrust => thrustModifier.GetValue(thrust);
 
-        public ThrusterGroup(float directionalThrust)
+        public ThrusterGroup(Scalar thrustModifier)
         {
-            this.directionalThrust = directionalThrust;
+            this.thrustModifier = thrustModifier;
         }
 
         public new void Add(IThruster thruster)
         {
             base.Add(thruster);
-            thrustModifier += thruster.Component.Data.thrust;
+            thrust += thruster.Component.Data.thrust;
         }
 
         public new bool Remove(IThruster thruster)
@@ -29,13 +29,18 @@ namespace Exa.Ships.Navigation
 
             if (result)
             {
-                thrustModifier -= thruster.Component.Data.thrust;
+                thrust -= thruster.Component.Data.thrust;
             }
 
             return result;
         }
 
-        public void SetFireStrength(float strength)
+        public void Fire(float force)
+        {
+            SetGraphics(force / Thrust);
+        }
+
+        public void SetGraphics(float strength)
         {
             foreach (var item in this)
             {

@@ -7,7 +7,7 @@ namespace Exa.Grids.Blocks.Components
 {
     public struct ThrusterData : IBlockComponentValues
     {
-        public Percentage thrust;
+        public float thrust;
 
         public void AddGridTotals(GridTotals totals)
         {

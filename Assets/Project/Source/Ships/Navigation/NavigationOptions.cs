@@ -35,13 +35,13 @@ namespace Exa.Ships.Navigation
             switch (navigationType)
             {
                 case NavigationType.Simple:
-                    return new SimpleNavigation(ship, this, controllerValues.directionalForce);
+                    return new SimpleNavigation(ship, this, controllerValues.thrustModifier);
 
                 case NavigationType.Pid:
-                    return new PidNavigation(ship, this, controllerValues.directionalForce);
+                    return new PidNavigation(ship, this, controllerValues.thrustModifier);
 
                 case NavigationType.Directional:
-                    return new DirectionalNavigation(ship, this, controllerValues.directionalForce);
+                    return new DirectionalNavigation(ship, this, controllerValues.thrustModifier);
 
                 default:
                     return null;

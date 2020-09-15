@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
+﻿using Exa.Data;
+using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation
@@ -8,10 +9,10 @@ namespace Exa.Ships.Navigation
         private readonly ThrusterAxis horizontalThrusterAxis;
         private readonly ThrusterAxis verticalThrusterAxis;
 
-        public AxisThrustVectors(float directionalThrust)
+        public AxisThrustVectors(Scalar thrustModifier)
         {
-            horizontalThrusterAxis = new ThrusterAxis(directionalThrust);
-            verticalThrusterAxis = new ThrusterAxis(directionalThrust);
+            horizontalThrusterAxis = new ThrusterAxis(thrustModifier);
+            verticalThrusterAxis = new ThrusterAxis(thrustModifier);
         }
 
         public void Register(IThruster thruster)
@@ -24,10 +25,25 @@ namespace Exa.Ships.Navigation
             SelectAxis(thruster, out var component).Unregister(thruster, component);
         }
 
+        public void Fire(Vector2 velocity)
+        {
+            horizontalThrusterAxis.Fire(velocity.x);
+            verticalThrusterAxis.Fire(velocity.y);
+        }
+
+        public Vector2 Clamp(Vector2 forceDirection, float deltaTime)
+        {
+            return new Vector2
+            {
+                x = horizontalThrusterAxis.Clamp(forceDirection.x, deltaTime),
+                y = verticalThrusterAxis.Clamp(forceDirection.y, deltaTime)
+            };
+        }
+
         public void SetGraphics(Vector2 directionScalar)
         {
-            horizontalThrusterAxis.Fire(directionScalar.x);
-            verticalThrusterAxis.Fire(directionScalar.y);
+            horizontalThrusterAxis.SetGraphics(directionScalar.x);
+            verticalThrusterAxis.SetGraphics(directionScalar.y);
         }
 
         private ThrusterAxis SelectAxis(IThruster thruster, out bool positiveAxisComponent)

@@ -14,10 +14,10 @@ namespace Exa.Grids
 
         private long mass;
         private float hull;
-        private Percentage powerGenerationModifier = new Percentage(1);
-        private Percentage peakPowerConsumptionModifier = new Percentage(1);
-        private Percentage powerStorageModifier = new Percentage(1);
-        private Percentage turningPowerModifier = new Percentage(1);
+        private Scalar powerGenerationModifier = new Scalar(1);
+        private Scalar peakPowerConsumptionModifier = new Scalar(1);
+        private Scalar powerStorageModifier = new Scalar(1);
+        private Scalar turningPowerModifier = new Scalar(1);
 
         public virtual long Mass
         {
@@ -31,25 +31,25 @@ namespace Exa.Grids
             set => hull = value;
         }
 
-        public virtual Percentage PowerGenerationModifier
+        public virtual Scalar PowerGenerationModifier
         {
             get => powerGenerationModifier;
             set => powerGenerationModifier = value;
         }
 
-        public virtual Percentage PowerConsumptionModifier
+        public virtual Scalar PowerConsumptionModifier
         {
             get => peakPowerConsumptionModifier;
             set => peakPowerConsumptionModifier = value;
         }
 
-        public virtual Percentage PowerStorageModifier
+        public virtual Scalar PowerStorageModifier
         {
             get => powerStorageModifier;
             set => powerStorageModifier = value;
         }
 
-        public virtual Percentage TurningPowerModifier
+        public virtual Scalar TurningPowerModifier
         {
             get => turningPowerModifier;
             set => turningPowerModifier = value;

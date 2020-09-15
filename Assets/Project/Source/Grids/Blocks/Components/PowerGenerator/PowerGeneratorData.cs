@@ -7,7 +7,7 @@ namespace Exa.Grids.Blocks.Components
 {
     public struct PowerGeneratorData : IBlockComponentValues
     {
-        public Percentage powerGeneration;
+        public Scalar powerGeneration;
 
         public void AddGridTotals(GridTotals totals)
         {

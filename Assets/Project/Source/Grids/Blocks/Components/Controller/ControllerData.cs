@@ -1,6 +1,7 @@
 ﻿using Exa.Generics;
 using Exa.UI.Tooltips;
 using System.Collections.Generic;
+using Exa.Data;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
@@ -11,7 +12,7 @@ namespace Exa.Grids.Blocks.Components
         public float powerConsumption;
         public float powerStorage;
         public float turningRate;
-        public float directionalForce;
+        public Scalar thrustModifier;
 
         public void AddGridTotals(GridTotals totals)
         {
@@ -28,7 +29,7 @@ namespace Exa.Grids.Blocks.Components
             new LabeledValue<string>("Consumption", $"{powerConsumption} KW"),
             new LabeledValue<string>("Storage", $"{powerStorage} KJ"),
             new LabeledValue<string>("Turning rate", $"{turningRate}"),
-            new LabeledValue<string>("Thrust", $"{directionalForce} N")
+            new LabeledValue<string>("ThrustModifier", $"{thrustModifier.ToPercentageString()}")
         };
     }
 }

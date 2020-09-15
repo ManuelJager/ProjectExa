@@ -7,7 +7,7 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class PowerGeneratorTemplatePartial : TemplatePartial<PowerGeneratorData>
     {
-        [SerializeField] private Percentage peakGeneration;
+        [SerializeField] private Scalar peakGeneration;
 
         public override PowerGeneratorData Convert() => new PowerGeneratorData
         {

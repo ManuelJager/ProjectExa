@@ -3,6 +3,7 @@ using Exa.Math;
 using Exa.Math.ControlSystems;
 using Exa.Ships.Targetting;
 using System;
+using Exa.Data;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation
@@ -23,12 +24,12 @@ namespace Exa.Ships.Navigation
         public ITarget MoveTo { private get; set; }
         public IThrustVectors ThrustVectors => thrustVectors;
 
-        public PidNavigation(Ship ship, NavigationOptions options, float directionalThrust)
+        public PidNavigation(Ship ship, NavigationOptions options, Scalar thrustModifier)
         {
             this.ship = ship;
             this.options = options;
 
-            thrustVectors = new ThrustVectors(directionalThrust);
+            thrustVectors = new ThrustVectors(thrustModifier);
             pidQuaternionController = new PidQuaternionController(options.qProportionalBase, options.qIntegral, options. qDerivative);
             pdVector2Controller = new PdVector2Controller(options.pProportional, options.pDerivative, options.maxVel);
             pidThrusterFireAction = new PidThrusterFireAction(ship);
@@ -39,7 +40,7 @@ namespace Exa.Ships.Navigation
         /// <summary>
         /// Formerly just a FixedUpdate, it gets called on the Ship's FixedUpdate instead.
         /// </summary>
-        public void ScheduledFixedUpdate()
+        public void Update(float deltaTime)
         {
             if (options.continuouslyApplySettings)
             {

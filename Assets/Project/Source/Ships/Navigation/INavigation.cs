@@ -13,6 +13,6 @@ namespace Exa.Ships.Navigation
         ITarget MoveTo { set; }
         IThrustVectors ThrustVectors { get; }
 
-        void ScheduledFixedUpdate();
+        void Update(float deltaTime);
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exa.Data;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation
@@ -19,14 +20,14 @@ namespace Exa.Ships.Navigation
         public ITarget MoveTo { private get; set; }
         public IThrustVectors ThrustVectors => thrustVectors;
 
-        public SimpleNavigation(Ship ship, NavigationOptions options, float directionalThrust)
+        public SimpleNavigation(Ship ship, NavigationOptions options, Scalar thrustModifier)
         {
             this.ship = ship;
             this.options = options;
-            this.thrustVectors = new ThrustVectors(directionalThrust);
+            this.thrustVectors = new ThrustVectors(thrustModifier);
         }
 
-        public void ScheduledFixedUpdate()
+        public void Update(float deltaTime)
         {
             if (LookAt != null)
             {

@@ -10,7 +10,7 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class PowerConsumerTemplatePartial : TemplatePartial<PowerConsumerData>
     {
-        [SerializeField] private Percentage powerConsumption; // In MW
+        [SerializeField] private Scalar powerConsumption; // In MW
 
         public override PowerConsumerData Convert() => new PowerConsumerData
         {

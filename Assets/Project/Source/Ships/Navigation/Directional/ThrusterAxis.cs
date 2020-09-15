@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
+﻿using Exa.Data;
+using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation
@@ -8,10 +9,10 @@ namespace Exa.Ships.Navigation
         private readonly ThrusterGroup positiveThrusterGroup;
         private readonly ThrusterGroup negativeThrusterGroup;
 
-        public ThrusterAxis(float directionalThrust)
+        public ThrusterAxis(Scalar thrustModifier)
         {
-            positiveThrusterGroup = new ThrusterGroup(directionalThrust);
-            negativeThrusterGroup = new ThrusterGroup(directionalThrust);
+            positiveThrusterGroup = new ThrusterGroup(thrustModifier);
+            negativeThrusterGroup = new ThrusterGroup(thrustModifier);
         }
 
         public void Register(IThruster thruster, bool positiveComponent)
@@ -24,10 +25,25 @@ namespace Exa.Ships.Navigation
             SelectGroup(positiveComponent).Remove(thruster);
         }
 
-        public void Fire(float scalar)
+        public void Fire(float velocity)
         {
-            SelectGroup(scalar > 0f).SetFireStrength(Mathf.Abs(scalar));
-            SelectGroup(!(scalar > 0f)).SetFireStrength(0);
+            var component = velocity > 0f;
+            SelectGroup(component).Fire(Mathf.Abs(velocity));
+            SelectGroup(!component).Fire(0f);
+        }
+
+        public float Clamp(float directionForce, float deltaTime)
+        {
+            var positive = directionForce > 0f;
+            var maxForceDelta = SelectGroup(positive).Thrust * deltaTime;
+            return positive ? maxForceDelta : -maxForceDelta;
+        }
+
+        public void SetGraphics(float scalar)
+        {
+            var component = scalar > 0f;
+            SelectGroup(component).SetGraphics(Mathf.Abs(scalar));
+            SelectGroup(!component).SetGraphics(0f);
         }
 
         private ThrusterGroup SelectGroup(bool positiveComponent)

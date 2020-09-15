@@ -7,7 +7,7 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class ThrusterTemplatePartial : TemplatePartial<ThrusterData>
     {
-        [SerializeField] private Percentage thrust; // In % over the base 
+        [SerializeField] private float thrust; 
 
         public override ThrusterData Convert() => new ThrusterData
         {

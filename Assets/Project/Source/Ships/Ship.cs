@@ -55,8 +55,9 @@ namespace Exa.Ships
 
         private void FixedUpdate()
         {
-            Navigation?.ScheduledFixedUpdate();
-            ActionScheduler.ExecuteActions(Time.fixedDeltaTime);
+            var deltaTime = Time.fixedDeltaTime;
+            Navigation?.Update(deltaTime);
+            ActionScheduler.ExecuteActions(deltaTime);
 
             if (debugTooltip != null)
             {

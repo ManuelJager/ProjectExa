@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public struct GyroscopeData : IBlockComponentValues
     {
-        public Percentage turningRate;
+        public Scalar turningRate;
 
         public void AddGridTotals(GridTotals totals)
         {

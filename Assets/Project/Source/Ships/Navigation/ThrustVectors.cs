@@ -4,6 +4,7 @@ using Exa.Math;
 using Exa.Math.ControlSystems;
 using System;
 using System.Collections.Generic;
+using Exa.Data;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation
@@ -13,14 +14,14 @@ namespace Exa.Ships.Navigation
     {
         private readonly Dictionary<int, ThrusterGroup> thrusterDict;
 
-        public ThrustVectors(float directionalThrust)
+        public ThrustVectors(Scalar modifier)
         {
             thrusterDict = new Dictionary<int, ThrusterGroup>
             {
-                { 0, new ThrusterGroup(directionalThrust) },
-                { 1, new ThrusterGroup(directionalThrust) },
-                { 2, new ThrusterGroup(directionalThrust) },
-                { 3, new ThrusterGroup(directionalThrust) }
+                { 0, new ThrusterGroup(modifier) },
+                { 1, new ThrusterGroup(modifier) },
+                { 2, new ThrusterGroup(modifier) },
+                { 3, new ThrusterGroup(modifier) }
             };
         }
 
@@ -41,10 +42,10 @@ namespace Exa.Ships.Navigation
         public void SetGraphics(Vector2 directionScalar)
         {
 
-            SelectHorizontalGroup(directionScalar.x, false).SetFireStrength(Mathf.Abs(directionScalar.x));
-            SelectHorizontalGroup(directionScalar.x, true).SetFireStrength(0);
-            SelectVerticalGroup(directionScalar.y, false).SetFireStrength(Mathf.Abs(directionScalar.y));
-            SelectVerticalGroup(directionScalar.y, true).SetFireStrength(0);
+            SelectHorizontalGroup(directionScalar.x, false).SetGraphics(Mathf.Abs(directionScalar.x));
+            SelectHorizontalGroup(directionScalar.x, true).SetGraphics(0);
+            SelectVerticalGroup(directionScalar.y, false).SetGraphics(Mathf.Abs(directionScalar.y));
+            SelectVerticalGroup(directionScalar.y, true).SetGraphics(0);
         }
 
         private ThrusterGroup SelectGroup(IThruster thruster)
