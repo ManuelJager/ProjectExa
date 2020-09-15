@@ -14,14 +14,14 @@ namespace Exa.Ships.Navigation
     {
         private readonly Dictionary<int, ThrusterGroup> thrusterDict;
 
-        public ThrustVectors(Scalar modifier)
+        public ThrustVectors(Scalar thrustModifier)
         {
             thrusterDict = new Dictionary<int, ThrusterGroup>
             {
-                { 0, new ThrusterGroup(modifier) },
-                { 1, new ThrusterGroup(modifier) },
-                { 2, new ThrusterGroup(modifier) },
-                { 3, new ThrusterGroup(modifier) }
+                { 0, new ThrusterGroup(thrustModifier) },
+                { 1, new ThrusterGroup(thrustModifier) },
+                { 2, new ThrusterGroup(thrustModifier) },
+                { 3, new ThrusterGroup(thrustModifier) }
             };
         }
 

@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
+    // TODO: Add a base thrust value, which is used by the ship navigation to apply forces to a ship without having any thrusters
     public struct ControllerData : IBlockComponentValues
     {
         public float powerGeneration;
