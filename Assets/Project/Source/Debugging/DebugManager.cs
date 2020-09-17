@@ -9,8 +9,6 @@ using static Exa.Input.GameControls;
 
 namespace Exa.Debugging
 {
-
-
     public class DebugManager : MonoBehaviour, IDebugActions
     {
         public static event DebugChangeDelegate DebugChange;

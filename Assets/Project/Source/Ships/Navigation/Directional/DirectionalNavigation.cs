@@ -1,4 +1,5 @@
 ﻿using Exa.Data;
+using Exa.Debugging;
 using Exa.Math;
 using Exa.Ships.Targetting;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Exa.Ships.Navigation
 {
     public class DirectionalNavigation : INavigation
     {
+        private static readonly Scalar DampeningThrustMultiplier = new Scalar(1);
+
         private readonly Ship ship;
         private readonly NavigationOptions options;
         private readonly AxisThrustVectors thrustVectors;
@@ -33,12 +36,12 @@ namespace Exa.Ships.Navigation
             var velocityForce = GetLocalVelocityForce();
 
             // Get force for this frame
-            // TODO: Clamp the result of this to account for the current velocity, to prevent oscillation
-            var targetForce = thrustVectors.Clamp(-velocityForce, deltaTime);
+            var frameTargetForce = thrustVectors.GetForce(-velocityForce, DampeningThrustMultiplier) * deltaTime;
+            ProcessTargetForce(ref frameTargetForce, -velocityForce / deltaTime);
 
             // Transform force for this frame to velocity
-            thrustVectors.Fire(targetForce / deltaTime);
-            ship.rb.AddForce(targetForce);
+            thrustVectors.Fire(frameTargetForce / deltaTime);
+            ship.rb.AddForce(frameTargetForce);
         }
 
         private Vector2 GetLocalVelocity()
@@ -46,6 +49,20 @@ namespace Exa.Ships.Navigation
             var zRotation = ship.transform.rotation.eulerAngles.z;
             var localVelocity = ship.rb.velocity.Rotate(-zRotation);
             return localVelocity;
+        }
+
+        private void ProcessTargetForce(ref Vector2 targetForce, Vector2 velocityForce)
+        {
+            void ProcessAxis(ref float forceAxis, float velocityAxis)
+            {
+                if (Mathf.Abs(forceAxis) > Mathf.Abs(velocityAxis))
+                {
+                    forceAxis = velocityAxis;
+                }
+            }
+
+            ProcessAxis(ref targetForce.x, velocityForce.x);
+            ProcessAxis(ref targetForce.y, velocityForce.y);
         }
 
         private Vector2 GetLocalVelocityForce()

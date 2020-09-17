@@ -9,6 +9,16 @@ namespace Exa.Ships.Navigation
         private readonly ThrusterAxis horizontalThrusterAxis;
         private readonly ThrusterAxis verticalThrusterAxis;
 
+        public ThrusterAxis XAxis
+        {
+            get => horizontalThrusterAxis;
+        }
+
+        public ThrusterAxis YAxis
+        {
+            get => verticalThrusterAxis;
+        }
+
         public AxisThrustVectors(Scalar thrustModifier)
         {
             horizontalThrusterAxis = new ThrusterAxis(thrustModifier);
@@ -25,18 +35,18 @@ namespace Exa.Ships.Navigation
             SelectAxis(thruster, out var component).Unregister(thruster, component);
         }
 
-        public void Fire(Vector2 velocity)
+        public void Fire(Vector2 force)
         {
-            horizontalThrusterAxis.Fire(velocity.x);
-            verticalThrusterAxis.Fire(velocity.y);
+            horizontalThrusterAxis.Fire(force.x);
+            verticalThrusterAxis.Fire(force.y);
         }
 
-        public Vector2 Clamp(Vector2 forceDirection, float deltaTime)
+        public Vector2 GetForce(Vector2 forceDirection, Scalar thrustModifier)
         {
             return new Vector2
             {
-                x = horizontalThrusterAxis.Clamp(forceDirection.x, deltaTime),
-                y = verticalThrusterAxis.Clamp(forceDirection.y, deltaTime)
+                x = thrustModifier.GetValue(horizontalThrusterAxis.Clamp(forceDirection.x)),
+                y = thrustModifier.GetValue(verticalThrusterAxis.Clamp(forceDirection.y))
             };
         }
 

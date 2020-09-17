@@ -25,6 +25,11 @@ namespace Exa.Ships.Navigation
             SelectGroup(positiveComponent).Remove(thruster);
         }
 
+        public float GetComponentThrust(bool positiveComponent)
+        {
+            return SelectGroup(positiveComponent).Thrust;
+        }
+
         public void Fire(float velocity)
         {
             var component = velocity > 0f;
@@ -32,10 +37,10 @@ namespace Exa.Ships.Navigation
             SelectGroup(!component).Fire(0f);
         }
 
-        public float Clamp(float directionForce, float deltaTime)
+        public float Clamp(float directionForce)
         {
             var positive = directionForce > 0f;
-            var maxForceDelta = SelectGroup(positive).Thrust * deltaTime;
+            var maxForceDelta = SelectGroup(positive).Thrust;
             return positive ? maxForceDelta : -maxForceDelta;
         }
 
