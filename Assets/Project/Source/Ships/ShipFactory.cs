@@ -37,7 +37,7 @@ namespace Exa.Ships
 
             var instanceString = ship.GetInstanceString();
             overlay.gameObject.name = $"Overlay: {instanceString}";
-            shipGO.name = $"{typeof(FriendlyShip).Name} - {instanceString}";
+            shipGO.name = $"{nameof(T)} - {instanceString}";
 
             return ship;
         }

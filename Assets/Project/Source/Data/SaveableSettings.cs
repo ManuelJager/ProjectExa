@@ -4,7 +4,7 @@ using System.IO;
 namespace Exa.Data
 {
     /// <summary>
-    /// Provides base functionality for a settings object that is serialized and stored in the player prefs
+    /// Provides base functionality for a settings object that is serialized and stored in the data directory
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class SaveableSettings<T> : ISettings
@@ -26,18 +26,12 @@ namespace Exa.Data
         /// </summary>
         public abstract void Apply();
 
-        /// <summary>
-        /// Saves the settings in the player prefs
-        /// </summary>
         public virtual void Save()
         {
             var path = IOUtils.CombineWithDirectory("settings", $"{Key}.json");
             IOUtils.JsonSerializeToPath(Values, path, SerializationMode.readable);
         }
 
-        /// <summary>
-        /// Loads the settings from the player prefs
-        /// </summary>
         public virtual void Load()
         {
             var path = IOUtils.CombineWithDirectory("settings", $"{Key}.json");

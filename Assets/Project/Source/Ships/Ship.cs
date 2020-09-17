@@ -132,7 +132,7 @@ namespace Exa.Ships
             {
                 var neighbour = collider.gameObject.GetComponent<T>();
                 var passesContextMask = (neighbour.BlockContext & shipMask.ContextMask) != 0;
-                if (neighbour != null && !ReferenceEquals(neighbour, this) && passesContextMask)
+                if (!ReferenceEquals(neighbour, this) && passesContextMask)
                 {
                     yield return neighbour;
                 }

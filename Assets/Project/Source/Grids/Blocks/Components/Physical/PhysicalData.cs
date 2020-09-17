@@ -10,7 +10,7 @@ namespace Exa.Grids.Blocks.Components
     {
         public float hull;
         public float armor;
-        public short mass;
+        public float mass;
 
         public void AddGridTotals(GridTotals totals)
         {
@@ -26,9 +26,9 @@ namespace Exa.Grids.Blocks.Components
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
         {
-            new LabeledValue<string>("Hull", hull.ToString()),
-            new LabeledValue<string>("Armor", armor.ToString()),
-            new LabeledValue<string>("Mass", mass.ToString())
+            new LabeledValue<string>("Hull", $"{hull}"),
+            new LabeledValue<string>("Armor", $"{armor}"),
+            new LabeledValue<string>("Mass", $"{mass * 1000:0} KG")
         };
     }
 }

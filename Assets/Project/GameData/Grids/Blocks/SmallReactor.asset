@@ -25,7 +25,7 @@ MonoBehaviour:
   physicalTemplatePartial:
     maxHull: 10
     armor: 0
-    mass: 1000
+    mass: 1
   powerGeneratorTemplatePartial:
     peakGeneration:
-      ratio: 0.25
+      scalar: 0

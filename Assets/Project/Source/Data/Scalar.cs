@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Exa.Data
 {
     [Serializable]
-    public struct Scalar
+    public struct Scalar : IFormattable
     {
         [SerializeField] private float scalar;
 
@@ -46,6 +46,11 @@ namespace Exa.Data
         public override string ToString()
         {
             return scalar.ToString();
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return scalar.ToString(format, formatProvider);
         }
     }
 }

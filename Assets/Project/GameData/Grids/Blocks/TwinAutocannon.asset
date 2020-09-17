@@ -25,7 +25,7 @@ MonoBehaviour:
   physicalTemplatePartial:
     maxHull: 50
     armor: 15
-    mass: 3000
+    mass: 3
   autocannonTemplatePartial:
     turningRate: 100
     firingRate: 0.25

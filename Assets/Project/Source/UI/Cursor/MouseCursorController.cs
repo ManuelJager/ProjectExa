@@ -47,14 +47,9 @@ namespace Exa.UI
 
         private CursorState SelectStateFromOverrides()
         {
-            if (cursorOverrides.Count == 0)
-            {
-                return CursorState.idle;
-            }
-            else
-            {
-                return cursorOverrides.Last().cursorState;
-            }
+            return cursorOverrides.Count == 0 
+                ? CursorState.idle 
+                : cursorOverrides.Last().cursorState;
         }
 
         private void SetState(CursorState cursorState)

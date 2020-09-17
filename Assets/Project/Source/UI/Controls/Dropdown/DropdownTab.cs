@@ -19,18 +19,12 @@ namespace Exa.UI.Controls
 
         public string Text
         {
-            set
-            {
-                text.text = value;
-            }
+            set => text.text = value;
         }
 
         public bool Selected
         {
-            set
-            {
-                text.color = value ? activeColor : inactiveColor;
-            }
+            set => text.color = value ? activeColor : inactiveColor;
         }
     }
 }

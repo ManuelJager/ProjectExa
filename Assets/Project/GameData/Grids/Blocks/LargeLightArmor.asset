@@ -25,4 +25,4 @@ MonoBehaviour:
   physicalTemplatePartial:
     maxHull: 50
     armor: 15
-    mass: 1800
+    mass: 1.8

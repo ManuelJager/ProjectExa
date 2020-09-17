@@ -30,7 +30,7 @@ namespace Exa.Grids.Blocks.Components
             new LabeledValue<string>("Consumption", $"{powerConsumption} KW"),
             new LabeledValue<string>("Storage", $"{powerStorage} KJ"),
             new LabeledValue<string>("Turning rate", $"{turningRate}"),
-            new LabeledValue<string>("ThrustModifier", $"{thrustModifier.ToPercentageString()}")
+            new LabeledValue<string>("Thrust modifier", $"{thrustModifier.ToPercentageString()}")
         };
     }
 }

@@ -12,9 +12,8 @@ namespace Exa.Ships
             this.ship = ship;
         }
 
-        public override long Mass
+        public override float Mass
         {
-            get => base.Mass;
             set
             {
                 ship.rb.mass = value;

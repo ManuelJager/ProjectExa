@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks.Components
     {
         [SerializeField] private float maxHull;
         [SerializeField] private float armor;
-        [SerializeField] private short mass; // In kg
+        [SerializeField] private float mass; // In ton
 
         public float MaxHull => maxHull;
         public float Armor => armor;

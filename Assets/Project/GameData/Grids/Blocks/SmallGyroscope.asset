@@ -25,7 +25,7 @@ MonoBehaviour:
   physicalTemplatePartial:
     maxHull: 5
     armor: 0
-    mass: 1000
+    mass: 1
   gyroscopeTemplatePartial:
     turningRate:
-      ratio: 0.15
+      scalar: 0

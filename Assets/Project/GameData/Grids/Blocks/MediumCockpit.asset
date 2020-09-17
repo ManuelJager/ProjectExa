@@ -25,10 +25,11 @@ MonoBehaviour:
   physicalTemplatePartial:
     maxHull: 80
     armor: 25
-    mass: 1500
+    mass: 1.5
   controllerTemplatePartial:
     powerGeneration: 100
     powerConsumption: 100
     powerStorage: 500
     turningRate: 30
-    directionalForce: 1000
+    thrustModifier:
+      scalar: 1

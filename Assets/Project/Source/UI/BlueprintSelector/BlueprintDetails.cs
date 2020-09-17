@@ -37,12 +37,12 @@ namespace Exa.UI
                 Debug.LogWarning("Error setting blueprint thumbnail");
             }
 
-            nameText.text = blueprint.name;
+            nameText.text = blueprint.name; 
             var size = blueprint.Blocks.Size.Value;
 
             blockCountView.SetValue(blueprint.Blocks.GetMemberCount());
             sizeView.SetValue($"{size.x}x{size.y}");
-            massView.SetValue($"{blueprint.Blocks.Totals.Mass / 1000f:0} Tons");
+            massView.SetValue($"{blueprint.Blocks.Totals.Mass:0} Tonne");
             energyView.SetValue($"{blueprint.Blocks.Totals.PowerGeneration:0} KW");
         }
 
