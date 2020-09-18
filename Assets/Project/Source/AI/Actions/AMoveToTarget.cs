@@ -20,17 +20,6 @@ namespace Exa.AI.Actions
         {
             if (Target == null) return ActionLane.None;
 
-            var currentPosition = ship.transform.position.ToVector2();
-            var shipPosition = Target.GetPosition(currentPosition);
-            var distanceToTarget = (shipPosition - currentPosition).magnitude;
-
-            // If we are close enough to the target, discard the action
-            if (distanceToTarget < 1)
-            {
-                Target = null;
-                return ActionLane.None;
-            }
-
             ship.Navigation.MoveTo = Target;
             return ActionLane.Movement;
         }

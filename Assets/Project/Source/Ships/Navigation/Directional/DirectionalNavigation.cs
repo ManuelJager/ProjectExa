@@ -9,6 +9,7 @@ namespace Exa.Ships.Navigation
     public class DirectionalNavigation : INavigation
     {
         private static readonly Scalar DampeningThrustMultiplier = new Scalar(1);
+        private static readonly Scalar TargetThrustMultiplier = new Scalar(1);
 
         private readonly Ship ship;
         private readonly NavigationOptions options;
@@ -28,10 +29,12 @@ namespace Exa.Ships.Navigation
 
         public void Update(float deltaTime)
         {
-            var velocityForce = GetLocalVelocityForce();
+            var velocity = GetLocalVelocity();
+            // Noted as a vector of kN
+            var velocityForce = velocity * ship.rb.mass;
 
             // Calculate the force required to travel
-            var frameTargetForce = Target(Vector2.zero);
+            var frameTargetForce = Target(velocity, ship.transform.position);
 
             // Calculate the force required to dampen
             var frameDampenForce = Dampen(velocityForce, deltaTime);
@@ -40,10 +43,39 @@ namespace Exa.Ships.Navigation
             Fire(resultFrameForce, deltaTime);
         }
 
-        // TODO: Implement
-        private Vector2 Target(Vector2 target)
+        private Vector2 Target(Vector2 currentVelocity, Vector2 currentPosition)
         {
+            Debug.Log(CalculateBrakeDistance(100, 10, -15));
+
             return Vector2.zero;
+
+            if (MoveTo == null)
+            {
+                return Vector2.zero;
+            }
+
+            //var targetPosition = MoveTo.GetPosition(currentPosition);
+
+            //// Calculate a heading a distance to the target
+            //var headingToTarget = targetPosition - currentPosition;
+            //var distanceToTarget = headingToTarget.magnitude;
+
+            //// Calculate a force, and a deceleration vector in the opposite direction of the heading
+            //var decelerationForce = thrustVectors.GetForce(currentPosition - targetPosition, DampeningThrustMultiplier);
+            //var deceleration = decelerationForce / ship.rb.mass;
+
+            //// Calculate the distance to brake to the target
+            //var brakeDistance = CalculateBrakeDistance(currentVelocity.magnitude, deceleration.magnitude);
+
+            //return distanceToTarget > brakeDistance 
+            //    ? thrustVectors.GetForce(headingToTarget, TargetThrustMultiplier)
+            //    : Vector2.zero;
+        }
+
+        private float CalculateBrakeDistance(float currentVelocity, float targetVelocity, float deceleration)
+        {
+            var t = (targetVelocity - currentVelocity) / deceleration;
+            return currentVelocity * t + deceleration * (t * t) / 2f;
         }
 
         private Vector2 Dampen(Vector2 velocityForce, float deltaTime)
@@ -68,17 +100,25 @@ namespace Exa.Ships.Navigation
 
         private Vector2 MergeForces(Vector2 frameTargetForce, Vector2 frameDampenForce)
         {
-            float MergeComponent(float frameTargetForceComponent, float frameDampenForceComponent)
+            // TODO: Make this branch-less
+            float ProcessAxis(float targetComponent, float dampenComponent)
             {
-                return frameTargetForceComponent == 0f
-                    ? frameDampenForceComponent
-                    : 0f;
+                if (targetComponent == 0f) return dampenComponent;
+
+                // Check if the target and the dampen component have different signs
+                return targetComponent > 0f ^ dampenComponent > 0f
+                    // If so, return the target vector component
+                    ? targetComponent
+                    // Otherwise, return biggest of the two components
+                    : Mathf.Abs(targetComponent) > Mathf.Abs(dampenComponent)
+                        ? targetComponent
+                        : dampenComponent;
             }
 
             return new Vector2
             {
-                x = MergeComponent(frameTargetForce.x, frameDampenForce.x),
-                y = MergeComponent(frameTargetForce.y, frameDampenForce.y)
+                x = ProcessAxis(frameTargetForce.x, frameDampenForce.x),
+                y = ProcessAxis(frameTargetForce.y, frameDampenForce.y)
             };
         }
 
@@ -94,11 +134,6 @@ namespace Exa.Ships.Navigation
             var zRotation = ship.transform.rotation.eulerAngles.z;
             var localVelocity = ship.rb.velocity.Rotate(-zRotation);
             return localVelocity;
-        }
-
-        private Vector2 GetLocalVelocityForce()
-        {
-            return GetLocalVelocity() * ship.rb.mass;
         }
     }
 }
