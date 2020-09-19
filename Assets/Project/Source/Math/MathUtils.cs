@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using System.Linq;
+using Exa.Generics;
 using UnityEngine;
 
 namespace Exa.Math
@@ -70,6 +71,13 @@ namespace Exa.Math
             }
 
             return value;
+        }
+
+        public static float AbsMin(params float[] args)
+        {
+            return args
+                .OrderBy(Mathf.Abs)
+                .First();
         }
 
         public static float NormalizeAngle360(float angle)

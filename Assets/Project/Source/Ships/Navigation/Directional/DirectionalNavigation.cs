@@ -45,8 +45,6 @@ namespace Exa.Ships.Navigation
 
         private Vector2 Target(Vector2 currentVelocity, Vector2 currentPosition)
         {
-            Debug.Log(CalculateBrakeDistance(100, 10, -15));
-
             return Vector2.zero;
 
             if (MoveTo == null)

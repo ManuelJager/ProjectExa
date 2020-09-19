@@ -1,5 +1,6 @@
 ﻿using Exa.Data;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Math;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation
@@ -33,10 +34,23 @@ namespace Exa.Ships.Navigation
 
         public Vector2 GetForce(Vector2 forceDirection, Scalar thrustModifier)
         {
+            var force = GetUnClampedForce(forceDirection);
+            return thrustModifier.GetValue(force);
+        }
+
+        public Vector2 GetClampedForce(Vector2 forceDirection, Scalar thrustModifier)
+        {
+            var force = GetUnClampedForce(forceDirection);
+            var clampedForce = MathUtils.GrowDirectionToMax(forceDirection, force);
+            return thrustModifier.GetValue(clampedForce);
+        }
+
+        private Vector2 GetUnClampedForce(Vector2 forceDirection)
+        {
             return new Vector2
             {
-                x = thrustModifier.GetValue(XAxis.Clamp(forceDirection.x)),
-                y = thrustModifier.GetValue(YAxis.Clamp(forceDirection.y))
+                x = XAxis.Clamp(forceDirection.x),
+                y = YAxis.Clamp(forceDirection.y)
             };
         }
 

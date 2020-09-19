@@ -6,20 +6,16 @@ namespace Exa.Math
 {
     public static partial class MathUtils
     {
-        public static float GetAngle(this Vector2 vector2)
+        public static float GetAngle(this Vector2 vector)
         {
-            var theta = Mathf.Atan2(vector2.y, vector2.x);
+            var theta = Mathf.Atan2(vector.y, vector.x);
             return NormalizeAngle360(theta * Mathf.Rad2Deg);
         }
 
-        public static Vector2 ClampToLowestComponent(Vector2 vector)
+        public static Vector2 GrowDirectionToMax(Vector2 direction, Vector2 max)
         {
-            var smallest = Mathf.Min(vector.x, vector.y);
-            return new Vector2
-            {
-                x = smallest,
-                y = smallest
-            };
+            var minGrowth = AbsMin(max.x / direction.x, max.y / direction.y);
+            return direction * minGrowth;
         }
 
         public static Vector2 Average(IEnumerable<Vector2> positions)

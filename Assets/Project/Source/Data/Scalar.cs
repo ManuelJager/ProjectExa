@@ -18,6 +18,11 @@ namespace Exa.Data
             return real * scalar;
         }
 
+        public Vector2 GetValue(Vector2 real)
+        {
+            return real * scalar;
+        }
+
         public static bool operator >(Scalar a, Scalar b)
         {
             return a.scalar > b.scalar;
