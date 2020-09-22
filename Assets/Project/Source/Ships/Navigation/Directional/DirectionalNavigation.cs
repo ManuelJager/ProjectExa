@@ -38,6 +38,20 @@ namespace Exa.Ships.Navigation
             var frameDampenForce = Dampen(velocityValues, deltaTime);
 
             var resultFrameForce = MergeForces(frameTargetForce, frameDampenForce);
+
+            if (DebugMode.Navigation.GetEnabled())
+            {
+                void DrawRay(Vector2 localFrameForce, Color color)
+                {
+                    var force = localFrameForce.Rotate(ship.transform.rotation.eulerAngles.z) / deltaTime;
+                    Debug.DrawRay(ship.transform.position, force / ship.rb.mass / 10, color);
+                }
+
+                DrawRay(frameTargetForce, Color.red);
+                DrawRay(frameDampenForce, Color.blue);
+                DrawRay(resultFrameForce, (Color.red + Color.blue) / 2);
+            }
+
             Fire(resultFrameForce, deltaTime);
         }
 
@@ -48,8 +62,21 @@ namespace Exa.Ships.Navigation
                 return Vector2.zero;
             }
 
+            // Calculate the distance between the current and target position from the perspective of the ship
             var diff = GetLocalDifference(MoveTo);
-            return thrustVectors.GetForce(diff, TargetThrustMultiplier) * deltaTime;
+            var brakeDistance = 3f;
+
+            if (brakeDistance > diff.magnitude)
+            {
+                return Vector2.zero;
+            }
+
+            // Get the maximum force for this frame the thruster can apply
+            var maxForce = thrustVectors.GetForce(diff, TargetThrustMultiplier) * deltaTime;
+            
+            // Use the maximum force to calculate a force with the same direction as the difference
+            var clampedForce = MathUtils.GrowDirectionToMax(diff.normalized, maxForce);
+            return clampedForce;
 
             //var targetPosition = MoveTo.GetPosition(currentPosition);
 
