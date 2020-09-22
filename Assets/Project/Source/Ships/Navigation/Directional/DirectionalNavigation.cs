@@ -65,28 +65,16 @@ namespace Exa.Ships.Navigation
             // Calculate the distance between the current and target position from the perspective of the ship
             var diff = GetLocalDifference(MoveTo);
 
+            if (diff.magnitude < 1f)
+            {
+                return Vector2.zero;
+            }
+
             Debug.Log(GetBrakeDistance(diff, velocityValues));
 
-            return diff.magnitude > 3 //GetBrakeDistance(diff, velocityValues)
+            return diff.magnitude > GetBrakeDistance(diff, velocityValues)
                 ? thrustVectors.GetClampedForce(diff, TargetThrustMultiplier) * deltaTime
                 : Vector2.zero;
-
-            //var targetPosition = MoveTo.GetPosition(currentPosition);
-
-            //// Calculate a heading a distance to the target
-            //var headingToTarget = targetPosition - currentPosition;
-            //var distanceToTarget = headingToTarget.magnitude;
-
-            //// Calculate a force, and a deceleration vector in the opposite direction of the heading
-            //var decelerationForce = thrustVectors.GetForce(currentPosition - targetPosition, DampeningThrustMultiplier);
-            //var deceleration = decelerationForce / ship.rb.mass;
-
-            //// Calculate the distance to brake to the target
-            //var brakeDistance = CalculateBrakeDistance(currentVelocity.magnitude, deceleration.magnitude);
-
-            //return distanceToTarget > brakeDistance 
-            //    ? thrustVectors.GetForce(headingToTarget, TargetThrustMultiplier)
-            //    : Vector2.zero;
         }
 
         private Vector2 GetLocalDifference(ITarget target)
@@ -97,17 +85,17 @@ namespace Exa.Ships.Navigation
             return diff.Rotate(-currentRotation);
         }
 
-        private Vector2 GetDecelerationVelocity(Vector2 direction, Scalar thrustModifier)
+        private float GetDecelerationVelocity(Vector2 direction, Scalar thrustModifier)
         {
             var force = thrustVectors.GetClampedForce(direction, thrustModifier);
-            return force / ship.rb.mass;
+            return -(force / Mathf.Pow(ship.rb.mass, 2)).magnitude;
         }
 
         // TODO: Fix this
         private float GetBrakeDistance(Vector2 diff, VelocityValues velocityValues)
         {
-            var deceleration = -GetDecelerationVelocity(-diff, DampeningThrustMultiplier).magnitude;
             var currentVelocity = velocityValues.localVelocity.magnitude;
+            var deceleration = GetDecelerationVelocity(-diff, DampeningThrustMultiplier);
             return CalculateBrakeDistance(currentVelocity, 0, deceleration);
         }
 
@@ -165,7 +153,7 @@ namespace Exa.Ships.Navigation
         {
             // Transform force for this frame to velocity
             thrustVectors.Fire(frameTargetForce / deltaTime);
-            ship.rb.AddForce(frameTargetForce);
+            ship.rb.AddForce(frameTargetForce, ForceMode2D.Force);
         }
 
         private VelocityValues GetLocalVelocity()
