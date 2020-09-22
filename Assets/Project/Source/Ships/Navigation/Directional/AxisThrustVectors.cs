@@ -41,7 +41,7 @@ namespace Exa.Ships.Navigation
         public Vector2 GetClampedForce(Vector2 forceDirection, Scalar thrustModifier)
         {
             var force = GetUnClampedForce(forceDirection);
-            var clampedForce = MathUtils.GrowDirectionToMax(forceDirection, force);
+            var clampedForce = MathUtils.GrowDirectionToMax(forceDirection.normalized, force);
             return thrustModifier.GetValue(clampedForce);
         }
 

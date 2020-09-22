@@ -8,8 +8,8 @@ namespace Exa.Ships.Navigation
 {
     public class DirectionalNavigation : INavigation
     {
-        private static readonly Scalar DampeningThrustMultiplier = new Scalar(1);
-        private static readonly Scalar TargetThrustMultiplier = new Scalar(1);
+        private static readonly Scalar DampeningThrustMultiplier = new Scalar(1.5f);
+        private static readonly Scalar TargetThrustMultiplier = new Scalar(1f);
 
         private readonly Ship ship;
         private readonly NavigationOptions options;
@@ -64,19 +64,12 @@ namespace Exa.Ships.Navigation
 
             // Calculate the distance between the current and target position from the perspective of the ship
             var diff = GetLocalDifference(MoveTo);
-            var brakeDistance = 3f;
 
-            if (brakeDistance > diff.magnitude)
-            {
-                return Vector2.zero;
-            }
+            Debug.Log(GetBrakeDistance(diff, velocityValues));
 
-            // Get the maximum force for this frame the thruster can apply
-            var maxForce = thrustVectors.GetForce(diff, TargetThrustMultiplier) * deltaTime;
-            
-            // Use the maximum force to calculate a force with the same direction as the difference
-            var clampedForce = MathUtils.GrowDirectionToMax(diff.normalized, maxForce);
-            return clampedForce;
+            return diff.magnitude > 3 //GetBrakeDistance(diff, velocityValues)
+                ? thrustVectors.GetClampedForce(diff, TargetThrustMultiplier) * deltaTime
+                : Vector2.zero;
 
             //var targetPosition = MoveTo.GetPosition(currentPosition);
 
@@ -102,6 +95,20 @@ namespace Exa.Ships.Navigation
             var currentRotation = ship.transform.rotation.eulerAngles.z;
             var diff = target.GetPosition(currentPos) - currentPos;
             return diff.Rotate(-currentRotation);
+        }
+
+        private Vector2 GetDecelerationVelocity(Vector2 direction, Scalar thrustModifier)
+        {
+            var force = thrustVectors.GetClampedForce(direction, thrustModifier);
+            return force / ship.rb.mass;
+        }
+
+        // TODO: Fix this
+        private float GetBrakeDistance(Vector2 diff, VelocityValues velocityValues)
+        {
+            var deceleration = -GetDecelerationVelocity(-diff, DampeningThrustMultiplier).magnitude;
+            var currentVelocity = velocityValues.localVelocity.magnitude;
+            return CalculateBrakeDistance(currentVelocity, 0, deceleration);
         }
 
         private float CalculateBrakeDistance(float currentVelocity, float targetVelocity, float deceleration)
