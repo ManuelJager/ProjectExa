@@ -29,28 +29,27 @@ namespace Exa.Ships.Navigation
 
         public void Update(float deltaTime)
         {
-            var velocity = GetLocalVelocity();
-            // Noted as a vector of kN
-            var velocityForce = velocity * ship.rb.mass;
+            var velocityValues = GetLocalVelocity();
 
             // Calculate the force required to travel
-            var frameTargetForce = Target(velocity, ship.transform.position);
+            var frameTargetForce = Target(velocityValues, deltaTime);
 
             // Calculate the force required to dampen
-            var frameDampenForce = Dampen(velocityForce, deltaTime);
+            var frameDampenForce = Dampen(velocityValues, deltaTime);
 
             var resultFrameForce = MergeForces(frameTargetForce, frameDampenForce);
             Fire(resultFrameForce, deltaTime);
         }
 
-        private Vector2 Target(Vector2 currentVelocity, Vector2 currentPosition)
+        private Vector2 Target(VelocityValues velocityValues, float deltaTime)
         {
-            return Vector2.zero;
-
             if (MoveTo == null)
             {
                 return Vector2.zero;
             }
+
+            var diff = GetLocalDifference(MoveTo);
+            return thrustVectors.GetForce(diff, TargetThrustMultiplier) * deltaTime;
 
             //var targetPosition = MoveTo.GetPosition(currentPosition);
 
@@ -70,13 +69,21 @@ namespace Exa.Ships.Navigation
             //    : Vector2.zero;
         }
 
+        private Vector2 GetLocalDifference(ITarget target)
+        {
+            var currentPos = (Vector2) ship.transform.position;
+            var currentRotation = ship.transform.rotation.eulerAngles.z;
+            var diff = target.GetPosition(currentPos) - currentPos;
+            return diff.Rotate(-currentRotation);
+        }
+
         private float CalculateBrakeDistance(float currentVelocity, float targetVelocity, float deceleration)
         {
             var t = (targetVelocity - currentVelocity) / deceleration;
             return currentVelocity * t + deceleration * (t * t) / 2f;
         }
 
-        private Vector2 Dampen(Vector2 velocityForce, float deltaTime)
+        private Vector2 Dampen(VelocityValues velocityValues, float deltaTime)
         {
             void ProcessAxis(ref float forceAxis, float velocityAxis)
             {
@@ -87,8 +94,8 @@ namespace Exa.Ships.Navigation
             }
 
             // Get force for this frame
-            var frameTargetForce = thrustVectors.GetForce(-velocityForce, DampeningThrustMultiplier) * deltaTime;
-            var frameVelocityForce = -velocityForce / deltaTime;
+            var frameTargetForce = thrustVectors.GetForce(-velocityValues.localVelocityForce, DampeningThrustMultiplier) * deltaTime;
+            var frameVelocityForce = -velocityValues.localVelocityForce / deltaTime;
 
             ProcessAxis(ref frameTargetForce.x, frameVelocityForce.x);
             ProcessAxis(ref frameTargetForce.y, frameVelocityForce.y);
@@ -127,11 +134,21 @@ namespace Exa.Ships.Navigation
             ship.rb.AddForce(frameTargetForce);
         }
 
-        private Vector2 GetLocalVelocity()
+        private VelocityValues GetLocalVelocity()
         {
             var zRotation = ship.transform.rotation.eulerAngles.z;
             var localVelocity = ship.rb.velocity.Rotate(-zRotation);
-            return localVelocity;
+            return new VelocityValues
+            {
+                localVelocity = localVelocity,
+                localVelocityForce = localVelocity * ship.rb.mass
+            };
+        }
+
+        private struct VelocityValues
+        {
+            public Vector2 localVelocity;
+            public Vector2 localVelocityForce;
         }
     }
 }

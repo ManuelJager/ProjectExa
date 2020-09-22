@@ -7,7 +7,6 @@ namespace Exa.Ships.Navigation
     public enum NavigationType
     {
         Simple,
-        Pid,
         Directional
     }
 
@@ -36,9 +35,6 @@ namespace Exa.Ships.Navigation
             {
                 case NavigationType.Simple:
                     return new SimpleNavigation(ship, this, controllerValues.thrustModifier);
-
-                case NavigationType.Pid:
-                    return new PidNavigation(ship, this, controllerValues.thrustModifier);
 
                 case NavigationType.Directional:
                     return new DirectionalNavigation(ship, this, controllerValues.thrustModifier);
