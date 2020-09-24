@@ -21,11 +21,7 @@ namespace Exa.AI
         [SerializeField] private float activeValueThreshold;
         private ActionList actionList;
 
-        public Ship Ship
-        {
-            get => ship;
-            private set => ship = value;
-        }
+        public Ship Ship => ship;
 
         public void Initialize()
         {

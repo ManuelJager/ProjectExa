@@ -873,7 +873,11 @@ PrefabInstance:
       propertyPath: m_HorizontalFit
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3317809146814980761, guid: 3e219537f6421be4da8379d71ff2d5fa, type: 3}
+    - {fileID: 7998237349363734255, guid: 3e219537f6421be4da8379d71ff2d5fa, type: 3}
+    - {fileID: 6862824338939825563, guid: 3e219537f6421be4da8379d71ff2d5fa, type: 3}
+    - {fileID: 8432206535820693361, guid: 3e219537f6421be4da8379d71ff2d5fa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3e219537f6421be4da8379d71ff2d5fa, type: 3}
 --- !u!1001 &5676475580507379944
 PrefabInstance:
