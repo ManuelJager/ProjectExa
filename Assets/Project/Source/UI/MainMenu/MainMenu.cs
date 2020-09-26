@@ -7,9 +7,10 @@ namespace Exa.UI
 {
     public class MainMenu : MonoBehaviour
     {
-        [SerializeField] private Navigateable self;
-        [SerializeField] private Navigateable shipEditorBlueprintSelector;
+        [SerializeField] private Navigateable menu;
+        [SerializeField] private Navigateable blueprintSelector;
         [SerializeField] private Navigateable settings;
+        [SerializeField] private Navigateable fleetBuilder;
         [SerializeField] private BlueprintViewController blueprintViewController;
 
         public void Exit()
@@ -30,20 +31,25 @@ namespace Exa.UI
 
             transition.onPrepared.AddListener(() =>
             {
-                self.NavigateTo(GameSystems.Navigateable);
+                menu.NavigateTo(GameSystems.Navigateable);
             });
         }
 
         public void NavigateToEditor()
         {
-            self.NavigateTo(shipEditorBlueprintSelector);
+            menu.NavigateTo(blueprintSelector);
             blueprintViewController.Source = Systems.Blueprints.observableUserBlueprints;
             blueprintViewController.shipEditor.blueprintCollection = Systems.Blueprints.observableUserBlueprints;
         }
 
         public void NavigateToSettings()
         {
-            self.NavigateTo(settings);
+            menu.NavigateTo(settings);
+        }
+
+        public void NavigateToFleetBuilder()
+        {
+            menu.NavigateTo(fleetBuilder);
         }
     }
 }
