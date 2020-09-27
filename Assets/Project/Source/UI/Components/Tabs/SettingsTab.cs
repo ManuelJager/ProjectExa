@@ -2,7 +2,7 @@
 
 namespace Exa.UI.Components
 {
-    public class Tab : MonoBehaviour
+    public class SettingsTab : MonoBehaviour
     {
         public string tabName;
     }

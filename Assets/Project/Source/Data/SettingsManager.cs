@@ -13,7 +13,7 @@ namespace Exa.Data
 
         private readonly int[] acceptedRefreshRates = { 60, 75, 80, 90, 100, 120, 144, 165, 180, 240 };
 
-        private void Start()
+        public void Load()
         {
             SetUpVideoSettings();
             Load(videoSettings);
@@ -28,7 +28,7 @@ namespace Exa.Data
                 .Where(IsAcceptedRatio);
 
             // If the are no selected resolutions,
-            if (selectedResolutions.Count() == 0)
+            if (!selectedResolutions.Any())
             {
                 selectedResolutions = Screen.resolutions;
             }

@@ -14,7 +14,7 @@ namespace Exa.UI
         public RectTransform rootTransform;
         public LoadingScreen loadingScreen;
         public ShipEditorOverlay editorOverlay;
-        public MainMenu mainMenu;
+        public RootNavigation nav;
         public VariableTooltipManager tooltips;
         public Console console;
         public UserExceptionLogger logger;

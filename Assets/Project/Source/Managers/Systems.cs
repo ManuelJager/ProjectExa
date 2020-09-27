@@ -56,8 +56,6 @@ namespace Exa
 
         private void Start()
         {
-
-
             StartCoroutine(Load());
         }
 
@@ -76,6 +74,8 @@ namespace Exa
             UI.loadingScreen.ShowScreen();
             yield return 0;
 
+            UI.settingsManager.Load();
+
             var targetFrameRate = UI.settingsManager.videoSettings.current.Values.resolution.refreshRate;
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.StartUp(new Progress<float>((value) =>
@@ -89,6 +89,9 @@ namespace Exa
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)} % complete) ...";
                 UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
+
+            UI.nav.blueprintSelector.Source = Blueprints.observableUserBlueprints;
+            UI.nav.blueprintSelector.shipEditor.blueprintCollection = Blueprints.observableUserBlueprints;
 
             UI.loadingScreen.HideScreen();
         }

@@ -7,30 +7,30 @@ namespace Exa.UI.Components
 {
     public class SettingsTabManager : MonoBehaviour
     {
-        [HideInInspector] public SettingsTabBase activeTab;
+        [HideInInspector] public SettingsTabBase activeSettingsTab;
 
         [SerializeField] private CanvasGroupInteractableAdapter applyButton;
         [SerializeField] private CanvasGroupInteractableAdapter setDefaultButton;
         [SerializeField] private Text activeTabText;
-        [SerializeField] private SettingsTabBase defaultTab;
+        [SerializeField] private SettingsTabBase defaultSettingsTab;
         [SerializeField] private CanvasGroupInteractableAdapter canvasGroupInteractableAdapter;
 
         private void OnEnable()
         {
-            ProcessTab(defaultTab);
+            ProcessTab(defaultSettingsTab);
         }
 
         /// <summary>
         /// Switches to the given if the values are not dirty
         /// </summary>
-        /// <param name="tab"></param>
-        public void SetActive(SettingsTabBase tab)
+        /// <param name="settingsTab"></param>
+        public void SetActive(SettingsTabBase settingsTab)
         {
-            if (activeTab == tab) return;
+            if (activeSettingsTab == settingsTab) return;
 
-            if (activeTab != null && !activeTab.IsDirty)
+            if (activeSettingsTab != null && !activeSettingsTab.IsDirty)
             {
-                ProcessTab(tab);
+                ProcessTab(settingsTab);
             }
             else
             {
@@ -38,18 +38,18 @@ namespace Exa.UI.Components
                 {
                     if (yes)
                     {
-                        activeTab.ApplyChanges();
+                        activeSettingsTab.ApplyChanges();
                     }
 
-                    ProcessTab(tab);
+                    ProcessTab(settingsTab);
                 });
             }
         }
 
         public void Update()
         {
-            applyButton.Interactable = activeTab.IsDirty;
-            setDefaultButton.Interactable = activeTab.IsDirty || !activeTab.IsDefault;
+            applyButton.Interactable = activeSettingsTab.IsDirty;
+            setDefaultButton.Interactable = activeSettingsTab.IsDirty || !activeSettingsTab.IsDefault;
         }
 
         public void QueryUserConfirmation(Action<bool> onClosePrompt)
@@ -63,23 +63,23 @@ namespace Exa.UI.Components
         /// <summary>
         /// Switches tab
         /// </summary>
-        /// <param name="tab"></param>
-        public void ProcessTab(SettingsTabBase tab)
+        /// <param name="settingsTab"></param>
+        public void ProcessTab(SettingsTabBase settingsTab)
         {
-            activeTab?.gameObject.SetActive(false);
-            activeTab = tab;
-            activeTabText.text = tab.tabName;
-            tab.gameObject.SetActive(true);
+            activeSettingsTab?.gameObject.SetActive(false);
+            activeSettingsTab = settingsTab;
+            activeTabText.text = settingsTab.tabName;
+            settingsTab.gameObject.SetActive(true);
         }
 
         public void SetDefaultValues()
         {
-            activeTab.SetDefaultValues();
+            activeSettingsTab.SetDefaultValues();
         }
 
         public void ApplyChanges()
         {
-            activeTab.ApplyChanges();
+            activeSettingsTab.ApplyChanges();
         }
     }
 }

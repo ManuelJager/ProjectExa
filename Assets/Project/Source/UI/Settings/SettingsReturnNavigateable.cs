@@ -9,13 +9,13 @@ namespace Exa.UI.Settings
 
         protected override void Return(bool force = false)
         {
-            if (settingsTabManager.activeTab.IsDirty)
+            if (settingsTabManager.activeSettingsTab.IsDirty)
             {
                 settingsTabManager.QueryUserConfirmation((yes) =>
                 {
                     if (yes)
                     {
-                        settingsTabManager.activeTab.ApplyChanges();
+                        settingsTabManager.activeSettingsTab.ApplyChanges();
                     }
                     else
                     {

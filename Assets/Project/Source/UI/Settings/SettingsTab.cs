@@ -57,10 +57,10 @@ namespace Exa.UI.Settings
         }
     }
 
-    public abstract class SettingsTabBase : Tab, IControl
+    public abstract class SettingsTabBase : SettingsTab, IControl
     {
         /// <summary>
-        /// Denotes wether any of the setting controls are not up-to-date
+        /// Denotes whether any of the setting controls are not up-to-date
         /// </summary>
         public bool IsDirty
         {

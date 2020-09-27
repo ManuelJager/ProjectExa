@@ -9,12 +9,12 @@ using UnityEngine;
 
 namespace Exa.UI
 {
-    internal class BlueprintViewController : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
+    public class BlueprintSelector : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
     {
         public BlueprintContainerCollection collectionContext;
         public ShipEditor.ShipEditor shipEditor;
 
-        [SerializeField] private ReturnNavigateable shipEditorBlueprintSelector;
+        [SerializeField] private Navigateable blueprintSelectorNavigateable;
         [SerializeField] private Navigateable shipEditorNavigateable;
         [SerializeField] private BlueprintDetails blueprintDetails;
 
@@ -27,7 +27,7 @@ namespace Exa.UI
             {
                 interactible = value;
 
-                shipEditorBlueprintSelector.Interactable = value;
+                blueprintSelectorNavigateable.Interactable = value;
             }
         }
 
@@ -90,7 +90,7 @@ namespace Exa.UI
             {
                 if (!Interactable) return;
 
-                shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
+                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable);
                 shipEditor.Import(container, TrySave);
             });
             view.deleteButton.onClick.AddListener(() =>
@@ -140,7 +140,7 @@ namespace Exa.UI
             var args = new BlueprintContainerArgs(blueprint);
             var container = new BlueprintContainer(args);
 
-            shipEditorBlueprintSelector.NavigateTo(shipEditorNavigateable);
+            blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable);
             shipEditor.Import(container, TrySave);
         }
     }
