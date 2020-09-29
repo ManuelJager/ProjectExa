@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1306682724390111824}
+  - component: {fileID: 2635380209334275166}
   - component: {fileID: 6864382013964208159}
   m_Layer: 5
   m_Name: FleetBuilder
@@ -39,6 +40,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2635380209334275166
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567488978013694101}
+  m_CullTransparentMesh: 0
 --- !u!114 &6864382013964208159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,6 +781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4579730104668243701}
+  - component: {fileID: 7617574833164863847}
   - component: {fileID: 1267808967189137756}
   - component: {fileID: 1048460842539800568}
   m_Layer: 5
@@ -800,6 +810,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -35}
   m_SizeDelta: {x: 0, y: -70}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7617574833164863847
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6579037014425434790}
+  m_CullTransparentMesh: 0
 --- !u!114 &1267808967189137756
 MonoBehaviour:
   m_ObjectHideFlags: 0

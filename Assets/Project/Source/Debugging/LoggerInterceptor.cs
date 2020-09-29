@@ -28,9 +28,9 @@ namespace Exa.Debugging
             }
 
             defaultLogHandler.LogException(exception, context);
-            if (exception is UserException)
+            if (exception is UserException userException)
             {
-                LogUserException(exception as UserException);
+                LogUserException(userException);
             }
         }
 
