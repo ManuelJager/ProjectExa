@@ -66,6 +66,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!225 &934538402247811497
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -155,10 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tabName: Audio Settings
-  controls:
-  - {fileID: 8468574980972957459}
-  - {fileID: 6780158752704775739}
-  - {fileID: 948404919981992659}
   masterVolumeSlider: {fileID: 8468574980972957459}
   musicVolumeSlider: {fileID: 6780158752704775739}
   effectsVolumeSlider: {fileID: 948404919981992659}
@@ -316,7 +313,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62c5af5c87f28a4db1cd25631b2a23f, type: 3}
+  m_Script: {fileID: 11500000, guid: ef365b9cbdb85354990b1d16257d5e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6844444668317662055
@@ -473,7 +470,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62c5af5c87f28a4db1cd25631b2a23f, type: 3}
+  m_Script: {fileID: 11500000, guid: ef365b9cbdb85354990b1d16257d5e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8461630708673016399
@@ -632,6 +629,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62c5af5c87f28a4db1cd25631b2a23f, type: 3}
+  m_Script: {fileID: 11500000, guid: ef365b9cbdb85354990b1d16257d5e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

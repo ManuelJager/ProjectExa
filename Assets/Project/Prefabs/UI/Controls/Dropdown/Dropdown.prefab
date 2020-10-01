@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8913988968307136700}
   - component: {fileID: 5375307028573939789}
   - component: {fileID: 6266274317464397268}
-  - component: {fileID: 6775417220227922033}
   - component: {fileID: 8619676640294347819}
   m_Layer: 5
   m_Name: Dropdown
@@ -39,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 320, y: 40}
+  m_SizeDelta: {x: 320, y: 48}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5375307028573939789
 CanvasRenderer:
@@ -66,32 +65,29 @@ MonoBehaviour:
   playerProxy: {fileID: 8619676640294347819}
   tabArrow: {fileID: 7658791969648165921}
   button: {fileID: 3225811572161413474}
+  selectedTab: {fileID: 2604008715579885882}
   tabContainer: {fileID: 85489826556136895}
   tabPrefab: {fileID: 558324496665500032, guid: 2480b9a91f14c96409357a23f527187a,
     type: 3}
+  clickAction:
+    m_Name: Click
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 89da4174-ba21-45a1-b562-3349f9bc53cb
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 8d201f4a-39d2-4af1-ad86-5d6f26eae328
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Click
+      m_Flags: 0
   onValueChange:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6775417220227922033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214129591251731524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: 60
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
 --- !u!114 &8619676640294347819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +112,7 @@ GameObject:
   - component: {fileID: 8503466469292573099}
   - component: {fileID: 5914551671798384336}
   - component: {fileID: 7658791969648165921}
+  - component: {fileID: 807315648035924724}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -140,7 +137,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: 50, y: -10}
+  m_SizeDelta: {x: 0, y: -10}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8503466469292573099
 CanvasRenderer:
@@ -194,6 +191,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Horizontal: 0
   m_Veritical: 0
+--- !u!114 &807315648035924724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194141292425989798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1
 --- !u!1 &5239443469520826214
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +708,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5761029580240260902}
   - component: {fileID: 2928136592967806073}
-  - component: {fileID: 3120874542713287171}
   m_Layer: 5
   m_Name: ValueContainer
   m_TagString: Untagged
@@ -734,36 +744,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7169961798237386776}
   m_CullTransparentMesh: 0
---- !u!114 &3120874542713287171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7169961798237386776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &9064086526729647047
 GameObject:
   m_ObjectHideFlags: 0

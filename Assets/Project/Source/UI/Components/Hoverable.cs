@@ -103,8 +103,7 @@ namespace Exa.UI
         {
             if (mouseOverControl) return;
 
-            var mousePos = Systems.Input.ScreenPoint;
-            if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePos, Camera.main))
+            if (Systems.Input.GetMouseInsideRect(rectTransform))
             {
                 TryEnter();
             }

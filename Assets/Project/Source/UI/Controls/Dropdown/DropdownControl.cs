@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Exa.UI.Controls
@@ -20,8 +21,10 @@ namespace Exa.UI.Controls
         [SerializeField] private GlobalAudioPlayerProxy playerProxy;
         [SerializeField] private UIFlip tabArrow;
         [SerializeField] private Button button;
-        [SerializeField] private Transform tabContainer;
+        [SerializeField] private RectTransform selectedTab;
+        [SerializeField] private RectTransform tabContainer;
         [SerializeField] private GameObject tabPrefab;
+        [SerializeField] private InputAction clickAction;
         private object value;
 
         public override object CleanValue { get; set; }
@@ -32,6 +35,21 @@ namespace Exa.UI.Controls
             set => SetSelected(value);
         }
 
+        private bool isFoldedOpen;
+        private bool IsFoldedOpen
+        {
+            get => isFoldedOpen;
+            set
+            {
+                isFoldedOpen = value;
+
+                tabContainer.gameObject.SetActive(value);
+                tabArrow.vertical = value;
+                playerProxy.Play(value ? "UI_SFX_ButtonSelectPositive" : "UI_SFX_ButtonSelectNegative");
+            }
+        }
+
+
         [SerializeField] private DropdownTabSelected onValueChange = new DropdownTabSelected();
 
         public override UnityEvent<object> OnValueChange => onValueChange;
@@ -39,6 +57,24 @@ namespace Exa.UI.Controls
         private void Awake()
         {
             button.onClick.AddListener(ToggleContainer);
+            clickAction.started += context =>
+            {
+                if (IsFoldedOpen && GetMouseOutsideControl())
+                {
+                    IsFoldedOpen = false;
+                }
+            };
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            clickAction.Enable();
+        }
+
+        private void OnDisable()
+        {
+            clickAction.Disable();
         }
 
         public virtual void CreateTabs(IEnumerable<LabeledValue<object>> options, Action<object, DropdownTab> onTabCreated = null)
@@ -86,10 +122,12 @@ namespace Exa.UI.Controls
 
         private void ToggleContainer()
         {
-            var newState = !tabContainer.gameObject.activeSelf;
-            tabArrow.vertical = newState;
-            tabContainer.gameObject.SetActive(newState);
-            playerProxy.Play(newState ? "UI_SFX_ButtonSelectPositive" : "UI_SFX_ButtonSelectNegative");
+            IsFoldedOpen = !IsFoldedOpen;
+        }
+
+        private bool GetMouseOutsideControl()
+        {
+            return !Systems.Input.GetMouseInsideRect(tabContainer, selectedTab);
         }
 
         [Serializable]

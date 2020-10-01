@@ -27,7 +27,7 @@ namespace Exa.UI.Controls
             CleanValue = Value;
         }
 
-        public virtual void OnEnable()
+        protected virtual void OnEnable()
         {
             SetClean();
         }

@@ -1,5 +1,6 @@
 ﻿using Exa.UI;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,6 +47,16 @@ namespace Exa.Input
                 mouseInViewport = currFrameMouseInViewport;
                 mouseCursor.SetMouseInViewport(mouseInViewport);
             }
+        }
+
+        public bool GetMouseInsideRect(RectTransform rect)
+        {
+            return RectTransformUtility.RectangleContainsScreenPoint(rect, ScreenPoint, Camera.main);
+        }
+
+        public bool GetMouseInsideRect(params RectTransform[] rects)
+        {
+            return rects.Any(GetMouseInsideRect);
         }
     }
 }

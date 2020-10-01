@@ -123,9 +123,26 @@ MonoBehaviour:
   playerProxy: {fileID: 7180975494870412884}
   tabArrow: {fileID: 9111261026569768542}
   button: {fileID: 4106350053679270685}
+  selectedTab: {fileID: 3466506415237628741}
   tabContainer: {fileID: 1519812720193095616}
   tabPrefab: {fileID: 558324496665500032, guid: 2480b9a91f14c96409357a23f527187a,
     type: 3}
+  clickAction:
+    m_Name: Click
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 58761a36-1ede-4a83-86b2-cebcba133b4f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 58a82784-2a43-4b48-8fac-3614b358e0ef
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Click
+      m_Flags: 0
   onValueChange:
     m_PersistentCalls:
       m_Calls: []
@@ -202,6 +219,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Resolution
+      objectReference: {fileID: 0}
+    - target: {fileID: 653537046833903826, guid: 70629459d73ad224abf7e33d946cbdd6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6665540959298001051, guid: 70629459d73ad224abf7e33d946cbdd6,
         type: 3}
@@ -280,11 +302,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8913988968307136700, guid: 70629459d73ad224abf7e33d946cbdd6,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913988968307136700, guid: 70629459d73ad224abf7e33d946cbdd6,
-        type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -315,6 +332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6266274317464397268, guid: 70629459d73ad224abf7e33d946cbdd6, type: 3}
+    - {fileID: 6775417220227922033, guid: 70629459d73ad224abf7e33d946cbdd6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 70629459d73ad224abf7e33d946cbdd6, type: 3}
 --- !u!1 &1639434149364665915 stripped
 GameObject:
@@ -352,6 +370,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3466506415237628741 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2604008715579885882, guid: 70629459d73ad224abf7e33d946cbdd6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1457139976913488511}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4106350053679270685 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3225811572161413474, guid: 70629459d73ad224abf7e33d946cbdd6,
@@ -498,11 +522,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333367795491552514, guid: 803a3e779512abd47a06d0e91041f68a,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 3333367795491552514, guid: 803a3e779512abd47a06d0e91041f68a,
-        type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -567,6 +586,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RefreshRate
+      objectReference: {fileID: 0}
+    - target: {fileID: 653537046833903826, guid: 70629459d73ad224abf7e33d946cbdd6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 807315648035924724, guid: 70629459d73ad224abf7e33d946cbdd6,
+        type: 3}
+      propertyPath: m_AspectRatio
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6665540959298001051, guid: 70629459d73ad224abf7e33d946cbdd6,
         type: 3}
@@ -677,11 +706,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913988968307136700, guid: 70629459d73ad224abf7e33d946cbdd6,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70629459d73ad224abf7e33d946cbdd6, type: 3}

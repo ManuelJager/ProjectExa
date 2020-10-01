@@ -8,8 +8,8 @@ namespace Exa.UI.Controls
 {
     public class InputFieldControl : InputControl<string>
     {
-        [SerializeField] private Text placeholderText;
-        [SerializeField] private ExtendedInputField inputField;
+        public Text placeholderText;
+        public ExtendedInputField inputField;
 
         public override string CleanValue { get; set; }
 

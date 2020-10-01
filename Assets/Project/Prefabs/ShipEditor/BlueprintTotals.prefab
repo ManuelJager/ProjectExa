@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -206,7 +208,8 @@ MonoBehaviour:
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleHeight: 1
+  m_ReverseArrangement: 0
 --- !u!114 &2274767151163960893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,11 +337,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387510074584855563, guid: 7d49f4aa77aebae418b6c289028d58ec,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2387510074584855563, guid: 7d49f4aa77aebae418b6c289028d58ec,
         type: 3}
@@ -572,11 +570,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2387510074584855563, guid: 7d49f4aa77aebae418b6c289028d58ec,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387510074584855563, guid: 7d49f4aa77aebae418b6c289028d58ec,
-        type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -797,11 +790,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387510074584855563, guid: 7d49f4aa77aebae418b6c289028d58ec,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2387510074584855563, guid: 7d49f4aa77aebae418b6c289028d58ec,
         type: 3}
@@ -1027,11 +1015,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387510074584855563, guid: 7d49f4aa77aebae418b6c289028d58ec,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2387510074584855563, guid: 7d49f4aa77aebae418b6c289028d58ec,
         type: 3}
