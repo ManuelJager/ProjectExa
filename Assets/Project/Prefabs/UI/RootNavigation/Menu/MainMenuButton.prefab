@@ -35,21 +35,6 @@ MonoBehaviour:
   onHover:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3887611380586785872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7994069015727270563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6bbea2b83e0d4349ab004e7aa32d7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 2510221419983577005}
-  activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
-  inactiveColor: {r: 0.39215687, g: 0.39215687, b: 0.43137255, a: 1}
 --- !u!1001 &2741413358846881674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -147,7 +132,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onPointerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 3887611380586785872}
+      objectReference: {fileID: 8901350474062417319}
     - target: {fileID: 2519197678057345776, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
       propertyPath: onPointerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -172,7 +157,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onPointerExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3887611380586785872}
+      objectReference: {fileID: 8901350474062417319}
     - target: {fileID: 2519197678057345776, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
       propertyPath: onPointerExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -187,6 +172,16 @@ PrefabInstance:
         type: 3}
       propertyPath: onPointerExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519197678057345776, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: onPointerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Exa.UI.Components.TextColorLerper, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519197678057345776, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: onPointerExit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Exa.UI.Components.TextColorLerper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5093804088955523567, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
@@ -247,6 +242,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: inactiveColor.r
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: inactiveColor.g
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: inactiveColor.b
+      value: 0.43137255
       objectReference: {fileID: 0}
     - target: {fileID: 8327413947886271598, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
@@ -358,8 +368,7 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 80
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde, type: 3}
 --- !u!1 &7994069015727270563 stripped
 GameObject:
@@ -397,15 +406,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e199450f3216546b29d13f8d842126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2510221419983577005 stripped
+--- !u!114 &8901350474062417319 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 350557258748702759, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+  m_CorrespondingSourceObject: {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
     type: 3}
   m_PrefabInstance: {fileID: 2741413358846881674}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: c6bbea2b83e0d4349ab004e7aa32d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -77,7 +77,10 @@ namespace Exa.Utils
 
         public static IEnumerator Delay(Action callback, float seconds)
         {
-            yield return new WaitForSeconds(seconds);
+            if (seconds > 0f)
+            {
+                yield return new WaitForSeconds(seconds);
+            }
 
             callback();
         }
