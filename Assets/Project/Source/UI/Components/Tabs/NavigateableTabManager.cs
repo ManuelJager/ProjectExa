@@ -13,7 +13,7 @@ namespace Exa.UI.Components
         private void Awake()
         {
             activeTab = defaultTab;
-            activeTab.OnNavigate(null);
+            activeTab.HandleEnter(null);
         }
 
         public void SwitchTo(Navigateable newTab)

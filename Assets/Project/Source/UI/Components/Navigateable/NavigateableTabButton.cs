@@ -7,26 +7,30 @@ namespace Exa.UI.Components
 {
     public class NavigateableTabButton : Navigateable
     {
+        [Header("Button")]
         [SerializeField] private RectTransform self;
-        [SerializeField] private Transform content;
         [SerializeField] private Image image;
         [SerializeField] private Color activeColor;
         [SerializeField] private Color inactiveColor;
         [SerializeField] private float activeHeight;
         [SerializeField] private float inactiveHeight;
+        [SerializeField] private float delay;
 
-        public override void OnExit()
+        [Header("Content")]
+        [SerializeField] public AnimatedTabContent content;
+
+        public override void HandleExit()
         {
-            content.gameObject.SetActive(false);
-            self.DOSizeDelta(self.sizeDelta.SetY(80), 0.2f);
-            image.DOColor(inactiveColor, 0.2f);
+            self.DOSizeDelta(self.sizeDelta.SetY(80), delay);
+            image.DOColor(inactiveColor, delay);
+            content.HandleExit();
         }
 
-        public override void OnNavigate(Navigateable from, bool storeFrom = true)
+        public override void HandleEnter(Navigateable from, NavigationArgs args = default)
         {
-            content.gameObject.SetActive(true);
-            self.DOSizeDelta(self.sizeDelta.SetY(120), 0.2f);
-            image.DOColor(activeColor, 0.2f);
+            self.DOSizeDelta(self.sizeDelta.SetY(120), delay);
+            image.DOColor(activeColor, delay);
+            content.HandleEnter();
         }
     }
 }

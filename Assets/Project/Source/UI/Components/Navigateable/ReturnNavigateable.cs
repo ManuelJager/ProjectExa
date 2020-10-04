@@ -12,7 +12,7 @@ namespace Exa.UI.Components
         public GameControls gameControls;
 
         [SerializeField] private GlobalAudioPlayerProxy audioPlayer;
-        private Navigateable from = null;
+        private Navigateable returnTarget = null;
 
         protected virtual void Awake()
         {
@@ -20,13 +20,14 @@ namespace Exa.UI.Components
             gameControls.ReturnNavigateable.SetCallbacks(this);
         }
 
-        public override void OnNavigate(Navigateable from, bool storeFrom = true)
+        public override void HandleEnter(Navigateable from, NavigationArgs args = default)
         {
-            if (storeFrom)
+            if (!args.isReturning)
             {
-                this.from = from;
+                returnTarget = from;
             }
-            base.OnNavigate(from, storeFrom);
+
+            base.HandleEnter(from, args);
         }
 
         protected virtual void Return(bool force = false)
@@ -34,7 +35,10 @@ namespace Exa.UI.Components
             if (!Interactable && !force) return;
 
             audioPlayer.Play("UI_SFX_MenuTransitionOut");
-            NavigateTo(from, false);
+            NavigateTo(returnTarget, new NavigationArgs
+            {
+                isReturning = true
+            });
         }
 
         public void OnReturn(CallbackContext context)

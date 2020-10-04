@@ -5,7 +5,7 @@ namespace Exa.UI
 {
     public class ExitNavigateableTabButton : Navigateable
     {
-        public override void OnNavigate(Navigateable from, bool storeFrom = true)
+        public override void HandleEnter(Navigateable from, NavigationArgs args = default)
         {
             Exit();
         }
