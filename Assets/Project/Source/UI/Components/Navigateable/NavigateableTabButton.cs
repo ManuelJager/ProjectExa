@@ -26,14 +26,9 @@ namespace Exa.UI.Components
             self.DOSizeDelta(self.sizeDelta.SetY(80), delay);
             image.DOColor(inactiveColor, delay);
 
-            if (target is NavigateableTabButton button)
-            {
-                content.HandleExit(button.order > order ? Vector2.left : Vector2.right);
-            }
-            else
-            {
-                content.HandleExit(Vector2.up);
-            }
+            content.HandleExit(target is NavigateableTabButton button 
+                    ? Vector2.left * (button.order > order).To1()
+                    : Vector2.zero);
         }
 
         public override void HandleEnter(NavigationArgs args)
@@ -41,14 +36,10 @@ namespace Exa.UI.Components
             self.DOSizeDelta(self.sizeDelta.SetY(120), delay);
             image.DOColor(activeColor, delay);
 
-            if (args?.current is NavigateableTabButton button)
-            {
-                content.HandleEnter(button.order > order ? Vector2.right : Vector2.left);
-            }
-            else
-            {
-                content.HandleEnter(Vector2.down);
-            }
+
+            content.HandleEnter(args?.current is NavigateableTabButton button
+                    ? Vector2.right * (button.order > order).To1()
+                    : Vector2.zero);
         }
     }
 }

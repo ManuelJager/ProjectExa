@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Exa.Data;
 using Exa.Generics;
 using UnityEngine;
 
@@ -88,6 +89,11 @@ namespace Exa.Math
         public static int NormalizeAngle04(int quarterAngle)
         {
             return (int)NormalizeWrap(quarterAngle, new MinMax<float>(0, 4));
+        }
+
+        public static int To1(this bool value)
+        {
+            return value ? 1 : -1;
         }
     }
 }
