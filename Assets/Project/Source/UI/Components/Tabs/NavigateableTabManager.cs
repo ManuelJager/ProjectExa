@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Exa.UI;
 
 namespace Exa.UI.Components
 {
@@ -20,7 +21,11 @@ namespace Exa.UI.Components
         {
             if (newTab == activeTab) return;
 
-            activeTab.NavigateTo(newTab);
+            activeTab.NavigateTo(newTab, new NavigationArgs
+            {
+                current = activeTab
+            });
+
             activeTab = newTab;
         }
     }

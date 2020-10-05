@@ -20,14 +20,14 @@ namespace Exa.UI.Components
             gameControls.ReturnNavigateable.SetCallbacks(this);
         }
 
-        public override void HandleEnter(Navigateable from, NavigationArgs args = default)
+        public override void HandleEnter(NavigationArgs args)
         {
             if (!args.isReturning)
             {
-                returnTarget = from;
+                returnTarget = args.current;
             }
 
-            base.HandleEnter(from, args);
+            base.HandleEnter(args);
         }
 
         protected virtual void Return(bool force = false)
@@ -37,6 +37,7 @@ namespace Exa.UI.Components
             audioPlayer.Play("UI_SFX_MenuTransitionOut");
             NavigateTo(returnTarget, new NavigationArgs
             {
+                current = this,
                 isReturning = true
             });
         }

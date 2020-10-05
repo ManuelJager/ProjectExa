@@ -90,7 +90,10 @@ namespace Exa.UI
             {
                 if (!Interactable) return;
 
-                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable);
+                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs
+                {
+                    current = blueprintSelectorNavigateable
+                });
                 shipEditor.Import(container, TrySave);
             });
             view.deleteButton.onClick.AddListener(() =>

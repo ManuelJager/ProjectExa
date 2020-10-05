@@ -8,6 +8,9 @@ EditorUserSettings:
     Advanced Settings:
       value: 183b144645154b6805011b0314355e1e15121c1d233a2a343e6b4773e4e1382be78d2b
       flags: 0
+    Entity Inspector Settings:
+      value: 183b144645154b72031a09301e2253321714132f222c646a6d795159a2a07478a0c33ffaf7363e251a0de22c0b300431e63e101bf349504b170ff11d14950d
+      flags: 0
     UIBuilder.EditorExtensionModeKey:
       value: 37434103
       flags: 0

@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &3420093696291048377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144674725514313921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 3136275994030468949}
-  delay: 0.2
-  target: {fileID: 6667905189903178805}
 --- !u!225 &3136275994030468949
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -27,6 +12,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3420093696291048377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144674725514313921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 6667905189903178805}
+  canvasGroup: {fileID: 3136275994030468949}
+  delay: 0.2
 --- !u!1 &2692107815042826561
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +94,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &3340373449734495917
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370111043640287974}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &5062230322093476378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,16 +118,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 2749516919016886405}
   canvasGroup: {fileID: 3340373449734495917}
   delay: 0.2
-  target: {fileID: 2749516919016886405}
---- !u!225 &3340373449734495917
+--- !u!225 &7445511138407406047
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370111043640287974}
+  m_GameObject: {fileID: 5534587321304915821}
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
@@ -133,16 +145,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 4910041706510150926}
   canvasGroup: {fileID: 7445511138407406047}
   delay: 0.2
-  target: {fileID: 4910041706510150926}
---- !u!225 &7445511138407406047
+--- !u!225 &3271288210136737110
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5534587321304915821}
+  m_GameObject: {fileID: 5622450185272224753}
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
@@ -160,21 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 5324494252263852340}
   canvasGroup: {fileID: 3271288210136737110}
   delay: 0.2
-  target: {fileID: 5324494252263852340}
---- !u!225 &3271288210136737110
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5622450185272224753}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &6244166992537106488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,6 +492,11 @@ PrefabInstance:
       propertyPath: delay
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1496742483774421795, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: order
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2510221419983577005, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: m_Text
@@ -690,6 +695,11 @@ PrefabInstance:
         type: 3}
       propertyPath: delay
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496742483774421795, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: order
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2510221419983577005, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
@@ -1072,6 +1082,11 @@ PrefabInstance:
       propertyPath: delay
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1496742483774421795, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: order
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2510221419983577005, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: m_Text
@@ -1270,6 +1285,11 @@ PrefabInstance:
         type: 3}
       propertyPath: delay
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496742483774421795, guid: 4436753b620da8f4aa44ab701036f540,
+        type: 3}
+      propertyPath: order
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2510221419983577005, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}

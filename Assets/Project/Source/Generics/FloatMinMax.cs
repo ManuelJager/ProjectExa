@@ -23,29 +23,29 @@ namespace Exa.Generics
 
     // TODO: Remove this when upgrading to 2020.1
     [Serializable]
-    public struct MinMax
+    public struct FloatMinMax
     {
         public float min;
         public float max;
 
-        public MinMax(float min, float max)
+        public FloatMinMax(float min, float max)
         {
             this.min = min;
             this.max = max;
         }
 
-        public static MinMax ZeroOne
+        public static FloatMinMax ZeroOne
         {
-            get => new MinMax(0f, 1f);
+            get => new FloatMinMax(0f, 1f);
         }
     }
 
     public static class MinMaxHelpers
     {
-        public static float Evaluate(this MinMax minMax, float t)
+        public static float Evaluate(this FloatMinMax floatMinMax, float t)
         {
-            var diff = minMax.max - minMax.min;
-            return minMax.min + diff * t;
+            var diff = floatMinMax.max - floatMinMax.min;
+            return floatMinMax.min + diff * t;
         }
     }
 }

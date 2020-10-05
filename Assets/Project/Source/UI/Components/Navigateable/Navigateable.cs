@@ -2,8 +2,9 @@
 
 namespace Exa.UI.Components
 {
-    public struct NavigationArgs
+    public class NavigationArgs
     {
+        public Navigateable current;
         public bool isReturning;
     }
 
@@ -12,20 +13,23 @@ namespace Exa.UI.Components
     {
         public bool Interactable { get; set; } = true;
 
-        public virtual void HandleExit()
+        public virtual void HandleExit(Navigateable target)
         {
             gameObject.SetActive(false);
         }
 
-        public virtual void HandleEnter(Navigateable from, NavigationArgs args = default)
+        public virtual void HandleEnter(NavigationArgs args)
         {
             gameObject.SetActive(true);
         }
 
-        public virtual void NavigateTo(Navigateable to, NavigationArgs args = default)
+        public virtual void NavigateTo(Navigateable target, NavigationArgs args = null)
         {
-            HandleExit();
-            to.HandleEnter(this, args);
+            HandleExit(target);
+            target.HandleEnter(args ?? new NavigationArgs
+            {
+                current = this
+            });
         }
     }
 }

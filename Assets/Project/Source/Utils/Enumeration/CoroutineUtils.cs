@@ -7,7 +7,7 @@ namespace Exa.Utils
     {
         public static Coroutine Delay(this MonoBehaviour monoBehaviour, Action action, float seconds)
         {
-            return monoBehaviour.StartCoroutine(EnumeratorUtils.Delay(action, seconds));
+            return Systems.Instance.StartCoroutine(EnumeratorUtils.Delay(action, seconds));
         }
     }
 }

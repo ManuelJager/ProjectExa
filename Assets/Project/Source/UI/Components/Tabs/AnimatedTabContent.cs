@@ -6,26 +6,27 @@ namespace Exa.UI.Components
 {
     public class AnimatedTabContent : MonoBehaviour
     {
+        public RectTransform target;
+
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private float delay;
-        [SerializeField] public RectTransform target;
 
-        public void HandleExit()
+        public void HandleExit(Vector2 direction)
         {
             canvasGroup.interactable = false;
             canvasGroup.alpha = 1f;
             canvasGroup.DOFade(0, delay);
             target.anchoredPosition = Vector2.zero;
-            target.DOAnchorPos(Vector2.left * 120, delay);
+            target.DOAnchorPos(direction * 120, delay);
             this.Delay(() => gameObject.SetActive(false), delay);
         }
 
-        public void HandleEnter()
+        public void HandleEnter(Vector2 direction)
         {
             gameObject.SetActive(true);
             canvasGroup.alpha = 0f;
             canvasGroup.DOFade(1f, delay);
-            target.anchoredPosition = Vector2.right * 120;
+            target.anchoredPosition = direction * 120;
             target.DOAnchorPos(Vector2.zero, delay);
             this.Delay(() => canvasGroup.interactable = true, delay);
         }
