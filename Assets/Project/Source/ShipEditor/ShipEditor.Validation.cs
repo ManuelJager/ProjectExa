@@ -2,6 +2,9 @@
 {
     public partial class ShipEditor
     {
+        private BlueprintGridValidator gridValidator;
+        private BlueprintNameValidator nameValidator;
+
         public void ValidateGrid()
         {
             var args = new BlueprintGridValidationArgs
@@ -12,7 +15,7 @@
             GridValidationResult = shipEditorOverlay
                 .blueprintInfoPanel
                 .errorListController
-                .Validate(new BlueprintGridValidator(), args);
+                .Validate(gridValidator, args);
         }
 
         public void ValidateName(string name)
@@ -27,7 +30,7 @@
             NameValidationResult = shipEditorOverlay
                 .blueprintInfoPanel
                 .errorListController
-                .Validate(new BlueprintNameValidator(), args);
+                .Validate(nameValidator, args);
 
             if (NameValidationResult)
             {

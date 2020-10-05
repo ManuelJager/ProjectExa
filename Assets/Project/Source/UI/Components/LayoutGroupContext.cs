@@ -10,7 +10,7 @@ namespace Exa.UI.Components
     /// </summary>
     public class LayoutGroupContext : MonoBehaviour
     {
-        [SerializeField] private LayoutElement layoutElement;
+        public LayoutElement layoutElement;
 
         public void UpdateActiveSelf()
         {

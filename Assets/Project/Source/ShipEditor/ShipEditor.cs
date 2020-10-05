@@ -75,6 +75,8 @@ namespace Exa.ShipEditor
         {
             this.container = blueprintContainer;
             this.saveCallback = saveCallback;
+            this.gridValidator = new BlueprintGridValidator();
+            this.nameValidator = new BlueprintNameValidator();
 
             var newBlueprint = blueprintContainer.Data.Clone();
             editorGrid.Import(newBlueprint);
