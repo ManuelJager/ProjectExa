@@ -31,10 +31,10 @@ namespace Exa.Validation
         /// <typeparam name="TError">Type of error thrown</typeparam>
         /// <param name="errorMessage">Error message</param>
         /// <param name="predicate">Validation condition</param>
-        public void Assert<TError>(string errorMessage, Func<bool> predicate)
+        public void Assert<TError>(string errorMessage, bool predicate)
             where TError : ValidationError
         {
-            if (!predicate())
+            if (!predicate)
             {
                 Throw<TError>(errorMessage);
             }

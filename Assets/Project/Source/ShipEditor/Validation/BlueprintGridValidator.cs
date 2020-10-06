@@ -8,12 +8,12 @@ using UnityEngine;
 
 namespace Exa.ShipEditor
 {
-    public class BlueprintGridValidator : IValidator<BlueprintGridValidationArgs>
+    public class BlueprintGridValidator : Validator<BlueprintGridValidationArgs>
     {
-        public ValidationResult Validate(BlueprintGridValidationArgs validationArgs)
+        protected override void AddErrors(ValidationResult errors, BlueprintGridValidationArgs args)
         {
             var result = new ValidationResult(this);
-            var blocks = validationArgs.blueprintBlocks;
+            var blocks = args.blueprintBlocks;
 
             var controllers = blocks
                 .Where(block => block.BlueprintBlock.Template.category.Is(BlockCategory.Controller));
@@ -33,8 +33,6 @@ namespace Exa.ShipEditor
             {
                 result.Throw<DisconnectedBlocksError>("Blueprint has disconnected blocks");
             }
-
-            return result;
         }
 
         public bool BlueprintBlocksAreConnected(Vector2Int startingPoint, BlueprintBlocks blocks)

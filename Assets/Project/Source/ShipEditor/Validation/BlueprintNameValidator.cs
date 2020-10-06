@@ -4,32 +4,27 @@ using System.Linq;
 
 namespace Exa.ShipEditor
 {
-    public class BlueprintNameValidator : IValidator<BlueprintNameValidationArgs>
+    public class BlueprintNameValidator : Validator<BlueprintNameValidationArgs>
     {
-        public ValidationResult Validate(BlueprintNameValidationArgs validationArgs)
+        protected override void AddErrors(ValidationResult errors, BlueprintNameValidationArgs args)
         {
-            var errors = new ValidationResult(this);
-
             // Check if there is any blueprint in the collection that contains the same name as the requested name
             errors.Assert<BlueprintNameDuplicateError>(
-                $"Blueprint name is already used", () =>
-                {
-                    return !validationArgs.collectionContext.Any((blueprintContainer) =>
-                    blueprintContainer.Data.name == validationArgs.requestedName &&
-                    blueprintContainer != validationArgs.blueprintContainer);
-                });
+                $"Blueprint name is already used",
+                !args.collectionContext.Any(blueprintContainer =>
+                    blueprintContainer.Data.name == args.requestedName &&
+                    blueprintContainer != args.blueprintContainer)
+                );
 
             // Check if the name isn't empty
             errors.Assert<BlueprintNameEmptyError>(
                 $"Blueprint name is empty",
-                () => validationArgs.requestedName != "");
+                args.requestedName != "");
 
             // Check if the requested name is the default name
             errors.Assert<BlueprintNameDefaultError>(
                 "Blueprint name cannot be default",
-                () => validationArgs.requestedName != Blueprint.DEFAULT_BLUEPRINT_NAME);
-
-            return errors;
+                args.requestedName != Blueprint.DEFAULT_BLUEPRINT_NAME);
         }
     }
 }
