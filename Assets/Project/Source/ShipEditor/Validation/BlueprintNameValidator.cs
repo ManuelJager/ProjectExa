@@ -8,7 +8,7 @@ namespace Exa.ShipEditor
     {
         public ValidationResult Validate(BlueprintNameValidationArgs validationArgs)
         {
-            var errors = new ValidationResult(GetType());
+            var errors = new ValidationResult(this);
 
             // Check if there is any blueprint in the collection that contains the same name as the requested name
             errors.Assert<BlueprintNameDuplicateError>(

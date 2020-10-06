@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blueprints;
 using Exa.Validation;
 using System;
+using Exa.UI;
 using UnityEngine;
 
 namespace Exa.ShipEditor
@@ -84,8 +85,8 @@ namespace Exa.ShipEditor
         {
             Zoom = 5f;
             IsSaved = true;
-            NameValidationResult = new ValidationResult();
-            GridValidationResult = new ValidationResult();
+            NameValidationResult = null;
+            GridValidationResult = null;
 
             Camera.main.orthographicSize = Zoom;
         }

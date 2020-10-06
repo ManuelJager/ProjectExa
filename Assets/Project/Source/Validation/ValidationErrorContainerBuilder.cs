@@ -14,7 +14,7 @@ namespace Exa.Validation
         /// </summary>
         /// <param name="validator">validator identifier</param>
         /// <returns></returns>
-        private Dictionary<string, Action<ValidationError>> GetHandlerDictionary(string validator)
+        private Dictionary<string, Action<ValidationError>> GetHandlerDictionary(IValidator validator)
         {
             if (!container.errorHandlers.ContainsKey(validator))
             {
@@ -28,7 +28,7 @@ namespace Exa.Validation
         /// </summary>
         /// <param name="validator">validator identifier</param>
         /// <returns></returns>
-        private Dictionary<string, Action<ValidationError>> GetCleanerDictionary(string validator)
+        private Dictionary<string, Action<ValidationError>> GetCleanerDictionary(IValidator validator)
         {
             if (!container.errorHandlers.ContainsKey(validator))
             {
@@ -52,7 +52,7 @@ namespace Exa.Validation
         /// <param name="errorHandler">Error handler callback</param>
         /// <param name="errorCleaner">Error cleaner callback</param>
         /// <returns>Builder</returns>
-        public ValidationErrorContainerBuilder OnError<TError>(string validator, string id, Action<TError> errorHandler, Action<TError> errorCleaner)
+        public ValidationErrorContainerBuilder OnError<TError>(IValidator validator, string id, Action<TError> errorHandler, Action<TError> errorCleaner)
             where TError : ValidationError
         {
             GetHandlerDictionary(validator)[id] = errorHandler as Action<ValidationError>;

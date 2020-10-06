@@ -11,9 +11,9 @@ namespace Exa.Validation
     {
         // Keep track of error handlers in a nested dictionary
         // Access the error handler or cleaner by [validator][error]
-        internal Dictionary<string, Dictionary<string, Action<ValidationError>>> errorHandlers;
+        internal Dictionary<IValidator, Dictionary<string, Action<ValidationError>>> errorHandlers;
 
-        internal Dictionary<string, Dictionary<string, Action<ValidationError>>> errorCleaners;
+        internal Dictionary<IValidator, Dictionary<string, Action<ValidationError>>> errorCleaners;
 
         // Default implementation for the error handlers or cleaners
         internal Action<ValidationError> defaultErrorHandler;
@@ -21,13 +21,13 @@ namespace Exa.Validation
         internal Action<ValidationError> defaultErrorCleaner;
 
         // Keep track of errors thrown by a specific validator
-        internal Dictionary<string, IEnumerable<ValidationError>> lastControlErrors;
+        internal Dictionary<IValidator, IEnumerable<ValidationError>> lastControlErrors;
 
         public ValidationErrorContainer()
         {
-            errorHandlers = new Dictionary<string, Dictionary<string, Action<ValidationError>>>();
-            errorCleaners = new Dictionary<string, Dictionary<string, Action<ValidationError>>>();
-            lastControlErrors = new Dictionary<string, IEnumerable<ValidationError>>();
+            errorHandlers = new Dictionary<IValidator, Dictionary<string, Action<ValidationError>>>();
+            errorCleaners = new Dictionary<IValidator, Dictionary<string, Action<ValidationError>>>();
+            lastControlErrors = new Dictionary<IValidator, IEnumerable<ValidationError>>();
         }
 
         public ValidationResult Control<TArgs>(IValidator<TArgs> validator, TArgs args)
@@ -42,17 +42,17 @@ namespace Exa.Validation
 
         public void ApplyResults(ValidationResult errors)
         {
-            var currValidator = errors.ContextID;
+            var validator = errors.Validator;
             var currErrorIds = errors.Select(error => error.Id);
 
             // Error handlers
             foreach (var currentError in errors)
             {
                 // Check if there is a specific error handler for the error, otherwise use the default one
-                if (errorHandlers.ContainsKey(currValidator) &&
-                    errorHandlers[currValidator].ContainsKey(currentError.Id))
+                if (errorHandlers.ContainsKey(validator) &&
+                    errorHandlers[validator].ContainsKey(currentError.Id))
                 {
-                    errorHandlers[currValidator][currentError.Id](currentError);
+                    errorHandlers[validator][currentError.Id](currentError);
                 }
                 else
                 {
@@ -60,18 +60,19 @@ namespace Exa.Validation
                 }
             }
 
-            if (lastControlErrors.ContainsKey(currValidator))
+            if (lastControlErrors.ContainsKey(validator))
             {
                 // Get errors from the same validator that were handled last control, but are no longer present
-                foreach (var lastControlError in lastControlErrors[currValidator])
+                foreach (var lastControlError in lastControlErrors[validator])
                 {
                     // If error wasn't thrown in the last control, it doesn't need to be cleaned up
                     if (currErrorIds.Contains(lastControlError.Id)) continue;
 
                     // Check if there is a specific error handler for the error, otherwise use the default one
-                    if (errorCleaners.ContainsKey(lastControlError.Id))
+                    if (errorCleaners.ContainsKey(validator) &&
+                        errorCleaners[validator].ContainsKey(lastControlError.Id))
                     {
-                        errorCleaners[currValidator][lastControlError.Id](lastControlError);
+                        errorCleaners[validator][lastControlError.Id](lastControlError);
                     }
                     else
                     {
@@ -81,7 +82,7 @@ namespace Exa.Validation
             }
 
             // Keep track of the thrown errors for the current validator
-            lastControlErrors[currValidator] = errors;
+            lastControlErrors[validator] = errors;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Exa.UI.Controls
         {
             transform.DestroyChildren();
             panelByError = new Dictionary<string, ValidationErrorPanel>();
-            container.lastControlErrors = new Dictionary<string, IEnumerable<ValidationError>>();
+            container.lastControlErrors = new Dictionary<IValidator, IEnumerable<ValidationError>>();
         }
 
         /// <summary>

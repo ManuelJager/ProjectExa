@@ -12,28 +12,26 @@ namespace Exa.ShipEditor
     {
         public ValidationResult Validate(BlueprintGridValidationArgs validationArgs)
         {
-            var result = new ValidationResult(GetType());
+            var result = new ValidationResult(this);
+            var blocks = validationArgs.blueprintBlocks;
 
-            var controllers = validationArgs.blueprintBlocks
-                .Where((block) => block.BlueprintBlock.Template.category.Is(BlockCategory.Controller));
+            var controllers = blocks
+                .Where(block => block.BlueprintBlock.Template.category.Is(BlockCategory.Controller));
 
             var controllerCount = controllers.Count();
 
             if (controllerCount > 1)
             {
-                result.Throw<BlueprintGridControllerError>("Cannot have multiple controllers");
+                result.Throw<ControllerError>("Cannot have multiple controllers");
             }
             else if (controllerCount == 0)
             {
-                result.Throw<BlueprintGridControllerError>("Must have atleast one controller");
+                result.Throw<ControllerError>("Must have atleast one controller");
             }
-            else
-            {
-                var startingPoint = controllers.FirstOrDefault().GridAnchor;
 
-                result.Assert<BlueprintGridDisconnectedBlocksError>(
-                    "Blueprint has disconnected blocks",
-                    () => BlueprintBlocksAreConnected(startingPoint, validationArgs.blueprintBlocks));
+            if (blocks.Any(block => blocks.GetNeighbourCount(block) == 0))
+            {
+                result.Throw<DisconnectedBlocksError>("Blueprint has disconnected blocks");
             }
 
             return result;

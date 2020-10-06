@@ -8,23 +8,13 @@ namespace Exa.Validation
     public class ValidationResult : IEnumerable<ValidationError>
     {
         private readonly List<ValidationError> collection;
-        public string ContextID { get; private set; }
 
-        public ValidationError this[int index]
-        {
-            get => collection[index];
-            set => collection[index] = value;
-        }
+        public IValidator Validator { get; private set; }
 
-        public ValidationResult()
+        public ValidationResult(IValidator validator)
         {
             collection = new List<ValidationError>();
-        }
-
-        internal ValidationResult(Type validationContext)
-            : this()
-        {
-            ContextID = validationContext.Name;
+            Validator = validator;
         }
 
         public void Throw<TError>(string errorMessage)
@@ -46,9 +36,7 @@ namespace Exa.Validation
         {
             if (!predicate())
             {
-                var error = Activator.CreateInstance(typeof(TError)) as TError;
-                error.Message = errorMessage;
-                collection.Add(error);
+                Throw<TError>(errorMessage);
             }
         }
 
@@ -63,9 +51,7 @@ namespace Exa.Validation
             var operationResult = predicate();
             if (!operationResult.Valid)
             {
-                var error = Activator.CreateInstance(typeof(TError)) as TError;
-                error.Message = operationResult.Message;
-                collection.Add(error);
+                Throw<TError>(operationResult.Message);
             }
         }
 

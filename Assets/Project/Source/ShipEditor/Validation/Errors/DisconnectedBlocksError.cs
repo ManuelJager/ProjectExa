@@ -2,7 +2,7 @@
 
 namespace Exa.ShipEditor
 {
-    public class BlueprintGridControllerError : ValidationError
+    public class DisconnectedBlocksError : ValidationError
     {
     }
 }

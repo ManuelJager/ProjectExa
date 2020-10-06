@@ -163,6 +163,11 @@ namespace Exa.Grids
             }
         }
 
+        public int GetNeighbourCount(T gridMember)
+        {
+            return NeighbourDict[gridMember].Count;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             return GridMembers.GetEnumerator();
