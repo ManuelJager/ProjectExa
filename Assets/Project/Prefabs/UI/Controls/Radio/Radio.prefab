@@ -469,7 +469,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invokeStateChangeOnHover: 1
-  cursorState: 1
+  cursorOverride:
+    value: 1
   checkMouseInsideRectOnEnable: 1
 --- !u!114 &6457592378605841459
 MonoBehaviour:

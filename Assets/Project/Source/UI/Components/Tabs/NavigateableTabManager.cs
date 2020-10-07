@@ -4,6 +4,7 @@ using Exa.UI;
 
 namespace Exa.UI.Components
 {
+    //TODO: Add selected tab text animation
     public class NavigateableTabManager : MonoBehaviour
     {
         [SerializeField] private Navigateable defaultTab;

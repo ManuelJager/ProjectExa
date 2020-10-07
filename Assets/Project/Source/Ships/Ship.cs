@@ -1,6 +1,7 @@
 ﻿using Exa.AI;
 using Exa.Debugging;
 using Exa.Gameplay;
+using Exa.Generics;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
@@ -19,6 +20,7 @@ namespace Exa.Ships
     public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable
     {
         [Header("References")]
+        [HideInInspector] public ShipOverlay overlay;
         public Transform pivot;
         public ShipAi shipAi;
         public ShipState state;
@@ -27,13 +29,11 @@ namespace Exa.Ships
         public NavigationOptions navigationOptions;
 
         [Header("Settings")]
+        [SerializeField] private ValueOverride<CursorState> cursorOverride;
         public float canvasScaleMultiplier = 1f;
         public Font shipDebugFont;
-        [SerializeField] private CursorState onHoverState;
 
-        [HideInInspector] public ShipOverlay overlay;
         private Tooltip debugTooltip;
-        private CursorOverride cursorOverride;
 
         [Header("Events")]
         public UnityEvent destroyEvent = new UnityEvent();
@@ -50,7 +50,6 @@ namespace Exa.Ships
         protected virtual void Awake()
         {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
-            cursorOverride = new CursorOverride(onHoverState);
         }
 
         private void FixedUpdate()
@@ -103,7 +102,7 @@ namespace Exa.Ships
         public virtual void OnRaycastEnter()
         {
             overlay.overlayCircle.IsHovered = true;
-            Systems.UI.mouseCursor.AddOverride(cursorOverride);
+            Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
 
             if (DebugMode.Ships.GetEnabled())
             {
@@ -114,7 +113,7 @@ namespace Exa.Ships
         public virtual void OnRaycastExit()
         {
             overlay.overlayCircle.IsHovered = false;
-            Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
+            Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
 
             if (DebugMode.Ships.GetEnabled())
             {

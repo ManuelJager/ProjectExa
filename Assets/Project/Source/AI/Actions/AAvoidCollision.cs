@@ -16,7 +16,7 @@ namespace Exa.AI.Actions
     }
 
     // TODO: Use position prediction and target paths to increase accuracy
-    public class AAvoidCollision : ShipAIAction
+    public class AAvoidCollision : ShipAiAction
     {
         public override ActionLane Lanes => ActionLane.Movement;
 

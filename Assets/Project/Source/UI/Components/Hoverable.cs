@@ -1,5 +1,6 @@
 ﻿using Exa.Utils;
 using System;
+using Exa.Generics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,9 +14,8 @@ namespace Exa.UI
         public UnityEvent onPointerEnter = new UnityEvent();
         public UnityEvent onPointerExit = new UnityEvent();
 
-        public CursorOverride cursorOverride;
         public bool invokeStateChangeOnHover;
-        public CursorState cursorState;
+        public ValueOverride<CursorState> cursorOverride;
 
         [SerializeField] private bool checkMouseInsideRectOnEnable = true;
         private RectTransform rectTransform;
@@ -29,7 +29,6 @@ namespace Exa.UI
 
         private void Awake()
         {
-            cursorOverride = new CursorOverride(cursorState);
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
         }
@@ -111,12 +110,20 @@ namespace Exa.UI
 
         private void OnEnter()
         {
-            Systems.UI.mouseCursor.AddOverride(cursorOverride);
+            Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
+            if (Systems.UI.mouseCursor.CurrentCursor is VirtualMouseCursor virtualMouseCursor)
+            {
+                virtualMouseCursor.HoverMarkerContainer.AddMarker();
+            }
         }
 
         private void OnExit()
         {
-            Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
+            Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
+            if (Systems.UI.mouseCursor.CurrentCursor is VirtualMouseCursor virtualMouseCursor)
+            {
+                virtualMouseCursor.HoverMarkerContainer.RemoveMarker();
+            }
         }
     }
 }

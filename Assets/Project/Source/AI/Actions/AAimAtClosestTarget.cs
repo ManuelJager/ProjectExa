@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Exa.AI.Actions
 {
     // TODO: Implement a distance difference threshold that prevents already targeted ships from being untargeted too quickly
-    public class AAimAtClosestTarget : ShipAIAction
+    public class AAimAtClosestTarget : ShipAiAction
     {
         public override ActionLane Lanes => ActionLane.AimTurrets;
 

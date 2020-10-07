@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.AI.Actions
 {
-    public class AMoveToTarget : ShipAIAction
+    public class AMoveToTarget : ShipAiAction
     {
         public override ActionLane Lanes => ActionLane.Movement;
 

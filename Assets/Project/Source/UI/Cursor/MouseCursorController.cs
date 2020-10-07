@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Exa.Generics;
 using UnityEngine;
 
 namespace Exa.UI
@@ -12,16 +13,21 @@ namespace Exa.UI
 
     public class MouseCursorController : MonoBehaviour
     {
-        [SerializeField] private readonly CursorType cursorType = CursorType.hardwareCursor;
+        public OverrideList<CursorState> stateManager;
+
+        [SerializeField] private CursorType cursorType = CursorType.hardwareCursor;
         [SerializeField] private VirtualMouseCursor virtualMouseCursor;
         [SerializeField] private HardwareMouseCursor hardwareMouseCursor;
+        [SerializeField] private CursorState cursorState;
         private ICursor cursor;
-        private readonly List<CursorOverride> cursorOverrides = new List<CursorOverride>();
+
+        public ICursor CurrentCursor => cursor;
 
         private void Start()
         {
             SetCursor(cursorType);
-            SetState(CursorState.idle);
+            cursor.SetState(cursorState);
+            stateManager = new OverrideList<CursorState>(cursorState, cursor.SetState);
         }
 
         public void SetCursor(CursorType cursorType)
@@ -29,32 +35,6 @@ namespace Exa.UI
             cursor?.SetActive(false);
             cursor = GetCursor(cursorType);
             cursor.SetActive(true);
-        }
-
-        public void AddOverride(CursorOverride cursorOverride)
-        {
-            cursorOverrides.Add(cursorOverride);
-
-            SetState(cursorOverride.cursorState);
-        }
-
-        public void RemoveOverride(CursorOverride cursorOverride)
-        {
-            cursorOverrides.Remove(cursorOverride);
-
-            SetState(SelectStateFromOverrides());
-        }
-
-        private CursorState SelectStateFromOverrides()
-        {
-            return cursorOverrides.Count == 0 
-                ? CursorState.idle 
-                : cursorOverrides.Last().cursorState;
-        }
-
-        private void SetState(CursorState cursorState)
-        {
-            cursor.SetState(cursorState);
         }
 
         public void SetMouseInViewport(bool value)

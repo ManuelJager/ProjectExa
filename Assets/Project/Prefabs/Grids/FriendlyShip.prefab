@@ -20,7 +20,8 @@ MonoBehaviour:
   navigationOptions: {fileID: 8455648041380527334}
   canvasScaleMultiplier: 1
   shipDebugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
-  onHoverState: 1
+  genericCursorOverride:
+    value: 1
   overlay: {fileID: 0}
   destroyEvent:
     m_PersistentCalls:

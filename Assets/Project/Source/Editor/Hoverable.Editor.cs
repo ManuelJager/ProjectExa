@@ -18,7 +18,7 @@ namespace Exa.CustomEditors
             onPointerEnter = serializedObject.FindProperty("onPointerEnter");
             onPointerExit = serializedObject.FindProperty("onPointerExit");
             invokeStateChangeOnHover = serializedObject.FindProperty("invokeStateChangeOnHover");
-            cursorState = serializedObject.FindProperty("cursorState");
+            cursorState = serializedObject.FindProperty("cursorOverride");
             checkMouseInsideRectOnEnable = serializedObject.FindProperty("checkMouseInsideRectOnEnable");
         }
 

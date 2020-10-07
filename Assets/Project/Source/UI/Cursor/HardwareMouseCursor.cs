@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Generics;
+using UnityEngine;
 
 namespace Exa.UI
 {
@@ -9,6 +10,8 @@ namespace Exa.UI
         [SerializeField] private Texture2D removeMouseTexture;
         [SerializeField] private Texture2D infoMouseTexture;
         [SerializeField] private Texture2D inputMouseTexture;
+
+        public MarkerContainer HoverMarkerContainer { get; } = null;
 
         private void OnEnable()
         {

@@ -25,9 +25,11 @@ namespace Exa.UI.Components
         {
             gameObject.SetActive(true);
             canvasGroup.alpha = 0f;
-            canvasGroup.DOFade(1f, delay);
+            canvasGroup.DOFade(1f, delay)
+                .SetEase(Ease.InCubic);
             target.anchoredPosition = direction * 120;
-            target.DOAnchorPos(Vector2.zero, delay);
+            target.DOAnchorPos(Vector2.zero, delay)
+                .SetEase(Ease.InCubic);
             this.Delay(() => canvasGroup.interactable = true, delay);
         }
     }

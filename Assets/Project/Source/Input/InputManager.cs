@@ -15,12 +15,10 @@ namespace Exa.Input
         private Canvas root;
 
         public Vector2 ScaledViewportPoint { get; private set; }
-
         public Vector2 ScreenPoint { get; private set; }
-
         public Vector2 ViewportPoint { get; private set; }
-
         public Vector2 MouseWorldPoint { get; private set; }
+        public bool MouseInViewport { get; private set; }
 
         private void Awake()
         {

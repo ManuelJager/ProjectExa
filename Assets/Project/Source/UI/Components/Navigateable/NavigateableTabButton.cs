@@ -36,7 +36,6 @@ namespace Exa.UI.Components
             self.DOSizeDelta(self.sizeDelta.SetY(120), delay);
             image.DOColor(activeColor, delay);
 
-
             content.HandleEnter(args?.current is NavigateableTabButton button
                     ? Vector2.right * (button.order > order).To1()
                     : Vector2.zero);

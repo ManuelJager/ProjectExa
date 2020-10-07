@@ -1,4 +1,6 @@
-﻿namespace Exa.UI
+﻿using Exa.Generics;
+
+namespace Exa.UI
 {
     public enum CursorState
     {
@@ -11,6 +13,7 @@
 
     public interface ICursor
     {
+        MarkerContainer HoverMarkerContainer { get; }
         void SetActive(bool active);
         void SetState(CursorState cursorState);
         void OnEnterViewport();
