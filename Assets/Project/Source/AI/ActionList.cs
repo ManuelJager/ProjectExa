@@ -7,18 +7,18 @@ namespace Exa.AI
 {
     public class ActionList
     {
-        private readonly List<IAction> actions;
-        private readonly float priorityThreshold;
+        private readonly List<IAction> _actions;
+        private readonly float _priorityThreshold;
 
         public ActionList(float priorityThreshold, IAction[] actions)
         {
-            this.actions = new List<IAction>(actions);
-            this.priorityThreshold = priorityThreshold;
+            this._actions = new List<IAction>(actions);
+            this._priorityThreshold = priorityThreshold;
         }
 
         public void Add(IAction action)
         {
-            actions.Add(action);
+            _actions.Add(action);
         }
 
         public void RunActions()
@@ -43,19 +43,19 @@ namespace Exa.AI
 
         private IEnumerable<IAction> SortActions()
         {
-            return actions
+            return _actions
                 .OrderByDescending((action) => 
                 {
                     action.UpdatePriority();
                     return action.Priority;
                 })
-                .Where((action) => action.Priority > priorityThreshold);
+                .Where((action) => action.Priority > _priorityThreshold);
         }
 
         public string ToString(int tabs = 0)
         {
             var sb = new StringBuilder();
-            var tableString = actions
+            var tableString = _actions
                 .OrderByDescending((action) => action.Priority)
                 .ToStringTable(new string[] {
                     "Action name",
