@@ -8,14 +8,14 @@ namespace Exa.ShipEditor
 {
     public partial class ShipEditor
     {
-        private bool leftButtonPressed = false;
-        private bool rightButtonPressed = false;
-        private bool mirrorEnabled = false;
-        private bool mouseOverUI = false;
-        private bool interactible = true;
-        private float zoom;
-        private BlueprintContainer container;
-        private Action<BlueprintContainer> saveCallback;
+        private bool _leftButtonPressed = false;
+        private bool _rightButtonPressed = false;
+        private bool _mirrorEnabled = false;
+        private bool _mouseOverUi = false;
+        private bool _interactible = true;
+        private float _zoom;
+        private BlueprintContainer _container;
+        private Action<BlueprintContainer> _saveCallback;
 
         public bool IsSaved { get; private set; }
         public ValidationResult NameValidationResult { get; private set; }
@@ -23,54 +23,54 @@ namespace Exa.ShipEditor
 
         public bool MirrorEnabled
         {
-            get => mirrorEnabled;
+            get => _mirrorEnabled;
             set
             {
-                mirrorEnabled = value;
+                _mirrorEnabled = value;
                 editorGrid.MirrorEnabled = value;
-                shipEditorOverlay.mirrorView.SetState(value);
+                _shipEditorOverlay.mirrorView.SetState(value);
             }
         }
 
         public bool Interactable
         {
-            get => interactible;
+            get => _interactible;
             set
             {
-                interactible = value;
+                _interactible = value;
 
                 editorGrid.Interactable = value;
                 navigateable.Interactable = value;
 
                 if (value)
                 {
-                    gameControls.Enable();
+                    _gameControls.Enable();
                 }
                 else
                 {
-                    gameControls.Disable();
+                    _gameControls.Disable();
                     editorGrid.MovementVector = Vector2.zero;
                 }
             }
         }
 
-        public bool MouseOverUI
+        public bool MouseOverUi
         {
-            get => mouseOverUI;
+            get => _mouseOverUi;
             set
             {
-                mouseOverUI = value;
+                _mouseOverUi = value;
 
-                editorGrid.MouseOverUI = value;
+                editorGrid.MouseOverUi = value;
             }
         }
 
         public float Zoom
         {
-            get => zoom;
+            get => _zoom;
             set
             {
-                zoom = value;
+                _zoom = value;
 
                 editorGrid.ZoomScale = value / 5f;
             }
@@ -95,8 +95,8 @@ namespace Exa.ShipEditor
         {
             var valid = ShouldSave;
 
-            shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.interactable = valid;
-            shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;
+            _shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.interactable = valid;
+            _shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;
         }
     }
 }

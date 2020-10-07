@@ -8,27 +8,27 @@ namespace Exa.UI.Gameplay
 {
     public class ShipView : MonoBehaviour
     {
-        [SerializeField] private Gradient colorGradient;
-        [SerializeField] private Text countText;
-        [SerializeField] private Slider slider;
-        [SerializeField] private Image sliderImage;
-        [SerializeField] private Image thumbnailImage;
-        private int count;
-        private readonly List<Ship> ships = new List<Ship>();
+        [SerializeField] private Gradient _colorGradient;
+        [SerializeField] private Text _countText;
+        [SerializeField] private Slider _slider;
+        [SerializeField] private Image _sliderImage;
+        [SerializeField] private Image _thumbnailImage;
+        private int _count;
+        private readonly List<Ship> _ships = new List<Ship>();
 
         public int Count
         {
-            get => count;
+            get => _count;
             private set
             {
-                count = value;
-                countText.text = count.ToString();
+                _count = value;
+                _countText.text = _count.ToString();
             }
         }
 
         private void Update()
         {
-            var total = ships.Average((ship) => ship.state.HullIntegrity);
+            var total = _ships.Average((ship) => ship.state.HullIntegrity);
             SetHull(total);
         }
 
@@ -36,25 +36,25 @@ namespace Exa.UI.Gameplay
         {
             var thumbnailRect = new Rect(0, 0, 512, 512);
             var thumbnailPivot = new Vector2(0.5f, 0.5f);
-            thumbnailImage.sprite = Sprite.Create(thumbnail, thumbnailRect, thumbnailPivot);
+            _thumbnailImage.sprite = Sprite.Create(thumbnail, thumbnailRect, thumbnailPivot);
         }
 
         public void Add(Ship ship)
         {
-            ships.Add(ship);
+            _ships.Add(ship);
             Count++;
         }
 
         public void Remove(Ship ship)
         {
-            ships.Remove(ship);
+            _ships.Remove(ship);
             Count--;
         }
 
         private void SetHull(float value)
         {
-            slider.value = value;
-            sliderImage.color = colorGradient.Evaluate(value);
+            _slider.value = value;
+            _sliderImage.color = _colorGradient.Evaluate(value);
         }
     }
 }

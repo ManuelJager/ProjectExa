@@ -6,13 +6,13 @@ namespace Exa.Ships.Navigation
 {
     public class ThrusterAxis
     {
-        private readonly ThrusterGroup positiveThrusterGroup;
-        private readonly ThrusterGroup negativeThrusterGroup;
+        private readonly ThrusterGroup _positiveThrusterGroup;
+        private readonly ThrusterGroup _negativeThrusterGroup;
 
         public ThrusterAxis(Scalar thrustModifier)
         {
-            positiveThrusterGroup = new ThrusterGroup(thrustModifier);
-            negativeThrusterGroup = new ThrusterGroup(thrustModifier);
+            _positiveThrusterGroup = new ThrusterGroup(thrustModifier);
+            _negativeThrusterGroup = new ThrusterGroup(thrustModifier);
         }
 
         public void Register(IThruster thruster, bool positiveComponent)
@@ -54,8 +54,8 @@ namespace Exa.Ships.Navigation
         private ThrusterGroup SelectGroup(bool positiveComponent)
         {
             return positiveComponent
-                ? positiveThrusterGroup
-                : negativeThrusterGroup;
+                ? _positiveThrusterGroup
+                : _negativeThrusterGroup;
         }
     }
 }

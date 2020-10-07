@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Exa.UI
 {
-    public class MainUI : MonoBehaviour
+    public class MainUi : MonoBehaviour
     {
         public Canvas root;
         public RectTransform rootTransform;

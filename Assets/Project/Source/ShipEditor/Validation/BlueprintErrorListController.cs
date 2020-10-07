@@ -8,17 +8,17 @@ namespace Exa.ShipEditor
 {
     public class BlueprintErrorListController : ErrorListController
     {
-        [SerializeField] private LayoutElement layoutElement;
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private Text text;
+        [SerializeField] private LayoutElement _layoutElement;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private Text _text;
 
         public override ValidationResult Validate<T>(IValidator<T> validator, T args)
         {
             var result = base.Validate(validator, args);
 
-            canvasGroup.interactable = result;
-            canvasGroup.alpha = result ? 1 : 0;
-            layoutElement.ignoreLayout = !result;
+            _canvasGroup.interactable = result;
+            _canvasGroup.alpha = result ? 1 : 0;
+            _layoutElement.ignoreLayout = !result;
 
             return result;
         }

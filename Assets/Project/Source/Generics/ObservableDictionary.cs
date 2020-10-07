@@ -7,11 +7,11 @@ namespace Exa.Generics
     public class ObservableDictionary<TKey, TValue> : ObservableCollection<TValue>
         where TValue : IKeySelector<TKey>
     {
-        private readonly IEqualityComparer<TKey> comparer;
+        private readonly IEqualityComparer<TKey> _comparer;
 
         public ObservableDictionary(IEqualityComparer<TKey> comparer)
         {
-            this.comparer = comparer;
+            this._comparer = comparer;
         }
 
         public TValue this[TKey key]
@@ -20,7 +20,7 @@ namespace Exa.Generics
             {
                 foreach (var item in this)
                 {
-                    if (comparer.Equals(key, KeySelector(item)))
+                    if (_comparer.Equals(key, KeySelector(item)))
                     {
                         return item;
                     }
@@ -34,7 +34,7 @@ namespace Exa.Generics
         {
             foreach (var item in this)
             {
-                if (comparer.Equals(key, KeySelector(item)))
+                if (_comparer.Equals(key, KeySelector(item)))
                 {
                     return true;
                 }

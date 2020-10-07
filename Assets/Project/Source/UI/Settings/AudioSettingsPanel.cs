@@ -10,11 +10,11 @@ namespace Exa.UI.Settings
         public SliderControl musicVolumeSlider;
         public SliderControl effectsVolumeSlider;
 
-        private InputControl[] controls;
+        private InputControl[] _controls;
 
         private void Awake()
         {
-            controls = new InputControl[]
+            _controls = new InputControl[]
             {
                 masterVolumeSlider,
                 musicVolumeSlider,
@@ -41,7 +41,7 @@ namespace Exa.UI.Settings
 
         protected override IEnumerable<InputControl> GetControls()
         {
-            return controls;
+            return _controls;
         }
     }
 }

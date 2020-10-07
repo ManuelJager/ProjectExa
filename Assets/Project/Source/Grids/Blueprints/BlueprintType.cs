@@ -16,16 +16,16 @@ namespace Exa.Grids.Blueprints
         public Vector2Int maxSize;
         public BlockCategory disallowedBlockCategories;
 
-        private Tooltip tooltipResult;
+        private Tooltip _tooltipResult;
 
         private void OnEnable()
         {
-            tooltipResult = new Tooltip(GetTooltipGroup);
+            _tooltipResult = new Tooltip(GetTooltipGroup);
         }
 
         public Tooltip GetTooltip()
         {
-            return tooltipResult;
+            return _tooltipResult;
         }
 
         private TooltipGroup GetTooltipGroup() => new TooltipGroup(new ITooltipComponent[]

@@ -5,21 +5,21 @@ namespace Exa.Weapons
 {
     public class FiringPoint : MonoBehaviour
     {
-        [SerializeField] private GameObject projectilePrefab;
-        [SerializeField] private Transform spawnPoint;
+        [SerializeField] private GameObject _projectilePrefab;
+        [SerializeField] private Transform _spawnPoint;
 
-        private ShipContext damageMask;
+        private ShipContext _damageMask;
 
         public void Setup(ShipContext damageMask)
         {
-            this.damageMask = damageMask;
+            this._damageMask = damageMask;
         }
 
         public void Fire(float damage)  
         {
             // TODO: Pool projectiles
-            var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
-            projectile.Setup(spawnPoint, 80f, 250f, damage, damageMask);
+            var projectile = Instantiate(_projectilePrefab).GetComponent<Projectile>();
+            projectile.Setup(_spawnPoint, 80f, 250f, damage, _damageMask);
         }
     }
 }

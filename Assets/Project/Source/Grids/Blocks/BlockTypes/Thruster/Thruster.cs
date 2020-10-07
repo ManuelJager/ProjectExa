@@ -8,19 +8,19 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     public class Thruster : Block, IThruster
     {
-        [SerializeField] private ThrusterBehaviour thrusterBehaviour;
+        [SerializeField] private ThrusterBehaviour _thrusterBehaviour;
 
-        BlockBehaviour<ThrusterData> IBehaviourMarker<ThrusterData>.Component => thrusterBehaviour;
+        BlockBehaviour<ThrusterData> IBehaviourMarker<ThrusterData>.Component => _thrusterBehaviour;
 
         public void Fire(float strength)
         {
-            thrusterBehaviour.Fire(strength);
+            _thrusterBehaviour.Fire(strength);
         }
 
         public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
-                .Append(thrusterBehaviour);
+                .Append(_thrusterBehaviour);
         }
 
         protected override void OnAdd()

@@ -7,41 +7,41 @@ namespace Exa.Gameplay
 {
     public class GameplayCameraController : MonoBehaviour
     {
-        [SerializeField] private float movementSpeed;
-        private Camera target;
-        private readonly UserCameraTarget userCameraTarget = new UserCameraTarget();
-        private ICameraTarget currentTarget;
-        private Vector2 movementDelta;
+        [SerializeField] private float _movementSpeed;
+        private Camera _target;
+        private readonly UserCameraTarget _userCameraTarget = new UserCameraTarget();
+        private ICameraTarget _currentTarget;
+        private Vector2 _movementDelta;
 
-        private bool IsTargetUserControlled => userCameraTarget == currentTarget;
+        private bool IsTargetUserControlled => _userCameraTarget == _currentTarget;
 
         private void Awake()
         {
-            target = Camera.main;
-            SetTarget(userCameraTarget);
+            _target = Camera.main;
+            SetTarget(_userCameraTarget);
         }
 
         private void Update()
         {
-            userCameraTarget.worldPosition += movementDelta * movementSpeed * Time.deltaTime;
+            _userCameraTarget.worldPosition += _movementDelta * _movementSpeed * Time.deltaTime;
 
-            if (currentTarget != null)
+            if (_currentTarget != null)
             {
-                var targetOrthoSize = currentTarget.GetOrthoSize();
-                var targetPosition = currentTarget.GetWorldPosition().ToVector3(-10);
-                target.transform.DOMove(targetPosition, 0.2f);
-                target.DOOrthoSize(targetOrthoSize, 0.2f);
+                var targetOrthoSize = _currentTarget.GetOrthoSize();
+                var targetPosition = _currentTarget.GetWorldPosition().ToVector3(-10);
+                _target.transform.DOMove(targetPosition, 0.2f);
+                _target.DOOrthoSize(targetOrthoSize, 0.2f);
             }
         }
 
         public void SetTarget(ICameraTarget cameraTarget)
         {
-            currentTarget = cameraTarget;
+            _currentTarget = cameraTarget;
         }
 
         public void SetMovementDelta(Vector2 delta)
         {
-            movementDelta = IsTargetUserControlled
+            _movementDelta = IsTargetUserControlled
                 ? delta
                 : Vector2.zero;
         }

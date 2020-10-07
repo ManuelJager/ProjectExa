@@ -19,7 +19,7 @@ namespace Exa.Audio.Music
         {
             yield return 0;
 
-            Systems.Audio.ST_AudioTrack.SetAtmosphere(targetAtmosphere);
+            Systems.Audio.stAudioTrack.SetAtmosphere(targetAtmosphere);
         }
     }
 }

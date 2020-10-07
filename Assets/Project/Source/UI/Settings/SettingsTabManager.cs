@@ -9,15 +9,15 @@ namespace Exa.UI.Components
     {
         [HideInInspector] public SettingsTabBase activeSettingsTab;
 
-        [SerializeField] private CanvasGroupInteractableAdapter applyButton;
-        [SerializeField] private CanvasGroupInteractableAdapter setDefaultButton;
-        [SerializeField] private Text activeTabText;
-        [SerializeField] private SettingsTabBase defaultSettingsTab;
-        [SerializeField] private CanvasGroupInteractableAdapter canvasGroupInteractableAdapter;
+        [SerializeField] private CanvasGroupInteractableAdapter _applyButton;
+        [SerializeField] private CanvasGroupInteractableAdapter _setDefaultButton;
+        [SerializeField] private Text _activeTabText;
+        [SerializeField] private SettingsTabBase _defaultSettingsTab;
+        [SerializeField] private CanvasGroupInteractableAdapter _canvasGroupInteractableAdapter;
 
         private void OnEnable()
         {
-            ProcessTab(defaultSettingsTab);
+            ProcessTab(_defaultSettingsTab);
         }
 
         /// <summary>
@@ -48,15 +48,15 @@ namespace Exa.UI.Components
 
         public void Update()
         {
-            applyButton.Interactable = activeSettingsTab.IsDirty;
-            setDefaultButton.Interactable = activeSettingsTab.IsDirty || !activeSettingsTab.IsDefault;
+            _applyButton.Interactable = activeSettingsTab.IsDirty;
+            _setDefaultButton.Interactable = activeSettingsTab.IsDirty || !activeSettingsTab.IsDefault;
         }
 
         public void QueryUserConfirmation(Action<bool> onClosePrompt)
         {
-            Systems.UI.promptController.PromptYesNo(
+            Systems.Ui.promptController.PromptYesNo(
                 "Changes were not saved, do you wish to apply the changes?",
-                canvasGroupInteractableAdapter,
+                _canvasGroupInteractableAdapter,
                 onClosePrompt);
         }
 
@@ -68,7 +68,7 @@ namespace Exa.UI.Components
         {
             activeSettingsTab?.gameObject.SetActive(false);
             activeSettingsTab = settingsTab;
-            activeTabText.text = settingsTab.tabName;
+            _activeTabText.text = settingsTab.tabName;
             settingsTab.gameObject.SetActive(true);
         }
 

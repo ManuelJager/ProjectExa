@@ -5,15 +5,15 @@ namespace Exa.UI
 {
     public class VirtualMouseCursor : MonoBehaviour, ICursor
     {
-        [SerializeField] private Image cursorBackground;
-        [SerializeField] private Color idleColor;
-        [SerializeField] private Color activeColor;
-        [SerializeField] private Color removeColor;
-        [SerializeField] private Color infoColor;
-        [SerializeField] private RectTransform rectTransform;
-        [SerializeField] private RectTransform normalCursor;
-        [SerializeField] private RectTransform inputCursor;
-        private readonly CursorState cursorState = CursorState.idle;
+        [SerializeField] private Image _cursorBackground;
+        [SerializeField] private Color _idleColor;
+        [SerializeField] private Color _activeColor;
+        [SerializeField] private Color _removeColor;
+        [SerializeField] private Color _infoColor;
+        [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private RectTransform _normalCursor;
+        [SerializeField] private RectTransform _inputCursor;
+        private readonly CursorState _cursorState = CursorState.Idle;
 
         private void OnEnable()
         {
@@ -22,7 +22,7 @@ namespace Exa.UI
 
         private void Update()
         {
-            rectTransform.anchoredPosition = Systems.Input.ScaledViewportPoint;
+            _rectTransform.anchoredPosition = Systems.Input.ScaledViewportPoint;
         }
 
         public void SetActive(bool active)
@@ -32,25 +32,25 @@ namespace Exa.UI
 
         public void SetState(CursorState state)
         {
-            SwitchActive(cursorState, false);
+            SwitchActive(_cursorState, false);
             SwitchActive(state, true);
 
             switch (state)
             {
-                case CursorState.idle:
-                    cursorBackground.color = idleColor;
+                case CursorState.Idle:
+                    _cursorBackground.color = _idleColor;
                     break;
 
-                case CursorState.active:
-                    cursorBackground.color = activeColor;
+                case CursorState.Active:
+                    _cursorBackground.color = _activeColor;
                     break;
 
-                case CursorState.remove:
-                    cursorBackground.color = removeColor;
+                case CursorState.Remove:
+                    _cursorBackground.color = _removeColor;
                     break;
 
-                case CursorState.info:
-                    cursorBackground.color = infoColor;
+                case CursorState.Info:
+                    _cursorBackground.color = _infoColor;
                     break;
             }
         }
@@ -69,15 +69,15 @@ namespace Exa.UI
         {
             switch (state)
             {
-                case CursorState.idle:
-                case CursorState.active:
-                case CursorState.remove:
-                case CursorState.info:
-                    normalCursor.gameObject.SetActive(active);
+                case CursorState.Idle:
+                case CursorState.Active:
+                case CursorState.Remove:
+                case CursorState.Info:
+                    _normalCursor.gameObject.SetActive(active);
                     break;
 
-                case CursorState.input:
-                    inputCursor.gameObject.SetActive(active);
+                case CursorState.Input:
+                    _inputCursor.gameObject.SetActive(active);
                     break;
             }
         }

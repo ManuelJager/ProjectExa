@@ -9,22 +9,22 @@ namespace Exa.UI.Tooltips
     [Serializable]
     public class TitleView : TooltipComponentView<TooltipTitle>
     {
-        [SerializeField] private Text text;
+        [SerializeField] private Text _text;
 
         public void SetFont(Font font)
         {
-            text.font = font;
+            _text.font = font;
         }
 
         public void AddAnimator()
         {
-            var animator = text.gameObject.AddComponent<UIAnimateable>();
+            var animator = _text.gameObject.AddComponent<UiAnimateable>();
             animator.msLocalAnimationOffset = 200f;
         }
 
         protected override void Refresh(TooltipTitle data)
         {
-            text.text = data.Text;
+            _text.text = data.Text;
         }
     }
 }

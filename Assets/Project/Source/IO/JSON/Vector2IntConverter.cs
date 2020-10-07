@@ -7,12 +7,12 @@ namespace Exa.IO.Json
 {
     public class Vector2IntConverter : JsonConverter<Vector2Int>
     {
-        public static readonly string[] SEPARATORS = new[] { "(", ", ", ")" };
+        public static readonly string[] Separators = new[] { "(", ", ", ")" };
 
         public override Vector2Int ReadJson(JsonReader reader, Type objectType, Vector2Int existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var str = (string)reader.Value;
-            var vector = str.Split(SEPARATORS, StringSplitOptions.RemoveEmptyEntries);
+            var vector = str.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
 
             return new Vector2Int
             {

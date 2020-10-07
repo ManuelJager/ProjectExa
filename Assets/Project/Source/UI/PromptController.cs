@@ -8,82 +8,82 @@ namespace Exa.UI
 {
     public class PromptController : MonoBehaviour
     {
-        [SerializeField] private Transform ownerObject;
-        [SerializeField] private Button yesButton;
-        [SerializeField] private Button noButton;
-        [SerializeField] private FormGenerator formGenerator;
-        [SerializeField] private Transform yesNoContainer;
-        [SerializeField] private Button okButton;
-        [SerializeField] private Text promptText;
+        [SerializeField] private Transform _ownerObject;
+        [SerializeField] private Button _yesButton;
+        [SerializeField] private Button _noButton;
+        [SerializeField] private FormGenerator _formGenerator;
+        [SerializeField] private Transform _yesNoContainer;
+        [SerializeField] private Button _okButton;
+        [SerializeField] private Text _promptText;
 
-        public void PromptForm<T>(string message, IUIGroup uiGroup, ModelDescriptor<T> modelDescriptor, Action<T> onSubmit)
+        public void PromptForm<T>(string message, IUiGroup uiGroup, ModelDescriptor<T> modelDescriptor, Action<T> onSubmit)
         {
             BaseStartPrompt(message, uiGroup);
-            okButton.gameObject.SetActive(true);
-            formGenerator.gameObject.SetActive(true);
-            formGenerator.GenerateForm(modelDescriptor);
+            _okButton.gameObject.SetActive(true);
+            _formGenerator.gameObject.SetActive(true);
+            _formGenerator.GenerateForm(modelDescriptor);
 
-            okButton.onClick.AddListener(() =>
+            _okButton.onClick.AddListener(() =>
             {
                 onSubmit(modelDescriptor.FromDescriptor());
-                okButton.gameObject.SetActive(false);
-                formGenerator.gameObject.SetActive(false);
+                _okButton.gameObject.SetActive(false);
+                _formGenerator.gameObject.SetActive(false);
                 BaseCleanupPrompt(uiGroup);
             });
         }
 
-        public void PromptYesNo(string message, IUIGroup uiGroup, Action<bool> onClosePrompt = null)
+        public void PromptYesNo(string message, IUiGroup uiGroup, Action<bool> onClosePrompt = null)
         {
             BaseStartPrompt(message, uiGroup);
-            yesNoContainer.gameObject.SetActive(true);
+            _yesNoContainer.gameObject.SetActive(true);
 
-            yesButton.onClick.AddListener(() =>
+            _yesButton.onClick.AddListener(() =>
             {
                 onClosePrompt?.Invoke(true);
                 CleanupYesNo(uiGroup);
             });
 
-            noButton.onClick.AddListener(() =>
+            _noButton.onClick.AddListener(() =>
             {
                 onClosePrompt?.Invoke(false);
                 CleanupYesNo(uiGroup);
             });
         }
 
-        public void PromptOk(string message, IUIGroup uiGroup, Action onClosePrompt = null)
+        public void PromptOk(string message, IUiGroup uiGroup, Action onClosePrompt = null)
         {
             BaseStartPrompt(message, uiGroup);
-            okButton.gameObject.SetActive(true);
+            _okButton.gameObject.SetActive(true);
 
-            okButton.onClick.AddListener(() =>
+            _okButton.onClick.AddListener(() =>
             {
                 onClosePrompt?.Invoke();
-                okButton.gameObject.SetActive(false);
+                _okButton.gameObject.SetActive(false);
                 uiGroup.Interactable = true;
                 gameObject.SetActive(false);
             });
         }
 
-        private void CleanupYesNo(IUIGroup uiGroup = null)
+        private void CleanupYesNo(IUiGroup uiGroup = null)
         {
-            yesNoContainer.gameObject.SetActive(false);
+            _yesNoContainer.gameObject.SetActive(false);
             BaseCleanupPrompt(uiGroup);
         }
 
-        public void BaseStartPrompt(string message, IUIGroup uiGroup)
+        public void BaseStartPrompt(string message, IUiGroup uiGroup)
         {
-            ownerObject.gameObject.SetActive(true);
+            _ownerObject.gameObject.SetActive(true);
             uiGroup.Interactable = false;
-            promptText.text = message;
+            _promptText.text = message;
         }
 
-        public void BaseCleanupPrompt(IUIGroup uiGroup)
+        public void BaseCleanupPrompt(IUiGroup uiGroup)
         {
-            ownerObject.gameObject.SetActive(false);
+            _ownerObject.gameObject.SetActive(false);
             uiGroup.Interactable = true;
-            okButton.onClick.RemoveAllListeners();
-            yesButton.onClick.RemoveAllListeners();
-            noButton.onClick.RemoveAllListeners();
+            _okButton.onClick.RemoveAllListeners();
+            _yesButton.onClick.RemoveAllListeners();
+            _noButton.onClick.RemoveAllListeners();
         }
     }
 }

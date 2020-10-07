@@ -7,11 +7,11 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class ThrusterTemplatePartial : TemplatePartial<ThrusterData>
     {
-        [SerializeField] private float thrust; 
+        [SerializeField] private float _thrust; 
 
         public override ThrusterData Convert() => new ThrusterData
         {
-            thrust = thrust
+            thrust = _thrust
         };
     }
 }

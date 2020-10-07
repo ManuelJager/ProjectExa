@@ -7,11 +7,11 @@ namespace Exa.Ships
 {
     public class ShipOverlayEnergyBar : MonoBehaviour
     {
-        [SerializeField] private Image image;
+        [SerializeField] private Image _image;
 
         public void SetFill(float fill)
         {
-            image.fillAmount = fill;
+            _image.fillAmount = fill;
         }
     }
 }

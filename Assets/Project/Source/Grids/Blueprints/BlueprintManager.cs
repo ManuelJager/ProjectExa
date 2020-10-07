@@ -14,20 +14,20 @@ namespace Exa.Grids.Blueprints
         [HideInInspector] public BlueprintContainerCollection observableDefaultBlueprints = new BlueprintContainerCollection();
         public BlueprintTypeBag blueprintTypes;
 
-        [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
+        [SerializeField] private DefaultBlueprintBag _defaultBlueprintBag;
 
         public IEnumerator StartUp(IProgress<float> progress)
         {
             var userBlueprintPaths = CollectionUtils
-                .GetJsonPathsFromDirectory(IOUtils.GetPath("blueprints"))
+                .GetJsonPathsFromDirectory(IoUtils.GetPath("blueprints"))
                 .ToList();
 
-            var defaultBlueprints = defaultBlueprintBag.ToList();
+            var defaultBlueprints = _defaultBlueprintBag.ToList();
             var iterator = 0;
             var blueprintTotal = userBlueprintPaths.Count + defaultBlueprints.Count;
 
             // Load default blueprints
-            foreach (var defaultBlueprint in defaultBlueprintBag)
+            foreach (var defaultBlueprint in _defaultBlueprintBag)
             {
                 AddDefaultBlueprint(defaultBlueprint);
 
@@ -45,7 +45,7 @@ namespace Exa.Grids.Blueprints
                 }
                 catch (Exception e)
                 {
-                    Systems.UI.logger.Log($"Error loading blueprint: {e.Message}");
+                    Systems.Ui.logger.Log($"Error loading blueprint: {e.Message}");
                 }
 
                 yield return null;
@@ -89,7 +89,7 @@ namespace Exa.Grids.Blueprints
 
         private void AddUserBlueprint(string path)
         {
-            var blueprint = IOUtils.JsonDeserializeFromPath<Blueprint>(path);
+            var blueprint = IoUtils.JsonDeserializeFromPath<Blueprint>(path);
 
             if (blueprint == null)
             {

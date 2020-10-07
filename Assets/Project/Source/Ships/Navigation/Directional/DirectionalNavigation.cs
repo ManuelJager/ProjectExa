@@ -11,20 +11,20 @@ namespace Exa.Ships.Navigation
         private static readonly Scalar DampeningThrustMultiplier = new Scalar(1.5f);
         private static readonly Scalar TargetThrustMultiplier = new Scalar(1f);
 
-        private readonly Ship ship;
-        private readonly NavigationOptions options;
-        private readonly AxisThrustVectors thrustVectors;
+        private readonly Ship _ship;
+        private readonly NavigationOptions _options;
+        private readonly AxisThrustVectors _thrustVectors;
 
         public ITarget LookAt { private get; set; }
         public ITarget MoveTo { private get; set; }
-        public IThrustVectors ThrustVectors => thrustVectors;
+        public IThrustVectors ThrustVectors => _thrustVectors;
 
         public DirectionalNavigation(Ship ship, NavigationOptions options, Scalar thrustModifier)
         {
-            this.ship = ship;
-            this.options = options;
+            this._ship = ship;
+            this._options = options;
 
-            thrustVectors = new AxisThrustVectors(thrustModifier);
+            _thrustVectors = new AxisThrustVectors(thrustModifier);
         }
 
         public void Update(float deltaTime)
@@ -43,8 +43,8 @@ namespace Exa.Ships.Navigation
             {
                 void DrawRay(Vector2 localFrameForce, Color color)
                 {
-                    var force = localFrameForce.Rotate(ship.transform.rotation.eulerAngles.z) / deltaTime;
-                    Debug.DrawRay(ship.transform.position, force / ship.rb.mass / 10, color);
+                    var force = localFrameForce.Rotate(_ship.transform.rotation.eulerAngles.z) / deltaTime;
+                    Debug.DrawRay(_ship.transform.position, force / _ship.rb.mass / 10, color);
                 }
 
                 DrawRay(frameTargetForce, Color.red);
@@ -73,22 +73,22 @@ namespace Exa.Ships.Navigation
             Debug.Log(GetBrakeDistance(diff, velocityValues));
 
             return diff.magnitude > GetBrakeDistance(diff, velocityValues)
-                ? thrustVectors.GetClampedForce(diff, TargetThrustMultiplier) * deltaTime
+                ? _thrustVectors.GetClampedForce(diff, TargetThrustMultiplier) * deltaTime
                 : Vector2.zero;
         }
 
         private Vector2 GetLocalDifference(ITarget target)
         {
-            var currentPos = (Vector2) ship.transform.position;
-            var currentRotation = ship.transform.rotation.eulerAngles.z;
+            var currentPos = (Vector2) _ship.transform.position;
+            var currentRotation = _ship.transform.rotation.eulerAngles.z;
             var diff = target.GetPosition(currentPos) - currentPos;
             return diff.Rotate(-currentRotation);
         }
 
         private float GetDecelerationVelocity(Vector2 direction, Scalar thrustModifier)
         {
-            var force = thrustVectors.GetClampedForce(direction, thrustModifier);
-            return -(force / Mathf.Pow(ship.rb.mass, 2)).magnitude;
+            var force = _thrustVectors.GetClampedForce(direction, thrustModifier);
+            return -(force / Mathf.Pow(_ship.rb.mass, 2)).magnitude;
         }
 
         // TODO: Fix this
@@ -116,7 +116,7 @@ namespace Exa.Ships.Navigation
             }
 
             // Get force for this frame
-            var frameTargetForce = thrustVectors.GetForce(-velocityValues.localVelocityForce, DampeningThrustMultiplier) * deltaTime;
+            var frameTargetForce = _thrustVectors.GetForce(-velocityValues.localVelocityForce, DampeningThrustMultiplier) * deltaTime;
             var frameVelocityForce = -velocityValues.localVelocityForce / deltaTime;
 
             ProcessAxis(ref frameTargetForce.x, frameVelocityForce.x);
@@ -152,18 +152,18 @@ namespace Exa.Ships.Navigation
         private void Fire(Vector2 frameTargetForce, float deltaTime)
         {
             // Transform force for this frame to velocity
-            thrustVectors.Fire(frameTargetForce / deltaTime);
-            ship.rb.AddForce(frameTargetForce, ForceMode2D.Force);
+            _thrustVectors.Fire(frameTargetForce / deltaTime);
+            _ship.rb.AddForce(frameTargetForce, ForceMode2D.Force);
         }
 
         private VelocityValues GetLocalVelocity()
         {
-            var zRotation = ship.transform.rotation.eulerAngles.z;
-            var localVelocity = ship.rb.velocity.Rotate(-zRotation);
+            var zRotation = _ship.transform.rotation.eulerAngles.z;
+            var localVelocity = _ship.rb.velocity.Rotate(-zRotation);
             return new VelocityValues
             {
                 localVelocity = localVelocity,
-                localVelocityForce = localVelocity * ship.rb.mass
+                localVelocityForce = localVelocity * _ship.rb.mass
             };
         }
 

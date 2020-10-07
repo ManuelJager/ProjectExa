@@ -8,15 +8,15 @@ namespace Exa.Gameplay
 {
     public partial class GameplayInputManager : MonoBehaviour, IGameplayActions
     {
-        [SerializeField] private GameplayCameraController gameplayCameraController;
-        private GameControls gameControls;
+        [SerializeField] private GameplayCameraController _gameplayCameraController;
+        private GameControls _gameControls;
 
-        public IRaycastTarget RaycastTarget => raycastTarget;
+        public IRaycastTarget RaycastTarget => _raycastTarget;
 
         public void Awake()
         {
-            gameControls = new GameControls();
-            gameControls.Gameplay.SetCallbacks(this);
+            _gameControls = new GameControls();
+            _gameControls.Gameplay.SetCallbacks(this);
         }
 
         public void Update()
@@ -31,26 +31,26 @@ namespace Exa.Gameplay
 
         public void OnEnable()
         {
-            gameControls.Enable();
+            _gameControls.Enable();
         }
 
         public void OnDisable()
         {
-            gameControls.Disable();
+            _gameControls.Disable();
         }
 
         private void UpdateRaycastTarget()
         {
             void OnEnter(IRaycastTarget raycastTarget)
             {
-                this.raycastTarget = raycastTarget;
-                this.raycastTarget?.OnRaycastEnter();
+                this._raycastTarget = raycastTarget;
+                this._raycastTarget?.OnRaycastEnter();
             }
 
             void OnExit()
             {
-                raycastTarget?.OnRaycastExit();
-                raycastTarget = null;
+                _raycastTarget?.OnRaycastExit();
+                _raycastTarget = null;
             }
 
             var worldPoint = Systems.Input.MouseWorldPoint;
@@ -67,7 +67,7 @@ namespace Exa.Gameplay
 
                 foundTarget = true;
 
-                if (this.raycastTarget == raycastTarget) continue;
+                if (this._raycastTarget == raycastTarget) continue;
 
                 OnExit();
                 OnEnter(raycastTarget);

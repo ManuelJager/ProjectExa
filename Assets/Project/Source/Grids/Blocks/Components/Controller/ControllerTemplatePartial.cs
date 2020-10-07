@@ -7,19 +7,19 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class ControllerTemplatePartial : TemplatePartial<ControllerData>
     {
-        [SerializeField] private float powerGeneration;
-        [SerializeField] private float powerConsumption;
-        [SerializeField] private float powerStorage;
-        [SerializeField] private float turningRate;
-        [SerializeField] private Scalar thrustModifier;
+        [SerializeField] private float _powerGeneration;
+        [SerializeField] private float _powerConsumption;
+        [SerializeField] private float _powerStorage;
+        [SerializeField] private float _turningRate;
+        [SerializeField] private Scalar _thrustModifier;
 
         public override ControllerData Convert() => new ControllerData
         {
-            powerGeneration = powerGeneration,
-            powerConsumption = powerConsumption,
-            powerStorage = powerStorage,
-            turningRate = turningRate,
-            thrustModifier = thrustModifier
+            powerGeneration = _powerGeneration,
+            powerConsumption = _powerConsumption,
+            powerStorage = _powerStorage,
+            turningRate = _turningRate,
+            thrustModifier = _thrustModifier
         };
     }
 }

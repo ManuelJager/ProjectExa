@@ -29,11 +29,11 @@ namespace Exa.Ships
         [Header("Settings")]
         public float canvasScaleMultiplier = 1f;
         public Font shipDebugFont;
-        [SerializeField] private CursorState onHoverState;
+        [SerializeField] private CursorState _onHoverState;
 
         [HideInInspector] public ShipOverlay overlay;
-        private Tooltip debugTooltip;
-        private CursorOverride cursorOverride;
+        private Tooltip _debugTooltip;
+        private CursorOverride _cursorOverride;
 
         [Header("Events")]
         public UnityEvent destroyEvent = new UnityEvent();
@@ -49,8 +49,8 @@ namespace Exa.Ships
 
         protected virtual void Awake()
         {
-            debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
-            cursorOverride = new CursorOverride(onHoverState);
+            _debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
+            _cursorOverride = new CursorOverride(_onHoverState);
         }
 
         private void FixedUpdate()
@@ -59,9 +59,9 @@ namespace Exa.Ships
             Navigation?.Update(deltaTime);
             ActionScheduler.ExecuteActions(deltaTime);
 
-            if (debugTooltip != null)
+            if (_debugTooltip != null)
             {
-                debugTooltip.ShouldRefresh = true;
+                _debugTooltip.ShouldRefresh = true;
             }
         }
 
@@ -103,22 +103,22 @@ namespace Exa.Ships
         public virtual void OnRaycastEnter()
         {
             overlay.overlayCircle.IsHovered = true;
-            Systems.UI.mouseCursor.AddOverride(cursorOverride);
+            Systems.Ui.mouseCursor.AddOverride(_cursorOverride);
 
             if (DebugMode.Ships.GetEnabled())
             {
-                Systems.UI.tooltips.shipAIDebugTooltip.Show(this);
+                Systems.Ui.tooltips.shipAiDebugTooltip.Show(this);
             }
         }
 
         public virtual void OnRaycastExit()
         {
             overlay.overlayCircle.IsHovered = false;
-            Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
+            Systems.Ui.mouseCursor.RemoveOverride(_cursorOverride);
 
             if (DebugMode.Ships.GetEnabled())
             {
-                Systems.UI.tooltips.shipAIDebugTooltip.Hide();
+                Systems.Ui.tooltips.shipAiDebugTooltip.Hide();
             }
         }
 
@@ -141,7 +141,7 @@ namespace Exa.Ships
 
         public Tooltip GetTooltip()
         {
-            return debugTooltip;
+            return _debugTooltip;
         }
 
         public abstract ShipSelection GetAppropriateSelection(Formation formation);

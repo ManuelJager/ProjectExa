@@ -4,53 +4,53 @@ namespace Exa.Debugging
 {
     public class DebugDragger : MonoBehaviour
     {
-        private IDebugDragable currentDragable;
-        private Vector2 offset;
-        private Vector2 averagedVelocity;
-        private float sampleTime = 0.2f;
+        private IDebugDragable _currentDragable;
+        private Vector2 _offset;
+        private Vector2 _averagedVelocity;
+        private float _sampleTime = 0.2f;
 
         public void Update()
         {
-            if (currentDragable == null) return;
+            if (_currentDragable == null) return;
 
             // Set the velocity
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
-            var velocity = currentDragable.GetPosition() - offset - mouseWorldPoint;
-            AverageVelocity(-velocity, sampleTime);
+            var velocity = _currentDragable.GetPosition() - _offset - mouseWorldPoint;
+            AverageVelocity(-velocity, _sampleTime);
 
-            var targetPoint = mouseWorldPoint + offset;
-            currentDragable.SetGlobals(targetPoint, Vector2.zero);
+            var targetPoint = mouseWorldPoint + _offset;
+            _currentDragable.SetGlobals(targetPoint, Vector2.zero);
         }
 
         public void OnPress()
         {
             if (!TryGetDebugDragable(out var dragable)) return;
 
-            currentDragable = dragable;
-            averagedVelocity = Vector2.zero;
+            _currentDragable = dragable;
+            _averagedVelocity = Vector2.zero;
 
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
-            var currentPoint = currentDragable.GetPosition();
+            var currentPoint = _currentDragable.GetPosition();
 
-            offset = currentPoint - mouseWorldPoint;
-            currentDragable.SetGlobals(currentPoint, Vector2.zero);
+            _offset = currentPoint - mouseWorldPoint;
+            _currentDragable.SetGlobals(currentPoint, Vector2.zero);
         }
 
         public void OnRelease()
         {
-            if (currentDragable == null) return;
+            if (_currentDragable == null) return;
 
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
-            var targetPoint = mouseWorldPoint + offset;
-            currentDragable.SetGlobals(targetPoint, averagedVelocity);
-            currentDragable = null;
+            var targetPoint = mouseWorldPoint + _offset;
+            _currentDragable.SetGlobals(targetPoint, _averagedVelocity);
+            _currentDragable = null;
         }
 
         private void AverageVelocity(Vector2 newVelocity, float sampleTime)
         {
             var deltaTime = Time.deltaTime;
-            var total = averagedVelocity * deltaTime * (sampleTime - deltaTime) + newVelocity;
-            averagedVelocity = total * sampleTime / deltaTime;
+            var total = _averagedVelocity * deltaTime * (sampleTime - deltaTime) + newVelocity;
+            _averagedVelocity = total * sampleTime / deltaTime;
         }
 
         private static bool TryGetDebugDragable(out IDebugDragable dragable)

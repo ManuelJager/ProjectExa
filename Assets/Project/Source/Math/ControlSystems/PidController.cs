@@ -7,12 +7,12 @@ namespace Exa.Math.ControlSystems
     {
         private const float MaxOutput = 1000.0f;
 
-        private float calculatedIntegralMax;
-        private float calculatedIntegral;
+        private float _calculatedIntegralMax;
+        private float _calculatedIntegral;
 
-        private float proportional;
-        private float integral;
-        private float derivitive;
+        private float _proportional;
+        private float _integral;
+        private float _derivitive;
 
         public PidController(float proportional, float integral, float derivitive)
         {
@@ -20,30 +20,30 @@ namespace Exa.Math.ControlSystems
             Integral = integral;
             Derivitive = derivitive;
 
-            this.calculatedIntegralMax = MaxOutput / Integral;
+            this._calculatedIntegralMax = MaxOutput / Integral;
         }
 
         public float Proportional
         {
-            get => proportional;
+            get => _proportional;
             set
             {
-                EnsureNonNegative(proportional, "proportional");
-                proportional = value;
+                EnsureNonNegative(_proportional, "proportional");
+                _proportional = value;
             }
         }
 
         public float Integral
         {
-            get => integral;
+            get => _integral;
             set
             {
-                EnsureNonNegative(integral, "integral");
+                EnsureNonNegative(_integral, "integral");
 
-                integral = value;
+                _integral = value;
 
-                this.calculatedIntegralMax = MaxOutput / Integral;
-                this.calculatedIntegral = Mathf.Clamp(this.calculatedIntegral, -this.calculatedIntegralMax, this.calculatedIntegralMax);
+                this._calculatedIntegralMax = MaxOutput / Integral;
+                this._calculatedIntegral = Mathf.Clamp(this._calculatedIntegral, -this._calculatedIntegralMax, this._calculatedIntegralMax);
             }
         }
 
@@ -55,21 +55,21 @@ namespace Exa.Math.ControlSystems
         /// </value>
         public float Derivitive
         {
-            get => derivitive;
+            get => _derivitive;
             set
             {
                 EnsureNonNegative(value, "Derivative");
-                this.derivitive = value;
+                this._derivitive = value;
             }
         }
 
         public float ComputeOutput(float error, float delta, float deltaTime)
         {
-            this.calculatedIntegral += (error * deltaTime);
-            this.calculatedIntegral = Mathf.Clamp(this.calculatedIntegral, -this.calculatedIntegralMax, this.calculatedIntegralMax);
+            this._calculatedIntegral += (error * deltaTime);
+            this._calculatedIntegral = Mathf.Clamp(this._calculatedIntegral, -this._calculatedIntegralMax, this._calculatedIntegralMax);
 
             float derivative = delta / deltaTime;
-            float output = (Proportional * error) + (Integral * this.calculatedIntegral) + (Derivitive * derivative);
+            float output = (Proportional * error) + (Integral * this._calculatedIntegral) + (Derivitive * derivative);
 
             output = Mathf.Clamp(output, -MaxOutput, MaxOutput);
 

@@ -6,15 +6,15 @@ namespace Exa.Grids.Blocks.Components
 {
     public class AutocannonBehaviour : TurretBehaviour<AutocannonData>
     {
-        [SerializeField] private AutocannonPart[] parts;
-        private int currentPoint = 0;
+        [SerializeField] private AutocannonPart[] _parts;
+        private int _currentPoint = 0;
 
         private void Start()
         {
             var animTime = GetAnimTime();
             var damageMask = ~Ship.BlockContext;
 
-            foreach (var part in parts)
+            foreach (var part in _parts)
             {
                 part.Setup(animTime, damageMask);
             }
@@ -25,15 +25,15 @@ namespace Exa.Grids.Blocks.Components
             switch (data.cycleMode)
             {
                 case CycleMode.Cycling:
-                    parts[currentPoint].Fire(data.damage);
-                    currentPoint++;
-                    currentPoint %= parts.Length;
+                    _parts[_currentPoint].Fire(data.damage);
+                    _currentPoint++;
+                    _currentPoint %= _parts.Length;
                     break;
 
                 case CycleMode.Volley:
-                    for (int i = 0; i < parts.Length; i++)
+                    for (int i = 0; i < _parts.Length; i++)
                     {
-                        parts[i].Fire(data.damage);
+                        _parts[i].Fire(data.damage);
                     }
                     break;
             }

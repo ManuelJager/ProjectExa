@@ -10,8 +10,8 @@ namespace Exa.ShipEditor
     {
         public UnityEvent onBlueprintChanged;
 
-        [SerializeField] private ShipEditorStopwatch stopwatch;
-        private Dictionary<Vector2Int, GameObject> blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
+        [SerializeField] private ShipEditorStopwatch _stopwatch;
+        private Dictionary<Vector2Int, GameObject> _blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
 
         public Blueprint ActiveBlueprint { get; private set; }
 
@@ -19,7 +19,7 @@ namespace Exa.ShipEditor
         {
             transform.SetActiveChildren(false);
 
-            blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
+            _blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
         }
 
         public void Import(Blueprint blueprint)
@@ -35,7 +35,7 @@ namespace Exa.ShipEditor
         public void AddBlock(AnchoredBlueprintBlock anchoredBlueprintBlock)
         {
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
-            stopwatch.Reset();
+            _stopwatch.Reset();
             onBlueprintChanged?.Invoke();
             PlaceBlock(anchoredBlueprintBlock);
             ActiveBlueprint.Add(anchoredBlueprintBlock);
@@ -46,14 +46,14 @@ namespace Exa.ShipEditor
             if (!ActiveBlueprint.Blocks.ContainsMember(gridPos)) return;
 
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
-            stopwatch.Reset();
+            _stopwatch.Reset();
 
             var anchoredBlock = ActiveBlueprint.Blocks.GetMember(gridPos);
             var anchoredPos = anchoredBlock.GridAnchor;
 
             ActiveBlueprint.Remove(anchoredPos);
             onBlueprintChanged?.Invoke();
-            blocksByBlueprintAnchor[anchoredPos].SetActive(false);
+            _blocksByBlueprintAnchor[anchoredPos].SetActive(false);
         }
 
         public void ClearBlueprint()
@@ -65,9 +65,9 @@ namespace Exa.ShipEditor
 
         public void PlaceBlock(AnchoredBlueprintBlock block)
         {
-            var blockGO = block.CreateInactiveInertBlockInGrid(transform);
-            blockGO.SetActive(true);
-            blocksByBlueprintAnchor[block.gridAnchor] = blockGO;
+            var blockGo = block.CreateInactiveInertBlockInGrid(transform);
+            blockGo.SetActive(true);
+            _blocksByBlueprintAnchor[block.gridAnchor] = blockGo;
         }
     }
 }

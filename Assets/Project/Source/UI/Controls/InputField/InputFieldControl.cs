@@ -19,13 +19,13 @@ namespace Exa.UI.Controls
             set => inputField.text = value;
         }
 
-        [SerializeField] private readonly InputFieldEvent onValueChange = new InputFieldEvent();
+        [SerializeField] private readonly InputFieldEvent _onValueChange = new InputFieldEvent();
 
-        public override UnityEvent<string> OnValueChange => onValueChange;
+        public override UnityEvent<string> OnValueChange => _onValueChange;
 
         private void Awake()
         {
-            inputField.onEndEdit.AddListener(onValueChange.Invoke);
+            inputField.onEndEdit.AddListener(_onValueChange.Invoke);
         }
 
         public void SetValueWithoutNotify(string value)

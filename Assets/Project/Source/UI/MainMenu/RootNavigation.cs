@@ -7,7 +7,7 @@ namespace Exa.UI
 {
     public class RootNavigation : MonoBehaviour
     {
-        [SerializeField] private NavigateableTabManager tabManager;
+        [SerializeField] private NavigateableTabManager _tabManager;
         public BlueprintSelector blueprintSelector;
 
         // TODO: Implement this in an extension of the play button
@@ -15,12 +15,12 @@ namespace Exa.UI
         {
             var transition = Systems.Scenes.Transition("Mission", new TransitionArgs
             {
-                SetActiveScene = true
+                setActiveScene = true
             });
 
-            transition.onPrepared.AddListener(() =>
+            transition.OnPrepared.AddListener(() =>
             {
-                tabManager.ActiveTab.NavigateTo(GameSystems.Navigateable);
+                _tabManager.ActiveTab.NavigateTo(GameSystems.Navigateable);
             });
         }
     }

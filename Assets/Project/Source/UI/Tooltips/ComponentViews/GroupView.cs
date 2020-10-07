@@ -11,25 +11,25 @@ namespace Exa.UI.Tooltips
     {
         public Transform container;
 
-        [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
-        private List<TooltipComponentView> views;
+        [SerializeField] private VerticalLayoutGroup _verticalLayoutGroup;
+        private List<TooltipComponentView> _views;
 
         protected override void Refresh(TooltipGroup value)
         {
-            verticalLayoutGroup.padding.left = value.Tabs * 8;
-            verticalLayoutGroup.spacing = value.Spacing;
+            _verticalLayoutGroup.padding.left = value.Tabs * 8;
+            _verticalLayoutGroup.spacing = value.Spacing;
 
-            if (views == null)
+            if (_views == null)
             {
-                views = new List<TooltipComponentView>();
+                _views = new List<TooltipComponentView>();
                 foreach (var child in value.Children)
                 {
-                    views.Add(child.InstantiateComponentView(container));
+                    _views.Add(child.InstantiateComponentView(container));
                 }
             }
             else
             {
-                foreach (var tuple in EnumerableUtils.AsTupleEnumerable(value.Children, views))
+                foreach (var tuple in EnumerableUtils.AsTupleEnumerable(value.Children, _views))
                 {
                     tuple.Item2.Refresh(tuple.Item1);
                 }

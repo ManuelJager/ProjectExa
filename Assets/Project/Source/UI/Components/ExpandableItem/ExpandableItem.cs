@@ -6,37 +6,37 @@ namespace Exa.UI.Components
 {
     public class ExpandableItem : MonoBehaviour
     {
-        [SerializeField] private Button button;
-        [SerializeField] private Image shrinkExpandImage;
-        [SerializeField] private Text headerText;
-        [SerializeField] private UIFlip arrowFlip;
+        [SerializeField] private Button _button;
+        [SerializeField] private Image _shrinkExpandImage;
+        [SerializeField] private Text _headerText;
+        [SerializeField] private UIFlip _arrowFlip;
 
         [Space]
-        [SerializeField] private bool contentActive = false;
+        [SerializeField] private bool _contentActive = false;
 
         public Transform content;
 
         public string HeaderText
         {
-            set => headerText.text = value;
+            set => _headerText.text = value;
         }
 
         private void Awake()
         {
-            button.onClick.AddListener(OnClick);
+            _button.onClick.AddListener(OnClick);
             ReflectActive();
         }
 
         private void OnClick()
         {
-            contentActive = !contentActive;
+            _contentActive = !_contentActive;
             ReflectActive();
         }
 
         private void ReflectActive()
         {
-            content.gameObject.SetActive(contentActive);
-            arrowFlip.vertical = contentActive;
+            content.gameObject.SetActive(_contentActive);
+            _arrowFlip.vertical = _contentActive;
         }
     }
 }

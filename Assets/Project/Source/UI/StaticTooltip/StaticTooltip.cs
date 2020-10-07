@@ -5,7 +5,7 @@ namespace Exa.UI.Controls
 {
     public class StaticTooltip : MonoBehaviour
     {
-        [SerializeField] private Text text;
+        [SerializeField] private Text _text;
 
         public void DisplayTooltip(string message)
         {
@@ -20,7 +20,7 @@ namespace Exa.UI.Controls
                 gameObject.SetActive(true);
             }
 
-            text.text = message;
+            _text.text = message;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Exa.UI.Controls
 
     public abstract class InputControl : MonoBehaviour, IControl
     {
-        [SerializeField] private Text labelText;
+        [SerializeField] private Text _labelText;
 
         /// <summary>
         /// Checks if the value is up-to-date
@@ -49,7 +49,7 @@ namespace Exa.UI.Controls
 
         public void SetLabelText(string label)
         {
-            labelText.text = label;
+            _labelText.text = label;
         }
     }
 }

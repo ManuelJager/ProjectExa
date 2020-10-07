@@ -2,11 +2,11 @@
 {
     public enum CursorState
     {
-        idle,
-        active,
-        remove,
-        info,
-        input
+        Idle,
+        Active,
+        Remove,
+        Info,
+        Input
     }
 
     public interface ICursor

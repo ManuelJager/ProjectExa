@@ -4,11 +4,11 @@ namespace Exa.UI.Components
 {
     public class CameraHelper : MonoBehaviour
     {
-        [SerializeField] private Canvas canvas;
+        [SerializeField] private Canvas _canvas;
 
         private void Awake()
         {
-            canvas.worldCamera = Camera.main;
+            _canvas.worldCamera = Camera.main;
         }
     }
 }

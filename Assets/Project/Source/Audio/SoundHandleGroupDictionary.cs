@@ -4,26 +4,26 @@ namespace Exa.Audio
 {
     public class SoundHandleGroupDictionary
     {
-        private readonly Dictionary<string, SoundHandleGroup> dict = new Dictionary<string, SoundHandleGroup>();
+        private readonly Dictionary<string, SoundHandleGroup> _dict = new Dictionary<string, SoundHandleGroup>();
 
         public void Add(SoundHandle handle)
         {
-            dict[handle.sound.id].Add(handle);
+            _dict[handle.sound.id].Add(handle);
         }
 
         public void Remove(SoundHandle handle)
         {
-            dict[handle.sound.id].Remove(handle);
+            _dict[handle.sound.id].Remove(handle);
         }
 
         public void RegisterGroup(string id)
         {
-            dict[id] = new SoundHandleGroup();
+            _dict[id] = new SoundHandleGroup();
         }
 
         public IEnumerable<SoundHandleGroup> Handles
         {
-            get => dict.Values;
+            get => _dict.Values;
         }
     }
 }

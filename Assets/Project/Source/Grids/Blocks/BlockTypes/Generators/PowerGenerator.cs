@@ -7,14 +7,14 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     public class PowerGenerator : Block, IBehaviourMarker<PowerGeneratorData>
     {
-        [SerializeField] private PowerGeneratorBehaviour powerGeneratorBehaviour;
+        [SerializeField] private PowerGeneratorBehaviour _powerGeneratorBehaviour;
 
-        public BlockBehaviour<PowerGeneratorData> Component => powerGeneratorBehaviour;
+        public BlockBehaviour<PowerGeneratorData> Component => _powerGeneratorBehaviour;
 
         public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
-                .Append(powerGeneratorBehaviour);
+                .Append(_powerGeneratorBehaviour);
         }
     }
 }

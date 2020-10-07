@@ -3,34 +3,34 @@
 namespace Exa.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class CanvasGroupInteractableAdapter : MonoBehaviour, IUIGroup
+    public class CanvasGroupInteractableAdapter : MonoBehaviour, IUiGroup
     {
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private bool setAlpha;
-        [SerializeField] private bool interactible = true;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private bool _setAlpha;
+        [SerializeField] private bool _interactible = true;
 
         public bool Interactable
         {
-            get => interactible;
+            get => _interactible;
             set
             {
-                if (interactible == value) return;
+                if (_interactible == value) return;
 
-                interactible = value;
+                _interactible = value;
 
-                if (canvasGroup != null)
+                if (_canvasGroup != null)
                 {
-                    canvasGroup.blocksRaycasts = value;
-                    canvasGroup.interactable = value;
-                    if (setAlpha) canvasGroup.alpha = value ? 1f : 0.5f;
+                    _canvasGroup.blocksRaycasts = value;
+                    _canvasGroup.interactable = value;
+                    if (_setAlpha) _canvasGroup.alpha = value ? 1f : 0.5f;
                 }
             }
         }
 
         private void Awake()
         {
-            Interactable = interactible;
-            canvasGroup = GetComponent<CanvasGroup>();
+            Interactable = _interactible;
+            _canvasGroup = GetComponent<CanvasGroup>();
         }
     }
 }

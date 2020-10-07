@@ -9,18 +9,18 @@ namespace Exa.UI
     {
         public bool Selected { get; set; } = false;
 
-        [SerializeField] private Image thumbnailImage;
-        [SerializeField] private Text title;
+        [SerializeField] private Image _thumbnailImage;
+        [SerializeField] private Text _title;
 
         public void OnUpdate(Blueprint data)
         {
-            title.text = data.name;
+            _title.text = data.name;
 
             try
             {
                 var thumbnailRect = new Rect(0, 0, 512, 512);
                 var thumbnailPivot = new Vector2(0.5f, 0.5f);
-                thumbnailImage.sprite = Sprite.Create(data.Thumbnail, thumbnailRect, thumbnailPivot);
+                _thumbnailImage.sprite = Sprite.Create(data.Thumbnail, thumbnailRect, thumbnailPivot);
             }
             catch
             {

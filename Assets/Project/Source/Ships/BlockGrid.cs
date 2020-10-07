@@ -13,16 +13,16 @@ namespace Exa.Ships
 {
     public class BlockGrid : Grid<Block>
     {
-        private readonly Transform container;
-        private readonly Ship ship;
+        private readonly Transform _container;
+        private readonly Ship _ship;
 
         public CentreOfMassCache CentreOfMass { get; protected set; }
 
         public BlockGrid(Transform container, Ship ship)
             : base(totals: ship.Totals)
         {
-            this.container = container;
-            this.ship = ship;
+            this._container = container;
+            this._ship = ship;
             CentreOfMass = new CentreOfMassCache();
         }
 
@@ -46,8 +46,8 @@ namespace Exa.Ships
 
         private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock, ShipContext blockContext)
         {
-            var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(container, blockContext);
-            block.Ship = ship;
+            var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(_container, blockContext);
+            block.Ship = _ship;
             block.gameObject.SetActive(true);
             return block;
         }

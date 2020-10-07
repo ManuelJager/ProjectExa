@@ -3,40 +3,40 @@ using UnityEngine;
 
 namespace Exa.AI
 {
-    public class AIManager : MonoBehaviour
+    public class AiManager : MonoBehaviour
     {
-        [SerializeField] private readonly int ticksPerSecond = 10;
-        private float elapsedSinceLastTick = 0f;
-        private float updateDeltaThreshold;
-        private readonly List<IAgent> agents = new List<IAgent>();
+        [SerializeField] private readonly int _ticksPerSecond = 10;
+        private float _elapsedSinceLastTick = 0f;
+        private float _updateDeltaThreshold;
+        private readonly List<IAgent> _agents = new List<IAgent>();
 
         private void Awake()
         {
-            updateDeltaThreshold = 1f / ticksPerSecond;
+            _updateDeltaThreshold = 1f / _ticksPerSecond;
         }
 
         public void Register(IAgent agent)
         {
-            agents.Add(agent);
+            _agents.Add(agent);
         }
 
         public void Unregister(IAgent agent)
         {
-            agents.Remove(agent);
+            _agents.Remove(agent);
         }
 
         private void Update()
         {
-            if (elapsedSinceLastTick > updateDeltaThreshold)
+            if (_elapsedSinceLastTick > _updateDeltaThreshold)
             {
-                foreach (var agent in agents)
+                foreach (var agent in _agents)
                 {
-                    agent.AIUpdate();
+                    agent.AiUpdate();
                 }
-                elapsedSinceLastTick = 0f;
+                _elapsedSinceLastTick = 0f;
             }
 
-            elapsedSinceLastTick += Time.deltaTime;
+            _elapsedSinceLastTick += Time.deltaTime;
         }
     }
 }

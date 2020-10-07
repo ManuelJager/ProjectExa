@@ -6,7 +6,7 @@ namespace Exa.ShipEditor
 {
     public partial class EditorGrid
     {
-        private Vector2Int? mouseGridPos;
+        private Vector2Int? _mouseGridPos;
 
         /// <summary>
         /// Current mouse position in the grid
@@ -16,24 +16,24 @@ namespace Exa.ShipEditor
         /// </summary>
         private Vector2Int? MouseGridPos
         {
-            get => mouseGridPos;
+            get => _mouseGridPos;
             set
             {
-                if (mouseGridPos == value) return;
+                if (_mouseGridPos == value) return;
 
-                if (mouseGridPos != null)
+                if (_mouseGridPos != null)
                 {
-                    SetActiveBackground(mouseGridPos, false);
+                    SetActiveBackground(_mouseGridPos, false);
                 }
 
-                mouseGridPos = value;
+                _mouseGridPos = value;
 
                 if (value != null)
                 {
                     SetActiveBackground(value, true);
                 }
 
-                ghostLayer.MoveGhost(size, value);
+                ghostLayer.MoveGhost(_size, value);
                 CalculateGhostEnabled();
             }
         }
@@ -65,12 +65,12 @@ namespace Exa.ShipEditor
             if (MouseGridPos == null) return;
 
             // if ghost cannot be placed
-            if (!canPlaceGhost) return;
+            if (!_canPlaceGhost) return;
 
             // if the editor grid is interactable
             if (!Interactable) return;
 
-            canPlaceGhost = false;
+            _canPlaceGhost = false;
 
             blueprintLayer.AddBlock(ghostLayer.ghost.AnchoredBlueprintBlock.Clone());
 
@@ -95,7 +95,7 @@ namespace Exa.ShipEditor
 
             if (MirrorEnabled)
             {
-                blueprintLayer.RemoveBlock(GridUtils.GetMirroredGridPos(size, realGridPos));
+                blueprintLayer.RemoveBlock(GridUtils.GetMirroredGridPos(_size, realGridPos));
             }
 
             CalculateGhostEnabled();
@@ -117,7 +117,7 @@ namespace Exa.ShipEditor
 
             backgroundLayer.SetGridBackgroundItemColor(gridPos, enter);
 
-            GridUtils.ConditionallyApplyToMirror(gridPos, size, (mirroredGridPos) =>
+            GridUtils.ConditionallyApplyToMirror(gridPos, _size, (mirroredGridPos) =>
             {
                 backgroundLayer.SetGridBackgroundItemColor(mirroredGridPos, MirrorEnabled && enter);
             });

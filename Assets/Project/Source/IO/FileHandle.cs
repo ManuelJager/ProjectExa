@@ -8,19 +8,19 @@ namespace Exa.IO
     /// </summary>
     public class FileHandle
     {
-        private readonly Func<string, string> pathFactory;
-        private readonly Action<string> serializationFactory;
-        private readonly ISerializableItem item;
+        private readonly Func<string, string> _pathFactory;
+        private readonly Action<string> _serializationFactory;
+        private readonly ISerializableItem _item;
 
         public string CurrentPath { get; set; }
-        public string TargetPath => pathFactory(item.ItemName);
+        public string TargetPath => _pathFactory(_item.ItemName);
         public bool PathIsDirty => CurrentPath != TargetPath;
 
         public FileHandle(ISerializableItem item, Func<string, string> pathFactory, Action<string> serializationFactory, bool generatePath = true)
         {
-            this.item = item;
-            this.pathFactory = pathFactory;
-            this.serializationFactory = serializationFactory;
+            this._item = item;
+            this._pathFactory = pathFactory;
+            this._serializationFactory = serializationFactory;
 
             if (generatePath)
             {
@@ -43,7 +43,7 @@ namespace Exa.IO
                 Delete();
             }
             CurrentPath = TargetPath;
-            serializationFactory(CurrentPath);
+            _serializationFactory(CurrentPath);
         }
     }
 }

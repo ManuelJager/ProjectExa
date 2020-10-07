@@ -7,22 +7,22 @@ using UnityEngine;
 namespace Exa.AI.Actions
 {
     // TODO: Implement a distance difference threshold that prevents already targeted ships from being untargeted too quickly
-    public class AAimAtClosestTarget : ShipAIAction
+    public class AAimAtClosestTarget : ShipAiAction
     {
         public override ActionLane Lanes => ActionLane.AimTurrets;
 
-        private Ship enemyTarget = null;
-        private readonly float detectionRadius;
+        private Ship _enemyTarget = null;
+        private readonly float _detectionRadius;
 
         internal AAimAtClosestTarget(Ship ship, float detectionRadius)
             : base(ship)
         {
-            this.detectionRadius = detectionRadius;
+            this._detectionRadius = detectionRadius;
         }
 
         public override ActionLane Update(ActionLane blockedLanes)
         {
-            var target = new ShipTarget(enemyTarget);
+            var target = new ShipTarget(_enemyTarget);
             ship.Turrets.SetTarget(target);
 
             return ActionLane.AimTurrets;
@@ -33,14 +33,14 @@ namespace Exa.AI.Actions
             var blockMask = new ShipMask(~ship.BlockContext);
             var closestDistance = float.MaxValue;
 
-            foreach (var enemy in ship.QueryNeighbours<Ship>(detectionRadius, blockMask))
+            foreach (var enemy in ship.QueryNeighbours<Ship>(_detectionRadius, blockMask))
             {
                 var distance = (enemy.transform.position - ship.transform.position).magnitude;
 
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    enemyTarget = enemy;
+                    _enemyTarget = enemy;
                 }
             }
 
@@ -48,10 +48,10 @@ namespace Exa.AI.Actions
 
             if (closestDistance == float.MaxValue)
             {
-                enemyTarget = null;
+                _enemyTarget = null;
             }
 
-            return enemyTarget == null
+            return _enemyTarget == null
                 ? 0f
                 : 5f;
         }

@@ -34,11 +34,11 @@ namespace Exa.ShipEditor
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    leftButtonPressed = true;
+                    _leftButtonPressed = true;
                     break;
 
                 case InputActionPhase.Canceled:
-                    leftButtonPressed = false;
+                    _leftButtonPressed = false;
                     break;
 
                 default:
@@ -51,11 +51,11 @@ namespace Exa.ShipEditor
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    rightButtonPressed = true;
+                    _rightButtonPressed = true;
                     break;
 
                 case InputActionPhase.Canceled:
-                    rightButtonPressed = false;
+                    _rightButtonPressed = false;
                     break;
 
                 default:
@@ -104,7 +104,7 @@ namespace Exa.ShipEditor
 
         public void OnZoom(InputAction.CallbackContext context)
         {
-            if (MouseOverUI) return;
+            if (MouseOverUi) return;
 
             if (context.phase == InputActionPhase.Performed)
             {
@@ -113,7 +113,7 @@ namespace Exa.ShipEditor
                 if (yDelta == 0f) return;
 
                 yDelta /= 100f;
-                Zoom = Mathf.Clamp(Zoom + (-yDelta * zoomSpeed), 3, 15);
+                Zoom = Mathf.Clamp(Zoom + (-yDelta * _zoomSpeed), 3, 15);
                 Camera.main.DOOrthoSize(Zoom, 0.5f);
             }
         }

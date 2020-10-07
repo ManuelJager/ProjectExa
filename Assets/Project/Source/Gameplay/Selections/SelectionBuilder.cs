@@ -6,38 +6,38 @@ namespace Exa.Gameplay
 {
     public class SelectionBuilder : IBuilder<ShipSelection>
     {
-        private readonly Vector2 startSelectionPos;
-        private ShipSelection selection;
+        private readonly Vector2 _startSelectionPos;
+        private ShipSelection _selection;
 
         public SelectionBuilder(Vector2 startSelectionPos)
         {
-            this.startSelectionPos = startSelectionPos;
+            this._startSelectionPos = startSelectionPos;
         }
 
         public void UpdateSelection(Vector2 endSelectionPos)
         {
             var layerMask = LayerMask.GetMask("unit");
-            var colliders = Physics2D.OverlapAreaAll(startSelectionPos, endSelectionPos, layerMask);
+            var colliders = Physics2D.OverlapAreaAll(_startSelectionPos, endSelectionPos, layerMask);
 
             foreach (var collider in colliders)
             {
                 var ship = collider.gameObject.GetComponent<Ship>();
 
-                if (selection == null)
+                if (_selection == null)
                 {
-                    selection = ship.GetAppropriateSelection(new VicFormation());
+                    _selection = ship.GetAppropriateSelection(new VicFormation());
                 }
 
-                if (ship != null && !selection.Contains(ship) && ship.MatchesSelection(selection))
+                if (ship != null && !_selection.Contains(ship) && ship.MatchesSelection(_selection))
                 {
-                    selection.Add(ship);
+                    _selection.Add(ship);
                 }
             }
         }
 
         public ShipSelection Build()
         {
-            return selection;
+            return _selection;
         }
     }
 }

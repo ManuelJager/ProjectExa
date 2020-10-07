@@ -4,7 +4,7 @@ namespace Exa.SceneManagement
 {
     public interface ISceneTransition
     {
-        UnityEvent onPrepared { get; }
+        UnityEvent OnPrepared { get; }
 
         void MarkPrepared();
     }

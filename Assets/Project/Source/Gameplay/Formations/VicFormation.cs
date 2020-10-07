@@ -7,11 +7,11 @@ namespace Exa.Gameplay
 {
     public class VicFormation : Formation
     {
-        private readonly float echelonAngle;
+        private readonly float _echelonAngle;
 
         public VicFormation(float echelonAngle = -130f)
         {
-            this.echelonAngle = echelonAngle;
+            this._echelonAngle = echelonAngle;
         }
 
         protected override IEnumerable<Vector2> GetLocalLayout(IEnumerable<Ship> ships)
@@ -34,12 +34,12 @@ namespace Exa.Gameplay
             while (enumerator.MoveNext())
             {
                 // Get right echelon position
-                yield return GetLocalPosition(enumerator.Current, ref rightEchelonSize, ref rightEchelonPivot, echelonAngle);
+                yield return GetLocalPosition(enumerator.Current, ref rightEchelonSize, ref rightEchelonPivot, _echelonAngle);
 
                 if (!enumerator.MoveNext()) break;
 
                 // Get left echelon positon
-                yield return GetLocalPosition(enumerator.Current, ref leftEchelonSize, ref leftEchelonPivot, -echelonAngle);
+                yield return GetLocalPosition(enumerator.Current, ref leftEchelonSize, ref leftEchelonPivot, -_echelonAngle);
             }
         }
 

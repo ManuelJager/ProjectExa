@@ -11,20 +11,20 @@ namespace Exa.UI
         public Button deleteButton;
         public Button button;
         public Hoverable hoverable;
-        [SerializeField] private Image thumbnailImage;
-        [SerializeField] private Text nameText;
-        [SerializeField] private Text classText;
+        [SerializeField] private Image _thumbnailImage;
+        [SerializeField] private Text _nameText;
+        [SerializeField] private Text _classText;
 
         public void OnUpdate(Blueprint data)
         {
-            nameText.text = data.name;
-            classText.text = data.shipClass;
+            _nameText.text = data.name;
+            _classText.text = data.shipClass;
 
             try
             {
                 var thumbnailRect = new Rect(0, 0, 512, 512);
                 var thumbnailPivot = new Vector2(0.5f, 0.5f);
-                thumbnailImage.sprite = Sprite.Create(data.Thumbnail, thumbnailRect, thumbnailPivot);
+                _thumbnailImage.sprite = Sprite.Create(data.Thumbnail, thumbnailRect, thumbnailPivot);
             }
             catch
             {

@@ -6,13 +6,13 @@ namespace Exa.UI.Components
 {
     public class TextColorLerper : MonoBehaviour
     {
-        [SerializeField] private Text text;
-        [SerializeField] private Color activeColor;
-        [SerializeField] private Color inactiveColor;
+        [SerializeField] private Text _text;
+        [SerializeField] private Color _activeColor;
+        [SerializeField] private Color _inactiveColor;
 
         public void SetColor(bool active)
         {
-            text.DOColor(active ? activeColor : inactiveColor, 0.1f);
+            _text.DOColor(active ? _activeColor : _inactiveColor, 0.1f);
         }
     }
 }

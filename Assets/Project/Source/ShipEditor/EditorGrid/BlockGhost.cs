@@ -10,11 +10,11 @@ namespace Exa.ShipEditor
     /// </summary>
     public class BlockGhost : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer ghostImage;
-        [SerializeField] private SpriteRenderer filter;
-        [SerializeField] private Transform filterTransform;
-        [SerializeField] private Color activeColor;
-        [SerializeField] private Color inactiveColor;
+        [SerializeField] private SpriteRenderer _ghostImage;
+        [SerializeField] private SpriteRenderer _filter;
+        [SerializeField] private Transform _filterTransform;
+        [SerializeField] private Color _activeColor;
+        [SerializeField] private Color _inactiveColor;
 
         public AnchoredBlueprintBlock AnchoredBlueprintBlock { get; private set; }
 
@@ -24,21 +24,21 @@ namespace Exa.ShipEditor
         /// <param name="block"></param>
         public void ImportBlock(BlueprintBlock block)
         {
-            ghostImage.sprite = block.Template.thumbnail;
-            filterTransform.localScale = block.Template.size.ToVector3();
+            _ghostImage.sprite = block.Template.thumbnail;
+            _filterTransform.localScale = block.Template.size.ToVector3();
             AnchoredBlueprintBlock = new AnchoredBlueprintBlock(new Vector2Int(), block);
-            AnchoredBlueprintBlock.BlueprintBlock.SetSpriteRendererFlips(ghostImage);
+            AnchoredBlueprintBlock.BlueprintBlock.SetSpriteRendererFlips(_ghostImage);
             AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }
 
         public void SetFilterColor(bool active)
         {
-            filter.color = active ? activeColor : inactiveColor;
+            _filter.color = active ? _activeColor : _inactiveColor;
         }
 
         public void ReflectState()
         {
-            AnchoredBlueprintBlock.BlueprintBlock.SetSpriteRendererFlips(ghostImage);
+            AnchoredBlueprintBlock.BlueprintBlock.SetSpriteRendererFlips(_ghostImage);
             AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }
     }

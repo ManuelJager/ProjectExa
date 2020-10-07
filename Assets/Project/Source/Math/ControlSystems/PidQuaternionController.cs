@@ -7,53 +7,53 @@ namespace Exa.Math.ControlSystems
 {
     public class PidQuaternionController
     {
-        private readonly PidController[] internalControllers;
+        private readonly PidController[] _internalControllers;
 
         public float Proportional
         {
-            get => internalControllers[0].Proportional;
+            get => _internalControllers[0].Proportional;
             set
             {
                 EnsureNonNegative(value, "Proportional");
 
-                internalControllers[0].Proportional = value;
-                internalControllers[1].Proportional = value;
-                internalControllers[2].Proportional = value;
-                internalControllers[3].Proportional = value;
+                _internalControllers[0].Proportional = value;
+                _internalControllers[1].Proportional = value;
+                _internalControllers[2].Proportional = value;
+                _internalControllers[3].Proportional = value;
             }
         }
 
         public float Integral
         {
-            get => internalControllers[0].Integral;
+            get => _internalControllers[0].Integral;
             set
             {
                 EnsureNonNegative(value, "Integral");
 
-                internalControllers[0].Integral = value;
-                internalControllers[1].Integral = value;
-                internalControllers[2].Integral = value;
-                internalControllers[3].Integral = value;
+                _internalControllers[0].Integral = value;
+                _internalControllers[1].Integral = value;
+                _internalControllers[2].Integral = value;
+                _internalControllers[3].Integral = value;
             }
         }
 
         public float Derivative
         {
-            get => internalControllers[0].Derivitive;
+            get => _internalControllers[0].Derivitive;
             set
             {
                 EnsureNonNegative(value, "Derivative");
 
-                this.internalControllers[0].Derivitive = value;
-                this.internalControllers[1].Derivitive = value;
-                this.internalControllers[2].Derivitive = value;
-                this.internalControllers[3].Derivitive = value;
+                this._internalControllers[0].Derivitive = value;
+                this._internalControllers[1].Derivitive = value;
+                this._internalControllers[2].Derivitive = value;
+                this._internalControllers[3].Derivitive = value;
             }
         }
 
         public PidQuaternionController(float proportional, float integral, float derivitive)
         {
-            internalControllers = new[]
+            _internalControllers = new[]
             {
                 new PidController(proportional, integral, derivitive),
                 new PidController(proportional, integral, derivitive),
@@ -100,10 +100,10 @@ namespace Exa.Math.ControlSystems
         {
             var output = new Quaternion
             {
-                x = internalControllers[0].ComputeOutput(error.x, delta.x, deltaTime),
-                y = internalControllers[1].ComputeOutput(error.y, delta.y, deltaTime),
-                z = internalControllers[2].ComputeOutput(error.z, delta.z, deltaTime),
-                w = internalControllers[3].ComputeOutput(error.w, delta.w, deltaTime)
+                x = _internalControllers[0].ComputeOutput(error.x, delta.x, deltaTime),
+                y = _internalControllers[1].ComputeOutput(error.y, delta.y, deltaTime),
+                z = _internalControllers[2].ComputeOutput(error.z, delta.z, deltaTime),
+                w = _internalControllers[3].ComputeOutput(error.w, delta.w, deltaTime)
             };
 
             return output;

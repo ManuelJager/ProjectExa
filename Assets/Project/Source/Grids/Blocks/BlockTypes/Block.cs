@@ -15,8 +15,8 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [HideInInspector] public AnchoredBlueprintBlock anchoredBlueprintBlock;
 
-        [SerializeField] private PhysicalBehaviour physicalBehaviour;
-        private Ship ship;
+        [SerializeField] private PhysicalBehaviour _physicalBehaviour;
+        private Ship _ship;
 
         public Vector2Int GridAnchor => anchoredBlueprintBlock.gridAnchor;
 
@@ -24,24 +24,24 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component
         {
-            get => physicalBehaviour; 
+            get => _physicalBehaviour; 
         }
 
         public Ship Ship
         {
-            get => ship;
+            get => _ship;
             set
             {
-                if (ship == value) return;
+                if (_ship == value) return;
 
-                if (ship != null && !Systems.IsQuitting)
+                if (_ship != null && !Systems.IsQuitting)
                 {
                     OnRemove();
                 }
 
-                ship = value;
+                _ship = value;
 
-                if (ship != null)
+                if (_ship != null)
                 {
                     OnAdd();
                 }
@@ -57,7 +57,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         {
             if (Systems.IsQuitting) return;
 
-            ship.BlockGrid.Remove(GridAnchor);
+            _ship.BlockGrid.Remove(GridAnchor);
             Ship = null;
         }
 
@@ -88,7 +88,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         {
             return new BlockBehaviourBase[]
             {
-                physicalBehaviour
+                _physicalBehaviour
             };
         }
 

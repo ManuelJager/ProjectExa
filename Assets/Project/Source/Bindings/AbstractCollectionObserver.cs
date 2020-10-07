@@ -5,31 +5,31 @@ namespace Exa.Bindings
 {
     public abstract class AbstractCollectionObserver<T> : MonoBehaviour, ICollectionObserver<T>
     {
-        private IObservableCollection<T> source = null;
+        private IObservableCollection<T> _source = null;
 
         /// <summary>
         /// Views data source
         /// </summary>
         public virtual IObservableCollection<T> Source
         {
-            get => source;
+            get => _source;
             set
             {
                 // If the new source is the same, do nothing
-                if (source == value)
+                if (_source == value)
                 {
                     return;
                 }
 
                 // If there is already a source, unregister
-                if (source != null)
+                if (_source != null)
                 {
                     // Unregistered if we are registered
-                    if (source.Observers.Contains(this))
+                    if (_source.Observers.Contains(this))
                     {
-                        source.Unregister(this);
+                        _source.Unregister(this);
                     }
-                    source = null;
+                    _source = null;
                 }
 
                 // if the new value is supossed to be null, clear views and return
@@ -40,13 +40,13 @@ namespace Exa.Bindings
                 }
 
                 // Set source and register
-                source = value;
-                source.Register(this);
+                _source = value;
+                _source.Register(this);
 
                 // Clear views
                 OnClear();
 
-                foreach (var item in source)
+                foreach (var item in _source)
                 {
                     OnAdd(item);
                 }

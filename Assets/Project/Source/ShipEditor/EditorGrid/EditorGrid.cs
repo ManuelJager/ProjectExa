@@ -14,17 +14,17 @@ namespace Exa.ShipEditor
     /// <summary>
     /// Grid layer for the Ship layer
     /// </summary>
-    public partial class EditorGrid : MonoBehaviour, IUIGroup
+    public partial class EditorGrid : MonoBehaviour, IUiGroup
     {
-        [SerializeField] private float movementSpeed;
-        private bool interactible = true;
-        private bool mirrorEnabled = false;
-        private bool mouseOverUI = false;
-        private bool canPlaceGhost = false;
-        private Vector2 centerPos;
-        private Vector2 playerPos = Vector2.zero;
-        private Vector2Int size;
-        private TweenerCore<Vector3, Vector3, VectorOptions> positionTweener;
+        [SerializeField] private float _movementSpeed;
+        private bool _interactible = true;
+        private bool _mirrorEnabled = false;
+        private bool _mouseOverUi = false;
+        private bool _canPlaceGhost = false;
+        private Vector2 _centerPos;
+        private Vector2 _playerPos = Vector2.zero;
+        private Vector2Int _size;
+        private TweenerCore<Vector3, Vector3, VectorOptions> _positionTweener;
 
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
@@ -38,10 +38,10 @@ namespace Exa.ShipEditor
         /// </summary>
         public bool Interactable
         {
-            get => interactible;
+            get => _interactible;
             set
             {
-                interactible = value;
+                _interactible = value;
                 if (!value)
                 {
                     ghostLayer.GhostVisible = false;
@@ -54,13 +54,13 @@ namespace Exa.ShipEditor
         /// </summary>
         public bool MirrorEnabled
         {
-            get => mirrorEnabled;
+            get => _mirrorEnabled;
             set
             {
-                mirrorEnabled = value;
+                _mirrorEnabled = value;
 
                 ghostLayer.MirrorEnabled = value;
-                SetActiveBackground(mouseGridPos, true);
+                SetActiveBackground(_mouseGridPos, true);
                 CalculateGhostEnabled();
             }
         }
@@ -68,14 +68,14 @@ namespace Exa.ShipEditor
         /// <summary>
         /// Wether or not the mouse is over UI
         /// </summary>
-        public bool MouseOverUI
+        public bool MouseOverUi
         {
-            get => mouseOverUI;
+            get => _mouseOverUi;
             set
             {
-                mouseOverUI = value;
+                _mouseOverUi = value;
 
-                ghostLayer.MouseOverUI = value;
+                ghostLayer.MouseOverUi = value;
                 CalculateGhostEnabled();
             }
         }
@@ -95,20 +95,20 @@ namespace Exa.ShipEditor
             var remappedZoomScale = ZoomScale.Remap(0f, 3f, 0.5f, 1.5f);
 
             // Calculate movement offset
-            playerPos -=
+            _playerPos -=
                 MovementVector *
-                movementSpeed *
+                _movementSpeed *
                 Time.deltaTime *
                 remappedZoomScale;
 
             // Clamp movement offset to prevent going out of bounds
-            playerPos = Vector2.ClampMagnitude(playerPos, 15f);
+            _playerPos = Vector2.ClampMagnitude(_playerPos, 15f);
 
             // Get position by adding the pivot to the offset
-            var position = centerPos + playerPos;
+            var position = _centerPos + _playerPos;
 
-            positionTweener?.Kill();
-            positionTweener = transform.DOLocalMove(position, 0.3f);
+            _positionTweener?.Kill();
+            _positionTweener = transform.DOLocalMove(position, 0.3f);
 
             // Check for mouse input
             backgroundLayer.UpdateCurrActiveGridItem(transform.localPosition.ToVector2());
@@ -117,8 +117,8 @@ namespace Exa.ShipEditor
         public void OnDisable()
         {
             // Reset values
-            playerPos = Vector2.zero;
-            mouseGridPos = null;
+            _playerPos = Vector2.zero;
+            _mouseGridPos = null;
             transform.localPosition = Vector3.zero;
         }
 
@@ -129,11 +129,11 @@ namespace Exa.ShipEditor
         public void GenerateGrid(Vector2Int size)
         {
             // Set the active size and set targe player position the center of the grid
-            this.size = size;
+            this._size = size;
 
             // Set the movement pivot
-            centerPos = GetGridOffset();
-            transform.localPosition = centerPos.ToVector3();
+            _centerPos = GetGridOffset();
+            transform.localPosition = _centerPos.ToVector3();
 
             // Generate the grid
             backgroundLayer.GenerateGrid(size);
@@ -160,7 +160,7 @@ namespace Exa.ShipEditor
 
         private Vector2 GetGridOffset()
         {
-            var halfSize = size.ToVector2() / 2f;
+            var halfSize = _size.ToVector2() / 2f;
             return new Vector2
             {
                 x = -halfSize.x + 0.5f,
@@ -175,9 +175,9 @@ namespace Exa.ShipEditor
         {
             if (!ghostLayer.GhostCreated) return;
 
-            if (MouseOverUI)
+            if (MouseOverUi)
             {
-                canPlaceGhost = false;
+                _canPlaceGhost = false;
                 return;
             }
 
@@ -210,13 +210,13 @@ namespace Exa.ShipEditor
                 ghostLayer.mirrorGhost.SetFilterColor(mirrorGhostIsClear && !ghostsIntersect);
 
                 // Only allow block placement when both ghosts are clear
-                canPlaceGhost = ghostIsClear && mirrorGhostIsClear && !ghostsIntersect;
+                _canPlaceGhost = ghostIsClear && mirrorGhostIsClear && !ghostsIntersect;
             }
             else
             {
                 // Set the filter color to the clear state of the ghost
                 ghostLayer.ghost.SetFilterColor(ghostIsClear);
-                canPlaceGhost = ghostIsClear;
+                _canPlaceGhost = ghostIsClear;
             }
         }
     }

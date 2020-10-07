@@ -5,11 +5,11 @@ namespace Exa.UI.Controls
 {
     public class KeybindingView : MonoBehaviour
     {
-        [SerializeField] private Text text;
+        [SerializeField] private Text _text;
 
         public void SetKey(string key)
         {
-            text.text = key;
+            _text.text = key;
         }
     }
 }

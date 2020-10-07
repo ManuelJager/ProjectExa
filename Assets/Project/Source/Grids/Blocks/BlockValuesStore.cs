@@ -9,11 +9,11 @@ namespace Exa.Grids.Blocks
 {
     public class BlockValuesStore
     {
-        private readonly Dictionary<ShipContext, BundleDictionary> contextDict;
+        private readonly Dictionary<ShipContext, BundleDictionary> _contextDict;
 
         public BlockValuesStore()
         {
-            contextDict = new Dictionary<ShipContext, BundleDictionary>();
+            _contextDict = new Dictionary<ShipContext, BundleDictionary>();
         }
 
         public void Register(ShipContext blockContext, BlockTemplate blockTemplate)
@@ -37,19 +37,19 @@ namespace Exa.Grids.Blocks
 
         public void SetDirty(ShipContext blockContext, BlockTemplate blockTemplate)
         {
-            var bundle = contextDict[blockContext][blockTemplate];
+            var bundle = _contextDict[blockContext][blockTemplate];
             bundle.valuesAreDirty = true;
             bundle.tooltip.ShouldRefresh = true;
         }
 
         public Tooltip GetTooltip(ShipContext blockContext, BlockTemplate blockTemplate)
         {
-            return contextDict[blockContext][blockTemplate].tooltip;
+            return _contextDict[blockContext][blockTemplate].tooltip;
         }
 
         public void SetValues(ShipContext blockContext, BlockTemplate blockTemplate, Block block)
         {
-            var bundle = contextDict[blockContext][blockTemplate];
+            var bundle = _contextDict[blockContext][blockTemplate];
 
             if (bundle.valuesAreDirty)
             {
@@ -82,12 +82,12 @@ namespace Exa.Grids.Blocks
 
         private BundleDictionary EnsureCreated(ShipContext blockContext)
         {
-            if (!contextDict.ContainsKey(blockContext))
+            if (!_contextDict.ContainsKey(blockContext))
             {
-                contextDict.Add(blockContext, new BundleDictionary());
+                _contextDict.Add(blockContext, new BundleDictionary());
             }
 
-            return contextDict[blockContext];
+            return _contextDict[blockContext];
         }
 
         private class BundleDictionary : Dictionary<BlockTemplate, TemplateBundle>

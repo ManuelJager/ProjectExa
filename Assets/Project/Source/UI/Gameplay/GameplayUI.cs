@@ -2,7 +2,7 @@
 
 namespace Exa.UI.Gameplay
 {
-    public class GameplayUI : MonoBehaviour
+    public class GameplayUi : MonoBehaviour
     {
         public SelectionOverlay selectionOverlay;
         public SelectionHotbar selectionHotbar;

@@ -9,7 +9,7 @@ namespace Exa.UI.Components
     }
 
     // TODO: Add a manager that implements a command pattern to store user Navigation actions
-    public class Navigateable : MonoBehaviour, IUIGroup
+    public class Navigateable : MonoBehaviour, IUiGroup
     {
         public bool Interactable { get; set; } = true;
 

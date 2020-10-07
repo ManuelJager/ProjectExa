@@ -9,39 +9,39 @@ namespace Exa.Ships
         public Image actualFillImage;
         public Image rememberedFillImage;
 
-        [SerializeField] private readonly float timeToUpdateRememberedFill = 3f;
-        [SerializeField] private readonly float rememberedFillSpeed = 0.4f;
-        private float actualFill = 1f;
-        private float rememberedFill = 1f;
-        private float timeSinceFillChange;
+        [SerializeField] private readonly float _timeToUpdateRememberedFill = 3f;
+        [SerializeField] private readonly float _rememberedFillSpeed = 0.4f;
+        private float _actualFill = 1f;
+        private float _rememberedFill = 1f;
+        private float _timeSinceFillChange;
 
         private float ActualFill
         {
-            get => actualFill;
+            get => _actualFill;
             set
             {
-                actualFill = value;
+                _actualFill = value;
                 actualFillImage.fillAmount = value;
             }
         }
 
         private float RememberedFill
         {
-            get => rememberedFill;
+            get => _rememberedFill;
             set
             {
-                rememberedFill = value;
+                _rememberedFill = value;
                 rememberedFillImage.fillAmount = value;
             }
         }
 
         private void Update()
         {
-            timeSinceFillChange += Time.deltaTime;
+            _timeSinceFillChange += Time.deltaTime;
 
-            if (timeSinceFillChange > timeToUpdateRememberedFill)
+            if (_timeSinceFillChange > _timeToUpdateRememberedFill)
             {
-                var speed = Time.deltaTime * rememberedFillSpeed;
+                var speed = Time.deltaTime * _rememberedFillSpeed;
                 RememberedFill = MathUtils.Increment(RememberedFill, ActualFill, speed);
             }
         }
@@ -51,7 +51,7 @@ namespace Exa.Ships
             if (ActualFill == value) return;
 
             ActualFill = value;
-            timeSinceFillChange = 0f;
+            _timeSinceFillChange = 0f;
         }
     }
 }

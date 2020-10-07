@@ -4,11 +4,11 @@ namespace Exa.UI
 {
     public class HardwareMouseCursor : MonoBehaviour, ICursor
     {
-        [SerializeField] private Texture2D idleMouseTexture;
-        [SerializeField] private Texture2D activeMouseTexture;
-        [SerializeField] private Texture2D removeMouseTexture;
-        [SerializeField] private Texture2D infoMouseTexture;
-        [SerializeField] private Texture2D inputMouseTexture;
+        [SerializeField] private Texture2D _idleMouseTexture;
+        [SerializeField] private Texture2D _activeMouseTexture;
+        [SerializeField] private Texture2D _removeMouseTexture;
+        [SerializeField] private Texture2D _infoMouseTexture;
+        [SerializeField] private Texture2D _inputMouseTexture;
 
         private void OnEnable()
         {
@@ -38,20 +38,20 @@ namespace Exa.UI
         {
             switch (cursorState)
             {
-                case CursorState.idle:
-                    return idleMouseTexture;
+                case CursorState.Idle:
+                    return _idleMouseTexture;
 
-                case CursorState.active:
-                    return activeMouseTexture;
+                case CursorState.Active:
+                    return _activeMouseTexture;
 
-                case CursorState.remove:
-                    return removeMouseTexture;
+                case CursorState.Remove:
+                    return _removeMouseTexture;
 
-                case CursorState.info:
-                    return infoMouseTexture;
+                case CursorState.Info:
+                    return _infoMouseTexture;
 
-                case CursorState.input:
-                    return inputMouseTexture;
+                case CursorState.Input:
+                    return _inputMouseTexture;
 
                 default:
                     return null;

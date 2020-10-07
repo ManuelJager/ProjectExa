@@ -6,11 +6,11 @@ namespace Exa.UI
 {
     public class MainMenuDebug : DebugBehaviour
     {
-        [SerializeField] private GameObject gameEditorButton;
+        [SerializeField] private GameObject _gameEditorButton;
 
         public override void OnDebugStateChange(DebugMode state)
         {
-            gameEditorButton.SetActive(state.Is(DebugMode.Global));
+            _gameEditorButton.SetActive(state.Is(DebugMode.Global));
         }
     }
 }

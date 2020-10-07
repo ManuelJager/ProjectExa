@@ -6,66 +6,66 @@ namespace Exa.UI
 {
     public enum CursorType
     {
-        hardwareCursor,
-        virtualCursor
+        HardwareCursor,
+        VirtualCursor
     }
 
     public class MouseCursorController : MonoBehaviour
     {
-        [SerializeField] private readonly CursorType cursorType = CursorType.hardwareCursor;
-        [SerializeField] private VirtualMouseCursor virtualMouseCursor;
-        [SerializeField] private HardwareMouseCursor hardwareMouseCursor;
-        private ICursor cursor;
-        private readonly List<CursorOverride> cursorOverrides = new List<CursorOverride>();
+        [SerializeField] private readonly CursorType _cursorType = CursorType.HardwareCursor;
+        [SerializeField] private VirtualMouseCursor _virtualMouseCursor;
+        [SerializeField] private HardwareMouseCursor _hardwareMouseCursor;
+        private ICursor _cursor;
+        private readonly List<CursorOverride> _cursorOverrides = new List<CursorOverride>();
 
         private void Start()
         {
-            SetCursor(cursorType);
-            SetState(CursorState.idle);
+            SetCursor(_cursorType);
+            SetState(CursorState.Idle);
         }
 
         public void SetCursor(CursorType cursorType)
         {
-            cursor?.SetActive(false);
-            cursor = GetCursor(cursorType);
-            cursor.SetActive(true);
+            _cursor?.SetActive(false);
+            _cursor = GetCursor(cursorType);
+            _cursor.SetActive(true);
         }
 
         public void AddOverride(CursorOverride cursorOverride)
         {
-            cursorOverrides.Add(cursorOverride);
+            _cursorOverrides.Add(cursorOverride);
 
             SetState(cursorOverride.cursorState);
         }
 
         public void RemoveOverride(CursorOverride cursorOverride)
         {
-            cursorOverrides.Remove(cursorOverride);
+            _cursorOverrides.Remove(cursorOverride);
 
             SetState(SelectStateFromOverrides());
         }
 
         private CursorState SelectStateFromOverrides()
         {
-            return cursorOverrides.Count == 0 
-                ? CursorState.idle 
-                : cursorOverrides.Last().cursorState;
+            return _cursorOverrides.Count == 0 
+                ? CursorState.Idle 
+                : _cursorOverrides.Last().cursorState;
         }
 
         private void SetState(CursorState cursorState)
         {
-            cursor.SetState(cursorState);
+            _cursor.SetState(cursorState);
         }
 
         public void SetMouseInViewport(bool value)
         {
             if (value)
             {
-                cursor.OnEnterViewport();
+                _cursor.OnEnterViewport();
             }
             else
             {
-                cursor.OnExitViewport();
+                _cursor.OnExitViewport();
             }
         }
 
@@ -73,11 +73,11 @@ namespace Exa.UI
         {
             switch (cursorType)
             {
-                case CursorType.hardwareCursor:
-                    return hardwareMouseCursor;
+                case CursorType.HardwareCursor:
+                    return _hardwareMouseCursor;
 
-                case CursorType.virtualCursor:
-                    return virtualMouseCursor;
+                case CursorType.VirtualCursor:
+                    return _virtualMouseCursor;
 
                 default:
                     return null;

@@ -18,7 +18,7 @@ namespace Exa.Generics
         private List<T> GetAllInstances()
         {
 #if UNITY_EDITOR
-            var guids = QueryGUIDs();
+            var guids = QueryGuiDs();
             var collection = new List<T>(guids.Length);
 
             foreach (var guid in guids)
@@ -33,7 +33,7 @@ namespace Exa.Generics
 #endif
         }
 
-        protected virtual string[] QueryGUIDs()
+        protected virtual string[] QueryGuiDs()
         {
 #if UNITY_EDITOR
             return AssetDatabase.FindAssets("t:" + typeof(T).Name);

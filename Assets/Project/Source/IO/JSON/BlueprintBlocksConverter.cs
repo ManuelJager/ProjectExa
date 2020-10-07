@@ -10,7 +10,7 @@ namespace Exa.IO.Json
 {
     public class BlueprintBlocksConverter : JsonConverter<BlueprintBlocks>
     {
-        public static readonly string[] SEPARATORS = new[] { "(", ",", ")" };
+        public static readonly string[] Separators = new[] { "(", ",", ")" };
 
         public override BlueprintBlocks ReadJson(JsonReader reader, Type objectType, BlueprintBlocks existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
@@ -19,7 +19,7 @@ namespace Exa.IO.Json
             var blocks = new BlueprintBlocks();
             foreach (var pair in JObject.Load(reader))
             {
-                var vector = pair.Key.Split(SEPARATORS, StringSplitOptions.RemoveEmptyEntries);
+                var vector = pair.Key.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
 
                 var key = new Vector2Int
                 {

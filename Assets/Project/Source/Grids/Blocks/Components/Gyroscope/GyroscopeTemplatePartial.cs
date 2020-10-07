@@ -7,11 +7,11 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class GyroscopeTemplatePartial : TemplatePartial<GyroscopeData>
     {
-        [SerializeField] private Scalar turningRate;
+        [SerializeField] private Scalar _turningRate;
 
         public override GyroscopeData Convert() => new GyroscopeData
         {
-            turningRate = turningRate
+            turningRate = _turningRate
         };
     }
 }

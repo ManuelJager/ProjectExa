@@ -16,7 +16,7 @@ namespace Exa.UI.Controls
         // Dictionary linking an error with the current view
         protected Dictionary<string, ValidationErrorPanel> panelByError = new Dictionary<string, ValidationErrorPanel>();
 
-        [SerializeField] private GameObject errorPanelPrefab;
+        [SerializeField] private GameObject _errorPanelPrefab;
 
         private void Awake()
         {
@@ -56,7 +56,7 @@ namespace Exa.UI.Controls
             var id = validationError.Id;
             if (!panelByError.ContainsKey(id))
             {
-                var panel = Instantiate(errorPanelPrefab, transform).GetComponent<ValidationErrorPanel>();
+                var panel = Instantiate(_errorPanelPrefab, transform).GetComponent<ValidationErrorPanel>();
                 panel.Text = validationError.Message;
                 panelByError[id] = panel;
             }

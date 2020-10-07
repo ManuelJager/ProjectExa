@@ -15,8 +15,8 @@ namespace Exa.ShipEditor
     {
         public BlockSelectedEvent blockSelected = new BlockSelectedEvent();
 
-        [SerializeField] private GameObject expandableItemPrefab;
-        private readonly Dictionary<BlockCategory, ExpandableItem> blockCategories = new Dictionary<BlockCategory, ExpandableItem>();
+        [SerializeField] private GameObject _expandableItemPrefab;
+        private readonly Dictionary<BlockCategory, ExpandableItem> _blockCategories = new Dictionary<BlockCategory, ExpandableItem>();
 
         private void Start()
         {
@@ -28,15 +28,15 @@ namespace Exa.ShipEditor
             var category = observer.Data.category;
             var categoryString = observer.Data.category.ToString();
 
-            if (!blockCategories.ContainsKey(category))
+            if (!_blockCategories.ContainsKey(category))
             {
-                var newExpandableItemObject = Instantiate(expandableItemPrefab, viewContainer);
+                var newExpandableItemObject = Instantiate(_expandableItemPrefab, viewContainer);
                 var newExpandableItem = newExpandableItemObject.GetComponent<ExpandableItem>();
                 newExpandableItem.HeaderText = categoryString;
-                blockCategories[category] = newExpandableItem;
+                _blockCategories[category] = newExpandableItem;
             }
 
-            var categoryItem = blockCategories[category];
+            var categoryItem = _blockCategories[category];
             base.OnAdd(observer, categoryItem.content);
         }
 

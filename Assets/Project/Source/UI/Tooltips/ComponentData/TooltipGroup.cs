@@ -21,7 +21,7 @@ namespace Exa.UI.Tooltips
 
         public TooltipComponentView InstantiateComponentView(Transform parent)
         {
-            return Systems.UI.tooltips.tooltipGenerator.GenerateTooltipGroup(parent, this);
+            return Systems.Ui.tooltips.tooltipGenerator.GenerateTooltipGroup(parent, this);
         }
     }
 }

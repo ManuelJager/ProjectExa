@@ -8,15 +8,15 @@ namespace Exa.Grids.Blocks.Components
         where T : struct, ITurretValues
     {
         [Header("References")]
-        [SerializeField] private Transform turret;
+        [SerializeField] private Transform _turret;
 
-        private float timeSinceFire;
+        private float _timeSinceFire;
 
         public ITarget Target { get; set; }
 
         public void Update()
         {
-            timeSinceFire += Time.deltaTime;
+            _timeSinceFire += Time.deltaTime;
 
             if (Target == null)
             {
@@ -31,10 +31,10 @@ namespace Exa.Grids.Blocks.Components
             var targetAngle = difference.GetAngle();
             RotateTowards(targetAngle);
 
-            var currentAngle = turret.rotation.eulerAngles.z;
-            if (WithinFiringFrustum(currentAngle, targetAngle) && timeSinceFire > data.FiringRate)
+            var currentAngle = _turret.rotation.eulerAngles.z;
+            if (WithinFiringFrustum(currentAngle, targetAngle) && _timeSinceFire > data.FiringRate)
             {
-                timeSinceFire = 0f;
+                _timeSinceFire = 0f;
                 Fire();
             }
         }
@@ -42,7 +42,7 @@ namespace Exa.Grids.Blocks.Components
         // TODO: Actually rotate using the rotation speed
         public void RotateTowards(float angle)
         {
-            turret.rotation = Quaternion.Euler(0, 0, angle);
+            _turret.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         public abstract void Fire();

@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace Exa.CustomEditors
 {
-    [CustomEditor(typeof(UIAnimateable))]
+    [CustomEditor(typeof(UiAnimateable))]
     [CanEditMultipleObjects]
     public class UIAnimateableEditor : Editor
     {
@@ -31,7 +31,7 @@ namespace Exa.CustomEditors
             EditorGUILayout.PropertyField(msLocalAnimationOffset);
             EditorGUILayout.PropertyField(movementDirection);
 
-            if ((AnimationDirection)movementDirection.enumValueIndex != AnimationDirection.none)
+            if ((AnimationDirection)movementDirection.enumValueIndex != AnimationDirection.None)
             {
                 EditorGUI.indentLevel = 1;
                 EditorGUILayout.Slider(movementSmoothDamp, 0f, 1f);

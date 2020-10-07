@@ -6,15 +6,15 @@ namespace Exa.Debugging
 {
     public class ExaConsole : MonoBehaviour
     {
-        private Console console;
+        private Console _console;
 
         private void Start()
         {
-            console = Systems.UI.console;
+            _console = Systems.Ui.console;
 
-            console.Container.AddGetter(() => new ClsCommand());
-            console.Container.AddGetter(() => new SpawnCommand());
-            console.Container.AddGetter(() => new ToggleDiagnosticsCommand());
+            _console.Container.AddGetter(() => new ClsCommand());
+            _console.Container.AddGetter(() => new SpawnCommand());
+            _console.Container.AddGetter(() => new ToggleDiagnosticsCommand());
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Exa.IO
 {
-    public static partial class IOUtils
+    public static partial class IoUtils
     {
         public static string CombinePathWithDataPath(params string[] paths)
         {

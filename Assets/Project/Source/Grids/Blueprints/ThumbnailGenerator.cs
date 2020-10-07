@@ -5,14 +5,14 @@ namespace Exa.Grids.Blueprints
 {
     public class ThumbnailGenerator : MonoBehaviour
     {
-        [SerializeField] private Color backgroundColor;
-        [SerializeField] private float padding;
+        [SerializeField] private Color _backgroundColor;
+        [SerializeField] private float _padding;
 
         private void Awake()
         {
-            RuntimePreviewGenerator.Padding = padding;
+            RuntimePreviewGenerator.Padding = _padding;
             RuntimePreviewGenerator.OrthographicMode = true;
-            RuntimePreviewGenerator.BackgroundColor = backgroundColor;
+            RuntimePreviewGenerator.BackgroundColor = _backgroundColor;
             RuntimePreviewGenerator.MarkTextureNonReadable = false;
         }
 
@@ -21,8 +21,8 @@ namespace Exa.Grids.Blueprints
             // Generate Ship
             foreach (var block in blueprint.Blocks)
             {
-                var blockGO = block.CreateInactiveInertBlockInGrid(transform);
-                blockGO.SetActive(true);
+                var blockGo = block.CreateInactiveInertBlockInGrid(transform);
+                blockGo.SetActive(true);
             }
 
             RuntimePreviewGenerator.PreviewDirection = transform.forward;

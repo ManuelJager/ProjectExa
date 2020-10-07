@@ -5,7 +5,7 @@
         public void OnBlueprintClear()
         {
             // Hide block ghost and ask user for blueprint clear confirmation
-            Systems.UI.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
+            Systems.Ui.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
             {
                 if (yes)
                 {
@@ -17,12 +17,12 @@
 
         public void OnOverlayPointerEnter()
         {
-            MouseOverUI = true;
+            MouseOverUi = true;
         }
 
         public void OnOverlayPointerExit()
         {
-            MouseOverUI = false;
+            MouseOverUi = false;
         }
 
         public void OnBlueprintChanged()
@@ -59,13 +59,13 @@
             UpdateSaveButtonActive();
 
             // Set the value of the observable
-            container.SetData(editorGrid.blueprintLayer.ActiveBlueprint, false);
+            _container.SetData(editorGrid.blueprintLayer.ActiveBlueprint, false);
 
             // Save the blueprint, generate the thumbnail
-            saveCallback(container);
+            _saveCallback(_container);
 
             // Notify after saving as observers require the thumbnail to be generated
-            container.Notify();
+            _container.Notify();
         }
     }
 }

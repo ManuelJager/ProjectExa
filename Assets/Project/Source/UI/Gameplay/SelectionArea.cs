@@ -4,14 +4,14 @@ namespace Exa.UI.Gameplay
 {
     public class SelectionArea : MonoBehaviour
     {
-        [SerializeField] private RectTransform rect;
-        private Vector2 startWorldPoint;
-        private Vector2 endWorldPoint;
+        [SerializeField] private RectTransform _rect;
+        private Vector2 _startWorldPoint;
+        private Vector2 _endWorldPoint;
 
         private void Awake()
         {
-            startWorldPoint = Vector2.zero;
-            endWorldPoint = Vector2.zero;
+            _startWorldPoint = Vector2.zero;
+            _endWorldPoint = Vector2.zero;
         }
 
         private void Update()
@@ -21,26 +21,26 @@ namespace Exa.UI.Gameplay
 
         public void Show(Vector2 startWorldPoint)
         {
-            rect.gameObject.SetActive(true);
-            this.startWorldPoint = startWorldPoint;
+            _rect.gameObject.SetActive(true);
+            this._startWorldPoint = startWorldPoint;
             SetEnd(startWorldPoint);
         }
 
         public void SetEnd(Vector2 endWorldPoint)
         {
-            this.endWorldPoint = endWorldPoint;
+            this._endWorldPoint = endWorldPoint;
             SetPosition();
         }
 
         public void Hide()
         {
-            rect.gameObject.SetActive(false);
+            _rect.gameObject.SetActive(false);
         }
 
         private void SetPosition()
         {
-            var start = GetScreenSpace(startWorldPoint);
-            var end = GetScreenSpace(endWorldPoint);
+            var start = GetScreenSpace(_startWorldPoint);
+            var end = GetScreenSpace(_endWorldPoint);
 
             var min = new Vector2
             {
@@ -54,8 +54,8 @@ namespace Exa.UI.Gameplay
                 y = Mathf.Max(start.y, end.y)
             };
 
-            rect.anchoredPosition = min;
-            rect.sizeDelta = max - min;
+            _rect.anchoredPosition = min;
+            _rect.sizeDelta = max - min;
         }
 
         private Vector2 GetScreenSpace(Vector2 worldPos)

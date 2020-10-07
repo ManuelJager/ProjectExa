@@ -5,11 +5,11 @@ namespace Exa.UI.Diagnostics
 {
     public class FpsCounter : MonoBehaviour
     {
-        [SerializeField] private Text fpsText;
+        [SerializeField] private Text _fpsText;
 
         public void Update()
         {
-            fpsText.text = $"{Mathf.RoundToInt(1f / Time.smoothDeltaTime)} FPS";
+            _fpsText.text = $"{Mathf.RoundToInt(1f / Time.smoothDeltaTime)} FPS";
         }
     }
 }

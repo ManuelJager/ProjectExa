@@ -6,51 +6,51 @@ namespace Exa.UI.Gameplay
 {
     public class SelectionHotbar : MonoBehaviour
     {
-        [SerializeField] private Transform container;
-        [SerializeField] private GameObject selectionHotbarItemPrefab;
-        private Dictionary<int, SelectionHotbarItem> itemDict;
-        private int selectedIndex;
+        [SerializeField] private Transform _container;
+        [SerializeField] private GameObject _selectionHotbarItemPrefab;
+        private Dictionary<int, SelectionHotbarItem> _itemDict;
+        private int _selectedIndex;
 
         public SelectionHotbarItem CurrentSelection
         {
-            get => itemDict.ContainsKey(selectedIndex) 
-                    ? itemDict[selectedIndex] 
+            get => _itemDict.ContainsKey(_selectedIndex) 
+                    ? _itemDict[_selectedIndex] 
                     : null;
         }
 
         public bool HasSelected
         {
-            get => IsInRange(selectedIndex);
+            get => IsInRange(_selectedIndex);
         }
 
         private void Awake()
         {
-            itemDict = new Dictionary<int, SelectionHotbarItem>();
-            selectedIndex = -1;
+            _itemDict = new Dictionary<int, SelectionHotbarItem>();
+            _selectedIndex = -1;
 
             CreatePrefabs();
         }
 
         public ShipSelection Select(int index = -1)
         {
-            if (IsInRange(selectedIndex))
+            if (IsInRange(_selectedIndex))
             {
-                var item = itemDict[selectedIndex];
+                var item = _itemDict[_selectedIndex];
                 item.Selected = false;
             }
 
             // If the selected index is the same as the current, treat it as it should be deselected
-            if (selectedIndex == index)
+            if (_selectedIndex == index)
             {
-                selectedIndex = -1;
+                _selectedIndex = -1;
                 return null;
             }
 
-            selectedIndex = index;
+            _selectedIndex = index;
 
-            if (IsInRange(selectedIndex))
+            if (IsInRange(_selectedIndex))
             {
-                var selection = itemDict[index];
+                var selection = _itemDict[index];
                 selection.Selected = true;
                 return Clone(selection.ShipSelection);
             }
@@ -60,9 +60,9 @@ namespace Exa.UI.Gameplay
 
         public void Save(ShipSelection selection)
         {
-            if (selectedIndex >= 0 && selectedIndex <= 9)
+            if (_selectedIndex >= 0 && _selectedIndex <= 9)
             {
-                var item = itemDict[selectedIndex];
+                var item = _itemDict[_selectedIndex];
                 item.ShipSelection = Clone(selection);
             }
         }
@@ -78,10 +78,10 @@ namespace Exa.UI.Gameplay
 
         private void CreatePrefab(int index)
         {
-            var itemGO = Instantiate(selectionHotbarItemPrefab, container);
-            var item = itemGO.GetComponent<SelectionHotbarItem>();
+            var itemGo = Instantiate(_selectionHotbarItemPrefab, _container);
+            var item = itemGo.GetComponent<SelectionHotbarItem>();
             item.Setup(index);
-            itemDict[index] = item;
+            _itemDict[index] = item;
         }
 
         private ShipSelection Clone(ShipSelection selection)

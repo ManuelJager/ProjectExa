@@ -8,11 +8,11 @@ namespace Exa.Validation
     /// </summary>
     public class ValidationErrorPanel : MonoBehaviour
     {
-        [SerializeField] private Text text;
+        [SerializeField] private Text _text;
 
         public string Text
         {
-            set => text.text = value;
+            set => _text.text = value;
         }
     }
 }

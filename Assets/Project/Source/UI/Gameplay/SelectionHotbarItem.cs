@@ -6,57 +6,57 @@ namespace Exa.UI.Gameplay
 {
     public class SelectionHotbarItem : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private Text text;
-        [SerializeField] private Color inactiveColor;
-        [SerializeField] private Color activeColor;
-        [SerializeField] private Color emptyColor;
-        private ShipSelection shipSelection;
-        private bool selected;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private Text _text;
+        [SerializeField] private Color _inactiveColor;
+        [SerializeField] private Color _activeColor;
+        [SerializeField] private Color _emptyColor;
+        private ShipSelection _shipSelection;
+        private bool _selected;
 
         private void Awake()
         {
-            selected = false;
+            _selected = false;
 
             UpdateView();
         }
 
         public void Setup(int index)
         {
-            text.text = index.ToString();
+            _text.text = index.ToString();
         }
 
         public ShipSelection ShipSelection
         {
-            get => shipSelection;
+            get => _shipSelection;
             set
             {
-                shipSelection = value;
+                _shipSelection = value;
                 UpdateView();
             }
         }
 
         public bool Selected
         {
-            get => selected;
+            get => _selected;
             set
             {
-                selected = value;
+                _selected = value;
                 UpdateView();
             }
         }
 
         private void UpdateView()
         {
-            canvasGroup.alpha = selected
+            _canvasGroup.alpha = _selected
                 ? 1f
                 : 0.6f;
 
-            text.color = shipSelection != null
-                ? selected
-                    ? activeColor
-                    : inactiveColor
-                : emptyColor;
+            _text.color = _shipSelection != null
+                ? _selected
+                    ? _activeColor
+                    : _inactiveColor
+                : _emptyColor;
         }
     }
 }

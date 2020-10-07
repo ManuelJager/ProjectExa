@@ -7,15 +7,15 @@ namespace Exa.ShipEditor
     [RequireComponent(typeof(ShipEditor))]
     public class ShipEditorNavigateable : ReturnNavigateable
     {
-        [SerializeField] private ShipEditor shipEditor;
+        [SerializeField] private ShipEditor _shipEditor;
 
         protected override void Return(bool force = false)
         {
             if (!Interactable) return;
 
-            if (!shipEditor.IsSaved)
+            if (!_shipEditor.IsSaved)
             {
-                Systems.UI.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, (yes) =>
+                Systems.Ui.promptController.PromptYesNo("Are you sure you want to exit without saving?", _shipEditor, (yes) =>
                 {
                     if (yes)
                     {

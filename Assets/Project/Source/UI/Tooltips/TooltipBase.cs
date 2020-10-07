@@ -26,7 +26,7 @@ namespace Exa.UI.Tooltips
             edge.x += 4f;
             edge.y += 4f;
 
-            var rootRect = Systems.UI.rootTransform.rect;
+            var rootRect = Systems.Ui.rootTransform.rect;
 
             // Calculate position offset
             var offset = new Vector2

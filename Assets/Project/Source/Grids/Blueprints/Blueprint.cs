@@ -11,7 +11,7 @@ namespace Exa.Grids.Blueprints
 {
     public class Blueprint : ICloneable<Blueprint>
     {
-        public static readonly string DEFAULT_BLUEPRINT_NAME = "New blueprint";
+        public static readonly string DefaultBlueprintName = "New blueprint";
 
         public string name;
         public string shipClass;

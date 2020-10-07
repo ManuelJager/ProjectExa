@@ -3,7 +3,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Exa.IO
 {
-    public static partial class IOUtils
+    public static partial class IoUtils
     {
         public static bool TryBinaryDeserializeFromPath<T>(out T result, string filePath)
             where T : class

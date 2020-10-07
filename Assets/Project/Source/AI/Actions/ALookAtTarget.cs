@@ -3,7 +3,7 @@ using Exa.Ships.Targetting;
 
 namespace Exa.AI
 {
-    public class ALookAtTarget : ShipAIAction
+    public class ALookAtTarget : ShipAiAction
     {
         public override ActionLane Lanes => ActionLane.Rotation;
 

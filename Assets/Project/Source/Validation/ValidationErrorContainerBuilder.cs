@@ -6,8 +6,8 @@ namespace Exa.Validation
 {
     public class ValidationErrorContainerBuilder : IBuilder<ValidationErrorContainer>
     {
-        private readonly ValidationErrorContainer container;
-        private bool onUnhandledErrorSet;
+        private readonly ValidationErrorContainer _container;
+        private bool _onUnhandledErrorSet;
 
         /// <summary>
         /// Get the error handler for a given validator
@@ -16,11 +16,11 @@ namespace Exa.Validation
         /// <returns></returns>
         private Dictionary<string, Action<ValidationError>> GetHandlerDictionary(IValidator validator)
         {
-            if (!container.errorHandlers.ContainsKey(validator))
+            if (!_container.errorHandlers.ContainsKey(validator))
             {
-                container.errorHandlers[validator] = new Dictionary<string, Action<ValidationError>>();
+                _container.errorHandlers[validator] = new Dictionary<string, Action<ValidationError>>();
             }
-            return container.errorHandlers[validator];
+            return _container.errorHandlers[validator];
         }
 
         /// <summary>
@@ -30,17 +30,17 @@ namespace Exa.Validation
         /// <returns></returns>
         private Dictionary<string, Action<ValidationError>> GetCleanerDictionary(IValidator validator)
         {
-            if (!container.errorHandlers.ContainsKey(validator))
+            if (!_container.errorHandlers.ContainsKey(validator))
             {
-                container.errorHandlers[validator] = new Dictionary<string, Action<ValidationError>>();
+                _container.errorHandlers[validator] = new Dictionary<string, Action<ValidationError>>();
             }
-            return container.errorHandlers[validator];
+            return _container.errorHandlers[validator];
         }
 
         public ValidationErrorContainerBuilder()
         {
-            container = new ValidationErrorContainer();
-            onUnhandledErrorSet = false;
+            _container = new ValidationErrorContainer();
+            _onUnhandledErrorSet = false;
         }
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace Exa.Validation
         /// <returns>Builder</returns>
         public ValidationErrorContainerBuilder OnUnhandledError(Action<ValidationError> fallbackHandler, Action<ValidationError> fallbackCleaner)
         {
-            container.defaultErrorHandler = fallbackHandler;
-            container.defaultErrorCleaner = fallbackCleaner;
-            onUnhandledErrorSet = true;
+            _container.defaultErrorHandler = fallbackHandler;
+            _container.defaultErrorCleaner = fallbackCleaner;
+            _onUnhandledErrorSet = true;
             return this;
         }
 
@@ -80,12 +80,12 @@ namespace Exa.Validation
         /// <returns></returns>
         public ValidationErrorContainer Build()
         {
-            if (!onUnhandledErrorSet)
+            if (!_onUnhandledErrorSet)
             {
                 throw new BuilderException("OnUnhandledError must be called");
             }
 
-            return container;
+            return _container;
         }
     }
 }

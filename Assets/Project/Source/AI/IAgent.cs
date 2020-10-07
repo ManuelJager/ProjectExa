@@ -2,6 +2,6 @@
 {
     public interface IAgent
     {
-        void AIUpdate();
+        void AiUpdate();
     }
 }

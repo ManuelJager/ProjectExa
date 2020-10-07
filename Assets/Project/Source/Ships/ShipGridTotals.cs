@@ -5,18 +5,18 @@ namespace Exa.Ships
 {
     public class ShipGridTotals : GridTotals
     {
-        private readonly Ship ship;
+        private readonly Ship _ship;
 
         public ShipGridTotals(Ship ship)
         {
-            this.ship = ship;
+            this._ship = ship;
         }
 
         public override float Mass
         {
             set
             {
-                ship.rb.mass = value;
+                _ship.rb.mass = value;
                 base.Mass = value;
             }
         }

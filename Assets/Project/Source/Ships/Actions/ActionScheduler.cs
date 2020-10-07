@@ -9,33 +9,33 @@ namespace Exa.Ships
 {
     public class ActionScheduler
     {
-        private readonly Ship ship;
-        private readonly List<ShipAction> shipActions = new List<ShipAction>();
-        private readonly float generation;
-        private float stored;
-        private readonly float storage;
+        private readonly Ship _ship;
+        private readonly List<ShipAction> _shipActions = new List<ShipAction>();
+        private readonly float _generation;
+        private float _stored;
+        private readonly float _storage;
 
         public ActionScheduler(Ship ship)
         {
-            this.ship = ship;
-            this.generation = 50f;
-            this.stored = 500f;
-            this.storage = 500f;
+            this._ship = ship;
+            this._generation = 50f;
+            this._stored = 500f;
+            this._storage = 500f;
         }
 
         public void Add(ShipAction shipAction)
         {
-            shipActions.Add(shipAction);
+            _shipActions.Add(shipAction);
         }
 
         public void Remove(ShipAction shipAction)
         {
-            shipActions.Remove(shipAction);
+            _shipActions.Remove(shipAction);
         }
 
         public void ExecuteActions(float deltaTime)
         {
-            stored += generation * deltaTime;
+            _stored += _generation * deltaTime;
 
             foreach (var actionCache in SortActions(deltaTime))
             {
@@ -50,20 +50,20 @@ namespace Exa.Ships
                 }
 
                 actionCache.action.Update(energyCoefficient, deltaTime);
-                stored -= energyTaken;
+                _stored -= energyTaken;
             }
 
-            if (stored < 0)
+            if (_stored < 0)
             {
                 Debug.Log("Current energy level below 0. This should never happen");
             }
 
-            if (stored > storage)
+            if (_stored > _storage)
             {
-                stored = storage;
+                _stored = _storage;
             }
 
-            ship.overlay.overlayEnergyBar.SetFill(stored / storage);
+            _ship.overlay.overlayEnergyBar.SetFill(_stored / _storage);
         }
 
         /// <summary>
@@ -73,12 +73,12 @@ namespace Exa.Ships
         /// <returns>The amount of energy taken</returns>
         private float TryTake(float energy)
         {
-            return stored - Mathf.Clamp(stored - energy, 0, float.MaxValue);
+            return _stored - Mathf.Clamp(_stored - energy, 0, float.MaxValue);
         }
 
         private IEnumerable<ActionCache> SortActions(float deltaTime)
         {
-            return shipActions
+            return _shipActions
                 .Select((action) => new ActionCache
                 {
                     consumption = action.CalculateConsumption(deltaTime),

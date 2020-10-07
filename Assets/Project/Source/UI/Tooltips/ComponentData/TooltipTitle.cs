@@ -4,22 +4,22 @@ namespace Exa.UI.Tooltips
 {
     public struct TooltipTitle : ITooltipComponent
     {
-        private readonly bool animated;
+        private readonly bool _animated;
 
         public string Text { get; private set; }
 
         public TooltipTitle(string text, bool animated = true)
         {
-            this.animated = animated;
+            this._animated = animated;
 
             Text = text;
         }
 
         public TooltipComponentView InstantiateComponentView(Transform parent)
         {
-            var titleView = Systems.UI.tooltips.tooltipGenerator.GenerateTooltipTitle(parent, this);
+            var titleView = Systems.Ui.tooltips.tooltipGenerator.GenerateTooltipTitle(parent, this);
 
-            if (animated)
+            if (_animated)
             {
                 titleView.AddAnimator();
             }

@@ -2,26 +2,26 @@
 {
     public partial class GameplayInputManager
     {
-        private IRaycastTarget raycastTarget = null;
-        private ShipSelection currentSelection;
+        private IRaycastTarget _raycastTarget = null;
+        private ShipSelection _currentSelection;
 
         private bool HasSelection
         {
-            get => currentSelection != null;
+            get => _currentSelection != null;
         }
 
         private bool IsSelectingArea
         {
-            get => selectionBuilder != null;
+            get => _selectionBuilder != null;
         }
 
         public ShipSelection CurrentSelection
         {
-            get => currentSelection;
+            get => _currentSelection;
             set
             {
-                currentSelection = value;
-                GameSystems.UI.selectionOverlay.Reflect(value);
+                _currentSelection = value;
+                GameSystems.Ui.selectionOverlay.Reflect(value);
             }
         }
     }

@@ -34,17 +34,17 @@ namespace Exa.Grids.Blueprints
 
         public GameObject CreateInactiveInertBlockInGrid(Transform parent)
         {
-            var blockGO = Systems.Blocks.GetInactiveInertBlock(blueprintBlock.id, parent);
-            this.SetupGameObject(blockGO);
-            return blockGO;
+            var blockGo = Systems.Blocks.GetInactiveInertBlock(blueprintBlock.id, parent);
+            this.SetupGameObject(blockGo);
+            return blockGo;
         }
 
         public Block CreateInactiveBlockBehaviourInGrid(Transform parent, ShipContext blockPrefabType)
         {
             var block = Systems.Blocks.GetInactiveBlock(blueprintBlock.id, parent, blockPrefabType);
-            var blockGO = block.gameObject;
+            var blockGo = block.gameObject;
             block.anchoredBlueprintBlock = this;
-            this.SetupGameObject(blockGO);
+            this.SetupGameObject(blockGo);
             return block;
         }
         
