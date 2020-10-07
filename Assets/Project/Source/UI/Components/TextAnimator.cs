@@ -12,54 +12,54 @@ namespace Exa.UI
 {
     public class TextAnimator : MonoBehaviour
     {
-        [SerializeField] private float _charTime;
-        [SerializeField] private Text _text;
-        [SerializeField] private bool _animateOnEnable = true;
-        [SerializeField] private float _animateOnEnableDelay = 0f;
-        private float _startTime;
-        private SignificantCharStringReader _stringReader;
-        private bool _animating;
+        [SerializeField] private float charTime;
+        [SerializeField] private Text text;
+        [SerializeField] private bool animateOnEnable = true;
+        [SerializeField] private float animateOnEnableDelay = 0f;
+        private float startTime;
+        private SignificantCharStringReader stringReader;
+        private bool animating;
 
         public void OnEnable()
         {
-            if (!_animateOnEnable) return;
+            if (!animateOnEnable) return;
 
-            var enumerator = EnumeratorUtils.Delay(() => AnimateTo(_text.text), _animateOnEnableDelay);
+            var enumerator = EnumeratorUtils.Delay(() => AnimateTo(text.text), animateOnEnableDelay);
             StartCoroutine(enumerator);
         }
 
         public void AnimateTo(string str)
         {
-            _text.text = "";
-            _animating = true;
-            _startTime = Time.time;
-            _stringReader = new SignificantCharStringReader(str);
+            text.text = "";
+            animating = true;
+            startTime = Time.time;
+            stringReader = new SignificantCharStringReader(str);
         }
 
         public void Update()
         {
-            if (!_animating) return;
+            if (!animating) return;
 
-            var timeSinceStart = Time.time - _startTime;
-            var charIndex = Mathf.FloorToInt(timeSinceStart / _charTime);
+            var timeSinceStart = Time.time - startTime;
+            var charIndex = Mathf.FloorToInt(timeSinceStart / charTime);
 
             try
             {
-                var targetString = _stringReader.GetStringToSignificantIndex(charIndex);
+                var targetString = stringReader.GetStringToSignificantIndex(charIndex);
                 
-                if (targetString == _stringReader.Str)
+                if (targetString == stringReader.Str)
                 {
-                    _text.text = _stringReader.Str;
-                    _animating = false;
+                    text.text = stringReader.Str;
+                    animating = false;
                     return;
                 }
 
-                _text.text = (targetString + StringExtensions.GetRandomChar()).PadRight(_stringReader.Str.Length);
+                text.text = (targetString + StringExtensions.GetRandomChar()).PadRight(stringReader.Str.Length);
             }
             catch (IndexOutOfRangeException)
             {
-                _text.text = _stringReader.Str;
-                _animating = false;
+                text.text = stringReader.Str;
+                animating = false;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Exa.UI
         {
             public int SignificantSize { get; private set; }
             public string Str { get; private set; }
-            private Dictionary<int, int> _indices;
+            private Dictionary<int, int> indices;
 
 
             public SignificantCharStringReader(string str)
@@ -84,7 +84,7 @@ namespace Exa.UI
                 }
 
                 var builder = new StringBuilder();
-                var realIndex = _indices[index];
+                var realIndex = indices[index];
 
                 for (var i = 0; i <= realIndex; i++)
                 {
@@ -96,14 +96,14 @@ namespace Exa.UI
 
             private void BuildIndices()
             {
-                _indices = new Dictionary<int, int>(Str.Length);
+                indices = new Dictionary<int, int>(Str.Length);
                 var significantIndex = 0;
                 for (var i = 0; i < Str.Length; i++)
                 {
                     var currentChar = Str[i];
                     if (currentChar == ' ' || currentChar == '\t') continue;
 
-                    _indices[significantIndex] = i;
+                    indices[significantIndex] = i;
                     significantIndex++;
                 }
 

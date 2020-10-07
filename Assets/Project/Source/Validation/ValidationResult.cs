@@ -7,13 +7,13 @@ namespace Exa.Validation
 {
     public class ValidationResult : IEnumerable<ValidationError>
     {
-        private readonly List<ValidationError> _collection;
+        private readonly List<ValidationError> collection;
 
         public IValidator Validator { get; private set; }
 
         public ValidationResult(IValidator validator)
         {
-            _collection = new List<ValidationError>();
+            collection = new List<ValidationError>();
             Validator = validator;
         }
 
@@ -22,7 +22,7 @@ namespace Exa.Validation
         {
             var error = Activator.CreateInstance(typeof(TError)) as TError;
             error.Message = errorMessage;
-            _collection.Add(error);
+            collection.Add(error);
         }
 
         /// <summary>
@@ -57,12 +57,12 @@ namespace Exa.Validation
 
         public IEnumerator<ValidationError> GetEnumerator()
         {
-            return _collection.GetEnumerator();
+            return collection.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _collection.GetEnumerator();
+            return collection.GetEnumerator();
         }
 
         public static implicit operator bool(ValidationResult errors)

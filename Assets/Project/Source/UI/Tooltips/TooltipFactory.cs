@@ -5,30 +5,30 @@ namespace Exa.UI.Tooltips
 {
     public class TooltipFactory : MonoBehaviour
     {
-        [SerializeField] private GameObject _propertyPrefab;
-        [SerializeField] private GameObject _groupPrefab;
-        [SerializeField] private GameObject _titlePrefab;
-        [SerializeField] private GameObject _spacerPrefab;
-        [SerializeField] private GameObject _textPrefab;
+        [SerializeField] private GameObject propertyPrefab;
+        [SerializeField] private GameObject groupPrefab;
+        [SerializeField] private GameObject titlePrefab;
+        [SerializeField] private GameObject spacerPrefab;
+        [SerializeField] private GameObject textPrefab;
 
-        private Tooltip _currentTooltip;
+        private Tooltip currentTooltip;
 
         public GroupView CreateRootView(Tooltip tooltip, Transform parent)
         {
-            _currentTooltip = tooltip;
+            currentTooltip = tooltip;
             var container = tooltip.GetRootData();
             var root = container.InstantiateComponentView(parent) as GroupView;
-            _currentTooltip = null;
+            currentTooltip = null;
             return root;
         }
 
         public PropertyView GenerateTooltipProperty(Transform parent, ILabeledValue<object> value)
         {
-            var view = CreateComponent<PropertyView>(_propertyPrefab, parent, value);
+            var view = CreateComponent<PropertyView>(propertyPrefab, parent, value);
 
-            if (_currentTooltip.Font)
+            if (currentTooltip.Font)
             {
-                view.SetFont(_currentTooltip.Font);
+                view.SetFont(currentTooltip.Font);
             }
 
             return view;
@@ -36,16 +36,16 @@ namespace Exa.UI.Tooltips
 
         public GroupView GenerateTooltipGroup(Transform parent, TooltipGroup value)
         {
-            return CreateComponent<GroupView>(_groupPrefab, parent, value);
+            return CreateComponent<GroupView>(groupPrefab, parent, value);
         }
 
         public TitleView GenerateTooltipTitle(Transform parent, TooltipTitle value)
         {
-            var view = CreateComponent<TitleView>(_titlePrefab, parent, value);
+            var view = CreateComponent<TitleView>(titlePrefab, parent, value);
 
-            if (_currentTooltip.Font)
+            if (currentTooltip.Font)
             {
-                view.SetFont(_currentTooltip.Font);
+                view.SetFont(currentTooltip.Font);
             }
 
             return view;
@@ -53,16 +53,16 @@ namespace Exa.UI.Tooltips
 
         public SpacerView GenerateTooltipSpacer(Transform parent, TooltipSpacer value)
         {
-            return CreateComponent<SpacerView>(_spacerPrefab, parent, value);
+            return CreateComponent<SpacerView>(spacerPrefab, parent, value);
         }
 
         public TextView GenerateTooltipText(Transform parent, TooltipText value)
         {
-            var view = CreateComponent<TextView>(_textPrefab, parent, value);
+            var view = CreateComponent<TextView>(textPrefab, parent, value);
 
-            if (_currentTooltip.Font)
+            if (currentTooltip.Font)
             {
-                view.SetFont(_currentTooltip.Font);
+                view.SetFont(currentTooltip.Font);
             }
 
             return view;

@@ -16,32 +16,32 @@ namespace Exa.Pooling
     {
         public int totalMembers = 0;
 
-        private PoolSettings _poolSettings;
-        private Stack<T> _poolMembers = new Stack<T>();
+        private PoolSettings poolSettings;
+        private Stack<T> poolMembers = new Stack<T>();
 
         private void Update()
         {
             // Grow the queue
-            if (_poolSettings.growToPreferredSize && _poolMembers.Count < _poolSettings.preferredSize)
+            if (poolSettings.growToPreferredSize && poolMembers.Count < poolSettings.preferredSize)
             {
-                _poolMembers.Push(InstantiatePrefab());
+                poolMembers.Push(InstantiatePrefab());
             }
         }
 
         public virtual void Configure(PoolSettings poolSettings)
         {
-            this._poolSettings = poolSettings;
+            this.poolSettings = poolSettings;
 
-            foreach (var poolMember in _poolMembers)
+            foreach (var poolMember in poolMembers)
             {
                 Destroy(poolMember.gameObject);
             }
 
-            _poolMembers = new Stack<T>(poolSettings.maxSize);
+            poolMembers = new Stack<T>(poolSettings.maxSize);
 
             for (int i = 0; i < poolSettings.preferredSize; i++)
             {
-                _poolMembers.Push(InstantiatePrefab());
+                poolMembers.Push(InstantiatePrefab());
             }
         }
 
@@ -62,17 +62,17 @@ namespace Exa.Pooling
 
         protected virtual T TryPop()
         {
-            if (_poolMembers.Count == 0)
+            if (poolMembers.Count == 0)
             {
                 return InstantiatePrefab();
             }
 
-            return _poolMembers.Pop();
+            return poolMembers.Pop();
         }
 
         protected virtual bool TryPush(T poolMember)
         {
-            if (_poolMembers.Count > _poolSettings.maxSize)
+            if (poolMembers.Count > poolSettings.maxSize)
             {
                 Destroy(poolMember.gameObject);
                 return false;
@@ -81,7 +81,7 @@ namespace Exa.Pooling
             Action action = () => poolMember.transform.SetParent(transform);
             var enumerator = EnumeratorUtils.DelayOneFrame(action);
             Systems.Instance.StartCoroutine(enumerator);
-            _poolMembers.Push(poolMember);
+            poolMembers.Push(poolMember);
             return true;
         }
 
@@ -89,23 +89,13 @@ namespace Exa.Pooling
         protected virtual T InstantiatePrefab()
         {
             totalMembers++;
-            var poolMemberGo = Instantiate(_poolSettings.prefab, transform);
-            poolMemberGo.name = $"{_poolSettings.prefab.name} ({totalMembers})";
+            var poolMemberGO = Instantiate(poolSettings.prefab, transform);
+            poolMemberGO.name = $"{poolSettings.prefab.name} ({totalMembers})";
 
-            var poolMember = poolMemberGo.AddComponent<T>();
+            var poolMember = poolMemberGO.AddComponent<T>();
             poolMember.pool = this as Pool<PoolMember>;
 
             return poolMember;
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _poolMembers.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _poolMembers.GetEnumerator();
         }
     }
 }

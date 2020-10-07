@@ -33,7 +33,7 @@ namespace Exa.Gameplay
             }
         }
 
-        private readonly Dictionary<Ship, UnityAction> _callbackDict = new Dictionary<Ship, UnityAction>();
+        private readonly Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
 
         public override void Add(Ship ship)
         {
@@ -43,7 +43,7 @@ namespace Exa.Gameplay
 
             // Set a callback that removes the Ship from the collection when destroyed
             UnityAction callback = () => Remove(ship);
-            _callbackDict.Add(ship, callback);
+            callbackDict.Add(ship, callback);
             ship.destroyEvent.AddListener(callback);
         }
 
@@ -68,8 +68,8 @@ namespace Exa.Gameplay
             ship.overlay.overlayCircle.IsSelected = false;
 
             // Get the callback and remove it
-            var callback = _callbackDict[ship];
-            _callbackDict.Remove(ship);
+            var callback = callbackDict[ship];
+            callbackDict.Remove(ship);
             ship.destroyEvent.RemoveListener(callback);
         }
 

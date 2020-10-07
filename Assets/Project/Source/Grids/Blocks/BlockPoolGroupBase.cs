@@ -12,17 +12,17 @@ namespace Exa.Grids.Blocks
     {
         protected Dictionary<string, IPool<PoolMember>> poolById = new Dictionary<string, IPool<PoolMember>>();
 
-        [SerializeField] private PoolSettings _defaultPoolSettings;
+        [SerializeField] private PoolSettings defaultPoolSettings;
 
         protected abstract PrefabType PrefabType { get; }
 
         public GameObject GetInactiveBlock(string id, Transform parent)
         {
-            var blockGo = poolById[id].Retrieve().gameObject;
+            var blockGO = poolById[id].Retrieve().gameObject;
 
-            blockGo.transform.SetParent(parent);
+            blockGO.transform.SetParent(parent);
 
-            return blockGo;
+            return blockGO;
         }
 
         /// <summary>
@@ -43,12 +43,12 @@ namespace Exa.Grids.Blocks
         protected T CreatePool<T>(GameObject prefab, string name, out PoolSettings settings)
             where T : Component, IPool<PoolMember>
         {
-            var poolGo = new GameObject(name);
-            poolGo.transform.SetParent(transform);
+            var poolGO = new GameObject(name);
+            poolGO.transform.SetParent(transform);
 
-            var pool = poolGo.AddComponent<T>();
+            var pool = poolGO.AddComponent<T>();
 
-            settings = _defaultPoolSettings.Clone();
+            settings = defaultPoolSettings.Clone();
             settings.prefab = prefab;
 
             return pool;
@@ -58,10 +58,10 @@ namespace Exa.Grids.Blocks
         {
             switch (prefabType)
             {
-                case PrefabType.Inert:
+                case PrefabType.inert:
                     return blockTemplate.inertPrefab;
 
-                case PrefabType.Alive:
+                case PrefabType.alive:
                     return blockTemplate.alivePrefab;
 
                 default:

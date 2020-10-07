@@ -7,13 +7,13 @@ namespace Exa.Grids.Blocks
 {
     public enum PrefabType
     {
-        Inert,
-        Alive
+        inert,
+        alive
     }
 
     public class InertBlockPoolGroup : BlockPoolGroupBase
     {
-        protected override PrefabType PrefabType => PrefabType.Inert; 
+        protected override PrefabType PrefabType => PrefabType.inert; 
 
         /// <summary>
         /// Creates an inert block prefab on this group

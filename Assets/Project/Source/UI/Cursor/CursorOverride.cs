@@ -3,7 +3,7 @@
     public class CursorOverride
     {
         public readonly CursorState cursorState;
-        private readonly object _invoker;
+        private readonly object invoker;
 
         public CursorOverride(CursorState cursorState)
         {

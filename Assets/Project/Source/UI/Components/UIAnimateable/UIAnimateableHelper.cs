@@ -1,6 +1,6 @@
 ﻿namespace Exa.UI.Components
 {
-    public static class UiAnimateableHelper
+    public static class UIAnimateableHelper
     {
         public static int GetRotation(this AnimationDirection animationDirection)
         {

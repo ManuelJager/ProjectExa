@@ -8,9 +8,9 @@ namespace Exa.UI.Controls
     {
         public Button button;
 
-        [SerializeField] private Text _text;
-        [SerializeField] private Color _activeColor;
-        [SerializeField] private Color _inactiveColor;
+        [SerializeField] private Text text;
+        [SerializeField] private Color activeColor;
+        [SerializeField] private Color inactiveColor;
 
         private void Awake()
         {
@@ -19,12 +19,12 @@ namespace Exa.UI.Controls
 
         public string Text
         {
-            set => _text.text = value;
+            set => text.text = value;
         }
 
         public bool Selected
         {
-            set => _text.color = value ? _activeColor : _inactiveColor;
+            set => text.color = value ? activeColor : inactiveColor;
         }
     }
 }

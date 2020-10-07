@@ -5,17 +5,17 @@ namespace Exa.UI.Settings
 {
     public class SettingsReturnNavigateable : ReturnNavigateable
     {
-        [SerializeField] private SettingsTabManager _settingsTabManager;
+        [SerializeField] private SettingsTabManager settingsTabManager;
 
         protected override void Return(bool force = false)
         {
-            if (_settingsTabManager.activeSettingsTab.IsDirty)
+            if (settingsTabManager.activeSettingsTab.IsDirty)
             {
-                _settingsTabManager.QueryUserConfirmation((yes) =>
+                settingsTabManager.QueryUserConfirmation((yes) =>
                 {
                     if (yes)
                     {
-                        _settingsTabManager.activeSettingsTab.ApplyChanges();
+                        settingsTabManager.activeSettingsTab.ApplyChanges();
                     }
                     else
                     {

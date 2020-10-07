@@ -7,9 +7,9 @@ namespace Exa.ShipEditor
 {
     public class EditorGridGhostLayer : MonoBehaviour
     {
-        private bool _ghostVisible = true;
-        private bool _mirrorEnabled = false;
-        private bool _mouseOverUi = false;
+        private bool ghostVisible = true;
+        private bool mirrorEnabled = false;
+        private bool mouseOverUI = false;
 
         public GameObject ghostPrefab;
         public BlockGhost ghost;
@@ -22,10 +22,10 @@ namespace Exa.ShipEditor
         /// </summary>
         public bool GhostVisible
         {
-            get => _ghostVisible;
+            get => ghostVisible;
             set
             {
-                _ghostVisible = value;
+                ghostVisible = value;
 
                 CalculateGhostEnabled();
             }
@@ -36,10 +36,10 @@ namespace Exa.ShipEditor
         /// </summary>
         public bool MirrorEnabled
         {
-            get => _mirrorEnabled;
+            get => mirrorEnabled;
             set
             {
-                _mirrorEnabled = value;
+                mirrorEnabled = value;
 
                 CalculateGhostEnabled();
             }
@@ -48,12 +48,12 @@ namespace Exa.ShipEditor
         /// <summary>
         /// If player is hovering over ui
         /// </summary>
-        public bool MouseOverUi
+        public bool MouseOverUI
         {
-            get => _mouseOverUi;
+            get => mouseOverUI;
             set
             {
-                _mouseOverUi = value;
+                mouseOverUI = value;
 
                 CalculateGhostEnabled();
             }
@@ -125,13 +125,13 @@ namespace Exa.ShipEditor
         {
             ghost.gameObject.SetActive(
                 GhostVisible &&
-                !_mouseOverUi);
+                !mouseOverUI);
 
             mirrorGhost.gameObject.SetActive(
                 MirrorEnabled &&
                 GhostVisible &&
                 ghost.AnchoredBlueprintBlock.gridAnchor != mirrorGhost.AnchoredBlueprintBlock.gridAnchor
-                && !_mouseOverUi);
+                && !mouseOverUI);
         }
     }
 }

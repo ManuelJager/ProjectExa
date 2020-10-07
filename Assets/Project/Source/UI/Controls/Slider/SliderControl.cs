@@ -10,42 +10,42 @@ namespace Exa.UI.Controls
 {
     public class SliderControl : InputControl<float>
     {
-        [SerializeField] private Slider _slider;
-        [SerializeField] private ExtendedInputField _inputField;
+        [SerializeField] private Slider slider;
+        [SerializeField] private ExtendedInputField inputField;
         public override float CleanValue { get; set; }
 
         public override float Value
         {
-            get => _slider.value;
+            get => slider.value;
             set
             {
-                _slider.value = value;
-                _inputField.text = FormatFloat(value);
+                slider.value = value;
+                inputField.text = FormatFloat(value);
             }
         }
 
-        [SerializeField] private readonly SliderEvent _onValueChanged = new SliderEvent();
+        [SerializeField] private readonly SliderEvent onValueChanged = new SliderEvent();
 
-        public override UnityEvent<float> OnValueChange => _onValueChanged;
+        public override UnityEvent<float> OnValueChange => onValueChanged;
 
         private void Awake()
         {
-            _slider.onValueChanged.AddListener(OnSliderValueChanged);
-            _slider.onValueChanged.AddListener(_onValueChanged.Invoke);
-            _inputField.onValueChanged.AddListener(OnInputFieldValueChanged);
-            _inputField.onEndEdit.AddListener(OnInputFieldEndEdit);
-            _inputField.text = FormatFloat(_slider.value);
+            slider.onValueChanged.AddListener(OnSliderValueChanged);
+            slider.onValueChanged.AddListener(onValueChanged.Invoke);
+            inputField.onValueChanged.AddListener(OnInputFieldValueChanged);
+            inputField.onEndEdit.AddListener(OnInputFieldEndEdit);
+            inputField.text = FormatFloat(slider.value);
         }
 
         public void SetMinMax(MinMax<float> minMax)
         {
-            _slider.minValue = minMax.min;
-            _slider.maxValue = minMax.max;
+            slider.minValue = minMax.min;
+            slider.maxValue = minMax.max;
         }
 
         private void OnSliderValueChanged(float value)
         {
-            _inputField.text = FormatFloat(value);
+            inputField.text = FormatFloat(value);
         }
 
         private void OnInputFieldValueChanged(string value)
@@ -56,12 +56,12 @@ namespace Exa.UI.Controls
 
             if (!valid)
             {
-                _inputField.text = FormatFloat(_slider.value);
+                inputField.text = FormatFloat(slider.value);
                 return;
             }
 
-            if (floatValue < _slider.minValue) _inputField.text = FormatFloat(_slider.minValue);
-            if (floatValue > _slider.maxValue) _inputField.text = FormatFloat(_slider.maxValue);
+            if (floatValue < slider.minValue) inputField.text = FormatFloat(slider.minValue);
+            if (floatValue > slider.maxValue) inputField.text = FormatFloat(slider.maxValue);
         }
 
         private void OnInputFieldEndEdit(string value)
@@ -70,12 +70,12 @@ namespace Exa.UI.Controls
 
             if (valid)
             {
-                _slider.value = (float)System.Math.Round(floatValue, 2);
-                _onValueChanged.Invoke(floatValue);
+                slider.value = (float)System.Math.Round(floatValue, 2);
+                onValueChanged.Invoke(floatValue);
             }
             else
             {
-                _inputField.text = FormatFloat(_slider.value);
+                inputField.text = FormatFloat(slider.value);
             }
         }
 

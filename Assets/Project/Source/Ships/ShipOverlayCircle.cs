@@ -4,9 +4,9 @@ namespace Exa.Ships
 {
     public class ShipOverlayCircle : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup _canvasGroup;
-        private bool _isSelected;
-        private bool _isHovered;
+        [SerializeField] private CanvasGroup canvasGroup;
+        private bool isSelected;
+        private bool isHovered;
 
         private void Awake()
         {
@@ -15,20 +15,20 @@ namespace Exa.Ships
 
         public bool IsSelected
         {
-            private get => _isSelected;
+            private get => isSelected;
             set
             {
-                _isSelected = value;
+                isSelected = value;
                 CalculateState();
             }
         }
 
         public bool IsHovered
         {
-            private get => _isHovered;
+            private get => isHovered;
             set
             {
-                _isHovered = value;
+                isHovered = value;
                 CalculateState();
             }
         }
@@ -39,11 +39,11 @@ namespace Exa.Ships
 
             if (IsSelected)
             {
-                _canvasGroup.alpha = 0.5f;
+                canvasGroup.alpha = 0.5f;
             }
             else if (IsHovered)
             {
-                _canvasGroup.alpha = 0.2f;
+                canvasGroup.alpha = 0.2f;
             }
         }
     }

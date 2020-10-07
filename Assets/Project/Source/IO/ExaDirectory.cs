@@ -15,7 +15,7 @@ namespace Exa.IO
         internal ExaDirectory(string name, string value)
             : this(value)
         {
-            IoUtils.globalDirectories[name] = this;
+            IOUtils.GlobalDirectories[name] = this;
         }
 
         public static ExaDirectory Create(string value)

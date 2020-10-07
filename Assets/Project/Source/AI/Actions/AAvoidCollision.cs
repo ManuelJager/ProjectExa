@@ -16,17 +16,17 @@ namespace Exa.AI.Actions
     }
 
     // TODO: Use position prediction and target paths to increase accuracy
-    public class AAvoidCollision : ShipAiAction
+    public class AAvoidCollision : ShipAIAction
     {
         public override ActionLane Lanes => ActionLane.Movement;
 
-        private List<Ship> _neighbourCache;
-        private readonly AAvoidCollisionSettings _settings;
+        private List<Ship> neighbourCache;
+        private readonly AAvoidCollisionSettings settings;
 
         internal AAvoidCollision(Ship ship, AAvoidCollisionSettings settings) 
             : base(ship)
         {
-            this._settings = settings;
+            this.settings = settings;
         }
 
         public override ActionLane Update(ActionLane blockedLanes)
@@ -35,7 +35,7 @@ namespace Exa.AI.Actions
             var currentVel = ship.rb.velocity;
             var headingVector = currentVel.normalized;
 
-            foreach (var neighbour in _neighbourCache)
+            foreach (var neighbour in neighbourCache)
             {
                 var neighbourPos = neighbour.transform.position.ToVector2();
 
@@ -43,7 +43,7 @@ namespace Exa.AI.Actions
             }
 
             headingVector = headingVector.normalized;
-            var offset = Vector2.ClampMagnitude(headingVector * _settings.headingCorrectionMultiplier, _settings.detectionRadius);
+            var offset = Vector2.ClampMagnitude(headingVector * settings.headingCorrectionMultiplier, settings.detectionRadius);
             var target = new StaticPositionTarget(globalPos + offset);
 
             ship.Navigation.MoveTo = target;
@@ -58,10 +58,10 @@ namespace Exa.AI.Actions
             var shipMask = new ShipMask(~ShipContext.None);
             var shortestDistance = float.MaxValue;
 
-            _neighbourCache?.Clear();
-            _neighbourCache = _neighbourCache ?? new List<Ship>();
+            neighbourCache?.Clear();
+            neighbourCache = neighbourCache ?? new List<Ship>();
 
-            foreach (var neighbour in ship.QueryNeighbours<Ship>(_settings.detectionRadius, shipMask))
+            foreach (var neighbour in ship.QueryNeighbours<Ship>(settings.detectionRadius, shipMask))
             {
                 if (!ShouldYield(neighbour)) continue;
 
@@ -73,7 +73,7 @@ namespace Exa.AI.Actions
                     shortestDistance = dist;
                 }
 
-                _neighbourCache.Add(neighbour);
+                neighbourCache.Add(neighbour);
             }
 
             if (shortestDistance == float.MaxValue)
@@ -82,16 +82,16 @@ namespace Exa.AI.Actions
             }
 
             // Calculate the priority value due to distance to the shortest 
-            var distancePriority = (_settings.detectionRadius - shortestDistance) / _settings.detectionRadius * _settings.priorityMultiplier;
+            var distancePriority = (settings.detectionRadius - shortestDistance) / settings.detectionRadius * settings.priorityMultiplier;
 
-            return distancePriority + _settings.priorityBase;
+            return distancePriority + settings.priorityBase;
         }
 
         private void MofidyHeading(ref Vector2 heading, Vector2 direction, Ship other)
         {
             if (!ShouldYield(other)) return;
 
-            var headingModification = direction / _settings.detectionRadius;
+            var headingModification = direction / settings.detectionRadius;
             heading -= headingModification;
         }
 

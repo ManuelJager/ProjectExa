@@ -4,16 +4,16 @@ namespace Exa.Ships.Targetting
 {
     public struct StaticPositionTarget : ITarget
     {
-        private readonly Vector2 _position;
+        private readonly Vector2 position;
 
         public StaticPositionTarget(Vector2 position)
         {
-            this._position = position;
+            this.position = position;
         }
 
         public Vector2 GetPosition(Vector2 current)
         {
-            return _position;
+            return position;
         }
     }
 }

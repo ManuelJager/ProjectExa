@@ -9,31 +9,31 @@ using UnityEngine;
 
 namespace Exa.UI
 {
-    public class BlueprintSelector : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUiGroup
+    public class BlueprintSelector : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
     {
         public BlueprintContainerCollection collectionContext;
         public ShipEditor.ShipEditor shipEditor;
 
-        [SerializeField] private Navigateable _blueprintSelectorNavigateable;
-        [SerializeField] private Navigateable _shipEditorNavigateable;
-        [SerializeField] private BlueprintDetails _blueprintDetails;
+        [SerializeField] private Navigateable blueprintSelectorNavigateable;
+        [SerializeField] private Navigateable shipEditorNavigateable;
+        [SerializeField] private BlueprintDetails blueprintDetails;
 
-        private bool _interactible = true;
+        private bool interactible = true;
 
         public bool Interactable
         {
-            get => _interactible;
+            get => interactible;
             set
             {
-                _interactible = value;
+                interactible = value;
 
-                _blueprintSelectorNavigateable.Interactable = value;
+                blueprintSelectorNavigateable.Interactable = value;
             }
         }
 
         public void OnAddNewBlueprint()
         {
-            Systems.Ui.promptController.PromptForm(
+            Systems.UI.promptController.PromptForm(
                 message: "Add blueprint",
                 uiGroup: this,
                 modelDescriptor: new BlueprintOptionsDescriptor(),
@@ -48,7 +48,7 @@ namespace Exa.UI
 
             if (string.IsNullOrEmpty(clipboardText))
             {
-                Systems.Ui.logger.Log("Clipboard is empty");
+                Systems.UI.logger.Log("Clipboard is empty");
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace Exa.UI
 
             if (Systems.Blueprints.ContainsName(blueprint.name))
             {
-                Systems.Ui.logger.Log("Blueprint with given name already added");
+                Systems.UI.logger.Log("Blueprint with given name already added");
                 return;
             }
 
@@ -71,12 +71,12 @@ namespace Exa.UI
         {
             try
             {
-                blueprint = IoUtils.JsonDeserializeWithSettings<Blueprint>(json);
+                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(json);
                 return true;
             }
             catch
             {
-                Systems.Ui.logger.Log("Clipboard data is formatted incorrectly");
+                Systems.UI.logger.Log("Clipboard data is formatted incorrectly");
                 blueprint = null;
                 return false;
             }
@@ -90,9 +90,9 @@ namespace Exa.UI
             {
                 if (!Interactable) return;
 
-                _blueprintSelectorNavigateable.NavigateTo(_shipEditorNavigateable, new NavigationArgs
+                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs
                 {
-                    current = _blueprintSelectorNavigateable
+                    current = blueprintSelectorNavigateable
                 });
                 shipEditor.Import(container, TrySave);
             });
@@ -100,7 +100,7 @@ namespace Exa.UI
             {
                 if (!Interactable) return;
 
-                Systems.Ui.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
+                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
                 {
                     if (yes)
                     {
@@ -110,11 +110,11 @@ namespace Exa.UI
             });
             view.hoverable.onPointerEnter.AddListener(() =>
             {
-                _blueprintDetails.Reflect(container.Data);
+                blueprintDetails.Reflect(container.Data);
             });
             view.hoverable.onPointerExit.AddListener(() =>
             {
-                _blueprintDetails.Reflect(null);
+                blueprintDetails.Reflect(null);
             });
         }
 
@@ -136,14 +136,14 @@ namespace Exa.UI
 
             if (Systems.Blueprints.ContainsName(blueprint.name))
             {
-                Systems.Ui.logger.Log($"Blueprint name \"{blueprint.name}\" is already used");
+                Systems.UI.logger.Log($"Blueprint name \"{blueprint.name}\" is already used");
                 return;
             }
 
             var args = new BlueprintContainerArgs(blueprint);
             var container = new BlueprintContainer(args);
 
-            _blueprintSelectorNavigateable.NavigateTo(_shipEditorNavigateable);
+            blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable);
             shipEditor.Import(container, TrySave);
         }
     }

@@ -8,23 +8,23 @@ namespace Exa.Grids.Blueprints
 {
     public class BlueprintOptionsDescriptor : ModelDescriptor<BlueprintOptions>
     {
-        private string _blueprintName;
+        private string blueprintName;
 
-        private BlueprintType _blueprintClass;
+        private BlueprintType blueprintClass;
 
         public override BlueprintOptions FromDescriptor()
         {
-            return new BlueprintOptions(_blueprintName, _blueprintClass.typeGuid);
+            return new BlueprintOptions(blueprintName, blueprintClass.typeGuid);
         }
 
         public override void GenerateView(Transform container)
         {
-            Systems.Ui.controlFactory.CreateInputField(container, "Name", SetBlueprintName);
-            Systems.Ui.controlFactory.CreateDropdown(container, "Class", GetPossibleBlueprintClasses(), SetBlueprintClass, OnOptionCreation);
+            Systems.UI.controlFactory.CreateInputField(container, "Name", SetBlueprintName);
+            Systems.UI.controlFactory.CreateDropdown(container, "Class", GetPossibleBlueprintClasses(), SetBlueprintClass, OnOptionCreation);
         }
 
-        private void SetBlueprintName(string blueprintName) => this._blueprintName = blueprintName;
-        private void SetBlueprintClass(object blueprintClass) => this._blueprintClass = blueprintClass as BlueprintType;
+        private void SetBlueprintName(string blueprintName) => this.blueprintName = blueprintName;
+        private void SetBlueprintClass(object blueprintClass) => this.blueprintClass = blueprintClass as BlueprintType;
 
         private IEnumerable<LabeledValue<object>> GetPossibleBlueprintClasses()
         {
@@ -44,11 +44,11 @@ namespace Exa.Grids.Blueprints
             var hoverable = tab.gameObject.AddComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() =>
             {
-                Systems.Ui.tooltips.blueprintTypeTooltip.Show(value as BlueprintType);
+                Systems.UI.tooltips.blueprintTypeTooltip.Show(value as BlueprintType);
             });
             hoverable.onPointerExit.AddListener(() =>
             {
-                Systems.Ui.tooltips.blueprintTypeTooltip.Hide();
+                Systems.UI.tooltips.blueprintTypeTooltip.Hide();
             });
         }
     }

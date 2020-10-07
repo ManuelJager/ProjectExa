@@ -7,10 +7,10 @@ namespace Exa.Audio
     public class AudioManager : MonoBehaviour
     {
         public SoundBag soundBag;
-        public MusicTrack stAudioTrack;
-        public AudioTrack uiSfxAudioTrack;
+        public MusicTrack ST_AudioTrack;
+        public AudioTrack UI_SFX_AudioTrack;
 
-        private readonly Dictionary<string, Sound> _soundById = new Dictionary<string, Sound>();
+        private readonly Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
 
         private void Awake()
         {
@@ -26,20 +26,20 @@ namespace Exa.Audio
         /// <param name="soundId"></param>
         public void PlayGlobal(string soundId)
         {
-            if (!_soundById.ContainsKey(soundId))
+            if (!soundById.ContainsKey(soundId))
             {
                 UnityEngine.Debug.LogError($"{soundId} doesn't exist");
                 return;
             }
 
-            var sound = _soundById[soundId];
+            var sound = soundById[soundId];
 
             GetTrack(sound.audioType).PlayGlobal(sound);
         }
 
         public void Register(Sound sound)
         {
-            _soundById[sound.id] = sound;
+            soundById[sound.id] = sound;
             GetTrack(sound.audioType).Register(sound);
         }
 
@@ -47,11 +47,11 @@ namespace Exa.Audio
         {
             switch (audioType)
             {
-                case AudioType.St:
-                    return stAudioTrack;
+                case AudioType.ST:
+                    return ST_AudioTrack;
 
-                case AudioType.UiSfx:
-                    return uiSfxAudioTrack;
+                case AudioType.UI_SFX:
+                    return UI_SFX_AudioTrack;
 
                 default:
                     return null;

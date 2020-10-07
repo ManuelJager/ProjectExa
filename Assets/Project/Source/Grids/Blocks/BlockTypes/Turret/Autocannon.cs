@@ -8,20 +8,20 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     public class Autocannon : Block, IBehaviourMarker<AutocannonData>, ITurret
     {
-        [SerializeField] private AutocannonBehaviour _turretBehaviour;
+        [SerializeField] private AutocannonBehaviour turretBehaviour;
 
-        BlockBehaviour<AutocannonData> IBehaviourMarker<AutocannonData>.Component => _turretBehaviour;
+        BlockBehaviour<AutocannonData> IBehaviourMarker<AutocannonData>.Component => turretBehaviour;
         public ITurretValues Data => (this as IBehaviourMarker<AutocannonData>).Component.Data;
 
         public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
-                .Append(_turretBehaviour);
+                .Append(turretBehaviour);
         }
 
         public void SetTarget(ITarget target)
         {
-            _turretBehaviour.Target = target;
+            turretBehaviour.Target = target;
         }
 
         protected override void OnAdd()

@@ -10,9 +10,9 @@ namespace Exa.Input
     {
         [HideInInspector] public bool inputIsCaptured;
 
-        private bool _mouseInViewport = false;
-        private MouseCursorController _mouseCursor;
-        private Canvas _root;
+        private bool mouseInViewport = false;
+        private MouseCursorController mouseCursor;
+        private Canvas root;
 
         public Vector2 ScaledViewportPoint { get; private set; }
 
@@ -24,14 +24,14 @@ namespace Exa.Input
 
         private void Awake()
         {
-            _mouseCursor = Systems.Ui.mouseCursor;
-            _root = Systems.Ui.root;
+            mouseCursor = Systems.UI.mouseCursor;
+            root = Systems.UI.root;
         }
 
         private void Update()
         {
             var mousePos = Mouse.current.position.ReadValue();
-            ScaledViewportPoint = mousePos / _root.scaleFactor;
+            ScaledViewportPoint = mousePos / root.scaleFactor;
             ScreenPoint = mousePos;
             MouseWorldPoint = Camera.main.ScreenToWorldPoint(mousePos);
             ViewportPoint = Camera.main.ScreenToViewportPoint(mousePos);
@@ -42,10 +42,10 @@ namespace Exa.Input
                 ViewportPoint.y < 0f ||
                 ViewportPoint.y > 1f);
 
-            if (currFrameMouseInViewport != _mouseInViewport)
+            if (currFrameMouseInViewport != mouseInViewport)
             {
-                _mouseInViewport = currFrameMouseInViewport;
-                _mouseCursor.SetMouseInViewport(_mouseInViewport);
+                mouseInViewport = currFrameMouseInViewport;
+                mouseCursor.SetMouseInViewport(mouseInViewport);
             }
         }
 

@@ -8,29 +8,29 @@ namespace Exa.Weapons
 {
     public class Projectile : MonoBehaviour
     {
-        private Vector2 _direction;
-        private float _damage;
-        private float _lifeTime;
-        private ShipContext _damageMask;
-        private float _timeAlive;
+        private Vector2 direction;
+        private float damage;
+        private float lifeTime;
+        private ShipContext damageMask;
+        private float timeAlive;
 
         public void Setup(Transform transform, float speed, float range, float damage, ShipContext damageMask)
         {
             this.transform.position = transform.position;
-            this._damage = damage;
-            this._direction = transform.right * speed;
-            this._lifeTime = range / speed;
-            this._damageMask = damageMask;
+            this.damage = damage;
+            this.direction = transform.right * speed;
+            this.lifeTime = range / speed;
+            this.damageMask = damageMask;
         }
 
         public void Update()
         {
             var deltaTime = Time.deltaTime;
 
-            transform.position += (_direction * deltaTime).ToVector3();
-            _timeAlive += deltaTime;
+            transform.position += (direction * deltaTime).ToVector3();
+            timeAlive += deltaTime;
 
-            if (_timeAlive > _lifeTime)
+            if (timeAlive > lifeTime)
             {
                 Destroy(gameObject);
             }
@@ -41,10 +41,10 @@ namespace Exa.Weapons
             var block = collision.transform.GetComponent<Block>();
             if (!block) return;
             
-            if ((block.Ship.BlockContext & _damageMask) != 0)
+            if ((block.Ship.BlockContext & damageMask) != 0)
             {
                 var physicalBehaviour = (block as IBehaviourMarker<PhysicalData>).Component as PhysicalBehaviour;
-                physicalBehaviour.TakeDamage(_damage);
+                physicalBehaviour.TakeDamage(damage);
             }
         }
     }

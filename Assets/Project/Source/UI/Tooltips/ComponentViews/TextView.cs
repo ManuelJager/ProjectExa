@@ -7,16 +7,16 @@ namespace Exa.UI.Tooltips
     [Serializable]
     public class TextView : TooltipComponentView<TooltipText>
     {
-        [SerializeField] private Text _text;
+        [SerializeField] private Text text;
 
         public void SetFont(Font font)
         {
-            _text.font = font;
+            text.font = font;
         }
 
         protected override void Refresh(TooltipText value)
         {
-            _text.text = value.Text;
+            text.text = value.Text;
         }
     }
 }

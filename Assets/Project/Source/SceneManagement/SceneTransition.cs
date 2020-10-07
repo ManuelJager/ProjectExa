@@ -5,17 +5,17 @@ namespace Exa.SceneManagement
 {
     public class SceneTransition : ISceneTransition
     {
-        public UnityEvent OnPrepared { get; }
+        public UnityEvent onPrepared { get; }
 
         public SceneTransition(AsyncOperation loadOperation)
         {
-            OnPrepared = new UnityEvent();
-            loadOperation.completed += (op) => OnPrepared?.Invoke();
+            onPrepared = new UnityEvent();
+            loadOperation.completed += (op) => onPrepared?.Invoke();
         }
 
         public void MarkPrepared()
         {
-            OnPrepared.Invoke();
+            onPrepared.Invoke();
         }
     }
 }

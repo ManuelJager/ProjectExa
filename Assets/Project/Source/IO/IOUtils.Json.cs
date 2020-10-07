@@ -7,11 +7,11 @@ namespace Exa.IO
 {
     public enum SerializationMode
     {
-        Compact,
-        Readable
+        compact,
+        readable
     }
 
-    public static partial class IoUtils
+    public static partial class IOUtils
     {
         public static JsonSerializerSettings compactJsonSettings = new JsonSerializerSettings
         {
@@ -25,7 +25,7 @@ namespace Exa.IO
             DefaultValueHandling = DefaultValueHandling.Ignore
         };
 
-        public static bool TryJsonDeserializeFromPath<T>(string filePath, out T result, SerializationMode serializationMode = SerializationMode.Compact)
+        public static bool TryJsonDeserializeFromPath<T>(string filePath, out T result, SerializationMode serializationMode = SerializationMode.compact)
             where T : class
         {
             if (!File.Exists(filePath))
@@ -49,14 +49,14 @@ namespace Exa.IO
 
         public static T JsonDeserializeWithSettings<T>(
             string input,
-            SerializationMode serializationMode = SerializationMode.Compact)
+            SerializationMode serializationMode = SerializationMode.compact)
         {
             return JsonConvert.DeserializeObject<T>(input, GetSettings(serializationMode));
         }
 
         public static T JsonDeserializeFromPath<T>(
             string filePath,
-            SerializationMode serializationMode = SerializationMode.Compact)
+            SerializationMode serializationMode = SerializationMode.compact)
         {
             var text = File.ReadAllText(filePath);
             return JsonDeserializeWithSettings<T>(text, serializationMode);
@@ -64,7 +64,7 @@ namespace Exa.IO
 
         public static string JsonSerializeWithSettings(
             object value,
-            SerializationMode serializationMode = SerializationMode.Compact)
+            SerializationMode serializationMode = SerializationMode.compact)
         {
             return JsonConvert.SerializeObject(value, GetSettings(serializationMode));
         }
@@ -72,7 +72,7 @@ namespace Exa.IO
         public static void JsonSerializeToPath(
             object value,
             string filePath,
-            SerializationMode serializationMode = SerializationMode.Compact)
+            SerializationMode serializationMode = SerializationMode.compact)
         {
             var text = JsonSerializeWithSettings(value, serializationMode);
             File.WriteAllText(filePath, text);
@@ -82,10 +82,10 @@ namespace Exa.IO
         {
             switch (serializationMode)
             {
-                case SerializationMode.Compact:
+                case SerializationMode.compact:
                     return compactJsonSettings;
 
-                case SerializationMode.Readable:
+                case SerializationMode.readable:
                     return readableJsonSettings;
 
                 default:

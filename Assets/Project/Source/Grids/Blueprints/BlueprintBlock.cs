@@ -15,12 +15,12 @@ namespace Exa.Grids.Blueprints
         [DefaultValue(false)] public bool flippedX;
         [DefaultValue(false)] public bool flippedY;
 
-        [JsonIgnore] private int _rotation;
+        [JsonIgnore] private int rotation;
 
         public int Rotation
         {
-            get => MathUtils.NormalizeAngle04(_rotation);
-            set => _rotation = value;
+            get => MathUtils.NormalizeAngle04(rotation);
+            set => rotation = value;
         }
 
         [JsonIgnore]

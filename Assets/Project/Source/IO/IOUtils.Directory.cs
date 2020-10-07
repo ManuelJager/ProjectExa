@@ -2,11 +2,11 @@
 
 namespace Exa.IO
 {
-    public static partial class IoUtils
+    public static partial class IOUtils
     {
-        static IoUtils()
+        static IOUtils()
         {
-            globalDirectories = new Dictionary<string, ExaDirectory>
+            GlobalDirectories = new Dictionary<string, ExaDirectory>
             {
                 { "blueprints", new ExaDirectory(CombinePathWithDataPath("blueprints")) },
                 { "settings", new ExaDirectory(CombinePathWithDataPath("settings")) },
@@ -15,11 +15,11 @@ namespace Exa.IO
             };
         }
 
-        internal static Dictionary<string, ExaDirectory> globalDirectories;
+        internal static Dictionary<string, ExaDirectory> GlobalDirectories;
 
         public static string GetPath(string name)
         {
-            return globalDirectories[name].Value;
+            return GlobalDirectories[name].Value;
         }
 
         public static string CombineWithDirectory(string name, params string[] paths)

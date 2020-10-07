@@ -10,12 +10,12 @@ namespace Exa.Grids.Blocks.BlockTypes
     [CreateAssetMenu(menuName = "Grids/Blocks/Autocannon")]
     public class AutocannonTemplate : BlockTemplate<Autocannon>
     {
-        [SerializeField] private AutocannonTemplatePartial _autocannonTemplatePartial;
+        [SerializeField] private AutocannonTemplatePartial autocannonTemplatePartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials()
         {
             return base.GetTemplatePartials()
-                .Append(_autocannonTemplatePartial);
+                .Append(autocannonTemplatePartial);
         }
     }
 }

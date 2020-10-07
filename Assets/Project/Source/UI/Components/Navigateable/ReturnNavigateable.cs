@@ -11,8 +11,8 @@ namespace Exa.UI.Components
     {
         public GameControls gameControls;
 
-        [SerializeField] private GlobalAudioPlayerProxy _audioPlayer;
-        private Navigateable _returnTarget = null;
+        [SerializeField] private GlobalAudioPlayerProxy audioPlayer;
+        private Navigateable returnTarget = null;
 
         protected virtual void Awake()
         {
@@ -24,7 +24,7 @@ namespace Exa.UI.Components
         {
             if (!args.isReturning)
             {
-                _returnTarget = args.current;
+                returnTarget = args.current;
             }
 
             base.HandleEnter(args);
@@ -34,8 +34,8 @@ namespace Exa.UI.Components
         {
             if (!Interactable && !force) return;
 
-            _audioPlayer.Play("UI_SFX_MenuTransitionOut");
-            NavigateTo(_returnTarget, new NavigationArgs
+            audioPlayer.Play("UI_SFX_MenuTransitionOut");
+            NavigateTo(returnTarget, new NavigationArgs
             {
                 current = this,
                 isReturning = true

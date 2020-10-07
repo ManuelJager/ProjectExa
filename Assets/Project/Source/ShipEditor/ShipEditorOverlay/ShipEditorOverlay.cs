@@ -6,9 +6,9 @@ namespace Exa.ShipEditor
 {
     public class ShipEditorOverlay : MonoBehaviour
     {
-        [SerializeField] private Hoverable _blueprintInventoryHoverable;
-        [SerializeField] private Hoverable _blueprintInfoPanelHoverable;
-        [SerializeField] private Hoverable _editorStatePanelHoverable;
+        [SerializeField] private Hoverable blueprintInventoryHoverable;
+        [SerializeField] private Hoverable blueprintInfoPanelHoverable;
+        [SerializeField] private Hoverable editorStatePanelHoverable;
 
         public CanvasGroupInteractableAdapter editorOverlayCanvasGroup;
         public ShipEditorOverlayInfoPanel blueprintInfoPanel;
@@ -26,16 +26,16 @@ namespace Exa.ShipEditor
 
         private void AddListenerToGroupOnPointerEnter(UnityAction action)
         {
-            _blueprintInventoryHoverable.onPointerEnter.AddListener(action);
-            _blueprintInfoPanelHoverable.onPointerEnter.AddListener(action);
-            _editorStatePanelHoverable.onPointerEnter.AddListener(action);
+            blueprintInventoryHoverable.onPointerEnter.AddListener(action);
+            blueprintInfoPanelHoverable.onPointerEnter.AddListener(action);
+            editorStatePanelHoverable.onPointerEnter.AddListener(action);
         }
 
         private void AddListenerToGroupOnPointerExit(UnityAction action)
         {
-            _blueprintInventoryHoverable.onPointerExit.AddListener(action);
-            _blueprintInfoPanelHoverable.onPointerExit.AddListener(action);
-            _editorStatePanelHoverable.onPointerExit.AddListener(action);
+            blueprintInventoryHoverable.onPointerExit.AddListener(action);
+            blueprintInfoPanelHoverable.onPointerExit.AddListener(action);
+            editorStatePanelHoverable.onPointerExit.AddListener(action);
         }
     }
 }

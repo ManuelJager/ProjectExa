@@ -9,17 +9,17 @@ namespace Exa.Weapons
     public class AutocannonPart : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private FiringPoint _firingPoint;
-        [SerializeField] private Animation _barrelAnimator;
-        [SerializeField] private Light2D _light2D;
+        [SerializeField] private FiringPoint firingPoint;
+        [SerializeField] private Animation barrelAnimator;
+        [SerializeField] private Light2D light2D;
 
         [Header("Settings")]
-        [SerializeField] private float _peakIntensity;
-        [SerializeField] private SpriteRenderer _drumRenderer;
-        [SerializeField] private Sprite _drumNormal;
-        [SerializeField] private Sprite _drumCycling;
+        [SerializeField] private float peakIntensity;
+        [SerializeField] private SpriteRenderer drumRenderer;
+        [SerializeField] private Sprite drumNormal;
+        [SerializeField] private Sprite drumCycling;
 
-        private float _animTime;
+        private float animTime;
 
         private void OnDisable()
         {
@@ -28,33 +28,33 @@ namespace Exa.Weapons
 
         public void Setup(float animTime, ShipContext damageMask)
         {
-            this._animTime = animTime;
-            _barrelAnimator["BarrelAnimation"].speed = 1f / animTime;
-            _firingPoint.Setup(damageMask);
+            this.animTime = animTime;
+            barrelAnimator["BarrelAnimation"].speed = 1f / animTime;
+            firingPoint.Setup(damageMask);
         }
 
         public void Fire(float damage)
         {
-            _barrelAnimator.Stop();
-            _barrelAnimator.Play();
+            barrelAnimator.Stop();
+            barrelAnimator.Play();
 
-            _firingPoint.Fire(damage);
+            firingPoint.Fire(damage);
 
-            _light2D.intensity = _peakIntensity;
-            DOTween.To(() => _light2D.intensity, (value) => _light2D.intensity = value, 0, 0.1f);
+            light2D.intensity = peakIntensity;
+            DOTween.To(() => light2D.intensity, (value) => light2D.intensity = value, 0, 0.1f);
 
-            this.Delay(SetCyclingDrumSprite, _animTime * 0.25f);
-            this.Delay(SetNormalDrumSprite, _animTime * 0.5f);
+            this.Delay(SetCyclingDrumSprite, animTime * 0.25f);
+            this.Delay(SetNormalDrumSprite, animTime * 0.5f);
         }
 
         private void SetCyclingDrumSprite()
         {
-            _drumRenderer.sprite = _drumCycling;
+            drumRenderer.sprite = drumCycling;
         }
 
         private void SetNormalDrumSprite()
         {
-            _drumRenderer.sprite = _drumNormal;
+            drumRenderer.sprite = drumNormal;
         }
     }
 }

@@ -7,13 +7,13 @@ namespace Exa.UI
 {
     public class FormGenerator : MonoBehaviour
     {
-        [SerializeField] private Transform _controlsContainer;
+        [SerializeField] private Transform controlsContainer;
 
         public void GenerateForm<T>(ModelDescriptor<T> modelDescriptor)
         {
-            _controlsContainer.DestroyChildren();
+            controlsContainer.DestroyChildren();
 
-            modelDescriptor.GenerateView(_controlsContainer);
+            modelDescriptor.GenerateView(controlsContainer);
         }
     }
 }

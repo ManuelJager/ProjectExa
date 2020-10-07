@@ -8,10 +8,10 @@ namespace Exa.ShipEditor
     public class GridTotalsView : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private PropertyView _massView;
-        [SerializeField] private PropertyView _hullView;
-        [SerializeField] private PropertyView _energyView;
-        [SerializeField] private PropertyView _turningPower;
+        [SerializeField] private PropertyView massView;
+        [SerializeField] private PropertyView hullView;
+        [SerializeField] private PropertyView energyView;
+        [SerializeField] private PropertyView turningPower;
 
         public void Update()
         {
@@ -21,10 +21,10 @@ namespace Exa.ShipEditor
 
         private void Render(GridTotals totals)
         {
-            _massView.SetValue($"{totals.Mass:0} Tonne");
-            _hullView.SetValue($"{totals.Hull:0}");
-            _energyView.SetValue($"{totals.PowerGenerationModifier:0}");
-            _turningPower.SetValue($"{totals.TurningPowerModifier:0}");
+            massView.SetValue($"{totals.Mass:0} Tonne");
+            hullView.SetValue($"{totals.Hull:0}");
+            energyView.SetValue($"{totals.PowerGenerationModifier:0}");
+            turningPower.SetValue($"{totals.TurningPowerModifier:0}");
         }
     }
 }

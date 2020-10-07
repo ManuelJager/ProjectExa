@@ -32,24 +32,24 @@ namespace Exa.Grids.Blocks
         public ObservableBlockTemplateCollection availibleBlockTemplates = new ObservableBlockTemplateCollection();
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
-        [SerializeField] private BlockTemplateBag _blockTemplateBag;
-        [SerializeField] private InertBlockPoolGroup _inertPrefabGroup;
-        [SerializeField] private AliveBlockPoolGroup _defaultPrefabGroup;
-        [SerializeField] private AliveBlockPoolGroup _userPrefabGroup;
-        [SerializeField] private AliveBlockPoolGroup _enemyPrefabGroup;
+        [SerializeField] private BlockTemplateBag blockTemplateBag;
+        [SerializeField] private InertBlockPoolGroup inertPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup defaultPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup userPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup enemyPrefabGroup;
 
         public BlockValuesStore valuesStore;
 
         public IEnumerator StartUp(IProgress<float> progress)
         {
             valuesStore = new BlockValuesStore();
-            var enumerator = EnumeratorUtils.ReportForeachOperation(_blockTemplateBag, RegisterBlockTemplate, progress);
+            var enumerator = EnumeratorUtils.ReportForeachOperation(blockTemplateBag, RegisterBlockTemplate, progress);
             while (enumerator.MoveNext()) yield return enumerator.Current;
         }
 
         public GameObject GetInactiveInertBlock(string id, Transform transform)
         {
-            return _inertPrefabGroup.GetInactiveBlock(id, transform);
+            return inertPrefabGroup.GetInactiveBlock(id, transform);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Exa.Grids.Blocks
             availibleBlockTemplates.Add(new BlockTemplateContainer(blockTemplate));
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
-            _inertPrefabGroup.CreateInertPrefab(blockTemplate);
+            inertPrefabGroup.CreateInertPrefab(blockTemplate);
             yield return null;
 
             foreach (var context in GetContexts())
@@ -91,9 +91,9 @@ namespace Exa.Grids.Blocks
 
         private AliveBlockPoolGroup GetGroup(ShipContext blockContext)
         {
-            return blockContext.Is(ShipContext.DefaultGroup) ? _defaultPrefabGroup
-                : blockContext.Is(ShipContext.UserGroup) ? _userPrefabGroup
-                : blockContext.Is(ShipContext.EnemyGroup) ? _enemyPrefabGroup
+            return blockContext.Is(ShipContext.DefaultGroup) ? defaultPrefabGroup
+                : blockContext.Is(ShipContext.UserGroup) ? userPrefabGroup
+                : blockContext.Is(ShipContext.EnemyGroup) ? enemyPrefabGroup
                 : null;
         }
 

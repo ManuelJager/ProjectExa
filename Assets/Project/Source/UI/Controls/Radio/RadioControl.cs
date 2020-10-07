@@ -9,34 +9,34 @@ namespace Exa.UI.Controls
     [Serializable]
     public class RadioControl : InputControl<bool>
     {
-        [SerializeField] private Image _buttonImage;
-        [SerializeField] private Color _inactiveColor;
-        [SerializeField] private Color _activeColor;
-        private bool _value;
+        [SerializeField] private Image buttonImage;
+        [SerializeField] private Color inactiveColor;
+        [SerializeField] private Color activeColor;
+        private bool value;
 
         public override bool CleanValue { get; set; }
 
         public override bool Value
         {
-            get => _value;
+            get => value;
             set
             {
-                this._value = value;
+                this.value = value;
 
-                _buttonImage.color = value ? _activeColor : _inactiveColor;
+                buttonImage.color = value ? activeColor : inactiveColor;
             }
         }
 
-        private RadioCheckEvent _onValueChange = new RadioCheckEvent();
+        private RadioCheckEvent onValueChange = new RadioCheckEvent();
 
         public override UnityEvent<bool> OnValueChange 
         { 
-            get => _onValueChange; 
+            get => onValueChange; 
         }
 
         public void Toggle()
         {
-            Value = !_value;
+            Value = !value;
         }
 
         [Serializable]

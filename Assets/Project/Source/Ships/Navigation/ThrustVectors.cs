@@ -12,11 +12,11 @@ namespace Exa.Ships.Navigation
     // TODO: Clamp the requested thrust vector to what the Ship can output
     public class ThrustVectors : IThrustVectors
     {
-        private readonly Dictionary<int, ThrusterGroup> _thrusterDict;
+        private readonly Dictionary<int, ThrusterGroup> thrusterDict;
 
         public ThrustVectors(Scalar thrustModifier)
         {
-            _thrusterDict = new Dictionary<int, ThrusterGroup>
+            thrusterDict = new Dictionary<int, ThrusterGroup>
             {
                 { 0, new ThrusterGroup(thrustModifier) },
                 { 1, new ThrusterGroup(thrustModifier) },
@@ -53,7 +53,7 @@ namespace Exa.Ships.Navigation
             var rotation = GetDirection(thruster);
             try
             {
-                return _thrusterDict[rotation];
+                return thrusterDict[rotation];
             }
             catch (KeyNotFoundException)
             {
@@ -64,13 +64,13 @@ namespace Exa.Ships.Navigation
 
         private ThrusterGroup SelectHorizontalGroup(float x, bool revert) =>
             x > 0 ^ revert
-                ? _thrusterDict[0]
-                : _thrusterDict[2];
+                ? thrusterDict[0]
+                : thrusterDict[2];
 
         private ThrusterGroup SelectVerticalGroup(float y, bool revert) =>
             y > 0 ^ revert
-                ? _thrusterDict[1]
-                : _thrusterDict[3];
+                ? thrusterDict[1]
+                : thrusterDict[3];
 
         private int GetDirection(IThruster thruster)
         {

@@ -11,11 +11,11 @@ namespace Exa.UI.Settings
         public DropdownControl refreshRatesDropdown;
         public RadioControl fullscreenRadio;
 
-        private InputControl[] _controls;
+        private InputControl[] controls;
 
         private void Awake()
         {
-            _controls = new InputControl[]
+            controls = new InputControl[]
             {
                 resolutionDropdown,
                 refreshRatesDropdown,
@@ -47,7 +47,7 @@ namespace Exa.UI.Settings
 
         protected override IEnumerable<InputControl> GetControls()
         {
-            return _controls;
+            return controls;
         }
     }
 }

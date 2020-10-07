@@ -8,36 +8,36 @@ namespace Exa.Grids.Blocks.Components
     public class ThrusterBehaviour : BlockBehaviour<ThrusterData>
     {
         [Header("References")]
-        [SerializeField] private Transform _thrusterFlameContainer;
-        [SerializeField] private SpriteRenderer _thrusterFlame;
-        [SerializeField] private Light2D _light2D;
+        [SerializeField] private Transform thrusterFlameContainer;
+        [SerializeField] private SpriteRenderer thrusterFlame;
+        [SerializeField] private Light2D light2D;
 
         [Header("Settings")]
-        [SerializeField] private FloatMinMax _xScale;
-        [SerializeField] private FloatMinMax _yScale;
-        [SerializeField] private FloatMinMax _lightIntensityScale;
+        [SerializeField] private FloatMinMax xScale;
+        [SerializeField] private FloatMinMax yScale;
+        [SerializeField] private FloatMinMax lightIntensityScale;
 
         public void Fire(float strength)
         {
-            _thrusterFlame.transform.localScale = new Vector2
+            thrusterFlame.transform.localScale = new Vector2
             {
-                x = _xScale.Evaluate(strength),
-                y = _yScale.Evaluate(strength)
+                x = xScale.Evaluate(strength),
+                y = yScale.Evaluate(strength)
             };
 
-            _light2D.intensity = _lightIntensityScale.Evaluate(strength);
+            light2D.intensity = lightIntensityScale.Evaluate(strength);
         }
 
         protected override void OnAdd()
         {
             var blueprintBlock = block.anchoredBlueprintBlock.blueprintBlock;
-            blueprintBlock.SetSpriteRendererFlips(_thrusterFlame);
+            blueprintBlock.SetSpriteRendererFlips(thrusterFlame);
 
-            var pos = _thrusterFlameContainer.localPosition.ToVector2().Rotate(-blueprintBlock.Rotation);
+            var pos = thrusterFlameContainer.localPosition.ToVector2().Rotate(-blueprintBlock.Rotation);
 
             pos *= blueprintBlock.FlipVector;
 
-            _thrusterFlameContainer.localPosition = pos.Rotate(blueprintBlock.Rotation);
+            thrusterFlameContainer.localPosition = pos.Rotate(blueprintBlock.Rotation);
         }
     }
 }

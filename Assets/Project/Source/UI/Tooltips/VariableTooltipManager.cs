@@ -10,6 +10,6 @@ namespace Exa.UI.Tooltips
         public TooltipFactory tooltipGenerator;
         public BlockTemplateTooltip blockTemplateTooltip;
         public BlueprintTypeTooltip blueprintTypeTooltip;
-        public ShipDebugTooltip shipAiDebugTooltip;
+        public ShipDebugTooltip shipAIDebugTooltip;
     }
 }

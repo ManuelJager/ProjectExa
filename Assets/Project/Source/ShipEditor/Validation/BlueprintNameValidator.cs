@@ -24,7 +24,7 @@ namespace Exa.ShipEditor
             // Check if the requested name is the default name
             errors.Assert<BlueprintNameDefaultError>(
                 "Blueprint name cannot be default",
-                args.requestedName != Blueprint.DefaultBlueprintName);
+                args.requestedName != Blueprint.DEFAULT_BLUEPRINT_NAME);
         }
     }
 }

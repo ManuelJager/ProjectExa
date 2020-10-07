@@ -5,37 +5,37 @@ namespace Exa.UI
 {
     public class LoadingScreen : MonoBehaviour
     {
-        [SerializeField] private RectTransform _imageTransform;
-        [SerializeField] private Text _loadingMessage;
-        private bool _loaded;
-        private float _time;
+        [SerializeField] private RectTransform imageTransform;
+        [SerializeField] private Text loadingMessage;
+        private bool loaded;
+        private float time;
 
         private void Update()
         {
-            if (!_loaded)
+            if (!loaded)
             {
-                var euler = new Vector3(0, 0, _time * 360f % 360f);
-                _imageTransform.rotation = Quaternion.Euler(euler);
-                _time += Time.deltaTime;
+                var euler = new Vector3(0, 0, time * 360f % 360f);
+                imageTransform.rotation = Quaternion.Euler(euler);
+                time += Time.deltaTime;
             }
         }
 
         public void ShowScreen()
         {
-            _time = 0f;
-            _loaded = false;
+            time = 0f;
+            loaded = false;
             gameObject.SetActive(true);
         }
 
         public void ShowMessage(string message)
         {
-            _loadingMessage.gameObject.SetActive(message != "");
-            _loadingMessage.text = message;
+            loadingMessage.gameObject.SetActive(message != "");
+            loadingMessage.text = message;
         }
 
         public void HideScreen()
         {
-            _loaded = true;
+            loaded = true;
             gameObject.SetActive(false);
         }
     }

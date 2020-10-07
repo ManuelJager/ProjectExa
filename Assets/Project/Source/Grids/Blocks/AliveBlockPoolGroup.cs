@@ -4,7 +4,7 @@ namespace Exa.Grids.Blocks
 {
     public class AliveBlockPoolGroup : BlockPoolGroupBase
     {
-        protected override PrefabType PrefabType => PrefabType.Alive;
+        protected override PrefabType PrefabType => PrefabType.alive;
 
         /// <summary>
         /// Creates an alive prefab on this group.
@@ -13,8 +13,8 @@ namespace Exa.Grids.Blocks
         /// <returns></returns>
         public void CreateAlivePrefabGroup(BlockTemplate blockTemplate, ShipContext blockContext)
         {
-            var rootInstanceGo = CreatePrefab(blockTemplate, PrefabType);
-            var rootInstance = rootInstanceGo.GetComponent<Block>();
+            var rootInstanceGO = CreatePrefab(blockTemplate, PrefabType);
+            var rootInstance = rootInstanceGO.GetComponent<Block>();
 
             foreach (var component in rootInstance.GetBehaviours())
             {
@@ -22,7 +22,7 @@ namespace Exa.Grids.Blocks
             }
 
             var id = blockTemplate.id;
-            var pool = CreatePool<BlockPool>(rootInstanceGo, $"Block pool: {id}", out var settings);
+            var pool = CreatePool<BlockPool>(rootInstanceGO, $"Block pool: {id}", out var settings);
             pool.blockTemplate = blockTemplate;
             pool.blockContext = blockContext;
             poolById[id] = pool;

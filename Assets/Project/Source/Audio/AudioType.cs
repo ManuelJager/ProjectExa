@@ -5,11 +5,11 @@
         /// <summary>
         /// Defines a soundtrack audio type
         /// </summary>
-        St,
+        ST,
 
         /// <summary>
         /// Defines a soundtrack audio type
         /// </summary>
-        UiSfx
+        UI_SFX
     }
 }

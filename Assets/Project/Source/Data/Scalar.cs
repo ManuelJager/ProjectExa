@@ -6,56 +6,56 @@ namespace Exa.Data
     [Serializable]
     public struct Scalar : IFormattable
     {
-        [SerializeField] private float _scalar;
+        [SerializeField] private float scalar;
 
         public Scalar(float value)
         {
-            this._scalar = value;
+            this.scalar = value;
         }
 
         public float GetValue(float real)
         {
-            return real * _scalar;
+            return real * scalar;
         }
 
         public Vector2 GetValue(Vector2 real)
         {
-            return real * _scalar;
+            return real * scalar;
         }
 
         public static bool operator >(Scalar a, Scalar b)
         {
-            return a._scalar > b._scalar;
+            return a.scalar > b.scalar;
         }
 
         public static bool operator <(Scalar a, Scalar b)
         {
-            return a._scalar < b._scalar;
+            return a.scalar < b.scalar;
         }
 
         public static Scalar operator -(Scalar a, Scalar b)
         {
-            return new Scalar(a._scalar - b._scalar);
+            return new Scalar(a.scalar - b.scalar);
         }
 
         public static Scalar operator +(Scalar a, Scalar b)
         {
-            return new Scalar(a._scalar + b._scalar);
+            return new Scalar(a.scalar + b.scalar);
         }
 
         public string ToPercentageString()
         {
-            return $"{_scalar * 100f}%";
+            return $"{scalar * 100f}%";
         }
 
         public override string ToString()
         {
-            return _scalar.ToString();
+            return scalar.ToString();
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            return _scalar.ToString(format, formatProvider);
+            return scalar.ToString(format, formatProvider);
         }
     }
 }

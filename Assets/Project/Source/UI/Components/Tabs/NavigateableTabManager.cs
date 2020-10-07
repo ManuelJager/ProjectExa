@@ -6,27 +6,27 @@ namespace Exa.UI.Components
 {
     public class NavigateableTabManager : MonoBehaviour
     {
-        [SerializeField] private Navigateable _defaultTab;
-        private Navigateable _activeTab;
+        [SerializeField] private Navigateable defaultTab;
+        private Navigateable activeTab;
 
-        public Navigateable ActiveTab => _activeTab;
+        public Navigateable ActiveTab => activeTab;
 
         private void Awake()
         {
-            _activeTab = _defaultTab;
-            _activeTab.HandleEnter(null);
+            activeTab = defaultTab;
+            activeTab.HandleEnter(null);
         }
 
         public void SwitchTo(Navigateable newTab)
         {
-            if (newTab == _activeTab) return;
+            if (newTab == activeTab) return;
 
-            _activeTab.NavigateTo(newTab, new NavigationArgs
+            activeTab.NavigateTo(newTab, new NavigationArgs
             {
-                current = _activeTab
+                current = activeTab
             });
 
-            _activeTab = newTab;
+            activeTab = newTab;
         }
     }
 }

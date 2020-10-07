@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 
 namespace Exa.Pooling
 {
-    public interface IPool<out T> : IPool, IEnumerable<T>
+    public interface IPool<out T> : IPool
         where T : PoolMember
     {
         T Retrieve();

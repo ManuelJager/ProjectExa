@@ -26,15 +26,15 @@ namespace Exa.Audio
         /// </summary>
         public UnityEvent onStop = new UnityEvent();
 
-        private ITrackContext _context;
+        private ITrackContext context;
 
         public void Play(ITrackContext playableContext)
         {
-            _context = playableContext;
+            context = playableContext;
 
             if (!sound.allowMultipleOnTrack)
             {
-                _context.StopAllSounds();
+                context.StopAllSounds();
             }
 
             if (sound.allowMultipleOfType)
@@ -50,7 +50,7 @@ namespace Exa.Audio
 
             audioSource.pitch = sound.pitch;
 
-            _context.RegisterHandle(this);
+            context.RegisterHandle(this);
         }
 
         public void Stop()

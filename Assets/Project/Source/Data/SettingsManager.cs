@@ -11,7 +11,7 @@ namespace Exa.Data
         public VideoSettingsPanel videoSettings;
         public AudioSettingsPanel audioSettings;
 
-        private readonly int[] _acceptedRefreshRates = { 60, 75, 80, 90, 100, 120, 144, 165, 180, 240 };
+        private readonly int[] acceptedRefreshRates = { 60, 75, 80, 90, 100, 120, 144, 165, 180, 240 };
 
         public void Load()
         {
@@ -58,7 +58,7 @@ namespace Exa.Data
 
         private bool IsAcceptedRefreshRate(Resolution resolution)
         {
-            return _acceptedRefreshRates.Contains(resolution.refreshRate);
+            return acceptedRefreshRates.Contains(resolution.refreshRate);
         }
 
         private bool IsAcceptedRatio(Resolution resolution)

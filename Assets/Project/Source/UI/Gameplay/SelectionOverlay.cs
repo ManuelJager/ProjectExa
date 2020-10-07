@@ -9,14 +9,14 @@ namespace Exa.UI.Gameplay
 {
     public partial class SelectionOverlay : AbstractCollectionObserver<Ship>
     {
-        [SerializeField] private GameObject _shipViewPrefab;
-        [SerializeField] private Transform _container;
+        [SerializeField] private GameObject shipViewPrefab;
+        [SerializeField] private Transform container;
 
-        private readonly Dictionary<string, ShipView> _shipViews = new Dictionary<string, ShipView>();
+        private readonly Dictionary<string, ShipView> shipViews = new Dictionary<string, ShipView>();
 
         private void Awake()
         {
-            _container.gameObject.SetActive(false);
+            container.gameObject.SetActive(false);
         }
 
         public override void OnAdd(Ship ship)
@@ -29,13 +29,13 @@ namespace Exa.UI.Gameplay
         public override void OnRemove(Ship ship)
         {
             var key = ship.Blueprint.name;
-            var view = _shipViews[key];
+            var view = shipViews[key];
 
             // Destroy the view if there are ships it could represent
             // A 1 is used here instead of a 0 as we assume the Ship will be removed from the view
             if (view.Count == 1)
             {
-                _shipViews.Remove(key);
+                shipViews.Remove(key);
                 Destroy(view.gameObject);
             }
 
@@ -45,12 +45,12 @@ namespace Exa.UI.Gameplay
 
         public override void OnClear()
         {
-            foreach (var view in _shipViews.Values)
+            foreach (var view in shipViews.Values)
             {
                 Destroy(view.gameObject);
             }
 
-            _shipViews.Clear();
+            shipViews.Clear();
             ProcessEnabled();
         }
 
@@ -63,24 +63,24 @@ namespace Exa.UI.Gameplay
         private ShipView SelectOrCreateView(Ship ship)
         {
             var key = ship.Blueprint.name;
-            if (!_shipViews.ContainsKey(key))
+            if (!shipViews.ContainsKey(key))
             {
-                var viewGo = Instantiate(_shipViewPrefab, _container);
-                var view = viewGo.GetComponent<ShipView>();
+                var viewGO = Instantiate(shipViewPrefab, container);
+                var view = viewGO.GetComponent<ShipView>();
                 view.SetThumbnail(ship.Blueprint.Thumbnail);
-                _shipViews.Add(key, view);
+                shipViews.Add(key, view);
                 return view;
             }
             else
             {
-                return _shipViews[key];
+                return shipViews[key];
             }
         }
 
         private void ProcessEnabled()
         {
             var active = Source != null && Source.Count() > 0;
-            _container.gameObject.SetActive(active);
+            container.gameObject.SetActive(active);
         }
     }
 }

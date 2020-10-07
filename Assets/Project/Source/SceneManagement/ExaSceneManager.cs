@@ -16,16 +16,16 @@ namespace Exa.SceneManagement
     {
         public LoadSceneMode loadSceneMode = LoadSceneMode.Additive;
         public LoadScreenMode loadScreenMode = LoadScreenMode.CloseOnPrepared;
-        public bool setActiveScene = false;
+        public bool SetActiveScene = false;
     }
 
     public class ExaSceneManager : MonoBehaviour
     {
-        private LoadingScreen _loadingScreen;
+        private LoadingScreen loadingScreen;
 
         private void Awake()
         {
-            _loadingScreen = Systems.Ui.loadingScreen;
+            loadingScreen = Systems.UI.loadingScreen;
         }
 
         public SceneTransition Transition(string name, TransitionArgs transitionArgs)
@@ -35,16 +35,16 @@ namespace Exa.SceneManagement
 
             if (transitionArgs.loadScreenMode != LoadScreenMode.None)
             {
-                _loadingScreen.ShowScreen();
+                loadingScreen.ShowScreen();
 
                 if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnPrepared)
                 {
-                    transition.OnPrepared.AddListener(_loadingScreen.HideScreen);
+                    transition.onPrepared.AddListener(loadingScreen.HideScreen);
                 }
 
-                if (transitionArgs.setActiveScene)
+                if (transitionArgs.SetActiveScene)
                 {
-                    transition.OnPrepared.AddListener(() =>
+                    transition.onPrepared.AddListener(() =>
                     {
                         var scene = SceneManager.GetSceneByName(name);
                         SceneManager.SetActiveScene(scene);

@@ -5,11 +5,11 @@ namespace Exa.UI
 {
     public class VersionWatermark : MonoBehaviour
     {
-        [SerializeField] private Text _versionText;
+        [SerializeField] private Text versionText;
 
         private void Awake()
         {
-            _versionText.text = $"Build: {Application.version}";
+            versionText.text = $"Build: {Application.version}";
         }
     }
 }

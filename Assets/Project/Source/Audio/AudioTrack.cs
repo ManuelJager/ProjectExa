@@ -7,8 +7,8 @@ namespace Exa.Audio
 {
     public class AudioTrack : MonoBehaviour, ITrackContext
     {
-        [SerializeField] private string _volumeKey;
-        [SerializeField] private AudioMixerGroup _audioMixerGroup;
+        [SerializeField] private string volumeKey;
+        [SerializeField] private AudioMixerGroup audioMixerGroup;
 
         // Stores a handle group for the currently playing sounds of the given id
         protected SoundHandleGroupDictionary handleGroups = new SoundHandleGroupDictionary();
@@ -26,7 +26,7 @@ namespace Exa.Audio
                     ? Mathf.Log(value) * 20
                     : -80;
 
-                _audioMixerGroup.audioMixer.SetFloat(_volumeKey, actualVolume);
+                audioMixerGroup.audioMixer.SetFloat(volumeKey, actualVolume);
             }
         }
 
@@ -52,7 +52,7 @@ namespace Exa.Audio
         public void Register(Sound sound)
         {
             var source = gameObject.AddComponent<AudioSource>();
-            source.outputAudioMixerGroup = _audioMixerGroup;
+            source.outputAudioMixerGroup = audioMixerGroup;
             players[sound.id] = source;
 
             handleGroups.RegisterGroup(sound.id);

@@ -6,14 +6,14 @@ namespace Exa.AI
     {
         protected virtual void Start()
         {
-            GameSystems.Ai.Register(this);
+            GameSystems.AI.Register(this);
         }
 
         protected virtual void OnDestroy()
         {
-            GameSystems.Ai.Unregister(this);
+            GameSystems.AI.Unregister(this);
         }
 
-        public abstract void AiUpdate();
+        public abstract void AIUpdate();
     }
 }

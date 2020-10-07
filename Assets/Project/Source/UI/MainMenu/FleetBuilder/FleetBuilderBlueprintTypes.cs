@@ -12,19 +12,19 @@ namespace Exa.UI
 
     public class FleetBuilderBlueprintTypes : MonoBehaviour
     {
-        public BlueprintTypeSelectEvent selectType = new BlueprintTypeSelectEvent();
+        public BlueprintTypeSelectEvent SelectType = new BlueprintTypeSelectEvent();
 
-        [SerializeField] private Transform _container;
-        [SerializeField] private GameObject _buttonPrefab;
+        [SerializeField] private Transform container;
+        [SerializeField] private GameObject buttonPrefab;
 
         public void BuildList()
         {
             foreach (var blueprintType in Systems.Blueprints.blueprintTypes)
             {
-                var blueprintTypeButton = Instantiate(_buttonPrefab, _container).GetComponent<BlueprintTypeButton>();
+                var blueprintTypeButton = Instantiate(buttonPrefab, container).GetComponent<BlueprintTypeButton>();
                 blueprintTypeButton.button.onClick.AddListener(() =>
                 {
-                    selectType?.Invoke(blueprintType);
+                    SelectType?.Invoke(blueprintType);
                 });
                 blueprintTypeButton.text.text = blueprintType.displayName;
             }

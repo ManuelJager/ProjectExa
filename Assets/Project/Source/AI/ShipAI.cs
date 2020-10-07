@@ -17,25 +17,25 @@ namespace Exa.AI
         public AMoveToTarget moveToTarget;
         public AAvoidCollision avoidCollision;
 
-        [SerializeField] private Ship _ship;
-        [SerializeField] private float _activeValueThreshold;
-        private ActionList _actionList;
+        [SerializeField] private Ship ship;
+        [SerializeField] private float activeValueThreshold;
+        private ActionList actionList;
 
-        public Ship Ship => _ship;
+        public Ship Ship => ship;
 
         public void Initialize()
         {
-            _actionList = BuildActionList();
+            actionList = BuildActionList();
         }
 
-        public override void AiUpdate()
+        public override void AIUpdate()
         {
-            _actionList.RunActions();
+            actionList.RunActions();
         }
 
         protected virtual ActionList BuildActionList()
         {
-            return new ActionList(_activeValueThreshold, new IAction[]
+            return new ActionList(activeValueThreshold, new IAction[]
             {
                 aimAtTarget = new AAimAtClosestTarget(Ship, 200f),
                 lookAtTarget = new ALookAtTarget(Ship),
@@ -52,7 +52,7 @@ namespace Exa.AI
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
         {
-            new TooltipText(_actionList.ToString())
+            new TooltipText(actionList.ToString())
         };
     }
 }

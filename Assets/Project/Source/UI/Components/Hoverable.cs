@@ -17,26 +17,26 @@ namespace Exa.UI
         public bool invokeStateChangeOnHover;
         public CursorState cursorState;
 
-        [SerializeField] private bool _checkMouseInsideRectOnEnable = true;
-        private RectTransform _rectTransform;
-        private CanvasGroup _canvasGroup;
-        private bool _mouseOverControl = false;
+        [SerializeField] private bool checkMouseInsideRectOnEnable = true;
+        private RectTransform rectTransform;
+        private CanvasGroup canvasGroup;
+        private bool mouseOverControl = false;
 
         private bool InvokeStateChange
         {
-            get => invokeStateChangeOnHover && _canvasGroup.interactable;
+            get => invokeStateChangeOnHover && canvasGroup.interactable;
         }
 
         private void Awake()
         {
             cursorOverride = new CursorOverride(cursorState);
-            _rectTransform = GetComponent<RectTransform>();
-            _canvasGroup = GetComponent<CanvasGroup>();
+            rectTransform = GetComponent<RectTransform>();
+            canvasGroup = GetComponent<CanvasGroup>();
         }
 
         private void OnEnable()
         {
-            if (_checkMouseInsideRectOnEnable)
+            if (checkMouseInsideRectOnEnable)
             {
                 CheckMouseInsideRect();
             }
@@ -59,12 +59,12 @@ namespace Exa.UI
 
         public void ForceExit()
         {
-            if (!_mouseOverControl)
+            if (!mouseOverControl)
             {
                 throw new InvalidOperationException("May not force exit the control when not selected");
             }
 
-            _mouseOverControl = false;
+            mouseOverControl = false;
             onPointerExit?.Invoke();
 
             if (InvokeStateChange)
@@ -75,9 +75,9 @@ namespace Exa.UI
 
         private void TryEnter()
         {
-            if (_mouseOverControl) return;
+            if (mouseOverControl) return;
 
-            _mouseOverControl = true;
+            mouseOverControl = true;
             onPointerEnter?.Invoke();
 
             if (InvokeStateChange)
@@ -88,9 +88,9 @@ namespace Exa.UI
 
         private void TryExit()
         {
-            if (!_mouseOverControl) return;
+            if (!mouseOverControl) return;
 
-            _mouseOverControl = false;
+            mouseOverControl = false;
             onPointerExit?.Invoke();
 
             if (InvokeStateChange)
@@ -101,9 +101,9 @@ namespace Exa.UI
 
         private void CheckMouseInsideRect()
         {
-            if (_mouseOverControl) return;
+            if (mouseOverControl) return;
 
-            if (Systems.Input.GetMouseInsideRect(_rectTransform))
+            if (Systems.Input.GetMouseInsideRect(rectTransform))
             {
                 TryEnter();
             }
@@ -111,12 +111,12 @@ namespace Exa.UI
 
         private void OnEnter()
         {
-            Systems.Ui.mouseCursor.AddOverride(cursorOverride);
+            Systems.UI.mouseCursor.AddOverride(cursorOverride);
         }
 
         private void OnExit()
         {
-            Systems.Ui.mouseCursor.RemoveOverride(cursorOverride);
+            Systems.UI.mouseCursor.RemoveOverride(cursorOverride);
         }
     }
 }

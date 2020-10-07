@@ -9,35 +9,35 @@ using static Exa.Input.GameControls;
 namespace Exa.ShipEditor
 {
     [RequireComponent(typeof(ShipEditorNavigateable))]
-    public partial class ShipEditor : MonoBehaviour, IEditorActions, IUiGroup
+    public partial class ShipEditor : MonoBehaviour, IEditorActions, IUIGroup
     {
         [HideInInspector] public BlueprintContainerCollection blueprintCollection;
         public EditorGrid editorGrid;
         public ShipEditorNavigateable navigateable;
 
-        [SerializeField] private ShipEditorStopwatch _stopwatch;
-        [SerializeField] private GameObject _editorGridBackground;
-        [SerializeField] private float _zoomSpeed;
-        private GameControls _gameControls;
-        private ShipEditorOverlay _shipEditorOverlay;
+        [SerializeField] private ShipEditorStopwatch stopwatch;
+        [SerializeField] private GameObject editorGridBackground;
+        [SerializeField] private float zoomSpeed;
+        private GameControls gameControls;
+        private ShipEditorOverlay shipEditorOverlay;
 
         private void Awake()
         {
-            _shipEditorOverlay = Systems.Ui.editorOverlay;
+            shipEditorOverlay = Systems.UI.editorOverlay;
 
-            _gameControls = new GameControls();
-            _gameControls.Editor.SetCallbacks(this);
+            gameControls = new GameControls();
+            gameControls.Editor.SetCallbacks(this);
 
-            _shipEditorOverlay.blueprintInfoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
-            _shipEditorOverlay.inventory.blockSelected.AddListener(editorGrid.OnBlockSelected);
-            _shipEditorOverlay.onPointerEnter.AddListener(OnOverlayPointerEnter);
-            _shipEditorOverlay.onPointerExit.AddListener(OnOverlayPointerExit);
-            _shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged.AddListener(OnBlueprintNameInputChanged);
-            _shipEditorOverlay.blueprintInfoPanel.saveButton.onClick.AddListener(OnBlueprintSave);
+            shipEditorOverlay.blueprintInfoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
+            shipEditorOverlay.inventory.blockSelected.AddListener(editorGrid.OnBlockSelected);
+            shipEditorOverlay.onPointerEnter.AddListener(OnOverlayPointerEnter);
+            shipEditorOverlay.onPointerExit.AddListener(OnOverlayPointerExit);
+            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged.AddListener(OnBlueprintNameInputChanged);
+            shipEditorOverlay.blueprintInfoPanel.saveButton.onClick.AddListener(OnBlueprintSave);
 
             editorGrid.blueprintLayer.onBlueprintChanged.AddListener(OnBlueprintChanged);
 
-            _stopwatch.onTime.AddListener(OnBlueprintGridValidationRequested);
+            stopwatch.onTime.AddListener(OnBlueprintGridValidationRequested);
 
             SetGridBackground();
         }
@@ -46,25 +46,25 @@ namespace Exa.ShipEditor
         {
             ResetState();
 
-            _shipEditorOverlay.gameObject.SetActive(true);
-            _gameControls.Enable();
+            shipEditorOverlay.gameObject.SetActive(true);
+            gameControls.Enable();
         }
 
         private void OnDisable()
         {
-            _shipEditorOverlay.gameObject.SetActive(false);
-            _gameControls.Disable();
+            shipEditorOverlay.gameObject.SetActive(false);
+            gameControls.Disable();
         }
 
         private void Update()
         {
-            if (_leftButtonPressed)
+            if (leftButtonPressed)
             {
                 editorGrid.OnLeftClickPressed();
                 return;
             }
 
-            if (_rightButtonPressed)
+            if (rightButtonPressed)
             {
                 editorGrid.OnRightClickPressed();
                 return;
@@ -73,22 +73,22 @@ namespace Exa.ShipEditor
 
         public void Import(BlueprintContainer blueprintContainer, Action<BlueprintContainer> saveCallback)
         {
-            this._container = blueprintContainer;
-            this._saveCallback = saveCallback;
-            this._gridValidator = new BlueprintGridValidator();
-            this._nameValidator = new BlueprintNameValidator();
+            this.container = blueprintContainer;
+            this.saveCallback = saveCallback;
+            this.gridValidator = new BlueprintGridValidator();
+            this.nameValidator = new BlueprintNameValidator();
 
             var newBlueprint = blueprintContainer.Data.Clone();
             editorGrid.Import(newBlueprint);
 
             ValidateName(newBlueprint.name);
 
-            _shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.SetValueWithoutNotify(newBlueprint.name);
+            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.SetValueWithoutNotify(newBlueprint.name);
         }
 
         public void ExportToClipboard()
         {
-            var json = IoUtils.JsonSerializeWithSettings(editorGrid.blueprintLayer.ActiveBlueprint);
+            var json = IOUtils.JsonSerializeWithSettings(editorGrid.blueprintLayer.ActiveBlueprint);
             GUIUtility.systemCopyBuffer = json;
         }
 
@@ -96,7 +96,7 @@ namespace Exa.ShipEditor
         {
             var screenHeightInUnits = Camera.main.orthographicSize * 2;
             var screenWidthInUnits = screenHeightInUnits * Screen.width / Screen.height;
-            _editorGridBackground.transform.localScale = new Vector3(screenWidthInUnits, screenHeightInUnits);
+            editorGridBackground.transform.localScale = new Vector3(screenWidthInUnits, screenHeightInUnits);
         }
     }
 }

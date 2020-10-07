@@ -6,57 +6,57 @@ namespace Exa.UI.Gameplay
 {
     public class SelectionHotbarItem : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup _canvasGroup;
-        [SerializeField] private Text _text;
-        [SerializeField] private Color _inactiveColor;
-        [SerializeField] private Color _activeColor;
-        [SerializeField] private Color _emptyColor;
-        private ShipSelection _shipSelection;
-        private bool _selected;
+        [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private Text text;
+        [SerializeField] private Color inactiveColor;
+        [SerializeField] private Color activeColor;
+        [SerializeField] private Color emptyColor;
+        private ShipSelection shipSelection;
+        private bool selected;
 
         private void Awake()
         {
-            _selected = false;
+            selected = false;
 
             UpdateView();
         }
 
         public void Setup(int index)
         {
-            _text.text = index.ToString();
+            text.text = index.ToString();
         }
 
         public ShipSelection ShipSelection
         {
-            get => _shipSelection;
+            get => shipSelection;
             set
             {
-                _shipSelection = value;
+                shipSelection = value;
                 UpdateView();
             }
         }
 
         public bool Selected
         {
-            get => _selected;
+            get => selected;
             set
             {
-                _selected = value;
+                selected = value;
                 UpdateView();
             }
         }
 
         private void UpdateView()
         {
-            _canvasGroup.alpha = _selected
+            canvasGroup.alpha = selected
                 ? 1f
                 : 0.6f;
 
-            _text.color = _shipSelection != null
-                ? _selected
-                    ? _activeColor
-                    : _inactiveColor
-                : _emptyColor;
+            text.color = shipSelection != null
+                ? selected
+                    ? activeColor
+                    : inactiveColor
+                : emptyColor;
         }
     }
 }

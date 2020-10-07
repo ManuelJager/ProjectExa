@@ -10,10 +10,10 @@ namespace Exa.Input
 {
     public class @GameControls : IInputActionCollection, IDisposable
     {
-        public InputActionAsset Asset { get; }
+        public InputActionAsset asset { get; }
         public @GameControls()
         {
-            Asset = InputActionAsset.FromJson(@"{
+            asset = InputActionAsset.FromJson(@"{
     ""name"": ""GameControls"",
     ""maps"": [
         {
@@ -560,58 +560,58 @@ namespace Exa.Input
     ]
 }");
             // Editor
-            _mEditor = Asset.FindActionMap("Editor", throwIfNotFound: true);
-            _mEditorMovement = _mEditor.FindAction("Movement", throwIfNotFound: true);
-            _mEditorLeftClick = _mEditor.FindAction("LeftClick", throwIfNotFound: true);
-            _mEditorRightClick = _mEditor.FindAction("RightClick", throwIfNotFound: true);
-            _mEditorRotateLeft = _mEditor.FindAction("RotateLeft", throwIfNotFound: true);
-            _mEditorRotateRight = _mEditor.FindAction("RotateRight", throwIfNotFound: true);
-            _mEditorToggleMirror = _mEditor.FindAction("ToggleMirror", throwIfNotFound: true);
-            _mEditorZoom = _mEditor.FindAction("Zoom", throwIfNotFound: true);
+            m_Editor = asset.FindActionMap("Editor", throwIfNotFound: true);
+            m_Editor_Movement = m_Editor.FindAction("Movement", throwIfNotFound: true);
+            m_Editor_LeftClick = m_Editor.FindAction("LeftClick", throwIfNotFound: true);
+            m_Editor_RightClick = m_Editor.FindAction("RightClick", throwIfNotFound: true);
+            m_Editor_RotateLeft = m_Editor.FindAction("RotateLeft", throwIfNotFound: true);
+            m_Editor_RotateRight = m_Editor.FindAction("RotateRight", throwIfNotFound: true);
+            m_Editor_ToggleMirror = m_Editor.FindAction("ToggleMirror", throwIfNotFound: true);
+            m_Editor_Zoom = m_Editor.FindAction("Zoom", throwIfNotFound: true);
             // Debug
-            _mDebug = Asset.FindActionMap("Debug", throwIfNotFound: true);
-            _mDebugToggleConsole = _mDebug.FindAction("ToggleConsole", throwIfNotFound: true);
-            _mDebugDrag = _mDebug.FindAction("Drag", throwIfNotFound: true);
+            m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+            m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
+            m_Debug_Drag = m_Debug.FindAction("Drag", throwIfNotFound: true);
             // ReturnNavigateable
-            _mReturnNavigateable = Asset.FindActionMap("ReturnNavigateable", throwIfNotFound: true);
-            _mReturnNavigateableReturn = _mReturnNavigateable.FindAction("Return", throwIfNotFound: true);
+            m_ReturnNavigateable = asset.FindActionMap("ReturnNavigateable", throwIfNotFound: true);
+            m_ReturnNavigateable_Return = m_ReturnNavigateable.FindAction("Return", throwIfNotFound: true);
             // Gameplay
-            _mGameplay = Asset.FindActionMap("Gameplay", throwIfNotFound: true);
-            _mGameplayZoom = _mGameplay.FindAction("Zoom", throwIfNotFound: true);
-            _mGameplayRightClick = _mGameplay.FindAction("RightClick", throwIfNotFound: true);
-            _mGameplayLeftClick = _mGameplay.FindAction("LeftClick", throwIfNotFound: true);
-            _mGameplayMovement = _mGameplay.FindAction("Movement", throwIfNotFound: true);
-            _mGameplayEscape = _mGameplay.FindAction("Escape", throwIfNotFound: true);
-            _mGameplayNumKeys = _mGameplay.FindAction("NumKeys", throwIfNotFound: true);
+            m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
+            m_Gameplay_Zoom = m_Gameplay.FindAction("Zoom", throwIfNotFound: true);
+            m_Gameplay_RightClick = m_Gameplay.FindAction("RightClick", throwIfNotFound: true);
+            m_Gameplay_LeftClick = m_Gameplay.FindAction("LeftClick", throwIfNotFound: true);
+            m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
+            m_Gameplay_Escape = m_Gameplay.FindAction("Escape", throwIfNotFound: true);
+            m_Gameplay_NumKeys = m_Gameplay.FindAction("NumKeys", throwIfNotFound: true);
         }
 
         public void Dispose()
         {
-            UnityEngine.Object.Destroy(Asset);
+            UnityEngine.Object.Destroy(asset);
         }
 
         public InputBinding? bindingMask
         {
-            get => Asset.bindingMask;
-            set => Asset.bindingMask = value;
+            get => asset.bindingMask;
+            set => asset.bindingMask = value;
         }
 
         public ReadOnlyArray<InputDevice>? devices
         {
-            get => Asset.devices;
-            set => Asset.devices = value;
+            get => asset.devices;
+            set => asset.devices = value;
         }
 
-        public ReadOnlyArray<InputControlScheme> controlSchemes => Asset.controlSchemes;
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
         public bool Contains(InputAction action)
         {
-            return Asset.Contains(action);
+            return asset.Contains(action);
         }
 
         public IEnumerator<InputAction> GetEnumerator()
         {
-            return Asset.GetEnumerator();
+            return asset.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -621,67 +621,67 @@ namespace Exa.Input
 
         public void Enable()
         {
-            Asset.Enable();
+            asset.Enable();
         }
 
         public void Disable()
         {
-            Asset.Disable();
+            asset.Disable();
         }
 
         // Editor
-        private readonly InputActionMap _mEditor;
-        private IEditorActions _mEditorActionsCallbackInterface;
-        private readonly InputAction _mEditorMovement;
-        private readonly InputAction _mEditorLeftClick;
-        private readonly InputAction _mEditorRightClick;
-        private readonly InputAction _mEditorRotateLeft;
-        private readonly InputAction _mEditorRotateRight;
-        private readonly InputAction _mEditorToggleMirror;
-        private readonly InputAction _mEditorZoom;
+        private readonly InputActionMap m_Editor;
+        private IEditorActions m_EditorActionsCallbackInterface;
+        private readonly InputAction m_Editor_Movement;
+        private readonly InputAction m_Editor_LeftClick;
+        private readonly InputAction m_Editor_RightClick;
+        private readonly InputAction m_Editor_RotateLeft;
+        private readonly InputAction m_Editor_RotateRight;
+        private readonly InputAction m_Editor_ToggleMirror;
+        private readonly InputAction m_Editor_Zoom;
         public struct EditorActions
         {
-            private @GameControls _mWrapper;
-            public EditorActions(@GameControls wrapper) { _mWrapper = wrapper; }
-            public InputAction @Movement => _mWrapper._mEditorMovement;
-            public InputAction @LeftClick => _mWrapper._mEditorLeftClick;
-            public InputAction @RightClick => _mWrapper._mEditorRightClick;
-            public InputAction @RotateLeft => _mWrapper._mEditorRotateLeft;
-            public InputAction @RotateRight => _mWrapper._mEditorRotateRight;
-            public InputAction @ToggleMirror => _mWrapper._mEditorToggleMirror;
-            public InputAction @Zoom => _mWrapper._mEditorZoom;
-            public InputActionMap Get() { return _mWrapper._mEditor; }
+            private @GameControls m_Wrapper;
+            public EditorActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Movement => m_Wrapper.m_Editor_Movement;
+            public InputAction @LeftClick => m_Wrapper.m_Editor_LeftClick;
+            public InputAction @RightClick => m_Wrapper.m_Editor_RightClick;
+            public InputAction @RotateLeft => m_Wrapper.m_Editor_RotateLeft;
+            public InputAction @RotateRight => m_Wrapper.m_Editor_RotateRight;
+            public InputAction @ToggleMirror => m_Wrapper.m_Editor_ToggleMirror;
+            public InputAction @Zoom => m_Wrapper.m_Editor_Zoom;
+            public InputActionMap Get() { return m_Wrapper.m_Editor; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
-            public bool Enabled => Get().enabled;
+            public bool enabled => Get().enabled;
             public static implicit operator InputActionMap(EditorActions set) { return set.Get(); }
             public void SetCallbacks(IEditorActions instance)
             {
-                if (_mWrapper._mEditorActionsCallbackInterface != null)
+                if (m_Wrapper.m_EditorActionsCallbackInterface != null)
                 {
-                    @Movement.started -= _mWrapper._mEditorActionsCallbackInterface.OnMovement;
-                    @Movement.performed -= _mWrapper._mEditorActionsCallbackInterface.OnMovement;
-                    @Movement.canceled -= _mWrapper._mEditorActionsCallbackInterface.OnMovement;
-                    @LeftClick.started -= _mWrapper._mEditorActionsCallbackInterface.OnLeftClick;
-                    @LeftClick.performed -= _mWrapper._mEditorActionsCallbackInterface.OnLeftClick;
-                    @LeftClick.canceled -= _mWrapper._mEditorActionsCallbackInterface.OnLeftClick;
-                    @RightClick.started -= _mWrapper._mEditorActionsCallbackInterface.OnRightClick;
-                    @RightClick.performed -= _mWrapper._mEditorActionsCallbackInterface.OnRightClick;
-                    @RightClick.canceled -= _mWrapper._mEditorActionsCallbackInterface.OnRightClick;
-                    @RotateLeft.started -= _mWrapper._mEditorActionsCallbackInterface.OnRotateLeft;
-                    @RotateLeft.performed -= _mWrapper._mEditorActionsCallbackInterface.OnRotateLeft;
-                    @RotateLeft.canceled -= _mWrapper._mEditorActionsCallbackInterface.OnRotateLeft;
-                    @RotateRight.started -= _mWrapper._mEditorActionsCallbackInterface.OnRotateRight;
-                    @RotateRight.performed -= _mWrapper._mEditorActionsCallbackInterface.OnRotateRight;
-                    @RotateRight.canceled -= _mWrapper._mEditorActionsCallbackInterface.OnRotateRight;
-                    @ToggleMirror.started -= _mWrapper._mEditorActionsCallbackInterface.OnToggleMirror;
-                    @ToggleMirror.performed -= _mWrapper._mEditorActionsCallbackInterface.OnToggleMirror;
-                    @ToggleMirror.canceled -= _mWrapper._mEditorActionsCallbackInterface.OnToggleMirror;
-                    @Zoom.started -= _mWrapper._mEditorActionsCallbackInterface.OnZoom;
-                    @Zoom.performed -= _mWrapper._mEditorActionsCallbackInterface.OnZoom;
-                    @Zoom.canceled -= _mWrapper._mEditorActionsCallbackInterface.OnZoom;
+                    @Movement.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
+                    @Movement.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
+                    @Movement.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
+                    @LeftClick.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnLeftClick;
+                    @RightClick.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnRightClick;
+                    @RightClick.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnRightClick;
+                    @RightClick.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnRightClick;
+                    @RotateLeft.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateLeft;
+                    @RotateLeft.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateLeft;
+                    @RotateLeft.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateLeft;
+                    @RotateRight.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
+                    @RotateRight.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
+                    @RotateRight.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
+                    @ToggleMirror.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
+                    @ToggleMirror.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
+                    @ToggleMirror.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
+                    @Zoom.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
+                    @Zoom.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
+                    @Zoom.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
                 }
-                _mWrapper._mEditorActionsCallbackInterface = instance;
+                m_Wrapper.m_EditorActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     @Movement.started += instance.OnMovement;
@@ -711,33 +711,33 @@ namespace Exa.Input
         public EditorActions @Editor => new EditorActions(this);
 
         // Debug
-        private readonly InputActionMap _mDebug;
-        private IDebugActions _mDebugActionsCallbackInterface;
-        private readonly InputAction _mDebugToggleConsole;
-        private readonly InputAction _mDebugDrag;
+        private readonly InputActionMap m_Debug;
+        private IDebugActions m_DebugActionsCallbackInterface;
+        private readonly InputAction m_Debug_ToggleConsole;
+        private readonly InputAction m_Debug_Drag;
         public struct DebugActions
         {
-            private @GameControls _mWrapper;
-            public DebugActions(@GameControls wrapper) { _mWrapper = wrapper; }
-            public InputAction @ToggleConsole => _mWrapper._mDebugToggleConsole;
-            public InputAction @Drag => _mWrapper._mDebugDrag;
-            public InputActionMap Get() { return _mWrapper._mDebug; }
+            private @GameControls m_Wrapper;
+            public DebugActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
+            public InputAction @Drag => m_Wrapper.m_Debug_Drag;
+            public InputActionMap Get() { return m_Wrapper.m_Debug; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
-            public bool Enabled => Get().enabled;
+            public bool enabled => Get().enabled;
             public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
             public void SetCallbacks(IDebugActions instance)
             {
-                if (_mWrapper._mDebugActionsCallbackInterface != null)
+                if (m_Wrapper.m_DebugActionsCallbackInterface != null)
                 {
-                    @ToggleConsole.started -= _mWrapper._mDebugActionsCallbackInterface.OnToggleConsole;
-                    @ToggleConsole.performed -= _mWrapper._mDebugActionsCallbackInterface.OnToggleConsole;
-                    @ToggleConsole.canceled -= _mWrapper._mDebugActionsCallbackInterface.OnToggleConsole;
-                    @Drag.started -= _mWrapper._mDebugActionsCallbackInterface.OnDrag;
-                    @Drag.performed -= _mWrapper._mDebugActionsCallbackInterface.OnDrag;
-                    @Drag.canceled -= _mWrapper._mDebugActionsCallbackInterface.OnDrag;
+                    @ToggleConsole.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @ToggleConsole.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @ToggleConsole.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @Drag.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
+                    @Drag.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
+                    @Drag.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
                 }
-                _mWrapper._mDebugActionsCallbackInterface = instance;
+                m_Wrapper.m_DebugActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     @ToggleConsole.started += instance.OnToggleConsole;
@@ -752,28 +752,28 @@ namespace Exa.Input
         public DebugActions @Debug => new DebugActions(this);
 
         // ReturnNavigateable
-        private readonly InputActionMap _mReturnNavigateable;
-        private IReturnNavigateableActions _mReturnNavigateableActionsCallbackInterface;
-        private readonly InputAction _mReturnNavigateableReturn;
+        private readonly InputActionMap m_ReturnNavigateable;
+        private IReturnNavigateableActions m_ReturnNavigateableActionsCallbackInterface;
+        private readonly InputAction m_ReturnNavigateable_Return;
         public struct ReturnNavigateableActions
         {
-            private @GameControls _mWrapper;
-            public ReturnNavigateableActions(@GameControls wrapper) { _mWrapper = wrapper; }
-            public InputAction @Return => _mWrapper._mReturnNavigateableReturn;
-            public InputActionMap Get() { return _mWrapper._mReturnNavigateable; }
+            private @GameControls m_Wrapper;
+            public ReturnNavigateableActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Return => m_Wrapper.m_ReturnNavigateable_Return;
+            public InputActionMap Get() { return m_Wrapper.m_ReturnNavigateable; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
-            public bool Enabled => Get().enabled;
+            public bool enabled => Get().enabled;
             public static implicit operator InputActionMap(ReturnNavigateableActions set) { return set.Get(); }
             public void SetCallbacks(IReturnNavigateableActions instance)
             {
-                if (_mWrapper._mReturnNavigateableActionsCallbackInterface != null)
+                if (m_Wrapper.m_ReturnNavigateableActionsCallbackInterface != null)
                 {
-                    @Return.started -= _mWrapper._mReturnNavigateableActionsCallbackInterface.OnReturn;
-                    @Return.performed -= _mWrapper._mReturnNavigateableActionsCallbackInterface.OnReturn;
-                    @Return.canceled -= _mWrapper._mReturnNavigateableActionsCallbackInterface.OnReturn;
+                    @Return.started -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
+                    @Return.performed -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
+                    @Return.canceled -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
                 }
-                _mWrapper._mReturnNavigateableActionsCallbackInterface = instance;
+                m_Wrapper.m_ReturnNavigateableActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     @Return.started += instance.OnReturn;
@@ -785,53 +785,53 @@ namespace Exa.Input
         public ReturnNavigateableActions @ReturnNavigateable => new ReturnNavigateableActions(this);
 
         // Gameplay
-        private readonly InputActionMap _mGameplay;
-        private IGameplayActions _mGameplayActionsCallbackInterface;
-        private readonly InputAction _mGameplayZoom;
-        private readonly InputAction _mGameplayRightClick;
-        private readonly InputAction _mGameplayLeftClick;
-        private readonly InputAction _mGameplayMovement;
-        private readonly InputAction _mGameplayEscape;
-        private readonly InputAction _mGameplayNumKeys;
+        private readonly InputActionMap m_Gameplay;
+        private IGameplayActions m_GameplayActionsCallbackInterface;
+        private readonly InputAction m_Gameplay_Zoom;
+        private readonly InputAction m_Gameplay_RightClick;
+        private readonly InputAction m_Gameplay_LeftClick;
+        private readonly InputAction m_Gameplay_Movement;
+        private readonly InputAction m_Gameplay_Escape;
+        private readonly InputAction m_Gameplay_NumKeys;
         public struct GameplayActions
         {
-            private @GameControls _mWrapper;
-            public GameplayActions(@GameControls wrapper) { _mWrapper = wrapper; }
-            public InputAction @Zoom => _mWrapper._mGameplayZoom;
-            public InputAction @RightClick => _mWrapper._mGameplayRightClick;
-            public InputAction @LeftClick => _mWrapper._mGameplayLeftClick;
-            public InputAction @Movement => _mWrapper._mGameplayMovement;
-            public InputAction @Escape => _mWrapper._mGameplayEscape;
-            public InputAction @NumKeys => _mWrapper._mGameplayNumKeys;
-            public InputActionMap Get() { return _mWrapper._mGameplay; }
+            private @GameControls m_Wrapper;
+            public GameplayActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
+            public InputAction @RightClick => m_Wrapper.m_Gameplay_RightClick;
+            public InputAction @LeftClick => m_Wrapper.m_Gameplay_LeftClick;
+            public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
+            public InputAction @Escape => m_Wrapper.m_Gameplay_Escape;
+            public InputAction @NumKeys => m_Wrapper.m_Gameplay_NumKeys;
+            public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
-            public bool Enabled => Get().enabled;
+            public bool enabled => Get().enabled;
             public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
             public void SetCallbacks(IGameplayActions instance)
             {
-                if (_mWrapper._mGameplayActionsCallbackInterface != null)
+                if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
                 {
-                    @Zoom.started -= _mWrapper._mGameplayActionsCallbackInterface.OnZoom;
-                    @Zoom.performed -= _mWrapper._mGameplayActionsCallbackInterface.OnZoom;
-                    @Zoom.canceled -= _mWrapper._mGameplayActionsCallbackInterface.OnZoom;
-                    @RightClick.started -= _mWrapper._mGameplayActionsCallbackInterface.OnRightClick;
-                    @RightClick.performed -= _mWrapper._mGameplayActionsCallbackInterface.OnRightClick;
-                    @RightClick.canceled -= _mWrapper._mGameplayActionsCallbackInterface.OnRightClick;
-                    @LeftClick.started -= _mWrapper._mGameplayActionsCallbackInterface.OnLeftClick;
-                    @LeftClick.performed -= _mWrapper._mGameplayActionsCallbackInterface.OnLeftClick;
-                    @LeftClick.canceled -= _mWrapper._mGameplayActionsCallbackInterface.OnLeftClick;
-                    @Movement.started -= _mWrapper._mGameplayActionsCallbackInterface.OnMovement;
-                    @Movement.performed -= _mWrapper._mGameplayActionsCallbackInterface.OnMovement;
-                    @Movement.canceled -= _mWrapper._mGameplayActionsCallbackInterface.OnMovement;
-                    @Escape.started -= _mWrapper._mGameplayActionsCallbackInterface.OnEscape;
-                    @Escape.performed -= _mWrapper._mGameplayActionsCallbackInterface.OnEscape;
-                    @Escape.canceled -= _mWrapper._mGameplayActionsCallbackInterface.OnEscape;
-                    @NumKeys.started -= _mWrapper._mGameplayActionsCallbackInterface.OnNumKeys;
-                    @NumKeys.performed -= _mWrapper._mGameplayActionsCallbackInterface.OnNumKeys;
-                    @NumKeys.canceled -= _mWrapper._mGameplayActionsCallbackInterface.OnNumKeys;
+                    @Zoom.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                    @Zoom.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                    @Zoom.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                    @RightClick.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightClick;
+                    @RightClick.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightClick;
+                    @RightClick.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightClick;
+                    @LeftClick.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftClick;
+                    @Movement.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
+                    @Movement.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
+                    @Movement.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
+                    @Escape.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
+                    @Escape.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
+                    @Escape.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
+                    @NumKeys.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
+                    @NumKeys.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
+                    @NumKeys.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
                 }
-                _mWrapper._mGameplayActionsCallbackInterface = instance;
+                m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     @Zoom.started += instance.OnZoom;
@@ -856,13 +856,13 @@ namespace Exa.Input
             }
         }
         public GameplayActions @Gameplay => new GameplayActions(this);
-        private int _mMouseKbSchemeIndex = -1;
+        private int m_MouseKbSchemeIndex = -1;
         public InputControlScheme MouseKbScheme
         {
             get
             {
-                if (_mMouseKbSchemeIndex == -1) _mMouseKbSchemeIndex = Asset.FindControlSchemeIndex("MouseKb");
-                return Asset.controlSchemes[_mMouseKbSchemeIndex];
+                if (m_MouseKbSchemeIndex == -1) m_MouseKbSchemeIndex = asset.FindControlSchemeIndex("MouseKb");
+                return asset.controlSchemes[m_MouseKbSchemeIndex];
             }
         }
         public interface IEditorActions

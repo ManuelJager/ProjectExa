@@ -2,8 +2,8 @@
 {
     public partial class ShipEditor
     {
-        private BlueprintGridValidator _gridValidator;
-        private BlueprintNameValidator _nameValidator;
+        private BlueprintGridValidator gridValidator;
+        private BlueprintNameValidator nameValidator;
 
         public void ValidateGrid()
         {
@@ -12,10 +12,10 @@
                 blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.Blocks
             };
 
-            GridValidationResult = _shipEditorOverlay
+            GridValidationResult = shipEditorOverlay
                 .blueprintInfoPanel
                 .errorListController
-                .Validate(_gridValidator, args);
+                .Validate(gridValidator, args);
         }
 
         public void ValidateName(string name)
@@ -24,13 +24,13 @@
             {
                 collectionContext = blueprintCollection,
                 requestedName = name,
-                blueprintContainer = _container
+                blueprintContainer = container
             };
 
-            NameValidationResult = _shipEditorOverlay
+            NameValidationResult = shipEditorOverlay
                 .blueprintInfoPanel
                 .errorListController
-                .Validate(_nameValidator, args);
+                .Validate(nameValidator, args);
 
             if (NameValidationResult)
             {

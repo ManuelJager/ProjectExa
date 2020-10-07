@@ -11,14 +11,14 @@ namespace Exa.Ships
     {
         public Ship ship;
 
-        private float _hullIntegrity;
+        private float hullIntegrity;
 
         public float HullIntegrity
         {
-            get => _hullIntegrity;
+            get => hullIntegrity;
             set
             {
-                _hullIntegrity = value;
+                hullIntegrity = value;
                 ship.overlay.overlayHullBar.SetFill(value);
             }
         }

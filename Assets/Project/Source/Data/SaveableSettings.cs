@@ -28,15 +28,15 @@ namespace Exa.Data
 
         public virtual void Save()
         {
-            var path = IoUtils.CombineWithDirectory("settings", $"{Key}.json");
-            IoUtils.JsonSerializeToPath(Values, path, SerializationMode.Readable);
+            var path = IOUtils.CombineWithDirectory("settings", $"{Key}.json");
+            IOUtils.JsonSerializeToPath(Values, path, SerializationMode.readable);
         }
 
         public virtual void Load()
         {
-            var path = IoUtils.CombineWithDirectory("settings", $"{Key}.json");
+            var path = IOUtils.CombineWithDirectory("settings", $"{Key}.json");
             Values = File.Exists(path)
-                ? IoUtils.JsonDeserializeFromPath<T>(path)
+                ? IOUtils.JsonDeserializeFromPath<T>(path)
                 : DefaultValues;
         }
     }

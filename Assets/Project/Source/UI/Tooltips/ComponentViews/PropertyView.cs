@@ -9,24 +9,24 @@ namespace Exa.UI.Tooltips
     public class PropertyView : TooltipComponentView<ILabeledValue<object>>
     {
         [Header("References")]
-        [SerializeField] private Text _keyText;
-        [SerializeField] private Text _valueText;
+        [SerializeField] private Text keyText;
+        [SerializeField] private Text valueText;
 
         public void SetFont(Font font)
         {
-            _keyText.font = font;
-            _valueText.font = font;
+            keyText.font = font;
+            valueText.font = font;
         }
 
         public void SetValue(object value)
         {
-            _valueText.text = value.ToString();
+            valueText.text = value.ToString();
         }
 
         protected override void Refresh(ILabeledValue<object> labeledValue)
         {
-            _keyText.text = labeledValue.Label;
-            _valueText.text = labeledValue.Value.ToString();
+            keyText.text = labeledValue.Label;
+            valueText.text = labeledValue.Value.ToString();
         }
     }
 }

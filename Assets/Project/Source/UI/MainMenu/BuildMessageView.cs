@@ -5,12 +5,12 @@ namespace Exa.UI
 {
     public class BuildMessageView : MonoBehaviour
     {
-        [SerializeField] private Text _buildMessageText;
-        [SerializeField] private BuildMessage _buildMessage;
+        [SerializeField] private Text buildMessageText;
+        [SerializeField] private BuildMessage buildMessage;
 
         private void Awake()
         {
-            _buildMessageText.text = _buildMessage.buildMessage;
+            buildMessageText.text = buildMessage.buildMessage;
         }
     }
 }

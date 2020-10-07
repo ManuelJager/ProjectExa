@@ -4,33 +4,33 @@ namespace Exa.Math.ControlSystems
 {
     public class PdVector2Controller
     {
-        private float _proportional;
-        private float _maxVel;
-        private float _derivitive;
+        private float proportional;
+        private float maxVel;
+        private float derivitive;
 
         public float Proportional
         {
-            get => _proportional;
-            set => _proportional = value;
+            get => proportional;
+            set => proportional = value;
         }
 
         public float Derivitive
         {
-            get => _derivitive;
-            set => _derivitive = value;
+            get => derivitive;
+            set => derivitive = value;
         }
 
         public float MaxVel 
         { 
-            get => _maxVel; 
-            set => _maxVel = value; 
+            get => maxVel; 
+            set => maxVel = value; 
         }
 
         public PdVector2Controller(float proportional, float derivitive, float maxVel)
         {
-            this._proportional = proportional;
-            this._derivitive = derivitive;
-            this._maxVel = maxVel;
+            this.proportional = proportional;
+            this.derivitive = derivitive;
+            this.maxVel = maxVel;
         }
 
         public void SetSettings(PdSettings pdSettings)
@@ -42,9 +42,9 @@ namespace Exa.Math.ControlSystems
         public Vector2 CalculateRequiredVelocity(Vector2 currentPos, Vector2 targetPos, Vector2 currentVelocity)
         {
             var dist = targetPos - currentPos;
-            var targetVel = Vector2.ClampMagnitude(_proportional * dist, _maxVel);
+            var targetVel = Vector2.ClampMagnitude(proportional * dist, maxVel);
             var error = targetVel - currentVelocity;
-            return _derivitive * error;
+            return derivitive * error;
         }
     }
 }

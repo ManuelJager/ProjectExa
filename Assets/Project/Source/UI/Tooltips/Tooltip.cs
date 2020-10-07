@@ -6,15 +6,15 @@ namespace Exa.UI.Tooltips
     // TODO: Support value refreshing, without destroying and instantiating ui objects
     public class Tooltip
     {
-        private readonly Func<TooltipGroup> _factory;
-        private TooltipGroup _group;
+        private readonly Func<TooltipGroup> factory;
+        private TooltipGroup group;
 
         public bool ShouldRefresh { get; set; }
         public Font Font { get; private set; }
 
         public Tooltip(Func<TooltipGroup> factory, Font font = null)
         {
-            this._factory = factory;
+            this.factory = factory;
             ShouldRefresh = true;
             Font = font;
         }
@@ -23,9 +23,9 @@ namespace Exa.UI.Tooltips
         {
             if (ShouldRefresh)
             {
-                _group = _factory();
+                group = factory();
             }
-            return _group;
+            return group;
         }
     }
 }

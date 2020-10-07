@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9d5c0f3bc898f4bb7115fcc2a07f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charTime: 0.01
+  charTime: 0.02
   text: {fileID: 9202111635272887092}
   animateOnEnable: 0
   animateOnEnableDelay: 0

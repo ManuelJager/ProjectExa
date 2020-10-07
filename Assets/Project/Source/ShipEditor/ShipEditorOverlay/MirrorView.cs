@@ -6,14 +6,14 @@ namespace Exa.ShipEditor
 {
     public class MirrorView : MonoBehaviour
     {
-        [SerializeField] private KeybindingView _keybindingView;
-        [SerializeField] private Image _mirrorImage;
-        [SerializeField] private Color _activeColor;
-        [SerializeField] private Color _inactiveColor;
+        [SerializeField] private KeybindingView keybindingView;
+        [SerializeField] private Image mirrorImage;
+        [SerializeField] private Color activeColor;
+        [SerializeField] private Color inactiveColor;
 
         public void SetState(bool value)
         {
-            _mirrorImage.color = value ? _activeColor : _inactiveColor;
+            mirrorImage.color = value ? activeColor : inactiveColor;
         }
     }
 }

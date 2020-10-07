@@ -10,7 +10,7 @@ namespace Exa.Grids.Blueprints
 
         public BlueprintContainer ToContainer()
         {
-            var blueprint = IoUtils.JsonDeserializeWithSettings<Blueprint>(blueprintJson, SerializationMode.Readable);
+            var blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(blueprintJson, SerializationMode.readable);
 
             var args = new BlueprintContainerArgs(blueprint)
             {

@@ -10,20 +10,20 @@ namespace Exa.Audio.Music
 
     public class MusicTrack : AudioTrack
     {
-        [SerializeField] private TrackList _mainMenuTrackList;
-        private Atmosphere _activeAtmosphere = Atmosphere.None;
+        [SerializeField] private TrackList MainMenuTrackList;
+        private Atmosphere activeAtmosphere = Atmosphere.None;
 
         public void SetAtmosphere(Atmosphere atmosphere)
         {
-            if (_activeAtmosphere == atmosphere) return;
+            if (activeAtmosphere == atmosphere) return;
 
             // Fade out the current atmosphere
-            ProcessOldAtmosphere(_activeAtmosphere);
+            ProcessOldAtmosphere(activeAtmosphere);
 
             // Fade in the new atmosphere
             ProcessNewAtmosphere(atmosphere);
 
-            _activeAtmosphere = atmosphere;
+            activeAtmosphere = atmosphere;
         }
 
         private void ProcessNewAtmosphere(Atmosphere newAtmosphere)
@@ -54,7 +54,7 @@ namespace Exa.Audio.Music
             switch (atmosphere)
             {
                 case Atmosphere.MainMenu:
-                    return _mainMenuTrackList;
+                    return MainMenuTrackList;
 
                 default:
                     return null;

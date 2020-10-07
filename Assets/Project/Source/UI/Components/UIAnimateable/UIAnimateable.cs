@@ -6,22 +6,22 @@ namespace Exa.UI.Components
 {
     public enum AnimationDirection
     {
-        None = 0,
-        Top = 1,
-        Left = 2,
-        Bottom = 3,
-        Right = 4,
+        none = 0,
+        top = 1,
+        left = 2,
+        bottom = 3,
+        right = 4,
     }
 
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(CanvasGroup))]
     [DisallowMultipleComponent]
-    public class UiAnimateable : MonoBehaviour
+    public class UIAnimateable : MonoBehaviour
     {
         public float msLocalAnimationOffset = 0f;
 
         // movement animation
-        public AnimationDirection movementDirection = AnimationDirection.None;
+        public AnimationDirection movementDirection = AnimationDirection.none;
 
         public float movementSmoothDamp = 0.1f;
         public float movementMagnitude = 20f;
@@ -30,39 +30,39 @@ namespace Exa.UI.Components
         public bool animateAlpha;
 
         public float alphaSpeed = 8f;
-        private float _originalAlpha = 0f;
+        private float originalAlpha = 0f;
 
-        private Vector2 _elementVelocity = Vector2.zero;
-        private Vector2 _originalPos;
+        private Vector2 elementVelocity = Vector2.zero;
+        private Vector2 originalPos;
 
-        private CanvasGroup _canvasGroup;
-        private RectTransform _rect;
+        private CanvasGroup canvasGroup;
+        private RectTransform rect;
 
         private float Alpha
         {
-            get => _canvasGroup.alpha;
-            set => _canvasGroup.alpha = Mathf.Clamp(value, 0, 1);
+            get => canvasGroup.alpha;
+            set => canvasGroup.alpha = Mathf.Clamp(value, 0, 1);
         }
 
         private void Awake()
         {
-            _canvasGroup = GetComponent<CanvasGroup>();
-            _rect = GetComponent<RectTransform>();
+            canvasGroup = GetComponent<CanvasGroup>();
+            rect = GetComponent<RectTransform>();
         }
 
         private void OnEnable()
         {
-            _originalAlpha = Alpha;
+            originalAlpha = Alpha;
 
             if (animateAlpha)
             {
                 Alpha = 0f;
-                StartDelayedCoroutine(msLocalAnimationOffset / 1000f, FadeIn(_originalAlpha));
+                StartDelayedCoroutine(msLocalAnimationOffset / 1000f, FadeIn(originalAlpha));
             }
 
-            if (movementDirection == AnimationDirection.None) return;
+            if (movementDirection == AnimationDirection.none) return;
 
-            _originalPos = _rect.anchoredPosition;
+            originalPos = rect.anchoredPosition;
 
             // Create a vector that points upwards and rotate it by the animation direction
             // This is used as an offset from the original rect position
@@ -72,9 +72,9 @@ namespace Exa.UI.Components
                 y = movementMagnitude
             }.Rotate(movementDirection.GetRotation());
 
-            _rect.anchoredPosition = _originalPos + offset;
+            rect.anchoredPosition = originalPos + offset;
 
-            StartDelayedCoroutine(msLocalAnimationOffset / 1000f, SlideIn(_originalPos));
+            StartDelayedCoroutine(msLocalAnimationOffset / 1000f, SlideIn(originalPos));
         }
 
         private void OnDisable()
@@ -86,11 +86,11 @@ namespace Exa.UI.Components
         {
             StopAllCoroutines();
 
-            Alpha = _originalAlpha;
+            Alpha = originalAlpha;
 
-            if (movementDirection == AnimationDirection.None) return;
+            if (movementDirection == AnimationDirection.none) return;
 
-            _rect.anchoredPosition = _originalPos;
+            rect.anchoredPosition = originalPos;
         }
 
         private IEnumerator FadeIn(float target)
@@ -107,12 +107,12 @@ namespace Exa.UI.Components
 
         private IEnumerator SlideIn(Vector2 towards)
         {
-            if (_rect.anchoredPosition != towards)
+            if (rect.anchoredPosition != towards)
             {
-                _rect.anchoredPosition = Vector2.SmoothDamp(
-                    _rect.anchoredPosition,
+                rect.anchoredPosition = Vector2.SmoothDamp(
+                    rect.anchoredPosition,
                     towards,
-                    ref _elementVelocity,
+                    ref elementVelocity,
                     movementSmoothDamp);
 
                 yield return null;

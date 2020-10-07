@@ -6,12 +6,12 @@ namespace Exa.UI
 {
     public class FleetBuilder : MonoBehaviour
     {
-        [SerializeField] private FleetBuilderBlueprintViewController _viewController;
-        [SerializeField] private FleetBuilderBlueprintTypes _blueprintTypes;
+        [SerializeField] private FleetBuilderBlueprintViewController viewController;
+        [SerializeField] private FleetBuilderBlueprintTypes blueprintTypes;
 
         private void Awake()
         {
-            _blueprintTypes.BuildList();
+            blueprintTypes.BuildList();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Exa.UI
 {
-    public interface IUiGroup
+    public interface IUIGroup
     {
         bool Interactable { get; set; }
     }

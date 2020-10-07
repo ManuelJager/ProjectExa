@@ -5,24 +5,24 @@ namespace Exa.Ships.Targetting
 {
     public struct StaticAngleTarget : ITarget
     {
-        private readonly float _directionAngle;
-        private readonly float _magnitude;
+        private readonly float directionAngle;
+        private readonly float magnitude;
 
         public StaticAngleTarget(float directionAngle, float magnitude = 10)
         {
-            this._directionAngle = directionAngle;
-            this._magnitude = magnitude;
+            this.directionAngle = directionAngle;
+            this.magnitude = magnitude;
         }
 
         public StaticAngleTarget(Vector2 from, Vector2 to, float magnitude = 10)
         {
-            this._directionAngle = (to - from).GetAngle();
-            this._magnitude = magnitude;
+            this.directionAngle = (to - from).GetAngle();
+            this.magnitude = magnitude;
         }
 
         public Vector2 GetPosition(Vector2 current)
         {
-            var offset = (Vector2.right * _magnitude).Rotate(_directionAngle);
+            var offset = (Vector2.right * magnitude).Rotate(directionAngle);
             var directionVector = current + offset;
             return directionVector;
         }

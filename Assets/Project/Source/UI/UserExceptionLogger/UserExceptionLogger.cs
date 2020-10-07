@@ -7,8 +7,8 @@ namespace Exa.UI
 {
     public class UserExceptionLogger : MonoBehaviour
     {
-        [SerializeField] private GameObject _userExceptionPrefab;
-        [SerializeField] private Transform _container;
+        [SerializeField] private GameObject userExceptionPrefab;
+        [SerializeField] private Transform container;
 
         public void Log(UserException exception)
         {
@@ -17,7 +17,7 @@ namespace Exa.UI
 
         public void Log(string message)
         {
-            var exceptionView = Instantiate(_userExceptionPrefab, _container).GetComponent<UserExceptionView>();
+            var exceptionView = Instantiate(userExceptionPrefab, container).GetComponent<UserExceptionView>();
             exceptionView.Message = message;
         }
     }

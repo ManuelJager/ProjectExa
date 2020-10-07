@@ -9,13 +9,13 @@ namespace Exa.Debugging
 {
     public class LoggerInterceptor : MonoBehaviour, ILogHandler
     {
-        private ILogHandler _defaultLogHandler;
-        private UserExceptionLogger _userExceptionLogger;
+        private ILogHandler defaultLogHandler;
+        private UserExceptionLogger userExceptionLogger;
 
         private void Awake()
         {
-            _userExceptionLogger = Systems.Ui.logger;
-            _defaultLogHandler = Debug.unityLogger.logHandler;
+            userExceptionLogger = Systems.UI.logger;
+            defaultLogHandler = Debug.unityLogger.logHandler;
             Debug.unityLogger.logHandler = this;
         }
 
@@ -27,7 +27,7 @@ namespace Exa.Debugging
                 return;
             }
 
-            _defaultLogHandler.LogException(exception, context);
+            defaultLogHandler.LogException(exception, context);
             if (exception is UserException userException)
             {
                 LogUserException(userException);
@@ -37,13 +37,13 @@ namespace Exa.Debugging
         [System.Diagnostics.DebuggerHidden]
         public void LogUserException(UserException exception)
         {
-            _userExceptionLogger.Log(exception);
+            userExceptionLogger.Log(exception);
         }
 
         [System.Diagnostics.DebuggerHidden]
         public void LogFormat(LogType logType, UnityEngine.Object context, string format, params object[] args)
         {
-            _defaultLogHandler.LogFormat(logType, context, format, args);
+            defaultLogHandler.LogFormat(logType, context, format, args);
         }
     }
 }

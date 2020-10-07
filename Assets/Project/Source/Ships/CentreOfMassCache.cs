@@ -6,15 +6,15 @@ namespace Exa.Ships
 {
     public partial class CentreOfMassCache : Dictionary<Vector2, float>
     {
-        private Vector2 _vectoredTotal = new Vector2();
-        private float _totalMass = 0f;
+        private Vector2 vectoredTotal = new Vector2();
+        private float totalMass = 0f;
 
         public new void Add(Vector2 position, float mass)
         {
             base.Add(position, mass);
 
-            _totalMass += mass;
-            _vectoredTotal += position * mass;
+            totalMass += mass;
+            vectoredTotal += position * mass;
         }
 
         public new void Remove(Vector2 position)
@@ -22,13 +22,13 @@ namespace Exa.Ships
             var mass = base[position];
             base.Remove(position);
 
-            _totalMass -= mass;
-            _vectoredTotal -= position * mass;
+            totalMass -= mass;
+            vectoredTotal -= position * mass;
         }
 
         public Vector2 GetCentreOfMass()
         {
-            return _vectoredTotal / _totalMass;
+            return vectoredTotal / totalMass;
         }
 
         public override string ToString()

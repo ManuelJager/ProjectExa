@@ -5,23 +5,23 @@ namespace Exa.Grids
 {
     public static class GridMemberUtils
     {
-        public static void SetupGameObject(this IGridMember gridMember, GameObject blockGo)
+        public static void SetupGameObject(this IGridMember gridMember, GameObject blockGO)
         {
             var blueprintBlock = gridMember.BlueprintBlock;
             var gridAnchor = gridMember.GridAnchor;
 
-            blockGo.name = $"{blueprintBlock.Template.displayId} {gridAnchor}";
-            var spriteRenderer = blockGo.GetComponent<SpriteRenderer>();
+            blockGO.name = $"{blueprintBlock.Template.displayId} {gridAnchor}";
+            var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
             gridMember.BlueprintBlock.SetSpriteRendererFlips(spriteRenderer);
-            gridMember.UpdateLocals(blockGo);
+            gridMember.UpdateLocals(blockGO);
         }
 
-        public static void UpdateLocals(this IGridMember gridMember, GameObject blockGo)
+        public static void UpdateLocals(this IGridMember gridMember, GameObject blockGO)
         {
             var blueprintBlock = gridMember.BlueprintBlock;
 
-            blockGo.transform.localRotation = blueprintBlock.QuaternionRotation;
-            blockGo.transform.localPosition = gridMember.GetLocalPosition();
+            blockGO.transform.localRotation = blueprintBlock.QuaternionRotation;
+            blockGO.transform.localPosition = gridMember.GetLocalPosition();
         }
 
         public static Vector2 GetLocalPosition(this IGridMember gridMember)

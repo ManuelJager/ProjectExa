@@ -10,28 +10,28 @@ namespace Exa.ShipEditor
     {
         public Button button;
 
-        [SerializeField] private Text _blockSizeText;
-        [SerializeField] private Image _image;
-        [SerializeField] private Hoverable _hoverable;
-        private BlockTemplate _data;
+        [SerializeField] private Text blockSizeText;
+        [SerializeField] private Image image;
+        [SerializeField] private Hoverable hoverable;
+        private BlockTemplate data;
 
         private void Awake()
         {
-            _hoverable.onPointerEnter.AddListener(() =>
+            hoverable.onPointerEnter.AddListener(() =>
             {
-                Systems.Ui.tooltips.blockTemplateTooltip.Show(ShipContext.DefaultGroup, _data);
+                Systems.UI.tooltips.blockTemplateTooltip.Show(ShipContext.DefaultGroup, data);
             });
-            _hoverable.onPointerExit.AddListener(() =>
+            hoverable.onPointerExit.AddListener(() =>
             {
-                Systems.Ui.tooltips.blockTemplateTooltip.Hide();
+                Systems.UI.tooltips.blockTemplateTooltip.Hide();
             });
         }
 
         public void OnUpdate(BlockTemplate data)
         {
-            this._data = data;
-            _image.sprite = data.thumbnail;
-            _blockSizeText.text = $"{data.size.x}x{data.size.y}";
+            this.data = data;
+            image.sprite = data.thumbnail;
+            blockSizeText.text = $"{data.size.x}x{data.size.y}";
         }
     }
 }

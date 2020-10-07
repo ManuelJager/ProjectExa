@@ -2,7 +2,7 @@
 
 namespace Exa.AI
 {
-    public abstract class ShipAiAction : IAction
+    public abstract class ShipAIAction : IAction
     {
         protected Ship ship;
 
@@ -11,7 +11,7 @@ namespace Exa.AI
         public float Priority { get; private set; }
         public string DebugString { get; protected set; }
 
-        internal ShipAiAction(Ship ship)
+        internal ShipAIAction(Ship ship)
         {
             this.ship = ship;
         }

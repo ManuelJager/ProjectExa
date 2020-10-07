@@ -7,37 +7,37 @@ namespace Exa.ShipEditor
     {
         public UnityEvent onTime;
 
-        [SerializeField] private float _invokeOnTime;
-        private float _timeElapsedFromLastEdit = 0f;
-        private bool _invokedOnTime = false;
+        [SerializeField] private float invokeOnTime;
+        private float timeElapsedFromLastEdit = 0f;
+        private bool invokedOnTime = false;
 
         public void OnEnable()
         {
-            _timeElapsedFromLastEdit = 0f;
-            _invokedOnTime = false;
+            timeElapsedFromLastEdit = 0f;
+            invokedOnTime = false;
         }
 
         public void Reset()
         {
-            _timeElapsedFromLastEdit = 0f;
-            _invokedOnTime = false;
+            timeElapsedFromLastEdit = 0f;
+            invokedOnTime = false;
         }
 
         public void EmulateInvoke()
         {
-            _invokedOnTime = true;
+            invokedOnTime = true;
             onTime?.Invoke();
         }
 
         public void Update()
         {
-            if (_timeElapsedFromLastEdit > _invokeOnTime && !_invokedOnTime)
+            if (timeElapsedFromLastEdit > invokeOnTime && !invokedOnTime)
             {
-                _invokedOnTime = true;
+                invokedOnTime = true;
                 onTime?.Invoke();
             }
 
-            _timeElapsedFromLastEdit += Time.deltaTime;
+            timeElapsedFromLastEdit += Time.deltaTime;
         }
     }
 }

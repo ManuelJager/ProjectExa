@@ -14,16 +14,16 @@ public class StaticTooltipHoverable : MonoBehaviour
     public string message;
     public TooltipHoverEvent onHover;
 
-    private Hoverable _hoverable;
+    private Hoverable hoverable;
 
     private void Awake()
     {
-        _hoverable = GetComponent<Hoverable>();
-        _hoverable.onPointerEnter.AddListener(() =>
+        hoverable = GetComponent<Hoverable>();
+        hoverable.onPointerEnter.AddListener(() =>
         {
             onHover?.Invoke(message);
         });
-        _hoverable.onPointerExit.AddListener(() =>
+        hoverable.onPointerExit.AddListener(() =>
         {
             onHover?.Invoke("");
         });

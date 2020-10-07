@@ -7,14 +7,14 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     public class Gyroscope : Block, IBehaviourMarker<GyroscopeData>
     {
-        [SerializeField] private GyroscopeBehaviour _gyroscopeBehaviour;
+        [SerializeField] private GyroscopeBehaviour gyroscopeBehaviour;
 
-        BlockBehaviour<GyroscopeData> IBehaviourMarker<GyroscopeData>.Component => _gyroscopeBehaviour;
+        BlockBehaviour<GyroscopeData> IBehaviourMarker<GyroscopeData>.Component => gyroscopeBehaviour;
 
         public override IEnumerable<BlockBehaviourBase> GetBehaviours()
         {
             return base.GetBehaviours()
-                .Append(_gyroscopeBehaviour);
+                .Append(gyroscopeBehaviour);
         }
     }
 }

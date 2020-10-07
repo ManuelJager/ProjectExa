@@ -13,32 +13,32 @@ namespace Exa.Debugging
     {
         public static event DebugChangeDelegate DebugChange;
 
-        [SerializeField] private DebugMode _debugMode;
-        [SerializeField] private DebugDragger _debugDragger;
-        private GameControls _gameControls;
-        private UCommandConsole.Console _console;
+        [SerializeField] private DebugMode debugMode;
+        [SerializeField] private DebugDragger debugDragger;
+        private GameControls gameControls;
+        private UCommandConsole.Console console;
 
         public DebugMode DebugMode
         {
-            get => _debugMode;
-            set => _debugMode = value;
+            get => debugMode;
+            set => debugMode = value;
         }
 
         public void Awake()
         {
-            _console = Systems.Ui.console;
-            _gameControls = new GameControls();
-            _gameControls.Debug.SetCallbacks(this);
+            console = Systems.UI.console;
+            gameControls = new GameControls();
+            gameControls.Debug.SetCallbacks(this);
         }
 
         public void OnEnable()
         {
-            _gameControls.Enable();
+            gameControls.Enable();
         }
 
         public void OnDisable()
         {
-            _gameControls.Disable();
+            gameControls.Disable();
         }
 
         public void InvokeChange()
@@ -50,8 +50,8 @@ namespace Exa.Debugging
         {
             if (!context.performed) return;
 
-            var consoleGo = _console.gameObject;
-            consoleGo.SetActive(!consoleGo.activeSelf);
+            var consoleGO = console.gameObject;
+            consoleGO.SetActive(!consoleGO.activeSelf);
         }
 
         public void OnDrag(InputAction.CallbackContext context)
@@ -61,10 +61,10 @@ namespace Exa.Debugging
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    _debugDragger.OnPress();
+                    debugDragger.OnPress();
                     break;
                 case InputActionPhase.Canceled:
-                    _debugDragger.OnRelease();
+                    debugDragger.OnRelease();
                     break;
                 default:
                     break;

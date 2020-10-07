@@ -7,22 +7,22 @@ namespace Exa.UI
 {
     public class UserExceptionView : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup _canvasGroup;
-        [SerializeField] private Text _text;
+        [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private Text text;
 
         public string Message
         {
-            set => _text.text = value;
+            set => text.text = value;
         }
 
         private void Awake()
         {
-            _canvasGroup.alpha = 0f;
-            _canvasGroup.DOFade(1, 0.2f);
+            canvasGroup.alpha = 0f;
+            canvasGroup.DOFade(1, 0.2f);
 
             StartCoroutine(EnumeratorUtils.Delay(() =>
             {
-                _canvasGroup.DOFade(0f, 0.2f);
+                canvasGroup.DOFade(0f, 0.2f);
             }, 3f));
 
             StartCoroutine(EnumeratorUtils.Delay(() =>

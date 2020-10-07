@@ -21,35 +21,35 @@ namespace Exa
     public class Systems : MonoSingleton<Systems>
     {
         [Header("References")]
-        [SerializeField] private BlockFactory _blockFactory;
-        [SerializeField] private BlueprintManager _blueprintManager;
-        [SerializeField] private ShipEditor.ShipEditor _shipEditor;
-        [SerializeField] private AudioManager _audioManager;
-        [SerializeField] private ThumbnailGenerator _thumbnailGenerator;
-        [SerializeField] private DebugManager _debugManager;
-        [SerializeField] private InputManager _inputManager;
-        [SerializeField] private ExaSceneManager _sceneManager;
-        [SerializeField] private LoggerInterceptor _logger;
-        [SerializeField] private MainUi _mainUi;
+        [SerializeField] private BlockFactory blockFactory;
+        [SerializeField] private BlueprintManager blueprintManager;
+        [SerializeField] private ShipEditor.ShipEditor shipEditor;
+        [SerializeField] private AudioManager audioManager;
+        [SerializeField] private ThumbnailGenerator thumbnailGenerator;
+        [SerializeField] private DebugManager debugManager;
+        [SerializeField] private InputManager inputManager;
+        [SerializeField] private ExaSceneManager sceneManager;
+        [SerializeField] private LoggerInterceptor logger;
+        [SerializeField] private MainUI mainUI;
 
         [Header("Settings")]
-        [SerializeField] private bool _godModeIsEnabled = false;
+        [SerializeField] private bool godModeIsEnabled = false;
 
-        public static BlockFactory Blocks => Instance._blockFactory;
-        public static BlueprintManager Blueprints => Instance._blueprintManager;
-        public static ShipEditor.ShipEditor ShipEditor => Instance._shipEditor;
-        public static AudioManager Audio => Instance._audioManager;
-        public static ThumbnailGenerator Thumbnails => Instance._thumbnailGenerator;
-        public static DebugManager Debug => Instance._debugManager;
-        public static InputManager Input => Instance._inputManager;
-        public static ExaSceneManager Scenes => Instance._sceneManager;
-        public static LoggerInterceptor Logger => Instance._logger;
-        public static MainUi Ui => Instance._mainUi;
+        public static BlockFactory Blocks => Instance.blockFactory;
+        public static BlueprintManager Blueprints => Instance.blueprintManager;
+        public static ShipEditor.ShipEditor ShipEditor => Instance.shipEditor;
+        public static AudioManager Audio => Instance.audioManager;
+        public static ThumbnailGenerator Thumbnails => Instance.thumbnailGenerator;
+        public static DebugManager Debug => Instance.debugManager;
+        public static InputManager Input => Instance.inputManager;
+        public static ExaSceneManager Scenes => Instance.sceneManager;
+        public static LoggerInterceptor Logger => Instance.logger;
+        public static MainUI UI => Instance.mainUI;
 
         public static bool GodModeIsEnabled
         {
-            get => Instance._godModeIsEnabled;
-            set => Instance._godModeIsEnabled = value;
+            get => Instance.godModeIsEnabled;
+            set => Instance.godModeIsEnabled = value;
         }
 
         public static bool IsQuitting { get; set; } = false;
@@ -71,29 +71,29 @@ namespace Exa
         private IEnumerator Load()
         {
             // Allow the screen to be shown
-            Ui.loadingScreen.ShowScreen();
+            UI.loadingScreen.ShowScreen();
             yield return 0;
 
-            Ui.settingsManager.Load();
+            UI.settingsManager.Load();
 
-            var targetFrameRate = Ui.settingsManager.videoSettings.current.Values.resolution.refreshRate;
+            var targetFrameRate = UI.settingsManager.videoSettings.current.Values.resolution.refreshRate;
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(_blockFactory.StartUp(new Progress<float>((value) =>
+            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.StartUp(new Progress<float>((value) =>
             {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)} % complete) ...";
-                Ui.loadingScreen.ShowMessage(message);
+                UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(_blueprintManager.StartUp(new Progress<float>((value) =>
+            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.StartUp(new Progress<float>((value) =>
             {
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)} % complete) ...";
-                Ui.loadingScreen.ShowMessage(message);
+                UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
 
-            Ui.nav.blueprintSelector.Source = Blueprints.observableUserBlueprints;
-            Ui.nav.blueprintSelector.shipEditor.blueprintCollection = Blueprints.observableUserBlueprints;
+            UI.nav.blueprintSelector.Source = Blueprints.observableUserBlueprints;
+            UI.nav.blueprintSelector.shipEditor.blueprintCollection = Blueprints.observableUserBlueprints;
 
-            Ui.loadingScreen.HideScreen();
+            UI.loadingScreen.HideScreen();
         }
     }
 }

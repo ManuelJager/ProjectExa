@@ -4,13 +4,13 @@ namespace Exa.ShipEditor
 {
     public class EditorGridItem : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Color _defaultColor;
-        [SerializeField] private Color _hoverColor;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Color defaultColor;
+        [SerializeField] private Color hoverColor;
 
         public void SetColor(bool enabled)
         {
-            _spriteRenderer.color = enabled ? _hoverColor : _defaultColor;
+            spriteRenderer.color = enabled ? hoverColor : defaultColor;
         }
     }
 }

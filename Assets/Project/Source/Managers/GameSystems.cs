@@ -10,22 +10,22 @@ namespace Exa
 {
     public class GameSystems : MonoSingleton<GameSystems>
     {
-        [SerializeField] private GameplayInputManager _gameplayInputManager;
-        [SerializeField] private Navigateable _navigateable;
-        [SerializeField] private ShipFactory _shipFactory;
-        [SerializeField] private GameplayUi _gameplayUi;
-        [SerializeField] private AiManager _aIManager;
+        [SerializeField] private GameplayInputManager gameplayInputManager;
+        [SerializeField] private Navigateable navigateable;
+        [SerializeField] private ShipFactory shipFactory;
+        [SerializeField] private GameplayUI gameplayUI;
+        [SerializeField] private AIManager aIManager;
 
-        public static GameplayInputManager GameplayInputManager => Instance._gameplayInputManager;
-        public static Navigateable Navigateable => Instance._navigateable;
-        public static ShipFactory ShipFactory => Instance._shipFactory;
-        public static GameplayUi Ui => Instance._gameplayUi;
-        public static AiManager Ai => Instance._aIManager;
+        public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
+        public static Navigateable Navigateable => Instance.navigateable;
+        public static ShipFactory ShipFactory => Instance.shipFactory;
+        public static GameplayUI UI => Instance.gameplayUI;
+        public static AIManager AI => Instance.aIManager;
 
         protected override void Awake()
         {
             base.Awake();
-            _shipFactory.CreateFriendly("defaultScout", new Vector2(-20, 20));
+            shipFactory.CreateFriendly("defaultScout", new Vector2(-20, 20));
         }
     }
 }
