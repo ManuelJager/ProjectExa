@@ -10,9 +10,12 @@ namespace Exa.UI.Components
         [SerializeField] private Color activeColor;
         [SerializeField] private Color inactiveColor;
 
+        private Tween colorTween;
+
         public void SetColor(bool active)
         {
-            text.DOColor(active ? activeColor : inactiveColor, 0.1f);
+            colorTween?.Kill();
+            colorTween = text.DOColor(active ? activeColor : inactiveColor, 0.1f);
         }
     }
 }
