@@ -74,9 +74,9 @@ namespace Exa
             UI.loadingScreen.ShowScreen();
             yield return 0;
 
-            UI.settingsManager.Load();
+            UI.nav.settings.Load();
 
-            var targetFrameRate = UI.settingsManager.videoSettings.current.Values.resolution.refreshRate;
+            var targetFrameRate = UI.nav.settings.videoSettings.current.Values.resolution.refreshRate;
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.StartUp(new Progress<float>((value) =>
             {

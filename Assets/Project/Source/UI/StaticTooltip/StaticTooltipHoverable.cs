@@ -23,9 +23,5 @@ public class StaticTooltipHoverable : MonoBehaviour
         {
             onHover?.Invoke(message);
         });
-        hoverable.onPointerExit.AddListener(() =>
-        {
-            onHover?.Invoke("");
-        });
     }
 }

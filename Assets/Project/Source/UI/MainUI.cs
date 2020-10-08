@@ -21,7 +21,6 @@ namespace Exa.UI
         public MouseCursorController mouseCursor;
         public PromptController promptController;
         public DiagnosticsPanel diagnostics;
-        public SettingsManager settingsManager;
         public ControlFactory controlFactory;
 
         private void Awake()
