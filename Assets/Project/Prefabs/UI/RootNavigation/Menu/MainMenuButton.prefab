@@ -21,7 +21,7 @@ MonoBehaviour:
   inactiveColor: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
   activeHeight: 120
   inactiveHeight: 80
-  activeFontSize: 48
+  activeFontSize: 62
   inactiveFontSize: 42
   currentFontSize: 0
   delay: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
     m_Right: 20
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -273,7 +273,7 @@ PrefabInstance:
     - target: {fileID: 6073299296863241000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6073299296863241000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
@@ -283,6 +283,31 @@ PrefabInstance:
     - target: {fileID: 6073299296863241000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073299296863241000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073299296863241000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073299296863241000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073299296863241000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073299296863241000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
