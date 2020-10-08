@@ -13,9 +13,9 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private Light2D light2D;
 
         [Header("Settings")]
-        [SerializeField] private FloatMinMax xScale;
-        [SerializeField] private FloatMinMax yScale;
-        [SerializeField] private FloatMinMax lightIntensityScale;
+        [SerializeField] private MinMax<float> xScale;
+        [SerializeField] private MinMax<float> yScale;
+        [SerializeField] private MinMax<float> lightIntensityScale;
 
         public void Fire(float strength)
         {
