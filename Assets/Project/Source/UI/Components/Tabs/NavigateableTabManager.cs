@@ -4,7 +4,7 @@ using Exa.UI;
 
 namespace Exa.UI.Components
 {
-    //TODO: Add selected tab text animation
+    // TODO: Hide tooltip when not hovering over a tab button
     public class NavigateableTabManager : MonoBehaviour
     {
         [SerializeField] private Navigateable defaultTab;
