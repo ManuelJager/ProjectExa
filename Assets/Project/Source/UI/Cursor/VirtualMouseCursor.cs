@@ -35,6 +35,7 @@ namespace Exa.UI
         private Tween cursorColorTween;
         private Tween cursorClickAlphaTween;
         private Tween cursorRotationTween;
+        private bool lockCursorScaleAnim;
         private FloatTweenBlender cursorScaleBlender;
 
         public MarkerContainer HoverMarkerContainer { get; private set; }
@@ -49,7 +50,7 @@ namespace Exa.UI
 
             HoverMarkerContainer = new MarkerContainer(active =>
             {
-                cursorScaleBlender.To(0, active ? 1.2f : 1f, cursorAnimTime);
+                cursorScaleBlender.To(0, active ? 1.35f : 1f, cursorAnimTime);
             });
 
             inputAction.started += OnLeftMouseStarted;
@@ -71,15 +72,24 @@ namespace Exa.UI
             var viewportPoint = Systems.Input.ScaledViewportPoint;
             rectTransform.anchoredPosition = viewportPoint;
             cursorScaleBlender.Update();
+            UpdateCursorScaleAnim(viewportPoint);
+        }
 
-            if (ViewportPivot.HasValue)
-            {
-                var vector = ViewportPivot.Value - viewportPoint;
-                var angle = vector.magnitude > 2f
-                    ? (vector.GetAngle() + 270f) % 360
-                    : 0f;
-                AnimCursorDirection(angle);
-            }
+        private void UpdateCursorScaleAnim(Vector2 viewportPoint)
+        {
+            if (!ViewportPivot.HasValue) 
+                return;
+
+            var difference = ViewportPivot.Value - viewportPoint;
+
+            if (lockCursorScaleAnim && difference.magnitude > 10f)
+                lockCursorScaleAnim = false;
+
+            if (lockCursorScaleAnim)
+                return;
+
+            var angle = (difference.GetAngle() + 270f - 22.5f) % 360;
+            AnimCursorDirection(angle, 0.25f);
         }
 
         public void SetActive(bool active)
@@ -112,6 +122,7 @@ namespace Exa.UI
         private void OnLeftMouseStarted(InputAction.CallbackContext context)
         {
             AnimCursorSize(animInSettings);
+            lockCursorScaleAnim = true;
             ViewportPivot = Systems.Input.ScaledViewportPoint;
         }
 
@@ -119,7 +130,7 @@ namespace Exa.UI
         {
             AnimCursorSize(animOutSettings);
             ViewportPivot = null;
-            AnimCursorDirection(0f);
+            AnimCursorDirection(0f, 0.10f);
         }
 
         private void AnimCursorSize(CursorAnimSettings args)
@@ -134,11 +145,11 @@ namespace Exa.UI
                 .SetEase(args.ease);
         }
 
-        private void AnimCursorDirection(float angle)
+        private void AnimCursorDirection(float angle, float time)
         {
             var targetVector = new Vector3(0, 0, angle);
             cursorRotationTween?.Kill();
-            cursorRotationTween = normalCursor.DORotate(targetVector, 0.15f);
+            cursorRotationTween = normalCursor.DORotate(targetVector, time);
         }
 
         private void SwitchActive(CursorState state, bool active)

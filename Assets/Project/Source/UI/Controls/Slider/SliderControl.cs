@@ -2,6 +2,7 @@
 using Exa.UI.Components;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static UnityEngine.UI.Slider;
 #pragma warning disable CS0649
@@ -12,6 +13,8 @@ namespace Exa.UI.Controls
     {
         [SerializeField] private Slider slider;
         [SerializeField] private ExtendedInputField inputField;
+        [SerializeField] private ValueOverride<CursorState> cursorState;
+
         public override float CleanValue { get; set; }
 
         public override float Value
@@ -51,6 +54,16 @@ namespace Exa.UI.Controls
         public void SetMin()
         {
             slider.value = slider.minValue;
+        }
+
+        public void OnBeginDrag()
+        {
+            Systems.UI.mouseCursor.stateManager.Add(cursorState);
+        }
+
+        public void OnEndDrag()
+        {
+            Systems.UI.mouseCursor.stateManager.Remove(cursorState);
         }
 
         private void OnSliderValueChanged(float value)
