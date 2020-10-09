@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Exa.Generics;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Exa.UI
         [SerializeField] private CursorState cursorState;
         private ICursor cursor;
 
+        public bool MouseInViewport { get; private set; }
         public ICursor CurrentCursor => cursor;
 
         private void Start()
@@ -35,6 +37,15 @@ namespace Exa.UI
             cursor?.SetActive(false);
             cursor = GetCursor(cursorType);
             cursor.SetActive(true);
+        }
+
+        public void UpdateMouseInViewport(bool value)
+        {
+            if (value != MouseInViewport)
+            {
+                MouseInViewport = value;
+                SetMouseInViewport(value);
+            }
         }
 
         public void SetMouseInViewport(bool value)

@@ -10,7 +10,6 @@ namespace Exa.Input
     {
         [HideInInspector] public bool inputIsCaptured;
 
-        private bool mouseInViewport = false;
         private MouseCursorController mouseCursor;
         private Canvas root;
 
@@ -18,7 +17,6 @@ namespace Exa.Input
         public Vector2 ScreenPoint { get; private set; }
         public Vector2 ViewportPoint { get; private set; }
         public Vector2 MouseWorldPoint { get; private set; }
-        public bool MouseInViewport { get; private set; }
 
         private void Awake()
         {
@@ -40,11 +38,7 @@ namespace Exa.Input
                 ViewportPoint.y < 0f ||
                 ViewportPoint.y > 1f);
 
-            if (currFrameMouseInViewport != mouseInViewport)
-            {
-                mouseInViewport = currFrameMouseInViewport;
-                mouseCursor.SetMouseInViewport(mouseInViewport);
-            }
+            mouseCursor.UpdateMouseInViewport(currFrameMouseInViewport);
         }
 
         public bool GetMouseInsideRect(RectTransform rect)

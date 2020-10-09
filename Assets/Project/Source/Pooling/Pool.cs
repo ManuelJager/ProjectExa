@@ -39,7 +39,7 @@ namespace Exa.Pooling
 
             poolMembers = new Stack<T>(poolSettings.maxSize);
 
-            for (int i = 0; i < poolSettings.preferredSize; i++)
+            for (var i = 0; i < poolSettings.preferredSize; i++)
             {
                 poolMembers.Push(InstantiatePrefab());
             }
