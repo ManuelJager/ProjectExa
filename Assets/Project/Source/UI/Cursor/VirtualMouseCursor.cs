@@ -4,6 +4,7 @@ using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Exa.Generics;
 using Exa.Math;
+using Exa.UI.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
@@ -34,23 +35,23 @@ namespace Exa.UI
 
         private CursorState cursorState = CursorState.idle;
         private Tween cursorColorTween;
-        private Tween cursorClickSizeTween;
         private Tween cursorClickAlphaTween;
-        private Tween cursorHoverSizeTween;
         private Tween cursorRotationTween;
-        private float cursorClickSize = 1;
-        private float cursorHoverSize = 1;
+        private FloatTweenBlender cursorScaleBlender;
 
         public MarkerContainer HoverMarkerContainer { get; private set; }
         public Vector2? ViewportPivot { get; set; }
 
         private void Start()
         {
+            cursorScaleBlender = new FloatTweenBlender(1f, value =>
+            {
+                rectTransform.localScale = new Vector3(value, value, 1);
+            });
+
             HoverMarkerContainer = new MarkerContainer((active) =>
             {
-                cursorHoverSizeTween?.Kill();
-                cursorHoverSizeTween = DOTween
-                    .To(() => cursorHoverSize, x => cursorHoverSize = x, active ? 1.2f : 1f, cursorAnimTime);
+                cursorScaleBlender.To(0, active ? 1.2f : 1f, cursorAnimTime);
             });
 
             inputAction.started += OnLeftMouseStarted;
@@ -71,8 +72,7 @@ namespace Exa.UI
         {
             var viewportPoint = Systems.Input.ScaledViewportPoint;
             rectTransform.anchoredPosition = viewportPoint;
-            var scale = cursorClickSize * cursorHoverSize;
-            rectTransform.localScale = new Vector3(scale, scale, 1);
+            cursorScaleBlender.Update();
 
             if (ViewportPivot.HasValue)
             {
@@ -126,9 +126,8 @@ namespace Exa.UI
 
         private void AnimCursorSize(CursorAnimSettings args)
         {
-            cursorClickSizeTween?.Kill();
-            cursorClickSizeTween = DOTween
-                .To(() => cursorClickSize, x => cursorClickSize = x, args.sizeTarget, args.animTime)
+            cursorScaleBlender
+                .To(1, args.sizeTarget, args.animTime)
                 .SetEase(args.ease);
 
             cursorClickAlphaTween?.Kill();
