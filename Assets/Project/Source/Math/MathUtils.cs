@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Exa.Data;
 using Exa.Generics;
 using UnityEngine;
 
@@ -7,15 +6,13 @@ namespace Exa.Math
 {
     public static partial class MathUtils
     {
-        public static int GreatestCommonDevisor(int a, int b)
+        public static int GreatestCommonDivisor(int a, int b)
         {
-            int remainder;
-
             while (b != 0)
             {
-                remainder = a % b;
+                var i = a % b;
                 a = b;
-                b = remainder;
+                b = i;
             }
 
             return a;

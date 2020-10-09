@@ -1,5 +1,4 @@
-﻿using Exa.UI;
-using UCommandConsole;
+﻿using UCommandConsole;
 
 namespace Exa.Debugging.Commands
 {

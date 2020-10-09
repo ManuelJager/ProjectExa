@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Exa.Pooling
+﻿namespace Exa.Pooling
 {
     public interface IPool<out T> : IPool
         where T : PoolMember

@@ -1,5 +1,4 @@
-﻿using Exa.Data;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components

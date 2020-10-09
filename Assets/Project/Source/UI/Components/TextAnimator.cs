@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using Exa.Misc;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {

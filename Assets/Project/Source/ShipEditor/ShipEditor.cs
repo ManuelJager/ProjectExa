@@ -5,6 +5,7 @@ using Exa.UI;
 using System;
 using UnityEngine;
 using static Exa.Input.GameControls;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {

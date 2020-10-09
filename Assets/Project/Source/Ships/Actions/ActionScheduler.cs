@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Exa.Ships
@@ -79,12 +76,12 @@ namespace Exa.Ships
         private IEnumerable<ActionCache> SortActions(float deltaTime)
         {
             return shipActions
-                .Select((action) => new ActionCache
+                .Select(action => new ActionCache
                 {
                     consumption = action.CalculateConsumption(deltaTime),
                     action = action
                 })
-                .OrderBy((actionCache) => actionCache.consumption);
+                .OrderBy(actionCache => actionCache.consumption);
         }
 
         private struct ActionCache

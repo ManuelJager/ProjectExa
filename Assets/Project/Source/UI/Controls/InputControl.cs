@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Controls
 {

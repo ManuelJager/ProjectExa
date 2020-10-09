@@ -2,10 +2,10 @@
 
 namespace Exa.Ships
 {
-    public struct ShipMask
+    public readonly struct ShipMask
     {
-        public int LayerMask { get; private set; }
-        public ShipContext ContextMask { get; private set; }
+        public int LayerMask { get; }
+        public ShipContext ContextMask { get; }
 
         public ShipMask(ShipContext shipContext)
         {

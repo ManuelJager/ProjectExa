@@ -1,5 +1,4 @@
-﻿using Exa.UI.Components;
-using Exa.UI.Controls;
+﻿using Exa.UI.Controls;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ namespace Exa.UI.Settings
                 fullscreenRadio
             };
 
-            refreshRatesDropdown.OnValueChange.AddListener((obj) =>
+            refreshRatesDropdown.OnValueChange.AddListener(obj =>
             {
                 resolutionDropdown.FilterByRefreshRate((int)obj);
                 resolutionDropdown.SelectFirst();

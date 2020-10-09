@@ -1,8 +1,7 @@
-﻿using Exa.Generics;
-using Exa.UI.Components;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {

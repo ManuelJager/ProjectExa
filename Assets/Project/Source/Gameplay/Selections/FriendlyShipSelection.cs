@@ -1,5 +1,5 @@
 ﻿using Exa.Math;
-using Exa.Ships.Targetting;
+using Exa.Ships.Targeting;
 using System.Linq;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ namespace Exa.Gameplay
         {
             var formationEnumerator = formation.GetGlobalLayout(this, point).GetEnumerator();
 
-            foreach (var ship in this.OrderByDescending((ship) => ship.Blueprint.Blocks.MaxSize))
+            foreach (var ship in this.OrderByDescending(ship => ship.Blueprint.Blocks.MaxSize))
             {
                 formationEnumerator.MoveNext();
                 var currentPosition = ship.transform.position.ToVector2();

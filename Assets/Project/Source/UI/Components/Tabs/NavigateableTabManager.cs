@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using Exa.UI;
+﻿using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Components
 {

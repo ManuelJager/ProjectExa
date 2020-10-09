@@ -4,7 +4,7 @@ namespace UCommandConsole
 {
     internal class ParameterContext : IParameterContext
     {
-        public Type PropertyType { get; private set; }
+        public Type PropertyType { get; }
         public Type CustomParser { get; set; }
         public bool Required { get; set; }
         public string Name { get; set; }

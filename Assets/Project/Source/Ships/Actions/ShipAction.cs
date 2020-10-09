@@ -7,7 +7,7 @@
     {
         protected Ship ship;
 
-        public ShipAction(Ship ship)
+        protected ShipAction(Ship ship)
         {
             this.ship = ship;
         }
@@ -18,7 +18,7 @@
         /// Execute the action with the given energy coefficient
         /// </summary>
         /// <param name="energyNormalization">
-        /// 0-1 based float that dertermines how much energy the action can use.
+        /// 0-1 based float that determines how much energy the action can use.
         /// 1 being fully powered, while 0 essentially not doing anything
         /// </param>
         public abstract void Update(float energyCoefficient, float deltaTime);

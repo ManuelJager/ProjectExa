@@ -1,8 +1,5 @@
-﻿using Exa.Grids.Blocks;
-using Exa.Ships;
-using Exa.Ships.Targetting;
-using System.Linq;
-using UnityEngine;
+﻿using Exa.Ships;
+using Exa.Ships.Targeting;
 
 namespace Exa.AI.Actions
 {

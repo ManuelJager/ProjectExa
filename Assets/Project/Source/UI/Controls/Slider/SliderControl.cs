@@ -1,11 +1,10 @@
 ﻿using Exa.Generics;
 using Exa.UI.Components;
-using System;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEngine.UI.Slider;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Controls
 {

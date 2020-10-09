@@ -1,8 +1,4 @@
 ﻿using Exa.Gameplay;
-using Exa.Grids.Blocks;
-using Exa.Grids.Blueprints;
-using Exa.UI;
-using UnityEngine;
 
 namespace Exa.Ships
 {

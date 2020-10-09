@@ -117,7 +117,7 @@ namespace Exa.ShipEditor
 
             backgroundLayer.SetGridBackgroundItemColor(gridPos, enter);
 
-            GridUtils.ConditionallyApplyToMirror(gridPos, size, (mirroredGridPos) =>
+            GridUtils.ConditionallyApplyToMirror(gridPos, size, mirroredGridPos =>
             {
                 backgroundLayer.SetGridBackgroundItemColor(mirroredGridPos, MirrorEnabled && enter);
             });

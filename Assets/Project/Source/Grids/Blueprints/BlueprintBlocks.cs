@@ -1,7 +1,6 @@
 ﻿using Exa.Generics;
 using Exa.IO.Json;
 using Newtonsoft.Json;
-using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {

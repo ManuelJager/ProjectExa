@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {

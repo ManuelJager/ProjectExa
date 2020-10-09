@@ -4,9 +4,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using Exa.Utils;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace Exa.Ships

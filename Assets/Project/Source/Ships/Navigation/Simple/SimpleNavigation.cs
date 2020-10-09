@@ -1,10 +1,5 @@
 ﻿using Exa.Math;
-using Exa.Ships.Targetting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Exa.Ships.Targeting;
 using Exa.Data;
 using UnityEngine;
 

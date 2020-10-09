@@ -1,14 +1,12 @@
 ﻿using System;
 using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using Exa.Generics;
 using Exa.Math;
 using Exa.UI.Tweening;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {
@@ -49,7 +47,7 @@ namespace Exa.UI
                 rectTransform.localScale = new Vector3(value, value, 1);
             });
 
-            HoverMarkerContainer = new MarkerContainer((active) =>
+            HoverMarkerContainer = new MarkerContainer(active =>
             {
                 cursorScaleBlender.To(0, active ? 1.2f : 1f, cursorAnimTime);
             });

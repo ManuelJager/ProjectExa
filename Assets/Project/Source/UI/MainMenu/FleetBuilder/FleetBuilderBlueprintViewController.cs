@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Exa.Bindings;
 using Exa.Grids.Blueprints;
-using UnityEngine;
 
 namespace Exa.UI
 {
@@ -10,7 +8,7 @@ namespace Exa.UI
     {
         public void SetFilter(BlueprintType blueprintType)
         {
-            foreach (var obj in views.Select((kvp) => new
+            foreach (var obj in views.Select(kvp => new
             {
                 value = kvp.Key.Data,
                 view = kvp.Value

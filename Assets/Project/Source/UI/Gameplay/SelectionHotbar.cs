@@ -1,6 +1,7 @@
 ﻿using Exa.Gameplay;
 using System.Collections.Generic;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Gameplay
 {

@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Exa.Generics;
+﻿using Exa.Generics;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {

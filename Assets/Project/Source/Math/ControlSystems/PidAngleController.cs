@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Exa.Math.ControlSystems
+﻿namespace Exa.Math.ControlSystems
 {
     // NOTE: This is completely broken
     public class PidAngleController : PidController

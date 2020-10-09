@@ -1,10 +1,10 @@
-﻿using Exa.Generics;
-using Exa.IO;
+﻿using Exa.IO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blueprints
 {

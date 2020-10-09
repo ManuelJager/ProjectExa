@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using Exa.Grids.Blocks.Components;
 using Exa.UI.Tooltips;
-using System.Linq;
 
 namespace Exa.Grids.Blocks
 {

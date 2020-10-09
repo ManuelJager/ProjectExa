@@ -2,16 +2,14 @@
 using Exa.Debugging;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
-using Exa.ShipEditor;
 using Exa.Input;
 using Exa.SceneManagement;
 using Exa.UI;
 using Exa.Utils;
 using System;
 using System.Collections;
-using Exa.Math;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 #pragma warning disable 649
 
 namespace Exa
@@ -78,13 +76,13 @@ namespace Exa
 
             var targetFrameRate = UI.nav.settings.videoSettings.current.Values.resolution.refreshRate;
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.StartUp(new Progress<float>((value) =>
+            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.StartUp(new Progress<float>(value =>
             {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)} % complete) ...";
                 UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.StartUp(new Progress<float>((value) =>
+            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.StartUp(new Progress<float>(value =>
             {
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)} % complete) ...";
                 UI.loadingScreen.ShowMessage(message);

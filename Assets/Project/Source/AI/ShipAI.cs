@@ -1,12 +1,9 @@
 ﻿using Exa.AI.Actions;
-using Exa.Grids.Blocks;
 using Exa.Ships;
 using Exa.UI.Tooltips;
-using Exa.Utils;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.AI
 {

@@ -5,6 +5,7 @@ using Exa.UI.Components;
 using Exa.UI.Gameplay;
 using Exa.Utils;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa
 {

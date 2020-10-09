@@ -1,7 +1,7 @@
-﻿using Exa.Generics;
-using Exa.Grids;
+﻿using Exa.Grids;
 using Exa.UI.Tooltips;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {

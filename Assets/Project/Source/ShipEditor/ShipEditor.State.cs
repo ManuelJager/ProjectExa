@@ -1,7 +1,6 @@
 ﻿using Exa.Grids.Blueprints;
 using Exa.Validation;
 using System;
-using Exa.UI;
 using UnityEngine;
 
 namespace Exa.ShipEditor

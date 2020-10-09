@@ -4,7 +4,7 @@ using Exa.Grids.Blueprints;
 using Unity.Entities;
 using UnityEngine;
 using System.Collections.Generic;
-using Exa.Debugging;
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.BlockTypes
 {

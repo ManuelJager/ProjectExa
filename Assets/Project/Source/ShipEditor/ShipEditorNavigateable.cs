@@ -1,6 +1,6 @@
-﻿using Exa.UI;
-using Exa.UI.Components;
+﻿using Exa.UI.Components;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {
@@ -15,7 +15,7 @@ namespace Exa.ShipEditor
 
             if (!shipEditor.IsSaved)
             {
-                Systems.UI.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, (yes) =>
+                Systems.UI.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, yes =>
                 {
                     if (yes)
                     {

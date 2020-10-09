@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using Exa.Math;
-using Exa.Utils;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.Gameplay
 {

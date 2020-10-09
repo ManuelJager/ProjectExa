@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+#pragma warning disable CS0649
 
 namespace Exa.Audio
 {

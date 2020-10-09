@@ -1,5 +1,5 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
-using Exa.Ships.Targetting;
+using Exa.Ships.Targeting;
 using System.Collections.Generic;
 
 namespace Exa.Ships

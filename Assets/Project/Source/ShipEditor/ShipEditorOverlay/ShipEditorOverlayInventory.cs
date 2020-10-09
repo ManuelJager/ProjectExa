@@ -4,6 +4,7 @@ using Exa.UI.Components;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {

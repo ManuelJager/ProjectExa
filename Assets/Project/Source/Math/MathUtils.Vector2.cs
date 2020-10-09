@@ -119,7 +119,7 @@ namespace Exa.Math
 
         public static Vector2Int GetRatio(Vector2Int value)
         {
-            var gdc = GreatestCommonDevisor(value.x, value.y);
+            var gdc = GreatestCommonDivisor(value.x, value.y);
             return new Vector2Int
             {
                 x = value.x / gdc,

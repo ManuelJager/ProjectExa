@@ -8,6 +8,7 @@ using System.Linq;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {
@@ -187,7 +188,7 @@ namespace Exa.ShipEditor
             bool GetGhostIsClear(IEnumerable<Vector2Int> occupiedGhostTiles)
             {
                 return !blueprintLayer.ActiveBlueprint.Blocks.HasOverlap(occupiedGhostTiles) &&
-                    occupiedGhostTiles.All((gridPos) => backgroundLayer.PosIsInGrid(gridPos));
+                    occupiedGhostTiles.All(gridPos => backgroundLayer.PosIsInGrid(gridPos));
             }
 
             // Calculate wether the main ghost doesn't overlap existing blocks or is outside of the grid

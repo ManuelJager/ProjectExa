@@ -1,6 +1,7 @@
 ﻿using Exa.Math;
-using Exa.Ships.Targetting;
+using Exa.Ships.Targeting;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.Components
 {

@@ -1,5 +1,4 @@
-﻿using Exa.AI;
-using Exa.Grids.Blocks;
+﻿using Exa.Grids.Blocks;
 using Exa.Ships;
 using UnityEngine;
 

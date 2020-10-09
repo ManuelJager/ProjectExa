@@ -1,8 +1,5 @@
 ﻿using Exa.Data;
-using Exa.Generics;
-using Exa.UI.Tooltips;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components

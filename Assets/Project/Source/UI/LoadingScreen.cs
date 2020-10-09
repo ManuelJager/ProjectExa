@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {

@@ -1,7 +1,5 @@
-﻿using Exa.Math;
-using Exa.Ships;
-using Exa.Ships.Targetting;
-using UnityEngine;
+﻿using Exa.Ships;
+using Exa.Ships.Targeting;
 
 namespace Exa.AI.Actions
 {

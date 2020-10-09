@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
 using static UnityEngine.InputSystem.InputAction;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Components
 {

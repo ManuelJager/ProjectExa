@@ -11,9 +11,9 @@ using Exa.UI;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
+#pragma warning disable CS0649
 
 namespace Exa.Ships
 {

@@ -2,6 +2,7 @@
 using Exa.Validation;
 using System.Collections.Generic;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Controls
 {

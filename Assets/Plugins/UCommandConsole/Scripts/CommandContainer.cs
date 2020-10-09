@@ -11,7 +11,7 @@ namespace UCommandConsole
         private Dictionary<string, Func<Command>> commandGetters;
 
         public int Count => commandGetters.Count;
-        public Dictionary<string, CommandContext> commandContext { get; private set; }
+        public Dictionary<string, CommandContext> commandContext { get; }
 
         public CommandContainer(Console host)
         {

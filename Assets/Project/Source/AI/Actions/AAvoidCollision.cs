@@ -1,7 +1,7 @@
 ﻿using Exa.Grids.Blocks;
 using Exa.Math;
 using Exa.Ships;
-using Exa.Ships.Targetting;
+using Exa.Ships.Targeting;
 using System.Collections.Generic;
 using UnityEngine;
 

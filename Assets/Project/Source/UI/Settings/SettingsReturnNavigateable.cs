@@ -1,5 +1,6 @@
 ﻿using Exa.UI.Components;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Settings
 {
@@ -11,7 +12,7 @@ namespace Exa.UI.Settings
         {
             if (settingsTabManager.activeSettingsTab.IsDirty)
             {
-                settingsTabManager.QueryUserConfirmation((yes) =>
+                settingsTabManager.QueryUserConfirmation(yes =>
                 {
                     if (yes)
                     {

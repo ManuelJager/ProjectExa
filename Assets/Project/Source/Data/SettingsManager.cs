@@ -35,15 +35,15 @@ namespace Exa.Data
 
             // Get resolition view models
             var resolutions = selectedResolutions
-                .Select((resolution) => new LabeledValue<object>($"{resolution.width}x{resolution.height}", resolution))
+                .Select(resolution => new LabeledValue<object>($"{resolution.width}x{resolution.height}", resolution))
                 .Reverse();
 
             // Get Refresh rate view models
             var refreshRates = selectedResolutions
-                .Select((resolution) => resolution.refreshRate)
+                .Select(resolution => resolution.refreshRate)
                 .Distinct()
-                .OrderByDescending((resolution) => resolution)
-                .Select((refreshRate) => new LabeledValue<object>($"{refreshRate} hz", refreshRate));
+                .OrderByDescending(resolution => resolution)
+                .Select(refreshRate => new LabeledValue<object>($"{refreshRate} hz", refreshRate));
 
             videoSettings.refreshRatesDropdown.SetLabelText("Refresh rates");
             videoSettings.refreshRatesDropdown.CreateTabs(refreshRates);

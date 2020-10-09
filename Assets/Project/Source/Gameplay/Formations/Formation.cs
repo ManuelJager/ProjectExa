@@ -13,7 +13,7 @@ namespace Exa.Gameplay
 
         public IEnumerable<Vector2> GetGlobalLayout(ShipSelection ships, Vector2 point)
         {
-            if (ships.Count() == 0)
+            if (!ships.Any())
             {
                 throw new ArgumentException("Cannot layout an empty collection", "ships");
             }

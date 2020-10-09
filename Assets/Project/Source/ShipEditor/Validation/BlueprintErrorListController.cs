@@ -1,8 +1,8 @@
-﻿using Exa.UI.Components;
-using Exa.UI.Controls;
+﻿using Exa.UI.Controls;
 using Exa.Validation;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {

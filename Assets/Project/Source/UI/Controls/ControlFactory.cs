@@ -1,8 +1,8 @@
 ﻿using Exa.Generics;
-using Exa.UI.Components;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Controls
 {
@@ -44,7 +44,7 @@ namespace Exa.UI.Controls
         {
             var control = Instantiate(prefab, container).GetComponent<T>();
             control.SetLabelText(label);
-            control.OnValueChange.AddListener((obj) => setter(obj));
+            control.OnValueChange.AddListener(obj => setter(obj));
             return control;
         }
     }

@@ -3,6 +3,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 using DG.Tweening;
 using Exa.Utils;
 using Exa.Grids.Blocks;
+#pragma warning disable CS0649
 
 namespace Exa.Weapons
 {
@@ -41,7 +42,7 @@ namespace Exa.Weapons
             firingPoint.Fire(damage);
 
             light2D.intensity = peakIntensity;
-            DOTween.To(() => light2D.intensity, (value) => light2D.intensity = value, 0, 0.1f);
+            DOTween.To(() => light2D.intensity, value => light2D.intensity = value, 0, 0.1f);
 
             this.Delay(SetCyclingDrumSprite, animTime * 0.25f);
             this.Delay(SetNormalDrumSprite, animTime * 0.5f);

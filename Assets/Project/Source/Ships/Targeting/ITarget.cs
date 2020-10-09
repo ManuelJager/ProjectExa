@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.Ships.Targetting
+namespace Exa.Ships.Targeting
 {
     public interface ITarget
     {

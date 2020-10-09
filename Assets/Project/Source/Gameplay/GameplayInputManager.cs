@@ -1,6 +1,5 @@
 ﻿using Exa.Input;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
 #pragma warning disable 649
 

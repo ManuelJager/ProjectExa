@@ -3,6 +3,7 @@ using Exa.Grids.Blocks;
 using Exa.UI;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {

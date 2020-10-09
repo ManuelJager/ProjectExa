@@ -1,8 +1,4 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
-using Exa.Grids.Blocks.Components;
-using Exa.Math;
-using Exa.Math.ControlSystems;
-using System;
 using System.Collections.Generic;
 using Exa.Data;
 using UnityEngine;

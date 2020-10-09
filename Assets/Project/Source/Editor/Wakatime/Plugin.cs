@@ -8,6 +8,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+#pragma warning disable CS0649
 
 // Heavily inspired by https://github.com/bengsfort/WakaTime-Unity
 

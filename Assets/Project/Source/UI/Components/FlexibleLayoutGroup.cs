@@ -52,26 +52,23 @@ namespace Exa.UI.Components
 
             var cellWidth =
                 parentWidth / (float)columns
-                - ((spacing.x / (float)columns) * 2f)
-                - (padding.left / (float)columns)
-                - (padding.right / (float)columns);
+                - spacing.x / (float)columns * 2f
+                - padding.left / (float)columns
+                - padding.right / (float)columns;
 
             var cellHeight =
                 parentHeight / (float)rows
-                - ((spacing.y / (float)rows) * 2f)
-                - (padding.top / (float)rows)
-                - (padding.bottom / (float)rows);
+                - spacing.y / (float)rows * 2f
+                - padding.top / (float)rows
+                - padding.bottom / (float)rows;
 
             cellSize.x = fitX ? cellWidth : cellSize.x;
             cellSize.y = fitY ? cellHeight : cellSize.y;
 
-            var columnCount = 0;
-            var rowCount = 0;
-
             for (int i = 0; i < rectChildren.Count; i++)
             {
-                rowCount = i / columns;
-                columnCount = i % columns;
+                var rowCount = i / columns;
+                var columnCount = i % columns;
 
                 var item = rectChildren[i];
 

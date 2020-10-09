@@ -1,10 +1,6 @@
-﻿using Exa.Generics;
-using Exa.Grids.Blueprints;
-using Exa.Math;
-using Exa.Utils;
+﻿using Exa.Math;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids

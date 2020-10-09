@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Exa.Ships.Targetting
+namespace Exa.Ships.Targeting
 {
-    public struct ShipTarget : ITarget
+    public readonly struct ShipTarget : ITarget
     {
         private readonly Ship ship;
 

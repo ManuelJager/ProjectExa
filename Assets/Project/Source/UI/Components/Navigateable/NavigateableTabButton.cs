@@ -2,6 +2,7 @@
 using Exa.Math;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Components
 {
@@ -71,7 +72,7 @@ namespace Exa.UI.Components
             fontTween?.Kill();
             fontTween = DOTween.To(
                 () => CurrentFontSize,
-                (x) => CurrentFontSize = x,
+                x => CurrentFontSize = x,
                 target,
                 delay);
         }

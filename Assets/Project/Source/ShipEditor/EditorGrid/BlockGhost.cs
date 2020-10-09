@@ -2,6 +2,7 @@
 using Exa.Grids.Blueprints;
 using Exa.Math;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.ShipEditor
 {

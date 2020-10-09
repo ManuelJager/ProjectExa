@@ -4,7 +4,7 @@ namespace Exa.IO
 {
     public class ExaDirectory
     {
-        public string Value { get; private set; }
+        public string Value { get; }
 
         internal ExaDirectory(string value)
         {

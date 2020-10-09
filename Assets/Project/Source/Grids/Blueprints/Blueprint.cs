@@ -1,10 +1,7 @@
 ﻿using Exa.Generics;
 using Exa.UI.Tooltips;
-using Exa.Utils;
 using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints

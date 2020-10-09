@@ -1,6 +1,7 @@
 ﻿using Exa.Weapons;
 using System;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.Components
 {

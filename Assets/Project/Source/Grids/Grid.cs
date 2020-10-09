@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System;
 using Exa.Utils;
 
 namespace Exa.Grids
@@ -140,7 +139,7 @@ namespace Exa.Grids
         public bool HasOverlap(IEnumerable<Vector2Int> gridPositions)
         {
             return OccupiedTiles
-                .Select((item) => item.Key)
+                .Select(item => item.Key)
                 .Intersect(gridPositions)
                 .Any();
         }

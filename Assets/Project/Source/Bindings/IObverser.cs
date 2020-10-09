@@ -1,7 +1,7 @@
 ﻿namespace Exa.Bindings
 {
-    public interface IObserver<TData>
+    public interface IObserver<T>
     {
-        void OnUpdate(TData data);
+        void OnUpdate(T data);
     }
 }

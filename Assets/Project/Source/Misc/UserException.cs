@@ -7,10 +7,9 @@ namespace Exa.Misc
     /// </summary>
     public class UserException : Exception
     {
-        public bool Fatal { get; private set; } = false;
+        public bool Fatal { get; } = false;
 
         public UserException()
-            : base()
         { }
 
         public UserException(string message)

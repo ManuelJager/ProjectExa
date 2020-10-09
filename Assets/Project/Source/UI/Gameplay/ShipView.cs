@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Gameplay
 {
@@ -28,7 +29,7 @@ namespace Exa.UI.Gameplay
 
         private void Update()
         {
-            var total = ships.Average((ship) => ship.state.HullIntegrity);
+            var total = ships.Average(ship => ship.state.HullIntegrity);
             SetHull(total);
         }
 

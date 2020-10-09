@@ -1,5 +1,4 @@
-﻿using Exa.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.UI.Diagnostics
 {

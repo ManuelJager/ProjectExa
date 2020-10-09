@@ -2,6 +2,7 @@
 using Exa.Math;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.Components
 {

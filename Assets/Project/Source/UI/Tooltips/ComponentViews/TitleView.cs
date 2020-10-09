@@ -1,5 +1,4 @@
 ﻿using Exa.UI.Components;
-using Exa.UI.Tooltips;
 using System;
 using UnityEngine;
 using UnityEngine.UI;

@@ -21,8 +21,7 @@ namespace Exa.UI.Settings
         {
             // Get the first value that has a corresponding active dropdown tab
             var query = stateContainer
-                .Where((value) => stateContainer.GetTab(value).gameObject.activeSelf)
-                .FirstOrDefault();
+                .FirstOrDefault(value => stateContainer.GetTab(value).gameObject.activeSelf);
 
             SetSelected(query);
         }

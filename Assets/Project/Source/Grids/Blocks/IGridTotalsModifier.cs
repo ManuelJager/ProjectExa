@@ -1,6 +1,4 @@
-﻿using Exa.Grids.Blueprints;
-
-namespace Exa.Grids.Blocks
+﻿namespace Exa.Grids.Blocks
 {
     public interface IGridTotalsModifier
     {

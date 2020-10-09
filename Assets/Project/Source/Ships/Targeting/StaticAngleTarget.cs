@@ -1,9 +1,9 @@
 ﻿using Exa.Math;
 using UnityEngine;
 
-namespace Exa.Ships.Targetting
+namespace Exa.Ships.Targeting
 {
-    public struct StaticAngleTarget : ITarget
+    public readonly struct StaticAngleTarget : ITarget
     {
         private readonly float directionAngle;
         private readonly float magnitude;

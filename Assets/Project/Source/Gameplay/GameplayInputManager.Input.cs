@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Exa.Math;
+﻿using Exa.Math;
 using Exa.Ships;
 using UnityEngine;
 using UnityEngine.InputSystem;

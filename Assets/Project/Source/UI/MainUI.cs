@@ -1,5 +1,4 @@
-﻿using Exa.Data;
-using Exa.ShipEditor;
+﻿using Exa.ShipEditor;
 using Exa.UI.Controls;
 using Exa.UI.Diagnostics;
 using Exa.UI.Tooltips;

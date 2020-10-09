@@ -18,7 +18,7 @@ namespace Exa.Grids
         {
             minMax = new MinMax<Vector2Int>();
 
-            if (positions.Count() == 0) return;
+            if (!positions.Any()) return;
 
             var first = positions.First();
             minMax.min = first;

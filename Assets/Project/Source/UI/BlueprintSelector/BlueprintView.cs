@@ -1,8 +1,7 @@
-﻿using Exa.Bindings;
-using Exa.Grids.Blueprints;
-using System;
+﻿using Exa.Grids.Blueprints;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {

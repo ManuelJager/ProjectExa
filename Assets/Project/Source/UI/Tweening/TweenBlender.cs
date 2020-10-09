@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using DG.Tweening.Core;
 
@@ -33,7 +32,7 @@ namespace Exa.UI.Tweening
             }
 
             values[id] = startValue;
-            var tween = CreateTween(() => values[id], (x) => values[id] = x, endValue, time);
+            var tween = CreateTween(() => values[id], x => values[id] = x, endValue, time);
             tweens[id] = tween;
             return tween;
         }

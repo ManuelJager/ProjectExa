@@ -19,15 +19,15 @@ namespace Exa.Grids.Blueprints
             if (args.generateBlueprintFileHandle)
             {
                 BlueprintFileHandle = new FileHandle(this,
-                    (name) => IOUtils.CombineWithDirectory("blueprints", $"{name}.json"),
-                    (path) => IOUtils.JsonSerializeToPath(Data, path),
+                    name => IOUtils.CombineWithDirectory("blueprints", $"{name}.json"),
+                    path => IOUtils.JsonSerializeToPath(Data, path),
                     args.generateBlueprintFileName);
             }
 
             var thumbnailDirectory = args.useDefaultThumbnailFolder ? "defaultThumbnails" : "thumbnails";
             ThumbnailFileHandle = new FileHandle(this,
-                (name) => IOUtils.CombineWithDirectory(thumbnailDirectory, $"{name}.png"),
-                (path) => IOUtils.SaveTexture2D(Data.Thumbnail, path));
+                name => IOUtils.CombineWithDirectory(thumbnailDirectory, $"{name}.png"),
+                path => IOUtils.SaveTexture2D(Data.Thumbnail, path));
         }
 
         public void LoadThumbnail()

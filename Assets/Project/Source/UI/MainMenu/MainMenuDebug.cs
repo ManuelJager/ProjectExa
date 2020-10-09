@@ -1,6 +1,7 @@
 ﻿using Exa.Debugging;
 using Exa.Utils;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {

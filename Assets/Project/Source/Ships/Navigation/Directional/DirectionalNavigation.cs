@@ -1,7 +1,7 @@
 ﻿using Exa.Data;
 using Exa.Debugging;
 using Exa.Math;
-using Exa.Ships.Targetting;
+using Exa.Ships.Targeting;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation

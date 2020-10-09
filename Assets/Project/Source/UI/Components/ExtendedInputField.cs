@@ -1,5 +1,4 @@
-﻿using Exa.Input;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Exa.UI.Components

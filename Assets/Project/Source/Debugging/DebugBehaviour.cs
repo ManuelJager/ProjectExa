@@ -1,5 +1,4 @@
-﻿using Exa.Debugging.Commands;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.Debugging
 {

@@ -4,7 +4,6 @@ using Exa.Bindings;
 using Exa.Grids.Blueprints;
 using Exa.IO;
 using Exa.UI.Components;
-using System.Collections;
 using UnityEngine;
 
 namespace Exa.UI
@@ -100,7 +99,7 @@ namespace Exa.UI
             {
                 if (!Interactable) return;
 
-                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, (yes) =>
+                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, yes =>
                 {
                     if (yes)
                     {

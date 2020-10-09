@@ -1,5 +1,5 @@
 ﻿using Exa.Ships;
-using Exa.Ships.Targetting;
+using Exa.Ships.Targeting;
 
 namespace Exa.AI
 {

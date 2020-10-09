@@ -2,7 +2,6 @@
 using Exa.Generics;
 using Exa.Math;
 using Exa.Ships;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +13,7 @@ namespace Exa.Gameplay
     {
         protected Formation formation;
 
-        public ShipSelection(Formation formation)
+        protected ShipSelection(Formation formation)
         {
             this.formation = formation;
         }
@@ -24,10 +23,7 @@ namespace Exa.Gameplay
         {
             get
             {
-                var positions = this.Select((ship) => 
-                {
-                    return ship.gameObject.transform.position.ToVector2();
-                });
+                var positions = this.Select(ship => ship.gameObject.transform.position.ToVector2());
 
                 return MathUtils.Average(positions);
             }

@@ -1,8 +1,4 @@
-﻿using Exa.Generics;
-using Exa.Grids.Blocks.BlockTypes;
-using Exa.UI.Tooltips;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components

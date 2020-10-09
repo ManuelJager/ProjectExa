@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Components
 {
@@ -34,7 +35,7 @@ namespace Exa.UI.Components
             }
             else
             {
-                QueryUserConfirmation((yes) =>
+                QueryUserConfirmation(yes =>
                 {
                     if (yes)
                     {

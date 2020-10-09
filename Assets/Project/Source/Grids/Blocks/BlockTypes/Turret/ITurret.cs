@@ -1,5 +1,5 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.Ships.Targetting;
+using Exa.Ships.Targeting;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {

@@ -1,5 +1,4 @@
 ﻿using System;
-using Exa.Math;
 
 namespace Exa.Generics
 {

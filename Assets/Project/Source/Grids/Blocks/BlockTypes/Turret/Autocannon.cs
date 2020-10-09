@@ -1,8 +1,9 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.Ships.Targetting;
+using Exa.Ships.Targeting;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.BlockTypes
 {

@@ -1,11 +1,10 @@
 ﻿using Exa.Input;
-using System;
 using System.Reflection;
-using UCommandConsole;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
+#pragma warning disable CS0649
 
 namespace Exa.Debugging
 {

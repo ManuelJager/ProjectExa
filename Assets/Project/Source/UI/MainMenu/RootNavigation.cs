@@ -1,8 +1,8 @@
 ﻿using Exa.Data;
 using Exa.SceneManagement;
 using Exa.UI.Components;
-using UnityEditor;
 using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {

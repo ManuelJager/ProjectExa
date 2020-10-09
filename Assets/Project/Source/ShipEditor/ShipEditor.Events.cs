@@ -5,7 +5,7 @@
         public void OnBlueprintClear()
         {
             // Hide block ghost and ask user for blueprint clear confirmation
-            Systems.UI.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, (yes) =>
+            Systems.UI.promptController.PromptYesNo("Are you sure you want to clear the blueprint?", this, yes =>
             {
                 if (yes)
                 {
