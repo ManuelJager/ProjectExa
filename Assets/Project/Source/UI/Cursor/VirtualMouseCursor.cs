@@ -3,7 +3,9 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Exa.Generics;
+using Exa.Math;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -35,26 +37,15 @@ namespace Exa.UI
         private Tween cursorClickSizeTween;
         private Tween cursorClickAlphaTween;
         private Tween cursorHoverSizeTween;
+        private Tween cursorRotationTween;
         private float cursorClickSize = 1;
         private float cursorHoverSize = 1;
 
         public MarkerContainer HoverMarkerContainer { get; private set; }
+        public Vector2? ViewportPivot { get; set; }
 
         private void Start()
         {
-            void AnimCursorSize(CursorAnimSettings args)
-            {
-                cursorClickSizeTween?.Kill();
-                cursorClickSizeTween = DOTween
-                    .To(() => cursorClickSize, x => cursorClickSize = x, args.sizeTarget, args.animTime)
-                    .SetEase(args.ease);
-
-                cursorClickAlphaTween?.Kill();
-                cursorClickAlphaTween = backgroundGroup
-                    .DOFade(args.alphaTarget, args.animTime)
-                    .SetEase(args.ease);
-            }
-
             HoverMarkerContainer = new MarkerContainer((active) =>
             {
                 cursorHoverSizeTween?.Kill();
@@ -62,8 +53,8 @@ namespace Exa.UI
                     .To(() => cursorHoverSize, x => cursorHoverSize = x, active ? 1.2f : 1f, cursorAnimTime);
             });
 
-            inputAction.started += context => AnimCursorSize(animInSettings);
-            inputAction.canceled += context => AnimCursorSize(animOutSettings);
+            inputAction.started += OnLeftMouseStarted;
+            inputAction.canceled += OnLeftMouseCanceled;
         }
 
         private void OnEnable()
@@ -78,9 +69,19 @@ namespace Exa.UI
 
         private void Update()
         {
-            rectTransform.anchoredPosition = Systems.Input.ScaledViewportPoint;
+            var viewportPoint = Systems.Input.ScaledViewportPoint;
+            rectTransform.anchoredPosition = viewportPoint;
             var scale = cursorClickSize * cursorHoverSize;
             rectTransform.localScale = new Vector3(scale, scale, 1);
+
+            if (ViewportPivot.HasValue)
+            {
+                var vector = ViewportPivot.Value - viewportPoint;
+                var angle = vector.magnitude > 2f
+                    ? (vector.GetAngle() + 270f) % 360
+                    : 0f;
+                AnimCursorDirection(angle);
+            }
         }
 
         public void SetActive(bool active)
@@ -108,6 +109,39 @@ namespace Exa.UI
         {
             gameObject.SetActive(false);
             Cursor.visible = true;
+        }
+
+        private void OnLeftMouseStarted(InputAction.CallbackContext context)
+        {
+            AnimCursorSize(animInSettings);
+            ViewportPivot = Systems.Input.ScaledViewportPoint;
+        }
+
+        private void OnLeftMouseCanceled(InputAction.CallbackContext context)
+        {
+            AnimCursorSize(animOutSettings);
+            ViewportPivot = null;
+            AnimCursorDirection(0f);
+        }
+
+        private void AnimCursorSize(CursorAnimSettings args)
+        {
+            cursorClickSizeTween?.Kill();
+            cursorClickSizeTween = DOTween
+                .To(() => cursorClickSize, x => cursorClickSize = x, args.sizeTarget, args.animTime)
+                .SetEase(args.ease);
+
+            cursorClickAlphaTween?.Kill();
+            cursorClickAlphaTween = backgroundGroup
+                .DOFade(args.alphaTarget, args.animTime)
+                .SetEase(args.ease);
+        }
+
+        private void AnimCursorDirection(float angle)
+        {
+            var targetVector = new Vector3(0, 0, angle);
+            cursorRotationTween?.Kill();
+            cursorRotationTween = normalCursor.DORotate(targetVector, 0.15f);
         }
 
         private void SwitchActive(CursorState state, bool active)

@@ -1,6 +1,7 @@
 ﻿using Exa.Generics;
 using Exa.UI.Components;
 using System;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -43,6 +44,16 @@ namespace Exa.UI.Controls
             slider.maxValue = minMax.max;
         }
 
+        public void SetMax()
+        {
+            slider.value = slider.maxValue;
+        }
+
+        public void SetMin()
+        {
+            slider.value = slider.minValue;
+        }
+
         private void OnSliderValueChanged(float value)
         {
             inputField.text = FormatFloat(value);
@@ -52,13 +63,19 @@ namespace Exa.UI.Controls
         {
             if (string.IsNullOrEmpty(value)) return;
 
+            value = value.Replace('.', ',');
+
             var valid = float.TryParse(value, out var floatValue);
 
-            if (!valid)
+            if (valid)
             {
-                inputField.text = FormatFloat(slider.value);
-                return;
+                inputField.SetTextWithoutNotify(value);
             }
+            else
+            {
+                inputField.SetTextWithoutNotify(FormatFloat(slider.value));
+                return;
+            }            
 
             if (floatValue < slider.minValue) inputField.text = FormatFloat(slider.minValue);
             if (floatValue > slider.maxValue) inputField.text = FormatFloat(slider.maxValue);
@@ -71,7 +88,6 @@ namespace Exa.UI.Controls
             if (valid)
             {
                 slider.value = (float)System.Math.Round(floatValue, 2);
-                onValueChanged.Invoke(floatValue);
             }
             else
             {

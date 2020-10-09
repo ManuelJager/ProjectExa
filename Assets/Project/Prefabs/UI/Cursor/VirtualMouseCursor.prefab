@@ -338,12 +338,12 @@ MonoBehaviour:
   animInSettings:
     sizeTarget: 0.85
     alphaTarget: 1
-    animTime: 0.5
+    animTime: 0.3
     ease: 3
   animOutSettings:
     sizeTarget: 1
     alphaTarget: 0.6
-    animTime: 0.15
+    animTime: 0.08
     ease: 2
   inputAction:
     m_Name: Input
