@@ -26,8 +26,6 @@ namespace Exa.CustomEditors
         {
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(onPointerEnter);
-            EditorGUILayout.PropertyField(onPointerExit);
             EditorGUILayout.PropertyField(checkMouseInsideRectOnEnable);
             EditorGUILayout.PropertyField(invokeStateChangeOnHover);
 
@@ -37,6 +35,11 @@ namespace Exa.CustomEditors
                 EditorGUILayout.PropertyField(cursorState);
                 EditorGUI.indentLevel = 0;
             }
+
+            EditorGUILayout.Space();
+
+            EditorGUILayout.PropertyField(onPointerEnter);
+            EditorGUILayout.PropertyField(onPointerExit);
 
             serializedObject.ApplyModifiedProperties();
         }

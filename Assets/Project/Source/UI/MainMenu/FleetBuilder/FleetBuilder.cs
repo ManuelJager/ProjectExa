@@ -10,7 +10,7 @@ namespace Exa.UI
 
         private void Awake()
         {
-            blueprintTypes.BuildList();
+            //blueprintTypes.BuildList();
         }
     }
 }
