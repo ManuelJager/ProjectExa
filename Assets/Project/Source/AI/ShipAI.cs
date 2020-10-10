@@ -20,7 +20,7 @@ namespace Exa.AI
 
         public Ship Ship => ship;
 
-        public void Initialize()
+        public void Init()
         {
             actionList = BuildActionList();
         }

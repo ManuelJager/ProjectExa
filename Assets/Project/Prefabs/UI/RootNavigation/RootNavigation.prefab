@@ -24,9 +24,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 6667905189903178805}
+  rectTransform: {fileID: 6667905189903178805}
   canvasGroup: {fileID: 3136275994030468949}
-  delay: 0.2
+  animTime: 0.4
+  animEnterArgs:
+    targetAlpha: 1
+    animAmplitude: 120
+    ease: 8
+  animExitArgs:
+    targetAlpha: 0
+    animAmplitude: 120
+    ease: 9
 --- !u!1 &2692107815042826561
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,9 +155,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2749516919016886405}
+  rectTransform: {fileID: 2749516919016886405}
   canvasGroup: {fileID: 3340373449734495917}
-  delay: 0.2
+  animTime: 0.4
+  animEnterArgs:
+    targetAlpha: 1
+    animAmplitude: 120
+    ease: 8
+  animExitArgs:
+    targetAlpha: 0
+    animAmplitude: 120
+    ease: 9
 --- !u!225 &7445511138407406047
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -174,9 +190,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 4910041706510150926}
+  rectTransform: {fileID: 4910041706510150926}
   canvasGroup: {fileID: 7445511138407406047}
-  delay: 0.2
+  animTime: 0.4
+  animEnterArgs:
+    targetAlpha: 1
+    animAmplitude: 120
+    ease: 8
+  animExitArgs:
+    targetAlpha: 0
+    animAmplitude: 120
+    ease: 9
 --- !u!225 &3271288210136737110
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -201,9 +225,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4a1d9c7cd40b4a92b0e39a884cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 5324494252263852340}
+  rectTransform: {fileID: 5324494252263852340}
   canvasGroup: {fileID: 3271288210136737110}
-  delay: 0.2
+  animTime: 0.4
+  animEnterArgs:
+    targetAlpha: 1
+    animAmplitude: 120
+    ease: 8
+  animExitArgs:
+    targetAlpha: 0
+    animAmplitude: 120
+    ease: 9
 --- !u!114 &6244166992537106488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,14 +397,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6335582897909740713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8535b20696b6f3e4db9e0395adf46ffd, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ba3b4826dd975040b26f595c10d34dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blueprintSelector: {fileID: 6013977213314918360}
   settings: {fileID: 5229011147367864752}
   fleetBuilder: {fileID: 325681248641518459}
   tabManager: {fileID: 2029031128333844631}
-  content: {fileID: 1595287423575122640}
+  content: {fileID: 7947615285114198381}
 --- !u!225 &9160520755434708444
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -713,7 +745,7 @@ MonoBehaviour:
   onPointerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1595287423575122640}
+      - m_Target: {fileID: 7947615285114198381}
         m_TargetAssemblyTypeName: Exa.UI.RootNavigationContent, Assembly-CSharp
         m_MethodName: RemoveLock
         m_Mode: 1
@@ -772,7 +804,7 @@ GameObject:
   - component: {fileID: 2586064220541906747}
   - component: {fileID: 2655596505068399355}
   - component: {fileID: 3714708064635784651}
-  - component: {fileID: 1595287423575122640}
+  - component: {fileID: 7947615285114198381}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -880,7 +912,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1595287423575122640
+--- !u!114 &7947615285114198381
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -889,7 +921,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7522629960921416584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af7232f5db710df4d92bae2a4e9c083d, type: 3}
+  m_Script: {fileID: 11500000, guid: f122e42b8f8525547aa3fd5dffb4adc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipContainer: {fileID: 6390955540827391619}
@@ -1018,7 +1050,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1595287423575122640}
+      objectReference: {fileID: 7947615285114198381}
     - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1285,7 +1317,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1595287423575122640}
+      objectReference: {fileID: 7947615285114198381}
     - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1539,7 +1571,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1595287423575122640}
+      objectReference: {fileID: 7947615285114198381}
     - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1803,7 +1835,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1595287423575122640}
+      objectReference: {fileID: 7947615285114198381}
     - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2070,7 +2102,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1595287423575122640}
+      objectReference: {fileID: 7947615285114198381}
     - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: onHover.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

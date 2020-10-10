@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 0.78431374}
+  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -408,7 +408,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 0.78431374}
+  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -754,7 +754,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invokeStateChangeOnHover: 0
-  cursorState: 0
+  cursorOverride:
+    value: 0
   checkMouseInsideRectOnEnable: 1
 --- !u!114 &229453432178233258
 MonoBehaviour:
@@ -831,7 +832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3629780489728021464
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1445,7 +1446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 0.78431374}
+  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1525,7 +1526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 0.78431374}
+  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1608,7 +1609,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invokeStateChangeOnHover: 0
-  cursorState: 0
+  cursorOverride:
+    value: 0
   checkMouseInsideRectOnEnable: 1
 --- !u!1 &5754900020793024216
 GameObject:
@@ -1665,7 +1667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 0.78431374}
+  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2011,7 +2013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 0.78431374}
+  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2217,7 +2219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 0.78431374}
+  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2302,7 +2304,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invokeStateChangeOnHover: 0
-  cursorState: 0
+  cursorOverride:
+    value: 0
   checkMouseInsideRectOnEnable: 1
 --- !u!114 &1711626291552416733
 MonoBehaviour:
@@ -2355,6 +2358,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnergyProperty
+      objectReference: {fileID: 0}
+    - target: {fileID: 578165970563627739, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 578165970563627739, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 578165970563627739, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.19607843
       objectReference: {fileID: 0}
     - target: {fileID: 1193180719297255065, guid: c63a451a37c9c354cb774213e6858958,
         type: 3}
@@ -2801,6 +2819,21 @@ PrefabInstance:
       propertyPath: m_PreferredHeight
       value: 48
       objectReference: {fileID: 0}
+    - target: {fileID: 6024374948750439173, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024374948750439173, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024374948750439173, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
     - target: {fileID: 6429509029354871943, guid: c63a451a37c9c354cb774213e6858958,
         type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -2821,20 +2854,50 @@ PrefabInstance:
       propertyPath: m_ChildScaleHeight
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8174340128288577755, guid: c63a451a37c9c354cb774213e6858958,
+    - target: {fileID: 7643148814960059279, guid: c63a451a37c9c354cb774213e6858958,
         type: 3}
       propertyPath: m_Color.r
       value: 0.15686275
       objectReference: {fileID: 0}
-    - target: {fileID: 8174340128288577755, guid: c63a451a37c9c354cb774213e6858958,
+    - target: {fileID: 7643148814960059279, guid: c63a451a37c9c354cb774213e6858958,
         type: 3}
       propertyPath: m_Color.g
       value: 0.15686275
       objectReference: {fileID: 0}
-    - target: {fileID: 8174340128288577755, guid: c63a451a37c9c354cb774213e6858958,
+    - target: {fileID: 7643148814960059279, guid: c63a451a37c9c354cb774213e6858958,
         type: 3}
       propertyPath: m_Color.b
       value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997643683084896927, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997643683084896927, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997643683084896927, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174340128288577755, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.078431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174340128288577755, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.078431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174340128288577755, guid: c63a451a37c9c354cb774213e6858958,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.11764706
       objectReference: {fileID: 0}
     - target: {fileID: 8174340128288577755, guid: c63a451a37c9c354cb774213e6858958,
         type: 3}
@@ -3121,6 +3184,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314459838352599801, guid: 3b615f3a5808fcd4da198ad89c20ad8f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314459838352599801, guid: 3b615f3a5808fcd4da198ad89c20ad8f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314459838352599801, guid: 3b615f3a5808fcd4da198ad89c20ad8f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.19607843
       objectReference: {fileID: 0}
     - target: {fileID: 4363731104572988121, guid: 3b615f3a5808fcd4da198ad89c20ad8f,
         type: 3}

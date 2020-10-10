@@ -35,7 +35,7 @@ namespace Exa
 
         public static BlockFactory Blocks => Instance.blockFactory;
         public static BlueprintManager Blueprints => Instance.blueprintManager;
-        public static ShipEditor.ShipEditor ShipEditor => Instance.shipEditor;
+        public static ShipEditor.ShipEditor Editor => Instance.shipEditor;
         public static AudioManager Audio => Instance.audioManager;
         public static ThumbnailGenerator Thumbnails => Instance.thumbnailGenerator;
         public static DebugManager Debug => Instance.debugManager;
@@ -89,7 +89,9 @@ namespace Exa
             })), targetFrameRate);
 
             UI.nav.blueprintSelector.Source = Blueprints.observableUserBlueprints;
-            UI.nav.blueprintSelector.shipEditor.blueprintCollection = Blueprints.observableUserBlueprints;
+            shipEditor.blueprintCollection = Blueprints.observableUserBlueprints;
+
+            UI.nav.fleetBuilder.Init();
 
             UI.loadingScreen.HideScreen();
         }

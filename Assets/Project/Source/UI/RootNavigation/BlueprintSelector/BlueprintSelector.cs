@@ -11,20 +11,19 @@ namespace Exa.UI
     public class BlueprintSelector : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
     {
         public BlueprintContainerCollection collectionContext;
-        public ShipEditor.ShipEditor shipEditor;
 
         [SerializeField] private Navigateable blueprintSelectorNavigateable;
         [SerializeField] private Navigateable shipEditorNavigateable;
         [SerializeField] private BlueprintDetails blueprintDetails;
 
-        private bool interactible = true;
+        private bool interactable = true;
 
         public bool Interactable
         {
-            get => interactible;
+            get => interactable;
             set
             {
-                interactible = value;
+                interactable = value;
 
                 blueprintSelectorNavigateable.Interactable = value;
             }
@@ -93,7 +92,7 @@ namespace Exa.UI
                 {
                     current = blueprintSelectorNavigateable
                 });
-                shipEditor.Import(container, TrySave);
+                Systems.Editor.Import(container, TrySave);
             });
             view.deleteButton.onClick.AddListener(() =>
             {
@@ -143,7 +142,7 @@ namespace Exa.UI
             var container = new BlueprintContainer(args);
 
             blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable);
-            shipEditor.Import(container, TrySave);
+            Systems.Editor.Import(container, TrySave);
         }
     }
 }

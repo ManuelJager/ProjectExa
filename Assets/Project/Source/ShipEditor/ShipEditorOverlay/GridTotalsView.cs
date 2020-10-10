@@ -15,7 +15,7 @@ namespace Exa.ShipEditor
 
         public void Update()
         {
-            var totals = Systems.ShipEditor.editorGrid.blueprintLayer.ActiveBlueprint.Blocks.Totals;
+            var totals = Systems.Editor.editorGrid.blueprintLayer.ActiveBlueprint.Blocks.Totals;
             Render(totals);
         }
 

@@ -8,9 +8,10 @@ namespace Exa.UI
         [SerializeField] private FleetBuilderBlueprintViewController viewController;
         [SerializeField] private FleetBuilderBlueprintTypes blueprintTypes;
 
-        private void Awake()
+        public void Init()
         {
-            //blueprintTypes.BuildList();
+            blueprintTypes.BuildList(viewController.CreateTab);
+            viewController.Source = Systems.Blueprints.observableUserBlueprints;
         }
     }
 }

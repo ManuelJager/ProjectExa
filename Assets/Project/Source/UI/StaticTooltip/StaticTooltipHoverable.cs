@@ -12,7 +12,7 @@ public class TooltipHoverEvent : UnityEvent<string>
 public class StaticTooltipHoverable : MonoBehaviour
 {
     public string message;
-    public TooltipHoverEvent onHover;
+    public TooltipHoverEvent onHover = new TooltipHoverEvent();
 
     private Hoverable hoverable;
 

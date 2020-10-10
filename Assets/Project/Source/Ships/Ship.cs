@@ -91,7 +91,7 @@ namespace Exa.Ships
             UpdateCanvasSize(blueprint);
             UpdateCentreOfMassPivot(false);
 
-            shipAi.Initialize();
+            shipAi.Init();
         }
 
         public string GetInstanceString()

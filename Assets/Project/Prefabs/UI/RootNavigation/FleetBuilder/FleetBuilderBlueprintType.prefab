@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d5a8689bdbbb5488662e928b45f146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  order: 0
   button: {fileID: 2613432907430130610}
   text: {fileID: 7361548439264858746}
+  layoutElement: {fileID: 8413734605162916278}
 --- !u!1001 &7130346879099871837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25,21 +27,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5093804088955523567, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
-        type: 3}
-      propertyPath: m_Colors.m_NormalColor.r
-      value: 0.15686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 5093804088955523567, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
-        type: 3}
-      propertyPath: m_Colors.m_NormalColor.g
-      value: 0.15686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 5093804088955523567, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
-        type: 3}
-      propertyPath: m_Colors.m_NormalColor.b
-      value: 0.19607843
       objectReference: {fileID: 0}
     - target: {fileID: 5259033962641442089, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
@@ -164,6 +151,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8413734605162916278 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1600893048667343851, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+    type: 3}
+  m_PrefabInstance: {fileID: 7130346879099871837}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3030855701592631156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7361548439264858746 stripped
