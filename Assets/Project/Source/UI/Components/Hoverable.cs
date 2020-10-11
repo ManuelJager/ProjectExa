@@ -71,6 +71,11 @@ namespace Exa.UI
             }
         }
 
+        public void Refresh()
+        {
+            CheckMouseInsideRect(true);
+        }
+
         private void TryEnter()
         {
             if (mouseOverControl) return;
@@ -97,14 +102,14 @@ namespace Exa.UI
             }
         }
 
-        private void CheckMouseInsideRect()
+        private void CheckMouseInsideRect(bool exit = false)
         {
-            if (mouseOverControl) return;
+            if (mouseOverControl && !exit) return;
 
             if (Systems.Input.GetMouseInsideRect(rectTransform))
-            {
                 TryEnter();
-            }
+            else if (exit)
+                TryExit();
         }
 
         private void OnEnter()

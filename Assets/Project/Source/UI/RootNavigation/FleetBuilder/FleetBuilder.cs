@@ -5,13 +5,15 @@ namespace Exa.UI
 {
     public class FleetBuilder : MonoBehaviour
     {
-        [SerializeField] private FleetBuilderBlueprintViewController viewController;
+        [SerializeField] private FleetView fleetView;
+        [SerializeField] private FleetBlueprintViewController viewController;
         [SerializeField] private FleetBuilderBlueprintTypes blueprintTypes;
 
         public void Init()
         {
             blueprintTypes.BuildList(viewController.CreateTab);
-            viewController.Source = Systems.Blueprints.observableUserBlueprints;
+            viewController.Init(fleetView.Toggle, fleetView.Remove, Systems.Blueprints.observableUserBlueprints);
+            fleetView.Create(5, viewController.GetView);
         }
     }
 }

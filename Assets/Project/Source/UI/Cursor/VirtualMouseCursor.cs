@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using Exa.Data;
 using Exa.Generics;
 using Exa.Math;
 using Exa.UI.Tweening;
@@ -25,6 +26,7 @@ namespace Exa.UI
         [SerializeField] private Color removeColor;
         [SerializeField] private Color infoColor;
         [SerializeField] private float cursorAnimTime = 0.25f;
+        [SerializeField] private ActivePair<float> hoverableCursorSize;
         [SerializeField] private CursorAnimSettings animInSettings;
         [SerializeField] private CursorAnimSettings animOutSettings;
 
@@ -50,7 +52,7 @@ namespace Exa.UI
 
             HoverMarkerContainer = new MarkerContainer(active =>
             {
-                cursorScaleBlender.To(0, active ? 1.35f : 1f, cursorAnimTime);
+                cursorScaleBlender.To(0, hoverableCursorSize.GetValue(active), cursorAnimTime);
             });
 
             inputAction.started += OnLeftMouseStarted;

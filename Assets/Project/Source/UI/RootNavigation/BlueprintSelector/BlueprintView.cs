@@ -7,6 +7,7 @@ namespace Exa.UI
 {
     public class BlueprintView : MonoBehaviour, Bindings.IObserver<Blueprint>
     {
+        [Header("References")]
         public Button deleteButton;
         public Button button;
         public Hoverable hoverable;

@@ -57,14 +57,10 @@ namespace Exa.Grids.Blueprints
         public BlueprintContainer GetBlueprint(string name)
         {
             if (observableDefaultBlueprints.ContainsKey(name))
-            {
                 return observableDefaultBlueprints[name];
-            }
-
+            
             if (observableUserBlueprints.ContainsKey(name))
-            {
                 return observableUserBlueprints[name];
-            }
 
             throw new KeyNotFoundException();
         }

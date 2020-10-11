@@ -78,5 +78,10 @@ namespace Exa.Bindings
             observer.Unregister(view);
             Destroy(view.gameObject);
         }
+
+        public TView GetView(TContainer container)
+        {
+            return views[container];
+        }
     }
 }
