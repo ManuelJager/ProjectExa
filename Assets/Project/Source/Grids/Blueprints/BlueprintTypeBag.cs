@@ -20,7 +20,7 @@ namespace Exa.Grids.Blueprints
             }
         }
 
-        public Dictionary<string, BlueprintType> typesById;
+        public Dictionary<BlueprintTypeGuid, BlueprintType> typesById;
 
         public override void FindObjects()
         {
@@ -30,7 +30,7 @@ namespace Exa.Grids.Blueprints
 
         public void OnEnable()
         {
-            typesById = new Dictionary<string, BlueprintType>();
+            typesById = new Dictionary<BlueprintTypeGuid, BlueprintType>();
             foreach (var type in objects)
             {
                 typesById[type.typeGuid] = type;

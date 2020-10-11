@@ -39,7 +39,7 @@ namespace Exa.UI
 
         public void Insert(BlueprintContainer blueprint)
         {
-            if (blueprint.Data.BlueprintType.typeGuid == "mothership")
+            if (blueprint.Data.BlueprintType.IsMothership)
                 AddMothership(blueprint);
             else
                 AddUnit(blueprint);
@@ -47,7 +47,7 @@ namespace Exa.UI
 
         public void Remove(BlueprintContainer blueprint)
         {
-            if (blueprint.Data.BlueprintType.typeGuid == "mothership")
+            if (blueprint.Data.BlueprintType.IsMothership)
                 fleet.mothership = null;
             else
             {

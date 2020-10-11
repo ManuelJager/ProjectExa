@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e291881a9bb544546b8fb636a275fc97, type: 3}
   m_Name: Battleship
   m_EditorClassIdentifier: 
+  typeGuid: 1
   displayName: Battleship
-  typeGuid: Battleship
   maxSize: {x: 22, y: 15}
   disallowedBlockCategories: 32

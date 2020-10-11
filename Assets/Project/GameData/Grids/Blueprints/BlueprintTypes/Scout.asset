@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e291881a9bb544546b8fb636a275fc97, type: 3}
   m_Name: Scout
   m_EditorClassIdentifier: 
+  typeGuid: 5
   displayName: Scout
-  typeGuid: Scout
   maxSize: {x: 8, y: 5}
   disallowedBlockCategories: 32

@@ -10,12 +10,17 @@ namespace Exa.Grids.Blueprints
     [CreateAssetMenu(fileName = "BlueprintType", menuName = "Grids/Blueprints/BlueprintType")]
     public class BlueprintType : ScriptableObject, ITooltipPresenter
     {
+        public BlueprintTypeGuid typeGuid;
         public string displayName;
-        public string typeGuid;
         public Vector2Int maxSize;
         public BlockCategory disallowedBlockCategories;
 
         private Tooltip tooltipResult;
+
+        public bool IsMothership
+        {
+            get => typeGuid == BlueprintTypeGuid.mothership;
+        }
 
         private void OnEnable()
         {

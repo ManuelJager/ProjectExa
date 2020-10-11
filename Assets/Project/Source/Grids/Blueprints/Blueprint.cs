@@ -11,7 +11,7 @@ namespace Exa.Grids.Blueprints
         public static readonly string DEFAULT_BLUEPRINT_NAME = "New blueprint";
 
         public string name;
-        public string shipClass;
+        public BlueprintTypeGuid shipClass;
 
         [JsonProperty("blocks")] public BlueprintBlocks Blocks { get; private set; }
         [JsonIgnore] public Texture2D Thumbnail { get; set; }
@@ -27,7 +27,7 @@ namespace Exa.Grids.Blueprints
         }
 
         [JsonConstructor]
-        public Blueprint(string name, string shipClass, BlueprintBlocks blocks)
+        public Blueprint(string name, BlueprintTypeGuid shipClass, BlueprintBlocks blocks)
         {
             this.name = name;
             this.shipClass = shipClass;

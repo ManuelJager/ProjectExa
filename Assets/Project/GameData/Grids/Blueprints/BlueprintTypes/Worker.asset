@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e291881a9bb544546b8fb636a275fc97, type: 3}
   m_Name: Worker
   m_EditorClassIdentifier: 
+  typeGuid: 4
   displayName: Worker
-  typeGuid: Worker
   maxSize: {x: 9, y: 7}
-  disallowedBlockCategories:
-  - weapon
+  disallowedBlockCategories: 0

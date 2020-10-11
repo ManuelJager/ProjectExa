@@ -18,7 +18,7 @@ namespace Exa.UI
         public void OnUpdate(Blueprint data)
         {
             nameText.text = data.name;
-            classText.text = data.shipClass;
+            classText.text = data.BlueprintType.displayName;
 
             try
             {

@@ -3,9 +3,9 @@
     public class BlueprintOptions
     {
         public string name;
-        public string shipClass;
+        public BlueprintTypeGuid shipClass;
 
-        public BlueprintOptions(string name, string shipClass)
+        public BlueprintOptions(string name, BlueprintTypeGuid shipClass)
         {
             this.name = name;
             this.shipClass = shipClass;
