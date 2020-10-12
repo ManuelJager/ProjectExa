@@ -12,9 +12,7 @@ namespace Exa.UI.Tooltips
 
         public TooltipGroup(IEnumerable<ITooltipComponent> children, int tabs = 0, int spacing = 10)
         {
-            if (children == null) throw new ArgumentNullException("children", "A collection of children must not be null");
-
-            this.Children = children;
+            this.Children = children ?? throw new ArgumentNullException(nameof(children), "A collection of children must not be null");
             this.Tabs = tabs;
             this.Spacing = spacing;
         }

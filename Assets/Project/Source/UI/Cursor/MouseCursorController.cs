@@ -6,15 +6,15 @@ namespace Exa.UI
 {
     public enum CursorType
     {
-        hardwareCursor,
-        virtualCursor
+        HardwareCursor,
+        VirtualCursor
     }
 
     public class MouseCursorController : MonoBehaviour
     {
-        public OverrideList<CursorState> stateManager;
+        public CursorStateOverrideList stateManager;
 
-        [SerializeField] private CursorType cursorType = CursorType.hardwareCursor;
+        [SerializeField] private CursorType cursorType = CursorType.HardwareCursor;
         [SerializeField] private VirtualMouseCursor virtualMouseCursor;
         [SerializeField] private HardwareMouseCursor hardwareMouseCursor;
         [SerializeField] private CursorState cursorState;
@@ -27,7 +27,8 @@ namespace Exa.UI
         {
             SetCursor(cursorType);
             cursor.SetState(cursorState);
-            stateManager = new OverrideList<CursorState>(cursorState, cursor.SetState);
+            stateManager = new CursorStateOverrideList(cursorState, cursor.SetState);
+            virtualMouseCursor.Init();
         }
 
         public void SetCursor(CursorType cursorType)
@@ -62,10 +63,10 @@ namespace Exa.UI
         {
             switch (cursorType)
             {
-                case CursorType.hardwareCursor:
+                case CursorType.HardwareCursor:
                     return hardwareMouseCursor;
 
-                case CursorType.virtualCursor:
+                case CursorType.VirtualCursor:
                     return virtualMouseCursor;
 
                 default:

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using DG.Tweening;
+using DG.Tweening.Core;
 using Exa.Data;
 using Exa.Generics;
 using Exa.Math;
@@ -20,39 +22,43 @@ namespace Exa.UI
         [SerializeField] private RectTransform normalCursor;
         [SerializeField] private RectTransform inputCursor;
 
-        [Header("Settings")]
+        [Header("Color settings")]
         [SerializeField] private Color idleColor;
         [SerializeField] private Color activeColor;
         [SerializeField] private Color removeColor;
         [SerializeField] private Color infoColor;
-        [SerializeField] private float cursorAnimTime = 0.25f;
+        [SerializeField] private float cursorColorAnimTime = 0.25f;
+
+        [Header("Size anim settings")]
+        [SerializeField] private float cursorScaleAnimTime = 0.25f;
         [SerializeField] private ActivePair<float> hoverableCursorSize;
-        [SerializeField] private CursorAnimSettings animInSettings;
-        [SerializeField] private CursorAnimSettings animOutSettings;
+        [SerializeField] private ActivePair<CursorSizeAnimSettings> sizeAnimSettings;
+
+        [Header("Drag anim settings")]
+        [SerializeField] private float cursorDragDistanceTolerance = 30f;
+        [SerializeField] private ActivePair<CursorDragAnimSettings> dragAnimSettings;
 
         [Header("Input")]
         [SerializeField] private InputAction inputAction;
 
+        private CursorDragState cursorDragState = CursorDragState.NotDragging;
         private CursorState cursorState = CursorState.idle;
         private Tween cursorColorTween;
         private Tween cursorClickAlphaTween;
-        private Tween cursorRotationTween;
-        private bool lockCursorScaleAnim;
+        private Tween cursorDragRotateTween;
         private FloatTweenBlender cursorScaleBlender;
 
-        public MarkerContainer HoverMarkerContainer { get; private set; }
-        public Vector2? ViewportPivot { get; set; }
+        public Vector2? DragPivot { get; set; }
 
-        private void Start()
+        public void Init()
         {
-            cursorScaleBlender = new FloatTweenBlender(1f, value =>
-            {
-                rectTransform.localScale = new Vector3(value, value, 1);
-            });
+            cursorScaleBlender = new FloatTweenBlender(1f,
+                value => rectTransform.localScale = new Vector3(value, value, 1),
+                (current, blender) => current * blender);
 
-            HoverMarkerContainer = new MarkerContainer(active =>
+            Systems.UI.mouseCursor.stateManager.ContainsItemChange.AddListener(active =>
             {
-                cursorScaleBlender.To(0, hoverableCursorSize.GetValue(active), cursorAnimTime);
+                cursorScaleBlender.To(0, hoverableCursorSize.GetValue(active), cursorScaleAnimTime);
             });
 
             inputAction.started += OnLeftMouseStarted;
@@ -79,19 +85,20 @@ namespace Exa.UI
 
         private void UpdateCursorScaleAnim(Vector2 viewportPoint)
         {
-            if (!ViewportPivot.HasValue) 
+            if (!DragPivot.HasValue || cursorDragState == CursorDragState.NotDragging) 
                 return;
 
-            var difference = ViewportPivot.Value - viewportPoint;
+            var difference = DragPivot.Value - viewportPoint;
 
-            if (lockCursorScaleAnim && difference.magnitude > 10f)
-                lockCursorScaleAnim = false;
 
-            if (lockCursorScaleAnim)
-                return;
+            if (cursorDragState == CursorDragState.BeginDragging && difference.magnitude > cursorDragDistanceTolerance)
+                cursorDragState = CursorDragState.Dragging;
 
-            var angle = (difference.GetAngle() + 270f - 22.5f) % 360;
-            AnimCursorDirection(angle, 0.25f);
+            if (cursorDragState == CursorDragState.Dragging)
+            {
+                var angle = (difference.GetAngle() + 270f - 22.5f) % 360;
+                AnimCursorDirection(angle, dragAnimSettings.active);
+            }
         }
 
         public void SetActive(bool active)
@@ -104,9 +111,8 @@ namespace Exa.UI
             SwitchActive(cursorState, false);
             SwitchActive(state, true);
             cursorState = state;
-            cursorColorTween?.Kill();
-            cursorColorTween = backgroundImage
-                .DOColor(GetCursorColor(state), cursorAnimTime);
+            backgroundImage
+                .DOColor(GetCursorColor(state), cursorColorAnimTime);
         }
 
         public void OnEnterViewport()
@@ -123,19 +129,20 @@ namespace Exa.UI
 
         private void OnLeftMouseStarted(InputAction.CallbackContext context)
         {
-            AnimCursorSize(animInSettings);
-            lockCursorScaleAnim = true;
-            ViewportPivot = Systems.Input.ScaledViewportPoint;
+            AnimCursorSize(sizeAnimSettings.active);
+            cursorDragState = CursorDragState.BeginDragging;
+            DragPivot = Systems.Input.ScaledViewportPoint;
         }
 
         private void OnLeftMouseCanceled(InputAction.CallbackContext context)
         {
-            AnimCursorSize(animOutSettings);
-            ViewportPivot = null;
-            AnimCursorDirection(0f, 0.10f);
+            AnimCursorSize(sizeAnimSettings.inactive);
+            cursorDragState = CursorDragState.NotDragging;
+            DragPivot = null;
+            AnimCursorDirection(0f, dragAnimSettings.inactive);
         }
 
-        private void AnimCursorSize(CursorAnimSettings args)
+        private void AnimCursorSize(CursorSizeAnimSettings args)
         {
             cursorScaleBlender
                 .To(1, args.sizeTarget, args.animTime)
@@ -147,11 +154,13 @@ namespace Exa.UI
                 .SetEase(args.ease);
         }
 
-        private void AnimCursorDirection(float angle, float time)
+        private void AnimCursorDirection(float angle, CursorDragAnimSettings args)
         {
             var targetVector = new Vector3(0, 0, angle);
-            cursorRotationTween?.Kill();
-            cursorRotationTween = normalCursor.DORotate(targetVector, time);
+            cursorDragRotateTween?.Kill();
+            cursorDragRotateTween = normalCursor
+                .DORotate(targetVector, args.animTime)
+                .SetEase(args.ease);
         }
 
         private void SwitchActive(CursorState state, bool active)
@@ -189,12 +198,26 @@ namespace Exa.UI
         }
 
         [Serializable]
-        private struct CursorAnimSettings
+        private struct CursorSizeAnimSettings
         {
             public float sizeTarget;
             public float alphaTarget;
             public float animTime;
             public Ease ease;
+        }
+
+        [Serializable]
+        private struct CursorDragAnimSettings
+        {
+            public float animTime;
+            public Ease ease;
+        }
+
+        private enum CursorDragState
+        {
+            NotDragging,
+            BeginDragging,
+            Dragging
         }
     }
 }

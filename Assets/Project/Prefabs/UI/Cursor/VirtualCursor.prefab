@@ -98,7 +98,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6478552158771821686}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -334,20 +334,30 @@ MonoBehaviour:
   activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
   removeColor: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}
   infoColor: {r: 1, g: 1, b: 1, a: 1}
-  cursorAnimTime: 0.25
+  cursorColorAnimTime: 0.25
+  cursorScaleAnimTime: 0.25
   hoverableCursorSize:
     active: 1.25
     inactive: 1
-  animInSettings:
-    sizeTarget: 0.75
-    alphaTarget: 1
-    animTime: 0.3
-    ease: 3
-  animOutSettings:
-    sizeTarget: 1
-    alphaTarget: 0.6
-    animTime: 0.08
-    ease: 2
+  sizeAnimSettings:
+    active:
+      sizeTarget: 0.75
+      alphaTarget: 1
+      animTime: 0.3
+      ease: 15
+    inactive:
+      sizeTarget: 1
+      alphaTarget: 0.6
+      animTime: 0.1
+      ease: 3
+  cursorDragDistanceTolerance: 30
+  dragAnimSettings:
+    active:
+      animTime: 0.3
+      ease: 6
+    inactive:
+      animTime: 0.15
+      ease: 27
   inputAction:
     m_Name: Input
     m_Type: 0

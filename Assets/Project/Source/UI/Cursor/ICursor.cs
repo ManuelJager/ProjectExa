@@ -13,7 +13,6 @@ namespace Exa.UI
 
     public interface ICursor
     {
-        MarkerContainer HoverMarkerContainer { get; }
         void SetActive(bool active);
         void SetState(CursorState cursorState);
         void OnEnterViewport();

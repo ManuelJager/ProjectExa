@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using DG.Tweening.Core;
+using Unity.Burst;
 
 namespace Exa.UI.Tweening
 {
@@ -13,11 +15,20 @@ namespace Exa.UI.Tweening
         private Dictionary<int, Tween> tweens = new Dictionary<int, Tween>();
         private Dictionary<int, T> values = new Dictionary<int, T>();
 
+        protected Func<T, T, T> aggregator = null;
+
         protected TweenBlender(T defaultValue, Action<T> setter)
         {
             this.defaultValue = defaultValue;
             this.setter = setter;
         }
+
+        protected TweenBlender(T defaultValue, Action<T> setter, Func<T, T, T> aggregator)
+            : this(defaultValue, setter)
+        {
+            this.aggregator = aggregator;
+        }
+
 
         public Tween To(int id, T endValue, float time)
         {
@@ -52,24 +63,22 @@ namespace Exa.UI.Tweening
             }
         }
 
-        protected abstract T BlendValues(T value, IEnumerable<T> blenders);
+        protected virtual T BlendValues(T value, IEnumerable<T> blenders)
+        {
+            if (aggregator == null)
+                throw new InvalidOperationException("Cannot blend values without a given aggregator function");
+
+            return blenders.Aggregate(value, aggregator);
+        }
+
         protected abstract Tween CreateTween(DOGetter<T> getter, DOSetter<T> setter, T endValue, float time);
     }
 
     public class FloatTweenBlender : TweenBlender<float>
     {
-        public FloatTweenBlender(float defaultValue, Action<float> setter)
-            : base(defaultValue, setter)
+        public FloatTweenBlender(float defaultValue, Action<float> setter, Func<float, float, float> aggregator)
+            : base(defaultValue, setter, aggregator)
         {
-        }
-
-        protected override float BlendValues(float value, IEnumerable<float> blenders)
-        {
-            foreach (var blender in blenders)
-            {
-                value *= blender;
-            }
-            return value;
         }
 
         protected override Tween CreateTween(DOGetter<float> getter, DOSetter<float> setter, float endValue, float time)

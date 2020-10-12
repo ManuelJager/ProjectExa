@@ -14,9 +14,7 @@ namespace Exa.Gameplay
         public IEnumerable<Vector2> GetGlobalLayout(ShipSelection ships, Vector2 point)
         {
             if (!ships.Any())
-            {
-                throw new ArgumentException("Cannot layout an empty collection", "ships");
-            }
+                throw new ArgumentException("Cannot layout an empty collection", nameof(ships));
 
             // Direction is right aligned, so we subtract 90 degrees to correct
             var direction = point - ships.AveragePosition;

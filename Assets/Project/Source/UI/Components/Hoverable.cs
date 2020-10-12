@@ -115,19 +115,11 @@ namespace Exa.UI
         private void OnEnter()
         {
             Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
-            if (Systems.UI.mouseCursor.CurrentCursor is VirtualMouseCursor virtualMouseCursor)
-            {
-                virtualMouseCursor.HoverMarkerContainer.AddMarker();
-            }
         }
 
         private void OnExit()
         {
             Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
-            if (Systems.UI.mouseCursor.CurrentCursor is VirtualMouseCursor virtualMouseCursor)
-            {
-                virtualMouseCursor.HoverMarkerContainer.RemoveMarker();
-            }
         }
     }
 }

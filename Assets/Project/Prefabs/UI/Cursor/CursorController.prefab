@@ -277,6 +277,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: VirtualMouseCursor
       objectReference: {fileID: 0}
+    - target: {fileID: 8473491723648799222, guid: 8a0e78ee9f9284645af4c262c49ce6e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a0e78ee9f9284645af4c262c49ce6e7, type: 3}
 --- !u!224 &5651208857932004940 stripped
