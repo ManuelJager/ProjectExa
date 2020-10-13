@@ -3,72 +3,81 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using DG.Tweening.Core;
+using Exa.Utils;
 using Unity.Burst;
 
 namespace Exa.UI.Tweening
 {
-    public class TweenBlender<TValue, TTarget>
-        where TValue : struct
-        where TTarget : CustomTargetTween<TValue>, new()
+    public class TweenBlender<T, TTarget>
+        where T : struct
+        where TTarget : CustomTargetTween<T>, new()
     {
-        private Action<TValue> setter;
-        private TValue defaultValue;
-        private Dictionary<int, Tween> tweens = new Dictionary<int, Tween>();
-        private Dictionary<int, TValue> values = new Dictionary<int, TValue>();
+        private Action<T> setter;
+        private T defaultValue;
+        private Dictionary<int, Blender<T>> blenders = new Dictionary<int, Blender<T>>();
 
-        protected Func<TValue, TValue, TValue> aggregator = null;
+        protected Func<T, T, T> aggregator = null;
 
-        public TweenBlender(TValue defaultValue, Action<TValue> setter, Func<TValue, TValue, TValue> aggregator)
+        public TweenBlender(T defaultValue, Action<T> setter, Func<T, T, T> aggregator)
         {
             this.defaultValue = defaultValue;
             this.setter = setter;
             this.aggregator = aggregator;
         }
 
-        public Tween To(int id, TValue endValue, float time)
+        public Tween To(int id, T endValue, float time)
         {
-            return To(id, values.ContainsKey(id) ? values[id] : defaultValue, endValue, time);
+            return To(id, SelectValue(id), endValue, time);
         }
 
-        public Tween To(int id, TValue startValue, TValue endValue, float duration)
+        public Tween To(int id, T startValue, T endValue, float duration)
         {
-            if (tweens.ContainsKey(id))
+            blenders.EnsureCreated(id, () => new Blender<T>
             {
-                tweens[id].Kill();
-            }
+                tween = new TTarget()
+                    .DOGetter(() => blenders[id].value)
+                    .DOSetter(x => blenders[id].value = x)
+            });
 
-            values[id] = startValue;
-
-            var tween = new TTarget()
-                .DOGetter(() => values[id])
-                .DOSetter(x => values[id] = x)
+            blenders[id].value = startValue;
+            return blenders[id].tween
                 .To(endValue, duration);
-
-            tweens[id] = tween;
-            return tween;
         }
 
         public void Update()
         {
-            var blenders = values.Values;
-            var blendedValue = BlendValues(defaultValue, blenders);
+            var blenders = this.blenders.Values;
+            var blendedValue = BlendValues(defaultValue, blenders.Select(b => b.value));
             setter(blendedValue);
         }
 
         public void Kill()
         {
-            foreach (var tween in tweens.Values)
+            foreach (var tween in blenders.Values.Select(b => b.tween.Tween))
             {
                 tween.Kill();
             }
         }
 
-        protected virtual TValue BlendValues(TValue value, IEnumerable<TValue> blenders)
+        protected virtual T BlendValues(T value, IEnumerable<T> blenders)
         {
             if (aggregator == null)
                 throw new InvalidOperationException("Cannot blend values without a given aggregator function");
 
             return blenders.Aggregate(value, aggregator);
+        }
+
+        private T SelectValue(int id)
+        {
+            return blenders.ContainsKey(id)
+                ? blenders[id].value
+                : defaultValue;
+        }
+
+        private class Blender<T>
+        {
+            public T value;
+            public TweenRef<T> tween;
         }
     }
 

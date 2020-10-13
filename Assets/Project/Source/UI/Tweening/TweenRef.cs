@@ -8,6 +8,8 @@ namespace Exa.UI.Tweening
         private Tween tween;
         private float? defaultDuration;
 
+        public Tween Tween => tween;
+
         public Tween To(T endValue)
         {
             return To(endValue,
