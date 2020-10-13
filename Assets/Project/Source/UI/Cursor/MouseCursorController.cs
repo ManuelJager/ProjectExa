@@ -25,10 +25,12 @@ namespace Exa.UI
 
         private void Start()
         {
+            // Activates the default cursor type
             SetCursor(cursorType);
-            cursor.SetState(cursorState);
+
             stateManager = new CursorStateOverrideList(cursorState, cursor.SetState);
-            virtualMouseCursor.Init();
+            virtualMouseCursor.Init(stateManager);
+            cursor.SetState(cursorState);
         }
 
         public void SetCursor(CursorType cursorType)

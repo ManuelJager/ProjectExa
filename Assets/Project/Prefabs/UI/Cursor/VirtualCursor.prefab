@@ -344,20 +344,70 @@ MonoBehaviour:
       sizeTarget: 0.75
       alphaTarget: 1
       animTime: 0.3
-      ease: 15
+      ease:
+        easeType: 0
+        ease: 15
+        animationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
     inactive:
       sizeTarget: 1
       alphaTarget: 0.6
       animTime: 0.1
-      ease: 3
+      ease:
+        easeType: 0
+        ease: 15
+        animationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
   cursorDragDistanceTolerance: 30
   dragAnimSettings:
     active:
       animTime: 0.3
-      ease: 6
+      ease:
+        easeType: 0
+        ease: 6
+        animationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
     inactive:
       animTime: 0.15
-      ease: 27
+      ease:
+        easeType: 1
+        ease: 0
+        animationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1.3359752
+            outSlope: 1.3359752
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.17083333
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: -1.5903534
+            outSlope: -1.5903534
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.06666666
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
   inputAction:
     m_Name: Input
     m_Type: 0

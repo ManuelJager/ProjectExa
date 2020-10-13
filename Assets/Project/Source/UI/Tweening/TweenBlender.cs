@@ -7,35 +7,30 @@ using Unity.Burst;
 
 namespace Exa.UI.Tweening
 {
-    public abstract class TweenBlender<T>
-        where T : struct
+    public class TweenBlender<TValue, TTarget>
+        where TValue : struct
+        where TTarget : TweenTarget<TValue>, new()
     {
-        private Action<T> setter;
-        private T defaultValue;
+        private Action<TValue> setter;
+        private TValue defaultValue;
         private Dictionary<int, Tween> tweens = new Dictionary<int, Tween>();
-        private Dictionary<int, T> values = new Dictionary<int, T>();
+        private Dictionary<int, TValue> values = new Dictionary<int, TValue>();
 
-        protected Func<T, T, T> aggregator = null;
+        protected Func<TValue, TValue, TValue> aggregator = null;
 
-        protected TweenBlender(T defaultValue, Action<T> setter)
+        public TweenBlender(TValue defaultValue, Action<TValue> setter, Func<TValue, TValue, TValue> aggregator)
         {
             this.defaultValue = defaultValue;
             this.setter = setter;
-        }
-
-        protected TweenBlender(T defaultValue, Action<T> setter, Func<T, T, T> aggregator)
-            : this(defaultValue, setter)
-        {
             this.aggregator = aggregator;
         }
 
-
-        public Tween To(int id, T endValue, float time)
+        public Tween To(int id, TValue endValue, float time)
         {
             return To(id, values.ContainsKey(id) ? values[id] : defaultValue, endValue, time);
         }
 
-        public Tween To(int id, T startValue, T endValue, float time)
+        public Tween To(int id, TValue startValue, TValue endValue, float duration)
         {
             if (tweens.ContainsKey(id))
             {
@@ -43,7 +38,12 @@ namespace Exa.UI.Tweening
             }
 
             values[id] = startValue;
-            var tween = CreateTween(() => values[id], x => values[id] = x, endValue, time);
+
+            var tween = new TTarget()
+                .DOGetter(() => values[id])
+                .DOSetter(x => values[id] = x)
+                .To(endValue, duration);
+
             tweens[id] = tween;
             return tween;
         }
@@ -63,27 +63,20 @@ namespace Exa.UI.Tweening
             }
         }
 
-        protected virtual T BlendValues(T value, IEnumerable<T> blenders)
+        protected virtual TValue BlendValues(TValue value, IEnumerable<TValue> blenders)
         {
             if (aggregator == null)
                 throw new InvalidOperationException("Cannot blend values without a given aggregator function");
 
             return blenders.Aggregate(value, aggregator);
         }
-
-        protected abstract Tween CreateTween(DOGetter<T> getter, DOSetter<T> setter, T endValue, float time);
     }
 
-    public class FloatTweenBlender : TweenBlender<float>
+    public class FloatTweenBlender : TweenBlender<float, FloatTweenTarget>
     {
-        public FloatTweenBlender(float defaultValue, Action<float> setter, Func<float, float, float> aggregator)
+        public FloatTweenBlender(float defaultValue, Action<float> setter, Func<float, float, float> aggregator) 
             : base(defaultValue, setter, aggregator)
         {
-        }
-
-        protected override Tween CreateTween(DOGetter<float> getter, DOSetter<float> setter, float endValue, float time)
-        {
-            return DOTween.To(getter, setter, endValue, time);
         }
     }
 }

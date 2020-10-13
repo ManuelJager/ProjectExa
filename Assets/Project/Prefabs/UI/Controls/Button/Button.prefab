@@ -95,6 +95,9 @@ MonoBehaviour:
   text: {fileID: 350557258748702759}
   activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
   inactiveColor: {r: 0.74509805, g: 0.74509805, b: 0.7647059, a: 1}
+  color:
+    active: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
+    inactive: {r: 0.74509805, g: 0.74509805, b: 0.7647059, a: 1}
 --- !u!1 &5259033962641442089
 GameObject:
   m_ObjectHideFlags: 0

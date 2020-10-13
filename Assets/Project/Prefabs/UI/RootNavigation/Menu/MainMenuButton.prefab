@@ -17,14 +17,16 @@ MonoBehaviour:
   text: {fileID: 2510221419983577005}
   image: {fileID: 6168698050755744740}
   content: {fileID: 0}
-  activeColor: {r: 0.23529412, g: 0.23529412, b: 0.27450982, a: 1}
-  inactiveColor: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
-  activeHeight: 120
-  inactiveHeight: 80
-  activeFontSize: 62
-  inactiveFontSize: 42
-  currentFontSize: 0
-  delay: 0
+  duration: 0.25
+  animArgs:
+    active:
+      color: {r: 0.23529412, g: 0.23529412, b: 0.27450982, a: 1}
+      height: 120
+      fontSize: 62
+    inactive:
+      color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
+      height: 80
+      fontSize: 42
 --- !u!114 &3667008806515302476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,17 +314,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
-      propertyPath: inactiveColor.r
+      propertyPath: color.inactive.r
       value: 0.39215687
       objectReference: {fileID: 0}
     - target: {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
-      propertyPath: inactiveColor.g
+      propertyPath: color.inactive.g
       value: 0.39215687
       objectReference: {fileID: 0}
     - target: {fileID: 6740912226978947629, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
-      propertyPath: inactiveColor.b
+      propertyPath: color.inactive.b
       value: 0.43137255
       objectReference: {fileID: 0}
     - target: {fileID: 8327413947886271598, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,

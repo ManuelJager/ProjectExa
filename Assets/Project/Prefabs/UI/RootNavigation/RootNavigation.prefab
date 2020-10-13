@@ -26,7 +26,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 6667905189903178805}
   canvasGroup: {fileID: 3136275994030468949}
-  animTime: 0.4
+  duration: 0.25
+  animArgs:
+    active:
+      targetAlpha: 1
+      animAmplitude: 120
+      ease: 8
+    inactive:
+      targetAlpha: 0
+      animAmplitude: 120
+      ease: 9
   animEnterArgs:
     targetAlpha: 1
     animAmplitude: 120
@@ -157,7 +166,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 2749516919016886405}
   canvasGroup: {fileID: 3340373449734495917}
-  animTime: 0.4
+  duration: 0.25
+  animArgs:
+    active:
+      targetAlpha: 1
+      animAmplitude: 120
+      ease: 8
+    inactive:
+      targetAlpha: 0
+      animAmplitude: 120
+      ease: 9
   animEnterArgs:
     targetAlpha: 1
     animAmplitude: 120
@@ -192,7 +210,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 4910041706510150926}
   canvasGroup: {fileID: 7445511138407406047}
-  animTime: 0.4
+  duration: 0.25
+  animArgs:
+    active:
+      targetAlpha: 1
+      animAmplitude: 120
+      ease: 8
+    inactive:
+      targetAlpha: 0
+      animAmplitude: 120
+      ease: 9
   animEnterArgs:
     targetAlpha: 1
     animAmplitude: 120
@@ -227,7 +254,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 5324494252263852340}
   canvasGroup: {fileID: 3271288210136737110}
-  animTime: 0.4
+  duration: 0.25
+  animArgs:
+    active:
+      targetAlpha: 1
+      animAmplitude: 120
+      ease: 8
+    inactive:
+      targetAlpha: 0
+      animAmplitude: 120
+      ease: 9
   animEnterArgs:
     targetAlpha: 1
     animAmplitude: 120

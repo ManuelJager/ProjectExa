@@ -138,6 +138,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 2974032415400731056}
   text: {fileID: 4410352464713359618}
+  color:
+    active: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
+    inactive: {r: 0.74509805, g: 0.74509805, b: 0.7647059, a: 1}
   activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
   inactiveColor: {r: 1, g: 1, b: 1, a: 0.78431374}
 --- !u!225 &4731027747724969547

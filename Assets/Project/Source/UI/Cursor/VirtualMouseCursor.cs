@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
+using Exa.Utils;
 using DG.Tweening;
-using DG.Tweening.Core;
 using Exa.Data;
-using Exa.Generics;
 using Exa.Math;
 using Exa.UI.Tweening;
 using UnityEngine;
@@ -43,26 +41,30 @@ namespace Exa.UI
 
         private CursorDragState cursorDragState = CursorDragState.NotDragging;
         private CursorState cursorState = CursorState.idle;
-        private Tween cursorColorTween;
-        private Tween cursorClickAlphaTween;
-        private Tween cursorDragRotateTween;
+        private TweenWrapper<Color> cursorColorTween;
+        private TweenWrapper<float> cursorClickAlphaTween;
+        private TweenWrapper<Vector3> cursorDragRotateTween;
         private FloatTweenBlender cursorScaleBlender;
 
         public Vector2? DragPivot { get; set; }
 
-        public void Init()
+        public void Init(CursorStateOverrideList overrides)
         {
-            cursorScaleBlender = new FloatTweenBlender(1f,
-                value => rectTransform.localScale = new Vector3(value, value, 1),
-                (current, blender) => current * blender);
-
-            Systems.UI.mouseCursor.stateManager.ContainsItemChange.AddListener(active =>
+            overrides.ContainsItemChange.AddListener(active =>
             {
                 cursorScaleBlender.To(0, hoverableCursorSize.GetValue(active), cursorScaleAnimTime);
             });
 
             inputAction.started += OnLeftMouseStarted;
             inputAction.canceled += OnLeftMouseCanceled;
+
+            cursorColorTween = new TweenWrapper<Color>(backgroundImage.DOColor);
+            cursorClickAlphaTween = new TweenWrapper<float>(backgroundGroup.DOFade);
+            cursorDragRotateTween = new TweenWrapper<Vector3>(normalCursor.DORotate);
+
+            cursorScaleBlender = new FloatTweenBlender(1f,
+                value => rectTransform.localScale = new Vector3(value, value, 1),
+                (current, blender) => current * blender);
         }
 
         private void OnEnable()
@@ -111,8 +113,8 @@ namespace Exa.UI
             SwitchActive(cursorState, false);
             SwitchActive(state, true);
             cursorState = state;
-            backgroundImage
-                .DOColor(GetCursorColor(state), cursorColorAnimTime);
+
+            cursorColorTween.To(GetCursorColor(state), cursorColorAnimTime);
         }
 
         public void OnEnterViewport()
@@ -144,22 +146,17 @@ namespace Exa.UI
 
         private void AnimCursorSize(CursorSizeAnimSettings args)
         {
-            cursorScaleBlender
-                .To(1, args.sizeTarget, args.animTime)
+            cursorScaleBlender.To(1, args.sizeTarget, args.animTime)
                 .SetEase(args.ease);
 
-            cursorClickAlphaTween?.Kill();
-            cursorClickAlphaTween = backgroundGroup
-                .DOFade(args.alphaTarget, args.animTime)
+            cursorClickAlphaTween.To(args.alphaTarget, args.animTime)
                 .SetEase(args.ease);
         }
 
         private void AnimCursorDirection(float angle, CursorDragAnimSettings args)
         {
             var targetVector = new Vector3(0, 0, angle);
-            cursorDragRotateTween?.Kill();
-            cursorDragRotateTween = normalCursor
-                .DORotate(targetVector, args.animTime)
+            cursorDragRotateTween.To(targetVector, args.animTime)
                 .SetEase(args.ease);
         }
 
@@ -203,14 +200,14 @@ namespace Exa.UI
             public float sizeTarget;
             public float alphaTarget;
             public float animTime;
-            public Ease ease;
+            public ExaEase ease;
         }
 
         [Serializable]
         private struct CursorDragAnimSettings
         {
             public float animTime;
-            public Ease ease;
+            public ExaEase ease;
         }
 
         private enum CursorDragState

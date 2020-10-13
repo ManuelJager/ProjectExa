@@ -1,5 +1,9 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
+using Exa.Data;
 using Exa.Math;
+using Exa.Utils;
+using Exa.UI.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 #pragma warning disable CS0649
@@ -17,64 +21,56 @@ namespace Exa.UI.Components
         [SerializeField] private AnimatedTabContent content;
 
         [Header("Settings")]
-        [SerializeField] private Color activeColor;
-        [SerializeField] private Color inactiveColor;
-        [SerializeField] private float activeHeight;
-        [SerializeField] private float inactiveHeight;
-        [SerializeField] private float activeFontSize;
-        [SerializeField] private float inactiveFontSize;
-        [SerializeField] private float currentFontSize;
-        [SerializeField] private float delay;
+        [SerializeField] private float duration;
+        [SerializeField] private ActivePair<AnimationArgs> animArgs;
 
-        private Tween fontTween;
-
-        private float CurrentFontSize
-        {
-            get => currentFontSize;
-            set
-            {
-                currentFontSize = value;
-                text.fontSize = Mathf.RoundToInt(value);
-            }
-        }
+        private TweenRef<Vector2> rectTween;
+        private TweenRef<Color> imageTween;
+        private TweenRef<int> fontTween;
 
         private void Awake()
         {
-            CurrentFontSize = inactiveFontSize;
+            rectTween = new TweenWrapper<Vector2>(self.DOSizeDelta)
+                .DODefaultDuration(duration);
+            imageTween = new TweenWrapper<Color>(image.DOColor)
+                .DODefaultDuration(duration);
+            fontTween = new IntTweenTarget()
+                .DOGetter(() => text.fontSize)
+                .DOSetter(x => text.fontSize = x)
+                .DODefaultDuration(duration);
         }
 
         public override void HandleExit(Navigateable target)
         {
-            self.DOSizeDelta(self.sizeDelta.SetY(80), delay);
-            image.DOColor(inactiveColor, delay);
-
             content.HandleExit(target is NavigateableTabButton button 
                     ? Vector2.left * (button.order > order).To1()
                     : Vector2.zero);
 
-            TweenText(inactiveFontSize);
+            Animate(animArgs.inactive);
         }
 
         public override void HandleEnter(NavigationArgs args)
         {
-            self.DOSizeDelta(self.sizeDelta.SetY(120), delay);
-            image.DOColor(activeColor, delay);
-
             content.HandleEnter(args?.current is NavigateableTabButton button
                     ? Vector2.right * (button.order > order).To1()
                     : Vector2.zero);
 
-            TweenText(activeFontSize);
+            Animate(animArgs.active);
         }
 
-        private void TweenText(float target)
+        private void Animate(AnimationArgs args)
         {
-            fontTween?.Kill();
-            fontTween = DOTween.To(
-                () => CurrentFontSize,
-                x => CurrentFontSize = x,
-                target,
-                delay);
+            rectTween.To(self.sizeDelta.SetY(args.height));
+            imageTween.To(args.color);
+            fontTween.To(args.fontSize);
+        }
+
+        [Serializable]
+        private struct AnimationArgs
+        {
+            public Color color;
+            public float height;
+            public int fontSize;
         }
     }
 }

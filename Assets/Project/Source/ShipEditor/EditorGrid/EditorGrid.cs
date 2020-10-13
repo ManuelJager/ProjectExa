@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Exa.UI.Tweening;
 using UnityEngine;
 #pragma warning disable CS0649
 
@@ -25,7 +26,8 @@ namespace Exa.ShipEditor
         private Vector2 centerPos;
         private Vector2 playerPos = Vector2.zero;
         private Vector2Int size;
-        private TweenerCore<Vector3, Vector3, VectorOptions> positionTweener;
+        private Tween positionTweener;
+        private TweenWrapper<Vector3> positionTween;
 
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
@@ -85,6 +87,7 @@ namespace Exa.ShipEditor
         {
             backgroundLayer.EnterGrid += OnEnterGrid;
             backgroundLayer.ExitGrid += OnExitGrid;
+            positionTween = new TweenWrapper<Vector3>((e, t) => transform.DOLocalMove(e, t));
         }
 
         public void Update()
@@ -108,8 +111,7 @@ namespace Exa.ShipEditor
             // Get position by adding the pivot to the offset
             var position = centerPos + playerPos;
 
-            positionTweener?.Kill();
-            positionTweener = transform.DOLocalMove(position, 0.3f);
+            positionTween.To(position, 0.3f);
 
             // Check for mouse input
             backgroundLayer.UpdateCurrActiveGridItem(transform.localPosition.ToVector2());

@@ -1,5 +1,7 @@
 ﻿using System;
 using DG.Tweening;
+using Exa.Data;
+using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEngine;
 #pragma warning disable CS0649
@@ -10,47 +12,43 @@ namespace Exa.UI.Components
     {
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private float animTime = 0.25f;
 
-        [SerializeField] private AnimationArgs animEnterArgs = new AnimationArgs
-        {
-            animAmplitude = 120,
-            targetAlpha = 1,
-            ease = Ease.InCubic
-        };
-        [SerializeField] private AnimationArgs animExitArgs = new AnimationArgs
-        {
-            animAmplitude = 120,
-            targetAlpha = 0,
-            ease = Ease.OutCubic
-        };
+        [Header("Settings")]
+        [SerializeField] private float duration = 0.25f;
+        [SerializeField] private ActivePair<AnimationArgs> animArgs;
 
-        private Tween alphaTween;
-        private Tween positionTween;
+        private TweenRef<float> alphaTween;
+        private TweenRef<Vector2> positionTween;
+
+        private void Awake()
+        {
+            alphaTween = new TweenWrapper<float>(canvasGroup.DOFade)
+                .DODefaultDuration(duration);
+            positionTween = new TweenWrapper<Vector2>(rectTransform.DOAnchorPos)
+                .DODefaultDuration(duration);
+        }
 
         public void HandleEnter(Vector2 direction)
         {
             gameObject.SetActive(true);
-            Animate(animEnterArgs, direction * animEnterArgs.animAmplitude, Vector2.zero);
-            this.Delay(() => canvasGroup.interactable = true, animTime);
+            Animate(animArgs.active, direction * animArgs.active.animAmplitude, Vector2.zero);
+            this.Delay(() => canvasGroup.interactable = true, duration);
         }
 
         public void HandleExit(Vector2 direction)
         {
             canvasGroup.interactable = false;
-            Animate(animExitArgs, Vector2.zero, direction * animExitArgs.animAmplitude);
-            this.Delay(() => gameObject.SetActive(false), animTime);
+            Animate(animArgs.inactive, Vector2.zero, direction * animArgs.inactive.animAmplitude);
+            this.Delay(() => gameObject.SetActive(false), duration);
         }
 
         private void Animate(AnimationArgs args, Vector2 initialPos, Vector2 targetPos)
         {
-            alphaTween?.Kill();
-            alphaTween = canvasGroup.DOFade(args.targetAlpha, animTime)
+            alphaTween.To(args.targetAlpha, duration)
                 .SetEase(args.ease);
 
             rectTransform.anchoredPosition = initialPos;
-            positionTween?.Kill();
-            positionTween = rectTransform.DOAnchorPos(targetPos, animTime)
+            positionTween.To(targetPos, duration)
                 .SetEase(args.ease);
         }
 
