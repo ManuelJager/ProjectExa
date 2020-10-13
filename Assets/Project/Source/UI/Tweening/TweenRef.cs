@@ -21,7 +21,7 @@ namespace Exa.UI.Tweening
             return tween;
         }
 
-        public TweenRef<T> DODefaultDuration(float duration)
+        public TweenRef<T> SetDuration(float duration)
         {
             this.defaultDuration = duration;
             return this;

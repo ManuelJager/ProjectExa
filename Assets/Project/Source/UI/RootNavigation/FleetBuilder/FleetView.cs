@@ -3,6 +3,7 @@ using DG.Tweening;
 using Exa.Data;
 using Exa.Grids.Blueprints;
 using Exa.Ships;
+using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,10 +19,16 @@ namespace Exa.UI
 
         [Header("Settings")] 
         [SerializeField] private AnimationArgs animationArgs;
-        private Tween fontSizeTween;
-        private float animatedFontSize;
+        private TweenRef<int> fontSizeTween;
+        private TweenRef<Color> colorTween;
         private Fleet fleet;
         private Func<BlueprintContainer, FleetBlueprintView> viewFactory;
+
+        private void Awake()
+        {
+            fontSizeTween = new TweenWrapper<int>(unitCountText.DOFontSize);
+            colorTween = new TweenWrapper<Color>(unitCountText.DOColor);
+        }
 
         public void Create(int capacity, Func<BlueprintContainer, FleetBlueprintView> viewFactory)
         {
@@ -93,18 +100,10 @@ namespace Exa.UI
         private void OnUnitsFull(AnimationArgs args)
         {
             unitCountText.fontSize = args.fontSize.active;
-            fontSizeTween?.Kill();
-            fontSizeTween = DOTween.To(
-                () => animatedFontSize, x =>
-                {
-                    animatedFontSize = x;
-                    unitCountText.fontSize = Mathf.RoundToInt(x);
-                },
-                args.fontSize.inactive,
-                args.animTime);
+            fontSizeTween.To(args.fontSize.inactive, args.animTime);
 
             unitCountText.color = args.color.active;
-            unitCountText.DOColor(args.color.inactive, args.animTime);
+            colorTween.To(args.color.inactive, args.animTime);
         }
 
         private void UpdateUnitCountText()

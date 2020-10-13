@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using Exa.UI.Tweening;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 #pragma warning disable CS0649
@@ -10,11 +12,13 @@ namespace Exa.UI
         [SerializeField] private LayoutElement tooltipContainer;
         [SerializeField] private TextAnimator textAnimator;
 
-        private Tween tooltipContainerTween;
+        private TweenRef<float> heightTween;
 
         private void Awake()
         {
             RemoveLock();
+            heightTween = new TweenWrapper<float>(tooltipContainer.DOPreferredHeight)
+                .SetDuration(0.15f);
         }
 
         public void RemoveLock()
@@ -30,9 +34,7 @@ namespace Exa.UI
 
         private void Animate(bool active)
         {
-            tooltipContainerTween?.Kill();
-            tooltipContainerTween = tooltipContainer
-                .DOPreferredSize(active ? new Vector2(0, 60) : Vector2.zero, 0.15f);
+            heightTween.To(active ? 60f : 0f);
         }
     }
 }

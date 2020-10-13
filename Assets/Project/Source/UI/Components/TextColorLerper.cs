@@ -17,7 +17,7 @@ namespace Exa.UI.Components
         private void Awake()
         {
             colorTween = new TweenWrapper<Color>(text.DOColor)
-                .DODefaultDuration(0.1f);
+                .SetDuration(0.1f);
         }
 
         public void SetColor(bool active)

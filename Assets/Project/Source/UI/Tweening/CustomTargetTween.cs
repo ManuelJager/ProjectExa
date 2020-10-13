@@ -5,25 +5,25 @@ using DG.Tweening.Core;
 
 namespace Exa.UI.Tweening
 {
-    public abstract class TweenTarget<T> : TweenRef<T>
+    public abstract class CustomTargetTween<T> : TweenRef<T>
     {
         protected DOGetter<T> getter;
         protected DOSetter<T> setter;
 
-        public TweenTarget<T> DOGetter(DOGetter<T> getter)
+        public CustomTargetTween<T> DOGetter(DOGetter<T> getter)
         {
             this.getter = getter;
             return this;
         }
 
-        public TweenTarget<T> DOSetter(DOSetter<T> setter)
+        public CustomTargetTween<T> DOSetter(DOSetter<T> setter)
         {
             this.setter = setter;
             return this;
         }
     }
 
-    public class FloatTweenTarget : TweenTarget<float>
+    public class FloatTween : CustomTargetTween<float>
     {
         protected override Tween CreateTween(float endValue, float duration)
         {
@@ -31,7 +31,7 @@ namespace Exa.UI.Tweening
         }
     }
 
-    public class IntTweenTarget : TweenTarget<int>
+    public class IntTween : CustomTargetTween<int>
     {
         protected override Tween CreateTween(int endValue, float duration)
         {

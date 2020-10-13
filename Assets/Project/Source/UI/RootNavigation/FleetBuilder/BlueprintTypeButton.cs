@@ -4,6 +4,9 @@ using Exa.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using Exa.Math;
+using Exa.UI.Tweening;
+using Exa.Utils;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI
@@ -16,9 +19,15 @@ namespace Exa.UI
         [SerializeField] private Text text;
         [SerializeField] private LayoutElement layoutElement;
         private BlueprintTypeTabContent content;
-        private Tween sizeTween;
+        private TweenRef<float> sizeTween;
 
         public BlueprintTypeSelectEvent SelectType = new BlueprintTypeSelectEvent();
+
+        private void Awake()
+        {
+            sizeTween = new TweenWrapper<float>(layoutElement.DOPreferredHeight)
+                .SetDuration(0.2f);
+        }
 
         public void Init(BlueprintType blueprintType, BlueprintTypeTabContent content, int order, NavigateableTabManager tabManager)
         {
@@ -34,7 +43,7 @@ namespace Exa.UI
 
         public override void HandleExit(Navigateable target)
         {
-            Animate(48f);
+            sizeTween.To(48f);
             content.HandleExit(target is BlueprintTypeButton button
                     ? Vector2.up * (button.order > order).To1()
                     : Vector2.zero);
@@ -42,17 +51,10 @@ namespace Exa.UI
 
         public override void HandleEnter(NavigationArgs args)
         {
-            Animate(72f);
+            sizeTween.To(72f);
             content.HandleEnter(args?.current is BlueprintTypeButton button
                     ? Vector2.down * (button.order > order).To1()
                     : Vector2.zero);
-        }
-
-        private void Animate(float targetSize)
-        {
-            sizeTween?.Kill();
-            sizeTween = layoutElement
-                .DOPreferredSize(new Vector2(0, targetSize), 0.2f);
         }
     }
 }

@@ -8,16 +8,16 @@ namespace Exa.UI
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private bool setAlpha;
-        [SerializeField] private bool interactible = true;
+        [SerializeField] private bool interactable = true;
 
         public bool Interactable
         {
-            get => interactible;
+            get => interactable;
             set
             {
-                if (interactible == value) return;
+                if (interactable == value) return;
 
-                interactible = value;
+                interactable = value;
 
                 if (canvasGroup != null)
                 {
@@ -30,7 +30,7 @@ namespace Exa.UI
 
         private void Awake()
         {
-            Interactable = interactible;
+            Interactable = interactable;
             canvasGroup = GetComponent<CanvasGroup>();
         }
     }

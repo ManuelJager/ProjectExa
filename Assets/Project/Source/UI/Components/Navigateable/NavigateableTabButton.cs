@@ -31,13 +31,13 @@ namespace Exa.UI.Components
         private void Awake()
         {
             rectTween = new TweenWrapper<Vector2>(self.DOSizeDelta)
-                .DODefaultDuration(duration);
+                .SetDuration(duration);
             imageTween = new TweenWrapper<Color>(image.DOColor)
-                .DODefaultDuration(duration);
-            fontTween = new IntTweenTarget()
+                .SetDuration(duration);
+            fontTween = new IntTween()
                 .DOGetter(() => text.fontSize)
                 .DOSetter(x => text.fontSize = x)
-                .DODefaultDuration(duration);
+                .SetDuration(duration);
         }
 
         public override void HandleExit(Navigateable target)

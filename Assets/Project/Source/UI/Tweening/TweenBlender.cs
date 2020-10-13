@@ -9,7 +9,7 @@ namespace Exa.UI.Tweening
 {
     public class TweenBlender<TValue, TTarget>
         where TValue : struct
-        where TTarget : TweenTarget<TValue>, new()
+        where TTarget : CustomTargetTween<TValue>, new()
     {
         private Action<TValue> setter;
         private TValue defaultValue;
@@ -72,7 +72,7 @@ namespace Exa.UI.Tweening
         }
     }
 
-    public class FloatTweenBlender : TweenBlender<float, FloatTweenTarget>
+    public class FloatTweenBlender : TweenBlender<float, FloatTween>
     {
         public FloatTweenBlender(float defaultValue, Action<float> setter, Func<float, float, float> aggregator) 
             : base(defaultValue, setter, aggregator)

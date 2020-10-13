@@ -23,9 +23,9 @@ namespace Exa.UI.Components
         private void Awake()
         {
             alphaTween = new TweenWrapper<float>(canvasGroup.DOFade)
-                .DODefaultDuration(duration);
+                .SetDuration(duration);
             positionTween = new TweenWrapper<Vector2>(rectTransform.DOAnchorPos)
-                .DODefaultDuration(duration);
+                .SetDuration(duration);
         }
 
         public void HandleEnter(Vector2 direction)
