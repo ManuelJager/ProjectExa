@@ -30,6 +30,11 @@ namespace Exa.UI
             colorTween = new TweenWrapper<Color>(unitCountText.DOColor);
         }
 
+        public Fleet Export()
+        {
+            return fleet;
+        }
+
         public void Create(int capacity, Func<BlueprintContainer, FleetBlueprintView> viewFactory)
         {
             this.fleet = new Fleet(capacity);

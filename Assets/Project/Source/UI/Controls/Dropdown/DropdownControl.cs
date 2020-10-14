@@ -53,15 +53,13 @@ namespace Exa.UI.Controls
 
         public override UnityEvent<object> OnValueChange => onValueChange;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             button.onClick.AddListener(ToggleContainer);
             clickAction.started += context =>
             {
                 if (IsFoldedOpen && GetMouseOutsideControl())
-                {
                     IsFoldedOpen = false;
-                }
             };
         }
 

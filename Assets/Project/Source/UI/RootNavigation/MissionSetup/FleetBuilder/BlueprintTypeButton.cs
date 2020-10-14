@@ -34,8 +34,6 @@ namespace Exa.UI
                 SelectType?.Invoke(blueprintType);
                 tabManager.SwitchTo(this);
             });
-
-            
         }
 
         public override void HandleExit(Navigateable target)

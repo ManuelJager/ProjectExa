@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Ships;
+using UnityEngine;
 #pragma warning disable CS0649
 
 namespace Exa.UI
@@ -8,6 +9,8 @@ namespace Exa.UI
         [SerializeField] private FleetView fleetView;
         [SerializeField] private FleetBlueprintViewController viewController;
         [SerializeField] private FleetBuilderBlueprintTypes blueprintTypes;
+
+        public Fleet Fleet => fleetView.Export();
 
         public void Init()
         {

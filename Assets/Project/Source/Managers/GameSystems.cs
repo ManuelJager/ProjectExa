@@ -1,5 +1,7 @@
-﻿using Exa.AI;
+﻿using System;
+using Exa.AI;
 using Exa.Gameplay;
+using Exa.Gameplay.Missions;
 using Exa.Ships;
 using Exa.UI.Components;
 using Exa.UI.Gameplay;
@@ -22,11 +24,15 @@ namespace Exa
         public static ShipFactory ShipFactory => Instance.shipFactory;
         public static GameplayUI UI => Instance.gameplayUI;
         public static AIManager AI => Instance.aIManager;
+        public static Mission Mission { get; private set; }
 
-        protected override void Awake()
+        public void LoadMission(Mission mission, MissionArgs args)
         {
-            base.Awake();
-            shipFactory.CreateFriendly("defaultScout", new Vector2(-20, 20));
+            if (Mission != null)
+                throw new InvalidOperationException("Cannot load a mission without unloading previous one");
+
+            Mission = mission;
+            mission.Init(args);
         }
     }
 }

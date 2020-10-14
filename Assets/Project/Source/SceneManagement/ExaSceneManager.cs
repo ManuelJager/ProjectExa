@@ -8,14 +8,16 @@ namespace Exa.SceneManagement
     public enum LoadScreenMode
     {
         CloseOnPrepared,
+        ManuallyClose,
         None
     }
 
     public class TransitionArgs
     {
-        public LoadSceneMode loadSceneMode = LoadSceneMode.Additive;
-        public LoadScreenMode loadScreenMode = LoadScreenMode.CloseOnPrepared;
-        public bool SetActiveScene = false;
+        public LoadSceneMode loadSceneMode;
+        public LoadScreenMode loadScreenMode;
+        public bool setActiveScene = false;
+        public bool reportProgress = false;
     }
 
     public class ExaSceneManager : MonoBehaviour
@@ -37,21 +39,20 @@ namespace Exa.SceneManagement
                 loadingScreen.ShowScreen();
 
                 if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnPrepared)
-                {
                     transition.onPrepared.AddListener(loadingScreen.HideScreen);
-                }
 
-                if (transitionArgs.SetActiveScene)
-                {
-                    transition.onPrepared.AddListener(() =>
-                    {
-                        var scene = SceneManager.GetSceneByName(name);
-                        SceneManager.SetActiveScene(scene);
-                    });
-                }
+                StartCoroutine(ReportOperation(operation));
             }
 
-            StartCoroutine(ReportOperation(operation));
+            if (transitionArgs.setActiveScene)
+            {
+                transition.onPrepared.AddListener(() =>
+                {
+                    var scene = SceneManager.GetSceneByName(name);
+                    SceneManager.SetActiveScene(scene);
+                });
+            }
+
             return transition;
         }
 
@@ -59,11 +60,11 @@ namespace Exa.SceneManagement
         {
             while (true)
             {
-                if (operation.isDone)
-                {
-                    break;
-                }
+                loadingScreen.ShowMessage($"Loading scene ({Mathf.RoundToInt(operation.progress * 100)}% complete) ...");
 
+                if (operation.isDone) 
+                    break;
+                
                 yield return operation;
             }
         }
