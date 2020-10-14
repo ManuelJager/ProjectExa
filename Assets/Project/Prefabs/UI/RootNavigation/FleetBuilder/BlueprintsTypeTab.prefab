@@ -235,15 +235,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 3962818160854153252}
   canvasGroup: {fileID: 7470984683408098282}
-  animTime: 0.25
-  animEnterArgs:
-    targetAlpha: 1
-    animAmplitude: 120
-    ease: 2
-  animExitArgs:
-    targetAlpha: 0
-    animAmplitude: 120
-    ease: 3
+  duration: 0.25
+  animArgs:
+    active:
+      targetAlpha: 1
+      animAmplitude: 120
+      ease: 3
+    inactive:
+      targetAlpha: 0
+      animAmplitude: 120
+      ease: 3
   container: {fileID: 4110687919097398874}
 --- !u!1 &7147731806552193237
 GameObject:
