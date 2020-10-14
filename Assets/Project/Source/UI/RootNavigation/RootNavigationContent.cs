@@ -16,9 +16,10 @@ namespace Exa.UI
 
         private void Awake()
         {
-            RemoveLock();
             heightTween = new TweenWrapper<float>(tooltipContainer.DOPreferredHeight)
                 .SetDuration(0.15f);
+
+            RemoveLock();
         }
 
         public void RemoveLock()

@@ -21,6 +21,7 @@ namespace Exa.UI
         public PromptController promptController;
         public DiagnosticsPanel diagnostics;
         public ControlFactory controlFactory;
+        public WipScreen wipScreen;
 
         private void Awake()
         {

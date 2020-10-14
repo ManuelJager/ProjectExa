@@ -20,14 +20,6 @@ namespace Exa.UI.Components
         private TweenRef<float> alphaTween;
         private TweenRef<Vector2> positionTween;
 
-        private void Awake()
-        {
-            alphaTween = new TweenWrapper<float>(canvasGroup.DOFade)
-                .SetDuration(duration);
-            positionTween = new TweenWrapper<Vector2>(rectTransform.DOAnchorPos)
-                .SetDuration(duration);
-        }
-
         public void HandleEnter(Vector2 direction)
         {
             gameObject.SetActive(true);
@@ -44,10 +36,12 @@ namespace Exa.UI.Components
 
         private void Animate(AnimationArgs args, Vector2 initialPos, Vector2 targetPos)
         {
+            alphaTween = alphaTween ?? new TweenWrapper<float>(canvasGroup.DOFade);
             alphaTween.To(args.targetAlpha, duration)
                 .SetEase(args.ease);
 
             rectTransform.anchoredPosition = initialPos;
+            positionTween = positionTween ?? new TweenWrapper<Vector2>(rectTransform.DOAnchorPos);
             positionTween.To(targetPos, duration)
                 .SetEase(args.ease);
         }

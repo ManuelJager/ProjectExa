@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Exa.Grids.Blueprints;
 using Exa.UI.Components;
 using UnityEngine;
@@ -23,12 +24,6 @@ namespace Exa.UI
 
         public BlueprintTypeSelectEvent SelectType = new BlueprintTypeSelectEvent();
 
-        private void Awake()
-        {
-            sizeTween = new TweenWrapper<float>(layoutElement.DOPreferredHeight)
-                .SetDuration(0.2f);
-        }
-
         public void Init(BlueprintType blueprintType, BlueprintTypeTabContent content, int order, NavigateableTabManager tabManager)
         {
             this.content = content;
@@ -39,11 +34,13 @@ namespace Exa.UI
                 SelectType?.Invoke(blueprintType);
                 tabManager.SwitchTo(this);
             });
+
+            
         }
 
         public override void HandleExit(Navigateable target)
         {
-            sizeTween.To(48f);
+            Animate(48f);
             content.HandleExit(target is BlueprintTypeButton button
                     ? Vector2.up * (button.order > order).To1()
                     : Vector2.zero);
@@ -51,10 +48,16 @@ namespace Exa.UI
 
         public override void HandleEnter(NavigationArgs args)
         {
-            sizeTween.To(72f);
+            Animate(72f);
             content.HandleEnter(args?.current is BlueprintTypeButton button
                     ? Vector2.down * (button.order > order).To1()
                     : Vector2.zero);
+        }
+
+        private void Animate(float target)
+        {
+            sizeTween = sizeTween ?? new TweenWrapper<float>(layoutElement.DOPreferredHeight);
+            sizeTween.To(target, 0.2f);
         }
     }
 }

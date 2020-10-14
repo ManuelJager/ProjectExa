@@ -11,7 +11,7 @@ namespace Exa.UI.Components
 
         public Navigateable ActiveTab => activeTab;
 
-        private void Awake()
+        private void Start()
         {
             if (defaultTab != null)
                 SetDefaultActive(defaultTab);

@@ -9,6 +9,7 @@ using Exa.Utils;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 #pragma warning disable 649
 
@@ -54,7 +55,7 @@ namespace Exa
 
         private void Start()
         {
-            StartCoroutine(Load());
+            StartCoroutine(EnumeratorUtils.EnumerateSafe(Load(), OnLoadException));
         }
 
         [RuntimeInitializeOnLoadMethod]
@@ -69,7 +70,9 @@ namespace Exa
         private IEnumerator Load()
         {
             // Allow the screen to be shown
+            UI.wipScreen.Init();
             UI.loadingScreen.ShowScreen();
+
             yield return 0;
 
             UI.nav.settings.Load();
@@ -94,6 +97,12 @@ namespace Exa
             UI.nav.fleetBuilder.Init();
 
             UI.loadingScreen.HideScreen();
+        }
+
+        private void OnLoadException(Exception exception)
+        {
+            UI.loadingScreen.HideScreen();
+            UI.logger.Log($"An error has occurred while loading.\n {exception.Message}");
         }
     }
 }

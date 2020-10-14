@@ -53,14 +53,17 @@ TagManager:
   - name: Tooltip
     uniqueID: 3954885307
     locked: 0
+  - name: Loading Screen
+    uniqueID: 4201584317
+    locked: 0
+  - name: WIPScreen
+    uniqueID: 985963899
+    locked: 0
   - name: Debug
     uniqueID: 3084335075
     locked: 0
   - name: Diagnostics
     uniqueID: 1457935847
-    locked: 0
-  - name: Loading Screen
-    uniqueID: 4201584317
     locked: 0
   - name: Cursor
     uniqueID: 2790405169

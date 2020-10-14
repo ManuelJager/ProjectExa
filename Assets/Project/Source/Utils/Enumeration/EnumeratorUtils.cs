@@ -13,6 +13,30 @@ namespace Exa.Utils
             return monoBehaviour.StartCoroutine(DelayOneFrame(callback));
         }
 
+        public static IEnumerator EnumerateSafe(IEnumerator enumerator, Action<Exception> catcher)
+        {
+            while (true)
+            {
+                object current;
+                try
+                {
+                    if (!enumerator.MoveNext())
+                    {
+                        break;
+                    }
+
+                    current = enumerator.Current;
+                }
+                catch (Exception e)
+                {
+                    catcher(e);
+                    yield break;
+                }
+
+                yield return current;
+            }
+        }
+
         public static IEnumerable Enumerate(IEnumerator enumerator)
         {
             while (enumerator.MoveNext())

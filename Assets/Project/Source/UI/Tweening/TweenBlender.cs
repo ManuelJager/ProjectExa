@@ -14,7 +14,7 @@ namespace Exa.UI.Tweening
     {
         private Action<T> setter;
         private T defaultValue;
-        private Dictionary<int, Blender<T>> blenders = new Dictionary<int, Blender<T>>();
+        private Dictionary<int, Blender> blenders = new Dictionary<int, Blender>();
 
         protected Func<T, T, T> aggregator = null;
 
@@ -32,7 +32,7 @@ namespace Exa.UI.Tweening
 
         public Tween To(int id, T startValue, T endValue, float duration)
         {
-            blenders.EnsureCreated(id, () => new Blender<T>
+            blenders.EnsureCreated(id, () => new Blender
             {
                 tween = new TTarget()
                     .DOGetter(() => blenders[id].value)
@@ -74,7 +74,7 @@ namespace Exa.UI.Tweening
                 : defaultValue;
         }
 
-        private class Blender<T>
+        private class Blender
         {
             public T value;
             public TweenRef<T> tween;

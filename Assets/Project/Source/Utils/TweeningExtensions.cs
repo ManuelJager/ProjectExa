@@ -60,6 +60,16 @@ namespace Exa.Utils
         }
         #endregion
 
+        #region HorizontalLayoutGroup
+        public static TweenerCore<float, float, FloatOptions> DOSpacing(this HorizontalLayoutGroup target,
+            float endValue, float duration)
+        {
+            return DOTween
+                .To(() => target.spacing, x => target.spacing = x, endValue, duration)
+                .SetTarget(target);
+        }
+        #endregion
+
         #endregion
     }
 }
