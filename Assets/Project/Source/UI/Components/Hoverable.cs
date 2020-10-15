@@ -26,6 +26,8 @@ namespace Exa.UI
             get => invokeStateChangeOnHover && canvasGroup.interactable;
         }
 
+        public bool MouseOverControl => mouseOverControl;
+
         private void Awake()
         {
             rectTransform = GetComponent<RectTransform>();

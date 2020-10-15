@@ -2,9 +2,9 @@
 using UnityEngine.UI;
 #pragma warning disable CS0649
 
-namespace Exa.UI.Controls
+namespace Exa.UI
 {
-    public class StaticTooltip : MonoBehaviour
+    public class MenuTooltip : MonoBehaviour
     {
         [SerializeField] private Text text;
 

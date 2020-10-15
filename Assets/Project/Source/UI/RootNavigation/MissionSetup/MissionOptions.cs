@@ -25,7 +25,7 @@ namespace Exa.UI
                 Label = mission.missionName,
                 Value = mission
             }));
-            missionDropdown.OnValueChange.AddListener((obj) => SelectedMission = obj as Mission);
+            missionDropdown.OnValueChange.AddListener(item => SelectedMission = item as Mission);
 
             SelectedMission = missionDropdown.Value as Mission;
         }

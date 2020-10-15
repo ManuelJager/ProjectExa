@@ -10,15 +10,15 @@ namespace Exa.ShipEditor
     {
         [SerializeField] private LayoutElement layoutElement;
         [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private Text text;
 
         public override ValidationResult Validate<T>(IValidator<T> validator, T args)
         {
             var result = base.Validate(validator, args);
+            var visible = !result;
 
-            canvasGroup.interactable = result;
-            canvasGroup.alpha = result ? 1 : 0;
-            layoutElement.ignoreLayout = !result;
+            canvasGroup.interactable = visible;
+            canvasGroup.alpha = visible ? 1 : 0;
+            layoutElement.ignoreLayout = !visible;
 
             return result;
         }

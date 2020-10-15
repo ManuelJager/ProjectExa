@@ -35,8 +35,13 @@ namespace Exa.UI.Tooltips
                 y = Mathf.Clamp(rootRect.height - edge.y, float.MinValue, 0),
             };
 
+            SetAnchoredPos(mousePos + offset);
+        }
+
+        protected virtual void SetAnchoredPos(Vector2 pos)
+        {
             // Set position of container
-            container.anchoredPosition = mousePos + offset;
+            container.anchoredPosition = pos;
         }
     }
 }
