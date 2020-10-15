@@ -72,7 +72,7 @@ MonoBehaviour:
   blockTemplateTooltip: {fileID: 3002075156474681976}
   blueprintTypeTooltip: {fileID: 7982120172739777316}
   shipAIDebugTooltip: {fileID: 116751331892594171}
-  textTooltip: {fileID: 0}
+  textTooltip: {fileID: 231603928196238881}
 --- !u!223 &2189408376039309859
 Canvas:
   m_ObjectHideFlags: 0

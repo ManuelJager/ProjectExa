@@ -3,8 +3,10 @@ using Exa.Gameplay.Missions;
 using Exa.Generics;
 using Exa.SceneManagement;
 using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using Exa.Validation;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,6 +17,7 @@ namespace Exa.UI
         [SerializeField] private MissionBag missionBag;
         [SerializeField] private DropdownControl missionDropdown;
         [SerializeField] private CanvasGroupInteractableAdapter button;
+        [SerializeField] private TextTooltipTrigger tooltipTrigger;
 
         public Mission SelectedMission { get; private set; }
 
@@ -33,6 +36,7 @@ namespace Exa.UI
         public void ReflectFleetBuilderResult(ValidationResult result)
         {
             button.Interactable = result;
+            tooltipTrigger.SetText(result.GetFirstBySeverity()?.Message ?? "");
         }
     }
 }

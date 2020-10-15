@@ -28,6 +28,7 @@ namespace Exa.UI.Tooltips
                 gameObject.SetActive(true);
 
             text.text = message;
+            SetContainerPosition();
         }
 
         private void HideTooltipInternal()

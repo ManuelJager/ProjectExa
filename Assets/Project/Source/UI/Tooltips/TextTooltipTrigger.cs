@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+#pragma warning disable CS0649
 
 namespace Exa.UI.Tooltips
 {
@@ -8,10 +9,9 @@ namespace Exa.UI.Tooltips
         [SerializeField] private Hoverable hoverable;
         [SerializeField] private string message;
 
-        private void OnEnable()
+        private void Awake()
         {
-            hoverable = GetComponent<Hoverable>();
-
+            hoverable = hoverable ?? GetComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() =>
             {
                 if (message != "")
@@ -24,6 +24,9 @@ namespace Exa.UI.Tooltips
         public void SetText(string message)
         {
             this.message = message;
+
+            if (hoverable.MouseOverControl && message == "")
+                TextTooltip.HideTooltip();
 
             if (hoverable.MouseOverControl && message != "")
                 TextTooltip.ShowTooltip(message);

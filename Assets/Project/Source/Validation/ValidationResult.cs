@@ -61,6 +61,19 @@ namespace Exa.Validation
                 Throw<TError>(errorMessage);
         }
 
+        public IEnumerable<ValidationError> GetErrorsWith(ErrorType errorType)
+        {
+            return this.Where(error => error.ErrorType == errorType);
+        }
+
+        public ValidationError GetFirstBySeverity()
+        {
+            return
+                GetErrorsWith(ErrorType.Error).FirstOrDefault() ??
+                GetErrorsWith(ErrorType.Warning).FirstOrDefault() ??
+                GetErrorsWith(ErrorType.Warning).FirstOrDefault();
+        }
+
         public IEnumerator<ValidationError> GetEnumerator()
         {
             return collection.GetEnumerator();
