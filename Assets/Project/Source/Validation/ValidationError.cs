@@ -5,10 +5,11 @@
     /// </summary>
     public abstract class ValidationError
     {
-        public ValidationError()
+        protected ValidationError()
         {
         }
 
+        public ErrorType ErrorType { get; set; } = ErrorType.Error;
         public string Message { get; set; }
         public virtual string Id => GetType().Name;
     }

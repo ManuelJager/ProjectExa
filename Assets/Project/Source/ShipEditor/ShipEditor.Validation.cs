@@ -12,8 +12,8 @@
                 blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.Blocks
             };
 
-            GridValidationResult = shipEditorOverlay
-                .blueprintInfoPanel
+            GridValidationResult = overlay
+                .infoPanel
                 .errorListController
                 .Validate(gridValidator, args);
         }
@@ -27,9 +27,7 @@
                 blueprintContainer = container
             };
 
-            NameValidationResult = shipEditorOverlay
-                .blueprintInfoPanel
-                .errorListController
+            NameValidationResult = overlay.infoPanel.errorListController
                 .Validate(nameValidator, args);
 
             if (NameValidationResult)

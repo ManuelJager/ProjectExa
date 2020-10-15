@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Utils;
 
 namespace Exa.Validation
 {
     /// <summary>
     /// Used as an error container for multiple validators
     /// </summary>
-    public class ValidationErrorContainer
+    public class ValidationState
     {
         // Keep track of error handlers in a nested dictionary
         // Access the error handler or cleaner by [validator][error]
@@ -23,7 +24,7 @@ namespace Exa.Validation
         // Keep track of errors thrown by a specific validator
         internal Dictionary<IValidator, IEnumerable<ValidationError>> lastControlErrors;
 
-        public ValidationErrorContainer()
+        public ValidationState()
         {
             errorHandlers = new Dictionary<IValidator, Dictionary<string, Action<ValidationError>>>();
             errorCleaners = new Dictionary<IValidator, Dictionary<string, Action<ValidationError>>>();
@@ -49,15 +50,10 @@ namespace Exa.Validation
             foreach (var currentError in errors)
             {
                 // Check if there is a specific error handler for the error, otherwise use the default one
-                if (errorHandlers.ContainsKey(validator) &&
-                    errorHandlers[validator].ContainsKey(currentError.Id))
-                {
+                if (errorHandlers.NestedContainsKey(validator, currentError.Id))
                     errorHandlers[validator][currentError.Id](currentError);
-                }
                 else
-                {
                     defaultErrorHandler(currentError);
-                }
             }
 
             if (lastControlErrors.ContainsKey(validator))
@@ -69,15 +65,10 @@ namespace Exa.Validation
                     if (currErrorIds.Contains(lastControlError.Id)) continue;
 
                     // Check if there is a specific error handler for the error, otherwise use the default one
-                    if (errorCleaners.ContainsKey(validator) &&
-                        errorCleaners[validator].ContainsKey(lastControlError.Id))
-                    {
+                    if (errorHandlers.NestedContainsKey(validator, lastControlError.Id))
                         errorCleaners[validator][lastControlError.Id](lastControlError);
-                    }
                     else
-                    {
                         defaultErrorCleaner(lastControlError);
-                    }
                 }
             }
 

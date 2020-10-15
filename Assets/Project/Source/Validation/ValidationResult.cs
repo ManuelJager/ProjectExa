@@ -17,12 +17,21 @@ namespace Exa.Validation
             Validator = validator;
         }
 
-        public void Throw<TError>(string errorMessage)
+        public TError Throw<TError>(string errorMessage)
             where TError : ValidationError
         {
-            var error = Activator.CreateInstance(typeof(TError)) as TError;
+            var error = Activator.CreateInstance<TError>();
             error.Message = errorMessage;
             collection.Add(error);
+            return error;
+        }
+
+        public TError Throw<TError>(string errorMessage, ErrorType errorType)
+            where TError : ValidationError
+        {
+            var error = Throw<TError>(errorMessage);
+            error.ErrorType = errorType;
+            return error;
         }
 
         /// <summary>
@@ -35,24 +44,7 @@ namespace Exa.Validation
             where TError : ValidationError
         {
             if (!predicate)
-            {
                 Throw<TError>(errorMessage);
-            }
-        }
-
-        /// <summary>
-        /// Test the predicate and on false add an error with the given error message
-        /// </summary>
-        /// <typeparam name="TError">Type of error thrown</typeparam>
-        /// <param name="predicate">Validation contidion</param>
-        public void Assert<TError>(Func<ValidationOperationResult> predicate)
-            where TError : ValidationError
-        {
-            var operationResult = predicate();
-            if (!operationResult.Valid)
-            {
-                Throw<TError>(operationResult.Message);
-            }
         }
 
         public IEnumerator<ValidationError> GetEnumerator()
@@ -67,7 +59,7 @@ namespace Exa.Validation
 
         public static implicit operator bool(ValidationResult errors)
         {
-            return !ReferenceEquals(errors, null) && errors.Any();
+            return !ReferenceEquals(errors, null) && errors.Any(error => error.ErrorType == ErrorType.Error);
         }
     }
 }

@@ -4,6 +4,7 @@ using Exa.IO;
 using Exa.UI;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static Exa.Input.GameControls;
 #pragma warning disable CS0649
 
@@ -20,21 +21,22 @@ namespace Exa.ShipEditor
         [SerializeField] private GameObject editorGridBackground;
         [SerializeField] private float zoomSpeed;
         private GameControls gameControls;
-        private ShipEditorOverlay shipEditorOverlay;
+        [FormerlySerializedAs("shipEditorOverlay")]
+        private ShipEditorOverlay overlay;
 
         private void Awake()
         {
-            shipEditorOverlay = Systems.UI.editorOverlay;
+            overlay = Systems.UI.editorOverlay;
 
             gameControls = new GameControls();
             gameControls.Editor.SetCallbacks(this);
 
-            shipEditorOverlay.blueprintInfoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
-            shipEditorOverlay.inventory.blockSelected.AddListener(editorGrid.OnBlockSelected);
-            shipEditorOverlay.onPointerEnter.AddListener(OnOverlayPointerEnter);
-            shipEditorOverlay.onPointerExit.AddListener(OnOverlayPointerExit);
-            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.inputField.onValueChanged.AddListener(OnBlueprintNameInputChanged);
-            shipEditorOverlay.blueprintInfoPanel.saveButton.onClick.AddListener(OnBlueprintSave);
+            overlay.infoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
+            overlay.inventory.blockSelected.AddListener(editorGrid.OnBlockSelected);
+            overlay.onPointerEnter.AddListener(OnOverlayPointerEnter);
+            overlay.onPointerExit.AddListener(OnOverlayPointerExit);
+            overlay.infoPanel.blueprintNameInput.inputField.onValueChanged.AddListener(OnBlueprintNameInputChanged);
+            overlay.infoPanel.saveButton.onClick.AddListener(OnBlueprintSave);
 
             editorGrid.blueprintLayer.onBlueprintChanged.AddListener(OnBlueprintChanged);
 
@@ -47,13 +49,13 @@ namespace Exa.ShipEditor
         {
             ResetState();
 
-            shipEditorOverlay.gameObject.SetActive(true);
+            overlay.gameObject.SetActive(true);
             gameControls.Enable();
         }
 
         private void OnDisable()
         {
-            shipEditorOverlay.gameObject.SetActive(false);
+            overlay.gameObject.SetActive(false);
             gameControls.Disable();
         }
 
@@ -84,7 +86,7 @@ namespace Exa.ShipEditor
 
             ValidateName(newBlueprint.name);
 
-            shipEditorOverlay.blueprintInfoPanel.blueprintNameInput.SetValueWithoutNotify(newBlueprint.name);
+            overlay.infoPanel.blueprintNameInput.SetValueWithoutNotify(newBlueprint.name);
         }
 
         public void ExportToClipboard()

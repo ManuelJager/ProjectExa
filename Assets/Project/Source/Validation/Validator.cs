@@ -5,7 +5,7 @@
         public ValidationResult Validate(T args)
         {
             var errors = new ValidationResult(this);
-
+            AddErrors(errors, args);
             return errors;
         }
 

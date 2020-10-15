@@ -27,7 +27,7 @@ namespace Exa.ShipEditor
             {
                 mirrorEnabled = value;
                 editorGrid.MirrorEnabled = value;
-                shipEditorOverlay.mirrorView.SetState(value);
+                overlay.mirrorView.SetState(value);
             }
         }
 
@@ -94,8 +94,8 @@ namespace Exa.ShipEditor
         {
             var valid = ShouldSave;
 
-            shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.interactable = valid;
-            shipEditorOverlay.blueprintInfoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;
+            overlay.infoPanel.saveButtonCanvasGroup.interactable = valid;
+            overlay.infoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;
         }
     }
 }

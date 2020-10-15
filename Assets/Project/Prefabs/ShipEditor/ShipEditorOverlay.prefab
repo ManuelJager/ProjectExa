@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 7729614257948850543}
   - component: {fileID: 8885517178386905607}
   m_Layer: 5
-  m_Name: ErrorListController
+  m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
+  m_Color: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -947,7 +947,7 @@ MonoBehaviour:
   blueprintInfoPanelHoverable: {fileID: 7693724912663897459}
   editorStatePanelHoverable: {fileID: 6235325532225704457}
   editorOverlayCanvasGroup: {fileID: 2563220100341616592}
-  blueprintInfoPanel: {fileID: 6879205927546333943}
+  infoPanel: {fileID: 6879205927546333943}
   inventory: {fileID: 1170116247793472876}
   mirrorView: {fileID: 238357010777143755}
   onPointerEnter:
@@ -982,7 +982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 5213727104914343096}
   setAlpha: 0
-  interactible: 1
+  interactable: 1
 --- !u!1 &4393935562950078562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,7 +1366,7 @@ GameObject:
   - component: {fileID: 148019005351308044}
   - component: {fileID: 6250080024623614007}
   m_Layer: 5
-  m_Name: BlueprintInfoSideBar
+  m_Name: Controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1760,6 +1760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feefe8f98170a664b81619bf4c326179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  container: {fileID: 7729614257948850543}
   errorPanelPrefab: {fileID: 5022688277923585052, guid: 24453bde1d1dd224f91530db053813a3,
     type: 3}
   layoutElement: {fileID: 9029961632368557112}
@@ -2297,7 +2298,7 @@ MonoBehaviour:
   saveButton: {fileID: 556960494971799033}
   exportButton: {fileID: 8811278844542435630}
   blueprintNameInput: {fileID: 1768342692160745610}
-  errorListController: {fileID: 0}
+  errorListController: {fileID: 5673830809506211472}
   saveButtonCanvasGroup: {fileID: 4357921600955329012}
   gridTotalsView: {fileID: 1979450873785362252}
 --- !u!114 &7693724912663897459

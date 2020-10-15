@@ -11,8 +11,10 @@ namespace Exa.UI.Controls
     /// </summary>
     public class ErrorListController : MonoBehaviour
     {
+        [SerializeField] protected RectTransform container;
+
         // Error container
-        protected ValidationErrorContainer container;
+        protected ValidationState state;
 
         // Dictionary linking an error with the current view
         protected Dictionary<string, ValidationErrorPanel> panelByError = new Dictionary<string, ValidationErrorPanel>();
@@ -22,24 +24,24 @@ namespace Exa.UI.Controls
         private void Awake()
         {
             var builder = CreateSchemaBuilder();
-            container = builder.Build();
+            state = builder.Build();
         }
 
         public virtual ValidationResult Validate<T>(IValidator<T> validator, T args)
         {
-            return container.Control(validator, args);
+            return state.Control(validator, args);
         }
 
         public void ApplyResults(ValidationResult errors)
         {
-            container.ApplyResults(errors);
+            state.ApplyResults(errors);
         }
 
         public void OnEnable()
         {
-            transform.DestroyChildren();
+            container.DestroyChildren();
             panelByError = new Dictionary<string, ValidationErrorPanel>();
-            container.lastControlErrors = new Dictionary<IValidator, IEnumerable<ValidationError>>();
+            state.lastControlErrors = new Dictionary<IValidator, IEnumerable<ValidationError>>();
         }
 
         /// <summary>
@@ -57,7 +59,7 @@ namespace Exa.UI.Controls
             var id = validationError.Id;
             if (!panelByError.ContainsKey(id))
             {
-                var panel = Instantiate(errorPanelPrefab, transform).GetComponent<ValidationErrorPanel>();
+                var panel = Instantiate(errorPanelPrefab, container).GetComponent<ValidationErrorPanel>();
                 panel.Text = validationError.Message;
                 panelByError[id] = panel;
             }

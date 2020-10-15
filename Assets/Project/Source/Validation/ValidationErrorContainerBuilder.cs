@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Exa.Validation
 {
-    public class ValidationErrorContainerBuilder : IBuilder<ValidationErrorContainer>
+    public class ValidationErrorContainerBuilder : IBuilder<ValidationState>
     {
-        private readonly ValidationErrorContainer container;
+        private readonly ValidationState container;
         private bool onUnhandledErrorSet;
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Exa.Validation
 
         public ValidationErrorContainerBuilder()
         {
-            container = new ValidationErrorContainer();
+            container = new ValidationState();
             onUnhandledErrorSet = false;
         }
 
@@ -78,7 +78,7 @@ namespace Exa.Validation
         ///
         /// </summary>
         /// <returns></returns>
-        public ValidationErrorContainer Build()
+        public ValidationState Build()
         {
             if (!onUnhandledErrorSet)
             {

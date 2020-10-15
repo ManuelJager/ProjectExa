@@ -1,6 +1,8 @@
 ﻿using Exa.UI;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
+
 #pragma warning disable CS0649
 
 namespace Exa.ShipEditor
@@ -12,7 +14,8 @@ namespace Exa.ShipEditor
         [SerializeField] private Hoverable editorStatePanelHoverable;
 
         public CanvasGroupInteractableAdapter editorOverlayCanvasGroup;
-        public ShipEditorOverlayInfoPanel blueprintInfoPanel;
+        [FormerlySerializedAs("blueprintInfoPanel")]
+        public ShipEditorOverlayInfoPanel infoPanel;
         public ShipEditorOverlayInventory inventory;
         public MirrorView mirrorView;
 
