@@ -104,7 +104,7 @@ namespace Exa.UI
             view.transform.SetParent(container != null 
                 ? container 
                 : view.NormalContainer);
-            this.DelayOneFrame(view.hoverable.Refresh);
+            view.hoverable.ForceExit();
         }
 
         private void OnUnitsFull(AnimationArgs args)

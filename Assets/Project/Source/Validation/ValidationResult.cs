@@ -73,7 +73,7 @@ namespace Exa.Validation
 
         public static implicit operator bool(ValidationResult errors)
         {
-            return !ReferenceEquals(errors, null) && !errors.Any(error => error.ErrorType == ErrorType.Error);
+            return !ReferenceEquals(errors, null) && errors.All(error => error.ErrorType != ErrorType.Error);
         }
     }
 }

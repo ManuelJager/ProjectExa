@@ -35,9 +35,7 @@ namespace Exa.UI
         private void OnEnable()
         {
             if (checkMouseInsideRectOnEnable)
-            {
                 CheckMouseInsideRect();
-            }
         }
 
         private void OnDisable()
@@ -58,17 +56,13 @@ namespace Exa.UI
         public void ForceExit()
         {
             if (!mouseOverControl)
-            {
-                throw new InvalidOperationException("May not force exit the control when not selected");
-            }
-
+                return;
+            
             mouseOverControl = false;
             onPointerExit?.Invoke();
 
             if (InvokeStateChange)
-            {
                 OnExit();
-            }
         }
 
         public void Refresh()
@@ -84,9 +78,7 @@ namespace Exa.UI
             onPointerEnter?.Invoke();
 
             if (InvokeStateChange)
-            {
                 OnEnter();
-            }
         }
 
         private void TryExit()
@@ -97,9 +89,7 @@ namespace Exa.UI
             onPointerExit?.Invoke();
 
             if (InvokeStateChange)
-            {
                 OnExit();
-            }
         }
 
         private void CheckMouseInsideRect(bool exit = false)
