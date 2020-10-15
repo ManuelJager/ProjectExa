@@ -6,6 +6,7 @@ using Exa.Ships;
 using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Exa.UI
@@ -21,8 +22,12 @@ namespace Exa.UI
         [SerializeField] private AnimationArgs animationArgs;
         private TweenRef<int> fontSizeTween;
         private TweenRef<Color> colorTween;
-        private Fleet fleet;
         private Func<BlueprintContainer, FleetBlueprintView> viewFactory;
+
+        [Header("Events")]
+        public UnityEvent fleetChange = new UnityEvent();
+
+        public Fleet Fleet { get; private set; }
 
         private void Awake()
         {
@@ -30,14 +35,9 @@ namespace Exa.UI
             colorTween = new TweenWrapper<Color>(unitCountText.DOColor);
         }
 
-        public Fleet Export()
-        {
-            return fleet;
-        }
-
         public void Create(int capacity, Func<BlueprintContainer, FleetBlueprintView> viewFactory)
         {
-            this.fleet = new Fleet(capacity);
+            this.Fleet = new Fleet(capacity);
             this.viewFactory = viewFactory;
         }
 
@@ -60,35 +60,40 @@ namespace Exa.UI
         public void Remove(BlueprintContainer blueprint)
         {
             if (blueprint.Data.BlueprintType.IsMothership)
-                fleet.mothership = null;
+                Fleet.mothership = null;
             else
             {
-                fleet.units.Remove(blueprint);
+                Fleet.units.Remove(blueprint);
                 UpdateUnitCountText();
             }
 
+            fleetChange.Invoke();
             SetSelected(blueprint, false);
         }
 
         private void AddMothership(BlueprintContainer blueprint)
         {
-            if (fleet.mothership != null)
-                SetSelected(fleet.mothership, false);
+            if (Fleet.mothership != null)
+                SetSelected(Fleet.mothership, false);
 
-            fleet.mothership = blueprint;
+            Fleet.mothership = blueprint;
+            fleetChange.Invoke();
+
             SetSelected(blueprint, true, mothershipContainer);
         }
 
         private void AddUnit(BlueprintContainer blueprint)
         {
-            if (fleet.units.Count == fleet.units.Capacity)
+            if (Fleet.units.Count == Fleet.units.Capacity)
             {
                 OnUnitsFull(animationArgs);
                 return;
             }
             
-            fleet.units.Add(blueprint);
+            Fleet.units.Add(blueprint);
             UpdateUnitCountText();
+            fleetChange.Invoke();
+
             SetSelected(blueprint, true, unitsContainer);
         }
 
@@ -113,7 +118,7 @@ namespace Exa.UI
 
         private void UpdateUnitCountText()
         {
-            unitCountText.text = $"{fleet.units.Count}/{fleet.units.Capacity}";
+            unitCountText.text = $"{Fleet.units.Count}/{Fleet.units.Capacity}";
         }
 
         [Serializable]

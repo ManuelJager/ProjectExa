@@ -285,6 +285,9 @@ MonoBehaviour:
   fleetView: {fileID: 4938005100112257770}
   viewController: {fileID: 8002671048728241000}
   blueprintTypes: {fileID: 1822132539740605570}
+  fleetValidation:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2033837046802240614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,6 +1875,21 @@ MonoBehaviour:
     color:
       active: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}
       inactive: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
+  fleetChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6864382013964208159}
+        m_TargetAssemblyTypeName: Exa.UI.FleetBuilder, Assembly-CSharp
+        m_MethodName: Validate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8810710683435784946
 GameObject:
   m_ObjectHideFlags: 0

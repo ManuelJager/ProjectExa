@@ -11,7 +11,7 @@ namespace Exa.Validation
 
         public IValidator Validator { get; private set; }
 
-        public ValidationResult(IValidator validator)
+        internal ValidationResult(IValidator validator)
         {
             collection = new List<ValidationError>();
             Validator = validator;
@@ -30,6 +30,20 @@ namespace Exa.Validation
             where TError : ValidationError
         {
             var error = Throw<TError>(errorMessage);
+            error.ErrorType = errorType;
+            return error;
+        }
+
+        public GenericValidationError Throw(string id, string errorMessage)
+        {
+            var error = new GenericValidationError(id, errorMessage);
+            collection.Add(error);
+            return error;
+        }
+
+        public GenericValidationError Throw(string id, string errorMessage, ErrorType errorType)
+        {
+            var error = Throw(id, errorMessage);
             error.ErrorType = errorType;
             return error;
         }
@@ -59,7 +73,7 @@ namespace Exa.Validation
 
         public static implicit operator bool(ValidationResult errors)
         {
-            return !ReferenceEquals(errors, null) && errors.Any(error => error.ErrorType == ErrorType.Error);
+            return !ReferenceEquals(errors, null) && !errors.Any(error => error.ErrorType == ErrorType.Error);
         }
     }
 }

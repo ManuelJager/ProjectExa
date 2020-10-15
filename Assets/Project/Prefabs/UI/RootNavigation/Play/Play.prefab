@@ -158,6 +158,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &2662322319709389856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2931755094302267659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad7314b3f5116040a1a4129a0ecb695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 638389640687788802}
+  setAlpha: 1
+  interactable: 1
 --- !u!1 &3665366304931820720
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,6 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionBag: {fileID: 11400000, guid: 00d302a3eafc6ab41b8d2f3dcf9dc362, type: 2}
   missionDropdown: {fileID: 6566721592531317018}
+  button: {fileID: 2662322319709389856}
 --- !u!1 &8466874152864604165
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,12 +940,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70629459d73ad224abf7e33d946cbdd6, type: 3}
---- !u!224 &8530715482856852594 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8913988968307136700, guid: 70629459d73ad224abf7e33d946cbdd6,
-    type: 3}
-  m_PrefabInstance: {fileID: 997522259283875022}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6566721592531317018 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6266274317464397268, guid: 70629459d73ad224abf7e33d946cbdd6,
@@ -942,6 +952,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1dba15de04f214d96a3f366c29745e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &8530715482856852594 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8913988968307136700, guid: 70629459d73ad224abf7e33d946cbdd6,
+    type: 3}
+  m_PrefabInstance: {fileID: 997522259283875022}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4009501385228669106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1459,6 +1475,41 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6864382013964208159, guid: a0eb0741a3e431b4e9950b36951859e9,
+        type: 3}
+      propertyPath: fleetValidation.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6864382013964208159, guid: a0eb0741a3e431b4e9950b36951859e9,
+        type: 3}
+      propertyPath: fleetValidation.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6864382013964208159, guid: a0eb0741a3e431b4e9950b36951859e9,
+        type: 3}
+      propertyPath: fleetValidation.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6864382013964208159, guid: a0eb0741a3e431b4e9950b36951859e9,
+        type: 3}
+      propertyPath: fleetValidation.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3078436890078483469}
+    - target: {fileID: 6864382013964208159, guid: a0eb0741a3e431b4e9950b36951859e9,
+        type: 3}
+      propertyPath: fleetValidation.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Exa.UI.MissionOptions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6864382013964208159, guid: a0eb0741a3e431b4e9950b36951859e9,
+        type: 3}
+      propertyPath: fleetValidation.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReflectFleetBuilderResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 6864382013964208159, guid: a0eb0741a3e431b4e9950b36951859e9,
+        type: 3}
+      propertyPath: fleetValidation.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7580560598481858954, guid: a0eb0741a3e431b4e9950b36951859e9,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1668,9 +1719,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde, type: 3}
+--- !u!1 &2931755094302267659 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5259033962641442089, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+    type: 3}
+  m_PrefabInstance: {fileID: 6941305138210495522}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1484380238836897510 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8416642528486017732, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+    type: 3}
+  m_PrefabInstance: {fileID: 6941305138210495522}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &638389640687788802 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7532406449157013280, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
     type: 3}
   m_PrefabInstance: {fileID: 6941305138210495522}
   m_PrefabAsset: {fileID: 0}
