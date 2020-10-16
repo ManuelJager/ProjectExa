@@ -1,5 +1,6 @@
 ﻿#pragma warning disable CS0649
 
+using System;
 using Exa.Bindings;
 using Exa.Grids.Blueprints;
 using Exa.IO;
@@ -10,8 +11,6 @@ namespace Exa.UI
 {
     public class BlueprintSelector : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
     {
-        public BlueprintContainerCollection collectionContext;
-
         [SerializeField] private Navigateable blueprintSelectorNavigateable;
         [SerializeField] private Navigateable shipEditorNavigateable;
         [SerializeField] private BlueprintDetails blueprintDetails;
@@ -102,7 +101,10 @@ namespace Exa.UI
                 {
                     if (yes)
                     {
-                        Source.Remove(container);
+                        if (Source is ObservableCollection<BlueprintContainer> collection)
+                            collection.Remove(container);
+                        else
+                            throw new InvalidOperationException("Source must be an observable collection");
                     }
                 });
             });
@@ -122,10 +124,15 @@ namespace Exa.UI
             container.ThumbnailFileHandle.Refresh();
             container.BlueprintFileHandle.Refresh();
 
-            if (!Source.Contains(container))
+            if (Source is ObservableCollection<BlueprintContainer> collection)
             {
-                Source.Add(container);
+                if (!collection.Contains(container))
+                {
+                    collection.Add(container);
+                }
             }
+            else
+                throw new InvalidOperationException("Source must be an observable collection");
         }
 
         private void ImportBlueprintWithOptions(BlueprintOptions options)

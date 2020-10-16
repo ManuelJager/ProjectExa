@@ -18,12 +18,12 @@ namespace Exa.UI
         public void Init(
             UnityAction<BlueprintContainer> viewButtonCallback,
             UnityAction<BlueprintContainer> viewSelectionCallback,
-            IObservableCollection<BlueprintContainer> collection)
+            IObservableEnumerable<BlueprintContainer> enumerable)
         {
             this.viewButtonCallback = viewButtonCallback;
 
             selectedViewRemoved.AddListener(viewSelectionCallback);
-            Source = collection;
+            Source = enumerable;
         }
 
         public override void OnAdd(BlueprintContainer observer)

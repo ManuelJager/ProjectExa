@@ -12,7 +12,7 @@ namespace Exa.Bindings
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class ObservableCollection<T> : IObservableCollection<T>
+    public class ObservableCollection<T> : IObservableEnumerable<T>, ICollection<T>
     {
         public List<T> collection;
         public List<ICollectionObserver<T>> Observers { get; } = new List<ICollectionObserver<T>>();
@@ -46,9 +46,8 @@ namespace Exa.Bindings
             collection.Clear();
 
             foreach (var observer in Observers)
-            {
-                observer.OnClear();
-            }
+                foreach (var item in this)
+                    observer.OnRemove(item);
         }
 
         public virtual bool Contains(T item)

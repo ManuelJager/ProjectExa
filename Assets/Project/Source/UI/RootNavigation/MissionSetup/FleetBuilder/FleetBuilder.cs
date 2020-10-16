@@ -24,7 +24,7 @@ namespace Exa.UI
         public void Init()
         {
             blueprintTypes.BuildList(viewController.CreateTab);
-            viewController.Init(fleetView.Toggle, fleetView.Remove, Systems.Blueprints.observableUserBlueprints);
+            viewController.Init(fleetView.Toggle, fleetView.Remove, Systems.Blueprints.useableBlueprints);
             fleetView.Create(5, viewController.GetView);
             fleetValidator = new FleetValidator();
 

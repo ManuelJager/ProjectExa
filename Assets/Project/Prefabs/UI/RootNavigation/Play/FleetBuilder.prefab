@@ -830,8 +830,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7685911664735926906}
   - {fileID: 3562456135209156034}
+  - {fileID: 7685911664735926906}
   m_Father: {fileID: 6917792463258486299}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -964,7 +964,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2055510071457155270}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1179,7 +1179,7 @@ RectTransform:
   m_Children:
   - {fileID: 5539358837319402177}
   m_Father: {fileID: 2055510071457155270}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1864,7 +1864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5ec1a06ede63943b71f76718c033a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mothershipContainer: {fileID: 2055510071457155270}
+  mothershipContainer: {fileID: 7685911664735926906}
   unitsContainer: {fileID: 5297350030635572499}
   unitCountText: {fileID: 5314947223427358148}
   animationArgs:

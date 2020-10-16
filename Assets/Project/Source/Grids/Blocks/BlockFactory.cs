@@ -41,7 +41,7 @@ namespace Exa.Grids.Blocks
 
         public BlockValuesStore valuesStore;
 
-        public IEnumerator StartUp(IProgress<float> progress)
+        public IEnumerator Init(IProgress<float> progress)
         {
             valuesStore = new BlockValuesStore();
             var enumerator = EnumeratorUtils.ReportForeachOperation(blockTemplateBag, RegisterBlockTemplate, progress);

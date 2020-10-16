@@ -22,7 +22,7 @@
         {
             var args = new BlueprintNameValidationArgs
             {
-                collectionContext = blueprintCollection,
+                collectionContext = Systems.Blueprints.userBlueprints,
                 requestedName = name,
                 blueprintContainer = container
             };

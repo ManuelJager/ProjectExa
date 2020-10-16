@@ -7,7 +7,7 @@ namespace Exa.Gameplay.Missions
     {
         public override void Init(MissionArgs args)
         {
-            GameSystems.ShipFactory.CreateFriendly("defaultScout", new Vector2(-20, 20));
+            SpawnMothership(args.fleet.mothership);
         }
     }
 }

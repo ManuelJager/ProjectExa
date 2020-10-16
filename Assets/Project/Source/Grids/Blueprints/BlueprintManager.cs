@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Bindings;
 using UnityEngine;
 #pragma warning disable CS0649
 
@@ -10,31 +11,24 @@ namespace Exa.Grids.Blueprints
 {
     public class BlueprintManager : MonoBehaviour
     {
-        [HideInInspector] public BlueprintContainerCollection observableUserBlueprints = new BlueprintContainerCollection();
-        [HideInInspector] public BlueprintContainerCollection observableDefaultBlueprints = new BlueprintContainerCollection();
+        [HideInInspector] public BlueprintContainerCollection userBlueprints = new BlueprintContainerCollection();
+        [HideInInspector] public BlueprintContainerCollection defaultBlueprints = new BlueprintContainerCollection();
+        [HideInInspector] public CompositeObservableEnumerable<BlueprintContainer> useableBlueprints;
         public BlueprintTypeBag blueprintTypes;
 
         [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
 
-        public IEnumerator StartUp(IProgress<float> progress)
+        public IEnumerator Init(IProgress<float> progress)
         {
             var userBlueprintPaths = CollectionUtils
                 .GetJsonPathsFromDirectory(DirectoryTree.Blueprints)
                 .ToList();
 
-            var defaultBlueprints = defaultBlueprintBag.ToList();
+            var defaultBlueprintsList = defaultBlueprintBag.ToList();
             var iterator = 0;
-            var blueprintTotal = userBlueprintPaths.Count + defaultBlueprints.Count;
+            var blueprintTotal = userBlueprintPaths.Count + defaultBlueprintsList.Count;
 
-            // Load default blueprints
-            foreach (var defaultBlueprint in defaultBlueprintBag)
-            {
-                AddDefaultBlueprint(defaultBlueprint);
-
-                yield return null;
-                iterator++;
-                progress.Report((float)iterator / blueprintTotal);
-            }
+            useableBlueprints = new CompositeObservableEnumerable<BlueprintContainer>(userBlueprints, defaultBlueprints);
 
             // Load user defined blueprints
             foreach (var blueprintPath in userBlueprintPaths)
@@ -52,23 +46,34 @@ namespace Exa.Grids.Blueprints
                 iterator++;
                 progress.Report((float)iterator / blueprintTotal);
             }
+
+
+            // Load default blueprints
+            foreach (var defaultBlueprint in defaultBlueprintBag)
+            {
+                AddDefaultBlueprint(defaultBlueprint);
+
+                yield return null;
+                iterator++;
+                progress.Report((float)iterator / blueprintTotal);
+            }
         }
 
         public BlueprintContainer GetBlueprint(string name)
         {
-            if (observableDefaultBlueprints.ContainsKey(name))
-                return observableDefaultBlueprints[name];
+            if (defaultBlueprints.ContainsKey(name))
+                return defaultBlueprints[name];
             
-            if (observableUserBlueprints.ContainsKey(name))
-                return observableUserBlueprints[name];
+            if (userBlueprints.ContainsKey(name))
+                return userBlueprints[name];
 
             throw new KeyNotFoundException();
         }
 
         public bool ContainsName(string name)
         {
-            return observableDefaultBlueprints.ContainsKey(name)
-                || observableUserBlueprints.ContainsKey(name);
+            return defaultBlueprints.ContainsKey(name)
+                || userBlueprints.ContainsKey(name);
         }
 
         private void AddDefaultBlueprint(DefaultBlueprint defaultBlueprint)
@@ -76,11 +81,9 @@ namespace Exa.Grids.Blueprints
             var blueprint = defaultBlueprint.ToContainer();
 
             if (ContainsName(blueprint.Data.name))
-            {
                 throw new ArgumentException("Blueprint named is duplicate");
-            }
-
-            observableDefaultBlueprints.Add(blueprint);
+            
+            defaultBlueprints.Add(blueprint);
         }
 
         private void AddUserBlueprint(string path)
@@ -106,7 +109,7 @@ namespace Exa.Grids.Blueprints
             var observableBlueprint = new BlueprintContainer(args);
             observableBlueprint.BlueprintFileHandle.CurrentPath = path;
             observableBlueprint.LoadThumbnail();
-            observableUserBlueprints.Add(observableBlueprint);
+            userBlueprints.Add(observableBlueprint);
         }
     }
 }

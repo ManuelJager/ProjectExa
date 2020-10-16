@@ -4,30 +4,27 @@ namespace Exa.Bindings
 {
     public abstract class AbstractCollectionObserver<T> : MonoBehaviour, ICollectionObserver<T>
     {
-        private IObservableCollection<T> source = null;
+        private IObservableEnumerable<T> source = null;
 
         /// <summary>
         /// Views data source
         /// </summary>
-        public virtual IObservableCollection<T> Source
+        public virtual IObservableEnumerable<T> Source
         {
             get => source;
             set
             {
                 // If the new source is the same, do nothing
                 if (source == value)
-                {
                     return;
-                }
 
                 // If there is already a source, unregister
                 if (source != null)
                 {
                     // Unregistered if we are registered
                     if (source.Observers.Contains(this))
-                    {
-                        source.Unregister(this);
-                    }
+                        source.Observers.Remove(this);
+                    
                     source = null;
                 }
 
@@ -40,15 +37,13 @@ namespace Exa.Bindings
 
                 // Set source and register
                 source = value;
-                source.Register(this);
+                source.Observers.Add(this);
 
                 // Clear views
                 OnClear();
 
                 foreach (var item in source)
-                {
                     OnAdd(item);
-                }
             }
         }
 

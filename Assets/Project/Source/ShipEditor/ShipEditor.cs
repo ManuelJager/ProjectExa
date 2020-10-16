@@ -13,7 +13,6 @@ namespace Exa.ShipEditor
     [RequireComponent(typeof(ShipEditorNavigateable))]
     public partial class ShipEditor : MonoBehaviour, IEditorActions, IUIGroup
     {
-        [HideInInspector] public BlueprintContainerCollection blueprintCollection;
         public EditorGrid editorGrid;
         public ShipEditorNavigateable navigateable;
 

@@ -70,8 +70,6 @@ namespace Exa.Ships.Navigation
                 return Vector2.zero;
             }
 
-            Debug.Log(GetBrakeDistance(diff, velocityValues));
-
             return diff.magnitude > GetBrakeDistance(diff, velocityValues)
                 ? thrustVectors.GetClampedForce(diff, TargetThrustMultiplier) * deltaTime
                 : Vector2.zero;

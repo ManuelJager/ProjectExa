@@ -79,20 +79,19 @@ namespace Exa
 
             var targetFrameRate = UI.nav.settings.videoSettings.current.Values.resolution.refreshRate;
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.StartUp(new Progress<float>(value =>
+            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value =>
             {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)}% complete) ...";
                 UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.StartUp(new Progress<float>(value =>
+            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.Init(new Progress<float>(value =>
             {
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)}% complete) ...";
                 UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
 
-            UI.nav.blueprintSelector.Source = Blueprints.observableUserBlueprints;
-            shipEditor.blueprintCollection = Blueprints.observableUserBlueprints;
+            UI.nav.blueprintSelector.Source = Blueprints.userBlueprints;
 
             UI.nav.missionSetup.fleetBuilder.Init();
 
