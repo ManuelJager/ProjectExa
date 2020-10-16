@@ -8,9 +8,7 @@ namespace Exa.IO
     {
         public static string CombinePathWithDataPath(params string[] paths)
         {
-            paths = paths
-                .ToList()
-                .Prepend(Application.persistentDataPath)
+            paths = paths.Prepend(Application.persistentDataPath)
                 .ToArray();
 
             return CombinePath(paths);

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Exa.IO
 {
@@ -6,26 +7,18 @@ namespace Exa.IO
     {
         public string Value { get; }
 
-        internal ExaDirectory(string value)
+        internal ExaDirectory(string value, bool combineWithDataPath = true)
         {
+            if (combineWithDataPath)
+                value = IOUtils.CombinePathWithDataPath(value);
+
             EnsureCreated(value);
             this.Value = value;
         }
 
-        internal ExaDirectory(string name, string value)
-            : this(value)
+        public string CombineWith(string fileName)
         {
-            IOUtils.GlobalDirectories[name] = this;
-        }
-
-        public static ExaDirectory Create(string value)
-        {
-            return new ExaDirectory(value);
-        }
-
-        public static ExaDirectory CreateAndRegister(string name, string value)
-        {
-            return new ExaDirectory(name, value);
+            return IOUtils.CombinePath(this, fileName);
         }
 
         private static void EnsureCreated(string directoryString)
@@ -34,6 +27,14 @@ namespace Exa.IO
             {
                 Directory.CreateDirectory(directoryString);
             }
+        }
+
+        public static implicit operator string(ExaDirectory directory)
+        {
+            if (directory == null)
+                throw new ArgumentNullException(nameof(directory));
+
+            return directory.Value;
         }
     }
 }

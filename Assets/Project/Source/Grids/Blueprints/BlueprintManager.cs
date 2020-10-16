@@ -19,7 +19,7 @@ namespace Exa.Grids.Blueprints
         public IEnumerator StartUp(IProgress<float> progress)
         {
             var userBlueprintPaths = CollectionUtils
-                .GetJsonPathsFromDirectory(IOUtils.GetPath("blueprints"))
+                .GetJsonPathsFromDirectory(DirectoryTree.Blueprints)
                 .ToList();
 
             var defaultBlueprints = defaultBlueprintBag.ToList();

@@ -28,13 +28,13 @@ namespace Exa.Data
 
         public virtual void Save()
         {
-            var path = IOUtils.CombineWithDirectory("settings", $"{Key}.json");
+            var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
             IOUtils.JsonSerializeToPath(Values, path, SerializationMode.readable);
         }
 
         public virtual void Load()
         {
-            var path = IOUtils.CombineWithDirectory("settings", $"{Key}.json");
+            var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
             Values = File.Exists(path)
                 ? IOUtils.JsonDeserializeFromPath<T>(path)
                 : DefaultValues;
