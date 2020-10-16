@@ -76,7 +76,18 @@ namespace Exa.Gameplay
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    RemoveSelectionArea();
+                    if (!HasSelection)
+                    {
+                        GameSystems.UI.TogglePause();
+                        return;
+                    }
+
+                    if (HasSelection && !IsSelectingArea)
+                    {
+                        RemoveSelectionArea();
+                        return;
+                    }
+
                     break;
             }
         }
@@ -97,13 +108,13 @@ namespace Exa.Gameplay
         {
             var worldPoint = Systems.Input.MouseWorldPoint;
             selectionBuilder = new SelectionBuilder(worldPoint);
-            GameSystems.UI.selectionArea.Show(worldPoint);
+            GameSystems.UI.gameplayLayer.selectionArea.Show(worldPoint);
         }
 
         private void OnUpdateSelectionArea()
         {
             var worldPoint = Systems.Input.MouseWorldPoint;
-            GameSystems.UI.selectionArea.SetEnd(worldPoint);
+            GameSystems.UI.gameplayLayer.selectionArea.SetEnd(worldPoint);
         }
 
         private void OnEndSelectionArea()
@@ -118,11 +129,11 @@ namespace Exa.Gameplay
                 selectionBuilder.UpdateSelection(worldPoint);
 
                 // Hide the selection area overlay
-                GameSystems.UI.selectionArea.Hide();
+                GameSystems.UI.gameplayLayer.selectionArea.Hide();
 
                 // Get the selection and save it in the hotbar if possible
                 var selection = selectionBuilder.Build();
-                GameSystems.UI.selectionHotbar.Save(selection);
+                GameSystems.UI.gameplayLayer.selectionHotbar.Save(selection);
 
                 CurrentSelection = selection;
 
@@ -132,33 +143,30 @@ namespace Exa.Gameplay
 
         private void RemoveSelectionArea()
         {
-            if (HasSelection && !IsSelectingArea)
+            // Deselect current selection
+            var currentHotbarSelection = GameSystems.UI.gameplayLayer.selectionHotbar.CurrentSelection;
+            if (currentHotbarSelection != null)
             {
-                // Deselect current selection
-                var currentHotbarSelection = GameSystems.UI.selectionHotbar.CurrentSelection;
-                if (currentHotbarSelection != null)
-                {
-                    // Update the view
-                    currentHotbarSelection.Selected = false;
-                }
-
-                // Clear the selection
-                CurrentSelection.Clear();
-                CurrentSelection = null;
+                // Update the view
+                currentHotbarSelection.Selected = false;
             }
+
+            // Clear the selection
+            CurrentSelection.Clear();
+            CurrentSelection = null;
         }
 
         private void OnNumKey(int index)
         {
-            if (HasSelection && GameSystems.UI.selectionHotbar.CurrentSelection == null)
+            if (HasSelection && GameSystems.UI.gameplayLayer.selectionHotbar.CurrentSelection == null)
             {
-                GameSystems.UI.selectionHotbar.Select(index);
-                GameSystems.UI.selectionHotbar.Save(CurrentSelection);
+                GameSystems.UI.gameplayLayer.selectionHotbar.Select(index);
+                GameSystems.UI.gameplayLayer.selectionHotbar.Save(CurrentSelection);
             }
             else
             {
                 CurrentSelection?.Clear();
-                CurrentSelection = GameSystems.UI.selectionHotbar.Select(index);
+                CurrentSelection = GameSystems.UI.gameplayLayer.selectionHotbar.Select(index);
             }
         }
     }

@@ -71,9 +71,8 @@ namespace Exa.UI.Gameplay
         private void CreatePrefabs()
         {
             for (int i = 1; i < 10; i++)
-            {
                 CreatePrefab(i);
-            }
+            
             CreatePrefab(0);
         }
 
@@ -87,9 +86,7 @@ namespace Exa.UI.Gameplay
 
         private ShipSelection Clone(ShipSelection selection)
         {
-            return selection != null
-                ? selection.Clone() as ShipSelection
-                : null;
+            return selection?.Clone();
         }
 
         private bool IsInRange(int index)

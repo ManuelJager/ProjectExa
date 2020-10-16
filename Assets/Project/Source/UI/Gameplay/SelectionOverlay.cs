@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Exa.UI.Gameplay
 {
-    public partial class SelectionOverlay : AbstractCollectionObserver<Ship>
+    public class SelectionOverlay : AbstractCollectionObserver<Ship>
     {
         [SerializeField] private GameObject shipViewPrefab;
         [SerializeField] private Transform container;

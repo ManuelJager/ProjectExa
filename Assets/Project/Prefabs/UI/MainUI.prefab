@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 5526384382514086166}
+  planeDistance: 3
 --- !u!114 &5239202902979629536
 MonoBehaviour:
   m_ObjectHideFlags: 0

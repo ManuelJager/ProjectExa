@@ -6,10 +6,12 @@ namespace Exa.UI.Components
     public class CameraHelper : MonoBehaviour
     {
         [SerializeField] private Canvas canvas;
+        [SerializeField] private float planeDistance;
 
         private void Awake()
         {
             canvas.worldCamera = Camera.main;
+            canvas.planeDistance = planeDistance;
         }
     }
 }

@@ -21,7 +21,7 @@
             set
             {
                 currentSelection = value;
-                GameSystems.UI.selectionOverlay.Reflect(value);
+                GameSystems.UI.gameplayLayer.selectionOverlay.Reflect(value);
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿using Exa.Ships;
+﻿using Exa.Bindings;
+using Exa.Grids.Blueprints;
+using Exa.Ships;
 using Exa.Validation;
 using UnityEngine;
 using UnityEngine.Events;
@@ -21,10 +23,10 @@ namespace Exa.UI
 
         public Fleet Fleet => fleetView.Fleet;
 
-        public void Init()
+        public void Init(IObservableEnumerable<BlueprintContainer> source)
         {
             blueprintTypes.BuildList(viewController.CreateTab);
-            viewController.Init(fleetView.Toggle, fleetView.Remove, Systems.Blueprints.useableBlueprints);
+            viewController.Init(fleetView.Toggle, fleetView.Remove, source);
             fleetView.Create(5, viewController.GetView);
             fleetValidator = new FleetValidator();
 
