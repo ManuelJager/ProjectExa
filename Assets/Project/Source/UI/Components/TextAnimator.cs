@@ -18,6 +18,17 @@ namespace Exa.UI
         private SignificantCharStringReader stringReader;
         private bool animating;
 
+        public float CharTime
+        {
+            get => charTime;
+            set => charTime = value;
+        }
+
+        private void Awake()
+        {
+            text = text ?? GetComponent<Text>();
+        }
+
         public void OnEnable()
         {
             if (!animateOnEnable) return;

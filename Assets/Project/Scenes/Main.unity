@@ -996,7 +996,7 @@ PrefabInstance:
     - target: {fileID: 1890334245842804046, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -204.99994
+      value: -205
       objectReference: {fileID: 0}
     - target: {fileID: 1902965074505133295, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
@@ -1312,6 +1312,11 @@ PrefabInstance:
         type: 3}
       propertyPath: clickAction.m_Id
       value: c704796b-f835-4429-8865-ec529f13ebc6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035179715954225531, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3236503812238395476, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
@@ -1861,7 +1866,7 @@ PrefabInstance:
     - target: {fileID: 6024744977515892261, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -204.99994
+      value: -205
       objectReference: {fileID: 0}
     - target: {fileID: 6179197629143929458, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
@@ -2656,6 +2661,26 @@ PrefabInstance:
     - target: {fileID: 9051952285055997048, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_HorizontalFit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131234805697013948, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131234805697013948, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131234805697013948, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_ChildScaleWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131234805697013948, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_ChildForceExpandHeight
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9221490153667062216, guid: 3e219537f6421be4da8379d71ff2d5fa,

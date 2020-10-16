@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Exa.Data;
+using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,8 +24,14 @@ namespace Exa.UI
         [SerializeField] private bool forceShowScreen;
         [SerializeField] private AnimSettings animSettings;
 
+        private TweenRef<float> titleSpacingTween;
+        private TweenRef<Vector3> textContainerScaleTween;
+
         public void Init()
         {
+            titleSpacingTween = new TweenWrapper<float>(wordLayoutGroup.DOSpacing);
+            textContainerScaleTween = new TweenWrapper<Vector3>(textContainer.DOScale);
+
             if (!Debug.isDebugBuild || forceShowScreen)
                 ShowScreen();
         }
@@ -34,41 +41,77 @@ namespace Exa.UI
             gameObject.SetActive(true);
             rootCanvasGroup.alpha = 1f;
             rootCanvasGroup.blocksRaycasts = true;
-            this.Delay(FadeOut, animSettings.screenDuration);
-
             textCanvasGroup.alpha = 0f;
-            this.Delay(FadeInText, animSettings.textFadeInDelay);
 
-            var scale = animSettings.textTargetScale;
-            textContainer.DOScale(new Vector3(scale, scale, 1), animSettings.screenDuration);
+            FadeInText(animSettings.textFadeEnter);
+            GrowText(animSettings.textGrowthEnter);
 
+            rootCanvasGroup.DOFade(0f, animSettings.fadeOutDuration)
+                .SetDelay(animSettings.screenDuration);
+
+            this.Delay(() => GrowText(animSettings.textGrowthExit), animSettings.textGrowthEnter.duration);
+
+            GenerateTitle();
+        }
+
+        private void GenerateTitle()
+        {
+            var charCount = 0;
             foreach (var word in animSettings.message.Split(' '))
             {
-                Instantiate(wordPrefab, wordContainer).GetComponent<Text>().text = word;
+                var go = Instantiate(wordPrefab, wordContainer);
+                go.GetComponent<Text>().text = "";
+                var animator = go.AddComponent<TextAnimator>();
+                animator.CharTime = animSettings.charTime;
+                this.Delay(() => animator.AnimateTo(word), charCount * animSettings.charTime + animSettings.textFadeEnter.delay);
+                charCount += word.Length;
             }
         }
 
-        private void FadeOut()
+        private void FadeInText(AnimSettings.TextFadeEnterArgs args)
         {
-            rootCanvasGroup.blocksRaycasts = false;
-            rootCanvasGroup.DOFade(0f, animSettings.fadeOutDuration);
+            textCanvasGroup.DOFade(1f, args.duration)
+                .SetDelay(args.delay)
+                .SetEase(args.ease);
         }
 
-        private void FadeInText()
+        private void GrowText(AnimSettings.TextGrowthArgs args)
         {
-            textCanvasGroup.DOFade(1f, animSettings.textFadeInDuration);
-            wordLayoutGroup.DOSpacing(24f, animSettings.screenDuration + animSettings.fadeOutDuration);
+            //titleSpacingTween.To(args.spacing, args.duration)
+            //    .SetEase(args.ease);
+
+            var scale = new Vector3(args.scale, args.scale, 1f);
+            textContainerScaleTween.To(scale, args.duration)
+                .SetEase(args.ease);
         }
 
         [Serializable]
         public struct AnimSettings
         {
-            public float textFadeInDelay;
-            public float textFadeInDuration;
-            public float textTargetScale;
+            public TextFadeEnterArgs textFadeEnter;
+            public TextGrowthArgs textGrowthEnter;
+            public TextGrowthArgs textGrowthExit;
             public float screenDuration;
             public float fadeOutDuration;
+            public float charTime;
             public string message;
+
+            [Serializable]
+            public struct TextFadeEnterArgs
+            {
+                public float delay;
+                public float duration;
+                public ExaEase ease;
+            }
+
+            [Serializable]
+            public struct TextGrowthArgs
+            {
+                public float duration;
+                public float scale;
+                public float spacing;
+                public ExaEase ease;
+            }
         }
     }
 }
