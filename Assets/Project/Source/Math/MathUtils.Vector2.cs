@@ -12,6 +12,15 @@ namespace Exa.Math
             return NormalizeAngle360(theta * Mathf.Rad2Deg);
         }
 
+        public static Vector2 Clamp(Vector2 value, Vector2 min, Vector2 max)
+        {
+            return new Vector2
+            {
+                x = Mathf.Clamp(value.x, min.x, max.x),
+                y = Mathf.Clamp(value.y, min.y, max.y)
+            };
+        }
+
         public static Vector2 GrowDirectionToMax(Vector2 direction, Vector2 max)
         {
             var minGrowth = AbsMin(max.x / direction.x, max.y / direction.y);

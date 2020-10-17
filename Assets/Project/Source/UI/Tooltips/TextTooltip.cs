@@ -3,9 +3,10 @@ using UnityEngine.UI;
 
 namespace Exa.UI.Tooltips
 {
-    public class TextTooltip : TooltipView
+    public class TextTooltip : FloatingTooltip
     {
         [SerializeField] private Text text;
+        [SerializeField] private RectTransform verticalContainer;
 
         public static void ShowTooltip(string message)
         {
@@ -17,9 +18,13 @@ namespace Exa.UI.Tooltips
             Systems.UI.tooltips.textTooltip.HideTooltipInternal();
         }
 
-        protected override void SetAnchoredPos(Vector2 pos)
+        protected override Vector2 GetTooltipSize()
         {
-            ((RectTransform)transform).anchoredPosition = pos;
+            return new Vector2
+            {
+                x = verticalContainer.rect.x,
+                y = base.GetTooltipSize().y
+            };
         }
 
         private void ShowTooltipInternal(string message)
@@ -28,7 +33,7 @@ namespace Exa.UI.Tooltips
                 gameObject.SetActive(true);
 
             text.text = message;
-            SetContainerPosition();
+            UpdatePosition(true);
         }
 
         private void HideTooltipInternal()

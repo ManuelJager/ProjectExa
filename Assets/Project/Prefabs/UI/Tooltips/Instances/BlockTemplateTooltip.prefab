@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 5127523495757508692}
+  offset: {x: 20, y: 20}
+  padding: 4
+  animTime: 0.1
 --- !u!1001 &1985779427146486879
 PrefabInstance:
   m_ObjectHideFlags: 0

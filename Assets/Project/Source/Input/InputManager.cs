@@ -20,7 +20,7 @@ namespace Exa.Input
         private void Awake()
         {
             mouseCursor = Systems.UI.mouseCursor;
-            root = Systems.UI.root;
+            root = Systems.UI.rootCanvas;
         }
 
         private void Update()

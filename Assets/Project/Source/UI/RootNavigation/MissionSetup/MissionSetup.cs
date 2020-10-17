@@ -23,7 +23,7 @@ namespace Exa.UI
 
             transition.onPrepared.AddListener(() =>
             {
-                Systems.UI.nav.navigateable.NavigateTo(GameSystems.Navigateable);
+                Systems.UI.root.navigateable.NavigateTo(GameSystems.Navigateable);
                 GameSystems.Instance.LoadMission(options.SelectedMission, new MissionArgs
                 {
                     fleet = fleetBuilder.Fleet
