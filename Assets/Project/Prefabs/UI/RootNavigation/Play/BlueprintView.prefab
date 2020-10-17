@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -419,8 +419,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.74509805, g: 0.74509805, b: 0.7647059, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -690,7 +690,7 @@ MonoBehaviour:
         m_CallState: 2
   invokeStateChangeOnHover: 1
   cursorOverride:
-    value: 0
+    value: 1
   checkMouseInsideRectOnEnable: 1
 --- !u!114 &5335731872024107362
 MonoBehaviour:

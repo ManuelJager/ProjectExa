@@ -37,6 +37,7 @@ namespace Exa.UI
                 borderOutline.effectColor = color;
                 overlayText.color = color;
                 overlayText.text = value ? "Remove" : "Select";
+                hoverable.cursorOverride.Value = value ? CursorState.remove : CursorState.active;
                 selected = value;
             }
         }

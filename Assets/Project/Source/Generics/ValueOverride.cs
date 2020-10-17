@@ -7,7 +7,11 @@ namespace Exa.Generics
     {
         [SerializeField] private T value;
 
-        public T Value => value;
+        public T Value
+        {
+            get => value;
+            set => this.value = value;
+        }
 
         public ValueOverride(T value)
         {
