@@ -123,11 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1684acf0c2fed743b3254b7e927c768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 5526384382514086166}
+  rootCanvas: {fileID: 5526384382514086166}
   rootTransform: {fileID: 5526384382514086167}
   loadingScreen: {fileID: 7751970417597339210}
   editorOverlay: {fileID: 2233408752986145814}
-  nav: {fileID: 3912820444977839042}
+  root: {fileID: 3912820444977839042}
   tooltips: {fileID: 13180186456054701}
   console: {fileID: 6015331161847257150}
   logger: {fileID: 1164198441621280979}
@@ -3010,27 +3010,27 @@ PrefabInstance:
     - target: {fileID: 3518663557865401163, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_Spacing
-      value: -1.6005384e-34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3518663557865401163, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_ChildForceExpandWidth
-      value: 53
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3518663557865401163, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_ChildForceExpandHeight
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3518663557865401163, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_ChildControlWidth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3518663557865401163, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
       propertyPath: m_ChildScaleWidth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3545399657611420356, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}
@@ -3724,6 +3724,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393192410149841453, guid: 2661b46a09dd09949b76373e7086f5b1,
+        type: 3}
+      propertyPath: m_AspectMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393192410149841453, guid: 2661b46a09dd09949b76373e7086f5b1,
+        type: 3}
+      propertyPath: m_AspectRatio
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 6406891363723937340, guid: 2661b46a09dd09949b76373e7086f5b1,
         type: 3}

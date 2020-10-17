@@ -1313,11 +1313,6 @@ PrefabInstance:
       propertyPath: clickAction.m_Id
       value: c704796b-f835-4429-8865-ec529f13ebc6
       objectReference: {fileID: 0}
-    - target: {fileID: 3035179715954225531, guid: 3e219537f6421be4da8379d71ff2d5fa,
-        type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3236503812238395476, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -2584,6 +2579,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8881827667981030485, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908450489124307764, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0

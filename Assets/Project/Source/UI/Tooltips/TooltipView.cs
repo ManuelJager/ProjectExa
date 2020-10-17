@@ -2,7 +2,7 @@
 
 namespace Exa.UI.Tooltips
 {
-    public abstract class TooltipView<T> : TooltipView
+    public abstract class TooltipView<T> : FloatingTooltip
         where T : ITooltipPresenter
     {
         protected Tooltip tooltip;
@@ -13,7 +13,7 @@ namespace Exa.UI.Tooltips
         {
             gameObject.SetActive(true);
             Rebuild(presenter);
-            SetContainerPosition();
+            UpdatePosition(true);
         }
 
         public void Hide()

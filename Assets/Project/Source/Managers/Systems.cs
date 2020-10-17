@@ -75,8 +75,8 @@ namespace Exa
 
             yield return 0;
 
-            UI.nav.settings.Load();
-            var targetFrameRate = UI.nav.settings.videoSettings.current.Values.resolution.refreshRate;
+            UI.root.settings.Load();
+            var targetFrameRate = UI.root.settings.videoSettings.current.Values.resolution.refreshRate;
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value =>
             {
@@ -90,8 +90,8 @@ namespace Exa
                 UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
 
-            UI.nav.blueprintSelector.Source = Blueprints.userBlueprints;
-            UI.nav.missionSetup.fleetBuilder.Init(Blueprints.useableBlueprints);
+            UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
+            UI.root.missionSetup.fleetBuilder.Init(Blueprints.useableBlueprints);
             UI.loadingScreen.HideScreen();
         }
 

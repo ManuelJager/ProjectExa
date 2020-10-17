@@ -9,11 +9,11 @@ namespace Exa.UI
 {
     public class MainUI : MonoBehaviour
     {
-        public Canvas root;
+        public Canvas rootCanvas;
         public RectTransform rootTransform;
         public LoadingScreen loadingScreen;
         public ShipEditorOverlay editorOverlay;
-        public RootNavigation nav;
+        public RootNavigation root;
         public VariableTooltipManager tooltips;
         public Console console;
         public UserExceptionLogger logger;

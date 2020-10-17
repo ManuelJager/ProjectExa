@@ -16,7 +16,7 @@ namespace Exa.UI.Gameplay
 
         public void QuitToMenu()
         {
-            GameSystems.Navigateable.NavigateTo(Systems.UI.nav.navigateable);
+            GameSystems.Navigateable.NavigateTo(Systems.UI.root.navigateable);
             SceneManager.UnloadSceneAsync("Game");
         }
 
