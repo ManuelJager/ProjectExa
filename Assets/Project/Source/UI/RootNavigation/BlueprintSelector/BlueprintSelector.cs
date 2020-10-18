@@ -81,43 +81,6 @@ namespace Exa.UI
 
         #endregion
 
-        public override void ViewCreation(BlueprintView view, BlueprintContainer container)
-        {
-            view.button.onClick.AddListener(() =>
-            {
-                if (!Interactable) return;
-
-                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs
-                {
-                    current = blueprintSelectorNavigateable
-                });
-                Systems.Editor.Import(container, TrySave);
-            });
-            view.deleteButton.onClick.AddListener(() =>
-            {
-                if (!Interactable) return;
-
-                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, yes =>
-                {
-                    if (yes)
-                    {
-                        if (Source is ObservableCollection<BlueprintContainer> collection)
-                            collection.Remove(container);
-                        else
-                            throw new InvalidOperationException("Source must be an observable collection");
-                    }
-                });
-            });
-            view.hoverable.onPointerEnter.AddListener(() =>
-            {
-                blueprintDetails.Reflect(container.Data);
-            });
-            view.hoverable.onPointerExit.AddListener(() =>
-            {
-                blueprintDetails.Reflect(null);
-            });
-        }
-
         public void TrySave(BlueprintContainer container)
         {
             Systems.Thumbnails.GenerateThumbnail(container.Data);
@@ -133,6 +96,46 @@ namespace Exa.UI
             }
             else
                 throw new InvalidOperationException("Source must be an observable collection");
+        }
+
+        protected override BlueprintView OnAdd(BlueprintContainer observer, Transform container)
+        {
+            var view = base.OnAdd(observer, container);
+
+            view.button.onClick.AddListener(() =>
+            {
+                if (!Interactable) return;
+
+                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs
+                {
+                    current = blueprintSelectorNavigateable
+                });
+                Systems.Editor.Import(observer, TrySave);
+            });
+            view.deleteButton.onClick.AddListener(() =>
+            {
+                if (!Interactable) return;
+
+                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, yes =>
+                {
+                    if (!yes) return;
+
+                    if (Source is ObservableCollection<BlueprintContainer> collection)
+                        collection.Remove(observer);
+                    else
+                        throw new InvalidOperationException("Source must be an observable collection");
+                });
+            });
+            view.hoverable.onPointerEnter.AddListener(() =>
+            {
+                blueprintDetails.Reflect(observer.Data);
+            });
+            view.hoverable.onPointerExit.AddListener(() =>
+            {
+                blueprintDetails.Reflect(null);
+            });
+
+            return view;
         }
 
         private void ImportBlueprintWithOptions(BlueprintOptions options)

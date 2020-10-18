@@ -27,7 +27,10 @@ namespace Exa.UI
         {
             blueprintTypes.BuildList(viewController.CreateTab);
             viewController.Init(fleetView.Toggle, fleetView.Remove, source);
-            fleetView.Create(5, viewController.GetView);
+
+            // NOTE: placeholder value, should be updated later
+            var unityCapacity = 5;
+            fleetView.Create(unityCapacity, viewController.GetView);
             fleetValidator = new FleetValidator();
 
             Validate();

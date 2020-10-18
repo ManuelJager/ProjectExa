@@ -36,23 +36,14 @@ namespace Exa.Bindings
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="container"></param>
-        protected virtual void OnAdd(TContainer observer, Transform container)
+        protected virtual TView OnAdd(TContainer observer, Transform container)
         {
             var blockObject = Instantiate(viewPrefab, container);
             var view = blockObject.GetComponent<TView>();
             view.OnUpdate(observer.Data);
             observer.Register(view);
             views.Add(observer, view);
-            ViewCreation(view, observer);
-        }
-
-        /// <summary>
-        /// Is called after a view is created, may be override to add custom event listeners by inheritor
-        /// </summary>
-        /// <param name="view"></param>
-        /// <param name="observer"></param>
-        public virtual void ViewCreation(TView view, TContainer observer)
-        {
+            return view;
         }
 
         /// <summary>

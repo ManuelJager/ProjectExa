@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Exa.Bindings
 {
     /// <summary>
-    /// Wrapper that provides a model a way to notify observers of model changes so views are refreshed or queued for refreshing
+    /// Wrapper that provides a model a way to notify views of changes
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Observable<T> : IEquatable<Observable<T>>

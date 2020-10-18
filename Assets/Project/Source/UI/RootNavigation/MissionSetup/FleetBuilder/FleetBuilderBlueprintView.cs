@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Exa.UI
 {
-    public class FleetBlueprintView : MonoBehaviour, IObserver<Blueprint>
+    public class FleetBuilderBlueprintView : MonoBehaviour, IObserver<Blueprint>
     {
         [Header("References")]
         public Button button;
@@ -26,6 +26,8 @@ namespace Exa.UI
         [Header("Settings")]
         [SerializeField] private ActivePair<Color> selectedColor;
 
+        public BlueprintTypeTabContent ParentTab { get; set; }
+
         private bool selected;
 
         public bool Selected
@@ -41,8 +43,6 @@ namespace Exa.UI
                 selected = value;
             }
         }
-
-        public Transform NormalContainer { get; set; }
 
         public void OnUpdate(Blueprint data)
         {

@@ -20,12 +20,14 @@ namespace Exa.UI
 
         [Header("Settings")] 
         [SerializeField] private AnimationArgs animationArgs;
-        private TweenRef<int> fontSizeTween;
-        private TweenRef<Color> colorTween;
-        private Func<BlueprintContainer, FleetBlueprintView> viewFactory;
 
         [Header("Events")]
         public UnityEvent fleetChange = new UnityEvent();
+
+        private TweenRef<int> fontSizeTween;
+        private TweenRef<Color> colorTween;
+        private Func<BlueprintContainer, FleetBuilderBlueprintView> viewFactory;
+        private Action<Transform> returnView;
 
         public Fleet Fleet { get; private set; }
 
@@ -35,7 +37,7 @@ namespace Exa.UI
             colorTween = new TweenWrapper<Color>(unitCountText.DOColor);
         }
 
-        public void Create(int capacity, Func<BlueprintContainer, FleetBlueprintView> viewFactory)
+        public void Create(int capacity, Func<BlueprintContainer, FleetBuilderBlueprintView> viewFactory)
         {
             this.Fleet = new Fleet(capacity);
             this.viewFactory = viewFactory;
@@ -101,9 +103,18 @@ namespace Exa.UI
         {
             var view = viewFactory(blueprint);
             view.Selected = active;
-            view.transform.SetParent(container != null 
-                ? container 
-                : view.NormalContainer);
+
+            if (container != null)
+            {
+                view.transform.SetParent(container);
+                view.ParentTab.ChildCount--;
+            }
+            else
+            {
+                view.transform.SetParent(view.ParentTab.container);
+                view.ParentTab.ChildCount++;
+            }
+
             view.hoverable.ForceExit();
         }
 

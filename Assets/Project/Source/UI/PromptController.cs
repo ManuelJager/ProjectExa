@@ -17,7 +17,7 @@ namespace Exa.UI
 
         public void PromptForm<T>(string message, IUIGroup uiGroup, ModelDescriptor<T> modelDescriptor, Action<T> onSubmit)
         {
-            BaseStartPrompt(message, uiGroup);
+            ActivateMessage(message, uiGroup);
             okButton.gameObject.SetActive(true);
             formGenerator.gameObject.SetActive(true);
             formGenerator.GenerateForm(modelDescriptor);
@@ -27,13 +27,13 @@ namespace Exa.UI
                 onSubmit(modelDescriptor.FromDescriptor());
                 okButton.gameObject.SetActive(false);
                 formGenerator.gameObject.SetActive(false);
-                BaseCleanupPrompt(uiGroup);
+                DeactivateMessage(uiGroup);
             });
         }
 
         public void PromptYesNo(string message, IUIGroup uiGroup, Action<bool> onClosePrompt = null)
         {
-            BaseStartPrompt(message, uiGroup);
+            ActivateMessage(message, uiGroup);
             yesNoContainer.gameObject.SetActive(true);
 
             yesButton.onClick.AddListener(() =>
@@ -51,7 +51,7 @@ namespace Exa.UI
 
         public void PromptOk(string message, IUIGroup uiGroup, Action onClosePrompt = null)
         {
-            BaseStartPrompt(message, uiGroup);
+            ActivateMessage(message, uiGroup);
             okButton.gameObject.SetActive(true);
 
             okButton.onClick.AddListener(() =>
@@ -66,17 +66,17 @@ namespace Exa.UI
         private void CleanupYesNo(IUIGroup uiGroup = null)
         {
             yesNoContainer.gameObject.SetActive(false);
-            BaseCleanupPrompt(uiGroup);
+            DeactivateMessage(uiGroup);
         }
 
-        public void BaseStartPrompt(string message, IUIGroup uiGroup)
+        public void ActivateMessage(string message, IUIGroup uiGroup)
         {
             ownerObject.gameObject.SetActive(true);
             uiGroup.Interactable = false;
             promptText.text = message;
         }
 
-        public void BaseCleanupPrompt(IUIGroup uiGroup)
+        public void DeactivateMessage(IUIGroup uiGroup)
         {
             ownerObject.gameObject.SetActive(false);
             uiGroup.Interactable = true;

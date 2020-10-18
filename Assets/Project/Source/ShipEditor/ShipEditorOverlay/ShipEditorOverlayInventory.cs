@@ -38,11 +38,8 @@ namespace Exa.ShipEditor
             }
 
             var categoryItem = blockCategories[category];
-            base.OnAdd(observer, categoryItem.content);
-        }
+            var view = base.OnAdd(observer, categoryItem.content);
 
-        public override void ViewCreation(BlockTemplateView view, BlockTemplateContainer observer)
-        {
             view.button.onClick.AddListener(() =>
             {
                 blockSelected?.Invoke(observer.Data);

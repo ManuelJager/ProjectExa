@@ -312,8 +312,6 @@ GameObject:
   - component: {fileID: 5533999019222784427}
   - component: {fileID: 5887495970332464327}
   - component: {fileID: 2490445865063676696}
-  - component: {fileID: 4222051617195719257}
-  - component: {fileID: 259104932169329632}
   m_Layer: 5
   m_Name: HorizontalContainer
   m_TagString: Untagged
@@ -381,36 +379,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
---- !u!225 &4222051617195719257
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7411603159355806821}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
---- !u!114 &259104932169329632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7411603159355806821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b3d7e6954ec474a841cdbeba761bb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  msLocalAnimationOffset: 0
-  movementDirection: 3
-  movementSmoothDamp: 0.1
-  movementMagnitude: 20
-  animateAlpha: 1
-  alphaSpeed: 8
 --- !u!1 &7720323576419183982
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +390,8 @@ GameObject:
   - component: {fileID: 683803219445005822}
   - component: {fileID: 72264894582883406}
   - component: {fileID: 4956472612629924661}
+  - component: {fileID: 5094099330409358918}
+  - component: {fileID: 1118004438618192117}
   m_Layer: 5
   m_Name: TextTooltip
   m_TagString: Untagged
@@ -448,7 +418,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &72264894582883406
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -475,3 +445,33 @@ MonoBehaviour:
   animTime: 0.1
   text: {fileID: 7181754294666339728}
   verticalContainer: {fileID: 8045391073833476223}
+--- !u!225 &5094099330409358918
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7720323576419183982}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1118004438618192117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7720323576419183982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b3d7e6954ec474a841cdbeba761bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  msLocalAnimationOffset: 0
+  movementDirection: 3
+  movementSmoothDamp: 0.1
+  movementMagnitude: 20
+  animateAlpha: 1
+  alphaSpeed: 8

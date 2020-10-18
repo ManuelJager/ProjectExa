@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Exa.UI
 {
-    public class FleetBlueprintViewController : ViewController<FleetBlueprintView, BlueprintContainer, Blueprint>
+    public class FleetBlueprintViewController : ViewController<FleetBuilderBlueprintView, BlueprintContainer, Blueprint>
     {
         [SerializeField] private GameObject tabPrefab;
         private Dictionary<BlueprintType, BlueprintTypeTabContent> tabsByType = new Dictionary<BlueprintType, BlueprintTypeTabContent>();
@@ -30,10 +30,10 @@ namespace Exa.UI
         {
             var tab = tabsByType[observer.Data.BlueprintType];
 
-            base.OnAdd(observer, tab.container);
+            var view = base.OnAdd(observer, tab.container);
+            tab.ChildCount++;
 
-            var view = GetView(observer);
-            view.NormalContainer = tab.container;
+            view.ParentTab = tab;
             view.button.onClick.AddListener(() => viewButtonCallback?.Invoke(observer));
         }
 
@@ -49,6 +49,7 @@ namespace Exa.UI
         {
             var tab = Instantiate(tabPrefab, transform)
                 .GetComponent<BlueprintTypeTabContent>();
+            tab.SetType(blueprintType);
             tabsByType.Add(blueprintType, tab);
             tab.gameObject.SetActive(false);
             return tab;
