@@ -4,12 +4,12 @@ namespace Exa.AI
 {
     public abstract class Agent : MonoBehaviour, IAgent
     {
-        protected virtual void Start()
+        protected virtual void OnEnable()
         {
             GameSystems.AI.Register(this);
         }
 
-        protected virtual void OnDestroy()
+        protected virtual void OnDisable()
         {
             GameSystems.AI.Unregister(this);
         }

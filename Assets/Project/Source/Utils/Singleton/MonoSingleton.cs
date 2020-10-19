@@ -15,19 +15,16 @@ namespace Exa.Utils
         {
             private set
             {
-                if (instance == null)
-                {
+                if (instance != null)
+                    UnityEngine.Debug.LogWarning($"Instance value has already been set on type {typeof(T)}");
+                else
                     instance = value;
-                    return;
-                }
-                UnityEngine.Debug.LogWarning($"Instance value has already been set on type {typeof(T)}");
             }
             get
             {
                 if (instance == null)
-                {
                     throw new NullReferenceException($"Missing instance on type {typeof(T)}");
-                }
+                
                 return instance;
             }
         }
@@ -38,9 +35,8 @@ namespace Exa.Utils
         protected virtual void Awake()
         {
             if (instance == null)
-            {
                 Instance = GetComponent<T>();
-            }
+            
         }
     }
 

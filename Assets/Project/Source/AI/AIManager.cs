@@ -30,9 +30,8 @@ namespace Exa.AI
             if (elapsedSinceLastTick > updateDeltaThreshold)
             {
                 foreach (var agent in agents)
-                {
                     agent.AIUpdate();
-                }
+                
                 elapsedSinceLastTick = 0f;
             }
 
