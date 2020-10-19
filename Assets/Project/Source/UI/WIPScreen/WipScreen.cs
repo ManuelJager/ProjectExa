@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using DG.Tweening;
 using Exa.Data;
 using Exa.UI.Tweening;
@@ -24,12 +25,12 @@ namespace Exa.UI
         [SerializeField] private bool forceShowScreen;
         [SerializeField] private AnimSettings animSettings;
 
-        private TweenRef<float> titleSpacingTween;
+        //private TweenRef<float> titleSpacingTween;
         private TweenRef<Vector3> textContainerScaleTween;
 
         public void Init()
         {
-            titleSpacingTween = new TweenWrapper<float>(wordLayoutGroup.DOSpacing);
+            //titleSpacingTween = new TweenWrapper<float>(wordLayoutGroup.DOSpacing);
             textContainerScaleTween = new TweenWrapper<Vector3>(textContainer.DOScale);
 
             if (!Debug.isDebugBuild || forceShowScreen)
@@ -51,19 +52,27 @@ namespace Exa.UI
 
             this.Delay(() => GrowText(animSettings.textGrowthExit), animSettings.textGrowthEnter.duration);
 
-            GenerateTitle();
+            GenerateTitle(animSettings.scrollTitle);
         }
 
-        private void GenerateTitle()
+        private void GenerateTitle(bool scrollAnimation)
         {
             var charCount = 0;
             foreach (var word in animSettings.message.Split(' '))
             {
                 var go = Instantiate(wordPrefab, wordContainer);
-                go.GetComponent<Text>().text = "";
-                var animator = go.AddComponent<TextAnimator>();
-                animator.CharTime = animSettings.charTime;
-                this.Delay(() => animator.AnimateTo(word), charCount * animSettings.charTime + animSettings.textFadeEnter.delay);
+                var text = go.GetComponent<Text>();
+                if (scrollAnimation)
+                {
+                    text.text = "";
+                    var animator = go.AddComponent<TextAnimator>();
+                    animator.CharTime = animSettings.charTime;
+                    this.Delay(() => animator.AnimateTo(word),
+                        charCount * animSettings.charTime + animSettings.textFadeEnter.delay);
+                }
+                else
+                    text.text = word;
+                        
                 charCount += word.Length;
             }
         }
@@ -93,6 +102,7 @@ namespace Exa.UI
             public TextGrowthArgs textGrowthExit;
             public float screenDuration;
             public float fadeOutDuration;
+            public bool scrollTitle;
             public float charTime;
             public string message;
 

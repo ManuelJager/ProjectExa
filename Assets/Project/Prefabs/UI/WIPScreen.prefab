@@ -233,10 +233,10 @@ MonoBehaviour:
     textGrowthEnter:
       duration: 4.5
       scale: 1.5
-      spacing: 40
+      spacing: 12
       ease:
         easeType: 0
-        ease: 15
+        ease: 6
         animationCurve:
           serializedVersion: 2
           m_Curve:
@@ -264,7 +264,7 @@ MonoBehaviour:
     textGrowthExit:
       duration: 1
       scale: 0.5
-      spacing: 12
+      spacing: 4
       ease:
         easeType: 0
         ease: 11
@@ -276,6 +276,7 @@ MonoBehaviour:
           m_RotationOrder: 4
     screenDuration: 5
     fadeOutDuration: 0.5
+    scrollTitle: 0
     charTime: 0.02
     message: This game is an ongoing work in progress
 --- !u!225 &5476832370832611862
