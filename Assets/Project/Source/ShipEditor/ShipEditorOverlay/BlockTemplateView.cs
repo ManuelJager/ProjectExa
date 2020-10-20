@@ -1,6 +1,11 @@
-﻿using Exa.Bindings;
+﻿using System.Runtime.CompilerServices;
+using DG.Tweening;
+using Exa.Bindings;
+using Exa.Data;
 using Exa.Grids.Blocks;
 using Exa.UI;
+using Exa.UI.Components;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 #pragma warning disable CS0649
@@ -9,12 +14,22 @@ namespace Exa.ShipEditor
 {
     public class BlockTemplateView : MonoBehaviour, IObserver<BlockTemplate>
     {
+        [Header("References")]
         public Button button;
-
         [SerializeField] private Text blockSizeText;
         [SerializeField] private Image image;
+        [SerializeField] private Border activeBorder;
         [SerializeField] private Hoverable hoverable;
+
+        [Header("Settings")] 
+        [SerializeField] private ActivePair<Color> backgroundColors;
+
         private BlockTemplate data;
+
+        public bool Selected
+        {
+            set => activeBorder.SetVisibility(value);
+        }
 
         private void Awake()
         {

@@ -9,13 +9,13 @@ namespace Exa.Grids.Blocks
         {
             gameObject.SetActive(true);
             var tooltip = Systems.Blocks.valuesStore.GetTooltip(shipContext, blockTemplate);
-            Systems.UI.tooltips.tooltipGenerator.CreateRootView(tooltip, container);
+            Systems.UI.tooltips.tooltipGenerator.CreateRootView(tooltip, itemsContainer);
             UpdatePosition(true);
         }
 
         public void Hide()
         {
-            container.DestroyChildren();
+            itemsContainer.DestroyChildren();
             gameObject.SetActive(false);
         }
     }

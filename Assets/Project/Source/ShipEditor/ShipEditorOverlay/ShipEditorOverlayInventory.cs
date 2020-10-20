@@ -18,6 +18,7 @@ namespace Exa.ShipEditor
 
         [SerializeField] private GameObject expandableItemPrefab;
         private readonly Dictionary<BlockCategory, ExpandableItem> blockCategories = new Dictionary<BlockCategory, ExpandableItem>();
+        private BlockTemplateView activeView;
 
         private void Start()
         {
@@ -42,6 +43,12 @@ namespace Exa.ShipEditor
 
             view.button.onClick.AddListener(() =>
             {
+                if (activeView != null)
+                    activeView.Selected = false;
+
+                activeView = view;
+                activeView.Selected = true;
+
                 blockSelected?.Invoke(observer.Data);
             });
         }

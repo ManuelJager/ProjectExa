@@ -64,16 +64,12 @@ namespace Exa.UI
         {
             titleRectTransform.DOAnchorPos(new Vector2(0f, -10f), 0.2f);
             titleCanvasGroup.DOFade(1, 0.2f);
-            border.gameObject.SetActive(true);
-            overlay.gameObject.SetActive(true);
         }
 
         public void OnPointerExit()
         {
             titleRectTransform.DOAnchorPos(new Vector2(0f, 40f), 0.2f);
             titleCanvasGroup.DOFade(0f, 0.2f);
-            border.gameObject.SetActive(false);
-            overlay.gameObject.SetActive(false);
         }
     }
 }

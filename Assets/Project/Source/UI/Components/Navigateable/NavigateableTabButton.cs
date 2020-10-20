@@ -24,21 +24,9 @@ namespace Exa.UI.Components
         [SerializeField] private float duration;
         [SerializeField] private ActivePair<AnimationArgs> animArgs;
 
-        private TweenRef<Vector2> rectTween;
-        private TweenRef<Color> imageTween;
-        private TweenRef<int> fontTween;
-
-        private void Awake()
-        {
-            rectTween = new TweenWrapper<Vector2>(self.DOSizeDelta)
-                .SetDuration(duration);
-            imageTween = new TweenWrapper<Color>(image.DOColor)
-                .SetDuration(duration);
-            fontTween = new IntTween()
-                .DOGetter(() => text.fontSize)
-                .DOSetter(x => text.fontSize = x)
-                .SetDuration(duration);
-        }
+        private Tween rectTween;
+        private Tween imageTween;
+        private Tween fontTween;
 
         public override void HandleExit(Navigateable target)
         {
@@ -60,9 +48,12 @@ namespace Exa.UI.Components
 
         private void Animate(AnimationArgs args)
         {
-            rectTween.To(self.sizeDelta.SetY(args.height));
-            imageTween.To(args.color);
-            fontTween.To(args.fontSize);
+            self.DOSizeDelta(self.sizeDelta.SetY(args.height), duration)
+                .Replace(ref rectTween);
+            image.DOColor(args.color, duration)
+                .Replace(ref imageTween);
+            text.DOFontSize(args.fontSize, duration)
+                .Replace(ref fontTween);
         }
 
         [Serializable]

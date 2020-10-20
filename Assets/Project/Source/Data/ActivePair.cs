@@ -8,6 +8,12 @@ namespace Exa.Data
         public T active;
         public T inactive;
 
+        public ActivePair(T active, T inactive)
+        {
+            this.active = active;
+            this.inactive = inactive;
+        }
+
         public T GetValue(bool active)
         {
             return active ? this.active : this.inactive;

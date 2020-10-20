@@ -22,9 +22,8 @@ namespace Exa.UI.Tooltips
         public TooltipGroup GetRootData()
         {
             if (ShouldRefresh)
-            {
                 group = factory();
-            }
+            
             return group;
         }
     }

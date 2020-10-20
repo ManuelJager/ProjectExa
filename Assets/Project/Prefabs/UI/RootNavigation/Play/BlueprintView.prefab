@@ -61,7 +61,7 @@ MonoBehaviour:
   titleCanvasGroup: {fileID: 2236014684706505968}
   border: {fileID: 21178580133587626}
   overlay: {fileID: 619073201599310817}
-  borderOutline: {fileID: 6027282828077044886}
+  borderOutline: {fileID: 0}
   overlayText: {fileID: 152489722526842311}
   selectedColor:
     active: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}
@@ -673,6 +673,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 3613674374128188045}
+        m_TargetAssemblyTypeName: Exa.UI.Components.Border, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8704964408690568834}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onPointerExit:
     m_PersistentCalls:
       m_Calls:
@@ -680,6 +704,30 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Exa.UI.FleetBuilderBlueprintView, Assembly-CSharp
         m_MethodName: OnPointerExit
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3613674374128188045}
+        m_TargetAssemblyTypeName: Exa.UI.Components.Border, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8704964408690568834}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -924,16 +972,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2eca6e6eaf2e724381d5f3c377a9b85, type: 3}
---- !u!114 &6027282828077044886 stripped
+--- !u!114 &3613674374128188045 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4248011012652510525, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
+  m_CorrespondingSourceObject: {fileID: 6588937763365978918, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
     type: 3}
   m_PrefabInstance: {fileID: 7590467862431644075}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bc325bde76f3c04a9785b5842d82904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &21178580133587626 stripped

@@ -20,7 +20,7 @@ namespace Exa.UI
         [SerializeField] private Text text;
         [SerializeField] private LayoutElement layoutElement;
         private BlueprintTypeTabContent content;
-        private TweenRef<float> sizeTween;
+        private Tween sizeTween;
 
         public BlueprintTypeSelectEvent SelectType = new BlueprintTypeSelectEvent();
 
@@ -54,8 +54,8 @@ namespace Exa.UI
 
         private void Animate(float target)
         {
-            sizeTween = sizeTween ?? new TweenWrapper<float>(layoutElement.DOPreferredHeight);
-            sizeTween.To(target, 0.2f);
+            layoutElement.DOPreferredHeight(target, 0.2f)
+                .Replace(ref sizeTween);
         }
     }
 }

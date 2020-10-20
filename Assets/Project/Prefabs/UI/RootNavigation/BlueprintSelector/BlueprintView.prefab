@@ -803,10 +803,10 @@ MonoBehaviour:
   onPointerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1802228895864705812}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7184649493658561640}
+        m_TargetAssemblyTypeName: Exa.UI.Components.Border, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -830,10 +830,10 @@ MonoBehaviour:
   onPointerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1802228895864705812}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7184649493658561640}
+        m_TargetAssemblyTypeName: Exa.UI.Components.Border, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1221,10 +1221,10 @@ MonoBehaviour:
   onPointerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8411568941999804226}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1012228431504207934}
+        m_TargetAssemblyTypeName: Exa.UI.Components.Border, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1260,10 +1260,10 @@ MonoBehaviour:
   onPointerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8411568941999804226}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1012228431504207934}
+        m_TargetAssemblyTypeName: Exa.UI.Components.Border, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1439,15 +1439,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2eca6e6eaf2e724381d5f3c377a9b85, type: 3}
---- !u!224 &5897574599563377743 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7574491075590755073, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
+--- !u!114 &7184649493658561640 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6588937763365978918, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
     type: 3}
   m_PrefabInstance: {fileID: 4090846649426079566}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1802228895864705812 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2434009762545187930, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc325bde76f3c04a9785b5842d82904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &5897574599563377743 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7574491075590755073, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
     type: 3}
   m_PrefabInstance: {fileID: 4090846649426079566}
   m_PrefabAsset: {fileID: 0}
@@ -1595,15 +1601,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2eca6e6eaf2e724381d5f3c377a9b85, type: 3}
---- !u!1 &8411568941999804226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2434009762545187930, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
-    type: 3}
-  m_PrefabInstance: {fileID: 6159995861319152408}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4350842386100379673 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7574491075590755073, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
     type: 3}
   m_PrefabInstance: {fileID: 6159995861319152408}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1012228431504207934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6588937763365978918, guid: a2eca6e6eaf2e724381d5f3c377a9b85,
+    type: 3}
+  m_PrefabInstance: {fileID: 6159995861319152408}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc325bde76f3c04a9785b5842d82904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

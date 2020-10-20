@@ -8,6 +8,12 @@ namespace Exa.Utils
 {
     public static class TweeningExtensions
     {
+        public static Tween Replace(this Tween tween, ref Tween oldTween)
+        {
+            oldTween?.Kill();
+            return oldTween = tween;
+        }
+
         #region Shortcuts
 
         #region Transform

@@ -12,13 +12,10 @@ namespace Exa.UI
         [SerializeField] private LayoutElement tooltipContainer;
         [SerializeField] private TextAnimator textAnimator;
 
-        private TweenRef<float> heightTween;
+        private Tween heightTween;
 
         private void Awake()
         {
-            heightTween = new TweenWrapper<float>(tooltipContainer.DOPreferredHeight)
-                .SetDuration(0.15f);
-
             RemoveLock();
         }
 
@@ -35,7 +32,8 @@ namespace Exa.UI
 
         private void Animate(bool active)
         {
-            heightTween.To(active ? 60f : 0f);
+            tooltipContainer.DOPreferredHeight(active ? 60f : 0f, 0.15f)
+                .Replace(ref heightTween);
         }
     }
 }

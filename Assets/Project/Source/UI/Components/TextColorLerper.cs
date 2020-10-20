@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Exa.Data;
 using Exa.UI.Tweening;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 #pragma warning disable CS0649
@@ -12,17 +13,12 @@ namespace Exa.UI.Components
         [SerializeField] private Text text;
         [SerializeField] private ActivePair<Color> color;
 
-        private TweenRef<Color> colorTween;
-
-        private void Awake()
-        {
-            colorTween = new TweenWrapper<Color>(text.DOColor)
-                .SetDuration(0.1f);
-        }
+        private Tween colorTween;
 
         public void SetColor(bool active)
         {
-            colorTween.To(color.GetValue(active), 0.1f);
+            text.DOColor(color.GetValue(active), 0.1f)
+                .Replace(ref colorTween);
         }
     }
 }

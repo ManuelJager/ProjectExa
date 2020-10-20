@@ -23,9 +23,9 @@ namespace Exa.UI.Tooltips
 
         public void Rebuild(T data)
         {
-            container.DestroyChildren();
+            itemsContainer.DestroyChildren();
             tooltip = data.GetTooltip();
-            Root = Systems.UI.tooltips.tooltipGenerator.CreateRootView(tooltip, container);
+            Root = Systems.UI.tooltips.tooltipGenerator.CreateRootView(tooltip, itemsContainer);
             tooltip.ShouldRefresh = false;
         }
     }

@@ -24,18 +24,11 @@ namespace Exa.UI
         [Header("Events")]
         public UnityEvent fleetChange = new UnityEvent();
 
-        private TweenRef<int> fontSizeTween;
-        private TweenRef<Color> colorTween;
+        private Tween fontSizeTween;
+        private Tween colorTween;
         private Func<BlueprintContainer, FleetBuilderBlueprintView> viewFactory;
-        private Action<Transform> returnView;
 
         public Fleet Fleet { get; private set; }
-
-        private void Awake()
-        {
-            fontSizeTween = new TweenWrapper<int>(unitCountText.DOFontSize);
-            colorTween = new TweenWrapper<Color>(unitCountText.DOColor);
-        }
 
         public void Create(int capacity, Func<BlueprintContainer, FleetBuilderBlueprintView> viewFactory)
         {
@@ -121,10 +114,12 @@ namespace Exa.UI
         private void OnUnitsFull(AnimationArgs args)
         {
             unitCountText.fontSize = args.fontSize.active;
-            fontSizeTween.To(args.fontSize.inactive, args.animTime);
+            unitCountText.DOFontSize(args.fontSize.inactive, args.animTime)
+                .Replace(ref fontSizeTween);
 
             unitCountText.color = args.color.active;
-            colorTween.To(args.color.inactive, args.animTime);
+            unitCountText.DOColor(args.color.inactive, args.animTime)
+                .Replace(ref colorTween);
         }
 
         private void UpdateUnitCountText()

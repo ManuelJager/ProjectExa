@@ -12,7 +12,8 @@ namespace Exa.UI.Tooltips
     public class FloatingTooltip : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] protected RectTransform container;
+        [SerializeField] protected RectTransform tooltipRoot;
+        [SerializeField] protected RectTransform itemsContainer;
 
         [Header("Settings")]
         [SerializeField] private Vector2 offset = new Vector2(4f, 4f);
@@ -56,7 +57,7 @@ namespace Exa.UI.Tooltips
         protected virtual Vector2 ClampPos(Vector2 input)
         {
             var size = GetTooltipSize();
-            var pivot = container.pivot;
+            var pivot = tooltipRoot.pivot;
             var min = GetMinBounds(size, pivot);
             var max = GetMaxBounds(size, pivot, GetSize(RootRect));
             return MathUtils.Clamp(input, min, max);
@@ -64,7 +65,7 @@ namespace Exa.UI.Tooltips
 
         protected virtual Vector2 GetTooltipSize()
         {
-            return GetSize(container.rect);
+            return GetSize(tooltipRoot.rect);
         }
 
         protected Vector2 GetSize(Rect rect)
@@ -98,12 +99,12 @@ namespace Exa.UI.Tooltips
         {
             if (immediate)
             {
-                container.anchoredPosition = pos;
+                tooltipRoot.anchoredPosition = pos;
                 return;
             }
 
             posTween?.Kill();
-            posTween = container.DOAnchorPos(pos, animTime)
+            posTween = tooltipRoot.DOAnchorPos(pos, animTime)
                 .SetEase(Ease.OutQuad);
         }
     }

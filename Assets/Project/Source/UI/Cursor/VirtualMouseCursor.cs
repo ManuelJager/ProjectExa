@@ -41,9 +41,9 @@ namespace Exa.UI
 
         private CursorDragState cursorDragState = CursorDragState.NotDragging;
         private CursorState cursorState = CursorState.idle;
-        private TweenWrapper<Color> cursorColorTween;
-        private TweenWrapper<float> cursorClickAlphaTween;
-        private TweenWrapper<Vector3> cursorDragRotateTween;
+        private Tween cursorColorTween;
+        private Tween cursorClickAlphaTween;
+        private Tween cursorDragRotateTween;
         private FloatTweenBlender cursorScaleBlender;
 
         public Vector2? DragPivot { get; set; }
@@ -57,10 +57,6 @@ namespace Exa.UI
 
             inputAction.started += OnLeftMouseStarted;
             inputAction.canceled += OnLeftMouseCanceled;
-
-            cursorColorTween = new TweenWrapper<Color>(backgroundImage.DOColor);
-            cursorClickAlphaTween = new TweenWrapper<float>(backgroundGroup.DOFade);
-            cursorDragRotateTween = new TweenWrapper<Vector3>(normalCursor.DORotate);
 
             cursorScaleBlender = new FloatTweenBlender(1f,
                 value => rectTransform.localScale = new Vector3(value, value, 1),
@@ -114,7 +110,8 @@ namespace Exa.UI
             SwitchActive(state, true);
             cursorState = state;
 
-            cursorColorTween.To(GetCursorColor(state), cursorColorAnimTime);
+            backgroundImage.DOColor(GetCursorColor(state), cursorColorAnimTime)
+                .Replace(ref cursorColorTween);
         }
 
         public void OnEnterViewport()
@@ -149,15 +146,17 @@ namespace Exa.UI
             cursorScaleBlender.To(1, args.sizeTarget, args.animTime)
                 .SetEase(args.ease);
 
-            cursorClickAlphaTween.To(args.alphaTarget, args.animTime)
-                .SetEase(args.ease);
+            backgroundGroup.DOFade(args.alphaTarget, args.animTime)
+                .SetEase(args.ease)
+                .Replace(ref cursorClickAlphaTween);
         }
 
         private void AnimCursorDirection(float angle, CursorDragAnimSettings args)
         {
             var targetVector = new Vector3(0, 0, angle);
-            cursorDragRotateTween.To(targetVector, args.animTime)
-                .SetEase(args.ease);
+            normalCursor.DORotate(targetVector, args.animTime)
+                .SetEase(args.ease)
+                .Replace(ref cursorDragRotateTween);
         }
 
         private void SwitchActive(CursorState state, bool active)

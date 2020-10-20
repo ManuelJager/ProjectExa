@@ -25,14 +25,11 @@ namespace Exa.UI
         [SerializeField] private bool forceShowScreen;
         [SerializeField] private AnimSettings animSettings;
 
-        //private TweenRef<float> titleSpacingTween;
-        private TweenRef<Vector3> textContainerScaleTween;
+        private Tween titleSpacingTween;
+        private Tween textContainerScaleTween;
 
         public void Init()
         {
-            //titleSpacingTween = new TweenWrapper<float>(wordLayoutGroup.DOSpacing);
-            textContainerScaleTween = new TweenWrapper<Vector3>(textContainer.DOScale);
-
             if (!Debug.isDebugBuild || forceShowScreen)
                 ShowScreen();
         }
@@ -90,8 +87,9 @@ namespace Exa.UI
             //    .SetEase(args.ease);
 
             var scale = new Vector3(args.scale, args.scale, 1f);
-            textContainerScaleTween.To(scale, args.duration)
-                .SetEase(args.ease);
+            textContainer.DOScale(scale, args.duration)
+                .SetEase(args.ease)
+                .Replace(ref textContainerScaleTween);
         }
 
         [Serializable]
