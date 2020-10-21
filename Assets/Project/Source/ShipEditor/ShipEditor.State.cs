@@ -75,10 +75,7 @@ namespace Exa.ShipEditor
             }
         }
 
-        private bool ShouldSave
-        {
-            get => !IsSaved && NameValidationResult && GridValidationResult;
-        }
+        private bool ShouldSave { get; set; }
 
         private void ResetState()
         {
@@ -90,12 +87,37 @@ namespace Exa.ShipEditor
             Camera.main.orthographicSize = Zoom;
         }
 
-        public void UpdateSaveButtonActive()
+        public void UpdateSaveButton()
         {
-            var valid = ShouldSave;
+            ShouldSave = GetShouldSave(out var message);
 
-            overlay.infoPanel.saveButtonCanvasGroup.interactable = valid;
-            overlay.infoPanel.saveButtonCanvasGroup.alpha = valid ? 1f : 0.5f;
+            overlay.infoPanel.saveButtonTooltipTrigger.SetText(message);
+            overlay.infoPanel.saveButtonCanvasGroup.interactable = ShouldSave;
+            overlay.infoPanel.saveButtonCanvasGroup.alpha = ShouldSave ? 1f : 0.5f;
+        }
+
+        private bool GetShouldSave(out string message)
+        {
+            if (IsSaved)
+            {
+                message = "Blueprint is already saved";
+                return false;
+            }
+
+            if (!NameValidationResult)
+            {
+                message = NameValidationResult.GetFirstBySeverity().Message;
+                return false;
+            }
+
+            if (!GridValidationResult)
+            {
+                message = GridValidationResult.GetFirstBySeverity().Message;
+                return false;
+            }
+
+            message = null;
+            return true;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Exa.UI
         public void ReflectFleetBuilderResult(ValidationResult result)
         {
             button.Interactable = result;
-            tooltipTrigger.SetText(result.GetFirstBySeverity()?.Message ?? "");
+            tooltipTrigger.SetText(result.GetFirstBySeverity()?.Message);
         }
     }
 }

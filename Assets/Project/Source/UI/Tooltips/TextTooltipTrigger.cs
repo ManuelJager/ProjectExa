@@ -14,7 +14,7 @@ namespace Exa.UI.Tooltips
             hoverable = hoverable ?? GetComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() =>
             {
-                if (message != "")
+                if (!string.IsNullOrEmpty(message))
                     TextTooltip.ShowTooltip(message);
             });
 
@@ -24,11 +24,12 @@ namespace Exa.UI.Tooltips
         public void SetText(string message)
         {
             this.message = message;
+            var stringNullOrEmpty = string.IsNullOrEmpty(message);
 
-            if (hoverable.MouseOverControl && message == "")
+            if (hoverable.MouseOverControl && stringNullOrEmpty)
                 TextTooltip.HideTooltip();
 
-            if (hoverable.MouseOverControl && message != "")
+            if (hoverable.MouseOverControl && !stringNullOrEmpty)
                 TextTooltip.ShowTooltip(message);
         }
     }

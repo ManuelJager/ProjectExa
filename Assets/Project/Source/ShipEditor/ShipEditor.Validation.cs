@@ -31,9 +31,7 @@
                 .Validate(nameValidator, args);
 
             if (NameValidationResult)
-            {
                 editorGrid.blueprintLayer.ActiveBlueprint.name = name;
-            }
         }
     }
 }

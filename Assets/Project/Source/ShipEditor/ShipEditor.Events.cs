@@ -28,20 +28,20 @@
         public void OnBlueprintChanged()
         {
             IsSaved = false;
-            UpdateSaveButtonActive();
+            UpdateSaveButton();
         }
 
         public void OnBlueprintNameInputChanged(string value)
         {
             IsSaved = false;
             ValidateName(value);
-            UpdateSaveButtonActive();
+            UpdateSaveButton();
         }
 
         public void OnBlueprintGridValidationRequested()
         {
             ValidateGrid();
-            UpdateSaveButtonActive();
+            UpdateSaveButton();
         }
 
         public void OnBlueprintSave()
@@ -51,12 +51,12 @@
 
             // Make sure the grid is validated before saving
             ValidateGrid();
-            UpdateSaveButtonActive();
+            UpdateSaveButton();
 
             if (!ShouldSave) return;
 
             IsSaved = true;
-            UpdateSaveButtonActive();
+            UpdateSaveButton();
 
             // Set the value of the observable
             container.SetData(editorGrid.blueprintLayer.ActiveBlueprint, false);

@@ -3,6 +3,7 @@ using Exa.Input;
 using Exa.IO;
 using Exa.UI;
 using System;
+using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static Exa.Input.GameControls;
@@ -20,7 +21,6 @@ namespace Exa.ShipEditor
         [SerializeField] private GameObject editorGridBackground;
         [SerializeField] private float zoomSpeed;
         private GameControls gameControls;
-        [FormerlySerializedAs("shipEditorOverlay")]
         private ShipEditorOverlay overlay;
 
         private void Awake()
