@@ -10,6 +10,11 @@ namespace Exa.UI.Gameplay
 
         private bool isPaused = false;
 
+        private void Awake()
+        {
+            pauseMenu.continueAction = TogglePause;
+        }
+
         public void TogglePause()
         {
             Navigateable Select(bool revert = false) => isPaused ^ revert 

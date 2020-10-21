@@ -1,5 +1,7 @@
 ﻿using Exa.UI;
 using System.Collections;
+using System.Collections.Generic;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,16 +25,25 @@ namespace Exa.SceneManagement
     public class ExaSceneManager : MonoBehaviour
     {
         private LoadingScreen loadingScreen;
+        private Dictionary<string, SceneStatus> sceneStatuses;
 
         private void Awake()
         {
             loadingScreen = Systems.UI.loadingScreen;
+            sceneStatuses = new Dictionary<string, SceneStatus>();
         }
 
         public SceneTransition Transition(string name, TransitionArgs transitionArgs)
         {
             var operation = SceneManager.LoadSceneAsync(name, transitionArgs.loadSceneMode);
             var transition = new SceneTransition(operation);
+
+            sceneStatuses.EnsureCreated(name, () => new SceneStatus());
+            sceneStatuses[name].loading = true;
+            transition.onPrepared.AddListener(() =>
+            {
+                sceneStatuses[name].loading = false;
+            });
 
             if (transitionArgs.loadScreenMode != LoadScreenMode.None)
             {
@@ -56,6 +67,30 @@ namespace Exa.SceneManagement
             return transition;
         }
 
+        public bool GetSceneIsLoading(string name)
+        {
+            sceneStatuses.EnsureCreated(name, () => new SceneStatus());
+            return sceneStatuses[name].loading;
+        }
+
+        public bool GetSceneIsUnloading(string name)
+        {
+            sceneStatuses.EnsureCreated(name, () => new SceneStatus());
+            return sceneStatuses[name].unloading;
+        }
+
+        public AsyncOperation UnloadAsync(string name)
+        {
+            sceneStatuses.EnsureCreated(name, () => new SceneStatus());
+            sceneStatuses[name].unloading = true;
+            var asyncOperation = SceneManager.UnloadSceneAsync(name);
+            asyncOperation.completed += (op) =>
+            {
+                sceneStatuses[name].unloading = false;
+            };
+            return asyncOperation;
+        }
+
         private IEnumerator ReportOperation(AsyncOperation operation)
         {
             while (true)
@@ -67,6 +102,12 @@ namespace Exa.SceneManagement
                 
                 yield return operation;
             }
+        }
+
+        private class SceneStatus
+        {
+            public bool loading;
+            public bool unloading;
         }
     }
 }

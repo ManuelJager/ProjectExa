@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Exa.SceneManagement;
 
 namespace Exa.Pooling
 {
@@ -9,15 +10,16 @@ namespace Exa.Pooling
         protected virtual void OnDisable()
         {
             if (Systems.IsQuitting) return;
-
-            pool.Return(this);
+            if (pool?.GetParentSceneIsUnloading() == false)
+                pool.Return(this);
         }
 
         protected virtual void OnDestroy()
         {
             if (Systems.IsQuitting) return;
 
-            pool.totalMembers--;
+            if (pool?.GetParentSceneIsUnloading() == false)
+                pool.totalMembers--;
         }
     }
 }

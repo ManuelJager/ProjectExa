@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.SceneManagement;
+using UnityEngine;
 
 namespace Exa.AI
 {
@@ -11,7 +12,8 @@ namespace Exa.AI
 
         protected virtual void OnDisable()
         {
-            GameSystems.AI.Unregister(this);
+            if (GameSystems.Instance != null && GameSystems.AI != null && !GameSystems.AI.GetParentSceneIsUnloading())
+                GameSystems.AI.Unregister(this);
         }
 
         public abstract void AIUpdate();

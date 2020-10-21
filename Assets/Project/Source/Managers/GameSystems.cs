@@ -24,7 +24,8 @@ namespace Exa
         public static ShipFactory ShipFactory => Instance.shipFactory;
         public static GameplayUI UI => Instance.gameplayUI;
         public static AIManager AI => Instance.aIManager;
-        public static Mission Mission { get; private set; }
+
+        public Mission Mission { get; private set; }
 
         public void LoadMission(Mission mission, MissionArgs args)
         {

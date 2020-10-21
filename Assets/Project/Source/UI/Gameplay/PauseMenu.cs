@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Exa.UI.Components;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,7 +14,23 @@ namespace Exa.UI.Gameplay
     public class PauseMenu : Navigateable
     {
         public Navigateable navigateable;
-        [SerializeField] private Navigateable gameplayLayer;
+
+        public Action continueAction;
+
+        public void Continue()
+        {
+            continueAction();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Load()
+        {
+            throw new NotImplementedException();
+        }
 
         public void QuitToMenu()
         {

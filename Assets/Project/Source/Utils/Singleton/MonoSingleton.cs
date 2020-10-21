@@ -20,13 +20,7 @@ namespace Exa.Utils
                 else
                     instance = value;
             }
-            get
-            {
-                if (instance == null)
-                    throw new NullReferenceException($"Missing instance on type {typeof(T)}");
-                
-                return instance;
-            }
+            get => instance;
         }
 
         /// <summary>
