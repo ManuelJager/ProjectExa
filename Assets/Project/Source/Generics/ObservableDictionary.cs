@@ -19,12 +19,9 @@ namespace Exa.Generics
             get
             {
                 foreach (var item in this)
-                {
                     if (comparer.Equals(key, KeySelector(item)))
-                    {
                         return item;
-                    }
-                }
+                
 
                 throw new KeyNotFoundException();
             }
@@ -33,12 +30,8 @@ namespace Exa.Generics
         public bool ContainsKey(TKey key)
         {
             foreach (var item in this)
-            {
                 if (comparer.Equals(key, KeySelector(item)))
-                {
                     return true;
-                }
-            }
 
             return false;
         }

@@ -16,9 +16,7 @@ namespace Exa.Grids.Blocks.Components
             var damageMask = ~Ship.BlockContext;
 
             foreach (var part in parts)
-            {
                 part.Setup(animTime, damageMask);
-            }
         }
 
         public override void Fire()
@@ -32,10 +30,9 @@ namespace Exa.Grids.Blocks.Components
                     break;
 
                 case CycleMode.Volley:
-                    for (int i = 0; i < parts.Length; i++)
-                    {
-                        parts[i].Fire(data.damage);
-                    }
+                    foreach (var part in parts)
+                        part.Fire(data.damage);
+                    
                     break;
             }
         }

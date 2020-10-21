@@ -4,6 +4,8 @@ using DG.Tweening;
 using Exa.Data;
 using Exa.Utils;
 using UnityEngine;
+using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Components
@@ -12,12 +14,19 @@ namespace Exa.UI.Components
     {
         [Header("References")] 
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private Image image;
 
         [Header("Settings")] 
         [SerializeField] private ActivePair<float> imageAlpha = new ActivePair<float>(1f, 0f);
         [SerializeField] private float animTime = 0.1f;
 
         private Tween alphaTween;
+
+        public Color Color
+        {
+            get => image.color;
+            set => image.color = value;
+        }
 
         public void Show()
         {

@@ -13,8 +13,7 @@ namespace Exa.Gameplay.Missions
 
         protected void SpawnMothership(BlueprintContainer mothership)
         {
-            var blueprintName = mothership.Data.name;
-            GameSystems.ShipFactory.CreateFriendly(blueprintName, new Vector2(-20, 20));
+            GameSystems.ShipFactory.CreateFriendly(mothership.Data, new Vector2(-20, 20));
         }
     }
 }

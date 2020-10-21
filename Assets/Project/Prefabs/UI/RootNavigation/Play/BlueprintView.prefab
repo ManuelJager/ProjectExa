@@ -61,7 +61,7 @@ MonoBehaviour:
   titleCanvasGroup: {fileID: 2236014684706505968}
   border: {fileID: 21178580133587626}
   overlay: {fileID: 619073201599310817}
-  borderOutline: {fileID: 0}
+  borderOutline: {fileID: 3613674374128188045}
   overlayText: {fileID: 152489722526842311}
   selectedColor:
     active: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}

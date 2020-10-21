@@ -17,7 +17,6 @@ namespace Exa.Grids
             var neighbours = new List<T>();
 
             foreach (var neighbourPosition in neighbourPositions)
-            {
                 if (grid.ContainsMember(neighbourPosition))
                 {
                     var neighbour = grid.GetMember(neighbourPosition);
@@ -27,7 +26,6 @@ namespace Exa.Grids
                         yield return neighbour;
                     }
                 }
-            }
         }
 
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(IGridMember gridMember)

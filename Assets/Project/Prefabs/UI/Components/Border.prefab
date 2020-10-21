@@ -72,6 +72,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 297624187869118434}
+  image: {fileID: 6267824856190849940}
+  imageAlpha:
+    active: 1
+    inactive: 0
   animTime: 0.25
 --- !u!1 &5722894220946275569
 GameObject:

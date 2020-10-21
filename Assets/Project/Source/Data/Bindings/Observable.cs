@@ -30,9 +30,7 @@ namespace Exa.Bindings
         public virtual void Notify()
         {
             foreach (var observer in observers)
-            {
                 observer.OnUpdate(Data);
-            }
         }
 
         public virtual void Register(IObserver<T> observer)
@@ -58,13 +56,10 @@ namespace Exa.Bindings
 
         public override bool Equals(object obj)
         {
-            if (!(obj is Observable<T>)) return false;
+            if (obj is Observable<T> other)
+                return Data.Equals(other.Data);
 
-            if (obj == null) return false;
-
-            var other = obj as Observable<T>;
-
-            return Data.Equals(other.Data);
+            return false;
         }
 
         public static bool operator ==(Observable<T> a, Observable<T> b)

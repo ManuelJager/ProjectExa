@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks;
+using Exa.Grids.Blueprints;
 using UnityEngine;
 #pragma warning disable CS0649
 
@@ -12,41 +13,40 @@ namespace Exa.Ships
         [SerializeField] private Transform shipContainer;
         [SerializeField] private Transform overlayContainer;
 
-        public FriendlyShip CreateFriendly(string blueprintName, Vector2 worldPos)
+        public FriendlyShip CreateFriendly(Blueprint blueprint, Vector2 worldPos)
         {
-            var shipGO = Instantiate(friendlyShipPrefab, shipContainer);
-            shipGO.transform.position = worldPos;
+            var shipGo = Instantiate(friendlyShipPrefab, shipContainer);
+            shipGo.transform.position = worldPos;
 
-            return Configure<FriendlyShip>(shipGO, blueprintName, ShipContext.UserGroup);
+            return Configure<FriendlyShip>(shipGo, blueprint, ShipContext.UserGroup);
         }
 
-        public EnemyShip CreateEnemy(string blueprintName, Vector2 worldPos)
+        public EnemyShip CreateEnemy(Blueprint blueprintName, Vector2 worldPos)
         {
-            var shipGO = Instantiate(enemyShipPrefab, shipContainer);
-            shipGO.transform.position = worldPos;
+            var shipGo = Instantiate(enemyShipPrefab, shipContainer);
+            shipGo.transform.position = worldPos;
 
-            return Configure<EnemyShip>(shipGO, blueprintName, ShipContext.EnemyGroup);
+            return Configure<EnemyShip>(shipGo, blueprintName, ShipContext.EnemyGroup);
         }
 
-        private T Configure<T>(GameObject shipGO, string name, ShipContext blockContext)
+        private T Configure<T>(GameObject shipGo, Blueprint blueprint, ShipContext blockContext)
             where T : Ship
         {
-            var ship = shipGO.GetComponent<T>();
-            var blueprint = Systems.Blueprints.GetBlueprint(name);
+            var ship = shipGo.GetComponent<T>();
             var overlay = CreateOverlay(ship);
-            ship.Import(blueprint.Data, blockContext);
+            ship.Import(blueprint, blockContext);
 
             var instanceString = ship.GetInstanceString();
             overlay.gameObject.name = $"Overlay: {instanceString}";
-            shipGO.name = $"{nameof(T)} - {instanceString}";
+            shipGo.name = $"{nameof(T)} - {instanceString}";
 
             return ship;
         }
 
         private ShipOverlay CreateOverlay(Ship ship)
         {
-            var overlayGO = Instantiate(shipOverlayPrefab, overlayContainer);
-            var overlay = overlayGO.GetComponent<ShipOverlay>();
+            var overlayGo = Instantiate(shipOverlayPrefab, overlayContainer);
+            var overlay = overlayGo.GetComponent<ShipOverlay>();
             overlay.ship = ship;
             ship.overlay = overlay;
             return overlay;

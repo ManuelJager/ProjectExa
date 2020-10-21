@@ -2,6 +2,7 @@
 using Exa.Bindings;
 using Exa.Data;
 using Exa.Grids.Blueprints;
+using Exa.UI.Components;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +21,7 @@ namespace Exa.UI
         [SerializeField] private CanvasGroup titleCanvasGroup;
         [SerializeField] private Transform border;
         [SerializeField] private Transform overlay;
-        [SerializeField] private Outline borderOutline;
+        [SerializeField] private Border borderOutline;
         [SerializeField] private Text overlayText;
 
         [Header("Settings")]
@@ -36,7 +37,7 @@ namespace Exa.UI
             set
             {
                 var color = selectedColor.GetValue(value);
-                borderOutline.effectColor = color;
+                borderOutline.Color = color;
                 overlayText.color = color;
                 overlayText.text = value ? "Remove" : "Select";
                 hoverable.cursorOverride.Value = value ? CursorState.remove : CursorState.active;

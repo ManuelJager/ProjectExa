@@ -439,7 +439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd261e81a935434ca705b49aaca0535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  container: {fileID: 5533999019222784427}
+  tooltipRoot: {fileID: 5533999019222784427}
+  itemsContainer: {fileID: 0}
   offset: {x: 20, y: 20}
   padding: 4
   animTime: 0.1
