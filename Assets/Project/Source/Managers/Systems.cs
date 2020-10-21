@@ -8,6 +8,7 @@ using Exa.UI;
 using Exa.Utils;
 using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
@@ -52,6 +53,15 @@ namespace Exa
         }
 
         public static bool IsQuitting { get; set; } = false;
+
+        public static void Quit()
+        {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
 
         private void Start()
         {

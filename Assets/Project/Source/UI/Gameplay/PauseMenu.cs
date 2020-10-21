@@ -40,11 +40,7 @@ namespace Exa.UI.Gameplay
 
         public void QuitToDesktop()
         {
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+            Systems.Quit();
         }
     }
 }

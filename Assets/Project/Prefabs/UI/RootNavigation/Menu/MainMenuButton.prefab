@@ -21,12 +21,12 @@ MonoBehaviour:
   animArgs:
     active:
       color: {r: 0.23529412, g: 0.23529412, b: 0.27450982, a: 1}
-      height: 120
-      fontSize: 62
+      height: 72
+      fontSize: 48
     inactive:
       color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
-      height: 80
-      fontSize: 42
+      height: 48
+      fontSize: 32
 --- !u!114 &3667008806515302476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 350557258748702759, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 42
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 2519197678057345776, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
         type: 3}

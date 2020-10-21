@@ -14,7 +14,7 @@ namespace Exa.UI.Settings
     {
         public override VideoSettingsValues DefaultValues => new VideoSettingsValues
         {
-            resolution = Screen.currentResolution,
+            resolution = Screen.resolutions.First(),
             fullscreen = false
         };
 

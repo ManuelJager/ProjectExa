@@ -34,10 +34,14 @@ namespace Exa.Data
 
         public virtual void Load()
         {
+#if UNITY_EDITOR
+            Values = DefaultValues;
+#else
             var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
             Values = File.Exists(path)
                 ? IOUtils.JsonDeserializeFromPath<T>(path)
                 : DefaultValues;
+#endif
         }
     }
 }

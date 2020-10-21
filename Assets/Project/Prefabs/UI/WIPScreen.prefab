@@ -232,7 +232,7 @@ MonoBehaviour:
           m_RotationOrder: 4
     textGrowthEnter:
       duration: 4.5
-      scale: 1.5
+      scale: 1
       spacing: 12
       ease:
         easeType: 0
@@ -376,7 +376,7 @@ RectTransform:
   m_GameObject: {fileID: 5296584194374485265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1876997361478163929}
   - {fileID: 3480095541218184802}

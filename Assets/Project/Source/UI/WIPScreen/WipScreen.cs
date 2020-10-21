@@ -30,8 +30,17 @@ namespace Exa.UI
 
         public void Init()
         {
-            if (!Debug.isDebugBuild || forceShowScreen)
+            if (GetShouldShowScreen()) 
                 ShowScreen();
+        }
+
+        private bool GetShouldShowScreen()
+        {
+#if !UNITY_EDITOR
+            return true;
+#else
+            return forceShowScreen;
+#endif
         }
 
         private void ShowScreen()

@@ -88,6 +88,7 @@ namespace Exa.Data
             settingsTab.current = new TSettings();
             settingsTab.current.Load();
             settingsTab.current.Apply();
+            settingsTab.current.Save();
             settingsTab.ReflectValues(settingsTab.current.Values);
         }
     }
