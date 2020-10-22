@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using System;
+using Exa.Generics;
 using Exa.Math;
 using Exa.UI.Settings;
 using System.Linq;
@@ -29,13 +30,12 @@ namespace Exa.Data
 
             // If the are no selected resolutions,
             if (!selectedResolutions.Any())
-            {
                 selectedResolutions = Screen.resolutions;
-            }
+            
 
             // Get resolition view models
             var resolutions = selectedResolutions
-                .Select(resolution => new LabeledValue<object>($"{resolution.width}x{resolution.height}", resolution))
+                .Select(resolution => new LabeledValue<object>($"{resolution.width}x{resolution.height}", resolution) as ILabeledValue<object>)
                 .Reverse();
 
             // Get Refresh rate view models
@@ -43,17 +43,14 @@ namespace Exa.Data
                 .Select(resolution => resolution.refreshRate)
                 .Distinct()
                 .OrderByDescending(resolution => resolution)
-                .Select(refreshRate => new LabeledValue<object>($"{refreshRate} hz", refreshRate));
+                .Select(refreshRate => new LabeledValue<object>($"{refreshRate} hz", refreshRate) as ILabeledValue<object>);
 
-            videoSettings.refreshRatesDropdown.SetLabelText("Refresh rates");
             videoSettings.refreshRatesDropdown.CreateTabs(refreshRates);
 
             // Get first refresh rate
             var firstRefreshRate = (int)videoSettings.refreshRatesDropdown.Value;
-            videoSettings.resolutionDropdown.SetLabelText("Resolutions");
             videoSettings.resolutionDropdown.CreateTabs(resolutions);
             videoSettings.resolutionDropdown.FilterByRefreshRate(firstRefreshRate);
-            videoSettings.refreshRatesDropdown.SelectFirst();
         }
 
         private bool IsAcceptedRefreshRate(Resolution resolution)
@@ -84,12 +81,13 @@ namespace Exa.Data
 
         private void Load<TSettings, TValues>(SettingsTab<TSettings, TValues> settingsTab)
             where TSettings : SaveableSettings<TValues>, new()
+            where TValues : class, IEquatable<TValues>
         {
-            settingsTab.current = new TSettings();
-            settingsTab.current.Load();
-            settingsTab.current.Apply();
-            settingsTab.current.Save();
-            settingsTab.ReflectValues(settingsTab.current.Values);
+            settingsTab.settings = new TSettings();
+            settingsTab.settings.Load();
+            settingsTab.settings.Apply();
+            settingsTab.settings.Save();
+            settingsTab.ReflectValues(settingsTab.settings.Values);
         }
     }
 }

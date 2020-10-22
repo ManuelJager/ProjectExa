@@ -25,7 +25,7 @@ namespace Exa.UI.Components
         /// Switches to the given if the values are not dirty
         /// </summary>
         /// <param name="settingsTab"></param>
-        public void SetActive(SettingsTabBase settingsTab)
+        public void SetActive(SettingsTabBase  settingsTab)
         {
             if (activeSettingsTab == settingsTab) return;
 
@@ -50,7 +50,7 @@ namespace Exa.UI.Components
         public void Update()
         {
             applyButton.Interactable = activeSettingsTab.IsDirty;
-            setDefaultButton.Interactable = activeSettingsTab.IsDirty || !activeSettingsTab.IsDefault;
+            setDefaultButton.Interactable = !activeSettingsTab.IsDefault;
         }
 
         public void QueryUserConfirmation(Action<bool> onClosePrompt)
@@ -73,12 +73,12 @@ namespace Exa.UI.Components
             settingsTab.gameObject.SetActive(true);
         }
 
-        public void SetDefaultValues()
+        public void OnSetDefault()
         {
             activeSettingsTab.SetDefaultValues();
         }
 
-        public void ApplyChanges()
+        public void OnApply()
         {
             activeSettingsTab.ApplyChanges();
         }

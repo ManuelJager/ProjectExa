@@ -26,12 +26,22 @@ namespace Exa.UI.Controls
         [SerializeField] private InputAction clickAction;
         private object value;
 
-        public override object CleanValue { get; set; }
-
         public override object Value
         {
             get => value;
-            set => SetSelected(value);
+            protected set
+            {
+                if (!stateContainer.ContainsValue(value))
+                    throw new ArgumentException("Value not found", nameof(value));
+
+                if (stateContainer.ContainsValue(this.value))
+                    stateContainer.GetTab(this.value).Selected = false;
+                
+                this.value = value;
+                var name = stateContainer.GetName(value);
+                stateContainer.GetTab(value).Selected = true;
+                selectedText.text = name;
+            }
         }
 
         private bool isFoldedOpen;
@@ -63,9 +73,8 @@ namespace Exa.UI.Controls
             };
         }
 
-        protected override void OnEnable()
+        protected void OnEnable()
         {
-            base.OnEnable();
             clickAction.Enable();
         }
 
@@ -74,7 +83,7 @@ namespace Exa.UI.Controls
             clickAction.Disable();
         }
 
-        public virtual void CreateTabs(IEnumerable<LabeledValue<object>> options, Action<object, DropdownTab> onTabCreated = null)
+        public virtual void CreateTabs(IEnumerable<ILabeledValue<object>> options, Action<object, DropdownTab> onTabCreated = null)
         {
             foreach (var option in options)
             {
@@ -82,7 +91,7 @@ namespace Exa.UI.Controls
                 tab.Text = option.Label;
                 tab.button.onClick.AddListener(() =>
                 {
-                    SetSelected(option.Value);
+                    Value = option.Value;
                     ToggleContainer();
                 });
 
@@ -94,27 +103,14 @@ namespace Exa.UI.Controls
             SelectFirst();
         }
 
-        public virtual void SelectFirst()
+        public bool ContainsItem(object item)
         {
-            var firstValue = stateContainer.First();
-
-            SetSelected(firstValue);
+            return stateContainer.ContainsValue(item);
         }
 
-        public virtual void SetSelected(object newValue)
+        public virtual void SelectFirst()
         {
-            if (stateContainer.ContainsValue(value))
-            {
-                stateContainer.GetTab(value).Selected = false;
-            }
-
-            value = newValue;
-
-            var name = stateContainer.GetName(newValue);
-
-            stateContainer.GetTab(value).Selected = true; 
-            onValueChange?.Invoke(value);
-            selectedText.text = name;
+            Value = stateContainer.First();
         }
 
         private void ToggleContainer()

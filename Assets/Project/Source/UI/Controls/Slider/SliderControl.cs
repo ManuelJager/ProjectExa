@@ -15,12 +15,10 @@ namespace Exa.UI.Controls
         [SerializeField] private ExtendedInputField inputField;
         [SerializeField] private ValueOverride<CursorState> cursorState;
 
-        public override float CleanValue { get; set; }
-
         public override float Value
         {
             get => slider.value;
-            set
+            protected set
             {
                 slider.value = value;
                 inputField.text = FormatFloat(value);

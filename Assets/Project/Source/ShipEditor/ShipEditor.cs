@@ -85,7 +85,7 @@ namespace Exa.ShipEditor
 
             ValidateName(newBlueprint.name);
 
-            overlay.infoPanel.blueprintNameInput.SetValueWithoutNotify(newBlueprint.name);
+            overlay.infoPanel.blueprintNameInput.SetValue(newBlueprint.name, false);
         }
 
         public void ExportToClipboard()

@@ -23,7 +23,7 @@ namespace Exa.UI.Tooltips
             return root;
         }
 
-        public PropertyView GenerateTooltipProperty(Transform parent, ILabeledValue<object> value)
+        public PropertyView GenerateTooltipProperty(Transform parent, ITooltipComponent value)
         {
             var view = CreateComponent<PropertyView>(propertyPrefab, parent, value);
 

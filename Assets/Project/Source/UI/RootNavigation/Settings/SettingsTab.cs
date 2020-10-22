@@ -1,4 +1,5 @@
-﻿using Exa.Data;
+﻿using System;
+using Exa.Data;
 using Exa.UI.Components;
 using Exa.UI.Controls;
 using System.Collections.Generic;
@@ -13,13 +14,15 @@ namespace Exa.UI.Settings
     /// <typeparam name="TValues">Type of the settings values for the settings object</typeparam>
     public abstract class SettingsTab<TSettings, TValues> : SettingsTabBase
         where TSettings : SaveableSettings<TValues>, new()
+        where TValues : class, IEquatable<TValues>
     {
         /// <summary>
         /// Current stored settings object
         /// </summary>
-        public TSettings current;
+        public TSettings settings;
 
-        public override bool IsDefault => current.Values.Equals(current.DefaultValues);
+        public override bool IsDefault => settings.Values.Equals(settings.DefaultValues);
+        public override bool IsDirty => !settings.Values.Equals(GetSettingsValues());
 
         /// <summary>
         /// Reflects the values of the settings
@@ -35,7 +38,9 @@ namespace Exa.UI.Settings
 
         public override void SetDefaultValues()
         {
-            Apply(current.DefaultValues);
+            var values = settings.DefaultValues;
+            ReflectValues(values);
+            Apply(values);
         }
 
         public override void ApplyChanges()
@@ -49,36 +54,20 @@ namespace Exa.UI.Settings
         /// <param name="values"></param>
         private void Apply(TValues values)
         {
-            current.Values = values;
-            current.Save();
-            current.Apply();
-            ReflectValues(values);
-            SetClean();
+            settings.Values = values;
+            settings.Save();
+            settings.Apply();
         }
     }
 
-    public abstract class SettingsTabBase : SettingsTab, IControl
+    public abstract class SettingsTabBase : SettingsTab
     {
-        /// <summary>
-        /// Denotes whether any of the setting controls are not up-to-date
-        /// </summary>
-        public bool IsDirty
-        {
-            get
-            {
-                return GetControls().Any(control => control.IsDirty);
-            }
-        }
-
         /// <summary>
         /// Denotes wether the current settings object is equal to the default values
         /// </summary>
         public abstract bool IsDefault { get; }
 
-        /// <summary>
-        /// All controls under the panel
-        /// </summary>
-        protected abstract IEnumerable<InputControl> GetControls();
+        public abstract bool IsDirty { get; }
 
         /// <summary>
         /// Applies the default values
@@ -89,16 +78,5 @@ namespace Exa.UI.Settings
         /// Applies the settings from the controls
         /// </summary>
         public abstract void ApplyChanges();
-
-        /// <summary>
-        /// Marks all the controls as being up-to-date
-        /// </summary>
-        public void SetClean()
-        {
-            foreach (var control in GetControls())
-            {
-                control.SetClean();
-            }
-        }
     }
 }

@@ -26,7 +26,7 @@ namespace Exa.Grids.Blueprints
         private void SetBlueprintName(string blueprintName) => this.blueprintName = blueprintName;
         private void SetBlueprintClass(object blueprintClass) => this.blueprintClass = blueprintClass as BlueprintType;
 
-        private IEnumerable<LabeledValue<object>> GetPossibleBlueprintClasses()
+        private IEnumerable<ILabeledValue<object>> GetPossibleBlueprintClasses()
         {
             var types = Systems.Blueprints.blueprintTypes.objects;
             foreach (var type in types)

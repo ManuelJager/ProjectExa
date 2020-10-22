@@ -1,5 +1,7 @@
-﻿using Exa.IO;
+﻿using System;
+using Exa.IO;
 using System.IO;
+using UnityEngine;
 
 namespace Exa.Data
 {
@@ -8,6 +10,7 @@ namespace Exa.Data
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class SaveableSettings<T> : ISettings
+        where T : class, IEquatable<T>
     {
         /// <summary>
         /// Default setting values
@@ -29,19 +32,15 @@ namespace Exa.Data
         public virtual void Save()
         {
             var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
-            IOUtils.JsonSerializeToPath(Values, path, SerializationMode.readable);
+            IOUtils.JsonSerializeToPath(Values, path, SerializationMode.Settings);
         }
 
         public virtual void Load()
         {
-#if UNITY_EDITOR
-            Values = DefaultValues;
-#else
             var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
             Values = File.Exists(path)
-                ? IOUtils.JsonDeserializeFromPath<T>(path)
+                ? IOUtils.JsonDeserializeFromPath<T>(path, SerializationMode.Settings) ?? DefaultValues
                 : DefaultValues;
-#endif
         }
     }
 }

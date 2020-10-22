@@ -15,13 +15,9 @@ namespace Exa.UI.Settings
                 settingsTabManager.QueryUserConfirmation(yes =>
                 {
                     if (yes)
-                    {
                         settingsTabManager.activeSettingsTab.ApplyChanges();
-                    }
                     else
-                    {
                         base.Return(true);
-                    }
                 });
             }
             else

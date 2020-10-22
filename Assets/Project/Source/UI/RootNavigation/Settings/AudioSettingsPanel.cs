@@ -9,38 +9,19 @@ namespace Exa.UI.Settings
         public SliderControl musicVolumeSlider;
         public SliderControl effectsVolumeSlider;
 
-        private InputControl[] controls;
-
-        private void Awake()
-        {
-            controls = new InputControl[]
-            {
-                masterVolumeSlider,
-                musicVolumeSlider,
-                effectsVolumeSlider
-            };
-        }
-
-        public override AudioSettingsValues GetSettingsValues()
-        {
-            return new AudioSettingsValues
+        public override AudioSettingsValues GetSettingsValues() =>
+            new AudioSettingsValues
             {
                 masterVolume = masterVolumeSlider.Value,
                 musicVolume = musicVolumeSlider.Value,
                 effectsVolume = effectsVolumeSlider.Value
             };
-        }
 
         public override void ReflectValues(AudioSettingsValues values)
         {
-            masterVolumeSlider.Value = values.masterVolume;
-            musicVolumeSlider.Value = values.musicVolume;
-            effectsVolumeSlider.Value = values.effectsVolume;
-        }
-
-        protected override IEnumerable<InputControl> GetControls()
-        {
-            return controls;
+            masterVolumeSlider.SetValue(values.masterVolume, false);
+            musicVolumeSlider.SetValue(values.musicVolume, false);
+            effectsVolumeSlider.SetValue(values.effectsVolume, false);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Exa.Data;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,20 +10,16 @@ namespace Exa.UI.Controls
     public class RadioControl : InputControl<bool>
     {
         [SerializeField] private Image buttonImage;
-        [SerializeField] private Color inactiveColor;
-        [SerializeField] private Color activeColor;
+        [SerializeField] private ActivePair<Color> colors;
         private bool value;
-
-        public override bool CleanValue { get; set; }
 
         public override bool Value
         {
             get => value;
-            set
+            protected set
             {
                 this.value = value;
-
-                buttonImage.color = value ? activeColor : inactiveColor;
+                buttonImage.color = colors.GetValue(value);
             }
         }
 

@@ -10,17 +10,8 @@ namespace Exa.UI.Settings
         public DropdownControl refreshRatesDropdown;
         public RadioControl fullscreenRadio;
 
-        private InputControl[] controls;
-
         private void Awake()
         {
-            controls = new InputControl[]
-            {
-                resolutionDropdown,
-                refreshRatesDropdown,
-                fullscreenRadio
-            };
-
             refreshRatesDropdown.OnValueChange.AddListener(obj =>
             {
                 resolutionDropdown.FilterByRefreshRate((int)obj);
@@ -28,25 +19,22 @@ namespace Exa.UI.Settings
             });
         }
 
-        public override VideoSettingsValues GetSettingsValues()
-        {
-            return new VideoSettingsValues
+        public override VideoSettingsValues GetSettingsValues() =>
+            new VideoSettingsValues
             {
                 resolution = (Resolution)resolutionDropdown.Value,
                 fullscreen = fullscreenRadio.Value
             };
-        }
 
         public override void ReflectValues(VideoSettingsValues values)
         {
-            resolutionDropdown.SetSelected(values.resolution);
-            refreshRatesDropdown.SetSelected(values.resolution.refreshRate);
-            fullscreenRadio.Value = values.fullscreen;
-        }
+            // TODO: Notify user of invalid configuration
+            if (!resolutionDropdown.ContainsItem(values.resolution))
+                values.resolution = settings.DefaultValues.resolution;
 
-        protected override IEnumerable<InputControl> GetControls()
-        {
-            return controls;
+            resolutionDropdown.SetValue(values.resolution, false);
+            refreshRatesDropdown.SetValue(values.resolution.refreshRate, false);
+            fullscreenRadio.SetValue(values.fullscreen, false);
         }
     }
 }

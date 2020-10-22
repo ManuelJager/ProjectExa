@@ -4,28 +4,14 @@ using UnityEngine;
 
 namespace Exa.UI.Settings
 {
-    public class VideoSettingsValues
-    {
-        public Resolution resolution;
-        public bool fullscreen;
-    }
-
     public class ExaVideoSettings : SaveableSettings<VideoSettingsValues>
     {
-        public override VideoSettingsValues DefaultValues => new VideoSettingsValues
-        {
-            resolution = Screen.resolutions.First(),
-            fullscreen = false
-        };
-
-        public override void Load()
-        {
-            base.Load();
-            if (!Screen.resolutions.Contains(Values.resolution))
+        public override VideoSettingsValues DefaultValues =>
+            new VideoSettingsValues
             {
-                Values.resolution = DefaultValues.resolution;
-            }
-        }
+                resolution = Screen.resolutions.First(),
+                fullscreen = false
+            };
 
         protected override string Key => "videoSettings";
 

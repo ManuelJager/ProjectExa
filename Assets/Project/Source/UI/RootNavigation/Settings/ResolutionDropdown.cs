@@ -20,10 +20,8 @@ namespace Exa.UI.Settings
         public override void SelectFirst()
         {
             // Get the first value that has a corresponding active dropdown tab
-            var query = stateContainer
+            Value = stateContainer
                 .FirstOrDefault(value => stateContainer.GetTab(value).gameObject.activeSelf);
-
-            SetSelected(query);
         }
     }
 }

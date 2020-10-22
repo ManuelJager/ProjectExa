@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Exa.UI.Tooltips
 {
     [Serializable]
-    public class PropertyView : TooltipComponentView<ILabeledValue<object>>
+    public class PropertyView : TooltipComponentView<LabeledValue<object>>
     {
         [Header("References")]
         [SerializeField] private Text keyText;
@@ -23,7 +23,7 @@ namespace Exa.UI.Tooltips
             valueText.text = value.ToString();
         }
 
-        protected override void Refresh(ILabeledValue<object> labeledValue)
+        protected override void Refresh(LabeledValue<object> labeledValue)
         {
             keyText.text = labeledValue.Label;
             valueText.text = labeledValue.Value.ToString();

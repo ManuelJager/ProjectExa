@@ -357,8 +357,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labelText: {fileID: 6307293078161421807}
   buttonImage: {fileID: 7767043437145227525}
-  inactiveColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
-  activeColor: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
+  colors:
+    active: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
+    inactive: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
 --- !u!114 &4295638237309239522
 MonoBehaviour:
   m_ObjectHideFlags: 0

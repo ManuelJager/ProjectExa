@@ -10,7 +10,6 @@ using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 #pragma warning disable 649
 
@@ -34,6 +33,7 @@ namespace Exa
 
         [Header("Settings")]
         [SerializeField] private bool godModeIsEnabled = false;
+        [SerializeField] private bool loadSafe = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
         public static BlueprintManager Blueprints => Instance.blueprintManager;
@@ -65,7 +65,11 @@ namespace Exa
 
         private void Start()
         {
-            StartCoroutine(EnumeratorUtils.EnumerateSafe(Load(), OnLoadException));
+            var enumerator = loadSafe
+                ? EnumeratorUtils.EnumerateSafe(Load(), OnLoadException)
+                : Load();
+
+            StartCoroutine(enumerator);
         }
 
         [RuntimeInitializeOnLoadMethod]
@@ -86,7 +90,7 @@ namespace Exa
             yield return 0;
 
             UI.root.settings.Load();
-            var targetFrameRate = UI.root.settings.videoSettings.current.Values.resolution.refreshRate;
+            var targetFrameRate = UI.root.settings.videoSettings.settings.Values.resolution.refreshRate;
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value =>
             {
@@ -108,6 +112,7 @@ namespace Exa
         private void OnLoadException(Exception exception)
         {
             UI.loadingScreen.HideScreen();
+            UnityEngine.Debug.LogWarning(exception);
             UI.logger.Log($"An error has occurred while loading.\n {exception.Message}");
         }
     }

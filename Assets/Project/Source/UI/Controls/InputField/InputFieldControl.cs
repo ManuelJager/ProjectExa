@@ -11,12 +11,10 @@ namespace Exa.UI.Controls
         public Text placeholderText;
         public ExtendedInputField inputField;
 
-        public override string CleanValue { get; set; }
-
         public override string Value
         {
             get => inputField.text;
-            set => inputField.text = value;
+            protected set => inputField.text = value;
         }
 
         [SerializeField] private readonly InputFieldEvent onValueChange = new InputFieldEvent();

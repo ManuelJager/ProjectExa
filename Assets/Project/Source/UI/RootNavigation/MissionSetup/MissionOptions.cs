@@ -23,11 +23,7 @@ namespace Exa.UI
 
         private void Awake()
         {
-            missionDropdown.CreateTabs(missionBag.Select(mission => new LabeledValue<object>
-            {
-                Label = mission.missionName,
-                Value = mission
-            }));
+            missionDropdown.CreateTabs(missionBag);
             missionDropdown.OnValueChange.AddListener(item => SelectedMission = item as Mission);
 
             SelectedMission = missionDropdown.Value as Mission;

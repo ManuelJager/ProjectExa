@@ -13,7 +13,7 @@ namespace Exa.UI.Controls
         [SerializeField] private GameObject radioPrefab;
         [SerializeField] private GameObject sliderPrefab;
 
-        public DropdownControl CreateDropdown(Transform container, string label, IEnumerable<LabeledValue<object>> possibleValues, Action<object> setter, Action<object, DropdownTab> onTabCreated = null)
+        public DropdownControl CreateDropdown(Transform container, string label, IEnumerable<ILabeledValue<object>> possibleValues, Action<object> setter, Action<object, DropdownTab> onTabCreated = null)
         {
             var dropdown = CreateControl<DropdownControl, object>(container, dropdownPrefab, label, setter);
             dropdown.CreateTabs(possibleValues, onTabCreated);

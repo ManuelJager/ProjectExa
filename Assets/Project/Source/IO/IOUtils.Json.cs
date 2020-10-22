@@ -1,12 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.IO;
 
 namespace Exa.IO
 {
     public enum SerializationMode
     {
-        compact,
-        readable
+        Compact,
+        Readable,
+        Settings
     }
 
     public static partial class IOUtils
@@ -23,7 +25,13 @@ namespace Exa.IO
             DefaultValueHandling = DefaultValueHandling.Ignore
         };
 
-        public static bool TryJsonDeserializeFromPath<T>(string filePath, out T result, SerializationMode serializationMode = SerializationMode.compact)
+        public static JsonSerializerSettings settingsJsonSettings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+            DefaultValueHandling = DefaultValueHandling.Include
+        };
+
+        public static bool TryJsonDeserializeFromPath<T>(string filePath, out T result, SerializationMode serializationMode = SerializationMode.Compact)
             where T : class
         {
             if (!File.Exists(filePath))
@@ -47,14 +55,14 @@ namespace Exa.IO
 
         public static T JsonDeserializeWithSettings<T>(
             string input,
-            SerializationMode serializationMode = SerializationMode.compact)
+            SerializationMode serializationMode = SerializationMode.Compact)
         {
             return JsonConvert.DeserializeObject<T>(input, GetSettings(serializationMode));
         }
 
         public static T JsonDeserializeFromPath<T>(
             string filePath,
-            SerializationMode serializationMode = SerializationMode.compact)
+            SerializationMode serializationMode = SerializationMode.Compact)
         {
             var text = File.ReadAllText(filePath);
             return JsonDeserializeWithSettings<T>(text, serializationMode);
@@ -62,7 +70,7 @@ namespace Exa.IO
 
         public static string JsonSerializeWithSettings(
             object value,
-            SerializationMode serializationMode = SerializationMode.compact)
+            SerializationMode serializationMode = SerializationMode.Compact)
         {
             return JsonConvert.SerializeObject(value, GetSettings(serializationMode));
         }
@@ -70,7 +78,7 @@ namespace Exa.IO
         public static void JsonSerializeToPath(
             object value,
             string filePath,
-            SerializationMode serializationMode = SerializationMode.compact)
+            SerializationMode serializationMode = SerializationMode.Compact)
         {
             var text = JsonSerializeWithSettings(value, serializationMode);
             File.WriteAllText(filePath, text);
@@ -80,14 +88,17 @@ namespace Exa.IO
         {
             switch (serializationMode)
             {
-                case SerializationMode.compact:
+                case SerializationMode.Compact:
                     return compactJsonSettings;
 
-                case SerializationMode.readable:
+                case SerializationMode.Readable:
                     return readableJsonSettings;
 
+                case SerializationMode.Settings:
+                    return settingsJsonSettings;
+
                 default:
-                    return null;
+                    throw new ArgumentException("Unsupported serialization mode", nameof(serializationMode));
             }
         }
     }
