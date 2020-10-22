@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using Exa.Misc;
+using Exa.Utils;
 
 namespace Exa.Debugging
 {
@@ -21,15 +22,14 @@ namespace Exa.Debugging
         {
             // Missing reference exceptions when the application is quitting should be ignored
             if (exception is MissingReferenceException && Systems.IsQuitting)
-            {
                 return;
-            }
+            
+            if (DebugMode.ConsoleDump.IsEnabled()) 
+                exception.LogToConsole();
 
             defaultLogHandler.LogException(exception, context);
             if (exception is UserException userException)
-            {
                 LogUserException(userException);
-            }
         }
 
         [System.Diagnostics.DebuggerHidden]

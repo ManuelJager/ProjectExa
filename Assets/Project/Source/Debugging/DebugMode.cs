@@ -24,6 +24,11 @@ namespace Exa.Debugging
         /// <summary>
         /// Enables the debug dragger
         /// </summary>
-        Dragging = 1 << 3
+        Dragging = 1 << 3,
+
+        /// <summary>
+        /// Enables dumping exceptions to the console
+        /// </summary>
+        ConsoleDump = 1 << 4,
     }
 }

@@ -39,7 +39,7 @@ namespace Exa.Ships.Navigation
 
             var resultFrameForce = MergeForces(frameTargetForce, frameDampenForce);
 
-            if (DebugMode.Navigation.GetEnabled())
+            if (DebugMode.Navigation.IsEnabled())
             {
                 void DrawRay(Vector2 localFrameForce, Color color)
                 {

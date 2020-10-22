@@ -104,7 +104,7 @@ namespace Exa.Ships
             overlay.overlayCircle.IsHovered = true;
             Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
 
-            if (DebugMode.Ships.GetEnabled())
+            if (DebugMode.Ships.IsEnabled())
             {
                 Systems.UI.tooltips.shipAIDebugTooltip.Show(this);
             }
@@ -115,7 +115,7 @@ namespace Exa.Ships
             overlay.overlayCircle.IsHovered = false;
             Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
 
-            if (DebugMode.Ships.GetEnabled())
+            if (DebugMode.Ships.IsEnabled())
             {
                 Systems.UI.tooltips.shipAIDebugTooltip.Hide();
             }

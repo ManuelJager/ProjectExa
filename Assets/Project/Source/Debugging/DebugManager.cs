@@ -55,7 +55,7 @@ namespace Exa.Debugging
 
         public void OnDrag(InputAction.CallbackContext context)
         {
-            if (!DebugMode.Dragging.GetEnabled()) return;
+            if (!DebugMode.Dragging.IsEnabled()) return;
 
             switch (context.phase)
             {
@@ -88,7 +88,7 @@ namespace Exa.Debugging
         /// </summary>
         /// <param name="debugMode"></param>
         /// <returns></returns>
-        public static bool GetEnabled(this DebugMode debugMode)
+        public static bool IsEnabled(this DebugMode debugMode)
         {
             return (Systems.Debug.DebugMode & debugMode) != 0;
         }
