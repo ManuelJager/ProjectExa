@@ -8,7 +8,7 @@ namespace Exa.Grids.Blueprints
 {
     [Serializable]
     [CreateAssetMenu(fileName = "BlueprintType", menuName = "Grids/Blueprints/BlueprintType")]
-    public class BlueprintType : ScriptableObject, ITooltipPresenter
+    public class BlueprintType : ScriptableObject, ITooltipPresenter, ILabeledValue<BlueprintType>
     {
         public BlueprintTypeGuid typeGuid;
         public string displayName;
@@ -16,6 +16,9 @@ namespace Exa.Grids.Blueprints
         public BlockCategory disallowedBlockCategories;
 
         private Tooltip tooltipResult;
+
+        public string Label => displayName;
+        public BlueprintType Value => this;
 
         public bool IsMothership
         {

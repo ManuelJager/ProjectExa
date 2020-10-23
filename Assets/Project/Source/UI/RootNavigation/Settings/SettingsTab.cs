@@ -19,7 +19,7 @@ namespace Exa.UI.Settings
         /// <summary>
         /// Current stored settings object
         /// </summary>
-        public TSettings settings;
+        public TSettings settings = new TSettings();
 
         public override bool IsDefault => settings.Values.Equals(settings.DefaultValues);
         public override bool IsDirty => !settings.Values.Equals(GetSettingsValues());
@@ -35,6 +35,14 @@ namespace Exa.UI.Settings
         /// </summary>
         /// <returns></returns>
         public abstract TValues GetSettingsValues();
+
+        public virtual void Init()
+        {
+            settings.Load();
+            settings.Apply();
+            settings.Save();
+            ReflectValues(settings.Values);
+        }
 
         public override void SetDefaultValues()
         {

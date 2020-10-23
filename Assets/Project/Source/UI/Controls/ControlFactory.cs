@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = System.Object;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Controls
@@ -12,6 +14,20 @@ namespace Exa.UI.Controls
         [SerializeField] private GameObject inputFieldPrefab;
         [SerializeField] private GameObject radioPrefab;
         [SerializeField] private GameObject sliderPrefab;
+
+        public DropdownControl CreateDropdown<T>(Transform container, string label, IEnumerable<ILabeledValue<T>> possibleValues, Action<T> setter, Action<T, DropdownTab> onTabCreated = null)
+        {
+            void TSetter(object obj) => setter((T) obj);
+            void TOnTabCreate(object obj, DropdownTab tab) => onTabCreated?.Invoke((T) obj, tab);
+
+            IEnumerable<ILabeledValue<object>> GetPossibleValues()
+            {
+                foreach (var possibleValue in possibleValues)
+                    yield return possibleValue as ILabeledValue<object>;
+            }
+
+            return CreateDropdown(container, label, GetPossibleValues(), TSetter, TOnTabCreate);
+        }
 
         public DropdownControl CreateDropdown(Transform container, string label, IEnumerable<ILabeledValue<object>> possibleValues, Action<object> setter, Action<object, DropdownTab> onTabCreated = null)
         {

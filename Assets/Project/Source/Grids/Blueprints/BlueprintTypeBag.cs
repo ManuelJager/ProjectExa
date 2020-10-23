@@ -32,9 +32,7 @@ namespace Exa.Grids.Blueprints
         {
             typesById = new Dictionary<BlueprintTypeGuid, BlueprintType>();
             foreach (var type in objects)
-            {
                 typesById[type.typeGuid] = type;
-            }
         }
     }
 }

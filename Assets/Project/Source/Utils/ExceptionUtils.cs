@@ -9,12 +9,15 @@ namespace Exa.Utils
         {
             try
             {
-                Systems.UI.console.output.DumpExceptionLogRecursively(exception);
+                var output = Systems.UI.console.output;
+                output.BeginPrint("An uncaught exception was thrown");
+                output.DumpExceptionLogRecursively(exception);
+                output.EndPrint();
             }
-            catch
+            catch (Exception consoleException)
             {
                 var message = "An exception has occurred while logging an exception to the console (seriously?)";
-                Debug.LogError(message);
+                Debug.LogError(new Exception(message, consoleException));
                 Systems.UI.logger.Log(message);
             }
         }

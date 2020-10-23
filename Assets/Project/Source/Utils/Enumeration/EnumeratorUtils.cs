@@ -51,13 +51,11 @@ namespace Exa.Utils
             var timeStamp = Time.realtimeSinceStartup;
 
             while(enumerator.MoveNext())
-            {
                 if (Time.realtimeSinceStartup > timeStamp + maxTimeDelta)
                 {
                     yield return new WaitForEndOfFrame();
                     timeStamp = Time.realtimeSinceStartup;
                 }
-            }
         }
 
         public static IEnumerator ReportForeachOperation<T>(IEnumerable<T> enumerable, Func<T, IEnumerator> func, IProgress<float> progress)

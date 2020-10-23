@@ -8,7 +8,7 @@ namespace Exa.Generics
     public class ScriptableObjectBag<T> : ScriptableObjectBagBase, IEnumerable<T>
         where T : ScriptableObject
     {
-        public List<T> objects = new List<T>();
+        [SerializeField] protected List<T> objects = new List<T>();
 
         public override void FindObjects()
         {

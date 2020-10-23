@@ -1,5 +1,4 @@
 ﻿using Exa.UI.Controls;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.UI.Settings
@@ -35,6 +34,19 @@ namespace Exa.UI.Settings
             resolutionDropdown.SetValue(values.resolution, false);
             refreshRatesDropdown.SetValue(values.resolution.refreshRate, false);
             fullscreenRadio.SetValue(values.fullscreen, false);
+        }
+
+        public override void Init()
+        {
+            settings.Resolutions = new Resolutions();
+            refreshRatesDropdown.CreateTabs(settings.Resolutions.GetRefreshRateLabels());
+            // Get first refresh rate
+            var firstRefreshRate = (int)refreshRatesDropdown.Value;
+
+            resolutionDropdown.CreateTabs(settings.Resolutions.GetResolutionLabels());
+            resolutionDropdown.FilterByRefreshRate(firstRefreshRate);
+
+            base.Init();
         }
     }
 }

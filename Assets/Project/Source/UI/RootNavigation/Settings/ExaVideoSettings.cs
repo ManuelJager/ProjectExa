@@ -1,6 +1,4 @@
 ﻿using Exa.Data;
-using System.Linq;
-using UnityEngine;
 
 namespace Exa.UI.Settings
 {
@@ -9,9 +7,11 @@ namespace Exa.UI.Settings
         public override VideoSettingsValues DefaultValues =>
             new VideoSettingsValues
             {
-                resolution = Screen.resolutions.First(),
-                fullscreen = false
+                resolution = Resolutions.GetHighestSupportedResolution(),
+                fullscreen = true
             };
+
+        public Resolutions Resolutions { get; set; }
 
         protected override string Key => "videoSettings";
 
