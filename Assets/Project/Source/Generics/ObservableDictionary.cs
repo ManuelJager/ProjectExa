@@ -22,7 +22,6 @@ namespace Exa.Generics
                     if (comparer.Equals(key, KeySelector(item)))
                         return item;
                 
-
                 throw new KeyNotFoundException();
             }
         }

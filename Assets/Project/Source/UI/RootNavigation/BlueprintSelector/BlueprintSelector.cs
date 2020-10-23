@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CS0649
 
 using System;
+using System.Collections.Generic;
 using Exa.Bindings;
 using Exa.Grids.Blueprints;
 using Exa.IO;
@@ -87,12 +88,10 @@ namespace Exa.UI
             container.ThumbnailFileHandle.Refresh();
             container.BlueprintFileHandle.Refresh();
 
-            if (Source is ObservableCollection<BlueprintContainer> collection)
+            if (Source is ICollection<BlueprintContainer> collection)
             {
                 if (!collection.Contains(container))
-                {
                     collection.Add(container);
-                }
             }
             else
                 throw new InvalidOperationException("Source must be an observable collection");
@@ -120,7 +119,7 @@ namespace Exa.UI
                 {
                     if (!yes) return;
 
-                    if (Source is ObservableCollection<BlueprintContainer> collection)
+                    if (Source is ICollection<BlueprintContainer> collection)
                         collection.Remove(observer);
                     else
                         throw new InvalidOperationException("Source must be an observable collection");

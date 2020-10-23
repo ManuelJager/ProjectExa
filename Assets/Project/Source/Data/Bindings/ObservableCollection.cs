@@ -14,8 +14,11 @@ namespace Exa.Bindings
     [Serializable]
     public class ObservableCollection<T> : IObservableEnumerable<T>, ICollection<T>
     {
-        public List<T> collection;
+        private List<T> collection;
+
         public List<ICollectionObserver<T>> Observers { get; } = new List<ICollectionObserver<T>>();
+        public int Count => collection.Count;
+        public bool IsReadOnly => false;
 
         public ObservableCollection()
         {
@@ -27,18 +30,12 @@ namespace Exa.Bindings
             this.collection = collection;
         }
 
-        public int Count => collection.Count;
-
-        public bool IsReadOnly => false;
-
         public virtual void Add(T item)
         {
             collection.Add(item);
 
             foreach (var observer in Observers)
-            {
                 observer.OnAdd(item);
-            }
         }
 
         public virtual void Clear()
@@ -60,24 +57,20 @@ namespace Exa.Bindings
             collection.CopyTo(array, arrayIndex);
         }
 
-        public virtual IEnumerator<T> GetEnumerator()
-        {
-            return collection.GetEnumerator();
-        }
-
         public virtual bool Remove(T item)
         {
             var removed = collection.Remove(item);
 
             if (removed)
-            {
                 foreach (var observer in Observers)
-                {
                     observer.OnRemove(item);
-                }
-            }
 
             return removed;
+        }
+
+        public virtual IEnumerator<T> GetEnumerator()
+        {
+            return collection.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
