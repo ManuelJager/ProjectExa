@@ -10,13 +10,13 @@ namespace Exa.Weapons
 {
     public class AutocannonPart : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        private FiringPoint firingPoint;
-
+        [Header("References")] 
+        [SerializeField] private FiringPoint firingPoint;
         [SerializeField] private Animation barrelAnimator;
         [SerializeField] private Light2D light2D;
 
-        [Header("Settings")] [SerializeField] private float peakIntensity;
+        [Header("Settings")] 
+        [SerializeField] private float peakIntensity;
         [SerializeField] private SpriteRenderer drumRenderer;
         [SerializeField] private Sprite drumNormal;
         [SerializeField] private Sprite drumCycling;

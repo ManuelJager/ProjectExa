@@ -12,8 +12,8 @@ namespace Exa.UI.Components
         [SerializeField] private Image shrinkExpandImage;
         [SerializeField] private Text headerText;
         [SerializeField] private UIFlip arrowFlip;
-
-        [Space] [SerializeField] private bool contentActive = false;
+        [Space] 
+        [SerializeField] private bool contentActive = false;
 
         public Transform content;
 

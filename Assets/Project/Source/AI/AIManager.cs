@@ -5,7 +5,7 @@ namespace Exa.AI
 {
     public class AIManager : MonoBehaviour
     {
-        [SerializeField] private readonly int ticksPerSecond = 10;
+        [SerializeField] private int ticksPerSecond = 10;
         private float elapsedSinceLastTick = 0f;
         private float updateDeltaThreshold;
         private readonly List<IAgent> agents = new List<IAgent>();

@@ -14,34 +14,31 @@ namespace Exa.UI
 {
     public class VirtualMouseCursor : MonoBehaviour, ICursor
     {
-        [Header("References")] [SerializeField]
-        private Image backgroundImage;
-
+        [Header("References")]
+        [SerializeField] private Image backgroundImage;
         [SerializeField] private CanvasGroup backgroundGroup;
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private RectTransform normalCursor;
         [SerializeField] private RectTransform inputCursor;
 
-        [Header("Color settings")] [SerializeField]
-        private Color idleColor;
-
+        [Header("Color settings")]
+        [SerializeField] private Color idleColor;
         [SerializeField] private Color activeColor;
         [SerializeField] private Color removeColor;
         [SerializeField] private Color infoColor;
         [SerializeField] private float cursorColorAnimTime = 0.25f;
 
-        [Header("Size anim settings")] [SerializeField]
-        private float cursorScaleAnimTime = 0.25f;
-
+        [Header("Size anim settings")] 
+        [SerializeField] private float cursorScaleAnimTime = 0.25f;
         [SerializeField] private ActivePair<float> hoverableCursorSize;
         [SerializeField] private ActivePair<CursorSizeAnimSettings> sizeAnimSettings;
 
-        [Header("Drag anim settings")] [SerializeField]
-        private float cursorDragDistanceTolerance = 30f;
-
+        [Header("Drag anim settings")] 
+        [SerializeField] private float cursorDragDistanceTolerance = 30f;
         [SerializeField] private ActivePair<CursorDragAnimSettings> dragAnimSettings;
 
-        [Header("Input")] [SerializeField] private InputAction inputAction;
+        [Header("Input")] 
+        [SerializeField] private InputAction inputAction;
 
         private CursorDragState cursorDragState = CursorDragState.NotDragging;
         private CursorState cursorState = CursorState.idle;

@@ -9,13 +9,13 @@ namespace Exa.Grids.Blocks.Components
 {
     public class ThrusterBehaviour : BlockBehaviour<ThrusterData>
     {
-        [Header("References")] [SerializeField]
-        private Transform thrusterFlameContainer;
-
+        [Header("References")] 
+        [SerializeField] private Transform thrusterFlameContainer;
         [SerializeField] private SpriteRenderer thrusterFlame;
         [SerializeField] private Light2D light2D;
 
-        [Header("Settings")] [SerializeField] private MinMax<float> xScale;
+        [Header("Settings")] 
+        [SerializeField] private MinMax<float> xScale;
         [SerializeField] private MinMax<float> yScale;
         [SerializeField] private MinMax<float> lightIntensityScale;
 

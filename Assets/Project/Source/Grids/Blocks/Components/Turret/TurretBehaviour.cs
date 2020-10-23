@@ -9,8 +9,8 @@ namespace Exa.Grids.Blocks.Components
     public abstract class TurretBehaviour<T> : BlockBehaviour<T>
         where T : struct, ITurretValues
     {
-        [Header("References")] [SerializeField]
-        private Transform turret;
+        [Header("References")]
+        [SerializeField] private Transform turret;
 
         private float timeSinceFire;
 

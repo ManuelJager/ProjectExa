@@ -20,9 +20,8 @@ namespace Exa.Ships
 {
     public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable
     {
-        [Header("References")] [HideInInspector]
-        public ShipOverlay overlay;
-
+        [Header("References")] 
+        [HideInInspector] public ShipOverlay overlay;
         public Transform pivot;
         public ShipAi shipAi;
         public ShipState state;
@@ -30,13 +29,15 @@ namespace Exa.Ships
         public CircleCollider2D mouseOverCollider;
         public NavigationOptions navigationOptions;
 
-        [Header("Settings")] [SerializeField] private ValueOverride<CursorState> cursorOverride;
+        [Header("Settings")] 
+        [SerializeField] private ValueOverride<CursorState> cursorOverride;
         public float canvasScaleMultiplier = 1f;
         public Font shipDebugFont;
 
         private Tooltip debugTooltip;
 
-        [Header("Events")] public UnityEvent destroyEvent = new UnityEvent();
+        [Header("Events")] 
+        public UnityEvent destroyEvent = new UnityEvent();
 
         public ActionScheduler ActionScheduler { get; private set; }
         public ShipContext BlockContext { get; private set; }

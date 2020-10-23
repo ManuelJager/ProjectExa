@@ -12,13 +12,15 @@ namespace Exa.ShipEditor
 {
     public class BlockTemplateView : MonoBehaviour, IObserver<BlockTemplate>
     {
-        [Header("References")] public Button button;
+        [Header("References")] 
+        public Button button;
         [SerializeField] private Text blockSizeText;
         [SerializeField] private Image image;
         [SerializeField] private Border activeBorder;
         [SerializeField] private Hoverable hoverable;
 
-        [Header("Settings")] [SerializeField] private ActivePair<Color> backgroundColors;
+        [Header("Settings")] 
+        [SerializeField] private ActivePair<Color> backgroundColors;
 
         private BlockTemplate data;
 

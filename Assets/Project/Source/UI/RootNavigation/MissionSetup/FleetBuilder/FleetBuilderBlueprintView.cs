@@ -13,7 +13,8 @@ namespace Exa.UI
 {
     public class FleetBuilderBlueprintView : MonoBehaviour, IObserver<Blueprint>
     {
-        [Header("References")] public Button button;
+        [Header("References")] 
+        public Button button;
         public Hoverable hoverable;
         [SerializeField] private Image thumbnailImage;
         [SerializeField] private RectTransform titleRectTransform;
@@ -24,7 +25,8 @@ namespace Exa.UI
         [SerializeField] private Border borderOutline;
         [SerializeField] private Text overlayText;
 
-        [Header("Settings")] [SerializeField] private ActivePair<Color> selectedColor;
+        [Header("Settings")] 
+        [SerializeField] private ActivePair<Color> selectedColor;
 
         public BlueprintTypeTabContent ParentTab { get; set; }
 

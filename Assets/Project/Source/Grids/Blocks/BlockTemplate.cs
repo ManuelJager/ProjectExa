@@ -13,8 +13,8 @@ namespace Exa.Grids.Blocks
     public class BlockTemplate<T> : BlockTemplate
         where T : Block
     {
-        [Header("Template partials")] [SerializeField]
-        protected PhysicalTemplatePartial physicalTemplatePartial;
+        [Header("Template partials")] 
+        [SerializeField] protected PhysicalTemplatePartial physicalTemplatePartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             return new TemplatePartialBase[] {
@@ -25,7 +25,8 @@ namespace Exa.Grids.Blocks
 
     public abstract class BlockTemplate : ScriptableObject, IGridTotalsModifier
     {
-        [Header("Settings")] public string id;
+        [Header("Settings")] 
+        public string id;
         public string displayId;
         public BlockCategory category;
         public Sprite thumbnail;

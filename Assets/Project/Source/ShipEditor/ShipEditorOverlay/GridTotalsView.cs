@@ -8,9 +8,8 @@ namespace Exa.ShipEditor
 {
     public class GridTotalsView : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        private PropertyView massView;
-
+        [Header("References")]
+        [SerializeField] private PropertyView massView;
         [SerializeField] private PropertyView hullView;
         [SerializeField] private PropertyView energyView;
         [SerializeField] private PropertyView turningPower;

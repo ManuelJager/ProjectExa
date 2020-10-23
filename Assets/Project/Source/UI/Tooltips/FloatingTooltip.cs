@@ -12,12 +12,12 @@ namespace Exa.UI.Tooltips
     /// </summary>
     public class FloatingTooltip : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        protected RectTransform tooltipRoot;
-
+        [Header("References")] 
+        [SerializeField] protected RectTransform tooltipRoot;
         [SerializeField] protected RectTransform itemsContainer;
 
-        [Header("Settings")] [SerializeField] private Vector2 offset = new Vector2(4f, 4f);
+        [Header("Settings")] 
+        [SerializeField] private Vector2 offset = new Vector2(4f, 4f);
         [SerializeField] private float padding = 4f;
         [SerializeField] private float animTime = 0.1f;
 

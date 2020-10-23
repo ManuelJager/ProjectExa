@@ -12,14 +12,17 @@ namespace Exa.Ships.Navigation
 
     public class NavigationOptions : MonoBehaviour
     {
-        [Header("Options")] public bool continuouslyApplySettings;
+        [Header("Options")] 
+        public bool continuouslyApplySettings;
         public NavigationType navigationType;
 
-        [Header("PID-Quaternion-parameters")] public float qProportionalBase;
+        [Header("PID-Quaternion-parameters")] 
+        public float qProportionalBase;
         public float qIntegral;
         public float qDerivative;
 
-        [Header("PD-Position-parameters")] public float pProportional;
+        [Header("PD-Position-parameters")] 
+        public float pProportional;
         public float pDerivative;
         public float maxVel;
 

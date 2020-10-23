@@ -14,14 +14,14 @@ namespace Exa.UI.Components
     {
         public int order;
 
-        [Header("References")] [SerializeField]
-        private RectTransform self;
-
+        [Header("References")]
+        [SerializeField] private RectTransform self;
         [SerializeField] private Text text;
         [SerializeField] private Image image;
         [SerializeField] private AnimatedTabContent content;
 
-        [Header("Settings")] [SerializeField] private float duration;
+        [Header("Settings")] 
+        [SerializeField] private float duration;
         [SerializeField] private ActivePair<AnimationArgs> animArgs;
 
         private Tween rectTween;

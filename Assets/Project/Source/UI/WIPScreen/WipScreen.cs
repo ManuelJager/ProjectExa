@@ -9,16 +9,16 @@ namespace Exa.UI
 {
     public class WipScreen : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        private CanvasGroup rootCanvasGroup;
-
+        [Header("References")] 
+        [SerializeField] private CanvasGroup rootCanvasGroup;
         [SerializeField] private CanvasGroup textCanvasGroup;
         [SerializeField] private GameObject wordPrefab;
         [SerializeField] private RectTransform textContainer;
         [SerializeField] private RectTransform wordContainer;
         [SerializeField] private HorizontalLayoutGroup wordLayoutGroup;
 
-        [Header("Settings")] [SerializeField] private bool forceShowScreen;
+        [Header("Settings")] 
+        [SerializeField] private bool forceShowScreen;
         [SerializeField] private AnimSettings animSettings;
 
         private Tween titleSpacingTween;

@@ -8,7 +8,8 @@ namespace Exa.UI
 {
     public class BlueprintView : MonoBehaviour, Bindings.IObserver<Blueprint>
     {
-        [Header("References")] public Button deleteButton;
+        [Header("References")] 
+        public Button deleteButton;
         public Button button;
         public Hoverable hoverable;
         [SerializeField] private Image thumbnailImage;

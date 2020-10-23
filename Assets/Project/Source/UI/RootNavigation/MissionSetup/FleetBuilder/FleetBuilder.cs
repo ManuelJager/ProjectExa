@@ -11,13 +11,13 @@ namespace Exa.UI
 {
     public class FleetBuilder : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        private FleetView fleetView;
-
+        [Header("References")] 
+        [SerializeField] private FleetView fleetView;
         [SerializeField] private FleetBlueprintViewController viewController;
         [SerializeField] private FleetBuilderBlueprintTypes blueprintTypes;
 
-        [Header("Events")] public UnityEvent<ValidationResult> fleetValidation = new UnityEvent<ValidationResult>();
+        [Header("Events")] 
+        public UnityEvent<ValidationResult> fleetValidation = new UnityEvent<ValidationResult>();
 
         private FleetValidator fleetValidator;
 

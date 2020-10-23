@@ -13,7 +13,8 @@ namespace Exa.UI.Components
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private CanvasGroup canvasGroup;
 
-        [Header("Settings")] [SerializeField] private float duration = 0.25f;
+        [Header("Settings")] 
+        [SerializeField] private float duration = 0.25f;
         [SerializeField] private ActivePair<AnimationArgs> animArgs;
 
         private Tween alphaTween;

@@ -8,9 +8,8 @@ namespace Exa.UI.Tooltips
     [Serializable]
     public class PropertyView : TooltipComponentView<LabeledValue<object>>
     {
-        [Header("References")] [SerializeField]
-        private Text keyText;
-
+        [Header("References")] 
+        [SerializeField] private Text keyText;
         [SerializeField] private Text valueText;
 
         public void SetFont(Font font) {

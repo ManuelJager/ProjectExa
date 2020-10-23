@@ -31,7 +31,8 @@ namespace Exa
         [SerializeField] private LoggerInterceptor logger;
         [SerializeField] private MainUI mainUI;
 
-        [Header("Settings")] [SerializeField] private bool godModeIsEnabled = false;
+        [Header("Settings")] 
+        [SerializeField] private bool godModeIsEnabled = false;
         [SerializeField] private bool loadSafe = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;

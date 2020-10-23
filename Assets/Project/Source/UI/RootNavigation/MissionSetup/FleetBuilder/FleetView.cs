@@ -12,15 +12,16 @@ namespace Exa.UI
 {
     public class FleetView : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        private Transform mothershipContainer;
-
+        [Header("References")] 
+        [SerializeField] private Transform mothershipContainer;
         [SerializeField] private Transform unitsContainer;
         [SerializeField] private Text unitCountText;
 
-        [Header("Settings")] [SerializeField] private AnimationArgs animationArgs;
+        [Header("Settings")] 
+        [SerializeField] private AnimationArgs animationArgs;
 
-        [Header("Events")] public UnityEvent fleetChange = new UnityEvent();
+        [Header("Events")] 
+        public UnityEvent fleetChange = new UnityEvent();
 
         private Tween fontSizeTween;
         private Tween colorTween;
