@@ -34,7 +34,7 @@ namespace Exa.UI.Components
             this.Delay(() => gameObject.SetActive(false), duration);
         }
 
-        private void Animate(AnimationArgs args, Vector2 initialPos, Vector2 targetPos)
+        protected virtual void Animate(AnimationArgs args, Vector2 initialPos, Vector2 targetPos)
         {
             canvasGroup.DOFade(args.targetAlpha, duration)
                 .SetEase(args.ease)
