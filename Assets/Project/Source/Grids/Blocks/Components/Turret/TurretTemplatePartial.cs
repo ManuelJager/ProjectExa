@@ -11,10 +11,10 @@ namespace Exa.Grids.Blocks.Components
 
         [Tooltip("In second interval between shots")]
         public float firingRate;
+
         public float damage;
 
-        public override TurretData Convert() => new TurretData
-        {
+        public override TurretData Convert() => new TurretData {
             turningRate = turningRate,
             firingRate = firingRate,
             damage = damage

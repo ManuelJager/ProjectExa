@@ -14,10 +14,9 @@ namespace Exa.UI.Settings
     {
         private List<Resolution> resolutions;
 
-        private readonly int[] acceptedRefreshRates = { 60, 75, 80, 90, 100, 120, 144, 165, 180, 240 };
+        private readonly int[] acceptedRefreshRates = {60, 75, 80, 90, 100, 120, 144, 165, 180, 240};
 
-        public Resolutions()
-        {
+        public Resolutions() {
             var selectedResolutions = Screen
                 .resolutions
                 .Where(IsAcceptedRefreshRate)
@@ -28,31 +27,26 @@ namespace Exa.UI.Settings
                 selectedResolutions = Screen.resolutions;
 
             this.resolutions = new List<Resolution>(selectedResolutions);
-            this.resolutions.Sort((x, y) =>
-            {
+            this.resolutions.Sort((x, y) => {
                 int GetValue(Resolution res) => res.width * res.height + res.refreshRate;
                 return GetValue(x) - GetValue(y);
             });
         }
 
-        public Resolution GetHighestSupportedResolution()
-        {
+        public Resolution GetHighestSupportedResolution() {
             return resolutions.Last();
         }
 
-        public Resolution GetLowestSupportedResolution()
-        {
+        public Resolution GetLowestSupportedResolution() {
             return resolutions.First();
         }
 
-        public IEnumerable<ILabeledValue<object>> GetResolutionLabels()
-        {
+        public IEnumerable<ILabeledValue<object>> GetResolutionLabels() {
             return this.Select(res =>
                 new LabeledValue<object>($"{res.width}x{res.height}", res) as ILabeledValue<object>);
         }
 
-        public IEnumerable<ILabeledValue<object>> GetRefreshRateLabels()
-        {
+        public IEnumerable<ILabeledValue<object>> GetRefreshRateLabels() {
             return this.Select(res => res.refreshRate)
                 .Distinct()
                 .OrderByDescending(res => res)
@@ -60,25 +54,20 @@ namespace Exa.UI.Settings
                     new LabeledValue<object>($"{res} hz", res) as ILabeledValue<object>);
         }
 
-        public IEnumerator<Resolution> GetEnumerator()
-        {
+        public IEnumerator<Resolution> GetEnumerator() {
             return resolutions.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
         }
 
-        private bool IsAcceptedRefreshRate(Resolution resolution)
-        {
+        private bool IsAcceptedRefreshRate(Resolution resolution) {
             return acceptedRefreshRates.Contains(resolution.refreshRate);
         }
 
-        private bool IsAcceptedRatio(Resolution resolution)
-        {
-            var ratio = MathUtils.GetRatio(new Vector2Int
-            {
+        private bool IsAcceptedRatio(Resolution resolution) {
+            var ratio = MathUtils.GetRatio(new Vector2Int {
                 x = resolution.width,
                 y = resolution.height
             });
@@ -91,8 +80,7 @@ namespace Exa.UI.Settings
                 IsRatio(ratio, 4, 3);
         }
 
-        private bool IsRatio(Vector2Int ratio, int width, int height)
-        {
+        private bool IsRatio(Vector2Int ratio, int width, int height) {
             return ratio.x == width && ratio.y == height;
         }
     }

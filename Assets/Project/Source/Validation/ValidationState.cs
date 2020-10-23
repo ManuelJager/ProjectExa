@@ -24,15 +24,13 @@ namespace Exa.Validation
         // Keep track of errors thrown by a specific validator
         internal Dictionary<IValidator, IEnumerable<ValidationError>> lastControlErrors;
 
-        public ValidationState()
-        {
+        public ValidationState() {
             errorHandlers = new Dictionary<IValidator, Dictionary<string, Action<ValidationError>>>();
             errorCleaners = new Dictionary<IValidator, Dictionary<string, Action<ValidationError>>>();
             lastControlErrors = new Dictionary<IValidator, IEnumerable<ValidationError>>();
         }
 
-        public ValidationResult Control<TArgs>(IValidator<TArgs> validator, TArgs args)
-        {
+        public ValidationResult Control<TArgs>(IValidator<TArgs> validator, TArgs args) {
             // Get errors
             var errors = validator.Validate(args);
 
@@ -41,14 +39,12 @@ namespace Exa.Validation
             return errors;
         }
 
-        public void ApplyResults(ValidationResult errors)
-        {
+        public void ApplyResults(ValidationResult errors) {
             var validator = errors.Validator;
             var currErrorIds = errors.Select(error => error.Id);
 
             // Error handlers
-            foreach (var currentError in errors)
-            {
+            foreach (var currentError in errors) {
                 // Check if there is a specific error handler for the error, otherwise use the default one
                 if (errorHandlers.NestedContainsKey(validator, currentError.Id))
                     errorHandlers[validator][currentError.Id](currentError);
@@ -56,11 +52,9 @@ namespace Exa.Validation
                     defaultErrorHandler(currentError);
             }
 
-            if (lastControlErrors.ContainsKey(validator))
-            {
+            if (lastControlErrors.ContainsKey(validator)) {
                 // Get errors from the same validator that were handled last control, but are no longer present
-                foreach (var lastControlError in lastControlErrors[validator])
-                {
+                foreach (var lastControlError in lastControlErrors[validator]) {
                     // If error wasn't thrown in the last control, it doesn't need to be cleaned up
                     if (currErrorIds.Contains(lastControlError.Id)) continue;
 

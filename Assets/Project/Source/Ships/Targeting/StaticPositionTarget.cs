@@ -6,13 +6,11 @@ namespace Exa.Ships.Targeting
     {
         private readonly Vector2 position;
 
-        public StaticPositionTarget(Vector2 position)
-        {
+        public StaticPositionTarget(Vector2 position) {
             this.position = position;
         }
 
-        public Vector2 GetPosition(Vector2 current)
-        {
+        public Vector2 GetPosition(Vector2 current) {
             return position;
         }
     }

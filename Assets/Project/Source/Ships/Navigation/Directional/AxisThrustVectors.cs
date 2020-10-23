@@ -10,58 +10,48 @@ namespace Exa.Ships.Navigation
         public ThrusterAxis XAxis { get; }
         public ThrusterAxis YAxis { get; }
 
-        public AxisThrustVectors(Scalar thrustModifier)
-        {
+        public AxisThrustVectors(Scalar thrustModifier) {
             XAxis = new ThrusterAxis(thrustModifier);
             YAxis = new ThrusterAxis(thrustModifier);
         }
 
-        public void Register(IThruster thruster)
-        {
+        public void Register(IThruster thruster) {
             SelectAxis(thruster, out var component).Register(thruster, component);
         }
 
-        public void Unregister(IThruster thruster)
-        {
+        public void Unregister(IThruster thruster) {
             SelectAxis(thruster, out var component).Unregister(thruster, component);
         }
 
-        public void Fire(Vector2 force)
-        {
+        public void Fire(Vector2 force) {
             XAxis.Fire(force.x);
             YAxis.Fire(force.y);
         }
 
-        public Vector2 GetForce(Vector2 forceDirection, Scalar thrustModifier)
-        {
+        public Vector2 GetForce(Vector2 forceDirection, Scalar thrustModifier) {
             var force = GetUnClampedForce(forceDirection);
             return thrustModifier.GetValue(force);
         }
 
-        public Vector2 GetClampedForce(Vector2 forceDirection, Scalar thrustModifier)
-        {
+        public Vector2 GetClampedForce(Vector2 forceDirection, Scalar thrustModifier) {
             var force = GetUnClampedForce(forceDirection);
             var clampedForce = MathUtils.GrowDirectionToMax(forceDirection.normalized, force);
             return thrustModifier.GetValue(clampedForce);
         }
 
-        private Vector2 GetUnClampedForce(Vector2 forceDirection)
-        {
-            return new Vector2
-            {
+        private Vector2 GetUnClampedForce(Vector2 forceDirection) {
+            return new Vector2 {
                 x = XAxis.Clamp(forceDirection.x),
                 y = YAxis.Clamp(forceDirection.y)
             };
         }
 
-        public void SetGraphics(Vector2 directionScalar)
-        {
+        public void SetGraphics(Vector2 directionScalar) {
             XAxis.SetGraphics(directionScalar.x);
             YAxis.SetGraphics(directionScalar.y);
         }
 
-        private ThrusterAxis SelectAxis(IThruster thruster, out bool positiveAxisComponent)
-        {
+        private ThrusterAxis SelectAxis(IThruster thruster, out bool positiveAxisComponent) {
             var block = thruster.Component.block;
             var direction = block.BlueprintBlock.Direction;
 

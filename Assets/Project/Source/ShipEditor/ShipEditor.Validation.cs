@@ -5,10 +5,8 @@
         private BlueprintGridValidator gridValidator;
         private BlueprintNameValidator nameValidator;
 
-        public void ValidateGrid()
-        {
-            var args = new BlueprintGridValidationArgs
-            {
+        public void ValidateGrid() {
+            var args = new BlueprintGridValidationArgs {
                 blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.Blocks
             };
 
@@ -18,10 +16,8 @@
                 .Validate(gridValidator, args);
         }
 
-        public void ValidateName(string name)
-        {
-            var args = new BlueprintNameValidationArgs
-            {
+        public void ValidateName(string name) {
+            var args = new BlueprintNameValidationArgs {
                 collectionContext = Systems.Blueprints.userBlueprints,
                 requestedName = name,
                 blueprintContainer = container

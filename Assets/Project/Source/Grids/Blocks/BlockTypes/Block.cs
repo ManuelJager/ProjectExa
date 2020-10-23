@@ -4,6 +4,7 @@ using Exa.Grids.Blueprints;
 using Unity.Entities;
 using UnityEngine;
 using System.Collections.Generic;
+
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.BlockTypes
@@ -22,82 +23,64 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public BlueprintBlock BlueprintBlock => anchoredBlueprintBlock.blueprintBlock;
 
-        BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component
-        {
-            get => physicalBehaviour; 
+        BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component {
+            get => physicalBehaviour;
         }
 
-        public Ship Ship
-        {
+        public Ship Ship {
             get => ship;
-            set
-            {
+            set {
                 if (ship == value) return;
 
-                if (ship != null && !Systems.IsQuitting)
-                {
+                if (ship != null && !Systems.IsQuitting) {
                     OnRemove();
                 }
 
                 ship = value;
 
-                if (ship != null)
-                {
+                if (ship != null) {
                     OnAdd();
                 }
 
-                foreach (var behaviour in GetBehaviours())
-                {
+                foreach (var behaviour in GetBehaviours()) {
                     behaviour.Ship = value;
                 }
             }
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             if (Systems.IsQuitting) return;
 
             ship.BlockGrid.Remove(GridAnchor);
             Ship = null;
         }
 
-        public void AddGridTotals(GridTotals totals)
-        {
-            foreach (var behaviour in GetBehaviours())
-            {
+        public void AddGridTotals(GridTotals totals) {
+            foreach (var behaviour in GetBehaviours()) {
                 behaviour.BlockComponentData.AddGridTotals(totals);
             }
         }
 
-        public void RemoveGridTotals(GridTotals totals)
-        {
-            foreach (var behaviour in GetBehaviours())
-            {
+        public void RemoveGridTotals(GridTotals totals) {
+            foreach (var behaviour in GetBehaviours()) {
                 behaviour.BlockComponentData.RemoveGridTotals(totals);
             }
         }
 
         // TODO: Convert gameobject to entity
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-        {
+        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             throw new System.NotImplementedException();
         }
 
         // TODO: cache the result of this operation
-        public virtual IEnumerable<BlockBehaviourBase> GetBehaviours()
-        {
-            return new BlockBehaviourBase[]
-            {
+        public virtual IEnumerable<BlockBehaviourBase> GetBehaviours() {
+            return new BlockBehaviourBase[] {
                 physicalBehaviour
             };
         }
 
-        protected virtual void OnAdd()
-        {
-        }
+        protected virtual void OnAdd() { }
 
-        protected virtual void OnRemove()
-        {
-        }
+        protected virtual void OnRemove() { }
     }
 }

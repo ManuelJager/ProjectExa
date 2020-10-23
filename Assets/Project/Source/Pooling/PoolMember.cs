@@ -7,15 +7,13 @@ namespace Exa.Pooling
     {
         public Pool<PoolMember> pool;
 
-        protected virtual void OnDisable()
-        {
+        protected virtual void OnDisable() {
             if (Systems.IsQuitting) return;
             if (pool?.GetParentSceneIsUnloading() == false)
                 pool.Return(this);
         }
 
-        protected virtual void OnDestroy()
-        {
+        protected virtual void OnDestroy() {
             if (Systems.IsQuitting) return;
 
             if (pool?.GetParentSceneIsUnloading() == false)

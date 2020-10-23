@@ -1,9 +1,9 @@
 ﻿using DG.Tweening;
 using Exa.Data;
-using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Components
@@ -15,8 +15,7 @@ namespace Exa.UI.Components
 
         private Tween colorTween;
 
-        public void SetColor(bool active)
-        {
+        public void SetColor(bool active) {
             text.DOColor(color.GetValue(active), 0.1f)
                 .Replace(ref colorTween);
         }

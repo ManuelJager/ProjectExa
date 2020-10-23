@@ -3,39 +3,37 @@ using UnityEngine.Experimental.Rendering.Universal;
 using DG.Tweening;
 using Exa.Utils;
 using Exa.Grids.Blocks;
+
 #pragma warning disable CS0649
 
 namespace Exa.Weapons
 {
     public class AutocannonPart : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private FiringPoint firingPoint;
+        [Header("References")] [SerializeField]
+        private FiringPoint firingPoint;
+
         [SerializeField] private Animation barrelAnimator;
         [SerializeField] private Light2D light2D;
 
-        [Header("Settings")]
-        [SerializeField] private float peakIntensity;
+        [Header("Settings")] [SerializeField] private float peakIntensity;
         [SerializeField] private SpriteRenderer drumRenderer;
         [SerializeField] private Sprite drumNormal;
         [SerializeField] private Sprite drumCycling;
 
         private float animTime;
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             StopAllCoroutines();
         }
 
-        public void Setup(float animTime, ShipContext damageMask)
-        {
+        public void Setup(float animTime, ShipContext damageMask) {
             this.animTime = animTime;
             barrelAnimator["BarrelAnimation"].speed = 1f / animTime;
             firingPoint.Setup(damageMask);
         }
 
-        public void Fire(float damage)
-        {
+        public void Fire(float damage) {
             barrelAnimator.Stop();
             barrelAnimator.Play();
 
@@ -48,13 +46,11 @@ namespace Exa.Weapons
             this.Delay(SetNormalDrumSprite, animTime * 0.5f);
         }
 
-        private void SetCyclingDrumSprite()
-        {
+        private void SetCyclingDrumSprite() {
             drumRenderer.sprite = drumCycling;
         }
 
-        private void SetNormalDrumSprite()
-        {
+        private void SetNormalDrumSprite() {
             drumRenderer.sprite = drumNormal;
         }
     }

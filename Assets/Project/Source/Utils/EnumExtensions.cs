@@ -12,8 +12,7 @@ namespace Exa.Utils
         /// <param name="flag"></param>
         /// <returns></returns>
         public static bool Is<T>(this T value, T flag)
-            where T : Enum
-        {
+            where T : Enum {
             return value.HasFlag(flag);
         }
     }

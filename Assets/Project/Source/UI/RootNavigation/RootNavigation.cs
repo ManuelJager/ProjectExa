@@ -1,8 +1,6 @@
 ﻿using Exa.Data;
-using Exa.SceneManagement;
 using Exa.UI.Components;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 #pragma warning disable CS0649
 

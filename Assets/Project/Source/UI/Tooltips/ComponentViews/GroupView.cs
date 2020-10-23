@@ -14,23 +14,18 @@ namespace Exa.UI.Tooltips
         [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
         private List<TooltipComponentView> views;
 
-        protected override void Refresh(TooltipGroup value)
-        {
+        protected override void Refresh(TooltipGroup value) {
             verticalLayoutGroup.padding.left = value.Tabs * 8;
             verticalLayoutGroup.spacing = value.Spacing;
 
-            if (views == null)
-            {
+            if (views == null) {
                 views = new List<TooltipComponentView>();
-                foreach (var child in value.Children)
-                {
+                foreach (var child in value.Children) {
                     views.Add(child.InstantiateComponentView(container));
                 }
             }
-            else
-            {
-                foreach (var tuple in EnumerableUtils.AsTupleEnumerable(value.Children, views))
-                {
+            else {
+                foreach (var tuple in EnumerableUtils.AsTupleEnumerable(value.Children, views)) {
                     tuple.Item2.Refresh(tuple.Item1);
                 }
             }

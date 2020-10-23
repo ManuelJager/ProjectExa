@@ -14,8 +14,7 @@ namespace Exa.Weapons
         private ShipContext damageMask;
         private float timeAlive;
 
-        public void Setup(Transform transform, float speed, float range, float damage, ShipContext damageMask)
-        {
+        public void Setup(Transform transform, float speed, float range, float damage, ShipContext damageMask) {
             this.transform.position = transform.position;
             this.damage = damage;
             this.direction = transform.right * speed;
@@ -23,26 +22,22 @@ namespace Exa.Weapons
             this.damageMask = damageMask;
         }
 
-        public void Update()
-        {
+        public void Update() {
             var deltaTime = Time.deltaTime;
 
             transform.position += (direction * deltaTime).ToVector3();
             timeAlive += deltaTime;
 
-            if (timeAlive > lifeTime)
-            {
+            if (timeAlive > lifeTime) {
                 Destroy(gameObject);
             }
         }
 
-        public void OnCollisionEnter2D(Collision2D collision)
-        {
+        public void OnCollisionEnter2D(Collision2D collision) {
             var block = collision.transform.GetComponent<Block>();
             if (!block) return;
-            
-            if ((block.Ship.BlockContext & damageMask) != 0)
-            {
+
+            if ((block.Ship.BlockContext & damageMask) != 0) {
                 var physicalBehaviour = (block as IBehaviourMarker<PhysicalData>).Component as PhysicalBehaviour;
                 physicalBehaviour.TakeDamage(damage);
             }

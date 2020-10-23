@@ -1,6 +1,4 @@
-﻿using Exa.Generics;
-
-namespace Exa.UI
+﻿namespace Exa.UI
 {
     public enum CursorState
     {

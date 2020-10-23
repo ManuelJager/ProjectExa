@@ -11,13 +11,11 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="blockTemplate"></param>
         /// <returns></returns>
-        public void CreateAlivePrefabGroup(BlockTemplate blockTemplate, ShipContext blockContext)
-        {
+        public void CreateAlivePrefabGroup(BlockTemplate blockTemplate, ShipContext blockContext) {
             var rootInstanceGO = CreatePrefab(blockTemplate, PrefabType);
             var rootInstance = rootInstanceGO.GetComponent<Block>();
 
-            foreach (var component in rootInstance.GetBehaviours())
-            {
+            foreach (var component in rootInstance.GetBehaviours()) {
                 component.block = rootInstance;
             }
 

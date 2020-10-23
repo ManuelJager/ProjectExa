@@ -8,17 +8,14 @@ namespace Exa.Gameplay
     public class FriendlyShipSelection : ShipSelection
     {
         public FriendlyShipSelection(Formation formation)
-            : base(formation)
-        {
+            : base(formation) {
             CanControl = true;
         }
 
-        public void MoveLookAt(Vector2 point)
-        {
+        public void MoveLookAt(Vector2 point) {
             var formationEnumerator = formation.GetGlobalLayout(this, point).GetEnumerator();
 
-            foreach (var ship in this.OrderByDescending(ship => ship.Blueprint.Blocks.MaxSize))
-            {
+            foreach (var ship in this.OrderByDescending(ship => ship.Blueprint.Blocks.MaxSize)) {
                 formationEnumerator.MoveNext();
                 var currentPosition = ship.transform.position.ToVector2();
                 var formationPosition = formationEnumerator.Current;
@@ -28,13 +25,12 @@ namespace Exa.Gameplay
             }
         }
 
-        public override ShipSelection Clone()
-        {
+        public override ShipSelection Clone() {
             var selection = new FriendlyShipSelection(formation);
-            foreach (var ship in this)
-            {
+            foreach (var ship in this) {
                 selection.Add(ship);
             }
+
             return selection;
         }
     }

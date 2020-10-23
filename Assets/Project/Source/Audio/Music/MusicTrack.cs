@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Audio.Music
@@ -14,8 +15,7 @@ namespace Exa.Audio.Music
         [SerializeField] private TrackList MainMenuTrackList;
         private Atmosphere activeAtmosphere = Atmosphere.None;
 
-        public void SetAtmosphere(Atmosphere atmosphere)
-        {
+        public void SetAtmosphere(Atmosphere atmosphere) {
             if (activeAtmosphere == atmosphere) return;
 
             // Fade out the current atmosphere
@@ -27,8 +27,7 @@ namespace Exa.Audio.Music
             activeAtmosphere = atmosphere;
         }
 
-        private void ProcessNewAtmosphere(Atmosphere newAtmosphere)
-        {
+        private void ProcessNewAtmosphere(Atmosphere newAtmosphere) {
             // since no sounds are related to this atmosphere, Atmosphere.None is just a no-op
             if (newAtmosphere == Atmosphere.None) return;
 
@@ -39,8 +38,7 @@ namespace Exa.Audio.Music
             trackList.activeHandle = handle;
         }
 
-        private void ProcessOldAtmosphere(Atmosphere oldAtmosphere)
-        {
+        private void ProcessOldAtmosphere(Atmosphere oldAtmosphere) {
             // since no sounds are related to this atmosphere, Atmosphere.None is just a no-op
             if (oldAtmosphere == Atmosphere.None) return;
 
@@ -50,10 +48,8 @@ namespace Exa.Audio.Music
             handle?.Stop();
         }
 
-        private TrackList GetTrackList(Atmosphere atmosphere)
-        {
-            switch (atmosphere)
-            {
+        private TrackList GetTrackList(Atmosphere atmosphere) {
+            switch (atmosphere) {
                 case Atmosphere.MainMenu:
                     return MainMenuTrackList;
 

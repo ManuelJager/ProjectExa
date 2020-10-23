@@ -1,8 +1,5 @@
-﻿using Exa.Generics;
-using Exa.UI;
+﻿using Exa.UI;
 using Exa.UI.Controls;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -13,22 +10,20 @@ namespace Exa.Grids.Blueprints
 
         private BlueprintType blueprintType;
 
-        public override BlueprintOptions FromDescriptor()
-        {
+        public override BlueprintOptions FromDescriptor() {
             return new BlueprintOptions(blueprintName, blueprintType.typeGuid);
         }
 
-        public override void GenerateView(Transform container)
-        {
+        public override void GenerateView(Transform container) {
             Systems.UI.controlFactory.CreateInputField(container, "Name", SetBlueprintName);
-            Systems.UI.controlFactory.CreateDropdown(container, "Class", Systems.Blueprints.blueprintTypes, SetBlueprintType, OnOptionCreation);
+            Systems.UI.controlFactory.CreateDropdown(container, "Class", Systems.Blueprints.blueprintTypes,
+                SetBlueprintType, OnOptionCreation);
         }
 
         private void SetBlueprintName(string blueprintName) => this.blueprintName = blueprintName;
         private void SetBlueprintType(BlueprintType blueprintType) => this.blueprintType = blueprintType;
 
-        private void OnOptionCreation(BlueprintType value, DropdownTab tab)
-        {
+        private void OnOptionCreation(BlueprintType value, DropdownTab tab) {
             var hoverable = tab.gameObject.AddComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() => Systems.UI.tooltips.blueprintTypeTooltip.Show(value));
             hoverable.onPointerExit.AddListener(() => Systems.UI.tooltips.blueprintTypeTooltip.Hide());

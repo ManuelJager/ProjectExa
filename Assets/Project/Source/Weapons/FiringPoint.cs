@@ -1,5 +1,6 @@
 ﻿using Exa.Grids.Blocks;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Weapons
@@ -11,13 +12,11 @@ namespace Exa.Weapons
 
         private ShipContext damageMask;
 
-        public void Setup(ShipContext damageMask)
-        {
+        public void Setup(ShipContext damageMask) {
             this.damageMask = damageMask;
         }
 
-        public void Fire(float damage)  
-        {
+        public void Fire(float damage) {
             // TODO: Pool projectiles
             var projectile = Instantiate(projectilePrefab).GetComponent<Projectile>();
             projectile.Setup(spawnPoint, 80f, 250f, damage, damageMask);

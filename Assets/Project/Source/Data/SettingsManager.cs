@@ -1,8 +1,4 @@
-﻿using System;
-using Exa.Generics;
-using Exa.Math;
-using Exa.UI.Settings;
-using System.Linq;
+﻿using Exa.UI.Settings;
 using UnityEngine;
 
 namespace Exa.Data
@@ -12,8 +8,7 @@ namespace Exa.Data
         public VideoSettingsPanel videoSettings;
         public AudioSettingsPanel audioSettings;
 
-        public void Load()
-        {
+        public void Load() {
             videoSettings.Init();
             audioSettings.Init();
         }

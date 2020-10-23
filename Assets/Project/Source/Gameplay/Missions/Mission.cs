@@ -1,6 +1,5 @@
 ﻿using Exa.Generics;
 using Exa.Grids.Blueprints;
-using Exa.Ships;
 using UnityEngine;
 
 namespace Exa.Gameplay.Missions
@@ -15,8 +14,7 @@ namespace Exa.Gameplay.Missions
 
         public abstract void Init(MissionArgs args);
 
-        protected void SpawnMothership(BlueprintContainer mothership)
-        {
+        protected void SpawnMothership(BlueprintContainer mothership) {
             GameSystems.ShipFactory.CreateFriendly(mothership.Data, new Vector2(-20, 20));
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Exa.UI.Components;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Settings
@@ -8,20 +9,16 @@ namespace Exa.UI.Settings
     {
         [SerializeField] private SettingsTabManager settingsTabManager;
 
-        protected override void Return(bool force = false)
-        {
-            if (settingsTabManager.activeSettingsTab.IsDirty)
-            {
-                settingsTabManager.QueryUserConfirmation(yes =>
-                {
+        protected override void Return(bool force = false) {
+            if (settingsTabManager.activeSettingsTab.IsDirty) {
+                settingsTabManager.QueryUserConfirmation(yes => {
                     if (yes)
                         settingsTabManager.activeSettingsTab.ApplyChanges();
                     else
                         base.Return(true);
                 });
             }
-            else
-            {
+            else {
                 base.Return(force);
             }
         }

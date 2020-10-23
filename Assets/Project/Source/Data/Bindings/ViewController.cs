@@ -13,9 +13,9 @@ namespace Exa.Bindings
     /// <typeparam name="TContainer">Model observable type</typeparam>
     /// <typeparam name="TModel">Model type</typeparam>
     public class ViewController<TView, TContainer, TModel> : AbstractCollectionObserver<TContainer>
-    where TView : MonoBehaviour, IObserver<TModel>
-    where TContainer : Observable<TModel>
-    where TModel : class
+        where TView : MonoBehaviour, IObserver<TModel>
+        where TContainer : Observable<TModel>
+        where TModel : class
     {
         [SerializeField] protected Transform viewContainer;
         [SerializeField] protected GameObject viewPrefab;
@@ -26,8 +26,7 @@ namespace Exa.Bindings
         /// Add observable
         /// </summary>
         /// <param name="observer"></param>
-        public override void OnAdd(TContainer observer)
-        {
+        public override void OnAdd(TContainer observer) {
             OnAdd(observer, viewContainer);
         }
 
@@ -36,8 +35,7 @@ namespace Exa.Bindings
         /// </summary>
         /// <param name="observer"></param>
         /// <param name="container"></param>
-        protected virtual TView OnAdd(TContainer observer, Transform container)
-        {
+        protected virtual TView OnAdd(TContainer observer, Transform container) {
             var blockObject = Instantiate(viewPrefab, container);
             var view = blockObject.GetComponent<TView>();
             view.OnUpdate(observer.Data);
@@ -49,10 +47,8 @@ namespace Exa.Bindings
         /// <summary>
         /// Clear views
         /// </summary>
-        public override void OnClear()
-        {
-            foreach (var key in views.Keys)
-            {
+        public override void OnClear() {
+            foreach (var key in views.Keys) {
                 OnRemove(key);
             }
 
@@ -63,15 +59,13 @@ namespace Exa.Bindings
         /// Remove view
         /// </summary>
         /// <param name="observer"></param>
-        public override void OnRemove(TContainer observer)
-        {
+        public override void OnRemove(TContainer observer) {
             var view = views[observer];
             observer.Unregister(view);
             Destroy(view.gameObject);
         }
 
-        public TView GetView(TContainer container)
-        {
+        public TView GetView(TContainer container) {
             return views[container];
         }
     }

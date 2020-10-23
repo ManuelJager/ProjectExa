@@ -12,13 +12,10 @@ namespace Exa.Generics
         protected T value;
         protected bool valueUpdated = false;
 
-        public T Value
-        {
-            get
-            {
+        public T Value {
+            get {
                 // If value is not up to date, create it and set the flag
-                if (!valueUpdated)
-                {
+                if (!valueUpdated) {
                     value = valueFactory();
                     valueUpdated = true;
                 }
@@ -27,20 +24,16 @@ namespace Exa.Generics
             }
         }
 
-        public LazyCache()
-        {
-        }
+        public LazyCache() { }
 
-        public LazyCache(Func<T> valueFactory)
-        {
+        public LazyCache(Func<T> valueFactory) {
             this.valueFactory = valueFactory;
         }
 
         /// <summary>
         /// Invalidate a value so it needs to be recalculated next time it's requested
         /// </summary>
-        public void Invalidate()
-        {
+        public void Invalidate() {
             valueUpdated = false;
         }
     }

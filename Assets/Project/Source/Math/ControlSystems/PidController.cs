@@ -14,8 +14,7 @@ namespace Exa.Math.ControlSystems
         private float integral;
         private float derivitive;
 
-        public PidController(float proportional, float integral, float derivitive)
-        {
+        public PidController(float proportional, float integral, float derivitive) {
             Proportional = proportional;
             Integral = integral;
             Derivitive = derivitive;
@@ -23,27 +22,24 @@ namespace Exa.Math.ControlSystems
             this.calculatedIntegralMax = MaxOutput / Integral;
         }
 
-        public float Proportional
-        {
+        public float Proportional {
             get => proportional;
-            set
-            {
+            set {
                 EnsureNonNegative(proportional, "proportional");
                 proportional = value;
             }
         }
 
-        public float Integral
-        {
+        public float Integral {
             get => integral;
-            set
-            {
+            set {
                 EnsureNonNegative(integral, "integral");
 
                 integral = value;
 
                 this.calculatedIntegralMax = MaxOutput / Integral;
-                this.calculatedIntegral = Mathf.Clamp(this.calculatedIntegral, -this.calculatedIntegralMax, this.calculatedIntegralMax);
+                this.calculatedIntegral = Mathf.Clamp(this.calculatedIntegral, -this.calculatedIntegralMax,
+                    this.calculatedIntegralMax);
             }
         }
 
@@ -53,20 +49,18 @@ namespace Exa.Math.ControlSystems
         /// <value>
         ///     The derivative gain.
         /// </value>
-        public float Derivitive
-        {
+        public float Derivitive {
             get => derivitive;
-            set
-            {
+            set {
                 EnsureNonNegative(value, "Derivative");
                 this.derivitive = value;
             }
         }
 
-        public float ComputeOutput(float error, float delta, float deltaTime)
-        {
+        public float ComputeOutput(float error, float delta, float deltaTime) {
             this.calculatedIntegral += (error * deltaTime);
-            this.calculatedIntegral = Mathf.Clamp(this.calculatedIntegral, -this.calculatedIntegralMax, this.calculatedIntegralMax);
+            this.calculatedIntegral = Mathf.Clamp(this.calculatedIntegral, -this.calculatedIntegralMax,
+                this.calculatedIntegralMax);
 
             float derivative = delta / deltaTime;
             float output = (Proportional * error) + (Integral * this.calculatedIntegral) + (Derivitive * derivative);
@@ -76,10 +70,8 @@ namespace Exa.Math.ControlSystems
             return output;
         }
 
-        private void EnsureNonNegative(float value, string paramName)
-        {
-            if (value < 0f)
-            {
+        private void EnsureNonNegative(float value, string paramName) {
+            if (value < 0f) {
                 throw new ArgumentOutOfRangeException(paramName, "param must be a non-negative number");
             }
         }

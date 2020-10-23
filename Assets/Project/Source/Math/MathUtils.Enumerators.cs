@@ -10,19 +10,14 @@ namespace Exa.Math
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static IEnumerable<int> Range(int value)
-        {
-            if (value > 0)
-            {
-                for (int i = 0; i < value; i++)
-                {
+        private static IEnumerable<int> Range(int value) {
+            if (value > 0) {
+                for (int i = 0; i < value; i++) {
                     yield return i;
                 }
             }
-            else
-            {
-                for (int i = 0; i > value; i--)
-                {
+            else {
+                for (int i = 0; i > value; i--) {
                     yield return i;
                 }
             }
@@ -34,12 +29,9 @@ namespace Exa.Math
         /// <param name="sizeX">Width</param>
         /// <param name="sizeY">Height</param>
         /// <returns></returns>
-        public static IEnumerable<Vector2Int> EnumerateVectors(int sizeX, int sizeY)
-        {
-            foreach (var x in Range(sizeX))
-            {
-                foreach (var y in Range(sizeY))
-                {
+        public static IEnumerable<Vector2Int> EnumerateVectors(int sizeX, int sizeY) {
+            foreach (var x in Range(sizeX)) {
+                foreach (var y in Range(sizeY)) {
                     yield return new Vector2Int(x, y);
                 }
             }
@@ -53,26 +45,21 @@ namespace Exa.Math
         /// <param name="offsetX">Width</param>
         /// <param name="offsetY">Height</param>
         /// <returns></returns>
-        public static IEnumerable<Vector2Int> EnumerateVectors(int sizeX, int sizeY, int offsetX, int offsetY)
-        {
-            foreach (var x in Range(sizeX))
-            {
-                foreach (var y in Range(sizeY))
-                {
+        public static IEnumerable<Vector2Int> EnumerateVectors(int sizeX, int sizeY, int offsetX, int offsetY) {
+            foreach (var x in Range(sizeX)) {
+                foreach (var y in Range(sizeY)) {
                     yield return new Vector2Int(x + offsetX, y + offsetY);
                 }
             }
         }
 
         /// <inheritdoc cref="EnumerateVectors(int, int)"/>
-        public static IEnumerable<Vector2Int> EnumerateVectors(Vector2Int size)
-        {
+        public static IEnumerable<Vector2Int> EnumerateVectors(Vector2Int size) {
             return EnumerateVectors(size.x, size.y);
         }
 
         /// <inheritdoc cref="EnumerateVectors(int, int, int, int)"/>
-        public static IEnumerable<Vector2Int> EnumerateVectors(Vector2Int size, Vector2Int offset)
-        {
+        public static IEnumerable<Vector2Int> EnumerateVectors(Vector2Int size, Vector2Int offset) {
             return EnumerateVectors(size.x, size.y, offset.x, offset.y);
         }
     }

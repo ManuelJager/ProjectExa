@@ -20,23 +20,19 @@ namespace Exa.Grids.Blueprints
         public string Label => displayName;
         public BlueprintType Value => this;
 
-        public bool IsMothership
-        {
+        public bool IsMothership {
             get => typeGuid == BlueprintTypeGuid.mothership;
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             tooltipResult = new Tooltip(GetTooltipGroup);
         }
 
-        public Tooltip GetTooltip()
-        {
+        public Tooltip GetTooltip() {
             return tooltipResult;
         }
 
-        private TooltipGroup GetTooltipGroup() => new TooltipGroup(new ITooltipComponent[]
-        {
+        private TooltipGroup GetTooltipGroup() => new TooltipGroup(new ITooltipComponent[] {
             new LabeledValue<string>("Max size", $"{maxSize.x}x{maxSize.y}")
         });
     }

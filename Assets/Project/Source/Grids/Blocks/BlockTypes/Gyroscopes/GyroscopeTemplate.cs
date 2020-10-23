@@ -12,8 +12,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] protected GyroscopeTemplatePartial gyroscopeTemplatePartial;
 
-        public override IEnumerable<TemplatePartialBase> GetTemplatePartials()
-        {
+        public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             return base.GetTemplatePartials()
                 .Append(gyroscopeTemplatePartial);
         }

@@ -15,33 +15,27 @@ namespace Exa.Ships.Navigation
         public ITarget MoveTo { private get; set; }
         public IThrustVectors ThrustVectors => thrustVectors;
 
-        public SimpleNavigation(Ship ship, NavigationOptions options, Scalar thrustModifier)
-        {
+        public SimpleNavigation(Ship ship, NavigationOptions options, Scalar thrustModifier) {
             this.ship = ship;
             this.options = options;
             this.thrustVectors = new ThrustVectors(thrustModifier);
         }
 
-        public void Update(float deltaTime)
-        {
-            if (LookAt != null)
-            {
+        public void Update(float deltaTime) {
+            if (LookAt != null) {
                 UpdateRotation();
             }
 
-            if (MoveTo != null)
-            {
+            if (MoveTo != null) {
                 UpdatePosition();
             }
         }
 
-        private void UpdatePosition()
-        {
-            var currentPosition = (Vector2)ship.transform.position;
+        private void UpdatePosition() {
+            var currentPosition = (Vector2) ship.transform.position;
             var moveToTargetPosition = MoveTo.GetPosition(currentPosition);
 
-            if (currentPosition == moveToTargetPosition)
-            {
+            if (currentPosition == moveToTargetPosition) {
                 ThrustVectors.SetGraphics(Vector2.zero);
                 return;
             }
@@ -56,9 +50,8 @@ namespace Exa.Ships.Navigation
             ship.transform.position = newPosition;
         }
 
-        private void UpdateRotation()
-        {
-            var currentPosition = (Vector2)ship.transform.position;
+        private void UpdateRotation() {
+            var currentPosition = (Vector2) ship.transform.position;
             var lookAtTargetPosition = LookAt.GetPosition(currentPosition);
 
             var lookAtDelta = lookAtTargetPosition - currentPosition;

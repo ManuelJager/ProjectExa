@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -9,11 +8,9 @@ namespace Exa.Math.ControlSystems
     {
         private readonly PidController[] internalControllers;
 
-        public float Proportional
-        {
+        public float Proportional {
             get => internalControllers[0].Proportional;
-            set
-            {
+            set {
                 EnsureNonNegative(value, "Proportional");
 
                 internalControllers[0].Proportional = value;
@@ -23,11 +20,9 @@ namespace Exa.Math.ControlSystems
             }
         }
 
-        public float Integral
-        {
+        public float Integral {
             get => internalControllers[0].Integral;
-            set
-            {
+            set {
                 EnsureNonNegative(value, "Integral");
 
                 internalControllers[0].Integral = value;
@@ -37,11 +32,9 @@ namespace Exa.Math.ControlSystems
             }
         }
 
-        public float Derivative
-        {
+        public float Derivative {
             get => internalControllers[0].Derivitive;
-            set
-            {
+            set {
                 EnsureNonNegative(value, "Derivative");
 
                 this.internalControllers[0].Derivitive = value;
@@ -51,10 +44,8 @@ namespace Exa.Math.ControlSystems
             }
         }
 
-        public PidQuaternionController(float proportional, float integral, float derivitive)
-        {
-            internalControllers = new[]
-            {
+        public PidQuaternionController(float proportional, float integral, float derivitive) {
+            internalControllers = new[] {
                 new PidController(proportional, integral, derivitive),
                 new PidController(proportional, integral, derivitive),
                 new PidController(proportional, integral, derivitive),
@@ -62,8 +53,7 @@ namespace Exa.Math.ControlSystems
             };
         }
 
-        public static Quaternion MultiplyAsVector(Matrix4x4 matrix, Quaternion quaternion)
-        {
+        public static Quaternion MultiplyAsVector(Matrix4x4 matrix, Quaternion quaternion) {
             var vector = new Vector4(quaternion.w, quaternion.x, quaternion.y, quaternion.z);
 
             Vector4 result = matrix * vector;
@@ -71,13 +61,12 @@ namespace Exa.Math.ControlSystems
             return new Quaternion(result.y, result.z, result.w, result.x);
         }
 
-        public static Quaternion ToEulerAngleQuaternion(Vector3 eulerAngles)
-        {
+        public static Quaternion ToEulerAngleQuaternion(Vector3 eulerAngles) {
             return new Quaternion(eulerAngles.x, eulerAngles.y, eulerAngles.z, 0);
         }
 
-        public Vector3 ComputeRequiredAngularAcceleration(Quaternion currentOrientation, Quaternion desiredOrientation, Vector3 currentAngularVelocity, float deltaTime)
-        {
+        public Vector3 ComputeRequiredAngularAcceleration(Quaternion currentOrientation, Quaternion desiredOrientation,
+            Vector3 currentAngularVelocity, float deltaTime) {
             var requiredRotation = QuaternionExtensions.RequiredRotation(currentOrientation, desiredOrientation);
 
             var error = Quaternion.identity.Subtract(requiredRotation);
@@ -96,10 +85,8 @@ namespace Exa.Math.ControlSystems
             return new Vector3(result.x, result.y, result.z);
         }
 
-        private Quaternion ComputeOutput(Quaternion error, Quaternion delta, float deltaTime)
-        {
-            var output = new Quaternion
-            {
+        private Quaternion ComputeOutput(Quaternion error, Quaternion delta, float deltaTime) {
+            var output = new Quaternion {
                 x = internalControllers[0].ComputeOutput(error.x, delta.x, deltaTime),
                 y = internalControllers[1].ComputeOutput(error.y, delta.y, deltaTime),
                 z = internalControllers[2].ComputeOutput(error.z, delta.z, deltaTime),
@@ -109,18 +96,14 @@ namespace Exa.Math.ControlSystems
             return output;
         }
 
-        private void EnsureNonNegative(float value, string paramName)
-        {
-            if (value < 0f)
-            {
+        private void EnsureNonNegative(float value, string paramName) {
+            if (value < 0f) {
                 throw new ArgumentOutOfRangeException(paramName, "param must be a non-negative number");
             }
         }
 
-        private Matrix4x4 OrthogonalizeMatrix(Quaternion requiredRotation)
-        {
-            return new Matrix4x4()
-            {
+        private Matrix4x4 OrthogonalizeMatrix(Quaternion requiredRotation) {
+            return new Matrix4x4() {
                 m00 =
                     -requiredRotation.x * -requiredRotation.x + -requiredRotation.y * -requiredRotation.y +
                     -requiredRotation.z * -requiredRotation.z,

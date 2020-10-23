@@ -6,10 +6,8 @@ namespace Exa.Math
 {
     public static partial class MathUtils
     {
-        public static int GreatestCommonDivisor(int a, int b)
-        {
-            while (b != 0)
-            {
+        public static int GreatestCommonDivisor(int a, int b) {
+            while (b != 0) {
                 var i = a % b;
                 a = b;
                 b = i;
@@ -18,17 +16,14 @@ namespace Exa.Math
             return a;
         }
 
-        public static float Increment(float from, float to, float by)
-        {
+        public static float Increment(float from, float to, float by) {
             if (from == to) return from;
 
-            if (from < to)
-            {
+            if (from < to) {
                 var result = from + by;
-                return result < to ? result : to; 
+                return result < to ? result : to;
             }
-            else
-            {
+            else {
                 var result = from - by;
                 return result > to ? result : to;
             }
@@ -39,8 +34,7 @@ namespace Exa.Math
             float from1,
             float to1,
             float from2,
-            float to2)
-        {
+            float to2) {
             value = Mathf.Clamp(value, from1, to1);
 
             return
@@ -59,37 +53,31 @@ namespace Exa.Math
         /// <para>
         /// Values over or under the min and max wrap to a value inside the range
         /// </para>
-        public static float NormalizeWrap(float value, MinMax<float> minMax)
-        {
+        public static float NormalizeWrap(float value, MinMax<float> minMax) {
             value %= minMax.max;
 
-            if (value < minMax.min)
-            {
+            if (value < minMax.min) {
                 value += minMax.max;
             }
 
             return value;
         }
 
-        public static float AbsMin(params float[] args)
-        {
+        public static float AbsMin(params float[] args) {
             return args
                 .OrderBy(Mathf.Abs)
                 .First();
         }
 
-        public static float NormalizeAngle360(float angle)
-        {
+        public static float NormalizeAngle360(float angle) {
             return NormalizeWrap(angle, new MinMax<float>(0f, 360f));
         }
 
-        public static int NormalizeAngle04(int quarterAngle)
-        {
-            return (int)NormalizeWrap(quarterAngle, new MinMax<float>(0, 4));
+        public static int NormalizeAngle04(int quarterAngle) {
+            return (int) NormalizeWrap(quarterAngle, new MinMax<float>(0, 4));
         }
 
-        public static int To1(this bool value)
-        {
+        public static int To1(this bool value) {
             return value ? 1 : -1;
         }
     }

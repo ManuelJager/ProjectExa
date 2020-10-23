@@ -9,21 +9,18 @@ namespace Exa.Generics
         public string Label { get; set; }
         public T Value { get; set; }
 
-        public LabeledValue(string label, T value)
-        {
+        public LabeledValue(string label, T value) {
             Label = label;
             Value = value;
         }
 
-        public bool Equals(LabeledValue<T> other)
-        {
+        public bool Equals(LabeledValue<T> other) {
             return
                 Label.Equals(other.Label) &&
                 Value.Equals(other.Value);
         }
 
-        public TooltipComponentView InstantiateComponentView(Transform parent)
-        {
+        public TooltipComponentView InstantiateComponentView(Transform parent) {
             return Systems.UI.tooltips.tooltipGenerator.GenerateTooltipProperty(parent, this);
         }
     }

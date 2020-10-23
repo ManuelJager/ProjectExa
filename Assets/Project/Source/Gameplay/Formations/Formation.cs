@@ -11,8 +11,7 @@ namespace Exa.Gameplay
     {
         protected abstract IEnumerable<Vector2> GetLocalLayout(IEnumerable<Ship> ships);
 
-        public IEnumerable<Vector2> GetGlobalLayout(ShipSelection ships, Vector2 point)
-        {
+        public IEnumerable<Vector2> GetGlobalLayout(ShipSelection ships, Vector2 point) {
             if (!ships.Any())
                 throw new ArgumentException("Cannot layout an empty collection", nameof(ships));
 
@@ -20,8 +19,7 @@ namespace Exa.Gameplay
             var direction = point - ships.AveragePosition;
             var angle = direction.GetAngle();
 
-            foreach (var localShipPos in GetLocalLayout(ships))
-            {
+            foreach (var localShipPos in GetLocalLayout(ships)) {
                 yield return localShipPos.Rotate(angle) + point;
             }
         }

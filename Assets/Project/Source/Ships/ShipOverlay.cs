@@ -11,8 +11,7 @@ namespace Exa.Ships
         public ShipOverlayEnergyBar overlayEnergyBar;
         public ShipOverlayCircle overlayCircle;
 
-        private void Update()
-        {
+        private void Update() {
             transform.position = ship.transform.position;
         }
     }

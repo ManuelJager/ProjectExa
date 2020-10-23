@@ -5,8 +5,7 @@ namespace Exa.UI.Settings
     public class ExaVideoSettings : SaveableSettings<VideoSettingsValues>
     {
         public override VideoSettingsValues DefaultValues =>
-            new VideoSettingsValues
-            {
+            new VideoSettingsValues {
                 resolution = Resolutions.GetHighestSupportedResolution(),
                 fullscreen = true
             };
@@ -15,8 +14,7 @@ namespace Exa.UI.Settings
 
         protected override string Key => "videoSettings";
 
-        public override void Apply()
-        {
+        public override void Apply() {
 #if !UNITY_EDITOR
             Screen.SetResolution(
                 width:                  Values.resolution.width,

@@ -1,5 +1,5 @@
-﻿using Exa.Generics;
-using UnityEngine;
+﻿using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI
@@ -23,8 +23,7 @@ namespace Exa.UI
         public bool MouseInViewport { get; private set; }
         public ICursor CurrentCursor => cursor;
 
-        private void Start()
-        {
+        private void Start() {
             // Activates the default cursor type
             SetCursor(cursorType);
 
@@ -33,38 +32,30 @@ namespace Exa.UI
             cursor.SetState(cursorState);
         }
 
-        public void SetCursor(CursorType cursorType)
-        {
+        public void SetCursor(CursorType cursorType) {
             cursor?.SetActive(false);
             cursor = GetCursor(cursorType);
             cursor.SetActive(true);
         }
 
-        public void UpdateMouseInViewport(bool value)
-        {
-            if (value != MouseInViewport)
-            {
+        public void UpdateMouseInViewport(bool value) {
+            if (value != MouseInViewport) {
                 MouseInViewport = value;
                 SetMouseInViewport(value);
             }
         }
 
-        public void SetMouseInViewport(bool value)
-        {
-            if (value)
-            {
+        public void SetMouseInViewport(bool value) {
+            if (value) {
                 cursor.OnEnterViewport();
             }
-            else
-            {
+            else {
                 cursor.OnExitViewport();
             }
         }
 
-        private ICursor GetCursor(CursorType cursorType)
-        {
-            switch (cursorType)
-            {
+        private ICursor GetCursor(CursorType cursorType) {
+            switch (cursorType) {
                 case CursorType.HardwareCursor:
                     return hardwareMouseCursor;
 

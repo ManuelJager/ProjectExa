@@ -14,29 +14,28 @@ namespace Exa.ShipEditor
         [SerializeField] private Hoverable editorStatePanelHoverable;
 
         public CanvasGroupInteractableAdapter editorOverlayCanvasGroup;
+
         [FormerlySerializedAs("blueprintInfoPanel")]
         public ShipEditorOverlayInfoPanel infoPanel;
+
         public ShipEditorOverlayInventory inventory;
         public MirrorView mirrorView;
 
         public UnityEvent onPointerEnter;
         public UnityEvent onPointerExit;
 
-        private void Awake()
-        {
+        private void Awake() {
             AddListenerToGroupOnPointerEnter(onPointerEnter.Invoke);
             AddListenerToGroupOnPointerExit(onPointerExit.Invoke);
         }
 
-        private void AddListenerToGroupOnPointerEnter(UnityAction action)
-        {
+        private void AddListenerToGroupOnPointerEnter(UnityAction action) {
             blueprintInventoryHoverable.onPointerEnter.AddListener(action);
             blueprintInfoPanelHoverable.onPointerEnter.AddListener(action);
             editorStatePanelHoverable.onPointerEnter.AddListener(action);
         }
 
-        private void AddListenerToGroupOnPointerExit(UnityAction action)
-        {
+        private void AddListenerToGroupOnPointerExit(UnityAction action) {
             blueprintInventoryHoverable.onPointerExit.AddListener(action);
             blueprintInfoPanelHoverable.onPointerExit.AddListener(action);
             editorStatePanelHoverable.onPointerExit.AddListener(action);

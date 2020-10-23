@@ -2,6 +2,7 @@
 using Exa.Grids.Blueprints;
 using Exa.Math;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.ShipEditor
@@ -23,8 +24,7 @@ namespace Exa.ShipEditor
         /// Update the block the ghost is representing
         /// </summary>
         /// <param name="block"></param>
-        public void ImportBlock(BlueprintBlock block)
-        {
+        public void ImportBlock(BlueprintBlock block) {
             ghostImage.sprite = block.Template.thumbnail;
             filterTransform.localScale = block.Template.size.ToVector3();
             AnchoredBlueprintBlock = new AnchoredBlueprintBlock(new Vector2Int(), block);
@@ -32,13 +32,11 @@ namespace Exa.ShipEditor
             AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }
 
-        public void SetFilterColor(bool active)
-        {
+        public void SetFilterColor(bool active) {
             filter.color = active ? activeColor : inactiveColor;
         }
 
-        public void ReflectState()
-        {
+        public void ReflectState() {
             AnchoredBlueprintBlock.BlueprintBlock.SetSpriteRendererFlips(ghostImage);
             AnchoredBlueprintBlock.UpdateLocals(gameObject);
         }

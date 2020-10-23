@@ -23,8 +23,7 @@ namespace Exa.UI
         public ControlFactory controlFactory;
         public WipScreen wipScreen;
 
-        private void Awake()
-        {
+        private void Awake() {
             console.Initialize();
         }
     }

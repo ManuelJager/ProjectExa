@@ -18,19 +18,16 @@ namespace Exa.UI
 
         private bool interactable = true;
 
-        public bool Interactable
-        {
+        public bool Interactable {
             get => interactable;
-            set
-            {
+            set {
                 interactable = value;
 
                 blueprintSelectorNavigateable.Interactable = value;
             }
         }
 
-        public void OnAddNewBlueprint()
-        {
+        public void OnAddNewBlueprint() {
             Systems.UI.promptController.PromptForm(
                 message: "Add blueprint",
                 uiGroup: this,
@@ -40,12 +37,10 @@ namespace Exa.UI
 
         #region Clipboard import
 
-        public void OnClipboardImport()
-        {
+        public void OnClipboardImport() {
             var clipboardText = GUIUtility.systemCopyBuffer;
 
-            if (string.IsNullOrEmpty(clipboardText))
-            {
+            if (string.IsNullOrEmpty(clipboardText)) {
                 Systems.UI.logger.Log("Clipboard is empty");
                 return;
             }
@@ -55,8 +50,7 @@ namespace Exa.UI
             var args = new BlueprintContainerArgs(blueprint);
             var container = new BlueprintContainer(args);
 
-            if (Systems.Blueprints.ContainsName(blueprint.name))
-            {
+            if (Systems.Blueprints.ContainsName(blueprint.name)) {
                 Systems.UI.logger.Log("Blueprint with given name already added");
                 return;
             }
@@ -65,15 +59,12 @@ namespace Exa.UI
             TrySave(container);
         }
 
-        private bool OnClipboardImportDeserialize(string json, out Blueprint blueprint)
-        {
-            try
-            {
+        private bool OnClipboardImportDeserialize(string json, out Blueprint blueprint) {
+            try {
                 blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(json);
                 return true;
             }
-            catch
-            {
+            catch {
                 Systems.UI.logger.Log("Clipboard data is formatted incorrectly");
                 blueprint = null;
                 return false;
@@ -82,14 +73,12 @@ namespace Exa.UI
 
         #endregion
 
-        public void TrySave(BlueprintContainer container)
-        {
+        public void TrySave(BlueprintContainer container) {
             Systems.Thumbnails.GenerateThumbnail(container.Data);
             container.ThumbnailFileHandle.Refresh();
             container.BlueprintFileHandle.Refresh();
 
-            if (Source is ICollection<BlueprintContainer> collection)
-            {
+            if (Source is ICollection<BlueprintContainer> collection) {
                 if (!collection.Contains(container))
                     collection.Add(container);
             }
@@ -97,52 +86,40 @@ namespace Exa.UI
                 throw new InvalidOperationException("Source must be an observable collection");
         }
 
-        protected override BlueprintView OnAdd(BlueprintContainer observer, Transform container)
-        {
+        protected override BlueprintView OnAdd(BlueprintContainer observer, Transform container) {
             var view = base.OnAdd(observer, container);
 
-            view.button.onClick.AddListener(() =>
-            {
+            view.button.onClick.AddListener(() => {
                 if (!Interactable) return;
 
-                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs
-                {
+                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs {
                     current = blueprintSelectorNavigateable
                 });
                 Systems.Editor.Import(observer, TrySave);
             });
-            view.deleteButton.onClick.AddListener(() =>
-            {
+            view.deleteButton.onClick.AddListener(() => {
                 if (!Interactable) return;
 
-                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this, yes =>
-                {
-                    if (!yes) return;
+                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this,
+                    yes => {
+                        if (!yes) return;
 
-                    if (Source is ICollection<BlueprintContainer> collection)
-                        collection.Remove(observer);
-                    else
-                        throw new InvalidOperationException("Source must be an observable collection");
-                });
+                        if (Source is ICollection<BlueprintContainer> collection)
+                            collection.Remove(observer);
+                        else
+                            throw new InvalidOperationException("Source must be an observable collection");
+                    });
             });
-            view.hoverable.onPointerEnter.AddListener(() =>
-            {
-                blueprintDetails.Reflect(observer.Data);
-            });
-            view.hoverable.onPointerExit.AddListener(() =>
-            {
-                blueprintDetails.Reflect(null);
-            });
+            view.hoverable.onPointerEnter.AddListener(() => { blueprintDetails.Reflect(observer.Data); });
+            view.hoverable.onPointerExit.AddListener(() => { blueprintDetails.Reflect(null); });
 
             return view;
         }
 
-        private void ImportBlueprintWithOptions(BlueprintOptions options)
-        {
+        private void ImportBlueprintWithOptions(BlueprintOptions options) {
             var blueprint = new Blueprint(options);
 
-            if (Systems.Blueprints.ContainsName(blueprint.name))
-            {
+            if (Systems.Blueprints.ContainsName(blueprint.name)) {
                 Systems.UI.logger.Log($"Blueprint name \"{blueprint.name}\" is already used");
                 return;
             }

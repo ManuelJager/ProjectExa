@@ -21,10 +21,8 @@ namespace Exa.UI.Tweening
     public static class ExaEaseHelper
     {
         public static T SetEase<T>(this T tween, ExaEase ease)
-            where T : Tween
-        {
-            switch (ease.easeType)
-            {
+            where T : Tween {
+            switch (ease.easeType) {
                 case ExaEaseType.Classic:
                     return tween.SetEase(ease.ease);
                 case ExaEaseType.AnimationCurve:

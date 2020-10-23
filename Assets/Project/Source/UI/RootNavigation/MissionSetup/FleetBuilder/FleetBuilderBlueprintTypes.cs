@@ -4,13 +4,13 @@ using Exa.Grids.Blueprints;
 using Exa.UI.Components;
 using UnityEngine;
 using UnityEngine.Events;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI
 {
     public class BlueprintTypeSelectEvent : UnityEvent<BlueprintType>
-    {
-    }
+    { }
 
     public class FleetBuilderBlueprintTypes : NavigateableTabManager
     {
@@ -19,12 +19,10 @@ namespace Exa.UI
         [SerializeField] private Transform container;
         [SerializeField] private GameObject buttonPrefab;
 
-        public void BuildList(Func<BlueprintType, BlueprintTypeTabContent> tabFactory)
-        {
+        public void BuildList(Func<BlueprintType, BlueprintTypeTabContent> tabFactory) {
             var index = 0;
-            
-            foreach (var blueprintType in Systems.Blueprints.blueprintTypes.Reverse())
-            {
+
+            foreach (var blueprintType in Systems.Blueprints.blueprintTypes.Reverse()) {
                 var blueprintTypeButton = Instantiate(buttonPrefab, container)
                     .GetComponent<BlueprintTypeButton>();
 

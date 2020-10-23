@@ -9,25 +9,21 @@ namespace Exa.Generics
     {
         private readonly IEqualityComparer<TKey> comparer;
 
-        public ObservableDictionary(IEqualityComparer<TKey> comparer)
-        {
+        public ObservableDictionary(IEqualityComparer<TKey> comparer) {
             this.comparer = comparer;
         }
 
-        public TValue this[TKey key]
-        {
-            get
-            {
+        public TValue this[TKey key] {
+            get {
                 foreach (var item in this)
                     if (comparer.Equals(key, KeySelector(item)))
                         return item;
-                
+
                 throw new KeyNotFoundException();
             }
         }
 
-        public bool ContainsKey(TKey key)
-        {
+        public bool ContainsKey(TKey key) {
             foreach (var item in this)
                 if (comparer.Equals(key, KeySelector(item)))
                     return true;
@@ -35,13 +31,11 @@ namespace Exa.Generics
             return false;
         }
 
-        public override bool Contains(TValue item)
-        {
+        public override bool Contains(TValue item) {
             return ContainsKey(KeySelector(item));
         }
 
-        protected virtual TKey KeySelector(TValue value)
-        {
+        protected virtual TKey KeySelector(TValue value) {
             return value.Key;
         }
     }

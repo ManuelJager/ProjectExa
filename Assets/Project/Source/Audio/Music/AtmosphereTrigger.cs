@@ -10,13 +10,11 @@ namespace Exa.Audio.Music
     {
         public Atmosphere targetAtmosphere = Atmosphere.None;
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             StartCoroutine(DelayedSetAtmosphere());
         }
 
-        private IEnumerator DelayedSetAtmosphere()
-        {
+        private IEnumerator DelayedSetAtmosphere() {
             yield return 0;
 
             Systems.Audio.ST_AudioTrack.SetAtmosphere(targetAtmosphere);

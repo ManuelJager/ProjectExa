@@ -1,5 +1,6 @@
 ﻿using Exa.UI.Components;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.ShipEditor
@@ -9,22 +10,18 @@ namespace Exa.ShipEditor
     {
         [SerializeField] private ShipEditor shipEditor;
 
-        protected override void Return(bool force = false)
-        {
+        protected override void Return(bool force = false) {
             if (!Interactable) return;
 
-            if (!shipEditor.IsSaved)
-            {
-                Systems.UI.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor, yes =>
-                {
-                    if (yes)
-                    {
-                        base.Return(true);
-                    }
-                });
+            if (!shipEditor.IsSaved) {
+                Systems.UI.promptController.PromptYesNo("Are you sure you want to exit without saving?", shipEditor,
+                    yes => {
+                        if (yes) {
+                            base.Return(true);
+                        }
+                    });
             }
-            else
-            {
+            else {
                 base.Return();
             }
         }

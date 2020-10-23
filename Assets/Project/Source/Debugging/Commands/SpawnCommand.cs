@@ -7,8 +7,7 @@ namespace Exa.Debugging.Commands
     {
         public override string GetName() => "spawn-Ship";
 
-        public override void Execute(UCommandConsole.Console host)
-        {
+        public override void Execute(UCommandConsole.Console host) {
             throw new NotImplementedException();
         }
     }

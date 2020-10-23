@@ -7,14 +7,10 @@ namespace Exa.Grids.Blueprints
     public class BlueprintContainerCollection : ObservableDictionary<string, BlueprintContainer>
     {
         public BlueprintContainerCollection()
-            : base(StringComparer.OrdinalIgnoreCase)
-        {
-        }
+            : base(StringComparer.OrdinalIgnoreCase) { }
 
-        public override void Add(BlueprintContainer item)
-        {
-            if (Contains(item))
-            {
+        public override void Add(BlueprintContainer item) {
+            if (Contains(item)) {
                 UnityEngine.Debug.LogWarning($"Blueprint: {item.Data.name} has already been added");
                 return;
             }
@@ -22,8 +18,7 @@ namespace Exa.Grids.Blueprints
             base.Add(item);
         }
 
-        public override bool Remove(BlueprintContainer item)
-        {
+        public override bool Remove(BlueprintContainer item) {
             var result = base.Remove(item);
 
             item.BlueprintFileHandle.Delete();

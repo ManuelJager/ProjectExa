@@ -11,18 +11,15 @@ namespace Exa.Grids.Blocks.Components
     {
         public Scalar turningRate;
 
-        public void AddGridTotals(GridTotals totals)
-        {
+        public void AddGridTotals(GridTotals totals) {
             totals.TurningPowerModifier += turningRate;
         }
 
-        public void RemoveGridTotals(GridTotals totals)
-        {
+        public void RemoveGridTotals(GridTotals totals) {
             totals.TurningPowerModifier -= turningRate;
         }
 
-        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
             new LabeledValue<string>("Turning Rate", turningRate.ToString())
         };
     }

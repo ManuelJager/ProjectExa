@@ -6,15 +6,12 @@ namespace Exa.Ships
     {
         private readonly Ship ship;
 
-        public ShipGridTotals(Ship ship)
-        {
+        public ShipGridTotals(Ship ship) {
             this.ship = ship;
         }
 
-        public override float Mass
-        {
-            set
-            {
+        public override float Mass {
+            set {
                 ship.rb.mass = value;
                 base.Mass = value;
             }

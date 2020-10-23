@@ -9,8 +9,7 @@ namespace Exa.Debugging
         private Vector2 averagedVelocity;
         private float sampleTime = 0.2f;
 
-        public void Update()
-        {
+        public void Update() {
             if (currentDragable == null) return;
 
             // Set the velocity
@@ -22,8 +21,7 @@ namespace Exa.Debugging
             currentDragable.SetGlobals(targetPoint, Vector2.zero);
         }
 
-        public void OnPress()
-        {
+        public void OnPress() {
             if (!TryGetDebugDragable(out var dragable)) return;
 
             currentDragable = dragable;
@@ -36,8 +34,7 @@ namespace Exa.Debugging
             currentDragable.SetGlobals(currentPoint, Vector2.zero);
         }
 
-        public void OnRelease()
-        {
+        public void OnRelease() {
             if (currentDragable == null) return;
 
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
@@ -46,35 +43,29 @@ namespace Exa.Debugging
             currentDragable = null;
         }
 
-        private void AverageVelocity(Vector2 newVelocity, float sampleTime)
-        {
+        private void AverageVelocity(Vector2 newVelocity, float sampleTime) {
             var deltaTime = Time.deltaTime;
             var total = averagedVelocity * deltaTime * (sampleTime - deltaTime) + newVelocity;
             averagedVelocity = total * sampleTime / deltaTime;
         }
 
-        private static bool TryGetDebugDragable(out IDebugDragable dragable)
-        {
+        private static bool TryGetDebugDragable(out IDebugDragable dragable) {
             dragable = null;
 
-            try
-            {
+            try {
                 var raycastTarget = GameSystems.GameplayInputManager.RaycastTarget;
                 var raycastTargetIsDragable = raycastTarget is IDebugDragable;
 
-                if (raycastTargetIsDragable)
-                {
+                if (raycastTargetIsDragable) {
                     dragable = raycastTarget as IDebugDragable;
                 }
 
                 return raycastTargetIsDragable;
             }
             // ReSharper disable once EmptyGeneralCatchClause
-            catch
-            {
+            catch {
                 return false;
             }
         }
     }
 }
-

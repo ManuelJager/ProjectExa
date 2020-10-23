@@ -1,6 +1,7 @@
 ﻿using Exa.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Gameplay
@@ -15,40 +16,33 @@ namespace Exa.UI.Gameplay
         private ShipSelection shipSelection;
         private bool selected;
 
-        private void Awake()
-        {
+        private void Awake() {
             selected = false;
 
             UpdateView();
         }
 
-        public void Setup(int index)
-        {
+        public void Setup(int index) {
             text.text = index.ToString();
         }
 
-        public ShipSelection ShipSelection
-        {
+        public ShipSelection ShipSelection {
             get => shipSelection;
-            set
-            {
+            set {
                 shipSelection = value;
                 UpdateView();
             }
         }
 
-        public bool Selected
-        {
+        public bool Selected {
             get => selected;
-            set
-            {
+            set {
                 selected = value;
                 UpdateView();
             }
         }
 
-        private void UpdateView()
-        {
+        private void UpdateView() {
             canvasGroup.alpha = selected
                 ? 1f
                 : 0.6f;

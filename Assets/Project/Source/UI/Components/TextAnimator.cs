@@ -4,6 +4,7 @@ using System.Text;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI
@@ -18,46 +19,39 @@ namespace Exa.UI
         private SignificantCharStringReader stringReader;
         private bool animating;
 
-        public float CharTime
-        {
+        public float CharTime {
             get => charTime;
             set => charTime = value;
         }
 
-        private void Awake()
-        {
+        private void Awake() {
             text = text ?? GetComponent<Text>();
         }
 
-        public void OnEnable()
-        {
+        public void OnEnable() {
             if (!animateOnEnable) return;
 
             var enumerator = EnumeratorUtils.Delay(() => AnimateTo(text.text), animateOnEnableDelay);
             StartCoroutine(enumerator);
         }
 
-        public void AnimateTo(string str)
-        {
+        public void AnimateTo(string str) {
             text.text = "";
             animating = true;
             startTime = Time.time;
             stringReader = new SignificantCharStringReader(str);
         }
 
-        public void Update()
-        {
+        public void Update() {
             if (!animating) return;
 
             var timeSinceStart = Time.time - startTime;
             var charIndex = Mathf.FloorToInt(timeSinceStart / charTime);
 
-            try
-            {
+            try {
                 var targetString = stringReader.GetStringToSignificantIndex(charIndex);
-                
-                if (targetString == stringReader.Str)
-                {
+
+                if (targetString == stringReader.Str) {
                     text.text = stringReader.Str;
                     animating = false;
                     return;
@@ -65,8 +59,7 @@ namespace Exa.UI
 
                 text.text = (targetString + StringExtensions.GetRandomChar()).PadRight(stringReader.Str.Length);
             }
-            catch (IndexOutOfRangeException)
-            {
+            catch (IndexOutOfRangeException) {
                 text.text = stringReader.Str;
                 animating = false;
             }
@@ -79,36 +72,30 @@ namespace Exa.UI
             private Dictionary<int, int> indices;
 
 
-            public SignificantCharStringReader(string str)
-            {
+            public SignificantCharStringReader(string str) {
                 this.Str = str;
                 BuildIndices();
             }
 
-            public string GetStringToSignificantIndex(int index)
-            {
-                if (index < 0 || index >= SignificantSize)
-                {
+            public string GetStringToSignificantIndex(int index) {
+                if (index < 0 || index >= SignificantSize) {
                     throw new IndexOutOfRangeException();
                 }
 
                 var builder = new StringBuilder();
                 var realIndex = indices[index];
 
-                for (var i = 0; i <= realIndex; i++)
-                {
+                for (var i = 0; i <= realIndex; i++) {
                     builder.Append(Str[i]);
                 }
 
                 return builder.ToString();
             }
 
-            private void BuildIndices()
-            {
+            private void BuildIndices() {
                 indices = new Dictionary<int, int>(Str.Length);
                 var significantIndex = 0;
-                for (var i = 0; i < Str.Length; i++)
-                {
+                for (var i = 0; i < Str.Length; i++) {
                     var currentChar = Str[i];
                     if (currentChar == ' ' || currentChar == '\t') continue;
 

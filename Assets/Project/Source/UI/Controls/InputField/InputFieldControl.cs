@@ -11,8 +11,7 @@ namespace Exa.UI.Controls
         public Text placeholderText;
         public ExtendedInputField inputField;
 
-        public override string Value
-        {
+        public override string Value {
             get => inputField.text;
             protected set => inputField.text = value;
         }
@@ -21,25 +20,21 @@ namespace Exa.UI.Controls
 
         public override UnityEvent<string> OnValueChange => onValueChange;
 
-        private void Awake()
-        {
+        private void Awake() {
             inputField.onEndEdit.AddListener(onValueChange.Invoke);
         }
 
-        public void SetValueWithoutNotify(string value)
-        {
+        public void SetValueWithoutNotify(string value) {
             inputField.SetTextWithoutNotify(value);
         }
 
-        public void Setup(string valuePlaceholder, string value = "")
-        {
+        public void Setup(string valuePlaceholder, string value = "") {
             placeholderText.text = valuePlaceholder;
             inputField.text = value;
         }
 
         [Serializable]
         public class InputFieldEvent : UnityEvent<string>
-        {
-        }
+        { }
     }
 }

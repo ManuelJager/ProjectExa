@@ -7,6 +7,7 @@ using Exa.UI.Components;
 using Exa.UI.Gameplay;
 using Exa.Utils;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa
@@ -27,8 +28,7 @@ namespace Exa
 
         public Mission Mission { get; private set; }
 
-        public void LoadMission(Mission mission, MissionArgs args)
-        {
+        public void LoadMission(Mission mission, MissionArgs args) {
             if (Mission != null)
                 throw new InvalidOperationException("Cannot load a mission without unloading previous one");
 

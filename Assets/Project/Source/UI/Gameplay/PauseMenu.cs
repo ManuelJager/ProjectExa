@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Exa.UI.Components;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Exa.UI.Gameplay
 {
@@ -17,31 +10,25 @@ namespace Exa.UI.Gameplay
 
         public Action continueAction;
 
-        public void Continue()
-        {
+        public void Continue() {
             continueAction();
         }
 
-        public void Save()
-        {
+        public void Save() {
             throw new NotImplementedException();
         }
 
-        public void Load()
-        {
+        public void Load() {
             throw new NotImplementedException();
         }
 
-        public void QuitToMenu()
-        {
+        public void QuitToMenu() {
             GameSystems.Navigateable.NavigateTo(Systems.UI.root.navigateable);
             SceneManager.UnloadSceneAsync("Game");
         }
 
-        public void QuitToDesktop()
-        {
+        public void QuitToDesktop() {
             Systems.Quit();
         }
     }
 }
-

@@ -2,6 +2,7 @@
 using Exa.Validation;
 using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.ShipEditor
@@ -11,8 +12,7 @@ namespace Exa.ShipEditor
         [SerializeField] private LayoutElement layoutElement;
         [SerializeField] private CanvasGroup canvasGroup;
 
-        public override ValidationResult Validate<T>(IValidator<T> validator, T args)
-        {
+        public override ValidationResult Validate<T>(IValidator<T> validator, T args) {
             var result = base.Validate(validator, args);
             var visible = !result;
 

@@ -9,10 +9,8 @@ namespace Exa.Gameplay
     {
         private SelectionBuilder selectionBuilder;
 
-        public void OnLeftClick(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnLeftClick(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Started:
                     OnStartSelectionArea();
                     break;
@@ -23,10 +21,8 @@ namespace Exa.Gameplay
             }
         }
 
-        public void OnMovement(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnMovement(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Performed:
                     gameplayCameraController.SetMovementDelta(context.ReadValue<Vector2>());
                     break;
@@ -40,13 +36,10 @@ namespace Exa.Gameplay
             }
         }
 
-        public void OnRightClick(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnRightClick(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Started:
-                    if (HasSelection && CurrentSelection is FriendlyShipSelection selection)
-                    {
+                    if (HasSelection && CurrentSelection is FriendlyShipSelection selection) {
                         var point = Systems.Input.MouseWorldPoint;
                         selection.MoveLookAt(point);
                         return;
@@ -57,33 +50,27 @@ namespace Exa.Gameplay
                     //    var ship = raycastTarget as Ship;
                     //    ship.BlockGrid.Totals.Hull -= 50f;
                     //}
-                    if (Systems.GodModeIsEnabled && raycastTarget is Ship ship)
-                    {
+                    if (Systems.GodModeIsEnabled && raycastTarget is Ship ship) {
                         var worldPos = ship.transform.position.ToVector2();
                         var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * ship.Totals.Mass;
                         ship.rb.AddForce(direction, ForceMode2D.Force);
                     }
+
                     break;
             }
         }
 
-        public void OnZoom(InputAction.CallbackContext context)
-        {
-        }
+        public void OnZoom(InputAction.CallbackContext context) { }
 
-        public void OnEscape(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnEscape(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Started:
-                    if (!HasSelection)
-                    {
+                    if (!HasSelection) {
                         GameSystems.UI.TogglePause();
                         return;
                     }
 
-                    if (HasSelection && !IsSelectingArea)
-                    {
+                    if (HasSelection && !IsSelectingArea) {
                         RemoveSelectionArea();
                         return;
                     }
@@ -92,10 +79,8 @@ namespace Exa.Gameplay
             }
         }
 
-        public void OnNumKeys(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnNumKeys(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Performed:
                     var rawValue = context.ReadValue<float>();
                     var index = Mathf.RoundToInt(rawValue);
@@ -104,23 +89,19 @@ namespace Exa.Gameplay
             }
         }
 
-        private void OnStartSelectionArea()
-        {
+        private void OnStartSelectionArea() {
             var worldPoint = Systems.Input.MouseWorldPoint;
             selectionBuilder = new SelectionBuilder(worldPoint);
             GameSystems.UI.gameplayLayer.selectionArea.Show(worldPoint);
         }
 
-        private void OnUpdateSelectionArea()
-        {
+        private void OnUpdateSelectionArea() {
             var worldPoint = Systems.Input.MouseWorldPoint;
             GameSystems.UI.gameplayLayer.selectionArea.SetEnd(worldPoint);
         }
 
-        private void OnEndSelectionArea()
-        {
-            if (IsSelectingArea)
-            {
+        private void OnEndSelectionArea() {
+            if (IsSelectingArea) {
                 // Clear the current selection
                 CurrentSelection?.Clear();
 
@@ -141,12 +122,10 @@ namespace Exa.Gameplay
             }
         }
 
-        private void RemoveSelectionArea()
-        {
+        private void RemoveSelectionArea() {
             // Deselect current selection
             var currentHotbarSelection = GameSystems.UI.gameplayLayer.selectionHotbar.CurrentSelection;
-            if (currentHotbarSelection != null)
-            {
+            if (currentHotbarSelection != null) {
                 // Update the view
                 currentHotbarSelection.Selected = false;
             }
@@ -156,15 +135,12 @@ namespace Exa.Gameplay
             CurrentSelection = null;
         }
 
-        private void OnNumKey(int index)
-        {
-            if (HasSelection && GameSystems.UI.gameplayLayer.selectionHotbar.CurrentSelection == null)
-            {
+        private void OnNumKey(int index) {
+            if (HasSelection && GameSystems.UI.gameplayLayer.selectionHotbar.CurrentSelection == null) {
                 GameSystems.UI.gameplayLayer.selectionHotbar.Select(index);
                 GameSystems.UI.gameplayLayer.selectionHotbar.Save(CurrentSelection);
             }
-            else
-            {
+            else {
                 CurrentSelection?.Clear();
                 CurrentSelection = GameSystems.UI.gameplayLayer.selectionHotbar.Select(index);
             }

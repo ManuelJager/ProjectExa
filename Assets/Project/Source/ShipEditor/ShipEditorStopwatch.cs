@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+
 #pragma warning disable CS0649
 
 namespace Exa.ShipEditor
@@ -12,28 +13,23 @@ namespace Exa.ShipEditor
         private float timeElapsedFromLastEdit = 0f;
         private bool invokedOnTime = false;
 
-        public void OnEnable()
-        {
+        public void OnEnable() {
             timeElapsedFromLastEdit = 0f;
             invokedOnTime = false;
         }
 
-        public void Reset()
-        {
+        public void Reset() {
             timeElapsedFromLastEdit = 0f;
             invokedOnTime = false;
         }
 
-        public void EmulateInvoke()
-        {
+        public void EmulateInvoke() {
             invokedOnTime = true;
             onTime?.Invoke();
         }
 
-        public void Update()
-        {
-            if (timeElapsedFromLastEdit > invokeOnTime && !invokedOnTime)
-            {
+        public void Update() {
+            if (timeElapsedFromLastEdit > invokeOnTime && !invokedOnTime) {
                 invokedOnTime = true;
                 onTime?.Invoke();
             }

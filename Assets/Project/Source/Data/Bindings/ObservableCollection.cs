@@ -20,45 +20,38 @@ namespace Exa.Bindings
         public int Count => collection.Count;
         public bool IsReadOnly => false;
 
-        public ObservableCollection()
-        {
+        public ObservableCollection() {
             this.collection = new List<T>();
         }
 
-        public ObservableCollection(List<T> collection)
-        {
+        public ObservableCollection(List<T> collection) {
             this.collection = collection;
         }
 
-        public virtual void Add(T item)
-        {
+        public virtual void Add(T item) {
             collection.Add(item);
 
             foreach (var observer in Observers)
                 observer.OnAdd(item);
         }
 
-        public virtual void Clear()
-        {
+        public virtual void Clear() {
             collection.Clear();
 
             foreach (var observer in Observers)
-                foreach (var item in this)
-                    observer.OnRemove(item);
+            foreach (var item in this)
+                observer.OnRemove(item);
         }
 
-        public virtual bool Contains(T item)
-        {
+        public virtual bool Contains(T item) {
             return collection.Contains(item);
         }
 
-        public virtual void CopyTo(T[] array, int arrayIndex)
-        {
+        public virtual void CopyTo(T[] array, int arrayIndex) {
             collection.CopyTo(array, arrayIndex);
         }
 
-        public virtual bool Remove(T item)
-        {
+        public virtual bool Remove(T item) {
             var removed = collection.Remove(item);
 
             if (removed)
@@ -68,13 +61,11 @@ namespace Exa.Bindings
             return removed;
         }
 
-        public virtual IEnumerator<T> GetEnumerator()
-        {
+        public virtual IEnumerator<T> GetEnumerator() {
             return collection.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             return collection.GetEnumerator();
         }
 
@@ -82,8 +73,7 @@ namespace Exa.Bindings
         /// Add an observer to the observer collection
         /// </summary>
         /// <param name="observer"></param>
-        public virtual void Register(ICollectionObserver<T> observer)
-        {
+        public virtual void Register(ICollectionObserver<T> observer) {
             if (Observers.Contains(observer)) return;
 
             Observers.Add(observer);
@@ -93,8 +83,7 @@ namespace Exa.Bindings
         /// Remove an observer from the observer collection
         /// </summary>
         /// <param name="observer"></param>
-        public virtual void Unregister(ICollectionObserver<T> observer)
-        {
+        public virtual void Unregister(ICollectionObserver<T> observer) {
             if (!Observers.Contains(observer)) return;
 
             Observers.Remove(observer);

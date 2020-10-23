@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Components
@@ -16,8 +17,7 @@ namespace Exa.UI.Components
         [SerializeField] private SettingsTabBase defaultSettingsTab;
         [SerializeField] private CanvasGroupInteractableAdapter canvasGroupInteractableAdapter;
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             ProcessTab(defaultSettingsTab);
         }
 
@@ -25,20 +25,15 @@ namespace Exa.UI.Components
         /// Switches to the given if the values are not dirty
         /// </summary>
         /// <param name="settingsTab"></param>
-        public void SetActive(SettingsTabBase  settingsTab)
-        {
+        public void SetActive(SettingsTabBase settingsTab) {
             if (activeSettingsTab == settingsTab) return;
 
-            if (activeSettingsTab != null && !activeSettingsTab.IsDirty)
-            {
+            if (activeSettingsTab != null && !activeSettingsTab.IsDirty) {
                 ProcessTab(settingsTab);
             }
-            else
-            {
-                QueryUserConfirmation(yes =>
-                {
-                    if (yes)
-                    {
+            else {
+                QueryUserConfirmation(yes => {
+                    if (yes) {
                         activeSettingsTab.ApplyChanges();
                     }
 
@@ -47,14 +42,12 @@ namespace Exa.UI.Components
             }
         }
 
-        public void Update()
-        {
+        public void Update() {
             applyButton.Interactable = activeSettingsTab.IsDirty;
             setDefaultButton.Interactable = !activeSettingsTab.IsDefault;
         }
 
-        public void QueryUserConfirmation(Action<bool> onClosePrompt)
-        {
+        public void QueryUserConfirmation(Action<bool> onClosePrompt) {
             Systems.UI.promptController.PromptYesNo(
                 "Changes were not saved, do you wish to apply the changes?",
                 canvasGroupInteractableAdapter,
@@ -65,21 +58,18 @@ namespace Exa.UI.Components
         /// Switches tab
         /// </summary>
         /// <param name="settingsTab"></param>
-        public void ProcessTab(SettingsTabBase settingsTab)
-        {
+        public void ProcessTab(SettingsTabBase settingsTab) {
             activeSettingsTab?.gameObject.SetActive(false);
             activeSettingsTab = settingsTab;
             activeTabText.text = settingsTab.tabName;
             settingsTab.gameObject.SetActive(true);
         }
 
-        public void OnSetDefault()
-        {
+        public void OnSetDefault() {
             activeSettingsTab.SetDefaultValues();
         }
 
-        public void OnApply()
-        {
+        public void OnApply() {
             activeSettingsTab.ApplyChanges();
         }
     }

@@ -10,20 +10,16 @@ namespace Exa.AI.Actions
         public ITarget Target { get; set; } = null;
 
         internal AMoveToTarget(Ship ship)
-            : base(ship)
-        {
-        }
+            : base(ship) { }
 
-        public override ActionLane Update(ActionLane blockedLanes)
-        {
+        public override ActionLane Update(ActionLane blockedLanes) {
             if (Target == null) return ActionLane.None;
 
             ship.Navigation.MoveTo = Target;
             return ActionLane.Movement;
         }
 
-        protected override float CalculatePriority()
-        {
+        protected override float CalculatePriority() {
             return Target != null
                 ? 10
                 : 0;

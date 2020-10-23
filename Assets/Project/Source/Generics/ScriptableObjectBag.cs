@@ -10,19 +10,16 @@ namespace Exa.Generics
     {
         [SerializeField] protected List<T> objects = new List<T>();
 
-        public override void FindObjects()
-        {
+        public override void FindObjects() {
             objects = GetAllInstances();
         }
 
-        private List<T> GetAllInstances()
-        {
+        private List<T> GetAllInstances() {
 #if UNITY_EDITOR
             var guids = QueryGUIDs();
             var collection = new List<T>(guids.Length);
 
-            foreach (var guid in guids)
-            {
+            foreach (var guid in guids) {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 collection.Add(AssetDatabase.LoadAssetAtPath<T>(path));
             }
@@ -33,8 +30,7 @@ namespace Exa.Generics
 #endif
         }
 
-        protected virtual string[] QueryGUIDs()
-        {
+        protected virtual string[] QueryGUIDs() {
 #if UNITY_EDITOR
             return AssetDatabase.FindAssets("t:" + typeof(T).Name);
 #else
@@ -42,13 +38,11 @@ namespace Exa.Generics
 #endif
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
+        public IEnumerator<T> GetEnumerator() {
             return objects.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             return objects.GetEnumerator();
         }
     }

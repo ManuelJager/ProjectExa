@@ -5,10 +5,9 @@ using Exa.Math;
 using Exa.UI;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using Exa.UI.Tweening;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.ShipEditor
@@ -39,14 +38,11 @@ namespace Exa.ShipEditor
         /// <summary>
         /// Wether or not the grid can be interacted with
         /// </summary>
-        public bool Interactable
-        {
+        public bool Interactable {
             get => interactible;
-            set
-            {
+            set {
                 interactible = value;
-                if (!value)
-                {
+                if (!value) {
                     ghostLayer.GhostVisible = false;
                 }
             }
@@ -55,11 +51,9 @@ namespace Exa.ShipEditor
         /// <summary>
         /// Wether of not a ghost mirror is enabled
         /// </summary>
-        public bool MirrorEnabled
-        {
+        public bool MirrorEnabled {
             get => mirrorEnabled;
-            set
-            {
+            set {
                 mirrorEnabled = value;
 
                 ghostLayer.MirrorEnabled = value;
@@ -71,11 +65,9 @@ namespace Exa.ShipEditor
         /// <summary>
         /// Wether or not the mouse is over UI
         /// </summary>
-        public bool MouseOverUI
-        {
+        public bool MouseOverUI {
             get => mouseOverUI;
-            set
-            {
+            set {
                 mouseOverUI = value;
 
                 ghostLayer.MouseOverUI = value;
@@ -83,15 +75,13 @@ namespace Exa.ShipEditor
             }
         }
 
-        private void Awake()
-        {
+        private void Awake() {
             backgroundLayer.EnterGrid += OnEnterGrid;
             backgroundLayer.ExitGrid += OnExitGrid;
             positionTween = new TweenWrapper<Vector3>((e, t) => transform.DOLocalMove(e, t));
         }
 
-        public void Update()
-        {
+        public void Update() {
             if (!Interactable) return;
 
             // Move the grid to keyboard input
@@ -117,8 +107,7 @@ namespace Exa.ShipEditor
             backgroundLayer.UpdateCurrActiveGridItem(transform.localPosition.ToVector2());
         }
 
-        public void OnDisable()
-        {
+        public void OnDisable() {
             // Reset values
             playerPos = Vector2.zero;
             mouseGridPos = null;
@@ -129,8 +118,7 @@ namespace Exa.ShipEditor
         /// Creates a grid with the given size
         /// </summary>
         /// <param name="size"></param>
-        public void GenerateGrid(Vector2Int size)
-        {
+        public void GenerateGrid(Vector2Int size) {
             // Set the active size and set targe player position the center of the grid
             this.size = size;
 
@@ -146,8 +134,7 @@ namespace Exa.ShipEditor
         /// Import a blueprint
         /// </summary>
         /// <param name="blueprint"></param>
-        public void Import(Blueprint blueprint)
-        {
+        public void Import(Blueprint blueprint) {
             // Get size of blueprint class and resize the grid accordingly
             var editorSize = blueprint.BlueprintType.maxSize;
             GenerateGrid(editorSize);
@@ -156,16 +143,13 @@ namespace Exa.ShipEditor
             blueprintLayer.Import(blueprint);
         }
 
-        public void ClearBlueprint()
-        {
+        public void ClearBlueprint() {
             blueprintLayer.ClearBlueprint();
         }
 
-        private Vector2 GetGridOffset()
-        {
+        private Vector2 GetGridOffset() {
             var halfSize = size.ToVector2() / 2f;
-            return new Vector2
-            {
+            return new Vector2 {
                 x = -halfSize.x + 0.5f,
                 y = -halfSize.y + 0.5f
             };
@@ -174,12 +158,10 @@ namespace Exa.ShipEditor
         /// <summary>
         /// Walk through all cases and calculate wether the ghost/s should be enabled
         /// </summary>
-        public void CalculateGhostEnabled()
-        {
+        public void CalculateGhostEnabled() {
             if (!ghostLayer.GhostCreated) return;
 
-            if (MouseOverUI)
-            {
+            if (MouseOverUI) {
                 canPlaceGhost = false;
                 return;
             }
@@ -187,24 +169,22 @@ namespace Exa.ShipEditor
             var ghostTiles = GridUtils.GetOccupiedTilesByAnchor(ghostLayer.ghost.AnchoredBlueprintBlock);
             var mirrorGhostTiles = GridUtils.GetOccupiedTilesByAnchor(ghostLayer.mirrorGhost.AnchoredBlueprintBlock);
 
-            bool GetGhostIsClear(IEnumerable<Vector2Int> occupiedGhostTiles)
-            {
+            bool GetGhostIsClear(IEnumerable<Vector2Int> occupiedGhostTiles) {
                 return !blueprintLayer.ActiveBlueprint.Blocks.HasOverlap(occupiedGhostTiles) &&
-                    occupiedGhostTiles.All(gridPos => backgroundLayer.PosIsInGrid(gridPos));
+                       occupiedGhostTiles.All(gridPos => backgroundLayer.PosIsInGrid(gridPos));
             }
 
             // Calculate wether the main ghost doesn't overlap existing blocks or is outside of the grid
             var ghostIsClear = GetGhostIsClear(ghostTiles);
 
-            if (MirrorEnabled)
-            {
+            if (MirrorEnabled) {
                 // Calculate wether the mirror ghost doesn't overlap existing blocks or is outside of the grid
                 var mirrorGhostIsClear = GetGhostIsClear(mirrorGhostTiles);
 
                 // Calculate if the ghosts intersect
                 var ghostsIntersect = ghostTiles.Intersect(mirrorGhostTiles).Any() &&
-                    !(ghostLayer.ghost.AnchoredBlueprintBlock.gridAnchor
-                    == ghostLayer.mirrorGhost.AnchoredBlueprintBlock.gridAnchor);
+                                      !(ghostLayer.ghost.AnchoredBlueprintBlock.gridAnchor
+                                        == ghostLayer.mirrorGhost.AnchoredBlueprintBlock.gridAnchor);
 
                 // Set the color for the main ghost
                 ghostLayer.ghost.SetFilterColor(ghostIsClear && !ghostsIntersect);
@@ -215,8 +195,7 @@ namespace Exa.ShipEditor
                 // Only allow block placement when both ghosts are clear
                 canPlaceGhost = ghostIsClear && mirrorGhostIsClear && !ghostsIntersect;
             }
-            else
-            {
+            else {
                 // Set the filter color to the clear state of the ghost
                 ghostLayer.ghost.SetFilterColor(ghostIsClear);
                 canPlaceGhost = ghostIsClear;

@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.BlockTypes
@@ -12,24 +13,20 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         BlockBehaviour<ThrusterData> IBehaviourMarker<ThrusterData>.Component => thrusterBehaviour;
 
-        public void Fire(float strength)
-        {
+        public void Fire(float strength) {
             thrusterBehaviour.Fire(strength);
         }
 
-        public override IEnumerable<BlockBehaviourBase> GetBehaviours()
-        {
+        public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
             return base.GetBehaviours()
                 .Append(thrusterBehaviour);
         }
 
-        protected override void OnAdd()
-        {
+        protected override void OnAdd() {
             Ship.Navigation.ThrustVectors.Register(this);
         }
 
-        protected override void OnRemove()
-        {
+        protected override void OnRemove() {
             Ship.Navigation.ThrustVectors.Unregister(this);
         }
     }

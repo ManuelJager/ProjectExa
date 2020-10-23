@@ -1,6 +1,7 @@
 ﻿using Exa.Weapons;
 using System;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.Components
@@ -10,8 +11,7 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private AutocannonPart[] parts;
         private int currentPoint = 0;
 
-        private void Start()
-        {
+        private void Start() {
             var animTime = GetAnimTime();
             var damageMask = ~Ship.BlockContext;
 
@@ -19,10 +19,8 @@ namespace Exa.Grids.Blocks.Components
                 part.Setup(animTime, damageMask);
         }
 
-        public override void Fire()
-        {
-            switch (data.cycleMode)
-            {
+        public override void Fire() {
+            switch (data.cycleMode) {
                 case CycleMode.Cycling:
                     parts[currentPoint].Fire(data.damage);
                     currentPoint++;
@@ -32,15 +30,13 @@ namespace Exa.Grids.Blocks.Components
                 case CycleMode.Volley:
                     foreach (var part in parts)
                         part.Fire(data.damage);
-                    
+
                     break;
             }
         }
 
-        private float GetAnimTime()
-        {
-            switch (data.cycleMode)
-            {
+        private float GetAnimTime() {
+            switch (data.cycleMode) {
                 case CycleMode.Cycling:
                     return data.firingRate * 1.5f;
 

@@ -20,11 +20,9 @@ namespace Exa.ShipEditor
         /// <summary>
         /// Ghost was created
         /// </summary>
-        public bool GhostVisible
-        {
+        public bool GhostVisible {
             get => ghostVisible;
-            set
-            {
+            set {
                 ghostVisible = value;
 
                 CalculateGhostEnabled();
@@ -34,11 +32,9 @@ namespace Exa.ShipEditor
         /// <summary>
         /// Ghost is enabled
         /// </summary>
-        public bool MirrorEnabled
-        {
+        public bool MirrorEnabled {
             get => mirrorEnabled;
-            set
-            {
+            set {
                 mirrorEnabled = value;
 
                 CalculateGhostEnabled();
@@ -48,19 +44,16 @@ namespace Exa.ShipEditor
         /// <summary>
         /// If player is hovering over ui
         /// </summary>
-        public bool MouseOverUI
-        {
+        public bool MouseOverUI {
             get => mouseOverUI;
-            set
-            {
+            set {
                 mouseOverUI = value;
 
                 CalculateGhostEnabled();
             }
         }
 
-        private void Awake()
-        {
+        private void Awake() {
             ghost = Instantiate(ghostPrefab, transform).GetComponent<BlockGhost>();
             mirrorGhost = Instantiate(ghostPrefab, transform).GetComponent<BlockGhost>();
 
@@ -68,23 +61,19 @@ namespace Exa.ShipEditor
             GhostVisible = false;
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             GhostVisible = false;
         }
 
-        public void CreateGhost(BlockTemplate template)
-        {
-            ghost.ImportBlock(new BlueprintBlock
-            {
+        public void CreateGhost(BlockTemplate template) {
+            ghost.ImportBlock(new BlueprintBlock {
                 id = template.id,
                 Rotation = 0,
                 flippedX = false,
                 flippedY = false
             });
 
-            mirrorGhost.ImportBlock(new BlueprintBlock
-            {
+            mirrorGhost.ImportBlock(new BlueprintBlock {
                 id = template.id,
                 Rotation = 0,
                 flippedX = false,
@@ -94,8 +83,7 @@ namespace Exa.ShipEditor
             GhostCreated = true;
         }
 
-        public void MoveGhost(Vector2Int gridSize, Vector2Int? anchorPos)
-        {
+        public void MoveGhost(Vector2Int gridSize, Vector2Int? anchorPos) {
             if (!GhostCreated) return;
 
             GhostVisible = anchorPos != null;
@@ -113,16 +101,14 @@ namespace Exa.ShipEditor
             CalculateGhostEnabled();
         }
 
-        public void RotateGhosts(int value)
-        {
+        public void RotateGhosts(int value) {
             ghost.AnchoredBlueprintBlock.blueprintBlock.Rotation += value;
             ghost.ReflectState();
             mirrorGhost.AnchoredBlueprintBlock.blueprintBlock.Rotation += value;
             mirrorGhost.ReflectState();
         }
 
-        private void CalculateGhostEnabled()
-        {
+        private void CalculateGhostEnabled() {
             ghost.gameObject.SetActive(
                 GhostVisible &&
                 !mouseOverUI);

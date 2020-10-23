@@ -1,11 +1,9 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Exa.Grids.Blueprints;
 using Exa.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using Exa.Math;
-using Exa.UI.Tweening;
 using Exa.Utils;
 
 #pragma warning disable CS0649
@@ -24,36 +22,32 @@ namespace Exa.UI
 
         public BlueprintTypeSelectEvent SelectType = new BlueprintTypeSelectEvent();
 
-        public void Init(BlueprintType blueprintType, BlueprintTypeTabContent content, int order, NavigateableTabManager tabManager)
-        {
+        public void Init(BlueprintType blueprintType, BlueprintTypeTabContent content, int order,
+            NavigateableTabManager tabManager) {
             this.content = content;
             this.order = order;
             text.text = blueprintType.displayName;
-            button.onClick.AddListener(() => 
-            {
+            button.onClick.AddListener(() => {
                 SelectType?.Invoke(blueprintType);
                 tabManager.SwitchTo(this);
             });
         }
 
-        public override void HandleExit(Navigateable target)
-        {
+        public override void HandleExit(Navigateable target) {
             Animate(48f);
             content.HandleExit(target is BlueprintTypeButton button
-                    ? Vector2.up * (button.order > order).To1()
-                    : Vector2.zero);
+                ? Vector2.up * (button.order > order).To1()
+                : Vector2.zero);
         }
 
-        public override void HandleEnter(NavigationArgs args)
-        {
+        public override void HandleEnter(NavigationArgs args) {
             Animate(72f);
             content.HandleEnter(args?.current is BlueprintTypeButton button
-                    ? Vector2.down * (button.order > order).To1()
-                    : Vector2.zero);
+                ? Vector2.down * (button.order > order).To1()
+                : Vector2.zero);
         }
 
-        private void Animate(float target)
-        {
+        private void Animate(float target) {
             layoutElement.DOPreferredHeight(target, 0.2f)
                 .Replace(ref sizeTween);
         }

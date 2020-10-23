@@ -12,8 +12,7 @@ namespace Exa.Pooling
         public bool growToPreferredSize;
         public GameObject prefab;
 
-        public PoolSettings Clone() => new PoolSettings
-        {
+        public PoolSettings Clone() => new PoolSettings {
             maxSize = maxSize,
             preferredSize = preferredSize,
             growToPreferredSize = growToPreferredSize,

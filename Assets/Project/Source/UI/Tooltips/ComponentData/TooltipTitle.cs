@@ -8,19 +8,16 @@ namespace Exa.UI.Tooltips
 
         public string Text { get; private set; }
 
-        public TooltipTitle(string text, bool animated = true)
-        {
+        public TooltipTitle(string text, bool animated = true) {
             this.animated = animated;
 
             Text = text;
         }
 
-        public TooltipComponentView InstantiateComponentView(Transform parent)
-        {
+        public TooltipComponentView InstantiateComponentView(Transform parent) {
             var titleView = Systems.UI.tooltips.tooltipGenerator.GenerateTooltipTitle(parent, this);
 
-            if (animated)
-            {
+            if (animated) {
                 titleView.AddAnimator();
             }
 

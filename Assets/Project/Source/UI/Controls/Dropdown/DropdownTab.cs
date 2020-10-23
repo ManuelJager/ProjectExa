@@ -1,6 +1,7 @@
 ﻿using Exa.Data;
 using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Controls
@@ -13,18 +14,15 @@ namespace Exa.UI.Controls
         [SerializeField] private Text text;
         [SerializeField] private ActivePair<Color> color;
 
-        private void Awake()
-        {
+        private void Awake() {
             Selected = false;
         }
 
-        public string Text
-        {
+        public string Text {
             set => text.text = value;
         }
 
-        public bool Selected
-        {
+        public bool Selected {
             set => text.color = color.GetValue(value);
         }
     }

@@ -9,20 +9,17 @@ namespace Exa.UI.Tooltips
 
         public GroupView Root { get; set; }
 
-        public void Show(T presenter)
-        {
+        public void Show(T presenter) {
             gameObject.SetActive(true);
             Rebuild(presenter);
             UpdatePosition(true);
         }
 
-        public void Hide()
-        {
+        public void Hide() {
             gameObject.SetActive(false);
         }
 
-        public void Rebuild(T data)
-        {
+        public void Rebuild(T data) {
             itemsContainer.DestroyChildren();
             tooltip = data.GetTooltip();
             Root = Systems.UI.tooltips.tooltipGenerator.CreateRootView(tooltip, itemsContainer);

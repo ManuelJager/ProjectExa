@@ -15,39 +15,32 @@ namespace Exa.Ships
         private float rememberedFill = 1f;
         private float timeSinceFillChange;
 
-        private float ActualFill
-        {
+        private float ActualFill {
             get => actualFill;
-            set
-            {
+            set {
                 actualFill = value;
                 actualFillImage.fillAmount = value;
             }
         }
 
-        private float RememberedFill
-        {
+        private float RememberedFill {
             get => rememberedFill;
-            set
-            {
+            set {
                 rememberedFill = value;
                 rememberedFillImage.fillAmount = value;
             }
         }
 
-        private void Update()
-        {
+        private void Update() {
             timeSinceFillChange += Time.deltaTime;
 
-            if (timeSinceFillChange > timeToUpdateRememberedFill)
-            {
+            if (timeSinceFillChange > timeToUpdateRememberedFill) {
                 var speed = Time.deltaTime * rememberedFillSpeed;
                 RememberedFill = MathUtils.Increment(RememberedFill, ActualFill, speed);
             }
         }
 
-        public void SetFill(float value)
-        {
+        public void SetFill(float value) {
             if (ActualFill == value) return;
 
             ActualFill = value;

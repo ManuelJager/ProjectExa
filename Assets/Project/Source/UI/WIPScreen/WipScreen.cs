@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using DG.Tweening;
-using Exa.Data;
 using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEngine;
@@ -13,29 +9,27 @@ namespace Exa.UI
 {
     public class WipScreen : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private CanvasGroup rootCanvasGroup;
+        [Header("References")] [SerializeField]
+        private CanvasGroup rootCanvasGroup;
+
         [SerializeField] private CanvasGroup textCanvasGroup;
         [SerializeField] private GameObject wordPrefab;
         [SerializeField] private RectTransform textContainer;
         [SerializeField] private RectTransform wordContainer;
         [SerializeField] private HorizontalLayoutGroup wordLayoutGroup;
 
-        [Header("Settings")]
-        [SerializeField] private bool forceShowScreen;
+        [Header("Settings")] [SerializeField] private bool forceShowScreen;
         [SerializeField] private AnimSettings animSettings;
 
         private Tween titleSpacingTween;
         private Tween textContainerScaleTween;
 
-        public void Init()
-        {
-            if (GetShouldShowScreen()) 
+        public void Init() {
+            if (GetShouldShowScreen())
                 ShowScreen();
         }
 
-        private bool GetShouldShowScreen()
-        {
+        private bool GetShouldShowScreen() {
 #if !UNITY_EDITOR
             return true;
 #else
@@ -43,8 +37,7 @@ namespace Exa.UI
 #endif
         }
 
-        private void ShowScreen()
-        {
+        private void ShowScreen() {
             gameObject.SetActive(true);
             rootCanvasGroup.alpha = 1f;
             rootCanvasGroup.blocksRaycasts = true;
@@ -61,15 +54,12 @@ namespace Exa.UI
             GenerateTitle(animSettings.scrollTitle);
         }
 
-        private void GenerateTitle(bool scrollAnimation)
-        {
+        private void GenerateTitle(bool scrollAnimation) {
             var charCount = 0;
-            foreach (var word in animSettings.message.Split(' '))
-            {
+            foreach (var word in animSettings.message.Split(' ')) {
                 var go = Instantiate(wordPrefab, wordContainer);
                 var text = go.GetComponent<Text>();
-                if (scrollAnimation)
-                {
+                if (scrollAnimation) {
                     text.text = "";
                     var animator = go.AddComponent<TextAnimator>();
                     animator.CharTime = animSettings.charTime;
@@ -78,20 +68,18 @@ namespace Exa.UI
                 }
                 else
                     text.text = word;
-                        
+
                 charCount += word.Length;
             }
         }
 
-        private void FadeInText(AnimSettings.TextFadeEnterArgs args)
-        {
+        private void FadeInText(AnimSettings.TextFadeEnterArgs args) {
             textCanvasGroup.DOFade(1f, args.duration)
                 .SetDelay(args.delay)
                 .SetEase(args.ease);
         }
 
-        private void GrowText(AnimSettings.TextGrowthArgs args)
-        {
+        private void GrowText(AnimSettings.TextGrowthArgs args) {
             //titleSpacingTween.To(args.spacing, args.duration)
             //    .SetEase(args.ease);
 
@@ -132,4 +120,3 @@ namespace Exa.UI
         }
     }
 }
-

@@ -13,11 +13,9 @@ namespace Exa.UI.Controls
         [SerializeField] private ActivePair<Color> colors;
         private bool value;
 
-        public override bool Value
-        {
+        public override bool Value {
             get => value;
-            protected set
-            {
+            protected set {
                 this.value = value;
                 buttonImage.color = colors.GetValue(value);
             }
@@ -25,19 +23,16 @@ namespace Exa.UI.Controls
 
         private RadioCheckEvent onValueChange = new RadioCheckEvent();
 
-        public override UnityEvent<bool> OnValueChange 
-        { 
-            get => onValueChange; 
+        public override UnityEvent<bool> OnValueChange {
+            get => onValueChange;
         }
 
-        public void Toggle()
-        {
+        public void Toggle() {
             Value = !value;
         }
 
         [Serializable]
         public class RadioCheckEvent : UnityEvent<bool>
-        {
-        }
+        { }
     }
 }

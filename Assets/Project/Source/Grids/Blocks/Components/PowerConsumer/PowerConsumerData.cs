@@ -9,18 +9,15 @@ namespace Exa.Grids.Blocks.Components
     {
         public Scalar powerConsumption;
 
-        public void AddGridTotals(GridTotals totals)
-        {
+        public void AddGridTotals(GridTotals totals) {
             totals.PowerConsumptionModifier += powerConsumption;
         }
 
-        public void RemoveGridTotals(GridTotals totals)
-        {
+        public void RemoveGridTotals(GridTotals totals) {
             totals.PowerConsumptionModifier -= powerConsumption;
         }
 
-        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
             new LabeledValue<string>("Power consumption", $"{powerConsumption} KW")
         };
     }

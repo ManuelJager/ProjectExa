@@ -11,20 +11,19 @@ namespace Exa.UI
 {
     public class FleetBuilder : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private FleetView fleetView;
+        [Header("References")] [SerializeField]
+        private FleetView fleetView;
+
         [SerializeField] private FleetBlueprintViewController viewController;
         [SerializeField] private FleetBuilderBlueprintTypes blueprintTypes;
 
-        [Header("Events")]
-        public UnityEvent<ValidationResult> fleetValidation = new UnityEvent<ValidationResult>();
+        [Header("Events")] public UnityEvent<ValidationResult> fleetValidation = new UnityEvent<ValidationResult>();
 
         private FleetValidator fleetValidator;
 
         public Fleet Fleet => fleetView.Fleet;
 
-        public void Init(IObservableEnumerable<BlueprintContainer> source)
-        {
+        public void Init(IObservableEnumerable<BlueprintContainer> source) {
             blueprintTypes.BuildList(viewController.CreateTab);
             viewController.Init(fleetView.Toggle, fleetView.Remove, source);
 
@@ -36,8 +35,7 @@ namespace Exa.UI
             Validate();
         }
 
-        public void Validate()
-        {
+        public void Validate() {
             var validationResult = fleetValidator.Validate(Fleet);
             fleetValidation.Invoke(validationResult);
         }

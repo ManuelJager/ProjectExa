@@ -5,7 +5,7 @@ using Exa.UI.Tooltips;
 using System.Collections.Generic;
 
 namespace Exa.Grids
-{ 
+{
     public class GridTotals : ICloneable<GridTotals>
     {
         public ControllerData controllerData;
@@ -22,10 +22,8 @@ namespace Exa.Grids
         public virtual float PowerStorage => PowerStorageModifier.GetValue(controllerData.powerStorage);
         public virtual float TurningPower => TurningPowerModifier.GetValue(controllerData.turningRate);
 
-        public GridTotals Clone()
-        {
-            return new GridTotals()
-            {
+        public GridTotals Clone() {
+            return new GridTotals() {
                 controllerData = controllerData,
                 Mass = Mass,
                 Hull = Hull,
@@ -36,8 +34,7 @@ namespace Exa.Grids
             };
         }
 
-        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
-        {
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
             new TooltipText($"Mass: {Mass}"),
             new TooltipText($"Hull: {Hull}"),
         };

@@ -8,16 +8,11 @@ namespace Exa.Grids.Blocks.Components
     {
         public float thrust;
 
-        public void AddGridTotals(GridTotals totals)
-        {
-        }
+        public void AddGridTotals(GridTotals totals) { }
 
-        public void RemoveGridTotals(GridTotals totals)
-        {
-        }
+        public void RemoveGridTotals(GridTotals totals) { }
 
-        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
             new LabeledValue<string>("Thrust", $"{thrust}")
         };
     }

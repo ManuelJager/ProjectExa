@@ -12,39 +12,33 @@ namespace Exa.AI.Actions
         private readonly float detectionRadius;
 
         internal AAimAtClosestTarget(Ship ship, float detectionRadius)
-            : base(ship)
-        {
+            : base(ship) {
             this.detectionRadius = detectionRadius;
         }
 
-        public override ActionLane Update(ActionLane blockedLanes)
-        {
+        public override ActionLane Update(ActionLane blockedLanes) {
             var target = new ShipTarget(enemyTarget);
             ship.Turrets.SetTarget(target);
 
             return ActionLane.AimTurrets;
         }
 
-        protected override float CalculatePriority()
-        {
+        protected override float CalculatePriority() {
             var blockMask = new ShipMask(~ship.BlockContext);
             var closestDistance = float.MaxValue;
 
-            foreach (var enemy in ship.QueryNeighbours<Ship>(detectionRadius, blockMask))
-            {
+            foreach (var enemy in ship.QueryNeighbours<Ship>(detectionRadius, blockMask)) {
                 var distance = (enemy.transform.position - ship.transform.position).magnitude;
 
-                if (distance < closestDistance)
-                {
+                if (distance < closestDistance) {
                     closestDistance = distance;
                     enemyTarget = enemy;
                 }
             }
 
-            DebugString = $"Target: {ship.GetInstanceString()}"; 
+            DebugString = $"Target: {ship.GetInstanceString()}";
 
-            if (closestDistance == float.MaxValue)
-            {
+            if (closestDistance == float.MaxValue) {
                 enemyTarget = null;
             }
 

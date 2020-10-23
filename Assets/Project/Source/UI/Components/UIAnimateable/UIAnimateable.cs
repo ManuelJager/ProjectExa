@@ -38,24 +38,20 @@ namespace Exa.UI.Components
         private CanvasGroup canvasGroup;
         private RectTransform rect;
 
-        private float Alpha
-        {
+        private float Alpha {
             get => canvasGroup.alpha;
             set => canvasGroup.alpha = Mathf.Clamp(value, 0, 1);
         }
 
-        private void Awake()
-        {
+        private void Awake() {
             canvasGroup = GetComponent<CanvasGroup>();
             rect = GetComponent<RectTransform>();
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             originalAlpha = Alpha;
 
-            if (animateAlpha)
-            {
+            if (animateAlpha) {
                 Alpha = 0f;
                 StartDelayedCoroutine(msLocalAnimationOffset / 1000f, FadeIn(originalAlpha));
             }
@@ -66,8 +62,7 @@ namespace Exa.UI.Components
 
             // Create a vector that points upwards and rotate it by the animation direction
             // This is used as an offset from the original rect position
-            var offset = new Vector2
-            {
+            var offset = new Vector2 {
                 x = 0,
                 y = movementMagnitude
             }.Rotate(movementDirection.GetRotation());
@@ -77,13 +72,11 @@ namespace Exa.UI.Components
             StartDelayedCoroutine(msLocalAnimationOffset / 1000f, SlideIn(originalPos));
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             SkipAnimations();
         }
 
-        public void SkipAnimations()
-        {
+        public void SkipAnimations() {
             StopAllCoroutines();
 
             Alpha = originalAlpha;
@@ -93,10 +86,8 @@ namespace Exa.UI.Components
             rect.anchoredPosition = originalPos;
         }
 
-        private IEnumerator FadeIn(float target)
-        {
-            if (Alpha < target)
-            {
+        private IEnumerator FadeIn(float target) {
+            if (Alpha < target) {
                 Alpha += Time.deltaTime * alphaSpeed;
 
                 yield return null;
@@ -105,10 +96,8 @@ namespace Exa.UI.Components
             }
         }
 
-        private IEnumerator SlideIn(Vector2 towards)
-        {
-            if (rect.anchoredPosition != towards)
-            {
+        private IEnumerator SlideIn(Vector2 towards) {
+            if (rect.anchoredPosition != towards) {
                 rect.anchoredPosition = Vector2.SmoothDamp(
                     rect.anchoredPosition,
                     towards,
@@ -121,17 +110,15 @@ namespace Exa.UI.Components
             }
         }
 
-        private void StartDelayedCoroutine(float seconds, IEnumerator routine)
-        {
+        private void StartDelayedCoroutine(float seconds, IEnumerator routine) {
             StartCoroutine(DelayCoroutine(seconds, routine));
         }
 
-        private IEnumerator DelayCoroutine(float seconds, IEnumerator routine)
-        {
-            if (seconds != 0f)
-            {
+        private IEnumerator DelayCoroutine(float seconds, IEnumerator routine) {
+            if (seconds != 0f) {
                 yield return new WaitForSeconds(seconds);
             }
+
             StartCoroutine(routine);
         }
     }

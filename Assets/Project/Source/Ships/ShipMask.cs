@@ -7,8 +7,7 @@ namespace Exa.Ships
         public int LayerMask { get; }
         public ShipContext ContextMask { get; }
 
-        public ShipMask(ShipContext shipContext)
-        {
+        public ShipMask(ShipContext shipContext) {
             LayerMask = UnityEngine.LayerMask.GetMask("unit");
             ContextMask = shipContext;
         }

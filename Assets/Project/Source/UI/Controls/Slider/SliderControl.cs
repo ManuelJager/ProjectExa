@@ -2,9 +2,9 @@
 using Exa.UI.Components;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static UnityEngine.UI.Slider;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Controls
@@ -15,11 +15,9 @@ namespace Exa.UI.Controls
         [SerializeField] private ExtendedInputField inputField;
         [SerializeField] private ValueOverride<CursorState> cursorState;
 
-        public override float Value
-        {
+        public override float Value {
             get => slider.value;
-            protected set
-            {
+            protected set {
                 slider.value = value;
                 inputField.text = FormatFloat(value);
             }
@@ -29,8 +27,7 @@ namespace Exa.UI.Controls
 
         public override UnityEvent<float> OnValueChange => onValueChanged;
 
-        private void Awake()
-        {
+        private void Awake() {
             slider.onValueChanged.AddListener(OnSliderValueChanged);
             slider.onValueChanged.AddListener(onValueChanged.Invoke);
             inputField.onValueChanged.AddListener(OnInputFieldValueChanged);
@@ -38,75 +35,62 @@ namespace Exa.UI.Controls
             inputField.text = FormatFloat(slider.value);
         }
 
-        public void SetMinMax(MinMax<float> minMax)
-        {
+        public void SetMinMax(MinMax<float> minMax) {
             slider.minValue = minMax.min;
             slider.maxValue = minMax.max;
         }
 
-        public void SetMax()
-        {
+        public void SetMax() {
             slider.value = slider.maxValue;
         }
 
-        public void SetMin()
-        {
+        public void SetMin() {
             slider.value = slider.minValue;
         }
 
-        public void OnBeginDrag()
-        {
+        public void OnBeginDrag() {
             Systems.UI.mouseCursor.stateManager.Add(cursorState);
         }
 
-        public void OnEndDrag()
-        {
+        public void OnEndDrag() {
             Systems.UI.mouseCursor.stateManager.Remove(cursorState);
         }
 
-        private void OnSliderValueChanged(float value)
-        {
+        private void OnSliderValueChanged(float value) {
             inputField.text = FormatFloat(value);
         }
 
-        private void OnInputFieldValueChanged(string value)
-        {
+        private void OnInputFieldValueChanged(string value) {
             if (string.IsNullOrEmpty(value)) return;
 
             value = value.Replace('.', ',');
 
             var valid = float.TryParse(value, out var floatValue);
 
-            if (valid)
-            {
+            if (valid) {
                 inputField.SetTextWithoutNotify(value);
             }
-            else
-            {
+            else {
                 inputField.SetTextWithoutNotify(FormatFloat(slider.value));
                 return;
-            }            
+            }
 
             if (floatValue < slider.minValue) inputField.text = FormatFloat(slider.minValue);
             if (floatValue > slider.maxValue) inputField.text = FormatFloat(slider.maxValue);
         }
 
-        private void OnInputFieldEndEdit(string value)
-        {
+        private void OnInputFieldEndEdit(string value) {
             var valid = float.TryParse(value, out var floatValue);
 
-            if (valid)
-            {
-                slider.value = (float)System.Math.Round(floatValue, 2);
+            if (valid) {
+                slider.value = (float) System.Math.Round(floatValue, 2);
             }
-            else
-            {
+            else {
                 inputField.text = FormatFloat(slider.value);
             }
         }
 
-        private string FormatFloat(float value)
-        {
+        private string FormatFloat(float value) {
             return System.Math.Round(value, 2).ToString();
         }
     }

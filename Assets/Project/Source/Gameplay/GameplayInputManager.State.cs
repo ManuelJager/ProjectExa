@@ -5,21 +5,17 @@
         private IRaycastTarget raycastTarget = null;
         private ShipSelection currentSelection;
 
-        private bool HasSelection
-        {
+        private bool HasSelection {
             get => currentSelection != null;
         }
 
-        private bool IsSelectingArea
-        {
+        private bool IsSelectingArea {
             get => selectionBuilder != null;
         }
 
-        public ShipSelection CurrentSelection
-        {
+        public ShipSelection CurrentSelection {
             get => currentSelection;
-            set
-            {
+            set {
                 currentSelection = value;
                 GameSystems.UI.gameplayLayer.selectionOverlay.Reflect(value);
             }

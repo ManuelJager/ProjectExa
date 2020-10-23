@@ -1,5 +1,6 @@
 ﻿using Exa.Utils;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blueprints
@@ -9,19 +10,16 @@ namespace Exa.Grids.Blueprints
         [SerializeField] private Color backgroundColor;
         [SerializeField] private float padding;
 
-        private void Awake()
-        {
+        private void Awake() {
             RuntimePreviewGenerator.Padding = padding;
             RuntimePreviewGenerator.OrthographicMode = true;
             RuntimePreviewGenerator.BackgroundColor = backgroundColor;
             RuntimePreviewGenerator.MarkTextureNonReadable = false;
         }
 
-        public void GenerateThumbnail(Blueprint blueprint)
-        {
+        public void GenerateThumbnail(Blueprint blueprint) {
             // Generate Ship
-            foreach (var block in blueprint.Blocks)
-            {
+            foreach (var block in blueprint.Blocks) {
                 var blockGO = block.CreateInactiveInertBlockInGrid(transform);
                 blockGO.SetActive(true);
             }

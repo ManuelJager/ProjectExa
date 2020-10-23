@@ -12,10 +12,8 @@ namespace Exa.Audio
 
         private readonly Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
 
-        private void Awake()
-        {
-            foreach (var sound in soundBag)
-            {
+        private void Awake() {
+            foreach (var sound in soundBag) {
                 Register(sound);
             }
         }
@@ -24,10 +22,8 @@ namespace Exa.Audio
         /// Play a sound with the given id
         /// </summary>
         /// <param name="soundId"></param>
-        public void PlayGlobal(string soundId)
-        {
-            if (!soundById.ContainsKey(soundId))
-            {
+        public void PlayGlobal(string soundId) {
+            if (!soundById.ContainsKey(soundId)) {
                 UnityEngine.Debug.LogError($"{soundId} doesn't exist");
                 return;
             }
@@ -37,16 +33,13 @@ namespace Exa.Audio
             GetTrack(sound.audioType).PlayGlobal(sound);
         }
 
-        public void Register(Sound sound)
-        {
+        public void Register(Sound sound) {
             soundById[sound.id] = sound;
             GetTrack(sound.audioType).Register(sound);
         }
 
-        private AudioTrack GetTrack(AudioType audioType)
-        {
-            switch (audioType)
-            {
+        private AudioTrack GetTrack(AudioType audioType) {
+            switch (audioType) {
                 case AudioType.ST:
                     return ST_AudioTrack;
 

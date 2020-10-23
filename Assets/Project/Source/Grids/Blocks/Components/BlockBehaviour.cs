@@ -10,44 +10,33 @@ namespace Exa.Grids.Blocks.Components
         protected T data;
         protected Ship ship;
 
-        public override Ship Ship
-        {
+        public override Ship Ship {
             get => ship;
-            set
-            {
+            set {
                 if (ship == value) return;
 
-                if (ship != null)
-                {
+                if (ship != null) {
                     OnRemove();
                 }
 
                 ship = value;
 
-                if (ship != null)
-                {
+                if (ship != null) {
                     OnAdd();
                 }
             }
         }
 
-        public T Data
-        {
+        public T Data {
             get => data;
             set => data = value;
         }
 
         public override IBlockComponentValues BlockComponentData => data;
 
-        protected virtual void OnAdd()
-        {
-            
-        }
+        protected virtual void OnAdd() { }
 
-        protected virtual void OnRemove()
-        {
-            
-        }
+        protected virtual void OnRemove() { }
     }
 
     public abstract class BlockBehaviourBase : MonoBehaviour

@@ -8,8 +8,7 @@ namespace Exa.Grids.Blueprints
         public Vector2Int GridPos { get; set; }
 
         public DuplicateControllerException(Vector2Int gridPos)
-            : base($"Cannot add controller at grid pos {gridPos} as this would cause a duplicate ")
-        {
+            : base($"Cannot add controller at grid pos {gridPos} as this would cause a duplicate ") {
             GridPos = gridPos;
         }
     }

@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 namespace Exa.Math
 {
     public static partial class MathUtils
     {
-        public static EaseFunction CubicBezier(float p0, float p1, float p2, float p3)
-        {
-            return (c, s, e, d) =>
-            {
+        public static EaseFunction CubicBezier(float p0, float p1, float p2, float p3) {
+            return (c, s, e, d) => {
                 var t = c / d;
                 var it = 1f - t;
                 var r = (Mathf.Pow(it, 3f) * p0)

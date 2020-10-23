@@ -14,22 +14,18 @@ namespace Exa.ShipEditor
         /// A null value signifies a mouse outside of the grid
         /// </para>
         /// </summary>
-        private Vector2Int? MouseGridPos
-        {
+        private Vector2Int? MouseGridPos {
             get => mouseGridPos;
-            set
-            {
+            set {
                 if (mouseGridPos == value) return;
 
-                if (mouseGridPos != null)
-                {
+                if (mouseGridPos != null) {
                     SetActiveBackground(mouseGridPos, false);
                 }
 
                 mouseGridPos = value;
 
-                if (value != null)
-                {
+                if (value != null) {
                     SetActiveBackground(value, true);
                 }
 
@@ -38,29 +34,25 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void OnBlockSelected(BlockTemplate template)
-        {
+        public void OnBlockSelected(BlockTemplate template) {
             ghostLayer.CreateGhost(template);
         }
 
-        public void OnRotateLeft()
-        {
+        public void OnRotateLeft() {
             if (!ghostLayer.GhostCreated) return;
 
             ghostLayer.RotateGhosts(1);
             CalculateGhostEnabled();
         }
 
-        public void OnRotateRight()
-        {
+        public void OnRotateRight() {
             if (!ghostLayer.GhostCreated) return;
 
             ghostLayer.RotateGhosts(-1);
             CalculateGhostEnabled();
         }
 
-        public void OnLeftClickPressed()
-        {
+        public void OnLeftClickPressed() {
             // if mouse position is invalid
             if (MouseGridPos == null) return;
 
@@ -75,16 +67,14 @@ namespace Exa.ShipEditor
             blueprintLayer.AddBlock(ghostLayer.ghost.AnchoredBlueprintBlock.Clone());
 
             if (MirrorEnabled && ghostLayer.ghost.AnchoredBlueprintBlock.GridAnchor
-                != ghostLayer.mirrorGhost.AnchoredBlueprintBlock.GridAnchor)
-            {
+                != ghostLayer.mirrorGhost.AnchoredBlueprintBlock.GridAnchor) {
                 blueprintLayer.AddBlock(ghostLayer.mirrorGhost.AnchoredBlueprintBlock.Clone());
             }
 
             CalculateGhostEnabled();
         }
 
-        public void OnRightClickPressed()
-        {
+        public void OnRightClickPressed() {
             if (MouseGridPos == null) return;
 
             if (!Interactable) return;
@@ -93,34 +83,30 @@ namespace Exa.ShipEditor
 
             blueprintLayer.RemoveBlock(realGridPos);
 
-            if (MirrorEnabled)
-            {
+            if (MirrorEnabled) {
                 blueprintLayer.RemoveBlock(GridUtils.GetMirroredGridPos(size, realGridPos));
             }
 
             CalculateGhostEnabled();
         }
 
-        private void OnEnterGrid(Vector2Int? gridPos)
-        {
+        private void OnEnterGrid(Vector2Int? gridPos) {
             MouseGridPos = gridPos;
         }
 
-        private void OnExitGrid()
-        {
+        private void OnExitGrid() {
             MouseGridPos = null;
         }
 
-        private void SetActiveBackground(Vector2Int? gridPos, bool enter)
-        {
+        private void SetActiveBackground(Vector2Int? gridPos, bool enter) {
             if (gridPos == null) return;
 
             backgroundLayer.SetGridBackgroundItemColor(gridPos, enter);
 
-            GridUtils.ConditionallyApplyToMirror(gridPos, size, mirroredGridPos =>
-            {
-                backgroundLayer.SetGridBackgroundItemColor(mirroredGridPos, MirrorEnabled && enter);
-            });
+            GridUtils.ConditionallyApplyToMirror(gridPos, size,
+                mirroredGridPos => {
+                    backgroundLayer.SetGridBackgroundItemColor(mirroredGridPos, MirrorEnabled && enter);
+                });
         }
     }
 }

@@ -13,21 +13,17 @@ namespace Exa.UI.Components
     {
         public bool Interactable { get; set; } = true;
 
-        public virtual void HandleExit(Navigateable target)
-        {
+        public virtual void HandleExit(Navigateable target) {
             gameObject.SetActive(false);
         }
 
-        public virtual void HandleEnter(NavigationArgs args)
-        {
+        public virtual void HandleEnter(NavigationArgs args) {
             gameObject.SetActive(true);
         }
 
-        public virtual void NavigateTo(Navigateable target, NavigationArgs args = null)
-        {
+        public virtual void NavigateTo(Navigateable target, NavigationArgs args = null) {
             HandleExit(target);
-            target.HandleEnter(args ?? new NavigationArgs
-            {
+            target.HandleEnter(args ?? new NavigationArgs {
                 current = this
             });
         }

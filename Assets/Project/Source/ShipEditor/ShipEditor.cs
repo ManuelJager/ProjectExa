@@ -3,10 +3,9 @@ using Exa.Input;
 using Exa.IO;
 using Exa.UI;
 using System;
-using Exa.UI.Tooltips;
 using UnityEngine;
-using UnityEngine.Serialization;
 using static Exa.Input.GameControls;
+
 #pragma warning disable CS0649
 
 namespace Exa.ShipEditor
@@ -23,8 +22,7 @@ namespace Exa.ShipEditor
         private GameControls gameControls;
         private ShipEditorOverlay overlay;
 
-        private void Awake()
-        {
+        private void Awake() {
             overlay = Systems.UI.editorOverlay;
 
             gameControls = new GameControls();
@@ -44,37 +42,31 @@ namespace Exa.ShipEditor
             SetGridBackground();
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             ResetState();
 
             overlay.gameObject.SetActive(true);
             gameControls.Enable();
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             overlay.gameObject.SetActive(false);
             gameControls.Disable();
         }
 
-        private void Update()
-        {
-            if (leftButtonPressed)
-            {
+        private void Update() {
+            if (leftButtonPressed) {
                 editorGrid.OnLeftClickPressed();
                 return;
             }
 
-            if (rightButtonPressed)
-            {
+            if (rightButtonPressed) {
                 editorGrid.OnRightClickPressed();
                 return;
             }
         }
 
-        public void Import(BlueprintContainer blueprintContainer, Action<BlueprintContainer> saveCallback)
-        {
+        public void Import(BlueprintContainer blueprintContainer, Action<BlueprintContainer> saveCallback) {
             this.container = blueprintContainer;
             this.saveCallback = saveCallback;
             this.gridValidator = new BlueprintGridValidator();
@@ -88,14 +80,12 @@ namespace Exa.ShipEditor
             overlay.infoPanel.blueprintNameInput.SetValue(newBlueprint.name, false);
         }
 
-        public void ExportToClipboard()
-        {
+        public void ExportToClipboard() {
             var json = IOUtils.JsonSerializeWithSettings(editorGrid.blueprintLayer.ActiveBlueprint);
             GUIUtility.systemCopyBuffer = json;
         }
 
-        private void SetGridBackground()
-        {
+        private void SetGridBackground() {
             var screenHeightInUnits = Camera.main.orthographicSize * 2;
             var screenWidthInUnits = screenHeightInUnits * Screen.width / Screen.height;
             editorGridBackground.transform.localScale = new Vector3(screenWidthInUnits, screenHeightInUnits);

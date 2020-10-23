@@ -23,24 +23,20 @@ namespace Exa.Grids
 
         public T Controller { get; protected set; }
 
-        public float MaxSize
-        {
-            get
-            {
+        public float MaxSize {
+            get {
                 var size = Size.Value;
                 return Mathf.Max(size.x, size.y);
             }
         }
 
         public Grid(
-            LazyCache<Vector2Int> size = null, 
-            GridTotals totals = null, 
-            List<T> gridMembers = null, 
-            Dictionary<Vector2Int, T> occupiedTiles = null, 
-            Dictionary<T, List<T>> neighbourDict = null)
-        {
-            Size = size ?? new LazyCache<Vector2Int>(() =>
-            {
+            LazyCache<Vector2Int> size = null,
+            GridTotals totals = null,
+            List<T> gridMembers = null,
+            Dictionary<Vector2Int, T> occupiedTiles = null,
+            Dictionary<T, List<T>> neighbourDict = null) {
+            Size = size ?? new LazyCache<Vector2Int>(() => {
                 var bounds = new GridBounds(OccupiedTiles.Keys);
                 return bounds.GetDelta();
             });
@@ -51,14 +47,12 @@ namespace Exa.Grids
             NeighbourDict = neighbourDict ?? new Dictionary<T, List<T>>();
         }
 
-        public virtual void Add(T gridMember)
-        {
+        public virtual void Add(T gridMember) {
             Size.Invalidate();
 
             // Assign controller reference
             var isController = gridMember.BlueprintBlock.Template.category.Is(BlockCategory.Controller);
-            if (isController && Controller == null)
-            {
+            if (isController && Controller == null) {
                 Controller = gridMember;
             }
 
@@ -71,27 +65,23 @@ namespace Exa.Grids
             EnsureNeighbourKeyIsCreated(gridMember);
 
             // Add neighbour references
-            foreach (var neighbour in this.GetNeighbours(tilePositions))
-            {
+            foreach (var neighbour in this.GetNeighbours(tilePositions)) {
                 NeighbourDict[neighbour].Add(gridMember);
                 NeighbourDict[gridMember].Add(neighbour);
             }
 
-            foreach (var tilePosition in tilePositions)
-            {
+            foreach (var tilePosition in tilePositions) {
                 OccupiedTiles.Add(tilePosition, gridMember);
             }
         }
 
-        public virtual T Remove(Vector2Int key)
-        {
+        public virtual T Remove(Vector2Int key) {
             Size.Invalidate();
 
             var gridMember = GetMember(key);
 
             // Remove controller reference
-            if (ReferenceEquals(gridMember, Controller))
-            {
+            if (ReferenceEquals(gridMember, Controller)) {
                 Controller = default;
             }
 
@@ -101,79 +91,65 @@ namespace Exa.Grids
             gridMember.RemoveGridTotals(Totals);
 
             // Remove neighbour references
-            foreach (var neighbour in NeighbourDict[gridMember])
-            {
+            foreach (var neighbour in NeighbourDict[gridMember]) {
                 NeighbourDict[neighbour].Remove(gridMember);
             }
 
             NeighbourDict.Remove(gridMember);
 
-            foreach (var occupiedTile in tilePositions)
-            {
+            foreach (var occupiedTile in tilePositions) {
                 OccupiedTiles.Remove(occupiedTile);
             }
 
             return gridMember;
         }
 
-        public bool ContainsMember(Vector2Int gridPos)
-        {
+        public bool ContainsMember(Vector2Int gridPos) {
             return OccupiedTiles.ContainsKey(gridPos);
         }
 
-        public T GetMember(Vector2Int gridPos)
-        {
+        public T GetMember(Vector2Int gridPos) {
             return OccupiedTiles[gridPos];
         }
 
-        public BlueprintBlock GetBlock(Vector2Int gridPos)
-        {
+        public BlueprintBlock GetBlock(Vector2Int gridPos) {
             return OccupiedTiles[gridPos].BlueprintBlock;
         }
 
-        public Vector2Int GetAnchor(Vector2Int gridPos)
-        {
+        public Vector2Int GetAnchor(Vector2Int gridPos) {
             return OccupiedTiles[gridPos].GridAnchor;
         }
 
-        public bool HasOverlap(IEnumerable<Vector2Int> gridPositions)
-        {
+        public bool HasOverlap(IEnumerable<Vector2Int> gridPositions) {
             return OccupiedTiles
                 .Select(item => item.Key)
                 .Intersect(gridPositions)
                 .Any();
         }
 
-        public int GetMemberCount()
-        {
+        public int GetMemberCount() {
             return GridMembers.Count;
         }
 
-        public int GetOccupiedTileCount()
-        {
+        public int GetOccupiedTileCount() {
             return OccupiedTiles.Count;
         }
 
-        protected void EnsureNeighbourKeyIsCreated(T gridMember)
-        {
-            if (!NeighbourDict.ContainsKey(gridMember))
-            {
+        protected void EnsureNeighbourKeyIsCreated(T gridMember) {
+            if (!NeighbourDict.ContainsKey(gridMember)) {
                 NeighbourDict[gridMember] = new List<T>();
             }
         }
 
-        public int GetNeighbourCount(T gridMember)
-        {
+        public int GetNeighbourCount(T gridMember) {
             return NeighbourDict[gridMember].Count;
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
+        public IEnumerator<T> GetEnumerator() {
             return GridMembers.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             return GridMembers.GetEnumerator();
         }
     }

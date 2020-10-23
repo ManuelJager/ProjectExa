@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI
@@ -9,8 +10,7 @@ namespace Exa.UI
         [SerializeField] private Text buildMessageText;
         [SerializeField] private BuildMessage buildMessage;
 
-        private void Awake()
-        {
+        private void Awake() {
             buildMessageText.text = buildMessage.buildMessage;
         }
     }

@@ -3,7 +3,6 @@ using DG.Tweening;
 using Exa.Data;
 using Exa.Grids.Blueprints;
 using Exa.Ships;
-using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,16 +12,15 @@ namespace Exa.UI
 {
     public class FleetView : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private Transform mothershipContainer;
+        [Header("References")] [SerializeField]
+        private Transform mothershipContainer;
+
         [SerializeField] private Transform unitsContainer;
         [SerializeField] private Text unitCountText;
 
-        [Header("Settings")] 
-        [SerializeField] private AnimationArgs animationArgs;
+        [Header("Settings")] [SerializeField] private AnimationArgs animationArgs;
 
-        [Header("Events")]
-        public UnityEvent fleetChange = new UnityEvent();
+        [Header("Events")] public UnityEvent fleetChange = new UnityEvent();
 
         private Tween fontSizeTween;
         private Tween colorTween;
@@ -30,34 +28,29 @@ namespace Exa.UI
 
         public Fleet Fleet { get; private set; }
 
-        public void Create(int capacity, Func<BlueprintContainer, FleetBuilderBlueprintView> viewFactory)
-        {
+        public void Create(int capacity, Func<BlueprintContainer, FleetBuilderBlueprintView> viewFactory) {
             this.Fleet = new Fleet(capacity);
             this.viewFactory = viewFactory;
         }
 
-        public void Toggle(BlueprintContainer blueprint)
-        {
+        public void Toggle(BlueprintContainer blueprint) {
             if (viewFactory(blueprint).Selected)
                 Remove(blueprint);
             else
                 Insert(blueprint);
         }
 
-        public void Insert(BlueprintContainer blueprint)
-        {
+        public void Insert(BlueprintContainer blueprint) {
             if (blueprint.Data.BlueprintType.IsMothership)
                 AddMothership(blueprint);
             else
                 AddUnit(blueprint);
         }
 
-        public void Remove(BlueprintContainer blueprint)
-        {
+        public void Remove(BlueprintContainer blueprint) {
             if (blueprint.Data.BlueprintType.IsMothership)
                 Fleet.mothership = null;
-            else
-            {
+            else {
                 Fleet.units.Remove(blueprint);
                 UpdateUnitCountText();
             }
@@ -66,8 +59,7 @@ namespace Exa.UI
             SetSelected(blueprint, false);
         }
 
-        private void AddMothership(BlueprintContainer blueprint)
-        {
+        private void AddMothership(BlueprintContainer blueprint) {
             if (Fleet.mothership != null)
                 SetSelected(Fleet.mothership, false);
 
@@ -77,14 +69,12 @@ namespace Exa.UI
             SetSelected(blueprint, true, mothershipContainer);
         }
 
-        private void AddUnit(BlueprintContainer blueprint)
-        {
-            if (Fleet.units.Count == Fleet.units.Capacity)
-            {
+        private void AddUnit(BlueprintContainer blueprint) {
+            if (Fleet.units.Count == Fleet.units.Capacity) {
                 OnUnitsFull(animationArgs);
                 return;
             }
-            
+
             Fleet.units.Add(blueprint);
             UpdateUnitCountText();
             fleetChange.Invoke();
@@ -92,18 +82,15 @@ namespace Exa.UI
             SetSelected(blueprint, true, unitsContainer);
         }
 
-        private void SetSelected(BlueprintContainer blueprint, bool active, Transform container = null)
-        {
+        private void SetSelected(BlueprintContainer blueprint, bool active, Transform container = null) {
             var view = viewFactory(blueprint);
             view.Selected = active;
 
-            if (container != null)
-            {
+            if (container != null) {
                 view.transform.SetParent(container);
                 view.ParentTab.ChildCount--;
             }
-            else
-            {
+            else {
                 view.transform.SetParent(view.ParentTab.container);
                 view.ParentTab.ChildCount++;
             }
@@ -111,8 +98,7 @@ namespace Exa.UI
             view.hoverable.ForceExit();
         }
 
-        private void OnUnitsFull(AnimationArgs args)
-        {
+        private void OnUnitsFull(AnimationArgs args) {
             unitCountText.fontSize = args.fontSize.active;
             unitCountText.DOFontSize(args.fontSize.inactive, args.animTime)
                 .Replace(ref fontSizeTween);
@@ -122,8 +108,7 @@ namespace Exa.UI
                 .Replace(ref colorTween);
         }
 
-        private void UpdateUnitCountText()
-        {
+        private void UpdateUnitCountText() {
             unitCountText.text = $"{Fleet.units.Count}/{Fleet.units.Capacity}";
         }
 

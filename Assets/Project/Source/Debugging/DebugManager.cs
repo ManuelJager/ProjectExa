@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
+
 #pragma warning disable CS0649
 
 namespace Exa.Debugging
@@ -17,48 +18,40 @@ namespace Exa.Debugging
         private GameControls gameControls;
         private UCommandConsole.Console console;
 
-        public DebugMode DebugMode
-        {
+        public DebugMode DebugMode {
             get => debugMode;
             set => debugMode = value;
         }
 
-        public void Awake()
-        {
+        public void Awake() {
             console = Systems.UI.console;
             gameControls = new GameControls();
             gameControls.Debug.SetCallbacks(this);
         }
 
-        public void OnEnable()
-        {
+        public void OnEnable() {
             gameControls.Enable();
         }
 
-        public void OnDisable()
-        {
+        public void OnDisable() {
             gameControls.Disable();
         }
 
-        public void InvokeChange()
-        {
+        public void InvokeChange() {
             DebugChange?.Invoke(DebugMode);
         }
 
-        public void OnToggleConsole(InputAction.CallbackContext context)
-        {
+        public void OnToggleConsole(InputAction.CallbackContext context) {
             if (!context.performed) return;
 
             var consoleGO = console.gameObject;
             consoleGO.SetActive(!consoleGO.activeSelf);
         }
 
-        public void OnDrag(InputAction.CallbackContext context)
-        {
+        public void OnDrag(InputAction.CallbackContext context) {
             if (!DebugMode.Dragging.IsEnabled()) return;
 
-            switch (context.phase)
-            {
+            switch (context.phase) {
                 case InputActionPhase.Started:
                     debugDragger.OnPress();
                     break;
@@ -70,14 +63,13 @@ namespace Exa.Debugging
             }
         }
 
-        public static void ClearLog()
-        {
-            #if UNITY_EDITOR
+        public static void ClearLog() {
+#if UNITY_EDITOR
             var assembly = Assembly.GetAssembly(typeof(SceneView));
             var type = assembly.GetType("UnityEditor.LogEntries");
             var method = type.GetMethod("Clear");
             method.Invoke(new object(), null);
-            #endif
+#endif
         }
     }
 
@@ -88,8 +80,7 @@ namespace Exa.Debugging
         /// </summary>
         /// <param name="debugMode"></param>
         /// <returns></returns>
-        public static bool IsEnabled(this DebugMode debugMode)
-        {
+        public static bool IsEnabled(this DebugMode debugMode) {
             return (Systems.Debug.DebugMode & debugMode) != 0;
         }
 
@@ -97,8 +88,7 @@ namespace Exa.Debugging
         /// Adds the given debug mode bitmask to the current global debug mode
         /// </summary>
         /// <param name="debugMode"></param>
-        public static void BinaryAdd(this DebugMode debugMode)
-        {
+        public static void BinaryAdd(this DebugMode debugMode) {
             Systems.Debug.DebugMode |= debugMode;
             Systems.Debug.InvokeChange();
         }
@@ -107,8 +97,7 @@ namespace Exa.Debugging
         /// To
         /// </summary>
         /// <param name="debugMode"></param>
-        public static void Toggle(this DebugMode debugMode)
-        {
+        public static void Toggle(this DebugMode debugMode) {
             Systems.Debug.DebugMode ^= debugMode;
             Systems.Debug.InvokeChange();
         }

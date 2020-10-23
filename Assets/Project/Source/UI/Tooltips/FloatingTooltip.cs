@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Exa.Math;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Tooltips
@@ -11,29 +12,26 @@ namespace Exa.UI.Tooltips
     /// </summary>
     public class FloatingTooltip : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] protected RectTransform tooltipRoot;
+        [Header("References")] [SerializeField]
+        protected RectTransform tooltipRoot;
+
         [SerializeField] protected RectTransform itemsContainer;
 
-        [Header("Settings")]
-        [SerializeField] private Vector2 offset = new Vector2(4f, 4f);
+        [Header("Settings")] [SerializeField] private Vector2 offset = new Vector2(4f, 4f);
         [SerializeField] private float padding = 4f;
         [SerializeField] private float animTime = 0.1f;
 
         private Tween posTween;
         private Rect? rootRect;
 
-        private Rect RootRect
-        {
-            get
-            {
+        private Rect RootRect {
+            get {
                 rootRect = rootRect ?? Systems.UI.rootTransform.rect;
                 return rootRect.Value;
             }
         }
 
-        protected virtual void Update()
-        {
+        protected virtual void Update() {
             UpdatePosition();
         }
 
@@ -41,8 +39,7 @@ namespace Exa.UI.Tooltips
         /// Update the position of the tooltip
         /// </summary>
         /// <param name="immediate"></param>
-        public void UpdatePosition(bool immediate = false)
-        {
+        public void UpdatePosition(bool immediate = false) {
             // Get the mouse position
             var mousePos = Systems.Input.ScaledViewportPoint;
             var clampedCorner = ClampPos(mousePos + offset);
@@ -54,8 +51,7 @@ namespace Exa.UI.Tooltips
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        protected virtual Vector2 ClampPos(Vector2 input)
-        {
+        protected virtual Vector2 ClampPos(Vector2 input) {
             var size = GetTooltipSize();
             var pivot = tooltipRoot.pivot;
             var min = GetMinBounds(size, pivot);
@@ -63,30 +59,25 @@ namespace Exa.UI.Tooltips
             return MathUtils.Clamp(input, min, max);
         }
 
-        protected virtual Vector2 GetTooltipSize()
-        {
+        protected virtual Vector2 GetTooltipSize() {
             return GetSize(tooltipRoot.rect);
         }
 
-        protected Vector2 GetSize(Rect rect)
-        {
+        protected Vector2 GetSize(Rect rect) {
             return new Vector2(rect.width, rect.height);
         }
 
-        private Vector2 GetMinBounds(Vector2 size, Vector2 pivot)
-        {
+        private Vector2 GetMinBounds(Vector2 size, Vector2 pivot) {
             var result = size * pivot;
             return AddFloat(result, padding);
         }
 
-        private Vector2 GetMaxBounds(Vector2 size, Vector2 pivot, Vector2 boundSize)
-        {
+        private Vector2 GetMaxBounds(Vector2 size, Vector2 pivot, Vector2 boundSize) {
             var result = boundSize - size * (Vector2.one - pivot);
             return AddFloat(result, -padding);
         }
 
-        private Vector2 AddFloat(Vector2 vector, float value)
-        {
+        private Vector2 AddFloat(Vector2 vector, float value) {
             return new Vector2(vector.x + value, vector.y + value);
         }
 
@@ -95,10 +86,8 @@ namespace Exa.UI.Tooltips
         /// </summary>
         /// <param name="pos">Position</param>
         /// <param name="immediate">Whether the update needs to happen now. This is usually used to notify any animation systems that they shouldn't animate, but instead set the position directly</param>
-        protected virtual void SetAnchoredPos(Vector2 pos, bool immediate)
-        {
-            if (immediate)
-            {
+        protected virtual void SetAnchoredPos(Vector2 pos, bool immediate) {
+            if (immediate) {
                 tooltipRoot.anchoredPosition = pos;
                 return;
             }

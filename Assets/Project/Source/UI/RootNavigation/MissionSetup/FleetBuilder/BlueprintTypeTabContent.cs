@@ -11,11 +11,9 @@ namespace Exa.UI
         [SerializeField] private Text emptyContentNotice;
         private int childCount;
 
-        public int ChildCount
-        {
+        public int ChildCount {
             get => childCount;
-            set
-            {
+            set {
                 var targetState = value == 0;
                 if (emptyContentNotice.gameObject.activeSelf != targetState)
                     emptyContentNotice.gameObject.SetActive(targetState);
@@ -24,8 +22,7 @@ namespace Exa.UI
             }
         }
 
-        public void SetType(BlueprintType blueprintType)
-        {
+        public void SetType(BlueprintType blueprintType) {
             emptyContentNotice.text = $"No blueprints of type \"{blueprintType.displayName}\" found";
         }
     }

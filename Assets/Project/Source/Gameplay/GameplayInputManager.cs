@@ -1,6 +1,7 @@
 ﻿using Exa.Input;
 using UnityEngine;
 using static Exa.Input.GameControls;
+
 #pragma warning disable 649
 
 namespace Exa.Gameplay
@@ -12,42 +13,34 @@ namespace Exa.Gameplay
 
         public IRaycastTarget RaycastTarget => raycastTarget;
 
-        public void Awake()
-        {
+        public void Awake() {
             gameControls = new GameControls();
             gameControls.Gameplay.SetCallbacks(this);
         }
 
-        public void Update()
-        {
+        public void Update() {
             UpdateRaycastTarget();
 
-            if (IsSelectingArea)
-            {
+            if (IsSelectingArea) {
                 OnUpdateSelectionArea();
             }
         }
 
-        public void OnEnable()
-        {
+        public void OnEnable() {
             gameControls.Enable();
         }
 
-        public void OnDisable()
-        {
+        public void OnDisable() {
             gameControls.Disable();
         }
 
-        private void UpdateRaycastTarget()
-        {
-            void OnEnter(IRaycastTarget raycastTarget)
-            {
+        private void UpdateRaycastTarget() {
+            void OnEnter(IRaycastTarget raycastTarget) {
                 this.raycastTarget = raycastTarget;
                 this.raycastTarget?.OnRaycastEnter();
             }
 
-            void OnExit()
-            {
+            void OnExit() {
                 raycastTarget?.OnRaycastExit();
                 raycastTarget = null;
             }
@@ -57,8 +50,7 @@ namespace Exa.Gameplay
 
             // TODO: Fix this as it doesn't actually support multiple rays
             var foundTarget = false;
-            foreach (var hit in hits)
-            {
+            foreach (var hit in hits) {
                 var go = hit.transform.gameObject;
                 var raycastTarget = go.GetComponent<IRaycastTarget>();
 
@@ -73,8 +65,7 @@ namespace Exa.Gameplay
                 return;
             }
 
-            if (!foundTarget)
-            {
+            if (!foundTarget) {
                 OnExit();
             }
         }

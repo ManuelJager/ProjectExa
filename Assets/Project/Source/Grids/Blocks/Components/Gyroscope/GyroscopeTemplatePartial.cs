@@ -9,8 +9,7 @@ namespace Exa.Grids.Blocks.Components
     {
         [SerializeField] private Scalar turningRate;
 
-        public override GyroscopeData Convert() => new GyroscopeData
-        {
+        public override GyroscopeData Convert() => new GyroscopeData {
             turningRate = turningRate
         };
     }

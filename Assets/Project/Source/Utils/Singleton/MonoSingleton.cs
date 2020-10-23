@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.Utils
 {
@@ -11,10 +10,8 @@ namespace Exa.Utils
         /// <summary>
         /// Static reference that can only be set once internally
         /// </summary>
-        public static T Instance
-        {
-            private set
-            {
+        public static T Instance {
+            private set {
                 if (instance != null)
                     UnityEngine.Debug.LogWarning($"Instance value has already been set on type {typeof(T)}");
                 else
@@ -26,15 +23,12 @@ namespace Exa.Utils
         /// <summary>
         /// Get the component
         /// </summary>
-        protected virtual void Awake()
-        {
+        protected virtual void Awake() {
             if (instance == null)
                 Instance = GetComponent<T>();
-            
         }
     }
 
     public abstract class MonoSingleton : MonoBehaviour
-    {
-    }
+    { }
 }

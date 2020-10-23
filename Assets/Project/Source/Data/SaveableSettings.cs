@@ -1,7 +1,6 @@
 ﻿using System;
 using Exa.IO;
 using System.IO;
-using UnityEngine;
 
 namespace Exa.Data
 {
@@ -29,14 +28,12 @@ namespace Exa.Data
         /// </summary>
         public abstract void Apply();
 
-        public virtual void Save()
-        {
+        public virtual void Save() {
             var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
             IOUtils.JsonSerializeToPath(Values, path, SerializationMode.Settings);
         }
 
-        public virtual void Load()
-        {
+        public virtual void Load() {
             var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
             Values = File.Exists(path)
                 ? IOUtils.JsonDeserializeFromPath<T>(path, SerializationMode.Settings) ?? DefaultValues

@@ -14,8 +14,7 @@ namespace Exa.Grids.Blocks.Components
         public float Armor => armor;
         public float Mass => mass;
 
-        public override PhysicalData Convert() => new PhysicalData
-        {
+        public override PhysicalData Convert() => new PhysicalData {
             armor = armor,
             hull = maxHull,
             mass = mass

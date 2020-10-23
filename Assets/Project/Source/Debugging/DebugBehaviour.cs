@@ -6,8 +6,7 @@ namespace Exa.Debugging
     {
         public abstract void OnDebugStateChange(DebugMode mode);
 
-        protected virtual void Awake()
-        {
+        protected virtual void Awake() {
             DebugManager.DebugChange += OnDebugStateChange;
         }
     }

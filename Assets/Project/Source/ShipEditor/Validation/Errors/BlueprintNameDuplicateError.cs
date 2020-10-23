@@ -3,6 +3,5 @@
 namespace Exa.ShipEditor
 {
     public class BlueprintNameDuplicateError : ValidationError
-    {
-    }
+    { }
 }

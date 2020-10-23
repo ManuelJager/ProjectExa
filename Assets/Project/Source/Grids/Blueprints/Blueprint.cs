@@ -16,47 +16,39 @@ namespace Exa.Grids.Blueprints
         [JsonProperty("blocks")] public BlueprintBlocks Blocks { get; private set; }
         [JsonIgnore] public Texture2D Thumbnail { get; set; }
 
-        [JsonIgnore]
-        public BlueprintType BlueprintType => Systems.Blueprints.blueprintTypes.typesById[shipClass];
+        [JsonIgnore] public BlueprintType BlueprintType => Systems.Blueprints.blueprintTypes.typesById[shipClass];
 
-        public Blueprint(BlueprintOptions options)
-        {
+        public Blueprint(BlueprintOptions options) {
             this.name = options.name;
             this.shipClass = options.shipClass;
             this.Blocks = new BlueprintBlocks();
         }
 
         [JsonConstructor]
-        public Blueprint(string name, BlueprintTypeGuid shipClass, BlueprintBlocks blocks)
-        {
+        public Blueprint(string name, BlueprintTypeGuid shipClass, BlueprintBlocks blocks) {
             this.name = name;
             this.shipClass = shipClass;
             this.Blocks = blocks;
         }
 
-        public void Add(AnchoredBlueprintBlock anchoredBlueprintBlock)
-        {
+        public void Add(AnchoredBlueprintBlock anchoredBlueprintBlock) {
             Blocks.Add(anchoredBlueprintBlock);
         }
 
-        public void Remove(Vector2Int gridPos)
-        {
+        public void Remove(Vector2Int gridPos) {
             Blocks.Remove(gridPos);
         }
 
-        public void ClearBlocks()
-        {
+        public void ClearBlocks() {
             Blocks = new BlueprintBlocks();
             Thumbnail = null;
         }
 
-        public Blueprint Clone()
-        {
+        public Blueprint Clone() {
             return new Blueprint(name, shipClass, Blocks.Clone());
         }
 
-        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
-        {
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
             new TooltipText($"Name: {name}"),
             new TooltipText($"Class: {shipClass}"),
             new TooltipText($"Size: {Blocks.Size.Value}"),

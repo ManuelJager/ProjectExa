@@ -17,14 +17,12 @@ namespace Exa.Input
         public Vector2 ViewportPoint { get; private set; }
         public Vector2 MouseWorldPoint { get; private set; }
 
-        private void Awake()
-        {
+        private void Awake() {
             mouseCursor = Systems.UI.mouseCursor;
             root = Systems.UI.rootCanvas;
         }
 
-        private void Update()
-        {
+        private void Update() {
             var mousePos = Mouse.current.position.ReadValue();
             ScaledViewportPoint = mousePos / root.scaleFactor;
             ScreenPoint = mousePos;
@@ -40,13 +38,11 @@ namespace Exa.Input
             mouseCursor.UpdateMouseInViewport(currFrameMouseInViewport);
         }
 
-        public bool GetMouseInsideRect(RectTransform rect)
-        {
+        public bool GetMouseInsideRect(RectTransform rect) {
             return RectTransformUtility.RectangleContainsScreenPoint(rect, ScreenPoint, Camera.main);
         }
 
-        public bool GetMouseInsideRect(params RectTransform[] rects)
-        {
+        public bool GetMouseInsideRect(params RectTransform[] rects) {
             return rects.Any(GetMouseInsideRect);
         }
     }

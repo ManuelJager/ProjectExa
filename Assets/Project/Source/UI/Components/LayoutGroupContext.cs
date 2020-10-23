@@ -12,8 +12,7 @@ namespace Exa.UI.Components
     {
         public LayoutElement layoutElement;
 
-        public void UpdateActiveSelf()
-        {
+        public void UpdateActiveSelf() {
             layoutElement.ignoreLayout = !transform
                 .GetChildren()
                 .Any(transform => transform.gameObject.activeSelf);

@@ -10,26 +10,20 @@ namespace Exa.Utils
         /// </summary>
         /// <param name="transform"></param>
         /// <returns></returns>
-        public static IEnumerable<Transform> GetChildren(this Transform transform)
-        {
-            foreach (Transform child in transform)
-            {
+        public static IEnumerable<Transform> GetChildren(this Transform transform) {
+            foreach (Transform child in transform) {
                 yield return child;
             }
         }
 
-        public static void SetActiveChildren(this Transform transform, bool active)
-        {
-            foreach (Transform child in transform)
-            {
+        public static void SetActiveChildren(this Transform transform, bool active) {
+            foreach (Transform child in transform) {
                 child.gameObject.SetActive(active);
             }
         }
 
-        public static void DestroyChildren(this Transform transform)
-        {
-            foreach (Transform child in transform)
-            {
+        public static void DestroyChildren(this Transform transform) {
+            foreach (Transform child in transform) {
                 Object.Destroy(child.gameObject);
             }
         }

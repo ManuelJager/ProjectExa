@@ -13,16 +13,14 @@ namespace Exa.Gameplay
     {
         protected Formation formation;
 
-        protected ShipSelection(Formation formation)
-        {
+        protected ShipSelection(Formation formation) {
             this.formation = formation;
         }
 
         public bool CanControl { get; protected set; }
-        public Vector2 AveragePosition
-        {
-            get
-            {
+
+        public Vector2 AveragePosition {
+            get {
                 var positions = this.Select(ship => ship.gameObject.transform.position.ToVector2());
 
                 return MathUtils.Average(positions);
@@ -31,8 +29,7 @@ namespace Exa.Gameplay
 
         private readonly Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
 
-        public override void Add(Ship ship)
-        {
+        public override void Add(Ship ship) {
             base.Add(ship);
 
             ship.overlay.overlayCircle.IsSelected = true;
@@ -43,24 +40,20 @@ namespace Exa.Gameplay
             ship.destroyEvent.AddListener(callback);
         }
 
-        public override bool Remove(Ship ship)
-        {
+        public override bool Remove(Ship ship) {
             OnRemove(ship);
             return base.Remove(ship);
         }
 
-        public override void Clear()
-        {
-            foreach (var ship in this)
-            {
+        public override void Clear() {
+            foreach (var ship in this) {
                 OnRemove(ship);
             }
 
             base.Clear();
         }
 
-        private void OnRemove(Ship ship)
-        {
+        private void OnRemove(Ship ship) {
             ship.overlay.overlayCircle.IsSelected = false;
 
             // Get the callback and remove it

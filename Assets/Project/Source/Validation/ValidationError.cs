@@ -5,9 +5,7 @@
     /// </summary>
     public abstract class ValidationError
     {
-        protected ValidationError()
-        {
-        }
+        protected ValidationError() { }
 
         public ErrorType ErrorType { get; set; } = ErrorType.Error;
         public string Message { get; set; }

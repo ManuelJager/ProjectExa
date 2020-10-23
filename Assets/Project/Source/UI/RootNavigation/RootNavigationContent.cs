@@ -1,8 +1,8 @@
 ﻿using DG.Tweening;
-using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI
@@ -14,24 +14,20 @@ namespace Exa.UI
 
         private Tween heightTween;
 
-        private void Awake()
-        {
+        private void Awake() {
             RemoveLock();
         }
 
-        public void RemoveLock()
-        {
+        public void RemoveLock() {
             Animate(false);
         }
 
-        public void SetTooltip(string value)
-        {
+        public void SetTooltip(string value) {
             textAnimator.AnimateTo(value);
             Animate(true);
         }
 
-        private void Animate(bool active)
-        {
+        private void Animate(bool active) {
             tooltipContainer.DOPreferredHeight(active ? 60f : 0f, 0.15f)
                 .Replace(ref heightTween);
         }

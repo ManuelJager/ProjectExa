@@ -7,8 +7,7 @@
     {
         protected Ship ship;
 
-        protected ShipAction(Ship ship)
-        {
+        protected ShipAction(Ship ship) {
             this.ship = ship;
         }
 

@@ -3,6 +3,7 @@ using Exa.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 #pragma warning disable CS0649
 
 namespace Exa.ShipEditor
@@ -19,27 +20,26 @@ namespace Exa.ShipEditor
 
         [SerializeField] private GameObject gridItemPrefab;
         private KeyValuePair<Vector2Int, EditorGridItem>? currActiveGridItem;
-        private readonly Dictionary<Vector2Int, EditorGridItem> gridItems = new Dictionary<Vector2Int, EditorGridItem>();
+
+        private readonly Dictionary<Vector2Int, EditorGridItem>
+            gridItems = new Dictionary<Vector2Int, EditorGridItem>();
+
         private Vector2Int size = Vector2Int.zero;
 
-        private void OnDisable()
-        {
-            if (currActiveGridItem != null)
-            {
+        private void OnDisable() {
+            if (currActiveGridItem != null) {
                 ExitGrid?.Invoke();
                 currActiveGridItem = null;
             }
         }
 
-        public void SetGridBackgroundItemColor(Vector2Int? gridPos, bool active)
-        {
+        public void SetGridBackgroundItemColor(Vector2Int? gridPos, bool active) {
             var realGridPos = gridPos.GetValueOrDefault();
 
             gridItems[realGridPos].SetColor(active);
         }
 
-        public void GenerateGrid(Vector2Int size)
-        {
+        public void GenerateGrid(Vector2Int size) {
             if (this.size == size) return;
 
             this.size = size;
@@ -48,8 +48,7 @@ namespace Exa.ShipEditor
 
             gridItems.Clear();
 
-            foreach (var vector in MathUtils.EnumerateVectors(size))
-            {
+            foreach (var vector in MathUtils.EnumerateVectors(size)) {
                 var gridItemGO = Instantiate(gridItemPrefab, transform);
                 gridItemGO.transform.localPosition = vector.ToVector3();
                 var gridItem = gridItemGO.GetComponent<EditorGridItem>();
@@ -57,18 +56,16 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void UpdateCurrActiveGridItem(Vector2 playerPos)
-        {
+        public void UpdateCurrActiveGridItem(Vector2 playerPos) {
             var gridPos = GetGridPosFromMousePos(playerPos);
 
             // If position isnt in grid
-            if (!PosIsInGrid(gridPos))
-            {
-                if (currActiveGridItem != null)
-                {
+            if (!PosIsInGrid(gridPos)) {
+                if (currActiveGridItem != null) {
                     ExitGrid?.Invoke();
                     currActiveGridItem = null;
                 }
+
                 return;
             }
 
@@ -76,8 +73,7 @@ namespace Exa.ShipEditor
             var gridItem = gridItems[gridPos];
 
             // If no currently active grid item has been set
-            if (currActiveGridItem == null)
-            {
+            if (currActiveGridItem == null) {
                 currActiveGridItem = new KeyValuePair<Vector2Int, EditorGridItem>(gridPos, gridItem);
                 EnterGrid?.Invoke(gridPos);
                 return;
@@ -94,8 +90,7 @@ namespace Exa.ShipEditor
             currActiveGridItem = new KeyValuePair<Vector2Int, EditorGridItem>(gridPos, gridItem);
         }
 
-        public bool PosIsInGrid(Vector2Int pos)
-        {
+        public bool PosIsInGrid(Vector2Int pos) {
             return !(
                 pos.x >= size.x ||
                 pos.y >= size.y ||
@@ -103,8 +98,7 @@ namespace Exa.ShipEditor
                 pos.y < 0);
         }
 
-        private Vector2Int GetGridPosFromMousePos(Vector2 playerPos)
-        {
+        private Vector2Int GetGridPosFromMousePos(Vector2 playerPos) {
             // Get grid position from world position mouse
             var screenPoint = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 

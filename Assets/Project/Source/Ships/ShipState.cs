@@ -10,30 +10,25 @@ namespace Exa.Ships
 
         private float hullIntegrity;
 
-        public float HullIntegrity
-        {
+        public float HullIntegrity {
             get => hullIntegrity;
-            set
-            {
+            set {
                 hullIntegrity = value;
                 ship.overlay.overlayHullBar.SetFill(value);
             }
         }
 
-        public void Update()
-        {
+        public void Update() {
             var currentHull = ship.BlockGrid.Totals.Hull;
             var totalHull = ship.Blueprint.Blocks.Totals.Hull;
-            HullIntegrity = currentHull / totalHull; 
+            HullIntegrity = currentHull / totalHull;
         }
 
-        public float GetTurningRate()
-        {
+        public float GetTurningRate() {
             return ship.BlockGrid.Totals.TurningPower / ship.BlockGrid.Totals.Mass;
         }
 
-        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[]
-        {
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
             new TooltipText($"HullIntegrity: {HullIntegrity}"),
             new TooltipText($"TurningRate: {GetTurningRate()}")
         };

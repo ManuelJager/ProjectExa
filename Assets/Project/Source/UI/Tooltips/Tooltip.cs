@@ -12,18 +12,16 @@ namespace Exa.UI.Tooltips
         public bool ShouldRefresh { get; set; }
         public Font Font { get; private set; }
 
-        public Tooltip(Func<TooltipGroup> factory, Font font = null)
-        {
+        public Tooltip(Func<TooltipGroup> factory, Font font = null) {
             this.factory = factory;
             ShouldRefresh = true;
             Font = font;
         }
 
-        public TooltipGroup GetRootData()
-        {
+        public TooltipGroup GetRootData() {
             if (ShouldRefresh)
                 group = factory();
-            
+
             return group;
         }
     }

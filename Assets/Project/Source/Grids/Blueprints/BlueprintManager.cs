@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Exa.Bindings;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blueprints
@@ -18,8 +19,7 @@ namespace Exa.Grids.Blueprints
 
         [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
 
-        public IEnumerator Init(IProgress<float> progress)
-        {
+        public IEnumerator Init(IProgress<float> progress) {
             var userBlueprintPaths = CollectionUtils
                 .GetJsonPathsFromDirectory(DirectoryTree.Blueprints)
                 .ToList();
@@ -28,80 +28,70 @@ namespace Exa.Grids.Blueprints
             var iterator = 0;
             var blueprintTotal = userBlueprintPaths.Count + defaultBlueprintsList.Count;
 
-            useableBlueprints = new CompositeObservableEnumerable<BlueprintContainer>(userBlueprints, defaultBlueprints);
+            useableBlueprints =
+                new CompositeObservableEnumerable<BlueprintContainer>(userBlueprints, defaultBlueprints);
 
             // Load user defined blueprints
-            foreach (var blueprintPath in userBlueprintPaths)
-            {
-                try
-                {
+            foreach (var blueprintPath in userBlueprintPaths) {
+                try {
                     AddUserBlueprint(blueprintPath);
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                     Systems.UI.logger.Log($"Error loading blueprint: {e.Message}");
                 }
 
                 yield return null;
                 iterator++;
-                progress.Report((float)iterator / blueprintTotal);
+                progress.Report((float) iterator / blueprintTotal);
             }
 
 
             // Load default blueprints
-            foreach (var defaultBlueprint in defaultBlueprintBag)
-            {
+            foreach (var defaultBlueprint in defaultBlueprintBag) {
                 AddDefaultBlueprint(defaultBlueprint);
 
                 yield return null;
                 iterator++;
-                progress.Report((float)iterator / blueprintTotal);
+                progress.Report((float) iterator / blueprintTotal);
             }
         }
 
-        public BlueprintContainer GetBlueprint(string name)
-        {
+        public BlueprintContainer GetBlueprint(string name) {
             if (defaultBlueprints.ContainsKey(name))
                 return defaultBlueprints[name];
-            
+
             if (userBlueprints.ContainsKey(name))
                 return userBlueprints[name];
 
             throw new KeyNotFoundException();
         }
 
-        public bool ContainsName(string name)
-        {
+        public bool ContainsName(string name) {
             return defaultBlueprints.ContainsKey(name)
-                || userBlueprints.ContainsKey(name);
+                   || userBlueprints.ContainsKey(name);
         }
 
-        private void AddDefaultBlueprint(DefaultBlueprint defaultBlueprint)
-        {
+        private void AddDefaultBlueprint(DefaultBlueprint defaultBlueprint) {
             var blueprint = defaultBlueprint.ToContainer();
 
             if (ContainsName(blueprint.Data.name))
                 throw new ArgumentException("Blueprint named is duplicate");
-            
+
             defaultBlueprints.Add(blueprint);
         }
 
-        private void AddUserBlueprint(string path)
-        {
+        private void AddUserBlueprint(string path) {
             var blueprint = IOUtils.JsonDeserializeFromPath<Blueprint>(path);
 
-            if (blueprint == null)
-            {
+            if (blueprint == null) {
                 throw new ArgumentNullException("blueprint");
             }
 
-            if (ContainsName(blueprint.name))
-            {
+            if (ContainsName(blueprint.name)) {
                 throw new ArgumentException($"Blueprint named \"{blueprint.name}\" is duplicate");
             }
 
-            var args = new BlueprintContainerArgs(blueprint)
-            {
+            var args = new BlueprintContainerArgs(blueprint) {
                 generateBlueprintFileHandle = true,
                 generateBlueprintFileName = false
             };

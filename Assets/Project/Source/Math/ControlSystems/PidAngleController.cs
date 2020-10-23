@@ -4,8 +4,6 @@
     public class PidAngleController : PidController
     {
         public PidAngleController(float proportional, float integral, float derivitive)
-            : base(proportional, integral, derivitive)
-        {
-        }
+            : base(proportional, integral, derivitive) { }
     }
 }

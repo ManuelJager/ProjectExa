@@ -1,14 +1,8 @@
-﻿using System.Linq;
-using Exa.Gameplay.Missions;
-using Exa.Generics;
-using Exa.SceneManagement;
+﻿using Exa.Gameplay.Missions;
 using Exa.UI.Controls;
 using Exa.UI.Tooltips;
 using Exa.Validation;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Exa.UI
 {
@@ -21,16 +15,14 @@ namespace Exa.UI
 
         public Mission SelectedMission { get; private set; }
 
-        private void Awake()
-        {
+        private void Awake() {
             missionDropdown.CreateTabs(missionBag);
             missionDropdown.OnValueChange.AddListener(item => SelectedMission = item as Mission);
 
             SelectedMission = missionDropdown.Value as Mission;
         }
 
-        public void ReflectFleetBuilderResult(ValidationResult result)
-        {
+        public void ReflectFleetBuilderResult(ValidationResult result) {
             button.Interactable = result;
             tooltipTrigger.SetText(result.GetFirstBySeverity()?.Message);
         }

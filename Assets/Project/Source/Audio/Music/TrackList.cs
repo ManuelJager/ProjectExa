@@ -9,8 +9,7 @@ namespace Exa.Audio.Music
         public List<Sound> tracks;
         public SoundHandle activeHandle;
 
-        public Sound SelectSound()
-        {
+        public Sound SelectSound() {
             var random = new System.Random();
             var index = random.Next(tracks.Count);
             return tracks[index];

@@ -9,16 +9,13 @@ namespace Exa.Misc
     {
         public bool Fatal { get; } = false;
 
-        public UserException()
-        { }
+        public UserException() { }
 
         public UserException(string message)
-            : base(message)
-        { }
+            : base(message) { }
 
         public UserException(string message, bool fatal)
-            : base(message)
-        {
+            : base(message) {
             Fatal = fatal;
         }
     }

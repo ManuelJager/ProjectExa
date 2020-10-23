@@ -1,6 +1,4 @@
-﻿using Exa.UI;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 namespace Exa.UI
@@ -13,13 +11,9 @@ namespace Exa.UI
 
         private Hoverable hoverable;
 
-        private void Awake()
-        {
+        private void Awake() {
             hoverable = GetComponent<Hoverable>();
-            hoverable.onPointerEnter.AddListener(() =>
-            {
-                onHover?.Invoke(message);
-            });
+            hoverable.onPointerEnter.AddListener(() => { onHover?.Invoke(message); });
         }
     }
 }

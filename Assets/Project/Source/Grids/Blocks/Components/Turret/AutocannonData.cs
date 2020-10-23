@@ -21,16 +21,11 @@ namespace Exa.Grids.Blocks.Components
         public float FiringRate => firingRate;
         public float Damage => damage;
 
-        public void AddGridTotals(GridTotals totals)
-        {
-        }
+        public void AddGridTotals(GridTotals totals) { }
 
-        public void RemoveGridTotals(GridTotals totals)
-        {
-        }
+        public void RemoveGridTotals(GridTotals totals) { }
 
-        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
             new LabeledValue<string>("Turning rate", $"{turningRate}°/s"),
             new LabeledValue<string>("Firing rate", $"{60 / firingRate} RPM"),
             new LabeledValue<string>("Damage", $"{damage}"),

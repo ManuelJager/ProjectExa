@@ -9,8 +9,6 @@ namespace Exa.Grids.Blocks
     public class BlockTemplateContainer : Observable<BlockTemplate>
     {
         public BlockTemplateContainer(BlockTemplate data)
-            : base(data)
-        {
-        }
+            : base(data) { }
     }
 }

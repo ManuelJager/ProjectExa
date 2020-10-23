@@ -1,9 +1,6 @@
 ﻿using System;
 using Exa.Data;
 using Exa.UI.Components;
-using Exa.UI.Controls;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Exa.UI.Settings
 {
@@ -36,23 +33,20 @@ namespace Exa.UI.Settings
         /// <returns></returns>
         public abstract TValues GetSettingsValues();
 
-        public virtual void Init()
-        {
+        public virtual void Init() {
             settings.Load();
             settings.Apply();
             settings.Save();
             ReflectValues(settings.Values);
         }
 
-        public override void SetDefaultValues()
-        {
+        public override void SetDefaultValues() {
             var values = settings.DefaultValues;
             ReflectValues(values);
             Apply(values);
         }
 
-        public override void ApplyChanges()
-        {
+        public override void ApplyChanges() {
             Apply(GetSettingsValues());
         }
 
@@ -60,8 +54,7 @@ namespace Exa.UI.Settings
         /// Applies the given values
         /// </summary>
         /// <param name="values"></param>
-        private void Apply(TValues values)
-        {
+        private void Apply(TValues values) {
             settings.Values = values;
             settings.Save();
             settings.Apply();

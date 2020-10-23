@@ -5,8 +5,7 @@
         public string name;
         public BlueprintTypeGuid shipClass;
 
-        public BlueprintOptions(string name, BlueprintTypeGuid shipClass)
-        {
+        public BlueprintOptions(string name, BlueprintTypeGuid shipClass) {
             this.name = name;
             this.shipClass = shipClass;
         }

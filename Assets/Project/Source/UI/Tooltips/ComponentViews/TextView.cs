@@ -9,13 +9,11 @@ namespace Exa.UI.Tooltips
     {
         [SerializeField] private Text text;
 
-        public void SetFont(Font font)
-        {
+        public void SetFont(Font font) {
             text.font = font;
         }
 
-        protected override void Refresh(TooltipText value)
-        {
+        protected override void Refresh(TooltipText value) {
             text.text = value.Text;
         }
     }

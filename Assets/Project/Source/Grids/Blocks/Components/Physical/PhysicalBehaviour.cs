@@ -3,13 +3,11 @@
 namespace Exa.Grids.Blocks.Components
 {
     public interface IPhysical : IBehaviourMarker<PhysicalData>
-    {
-    }
+    { }
 
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
     {
-        public void TakeDamage(float damage)
-        {
+        public void TakeDamage(float damage) {
             var trueDamage = damage - data.armor;
 
             if (trueDamage < 0f) return;
@@ -19,20 +17,17 @@ namespace Exa.Grids.Blocks.Components
             var appliedDamage = Mathf.Min(data.hull, trueDamage);
             data.hull -= appliedDamage;
 
-            if (data.hull <= 0)
-            {
+            if (data.hull <= 0) {
                 gameObject.SetActive(false);
             }
         }
 
-        protected override void OnAdd()
-        {
+        protected override void OnAdd() {
             var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
             Ship.BlockGrid.CentreOfMass.Add(localPos, data.mass);
         }
 
-        protected override void OnRemove()
-        {
+        protected override void OnRemove() {
             var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
             Ship.BlockGrid.CentreOfMass.Remove(localPos);
         }

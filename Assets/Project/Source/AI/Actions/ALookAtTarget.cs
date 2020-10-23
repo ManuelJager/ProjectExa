@@ -10,20 +10,16 @@ namespace Exa.AI
         public ITarget Target { get; set; } = null;
 
         internal ALookAtTarget(Ship ship)
-            : base(ship)
-        {
-        }
+            : base(ship) { }
 
-        public override ActionLane Update(ActionLane blockedLanes)
-        {
+        public override ActionLane Update(ActionLane blockedLanes) {
             if (Target == null) return ActionLane.None;
 
             ship.Navigation.LookAt = Target;
             return ActionLane.Rotation;
         }
 
-        protected override float CalculatePriority()
-        {
+        protected override float CalculatePriority() {
             return Target != null
                 ? 2
                 : 0;

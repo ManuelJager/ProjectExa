@@ -1,6 +1,7 @@
 ﻿using Exa.Pooling;
 using System.Collections.Generic;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks
@@ -13,8 +14,7 @@ namespace Exa.Grids.Blocks
 
         protected abstract PrefabType PrefabType { get; }
 
-        public GameObject GetInactiveBlock(string id, Transform parent)
-        {
+        public GameObject GetInactiveBlock(string id, Transform parent) {
             var blockGO = poolById[id].Retrieve().gameObject;
 
             blockGO.transform.SetParent(parent);
@@ -28,8 +28,7 @@ namespace Exa.Grids.Blocks
         /// <param name="blockTemplate"></param>
         /// <param name="inert"></param>
         /// <returns></returns>
-        protected GameObject CreatePrefab(BlockTemplate blockTemplate, PrefabType prefabType)
-        {
+        protected GameObject CreatePrefab(BlockTemplate blockTemplate, PrefabType prefabType) {
             var prefab = GetBasePrefab(blockTemplate, prefabType);
             var instance = Instantiate(prefab, transform);
             instance.name = $"{blockTemplate.displayId}";
@@ -38,8 +37,7 @@ namespace Exa.Grids.Blocks
         }
 
         protected T CreatePool<T>(GameObject prefab, string name, out PoolSettings settings)
-            where T : Component, IPool<PoolMember>
-        {
+            where T : Component, IPool<PoolMember> {
             var poolGO = new GameObject(name);
             poolGO.transform.SetParent(transform);
 
@@ -51,10 +49,8 @@ namespace Exa.Grids.Blocks
             return pool;
         }
 
-        private GameObject GetBasePrefab(BlockTemplate blockTemplate, PrefabType prefabType)
-        {
-            switch (prefabType)
-            {
+        private GameObject GetBasePrefab(BlockTemplate blockTemplate, PrefabType prefabType) {
+            switch (prefabType) {
                 case PrefabType.inert:
                     return blockTemplate.inertPrefab;
 

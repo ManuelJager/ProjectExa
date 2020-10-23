@@ -6,13 +6,11 @@ namespace Exa.Gameplay
     {
         public Vector2 worldPosition;
 
-        public float GetOrthoSize()
-        {
+        public float GetOrthoSize() {
             return 30f;
         }
 
-        public Vector2 GetWorldPosition()
-        {
+        public Vector2 GetWorldPosition() {
             return worldPosition;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI
@@ -8,8 +9,7 @@ namespace Exa.UI
     {
         [SerializeField] private Text versionText;
 
-        private void Awake()
-        {
+        private void Awake() {
             versionText.text = $"Build: {Application.version}";
         }
     }

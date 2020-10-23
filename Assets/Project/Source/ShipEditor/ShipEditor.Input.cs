@@ -6,16 +6,13 @@ namespace Exa.ShipEditor
 {
     public partial class ShipEditor
     {
-        public void OnMovement(InputAction.CallbackContext context)
-        {
-            if (Systems.Input.inputIsCaptured)
-            {
+        public void OnMovement(InputAction.CallbackContext context) {
+            if (Systems.Input.inputIsCaptured) {
                 editorGrid.MovementVector = Vector2.zero;
                 return;
             }
 
-            switch (context.phase)
-            {
+            switch (context.phase) {
                 case InputActionPhase.Performed:
                     editorGrid.MovementVector = context.ReadValue<Vector2>();
                     break;
@@ -29,10 +26,8 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void OnLeftClick(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnLeftClick(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Started:
                     leftButtonPressed = true;
                     break;
@@ -46,10 +41,8 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void OnRightClick(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnRightClick(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Started:
                     rightButtonPressed = true;
                     break;
@@ -63,10 +56,8 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void OnRotateLeft(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnRotateLeft(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Started:
                     editorGrid.OnRotateLeft();
                     break;
@@ -76,10 +67,8 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void OnRotateRight(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnRotateRight(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Started:
                     editorGrid.OnRotateRight();
                     break;
@@ -89,10 +78,8 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void OnToggleMirror(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
+        public void OnToggleMirror(InputAction.CallbackContext context) {
+            switch (context.phase) {
                 case InputActionPhase.Started:
                     MirrorEnabled = !MirrorEnabled;
                     break;
@@ -102,12 +89,10 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void OnZoom(InputAction.CallbackContext context)
-        {
+        public void OnZoom(InputAction.CallbackContext context) {
             if (MouseOverUI) return;
 
-            if (context.phase == InputActionPhase.Performed)
-            {
+            if (context.phase == InputActionPhase.Performed) {
                 var v2delta = context.ReadValue<Vector2>();
                 var yDelta = v2delta.y;
                 if (yDelta == 0f) return;

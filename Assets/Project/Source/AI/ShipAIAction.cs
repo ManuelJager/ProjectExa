@@ -11,15 +11,13 @@ namespace Exa.AI
         public float Priority { get; private set; }
         public string DebugString { get; protected set; }
 
-        internal ShipAiAction(Ship ship)
-        {
+        internal ShipAiAction(Ship ship) {
             this.ship = ship;
         }
 
         public abstract ActionLane Update(ActionLane blockedLanes);
 
-        public void UpdatePriority()
-        {
+        public void UpdatePriority() {
             Priority = CalculatePriority();
         }
 

@@ -1,6 +1,7 @@
 ﻿using Exa.Math;
 using Exa.Ships.Targeting;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.Components
@@ -8,19 +9,17 @@ namespace Exa.Grids.Blocks.Components
     public abstract class TurretBehaviour<T> : BlockBehaviour<T>
         where T : struct, ITurretValues
     {
-        [Header("References")]
-        [SerializeField] private Transform turret;
+        [Header("References")] [SerializeField]
+        private Transform turret;
 
         private float timeSinceFire;
 
         public ITarget Target { get; set; }
 
-        public void Update()
-        {
+        public void Update() {
             timeSinceFire += Time.deltaTime;
 
-            if (Target == null)
-            {
+            if (Target == null) {
                 var shipAngle = ship.transform.right.ToVector2().GetAngle();
                 RotateTowards(shipAngle);
                 return;
@@ -33,23 +32,20 @@ namespace Exa.Grids.Blocks.Components
             RotateTowards(targetAngle);
 
             var currentAngle = turret.rotation.eulerAngles.z;
-            if (WithinFiringFrustum(currentAngle, targetAngle) && timeSinceFire > data.FiringRate)
-            {
+            if (WithinFiringFrustum(currentAngle, targetAngle) && timeSinceFire > data.FiringRate) {
                 timeSinceFire = 0f;
                 Fire();
             }
         }
 
         // TODO: Actually rotate using the rotation speed
-        public void RotateTowards(float angle)
-        {
+        public void RotateTowards(float angle) {
             turret.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         public abstract void Fire();
 
-        private bool WithinFiringFrustum(float currentAngle, float targetAngle)
-        {
+        private bool WithinFiringFrustum(float currentAngle, float targetAngle) {
             return Mathf.DeltaAngle(currentAngle, targetAngle) < 2.5f;
         }
     }

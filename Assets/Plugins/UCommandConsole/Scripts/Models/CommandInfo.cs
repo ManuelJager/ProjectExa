@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UCommandConsole.Models
+﻿namespace UCommandConsole.Models
 {
     public class CommandInfo
     {

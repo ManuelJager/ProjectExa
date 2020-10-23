@@ -4,8 +4,7 @@
     {
         public readonly CursorState cursorState;
 
-        public CursorOverride(CursorState cursorState)
-        {
+        public CursorOverride(CursorState cursorState) {
             this.cursorState = cursorState;
         }
     }

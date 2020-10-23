@@ -10,19 +10,16 @@ namespace Exa.UI.Tooltips
     {
         [SerializeField] private Text text;
 
-        public void SetFont(Font font)
-        {
+        public void SetFont(Font font) {
             text.font = font;
         }
 
-        public void AddAnimator()
-        {
+        public void AddAnimator() {
             var animator = text.gameObject.AddComponent<UIAnimateable>();
             animator.msLocalAnimationOffset = 200f;
         }
 
-        protected override void Refresh(TooltipTitle data)
-        {
+        protected override void Refresh(TooltipTitle data) {
             text.text = data.Text;
         }
     }

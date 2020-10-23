@@ -2,8 +2,6 @@
 {
     public class SpacerView : TooltipComponentView<TooltipSpacer>
     {
-        protected override void Refresh(TooltipSpacer value)
-        {
-        }
+        protected override void Refresh(TooltipSpacer value) { }
     }
 }

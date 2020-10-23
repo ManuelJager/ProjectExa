@@ -2,6 +2,7 @@
 using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI
@@ -16,28 +17,24 @@ namespace Exa.UI
         [SerializeField] private PropertyView massView;
         [SerializeField] private PropertyView energyView;
 
-        public void Reflect(Blueprint blueprint)
-        {
-            if (blueprint == null)
-            {
+        public void Reflect(Blueprint blueprint) {
+            if (blueprint == null) {
                 container.SetActive(false);
                 return;
             }
 
             if (!container.activeSelf) container.SetActive(true);
 
-            try
-            {
+            try {
                 var thumbnailRect = new Rect(0, 0, 512, 512);
                 var thumbnailPivot = new Vector2(0.5f, 0.5f);
                 thumbnailImage.sprite = Sprite.Create(blueprint.Thumbnail, thumbnailRect, thumbnailPivot);
             }
-            catch
-            {
+            catch {
                 Debug.LogWarning("Error setting blueprint thumbnail");
             }
 
-            nameText.text = blueprint.name; 
+            nameText.text = blueprint.name;
             var size = blueprint.Blocks.Size.Value;
 
             blockCountView.SetValue(blueprint.Blocks.GetMemberCount());
@@ -46,8 +43,7 @@ namespace Exa.UI
             energyView.SetValue($"{blueprint.Blocks.Totals.PowerGeneration:0} KW");
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             container.SetActive(false);
         }
     }

@@ -8,14 +8,13 @@ namespace Exa.IO.Json
         where TObservable : Observable<TData>
         where TData : class
     {
-        public override TObservable ReadJson(JsonReader reader, Type objectType, TObservable existingValue, bool hasExistingValue, JsonSerializer serializer)
-        {
+        public override TObservable ReadJson(JsonReader reader, Type objectType, TObservable existingValue,
+            bool hasExistingValue, JsonSerializer serializer) {
             var data = serializer.Deserialize(reader, typeof(TData)) as TData;
             return Activator.CreateInstance(typeof(TObservable), data) as TObservable;
         }
 
-        public override void WriteJson(JsonWriter writer, TObservable value, JsonSerializer serializer)
-        {
+        public override void WriteJson(JsonWriter writer, TObservable value, JsonSerializer serializer) {
             serializer.Serialize(writer, value.Data);
         }
     }

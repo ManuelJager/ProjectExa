@@ -10,58 +10,50 @@ namespace Exa.AI
         private readonly List<IAction> actions;
         private readonly float priorityThreshold;
 
-        public ActionList(float priorityThreshold, IAction[] actions)
-        {
+        public ActionList(float priorityThreshold, IAction[] actions) {
             this.actions = new List<IAction>(actions);
             this.priorityThreshold = priorityThreshold;
         }
 
-        public void Add(IAction action)
-        {
+        public void Add(IAction action) {
             actions.Add(action);
         }
 
-        public void RunActions()
-        {
+        public void RunActions() {
             ActionLane mask = 0;
 
-            foreach (var action in SortActions())
-            {
+            foreach (var action in SortActions()) {
                 var shouldRun = (mask & action.Lanes) == 0;
 
-                if (shouldRun)
-                {
+                if (shouldRun) {
                     action.Blocking = action.Update(mask);
                     mask |= action.Blocking;
                 }
-                else
-                {
+                else {
                     action.Blocking = ActionLane.None;
                 }
             }
         }
 
-        private IEnumerable<IAction> SortActions()
-        {
+        private IEnumerable<IAction> SortActions() {
             return actions
-                .OrderByDescending(action => 
-                {
+                .OrderByDescending(action => {
                     action.UpdatePriority();
                     return action.Priority;
                 })
                 .Where(action => action.Priority > priorityThreshold);
         }
 
-        public string ToString(int tabs = 0)
-        {
+        public string ToString(int tabs = 0) {
             var sb = new StringBuilder();
             var tableString = actions
                 .OrderByDescending(action => action.Priority)
                 .ToStringTable(new[] {
-                    "Action name",
-                    "Priority",
-                    "Blocking lane",
-                    "Debug string"},
+                        "Action name",
+                        "Priority",
+                        "Blocking lane",
+                        "Debug string"
+                    },
                     action => action.GetType().Name,
                     action => action.Priority,
                     action => action.Blocking,

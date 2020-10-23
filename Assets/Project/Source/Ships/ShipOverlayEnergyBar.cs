@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.Ships
@@ -8,8 +9,7 @@ namespace Exa.Ships
     {
         [SerializeField] private Image image;
 
-        public void SetFill(float fill)
-        {
+        public void SetFill(float fill) {
             image.fillAmount = fill;
         }
     }

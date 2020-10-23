@@ -10,24 +10,20 @@ namespace Exa.Ships.Navigation
     {
         private readonly Dictionary<int, ThrusterGroup> thrusterDict;
 
-        public ThrustVectors(Scalar thrustModifier)
-        {
-            thrusterDict = new Dictionary<int, ThrusterGroup>
-            {
-                { 0, new ThrusterGroup(thrustModifier) },
-                { 1, new ThrusterGroup(thrustModifier) },
-                { 2, new ThrusterGroup(thrustModifier) },
-                { 3, new ThrusterGroup(thrustModifier) }
+        public ThrustVectors(Scalar thrustModifier) {
+            thrusterDict = new Dictionary<int, ThrusterGroup> {
+                {0, new ThrusterGroup(thrustModifier)},
+                {1, new ThrusterGroup(thrustModifier)},
+                {2, new ThrusterGroup(thrustModifier)},
+                {3, new ThrusterGroup(thrustModifier)}
             };
         }
 
-        public void Register(IThruster thruster)
-        {
+        public void Register(IThruster thruster) {
             SelectGroup(thruster)?.Add(thruster);
         }
 
-        public void Unregister(IThruster thruster)
-        {
+        public void Unregister(IThruster thruster) {
             SelectGroup(thruster)?.Remove(thruster);
         }
 
@@ -35,25 +31,21 @@ namespace Exa.Ships.Navigation
         /// Sets the graphics using a local space scalar vector
         /// </summary>
         /// <param name="directionScalar"></param>
-        public void SetGraphics(Vector2 directionScalar)
-        {
-
+        public void SetGraphics(Vector2 directionScalar) {
             SelectHorizontalGroup(directionScalar.x, false).SetGraphics(Mathf.Abs(directionScalar.x));
             SelectHorizontalGroup(directionScalar.x, true).SetGraphics(0);
             SelectVerticalGroup(directionScalar.y, false).SetGraphics(Mathf.Abs(directionScalar.y));
             SelectVerticalGroup(directionScalar.y, true).SetGraphics(0);
         }
 
-        private ThrusterGroup SelectGroup(IThruster thruster)
-        {
+        private ThrusterGroup SelectGroup(IThruster thruster) {
             var rotation = GetDirection(thruster);
-            try
-            {
+            try {
                 return thrusterDict[rotation];
             }
-            catch (KeyNotFoundException)
-            {
-                Debug.LogWarning($"thruster {thruster} with rotation {rotation} cannot find a corresponding thruster group");
+            catch (KeyNotFoundException) {
+                Debug.LogWarning(
+                    $"thruster {thruster} with rotation {rotation} cannot find a corresponding thruster group");
                 return null;
             }
         }
@@ -68,8 +60,7 @@ namespace Exa.Ships.Navigation
                 ? thrusterDict[1]
                 : thrusterDict[3];
 
-        private int GetDirection(IThruster thruster)
-        {
+        private int GetDirection(IThruster thruster) {
             return thruster.Component.block.anchoredBlueprintBlock.blueprintBlock.Direction;
         }
     }

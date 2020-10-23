@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Ships
@@ -9,41 +10,33 @@ namespace Exa.Ships
         private bool isSelected;
         private bool isHovered;
 
-        private void Awake()
-        {
+        private void Awake() {
             CalculateState();
         }
 
-        public bool IsSelected
-        {
+        public bool IsSelected {
             private get => isSelected;
-            set
-            {
+            set {
                 isSelected = value;
                 CalculateState();
             }
         }
 
-        public bool IsHovered
-        {
+        public bool IsHovered {
             private get => isHovered;
-            set
-            {
+            set {
                 isHovered = value;
                 CalculateState();
             }
         }
 
-        private void CalculateState()
-        {
+        private void CalculateState() {
             gameObject.SetActive(IsSelected || IsHovered);
 
-            if (IsSelected)
-            {
+            if (IsSelected) {
                 canvasGroup.alpha = 0.5f;
             }
-            else if (IsHovered)
-            {
+            else if (IsHovered) {
                 canvasGroup.alpha = 0.2f;
             }
         }

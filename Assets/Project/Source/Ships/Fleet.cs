@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Exa.Grids.Blueprints;
+
 #pragma warning disable CS0649
 
 namespace Exa.Ships
@@ -10,8 +10,7 @@ namespace Exa.Ships
         public BlueprintContainer mothership;
         public List<BlueprintContainer> units;
 
-        public Fleet(int unitCapacity)
-        {
+        public Fleet(int unitCapacity) {
             mothership = null;
             units = new List<BlueprintContainer>(unitCapacity);
         }

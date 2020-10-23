@@ -17,32 +17,26 @@ namespace Exa.Grids.Blueprints
 
         [JsonIgnore] private int rotation;
 
-        public int Rotation
-        {
+        public int Rotation {
             get => MathUtils.NormalizeAngle04(rotation);
             set => rotation = value;
         }
 
         [JsonIgnore]
-        public int Direction
-        {
+        public int Direction {
             get => (Vector2Int.right.Rotate(Rotation) * FlipVector).GetRotation();
         }
 
         [JsonIgnore]
-        public Vector2Int FlipVector => new Vector2Int
-        {
+        public Vector2Int FlipVector => new Vector2Int {
             x = flippedX ? -1 : 1,
             y = flippedY ? -1 : 1
         };
 
         [JsonIgnore]
-        public BlockTemplate Template
-        {
-            get
-            {
-                if (!Systems.Blocks.blockTemplatesDict.ContainsKey(id))
-                {
+        public BlockTemplate Template {
+            get {
+                if (!Systems.Blocks.blockTemplatesDict.ContainsKey(id)) {
                     throw new KeyNotFoundException($"Block template with id: {id} doesn't exist");
                 }
 
@@ -51,13 +45,11 @@ namespace Exa.Grids.Blueprints
         }
 
         [JsonIgnore]
-        public Quaternion QuaternionRotation
-        {
+        public Quaternion QuaternionRotation {
             get => Quaternion.Euler(0, 0, Rotation * 90f);
         }
 
-        public Vector2Int CalculateSizeDelta()
-        {
+        public Vector2Int CalculateSizeDelta() {
             var area = Template.size.Rotate(Rotation);
 
             if (flippedX) area.x = -area.x;
@@ -66,8 +58,7 @@ namespace Exa.Grids.Blueprints
             return area;
         }
 
-        public void SetSpriteRendererFlips(SpriteRenderer spriteRenderer)
-        {
+        public void SetSpriteRendererFlips(SpriteRenderer spriteRenderer) {
             spriteRenderer.flipX = Rotation % 2 == 0
                 ? flippedX
                 : flippedY;

@@ -12,37 +12,31 @@ namespace Exa.Ships
         private float stored;
         private readonly float storage;
 
-        public ActionScheduler(Ship ship)
-        {
+        public ActionScheduler(Ship ship) {
             this.ship = ship;
             this.generation = 50f;
             this.stored = 500f;
             this.storage = 500f;
         }
 
-        public void Add(ShipAction shipAction)
-        {
+        public void Add(ShipAction shipAction) {
             shipActions.Add(shipAction);
         }
 
-        public void Remove(ShipAction shipAction)
-        {
+        public void Remove(ShipAction shipAction) {
             shipActions.Remove(shipAction);
         }
 
-        public void ExecuteActions(float deltaTime)
-        {
+        public void ExecuteActions(float deltaTime) {
             stored += generation * deltaTime;
 
-            foreach (var actionCache in SortActions(deltaTime))
-            {
+            foreach (var actionCache in SortActions(deltaTime)) {
                 // Calculate the energy coefficient the action can use
                 var energyTaken = TryTake(actionCache.consumption);
                 var energyCoefficient = Mathf.Clamp01(energyTaken / actionCache.consumption);
 
                 // This is a result of an action that uses no power and has no storage
-                if (float.IsNaN(energyCoefficient))
-                {
+                if (float.IsNaN(energyCoefficient)) {
                     energyCoefficient = 0f;
                 }
 
@@ -50,13 +44,11 @@ namespace Exa.Ships
                 stored -= energyTaken;
             }
 
-            if (stored < 0)
-            {
+            if (stored < 0) {
                 Debug.Log("Current energy level below 0. This should never happen");
             }
 
-            if (stored > storage)
-            {
+            if (stored > storage) {
                 stored = storage;
             }
 
@@ -68,16 +60,13 @@ namespace Exa.Ships
         /// </summary>
         /// <param name="energy"></param>
         /// <returns>The amount of energy taken</returns>
-        private float TryTake(float energy)
-        {
+        private float TryTake(float energy) {
             return stored - Mathf.Clamp(stored - energy, 0, float.MaxValue);
         }
 
-        private IEnumerable<ActionCache> SortActions(float deltaTime)
-        {
+        private IEnumerable<ActionCache> SortActions(float deltaTime) {
             return shipActions
-                .Select(action => new ActionCache
-                {
+                .Select(action => new ActionCache {
                     consumption = action.CalculateConsumption(deltaTime),
                     action = action
                 })

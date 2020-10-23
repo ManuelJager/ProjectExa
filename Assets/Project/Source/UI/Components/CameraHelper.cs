@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Components
@@ -8,8 +9,7 @@ namespace Exa.UI.Components
         [SerializeField] private Canvas canvas;
         [SerializeField] private float planeDistance;
 
-        private void Awake()
-        {
+        private void Awake() {
             canvas.worldCamera = Camera.main;
             canvas.planeDistance = planeDistance;
         }

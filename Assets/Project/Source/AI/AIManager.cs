@@ -10,28 +10,23 @@ namespace Exa.AI
         private float updateDeltaThreshold;
         private readonly List<IAgent> agents = new List<IAgent>();
 
-        private void Awake()
-        {
+        private void Awake() {
             updateDeltaThreshold = 1f / ticksPerSecond;
         }
 
-        public void Register(IAgent agent)
-        {
+        public void Register(IAgent agent) {
             agents.Add(agent);
         }
 
-        public void Unregister(IAgent agent)
-        {
+        public void Unregister(IAgent agent) {
             agents.Remove(agent);
         }
 
-        private void Update()
-        {
-            if (elapsedSinceLastTick > updateDeltaThreshold)
-            {
+        private void Update() {
+            if (elapsedSinceLastTick > updateDeltaThreshold) {
                 foreach (var agent in agents)
                     agent.AIUpdate();
-                
+
                 elapsedSinceLastTick = 0f;
             }
 

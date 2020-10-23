@@ -26,17 +26,15 @@ namespace Exa.UI.Controls
         [SerializeField] private InputAction clickAction;
         private object value;
 
-        public override object Value
-        {
+        public override object Value {
             get => value;
-            protected set
-            {
+            protected set {
                 if (!stateContainer.ContainsValue(value))
                     throw new ArgumentException("Value not found", nameof(value));
 
                 if (stateContainer.ContainsValue(this.value))
                     stateContainer.GetTab(this.value).Selected = false;
-                
+
                 this.value = value;
                 var name = stateContainer.GetName(value);
                 stateContainer.GetTab(value).Selected = true;
@@ -45,11 +43,10 @@ namespace Exa.UI.Controls
         }
 
         private bool isFoldedOpen;
-        private bool IsFoldedOpen
-        {
+
+        private bool IsFoldedOpen {
             get => isFoldedOpen;
-            set
-            {
+            set {
                 isFoldedOpen = value;
 
                 tabContainer.gameObject.SetActive(value);
@@ -63,34 +60,28 @@ namespace Exa.UI.Controls
 
         public override UnityEvent<object> OnValueChange => onValueChange;
 
-        protected virtual void Awake()
-        {
+        protected virtual void Awake() {
             button.onClick.AddListener(ToggleContainer);
-            clickAction.started += context =>
-            {
+            clickAction.started += context => {
                 if (IsFoldedOpen && GetMouseOutsideControl())
                     IsFoldedOpen = false;
             };
         }
 
-        protected void OnEnable()
-        {
+        protected void OnEnable() {
             clickAction.Enable();
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             clickAction.Disable();
         }
 
-        public virtual void CreateTabs(IEnumerable<ILabeledValue<object>> options, Action<object, DropdownTab> onTabCreated = null)
-        {
-            foreach (var option in options)
-            {
+        public virtual void CreateTabs(IEnumerable<ILabeledValue<object>> options,
+            Action<object, DropdownTab> onTabCreated = null) {
+            foreach (var option in options) {
                 var tab = Instantiate(tabPrefab, tabContainer).GetComponent<DropdownTab>();
                 tab.Text = option.Label;
-                tab.button.onClick.AddListener(() =>
-                {
+                tab.button.onClick.AddListener(() => {
                     Value = option.Value;
                     ToggleContainer();
                 });
@@ -103,29 +94,24 @@ namespace Exa.UI.Controls
             SelectFirst();
         }
 
-        public bool ContainsItem(object item)
-        {
+        public bool ContainsItem(object item) {
             return stateContainer.ContainsValue(item);
         }
 
-        public virtual void SelectFirst()
-        {
+        public virtual void SelectFirst() {
             Value = stateContainer.First();
         }
 
-        private void ToggleContainer()
-        {
+        private void ToggleContainer() {
             IsFoldedOpen = !IsFoldedOpen;
         }
 
-        private bool GetMouseOutsideControl()
-        {
+        private bool GetMouseOutsideControl() {
             return !Systems.Input.GetMouseInsideRect(tabContainer, selectedTab);
         }
 
         [Serializable]
         public class DropdownTabSelected : UnityEvent<object>
-        {
-        }
+        { }
     }
 }

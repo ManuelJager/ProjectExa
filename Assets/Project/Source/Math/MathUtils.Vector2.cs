@@ -6,64 +6,54 @@ namespace Exa.Math
 {
     public static partial class MathUtils
     {
-        public static float GetAngle(this Vector2 vector)
-        {
+        public static float GetAngle(this Vector2 vector) {
             var theta = Mathf.Atan2(vector.y, vector.x);
             return NormalizeAngle360(theta * Mathf.Rad2Deg);
         }
 
-        public static Vector2 Clamp(Vector2 value, Vector2 min, Vector2 max)
-        {
-            return new Vector2
-            {
+        public static Vector2 Clamp(Vector2 value, Vector2 min, Vector2 max) {
+            return new Vector2 {
                 x = Mathf.Clamp(value.x, min.x, max.x),
                 y = Mathf.Clamp(value.y, min.y, max.y)
             };
         }
 
-        public static Vector2 GrowDirectionToMax(Vector2 direction, Vector2 max)
-        {
+        public static Vector2 GrowDirectionToMax(Vector2 direction, Vector2 max) {
             var minGrowth = AbsMin(max.x / direction.x, max.y / direction.y);
             return direction * minGrowth;
         }
 
-        public static Vector2 Average(IEnumerable<Vector2> positions)
-        {
+        public static Vector2 Average(IEnumerable<Vector2> positions) {
             var count = positions.Count();
             var total = Vector2.zero;
 
-            foreach (var position in positions)
-            {
+            foreach (var position in positions) {
                 total += position;
             }
 
             return total / count;
         }
 
-        public static Vector2 FromAngledMagnitude(float magnitude, float angle)
-        {
+        public static Vector2 FromAngledMagnitude(float magnitude, float angle) {
             var vector = Vector2.right;
             Rotate(ref vector, angle);
             return vector * magnitude;
         }
 
-        public static Vector2 Rotate(this Vector2 vector, float angle)
-        {
+        public static Vector2 Rotate(this Vector2 vector, float angle) {
             var sin = Mathf.Sin(angle * Mathf.Deg2Rad);
             var cos = Mathf.Cos(angle * Mathf.Deg2Rad);
 
             var tx = vector.x;
             var ty = vector.y;
 
-            return new Vector2
-            {
+            return new Vector2 {
                 x = (cos * tx) - (sin * ty),
                 y = (sin * tx) + (cos * ty)
             };
         }
 
-        public static void Rotate(ref Vector2 vector, float angle)
-        {
+        public static void Rotate(ref Vector2 vector, float angle) {
             var sin = Mathf.Sin(angle * Mathf.Deg2Rad);
             var cos = Mathf.Cos(angle * Mathf.Deg2Rad);
 
@@ -80,8 +70,7 @@ namespace Exa.Math
         /// <param name="vector">Vector2 to be rotated</param>
         /// <param name="quarterTurns">Amount of 90 degree turns</param>
         /// <returns></returns>
-        public static Vector2 Rotate(this Vector2 vector, int quarterTurns)
-        {
+        public static Vector2 Rotate(this Vector2 vector, int quarterTurns) {
             // if the vector is rotated by 360 degrees we dont need to calculate anything
             if (quarterTurns % 4 == 0) return vector;
 
@@ -97,9 +86,8 @@ namespace Exa.Math
             return vector;
         }
 
-        public static int GetRotation(this Vector2Int vector)
-        {
-            var angle = ((Vector2)vector).GetAngle();
+        public static int GetRotation(this Vector2Int vector) {
+            var angle = ((Vector2) vector).GetAngle();
             return Mathf.RoundToInt(angle / 90f);
         }
 
@@ -109,8 +97,7 @@ namespace Exa.Math
         /// <param name="vector">Vector2int to be rotated</param>
         /// <param name="quarterTurns">Amount of 90 degree turns</param>
         /// <returns></returns>
-        public static Vector2Int Rotate(this Vector2Int vector, int quarterTurns)
-        {
+        public static Vector2Int Rotate(this Vector2Int vector, int quarterTurns) {
             // if the vector is rotated by 360 degrees we dont need to calculate anything
             if (quarterTurns % 4 == 0) return vector;
 
@@ -126,11 +113,9 @@ namespace Exa.Math
             return vector;
         }
 
-        public static Vector2Int GetRatio(Vector2Int value)
-        {
+        public static Vector2Int GetRatio(Vector2Int value) {
             var gdc = GreatestCommonDivisor(value.x, value.y);
-            return new Vector2Int
-            {
+            return new Vector2Int {
                 x = value.x / gdc,
                 y = value.y / gdc
             };
@@ -142,8 +127,7 @@ namespace Exa.Math
         /// <param name="from"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static Vector3 ToVector3(this Vector2Int from, float z = 0f)
-        {
+        public static Vector3 ToVector3(this Vector2Int from, float z = 0f) {
             return new Vector3(from.x, from.y, z);
         }
 
@@ -153,33 +137,27 @@ namespace Exa.Math
         /// <param name="from"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static Vector3 ToVector3(this Vector2 from, float z = 0f)
-        {
+        public static Vector3 ToVector3(this Vector2 from, float z = 0f) {
             return new Vector3(from.x, from.y, z);
         }
 
-        public static Vector2Int ToVector2Int(this Vector2 from)
-        {
-            return new Vector2Int((int)from.x, (int)from.y);
+        public static Vector2Int ToVector2Int(this Vector2 from) {
+            return new Vector2Int((int) from.x, (int) from.y);
         }
 
-        public static Vector2 ToVector2(this Vector2Int from)
-        {
+        public static Vector2 ToVector2(this Vector2Int from) {
             return new Vector2(from.x, from.y);
         }
 
-        public static Vector2 SetX(this Vector2 vector, float value)
-        {
+        public static Vector2 SetX(this Vector2 vector, float value) {
             return new Vector2(value, vector.y);
         }
 
-        public static Vector2 SetY(this Vector2 vector, float value)
-        {
+        public static Vector2 SetY(this Vector2 vector, float value) {
             return new Vector2(vector.x, value);
         }
 
-        public static string ToShortString(this Vector2Int vector)
-        {
+        public static string ToShortString(this Vector2Int vector) {
             return $"{vector.x},{vector.y}";
         }
     }

@@ -27,26 +27,20 @@ namespace Exa.SceneManagement
         private LoadingScreen loadingScreen;
         private Dictionary<string, SceneStatus> sceneStatuses;
 
-        private void Awake()
-        {
+        private void Awake() {
             loadingScreen = Systems.UI.loadingScreen;
             sceneStatuses = new Dictionary<string, SceneStatus>();
         }
 
-        public SceneTransition Transition(string name, TransitionArgs transitionArgs)
-        {
+        public SceneTransition Transition(string name, TransitionArgs transitionArgs) {
             var operation = SceneManager.LoadSceneAsync(name, transitionArgs.loadSceneMode);
             var transition = new SceneTransition(operation);
 
             sceneStatuses.EnsureCreated(name, () => new SceneStatus());
             sceneStatuses[name].loading = true;
-            transition.onPrepared.AddListener(() =>
-            {
-                sceneStatuses[name].loading = false;
-            });
+            transition.onPrepared.AddListener(() => { sceneStatuses[name].loading = false; });
 
-            if (transitionArgs.loadScreenMode != LoadScreenMode.None)
-            {
+            if (transitionArgs.loadScreenMode != LoadScreenMode.None) {
                 loadingScreen.ShowScreen();
 
                 if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnPrepared)
@@ -55,10 +49,8 @@ namespace Exa.SceneManagement
                 StartCoroutine(ReportOperation(operation));
             }
 
-            if (transitionArgs.setActiveScene)
-            {
-                transition.onPrepared.AddListener(() =>
-                {
+            if (transitionArgs.setActiveScene) {
+                transition.onPrepared.AddListener(() => {
                     var scene = SceneManager.GetSceneByName(name);
                     SceneManager.SetActiveScene(scene);
                 });
@@ -67,39 +59,32 @@ namespace Exa.SceneManagement
             return transition;
         }
 
-        public bool GetSceneIsLoading(string name)
-        {
+        public bool GetSceneIsLoading(string name) {
             sceneStatuses.EnsureCreated(name, () => new SceneStatus());
             return sceneStatuses[name].loading;
         }
 
-        public bool GetSceneIsUnloading(string name)
-        {
+        public bool GetSceneIsUnloading(string name) {
             sceneStatuses.EnsureCreated(name, () => new SceneStatus());
             return sceneStatuses[name].unloading;
         }
 
-        public AsyncOperation UnloadAsync(string name)
-        {
+        public AsyncOperation UnloadAsync(string name) {
             sceneStatuses.EnsureCreated(name, () => new SceneStatus());
             sceneStatuses[name].unloading = true;
             var asyncOperation = SceneManager.UnloadSceneAsync(name);
-            asyncOperation.completed += (op) =>
-            {
-                sceneStatuses[name].unloading = false;
-            };
+            asyncOperation.completed += (op) => { sceneStatuses[name].unloading = false; };
             return asyncOperation;
         }
 
-        private IEnumerator ReportOperation(AsyncOperation operation)
-        {
-            while (true)
-            {
-                loadingScreen.ShowMessage($"Loading scene ({Mathf.RoundToInt(operation.progress * 100)}% complete) ...");
+        private IEnumerator ReportOperation(AsyncOperation operation) {
+            while (true) {
+                loadingScreen.ShowMessage(
+                    $"Loading scene ({Mathf.RoundToInt(operation.progress * 100)}% complete) ...");
 
-                if (operation.isDone) 
+                if (operation.isDone)
                     break;
-                
+
                 yield return operation;
             }
         }

@@ -19,7 +19,7 @@ namespace Exa
 
     public class Systems : MonoSingleton<Systems>
     {
-        [Header("References")]
+        [Header("References")] 
         [SerializeField] private BlockFactory blockFactory;
         [SerializeField] private BlueprintManager blueprintManager;
         [SerializeField] private ShipEditor.ShipEditor shipEditor;
@@ -31,8 +31,7 @@ namespace Exa
         [SerializeField] private LoggerInterceptor logger;
         [SerializeField] private MainUI mainUI;
 
-        [Header("Settings")]
-        [SerializeField] private bool godModeIsEnabled = false;
+        [Header("Settings")] [SerializeField] private bool godModeIsEnabled = false;
         [SerializeField] private bool loadSafe = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
@@ -46,16 +45,14 @@ namespace Exa
         public static LoggerInterceptor Logger => Instance.logger;
         public static MainUI UI => Instance.mainUI;
 
-        public static bool GodModeIsEnabled
-        {
+        public static bool GodModeIsEnabled {
             get => Instance.godModeIsEnabled;
             set => Instance.godModeIsEnabled = value;
         }
 
         public static bool IsQuitting { get; set; } = false;
 
-        public static void Quit()
-        {
+        public static void Quit() {
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
 #else
@@ -63,8 +60,7 @@ namespace Exa
 #endif
         }
 
-        private void Start()
-        {
+        private void Start() {
             var enumerator = loadSafe
                 ? EnumeratorUtils.EnumerateSafe(Load(), OnLoadException)
                 : Load();
@@ -73,16 +69,11 @@ namespace Exa
         }
 
         [RuntimeInitializeOnLoadMethod]
-        private static void RunOnStart()
-        {
-            Application.quitting += () =>
-            {
-                IsQuitting = true;
-            };
+        private static void RunOnStart() {
+            Application.quitting += () => { IsQuitting = true; };
         }
 
-        private IEnumerator Load()
-        {
+        private IEnumerator Load() {
             // Allow the screen to be shown
             UI.wipScreen.Init();
             UI.loadingScreen.ShowScreen();
@@ -92,14 +83,12 @@ namespace Exa
             UI.root.settings.Load();
             var targetFrameRate = UI.root.settings.videoSettings.settings.Values.resolution.refreshRate;
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value =>
-            {
+            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value => {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)}% complete) ...";
                 UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.Init(new Progress<float>(value =>
-            {
+            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.Init(new Progress<float>(value => {
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)}% complete) ...";
                 UI.loadingScreen.ShowMessage(message);
             })), targetFrameRate);
@@ -109,8 +98,7 @@ namespace Exa
             UI.loadingScreen.HideScreen();
         }
 
-        private void OnLoadException(Exception exception)
-        {
+        private void OnLoadException(Exception exception) {
             UI.loadingScreen.HideScreen();
             UnityEngine.Debug.LogWarning(exception);
             UI.logger.Log($"An error has occurred while loading.\n {exception.Message}");

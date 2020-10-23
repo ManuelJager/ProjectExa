@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.BlockTypes
@@ -12,19 +13,16 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         BlockBehaviour<ControllerData> IBehaviourMarker<ControllerData>.Component => controllerBehaviour;
 
-        public override IEnumerable<BlockBehaviourBase> GetBehaviours()
-        {
+        public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
             return base.GetBehaviours()
                 .Append(controllerBehaviour);
         }
 
-        protected override void OnAdd()
-        {
+        protected override void OnAdd() {
             Ship.Controller = this;
         }
 
-        protected override void OnRemove()
-        {
+        protected override void OnRemove() {
             Ship.Controller = null;
         }
     }

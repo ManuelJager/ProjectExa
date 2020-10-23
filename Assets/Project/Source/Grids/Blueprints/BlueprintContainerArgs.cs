@@ -7,8 +7,7 @@
         public bool generateBlueprintFileName = true;
         public bool useDefaultThumbnailFolder = false;
 
-        public BlueprintContainerArgs(Blueprint blueprint)
-        {
+        public BlueprintContainerArgs(Blueprint blueprint) {
             this.blueprint = blueprint;
         }
     }

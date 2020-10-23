@@ -10,10 +10,8 @@ namespace Exa.Audio
         /// <summary>
         /// Stop every sound
         /// </summary>
-        public void Stop()
-        {
-            foreach (var handle in this)
-            {
+        public void Stop() {
+            foreach (var handle in this) {
                 handle.Stop();
             }
         }

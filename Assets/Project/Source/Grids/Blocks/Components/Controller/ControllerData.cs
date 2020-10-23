@@ -13,17 +13,13 @@ namespace Exa.Grids.Blocks.Components
         public float turningRate;
         public Scalar thrustModifier;
 
-        public void AddGridTotals(GridTotals totals)
-        {
+        public void AddGridTotals(GridTotals totals) {
             totals.controllerData = this;
         }
 
-        public void RemoveGridTotals(GridTotals totals)
-        {
-        }
+        public void RemoveGridTotals(GridTotals totals) { }
 
-        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[]
-        {
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
             new LabeledValue<string>("Generation", $"{powerGeneration} KW"),
             new LabeledValue<string>("Consumption", $"{powerConsumption} KW"),
             new LabeledValue<string>("Storage", $"{powerStorage} KJ"),

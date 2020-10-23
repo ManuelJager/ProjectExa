@@ -14,12 +14,11 @@ namespace Exa.Validation
         /// </summary>
         /// <param name="validator">validator identifier</param>
         /// <returns></returns>
-        private Dictionary<string, Action<ValidationError>> GetHandlerDictionary(IValidator validator)
-        {
-            if (!container.errorHandlers.ContainsKey(validator))
-            {
+        private Dictionary<string, Action<ValidationError>> GetHandlerDictionary(IValidator validator) {
+            if (!container.errorHandlers.ContainsKey(validator)) {
                 container.errorHandlers[validator] = new Dictionary<string, Action<ValidationError>>();
             }
+
             return container.errorHandlers[validator];
         }
 
@@ -28,17 +27,15 @@ namespace Exa.Validation
         /// </summary>
         /// <param name="validator">validator identifier</param>
         /// <returns></returns>
-        private Dictionary<string, Action<ValidationError>> GetCleanerDictionary(IValidator validator)
-        {
-            if (!container.errorHandlers.ContainsKey(validator))
-            {
+        private Dictionary<string, Action<ValidationError>> GetCleanerDictionary(IValidator validator) {
+            if (!container.errorHandlers.ContainsKey(validator)) {
                 container.errorHandlers[validator] = new Dictionary<string, Action<ValidationError>>();
             }
+
             return container.errorHandlers[validator];
         }
 
-        public ValidationErrorContainerBuilder()
-        {
+        public ValidationErrorContainerBuilder() {
             container = new ValidationState();
             onUnhandledErrorSet = false;
         }
@@ -52,9 +49,9 @@ namespace Exa.Validation
         /// <param name="errorHandler">Error handler callback</param>
         /// <param name="errorCleaner">Error cleaner callback</param>
         /// <returns>Builder</returns>
-        public ValidationErrorContainerBuilder OnError<TError>(IValidator validator, string id, Action<TError> errorHandler, Action<TError> errorCleaner)
-            where TError : ValidationError
-        {
+        public ValidationErrorContainerBuilder OnError<TError>(IValidator validator, string id,
+            Action<TError> errorHandler, Action<TError> errorCleaner)
+            where TError : ValidationError {
             GetHandlerDictionary(validator)[id] = errorHandler as Action<ValidationError>;
             GetCleanerDictionary(validator)[id] = errorCleaner as Action<ValidationError>;
             return this;
@@ -66,8 +63,8 @@ namespace Exa.Validation
         /// <param name="errorHandler">Default error handler callback</param>
         /// <param name="errorCleaner">Default error cleaner callback</param>
         /// <returns>Builder</returns>
-        public ValidationErrorContainerBuilder OnUnhandledError(Action<ValidationError> fallbackHandler, Action<ValidationError> fallbackCleaner)
-        {
+        public ValidationErrorContainerBuilder OnUnhandledError(Action<ValidationError> fallbackHandler,
+            Action<ValidationError> fallbackCleaner) {
             container.defaultErrorHandler = fallbackHandler;
             container.defaultErrorCleaner = fallbackCleaner;
             onUnhandledErrorSet = true;
@@ -78,10 +75,8 @@ namespace Exa.Validation
         ///
         /// </summary>
         /// <returns></returns>
-        public ValidationState Build()
-        {
-            if (!onUnhandledErrorSet)
-            {
+        public ValidationState Build() {
+            if (!onUnhandledErrorSet) {
                 throw new BuilderException("OnUnhandledError must be called");
             }
 

@@ -9,28 +9,24 @@ namespace Exa.Bindings
         /// <summary>
         /// Views data source
         /// </summary>
-        public virtual IObservableEnumerable<T> Source
-        {
+        public virtual IObservableEnumerable<T> Source {
             get => source;
-            set
-            {
+            set {
                 // If the new source is the same, do nothing
                 if (source == value)
                     return;
 
                 // If there is already a source, unregister
-                if (source != null)
-                {
+                if (source != null) {
                     // Unregistered if we are registered
                     if (source.Observers.Contains(this))
                         source.Observers.Remove(this);
-                    
+
                     source = null;
                 }
 
                 // if the new value is supossed to be null, clear views and return
-                if (value == null)
-                {
+                if (value == null) {
                     OnClear();
                     return;
                 }

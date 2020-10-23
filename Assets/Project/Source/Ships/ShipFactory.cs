@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Ships
@@ -13,16 +14,14 @@ namespace Exa.Ships
         [SerializeField] private Transform shipContainer;
         [SerializeField] private Transform overlayContainer;
 
-        public FriendlyShip CreateFriendly(Blueprint blueprint, Vector2 worldPos)
-        {
+        public FriendlyShip CreateFriendly(Blueprint blueprint, Vector2 worldPos) {
             var shipGo = Instantiate(friendlyShipPrefab, shipContainer);
             shipGo.transform.position = worldPos;
 
             return Configure<FriendlyShip>(shipGo, blueprint, ShipContext.UserGroup);
         }
 
-        public EnemyShip CreateEnemy(Blueprint blueprintName, Vector2 worldPos)
-        {
+        public EnemyShip CreateEnemy(Blueprint blueprintName, Vector2 worldPos) {
             var shipGo = Instantiate(enemyShipPrefab, shipContainer);
             shipGo.transform.position = worldPos;
 
@@ -30,8 +29,7 @@ namespace Exa.Ships
         }
 
         private T Configure<T>(GameObject shipGo, Blueprint blueprint, ShipContext blockContext)
-            where T : Ship
-        {
+            where T : Ship {
             var ship = shipGo.GetComponent<T>();
             var overlay = CreateOverlay(ship);
             ship.Import(blueprint, blockContext);
@@ -43,8 +41,7 @@ namespace Exa.Ships
             return ship;
         }
 
-        private ShipOverlay CreateOverlay(Ship ship)
-        {
+        private ShipOverlay CreateOverlay(Ship ship) {
             var overlayGo = Instantiate(shipOverlayPrefab, overlayContainer);
             var overlay = overlayGo.GetComponent<ShipOverlay>();
             overlay.ship = ship;

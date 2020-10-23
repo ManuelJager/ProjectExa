@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Exa.Math;
 using UnityEngine;
+
 #pragma warning disable CS0649
 
 namespace Exa.Gameplay
@@ -15,18 +16,15 @@ namespace Exa.Gameplay
 
         private bool IsTargetUserControlled => userCameraTarget == currentTarget;
 
-        private void Awake()
-        {
+        private void Awake() {
             target = Camera.main;
             SetTarget(userCameraTarget);
         }
 
-        private void Update()
-        {
+        private void Update() {
             userCameraTarget.worldPosition += movementDelta * movementSpeed * Time.deltaTime;
 
-            if (currentTarget != null)
-            {
+            if (currentTarget != null) {
                 var targetOrthoSize = currentTarget.GetOrthoSize();
                 var targetPosition = currentTarget.GetWorldPosition().ToVector3(-10);
                 target.transform.DOMove(targetPosition, 0.2f);
@@ -34,13 +32,11 @@ namespace Exa.Gameplay
             }
         }
 
-        public void SetTarget(ICameraTarget cameraTarget)
-        {
+        public void SetTarget(ICameraTarget cameraTarget) {
             currentTarget = cameraTarget;
         }
 
-        public void SetMovementDelta(Vector2 delta)
-        {
+        public void SetMovementDelta(Vector2 delta) {
             movementDelta = IsTargetUserControlled
                 ? delta
                 : Vector2.zero;

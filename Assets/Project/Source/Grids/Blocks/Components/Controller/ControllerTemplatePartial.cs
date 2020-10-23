@@ -13,8 +13,7 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private float turningRate;
         [SerializeField] private Scalar thrustModifier;
 
-        public override ControllerData Convert() => new ControllerData
-        {
+        public override ControllerData Convert() => new ControllerData {
             powerGeneration = powerGeneration,
             powerConsumption = powerConsumption,
             powerStorage = powerStorage,

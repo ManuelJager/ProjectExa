@@ -7,13 +7,11 @@ namespace Exa.UI.Tweening
     {
         private Func<T, float, Tween> tweenFactory;
 
-        public TweenWrapper(Func<T, float, Tween> tweenFactory)
-        {
+        public TweenWrapper(Func<T, float, Tween> tweenFactory) {
             this.tweenFactory = tweenFactory;
         }
 
-        protected override Tween CreateTween(T endValue, float duration)
-        {
+        protected override Tween CreateTween(T endValue, float duration) {
             return tweenFactory(endValue, duration);
         }
     }

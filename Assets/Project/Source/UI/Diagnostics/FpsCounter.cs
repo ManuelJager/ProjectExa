@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 #pragma warning disable CS0649
 
 namespace Exa.UI.Diagnostics
@@ -8,8 +9,7 @@ namespace Exa.UI.Diagnostics
     {
         [SerializeField] private Text fpsText;
 
-        public void Update()
-        {
+        public void Update() {
             fpsText.text = $"{Mathf.RoundToInt(1f / Time.smoothDeltaTime)} FPS";
         }
     }

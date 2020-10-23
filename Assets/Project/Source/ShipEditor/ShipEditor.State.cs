@@ -20,55 +20,45 @@ namespace Exa.ShipEditor
         public ValidationResult NameValidationResult { get; private set; }
         public ValidationResult GridValidationResult { get; private set; }
 
-        public bool MirrorEnabled
-        {
+        public bool MirrorEnabled {
             get => mirrorEnabled;
-            set
-            {
+            set {
                 mirrorEnabled = value;
                 editorGrid.MirrorEnabled = value;
                 overlay.mirrorView.SetState(value);
             }
         }
 
-        public bool Interactable
-        {
+        public bool Interactable {
             get => interactible;
-            set
-            {
+            set {
                 interactible = value;
 
                 editorGrid.Interactable = value;
                 navigateable.Interactable = value;
 
-                if (value)
-                {
+                if (value) {
                     gameControls.Enable();
                 }
-                else
-                {
+                else {
                     gameControls.Disable();
                     editorGrid.MovementVector = Vector2.zero;
                 }
             }
         }
 
-        public bool MouseOverUI
-        {
+        public bool MouseOverUI {
             get => mouseOverUI;
-            set
-            {
+            set {
                 mouseOverUI = value;
 
                 editorGrid.MouseOverUI = value;
             }
         }
 
-        public float Zoom
-        {
+        public float Zoom {
             get => zoom;
-            set
-            {
+            set {
                 zoom = value;
 
                 editorGrid.ZoomScale = value / 5f;
@@ -77,8 +67,7 @@ namespace Exa.ShipEditor
 
         private bool ShouldSave { get; set; }
 
-        private void ResetState()
-        {
+        private void ResetState() {
             Zoom = 5f;
             IsSaved = true;
             NameValidationResult = null;
@@ -87,8 +76,7 @@ namespace Exa.ShipEditor
             Camera.main.orthographicSize = Zoom;
         }
 
-        public void UpdateSaveButton()
-        {
+        public void UpdateSaveButton() {
             ShouldSave = GetShouldSave(out var message);
 
             overlay.infoPanel.saveButtonTooltipTrigger.SetText(message);
@@ -96,22 +84,18 @@ namespace Exa.ShipEditor
             overlay.infoPanel.saveButtonCanvasGroup.alpha = ShouldSave ? 1f : 0.5f;
         }
 
-        private bool GetShouldSave(out string message)
-        {
-            if (IsSaved)
-            {
+        private bool GetShouldSave(out string message) {
+            if (IsSaved) {
                 message = "Blueprint is already saved";
                 return false;
             }
 
-            if (!NameValidationResult)
-            {
+            if (!NameValidationResult) {
                 message = NameValidationResult.GetFirstBySeverity().Message;
                 return false;
             }
 
-            if (!GridValidationResult)
-            {
+            if (!GridValidationResult) {
                 message = GridValidationResult.GetFirstBySeverity().Message;
                 return false;
             }

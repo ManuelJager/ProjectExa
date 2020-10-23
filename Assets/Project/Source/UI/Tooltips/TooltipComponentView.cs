@@ -8,14 +8,11 @@ namespace Exa.UI.Tooltips
     {
         protected abstract void Refresh(T value);
 
-        public override void Refresh(ITooltipComponent value)
-        {
-            try
-            {
-                Refresh((T)value);
+        public override void Refresh(ITooltipComponent value) {
+            try {
+                Refresh((T) value);
             }
-            catch(InvalidCastException)
-            {
+            catch (InvalidCastException) {
                 throw new ArgumentException($"{value.GetType()} cannot be converted to {typeof(T)}");
             }
         }

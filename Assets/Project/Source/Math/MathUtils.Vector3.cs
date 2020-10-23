@@ -9,18 +9,15 @@ namespace Exa.Math
         /// </summary>
         /// <param name="from"></param>
         /// <returns></returns>
-        public static Vector3 ToVector3(this Vector3Int from)
-        {
+        public static Vector3 ToVector3(this Vector3Int from) {
             return new Vector3(from.x, from.y, from.z);
         }
 
-        public static Vector2 ToVector2(this Vector3Int from)
-        {
+        public static Vector2 ToVector2(this Vector3Int from) {
             return new Vector2(from.x, from.y);
         }
 
-        public static Vector2 ToVector2(this Vector3 from)
-        {
+        public static Vector2 ToVector2(this Vector3 from) {
             return new Vector2(from.x, from.y);
         }
     }
