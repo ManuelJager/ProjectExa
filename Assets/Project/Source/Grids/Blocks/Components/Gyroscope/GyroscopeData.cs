@@ -20,7 +20,7 @@ namespace Exa.Grids.Blocks.Components
         }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
-            new LabeledValue<string>("Turning Rate", turningRate.ToString())
+            new LabeledValue<object>("Turning Rate", turningRate.ToString())
         };
     }
 }

@@ -33,7 +33,7 @@ namespace Exa.Grids.Blueprints
         }
 
         private TooltipGroup GetTooltipGroup() => new TooltipGroup(new ITooltipComponent[] {
-            new LabeledValue<string>("Max size", $"{maxSize.x}x{maxSize.y}")
+            new LabeledValue<object>("Max size", $"{maxSize.x}x{maxSize.y}")
         });
     }
 }

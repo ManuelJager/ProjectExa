@@ -90,12 +90,12 @@ namespace Exa.ShipEditor
                 return false;
             }
 
-            if (!NameValidationResult) {
+            if (NameValidationResult != null && !NameValidationResult) {
                 message = NameValidationResult.GetFirstBySeverity().Message;
                 return false;
             }
 
-            if (!GridValidationResult) {
+            if (GridValidationResult != null && !GridValidationResult) {
                 message = GridValidationResult.GetFirstBySeverity().Message;
                 return false;
             }

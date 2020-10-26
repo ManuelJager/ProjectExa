@@ -75,7 +75,10 @@ namespace Exa.Validation
         }
 
         public static implicit operator bool(ValidationResult errors) {
-            return !ReferenceEquals(errors, null) && errors.All(error => error.ErrorType != ErrorType.Error);
+            if (ReferenceEquals(errors, null)) 
+                throw new InvalidOperationException("Cannot implicitly check null validation result");
+
+            return errors.All(error => error.ErrorType != ErrorType.Error);
         }
     }
 }

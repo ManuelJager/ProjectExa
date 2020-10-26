@@ -23,9 +23,9 @@ namespace Exa.Grids.Blocks.Components
         }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
-            new LabeledValue<string>("Hull", $"{hull}"),
-            new LabeledValue<string>("Armor", $"{armor}"),
-            new LabeledValue<string>("Mass", $"{mass * 1000:0} KG")
+            new LabeledValue<object>("Hull", $"{hull}"),
+            new LabeledValue<object>("Armor", $"{armor}"),
+            new LabeledValue<object>("Mass", $"{mass * 1000:0} KG")
         };
     }
 }

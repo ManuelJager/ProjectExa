@@ -19,9 +19,9 @@ namespace Exa.Grids.Blocks.Components
         public void RemoveGridTotals(GridTotals totals) { }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
-            new LabeledValue<string>("Turning rate", $"{turningRate}°/s"),
-            new LabeledValue<string>("Firing rate", $"{firingRate * 60} RPM"),
-            new LabeledValue<string>("Damage", $"{damage}")
+            new LabeledValue<object>("Turning rate", $"{turningRate}°/s"),
+            new LabeledValue<object>("Firing rate", $"{firingRate * 60} RPM"),
+            new LabeledValue<object>("Damage", $"{damage}")
         };
     }
 }

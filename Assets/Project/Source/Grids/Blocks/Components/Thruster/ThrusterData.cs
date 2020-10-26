@@ -13,7 +13,7 @@ namespace Exa.Grids.Blocks.Components
         public void RemoveGridTotals(GridTotals totals) { }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
-            new LabeledValue<string>("Thrust", $"{thrust}")
+            new LabeledValue<object>("Thrust", $"{thrust}")
         };
     }
 }

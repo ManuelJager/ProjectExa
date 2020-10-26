@@ -20,11 +20,11 @@ namespace Exa.Grids.Blocks.Components
         public void RemoveGridTotals(GridTotals totals) { }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
-            new LabeledValue<string>("Generation", $"{powerGeneration} KW"),
-            new LabeledValue<string>("Consumption", $"{powerConsumption} KW"),
-            new LabeledValue<string>("Storage", $"{powerStorage} KJ"),
-            new LabeledValue<string>("Turning rate", $"{turningRate}"),
-            new LabeledValue<string>("Thrust modifier", $"{thrustModifier.ToPercentageString()}")
+            new LabeledValue<object>("Generation", $"{powerGeneration} KW"),
+            new LabeledValue<object>("Consumption", $"{powerConsumption} KW"),
+            new LabeledValue<object>("Storage", $"{powerStorage} KJ"),
+            new LabeledValue<object>("Turning rate", $"{turningRate}"),
+            new LabeledValue<object>("Thrust modifier", $"{thrustModifier.ToPercentageString()}")
         };
     }
 }
