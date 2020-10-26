@@ -7,12 +7,21 @@ namespace Exa.IO
     {
         public string Value { get; }
 
-        internal ExaDirectory(string value, bool combineWithDataPath = true) {
-            if (combineWithDataPath)
-                value = IOUtils.CombinePathWithDataPath(value);
+        internal ExaDirectory(string value, bool combineWithDataPath = true)
+        {
+            var path = combineWithDataPath 
+                ? IOUtils.CombinePathWithDataPath(value) 
+                : value;
 
-            EnsureCreated(value);
-            this.Value = value;
+            EnsureCreated(path);
+            this.Value = path;
+        }
+
+        internal ExaDirectory(ExaDirectory parent, string value)
+        {
+            var path = IOUtils.CombinePath(parent, value);
+            EnsureCreated(path);
+            this.Value = path;
         }
 
         public string CombineWith(string fileName) {

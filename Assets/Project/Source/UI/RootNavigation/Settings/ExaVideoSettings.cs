@@ -1,4 +1,7 @@
 ﻿using Exa.Data;
+#if !UNITY_EDITOR
+using UnityEngine;
+#endif
 
 namespace Exa.UI.Settings
 {

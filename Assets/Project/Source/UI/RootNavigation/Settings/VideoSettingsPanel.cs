@@ -1,4 +1,5 @@
-﻿using Exa.UI.Controls;
+﻿using System.Linq;
+using Exa.UI.Controls;
 using UnityEngine;
 
 namespace Exa.UI.Settings
@@ -34,11 +35,16 @@ namespace Exa.UI.Settings
 
         public override void Init() {
             settings.Resolutions = new Resolutions();
-            refreshRatesDropdown.CreateTabs(settings.Resolutions.GetRefreshRateLabels());
-            // Get first refresh rate
-            var firstRefreshRate = (int) refreshRatesDropdown.Value;
 
-            resolutionDropdown.CreateTabs(settings.Resolutions.GetResolutionLabels());
+            refreshRatesDropdown.CreateTabs(settings.Resolutions
+                .GetRefreshRateLabels());
+
+            resolutionDropdown.CreateTabs(settings.Resolutions
+                .GetResolutionLabels()
+                .Reverse());
+
+            // Get first refresh rate
+            var firstRefreshRate = (int)refreshRatesDropdown.Value;
             resolutionDropdown.FilterByRefreshRate(firstRefreshRate);
 
             base.Init();

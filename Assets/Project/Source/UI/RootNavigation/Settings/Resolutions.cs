@@ -12,22 +12,21 @@ namespace Exa.UI.Settings
     /// </summary>
     public class Resolutions : IEnumerable<Resolution>
     {
-        private List<Resolution> resolutions;
-
+        private readonly List<Resolution> resolutions;
         private readonly int[] acceptedRefreshRates = {60, 75, 80, 90, 100, 120, 144, 165, 180, 240};
 
         public Resolutions() {
-            var selectedResolutions = Screen
+            var filteredResolutions = Screen
                 .resolutions
                 .Where(IsAcceptedRefreshRate)
                 .Where(IsAcceptedRatio);
 
             // If the are no selected resolutions,
-            if (!selectedResolutions.Any())
-                selectedResolutions = Screen.resolutions;
+            if (!filteredResolutions.Any())
+                filteredResolutions = Screen.resolutions;
 
-            this.resolutions = new List<Resolution>(selectedResolutions);
-            this.resolutions.Sort((x, y) => {
+            resolutions = new List<Resolution>(filteredResolutions);
+            resolutions.Sort((x, y) => {
                 int GetValue(Resolution res) => res.width * res.height + res.refreshRate;
                 return GetValue(x) - GetValue(y);
             });
