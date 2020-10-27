@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Exa.Debugging
 {
@@ -50,20 +51,12 @@ namespace Exa.Debugging
         }
 
         private static bool TryGetDebugDragable(out IDebugDragable dragable) {
-            dragable = null;
-
             try {
-                var raycastTarget = GameSystems.GameplayInputManager.RaycastTarget;
-                var raycastTargetIsDragable = raycastTarget is IDebugDragable;
-
-                if (raycastTargetIsDragable) {
-                    dragable = raycastTarget as IDebugDragable;
-                }
-
-                return raycastTargetIsDragable;
+                return GameSystems.Raycaster.TryGetTarget(out dragable);
             }
             // ReSharper disable once EmptyGeneralCatchClause
             catch {
+                dragable = null;
                 return false;
             }
         }

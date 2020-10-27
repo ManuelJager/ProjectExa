@@ -2,7 +2,6 @@
 {
     public partial class GameplayInputManager
     {
-        private IRaycastTarget raycastTarget = null;
         private ShipSelection currentSelection;
 
         private bool HasSelection {

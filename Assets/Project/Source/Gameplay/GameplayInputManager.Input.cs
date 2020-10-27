@@ -50,7 +50,7 @@ namespace Exa.Gameplay
                     //    var ship = raycastTarget as Ship;
                     //    ship.BlockGrid.Totals.Hull -= 50f;
                     //}
-                    if (Systems.GodModeIsEnabled && raycastTarget is Ship ship) {
+                    if (Systems.GodModeIsEnabled && GameSystems.Raycaster.TryGetTarget<Ship>(out var ship)) {
                         var worldPos = ship.transform.position.ToVector2();
                         var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * ship.Totals.Mass;
                         ship.rb.AddForce(direction, ForceMode2D.Force);

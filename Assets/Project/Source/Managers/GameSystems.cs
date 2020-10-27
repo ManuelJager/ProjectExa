@@ -15,12 +15,14 @@ namespace Exa
     public class GameSystems : MonoSingleton<GameSystems>
     {
         [SerializeField] private GameplayInputManager gameplayInputManager;
+        [SerializeField] private Raycaster raycaster;
         [SerializeField] private Navigateable navigateable;
         [SerializeField] private ShipFactory shipFactory;
         [SerializeField] private GameplayUI gameplayUI;
         [SerializeField] private AIManager aIManager;
 
         public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
+        public static Raycaster Raycaster => Instance.raycaster;
         public static Navigateable Navigateable => Instance.navigateable;
         public static ShipFactory ShipFactory => Instance.shipFactory;
         public static GameplayUI UI => Instance.gameplayUI;
