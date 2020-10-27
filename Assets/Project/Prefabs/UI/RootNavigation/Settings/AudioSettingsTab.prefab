@@ -171,6 +171,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_ContentType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_KeyboardType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_CharacterValidation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2692675345135139743, guid: 6d421f24c468ba54d8c0895ed5a37559,
         type: 3}
       propertyPath: m_Text
@@ -291,6 +306,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7487942745386400881, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7487942745386400881, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7718213150058404654, guid: 6d421f24c468ba54d8c0895ed5a37559,
         type: 3}
       propertyPath: m_Name
@@ -327,6 +352,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_KeyboardType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_CharacterValidation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_ContentType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2692675345135139743, guid: 6d421f24c468ba54d8c0895ed5a37559,
         type: 3}
@@ -448,6 +488,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7487942745386400881, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7487942745386400881, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7718213150058404654, guid: 6d421f24c468ba54d8c0895ed5a37559,
         type: 3}
       propertyPath: m_Name
@@ -484,6 +534,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_ContentType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_KeyboardType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021537776936930352, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_CharacterValidation
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2692675345135139743, guid: 6d421f24c468ba54d8c0895ed5a37559,
         type: 3}
@@ -606,6 +671,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7487942745386400881, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7487942745386400881, guid: 6d421f24c468ba54d8c0895ed5a37559,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7718213150058404654, guid: 6d421f24c468ba54d8c0895ed5a37559,
         type: 3}

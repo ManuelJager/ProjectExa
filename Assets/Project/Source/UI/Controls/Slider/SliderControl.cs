@@ -63,9 +63,7 @@ namespace Exa.UI.Controls
         private void OnInputFieldValueChanged(string value) {
             if (string.IsNullOrEmpty(value)) return;
 
-            value = value.Replace('.', ',');
-
-            var valid = float.TryParse(value, out var floatValue);
+            var valid = int.TryParse(value, out var intValue);
 
             if (valid) {
                 inputField.SetTextWithoutNotify(value);
@@ -75,8 +73,8 @@ namespace Exa.UI.Controls
                 return;
             }
 
-            if (floatValue < slider.minValue) inputField.text = FormatFloat(slider.minValue);
-            if (floatValue > slider.maxValue) inputField.text = FormatFloat(slider.maxValue);
+            if (intValue < slider.minValue) inputField.text = FormatFloat(slider.minValue);
+            if (intValue > slider.maxValue) inputField.text = FormatFloat(slider.maxValue);
         }
 
         private void OnInputFieldEndEdit(string value) {

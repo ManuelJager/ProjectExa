@@ -10,15 +10,15 @@ namespace Exa.UI.Settings
 
         public override AudioSettingsValues GetSettingsValues() =>
             new AudioSettingsValues {
-                masterVolume = masterVolumeSlider.Value,
-                musicVolume = musicVolumeSlider.Value,
-                effectsVolume = effectsVolumeSlider.Value
+                masterVolume = masterVolumeSlider.Value / 100f,
+                musicVolume = musicVolumeSlider.Value / 100f,
+                effectsVolume = effectsVolumeSlider.Value / 100f
             };
 
         public override void ReflectValues(AudioSettingsValues values) {
-            masterVolumeSlider.SetValue(values.masterVolume, false);
-            musicVolumeSlider.SetValue(values.musicVolume, false);
-            effectsVolumeSlider.SetValue(values.effectsVolume, false);
+            masterVolumeSlider.SetValue(values.masterVolume * 100f, false);
+            musicVolumeSlider.SetValue(values.musicVolume * 100f, false);
+            effectsVolumeSlider.SetValue(values.effectsVolume * 100f, false);
         }
     }
 }
