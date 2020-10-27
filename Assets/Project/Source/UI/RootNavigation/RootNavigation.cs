@@ -8,6 +8,7 @@ namespace Exa.UI
 {
     public class RootNavigation : MonoBehaviour
     {
+        public InteractableAdapter interactableAdapter;
         public BlueprintSelector blueprintSelector;
         public SettingsManager settings;
         public MissionSetup missionSetup;

@@ -7,11 +7,10 @@ namespace Exa.UI.Settings
 {
     public class ExaVideoSettings : SaveableSettings<VideoSettingsValues>
     {
-        public override VideoSettingsValues DefaultValues =>
-            new VideoSettingsValues {
-                resolution = Resolutions.GetHighestSupportedResolution(),
-                fullscreen = true
-            };
+        public override VideoSettingsValues DefaultValues => new VideoSettingsValues {
+            resolution = Resolutions.GetHighestSupportedResolution(),
+            fullscreen = true
+        };
 
         public Resolutions Resolutions { get; set; }
 
@@ -26,5 +25,10 @@ namespace Exa.UI.Settings
                 preferredRefreshRate:   Values.resolution.refreshRate);
 #endif
         }
+
+        public override VideoSettingsValues Clone() => new VideoSettingsValues {
+            resolution = Values.resolution,
+            fullscreen = Values.fullscreen
+        };
     }
 }

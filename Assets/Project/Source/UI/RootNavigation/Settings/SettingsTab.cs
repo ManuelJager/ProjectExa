@@ -54,7 +54,7 @@ namespace Exa.UI.Settings
         /// Applies the given values
         /// </summary>
         /// <param name="values"></param>
-        private void Apply(TValues values) {
+        protected void Apply(TValues values) {
             settings.Values = values;
             settings.Save();
             settings.Apply();

@@ -13,7 +13,7 @@ namespace Exa.ShipEditor
         [SerializeField] private Hoverable blueprintInfoPanelHoverable;
         [SerializeField] private Hoverable editorStatePanelHoverable;
 
-        public CanvasGroupInteractableAdapter editorOverlayCanvasGroup;
+        public InteractableAdapter editorOverlay;
 
         [FormerlySerializedAs("blueprintInfoPanel")]
         public ShipEditorOverlayInfoPanel infoPanel;

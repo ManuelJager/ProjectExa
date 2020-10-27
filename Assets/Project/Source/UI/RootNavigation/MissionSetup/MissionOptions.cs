@@ -10,7 +10,7 @@ namespace Exa.UI
     {
         [SerializeField] private MissionBag missionBag;
         [SerializeField] private DropdownControl missionDropdown;
-        [SerializeField] private CanvasGroupInteractableAdapter button;
+        [SerializeField] private InteractableAdapter button;
         [SerializeField] private TextTooltipTrigger tooltipTrigger;
 
         public Mission SelectedMission { get; private set; }

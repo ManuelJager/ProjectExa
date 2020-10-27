@@ -17,5 +17,9 @@ namespace Exa.Utils
             var newString = line.Replace("\n", $"\n{tabbedString}").TrimEnd();
             sb.AppendLine($"{tabbedString}{newString}");
         }
+
+        public static string Format(this string format, params object[] args) {
+            return string.Format(format, args);
+        }
     }
 }

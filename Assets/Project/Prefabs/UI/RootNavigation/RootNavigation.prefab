@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba3b4826dd975040b26f595c10d34dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableAdapter: {fileID: 3485815888118221219}
   blueprintSelector: {fileID: 6013977213314918360}
   settings: {fileID: 5229011147367864752}
   missionSetup: {fileID: 9043760221435764564}

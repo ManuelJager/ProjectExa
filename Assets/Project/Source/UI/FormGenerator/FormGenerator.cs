@@ -11,7 +11,6 @@ namespace Exa.UI
 
         public void GenerateForm<T>(ModelDescriptor<T> modelDescriptor) {
             controlsContainer.DestroyChildren();
-
             modelDescriptor.GenerateView(controlsContainer);
         }
     }

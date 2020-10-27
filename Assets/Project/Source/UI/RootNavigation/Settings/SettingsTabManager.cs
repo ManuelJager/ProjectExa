@@ -11,11 +11,11 @@ namespace Exa.UI.Components
     {
         [HideInInspector] public SettingsTabBase activeSettingsTab;
 
-        [SerializeField] private CanvasGroupInteractableAdapter applyButton;
-        [SerializeField] private CanvasGroupInteractableAdapter setDefaultButton;
+        [SerializeField] private InteractableAdapter applyButton;
+        [SerializeField] private InteractableAdapter setDefaultButton;
         [SerializeField] private Text activeTabText;
         [SerializeField] private SettingsTabBase defaultSettingsTab;
-        [SerializeField] private CanvasGroupInteractableAdapter canvasGroupInteractableAdapter;
+        [SerializeField] private InteractableAdapter interactableAdapter;
 
         private void OnEnable() {
             ProcessTab(defaultSettingsTab);
@@ -50,7 +50,7 @@ namespace Exa.UI.Components
         public void QueryUserConfirmation(Action<bool> onClosePrompt) {
             Systems.UI.promptController.PromptYesNo(
                 "Changes were not saved, do you wish to apply the changes?",
-                canvasGroupInteractableAdapter,
+                interactableAdapter,
                 onClosePrompt);
         }
 

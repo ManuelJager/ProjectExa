@@ -16,6 +16,8 @@ namespace Exa.UI
         [SerializeField] private Button okButton;
         [SerializeField] private Text promptText;
 
+        public Action<string> PromptTextSetter => value => promptText.text = value;
+
         public void PromptForm<T>(string message, IUIGroup uiGroup, ModelDescriptor<T> modelDescriptor,
             Action<T> onSubmit) {
             ActivateMessage(message, uiGroup);
@@ -58,7 +60,7 @@ namespace Exa.UI
             });
         }
 
-        private void CleanupYesNo(IUIGroup uiGroup = null) {
+        public void CleanupYesNo(IUIGroup uiGroup = null) {
             yesNoContainer.gameObject.SetActive(false);
             DeactivateMessage(uiGroup);
         }

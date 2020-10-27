@@ -28,6 +28,8 @@ namespace Exa.Data
         /// </summary>
         public abstract void Apply();
 
+        public abstract T Clone();
+
         public virtual void Save() {
             var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
             IOUtils.JsonSerializeToPath(Values, path, SerializationMode.Settings);
