@@ -2,16 +2,18 @@
 
 namespace Exa.Gameplay
 {
-    public class UserCameraTarget : ICameraTarget
+    public class CameraTarget : MonoBehaviour, ICameraTarget
     {
-        public Vector2 worldPosition;
-
         public float GetOrthoSize() {
             return 30f;
         }
 
+        public bool GetTargetValid() {
+            return true;
+        }
+
         public Vector2 GetWorldPosition() {
-            return worldPosition;
+            return transform.position;
         }
     }
 }

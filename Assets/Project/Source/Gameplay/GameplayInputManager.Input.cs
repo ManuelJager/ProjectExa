@@ -22,13 +22,21 @@ namespace Exa.Gameplay
         }
 
         public void OnMovement(InputAction.CallbackContext context) {
+            var targetIsUserControlled = GameSystems.CameraController.GetTargetIsUserControlled(out var target);
+
             switch (context.phase) {
                 case InputActionPhase.Performed:
-                    gameplayCameraController.SetMovementDelta(context.ReadValue<Vector2>());
+                    if (!targetIsUserControlled) {
+                        GameSystems.CameraController.EscapeTarget();
+                        target = GameSystems.CameraController.CurrentTarget as UserTarget;
+                    }
+
+                    target.movementDelta = context.ReadValue<Vector2>();
                     break;
 
                 case InputActionPhase.Canceled:
-                    gameplayCameraController.SetMovementDelta(Vector2.zero);
+                    if (targetIsUserControlled) 
+                        target.movementDelta = Vector2.zero;
                     break;
 
                 default:

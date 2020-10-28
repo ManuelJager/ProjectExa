@@ -7,5 +7,7 @@ namespace Exa.Gameplay
         Vector2 GetWorldPosition();
 
         float GetOrthoSize();
+
+        bool GetTargetValid();
     }
 }

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf71f9f56937da64baeef246f47c24f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overlay: {fileID: 0}
   pivot: {fileID: 4789156142645388778}
   shipAi: {fileID: 4619018923079872921}
   state: {fileID: 3983008322526082732}
   rb: {fileID: 1405270612991307319}
   mouseOverCollider: {fileID: 1261179465907300310}
   navigationOptions: {fileID: 8455648041380527334}
+  cursorOverride:
+    value: 0
   canvasScaleMultiplier: 1
   shipDebugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
-  genericCursorOverride:
-    value: 1
-  overlay: {fileID: 0}
   destroyEvent:
     m_PersistentCalls:
       m_Calls: []

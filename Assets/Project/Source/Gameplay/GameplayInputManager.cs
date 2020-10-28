@@ -11,7 +11,6 @@ namespace Exa.Gameplay
 {
     public partial class GameplayInputManager : MonoBehaviour, IGameplayActions
     {
-        [SerializeField] private GameplayCameraController gameplayCameraController;
         private GameControls gameControls;
 
         public void Awake() {

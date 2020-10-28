@@ -15,7 +15,9 @@ namespace Exa.Gameplay.Missions
         public abstract void Init(MissionArgs args);
 
         protected void SpawnMothership(BlueprintContainer mothership) {
-            GameSystems.ShipFactory.CreateFriendly(mothership.Data, new Vector2(-20, 20));
+            var ship = GameSystems.ShipFactory.CreateFriendly(mothership.Data, new Vector2(-20, 20));
+            var cameraTarget = new ShipTarget(ship);
+            GameSystems.CameraController.SetTarget(cameraTarget);
         }
     }
 }

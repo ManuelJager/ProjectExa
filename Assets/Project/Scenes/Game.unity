@@ -361,7 +361,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MissionManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3971752618548431352, guid: 5b47039535f26ce4a84ca29216ae1814, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5b47039535f26ce4a84ca29216ae1814, type: 3}
 --- !u!114 &3971752619075410488 stripped
 MonoBehaviour:
