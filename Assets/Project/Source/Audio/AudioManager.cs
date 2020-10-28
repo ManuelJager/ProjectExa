@@ -1,4 +1,5 @@
-﻿using Exa.Audio.Music;
+﻿using System;
+using Exa.Audio.Music;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,18 +38,16 @@ namespace Exa.Audio
             soundById[sound.id] = sound;
             GetTrack(sound.audioType).Register(sound);
         }
+        
+        private AudioTrack GetTrack(AudioType audioType)
+        {
+            if (audioType == AudioType.ST)
+                return ST_AudioTrack;
 
-        private AudioTrack GetTrack(AudioType audioType) {
-            switch (audioType) {
-                case AudioType.ST:
-                    return ST_AudioTrack;
+            if (audioType == AudioType.UI_SFX)
+                return UI_SFX_AudioTrack;
 
-                case AudioType.UI_SFX:
-                    return UI_SFX_AudioTrack;
-
-                default:
-                    return null;
-            }
+            throw new ArgumentException("Invalid audioType given", nameof(audioType));
         }
     }
 }
