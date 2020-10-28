@@ -7,7 +7,6 @@ namespace Exa.Grids.Blueprints
     public class BlueprintOptionsDescriptor : ModelDescriptor<BlueprintOptions>
     {
         private string blueprintName;
-
         private BlueprintType blueprintType;
 
         public override BlueprintOptions FromDescriptor() {
@@ -15,8 +14,9 @@ namespace Exa.Grids.Blueprints
         }
 
         public override void GenerateView(Transform container) {
+            var blueprintTypes = Systems.Blueprints.blueprintTypes;
             Systems.UI.controlFactory.CreateInputField(container, "Name", SetBlueprintName);
-            Systems.UI.controlFactory.CreateDropdown(container, "Class", Systems.Blueprints.blueprintTypes,
+            Systems.UI.controlFactory.CreateDropdown(container, "Class", blueprintTypes,
                 SetBlueprintType, OnOptionCreation);
         }
 

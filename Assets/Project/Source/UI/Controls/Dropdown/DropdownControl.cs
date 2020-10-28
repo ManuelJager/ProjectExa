@@ -99,7 +99,7 @@ namespace Exa.UI.Controls
         }
 
         public virtual void SelectFirst() {
-            Value = stateContainer.First();
+            SetValue(stateContainer.First());
         }
 
         private void ToggleContainer() {
