@@ -57,9 +57,8 @@ namespace Exa.Gameplay
                 foreach (var oldTarget in CurrentTargets.Except(intersection))
                     oldTarget.OnRaycastExit();
             }
-            else
-                foreach (var newTarget in hits)
-                    newTarget.OnRaycastEnter();
+            else foreach (var newTarget in hits)
+                newTarget.OnRaycastEnter();
 
             CurrentTargets = hits;
         }

@@ -16,7 +16,7 @@ namespace Exa.UI.Gameplay
 
         public void TogglePause() {
             Navigateable Select(bool revert = false) => isPaused ^ revert
-                ? pauseMenu.navigateable
+                ? pauseMenu
                 : gameplayLayer.navigateable;
 
             Select().NavigateTo(Select(true));

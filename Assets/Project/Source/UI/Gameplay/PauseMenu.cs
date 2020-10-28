@@ -1,26 +1,22 @@
 ﻿using System;
-using Exa.SceneManagement;
 using Exa.UI.Components;
-using UnityEngine.SceneManagement;
 
 namespace Exa.UI.Gameplay
 {
     public class PauseMenu : Navigateable
     {
-        public Navigateable navigateable;
-
         public Action continueAction;
 
         public override void HandleEnter(NavigationArgs args)
         {
-            base.HandleEnter(args);
             GameSystems.Raycaster.IsRaycasting = false;
+            base.HandleEnter(args);
         }
 
         public override void HandleExit(Navigateable target)
         {
-            base.HandleExit(target);
             GameSystems.Raycaster.IsRaycasting = true;
+            base.HandleExit(target);
         }
 
         public void Continue() {

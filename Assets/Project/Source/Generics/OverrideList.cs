@@ -22,12 +22,7 @@ namespace Exa.Generics
         }
 
         public virtual void Remove(ValueOverride<T> valueOverride) {
-            if (!overrides.Remove(valueOverride)) {
-                throw new ArgumentException(
-                    "To remove a value override, it must be on top of the queue",
-                    nameof(valueOverride));
-            }
-
+            overrides.Remove(valueOverride);
             onValueChange(SelectValue());
         }
 
