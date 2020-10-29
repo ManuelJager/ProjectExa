@@ -15,11 +15,12 @@ namespace Exa.UI
         [SerializeField] private Transform yesNoContainer;
         [SerializeField] private Button okButton;
         [SerializeField] private Text promptText;
+        [SerializeField] private Button overlayButton;
 
         public Action<string> PromptTextSetter => value => promptText.text = value;
 
         public void PromptForm<T>(string message, IUIGroup uiGroup, ModelDescriptor<T> modelDescriptor,
-            Action<T> onSubmit) {
+            Action<T> onSubmit) where T:class {
             ActivateMessage(message, uiGroup);
             okButton.gameObject.SetActive(true);
             formGenerator.gameObject.SetActive(true);
@@ -30,6 +31,14 @@ namespace Exa.UI
                 okButton.gameObject.SetActive(false);
                 formGenerator.gameObject.SetActive(false);
                 DeactivateMessage(uiGroup);
+            });
+
+            overlayButton.onClick.AddListener(() =>
+            {
+                okButton.gameObject.SetActive(false);
+                formGenerator.gameObject.SetActive(false);
+                DeactivateMessage(uiGroup);
+                Debug.Log("Fuck yeah bitches");
             });
         }
 

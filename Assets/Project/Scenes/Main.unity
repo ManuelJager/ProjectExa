@@ -792,7 +792,7 @@ PrefabInstance:
     - target: {fileID: 1202164152941690597, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: forceShowScreen
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1228393919485944164, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
