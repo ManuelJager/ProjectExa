@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   continuouslyApplySettings: 0
-  navigationType: 2
+  navigationType: 1
   qProportionalBase: 50
   qIntegral: 2
   qDerivative: 0

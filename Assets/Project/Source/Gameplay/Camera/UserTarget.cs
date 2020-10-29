@@ -3,35 +3,35 @@
 namespace Exa.Gameplay
 {
     /// <summary>
-    /// Represents the centre of 
+    /// Represents a camera target the user may move
     /// </summary>
-    public class UserTarget : ICameraTarget
+    public class UserTarget : CameraTarget
     {
         public Vector2 worldPosition;
         public Vector2 movementDelta;
-        private float movementSpeed = 30f;
-        private float orthoSize = 30f;
-
-        public float GetOrthoSize() {
-            return orthoSize * 0.9f;
-        }
-
-        public bool GetTargetValid() {
-            return true;
-        }
+        private float movementSpeedMultiplier = 1.5f;
+        private float baseOrthoSize = 30f;
 
         public void Tick() {
-            worldPosition += movementDelta * movementSpeed * Time.deltaTime;
+            worldPosition += movementDelta * GetMovementSpeed();
         }
 
-        public Vector2 GetWorldPosition() {
+        public override Vector2 GetWorldPosition() {
             return worldPosition;
         }
 
-        public void ImportValues(ICameraTarget otherTarget) {
-            movementDelta = Vector2.zero;
-            this.worldPosition = otherTarget.GetWorldPosition();
-            this.orthoSize = otherTarget.GetOrthoSize();
+        public override float GetBaseOrthoSize() {
+            return baseOrthoSize * 0.9f;
         }
+
+        public void ImportValues(ICameraTarget otherTarget) {
+            this.worldPosition = otherTarget.GetWorldPosition();
+            this.ZoomScale = otherTarget.ZoomScale;
+            this.baseOrthoSize = otherTarget.GetBaseOrthoSize();
+        }
+
+        private float GetMovementSpeed() {
+            return movementSpeedMultiplier * GetCalculatedOrthoSize() * Time.deltaTime;
+        } 
     }
 }

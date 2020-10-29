@@ -22,21 +22,14 @@ namespace Exa.Gameplay
         }
 
         public void OnMovement(InputAction.CallbackContext context) {
-            var targetIsUserControlled = GameSystems.CameraController.GetTargetIsUserControlled(out var target);
-
             switch (context.phase) {
                 case InputActionPhase.Performed:
-                    if (!targetIsUserControlled) {
-                        GameSystems.CameraController.EscapeTarget();
-                        target = GameSystems.CameraController.CurrentTarget as UserTarget;
-                    }
-
-                    target.movementDelta = context.ReadValue<Vector2>();
+                    GameSystems.CameraController.EscapeTarget();
+                    GameSystems.CameraController.UserTarget.movementDelta = context.ReadValue<Vector2>();
                     break;
 
                 case InputActionPhase.Canceled:
-                    if (targetIsUserControlled) 
-                        target.movementDelta = Vector2.zero;
+                    GameSystems.CameraController.UserTarget.movementDelta = Vector2.zero;
                     break;
 
                 default:
@@ -68,7 +61,17 @@ namespace Exa.Gameplay
             }
         }
 
-        public void OnZoom(InputAction.CallbackContext context) { }
+        public void OnZoom(InputAction.CallbackContext context) {
+            switch (context.phase) {
+                case InputActionPhase.Performed:
+                    var yScroll = context.ReadValue<Vector2>().y;
+                    if (yScroll == 0f) return;
+
+                    var target = GameSystems.CameraController.GetTarget();
+                    target.OnScroll(yScroll);
+                    break;
+            }
+        }
 
         public void OnEscape(InputAction.CallbackContext context) {
             switch (context.phase) {

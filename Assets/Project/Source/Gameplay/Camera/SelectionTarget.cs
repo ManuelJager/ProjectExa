@@ -4,24 +4,22 @@ using UnityEngine;
 
 namespace Exa.Gameplay
 {
-    public class SelectionTarget : ICameraTarget
+    public class SelectionTarget : CameraTarget
     {
         private ShipSelection selection;
+
+        public override bool TargetValid => selection.Any();
 
         public SelectionTarget(ShipSelection selection) {
             this.selection = selection;
         }
 
-        public Vector2 GetWorldPosition() {
+        public override Vector2 GetWorldPosition() {
             return selection.AveragePosition;
         }
 
-        public float GetOrthoSize() {
+        public override float GetBaseOrthoSize() {
             return selection.Max(ship => ship.BlockGrid.MaxSize) * 2.5f;
-        }
-
-        public bool GetTargetValid() {
-            return selection.Count > 0;
         }
     }
 }

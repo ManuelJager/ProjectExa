@@ -103,11 +103,6 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4246544794668748127, guid: c338b1f640f93a541a625245831a6e85,
-        type: 3}
-      propertyPath: navigationType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5955771735733772327, guid: c338b1f640f93a541a625245831a6e85,
         type: 3}
       propertyPath: ship

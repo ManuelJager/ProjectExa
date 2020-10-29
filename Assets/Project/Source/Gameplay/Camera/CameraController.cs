@@ -11,56 +11,51 @@ namespace Exa.Gameplay
     {
         [SerializeField] private float movementSpeed;
         private Camera targetCamera;
-        private UserTarget userTarget = new UserTarget();
-        private ICameraTarget currentTarget;
 
         private Tween cameraMoveTween;
         private Tween cameraZoomTween;
 
-        public ICameraTarget CurrentTarget => currentTarget;
+        public ICameraTarget CurrentTarget { get; private set; }
+        public UserTarget UserTarget { get; } = new UserTarget();
 
         private void Awake() {
             targetCamera = Camera.main;
         }
 
         private void Update() {
-            if (GetTargetIsUserControlled(out var target)) {
-                target.Tick();
-            }
+            if (CurrentTarget != null && !CurrentTarget.TargetValid)
+                EscapeTarget();
 
-            if (currentTarget != null) {
-                if (!currentTarget.GetTargetValid())
-                    EscapeTarget();
+            if (CurrentTarget != null)
+                UserTarget.ImportValues(CurrentTarget);
+            else
+                UserTarget.Tick();
 
-                var targetOrthoSize = currentTarget.GetOrthoSize();
-                var targetPosition = currentTarget.GetWorldPosition().ToVector3(-10);
-                targetCamera.transform.DOMove(targetPosition, 0.2f)
-                    .Replace(ref cameraMoveTween);
-                targetCamera.DOOrthoSize(targetOrthoSize, 0.2f)
-                    .Replace(ref cameraZoomTween);
-            }
+            var target = GetTarget();
+            var cameraOrthoSize = target.GetCalculatedOrthoSize();
+            var cameraPosition = target.GetWorldPosition().ToVector3(-10);
+
+            targetCamera.DOOrthoSize(cameraOrthoSize, 0.2f)
+                .Replace(ref cameraZoomTween);
+            targetCamera.transform.DOMove(cameraPosition, 0.2f)
+                .Replace(ref cameraMoveTween);
         }
 
-        public void SetTarget(ICameraTarget newTarget) {
-            if (currentTarget == null) {
+        public void SetTarget(ICameraTarget newTarget, bool teleport = false) {
+            if (teleport) {
                 targetCamera.transform.position = newTarget.GetWorldPosition().ToVector3(-10);
-                targetCamera.orthographicSize = newTarget.GetOrthoSize();
+                targetCamera.orthographicSize = newTarget.GetCalculatedOrthoSize();
             }
 
-            currentTarget = newTarget;
+            CurrentTarget = newTarget;
         }
 
-        public bool GetTargetIsUserControlled(out UserTarget userTarget) {
-            userTarget = currentTarget as UserTarget;
-            return currentTarget is UserTarget;
+        public void EscapeTarget() {
+            CurrentTarget = null;
         }
 
-        public void EscapeTarget()
-        {
-            if (currentTarget.GetTargetValid())
-                userTarget.ImportValues(currentTarget);
-
-            SetTarget(userTarget);
+        public ICameraTarget GetTarget() {
+            return CurrentTarget ?? UserTarget;
         }
     }
 }
