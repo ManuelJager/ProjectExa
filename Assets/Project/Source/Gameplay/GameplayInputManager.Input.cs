@@ -125,10 +125,12 @@ namespace Exa.Gameplay
 
                 // Get the selection and save it in the hotbar if possible
                 var selection = selectionBuilder.Build();
-                GameSystems.UI.gameplayLayer.selectionHotbar.Save(selection);
+
+                var hotbar = GameSystems.UI.gameplayLayer.selectionHotbar;
+                if (!hotbar.HasSelected || !hotbar.CurrentSelection.HasShipSelection)
+                    hotbar.Save(selection);
 
                 CurrentSelection = selection;
-
                 selectionBuilder = null;
             }
         }

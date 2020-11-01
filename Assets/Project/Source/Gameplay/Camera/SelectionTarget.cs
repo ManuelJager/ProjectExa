@@ -10,7 +10,8 @@ namespace Exa.Gameplay
 
         public override bool TargetValid => selection.Any();
 
-        public SelectionTarget(ShipSelection selection) {
+        public SelectionTarget(ShipSelection selection, CameraTargetSettings settings)
+            : base(settings) {
             this.selection = selection;
         }
 

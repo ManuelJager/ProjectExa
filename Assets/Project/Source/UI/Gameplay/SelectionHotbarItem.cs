@@ -16,6 +16,8 @@ namespace Exa.UI.Gameplay
         private ShipSelection shipSelection;
         private bool selected;
 
+        public bool HasShipSelection => shipSelection != null && shipSelection.Count > 0;
+
         private void Awake() {
             selected = false;
 

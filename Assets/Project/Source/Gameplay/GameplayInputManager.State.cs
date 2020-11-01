@@ -18,10 +18,8 @@
                 currentSelection = value;
                 GameSystems.UI.gameplayLayer.selectionOverlay.Reflect(value);
 
-                if (value != null) {
-                    var target = new SelectionTarget(value);
-                    GameSystems.CameraController.SetTarget(target);
-                }
+                if (value != null) 
+                    GameSystems.CameraController.SetSelectionTarget(value);
             }
         }
     }

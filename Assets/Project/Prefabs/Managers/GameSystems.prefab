@@ -113,6 +113,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0
+  defaultSettings:
+    bezierCurveSettings:
+      p1: {x: 0.5, y: 0}
+      p2: {x: 0.5, y: 1}
+    zoomMultiplier:
+      min: 0.1
+      max: 2.5
+    zoomSpeed: 0.3
 --- !u!1 &6801628535618871680
 GameObject:
   m_ObjectHideFlags: 0

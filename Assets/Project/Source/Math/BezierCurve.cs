@@ -6,41 +6,6 @@ namespace Exa.Math
 {
     public class BezierCurve
     {
-        private static Lazy<BezierCurve> ease = new Lazy<BezierCurve>(
-            () => new BezierCurve(
-                new Vector2(0.25f, 0.1f),
-                new Vector2(0.25f, 0.1f)));
-
-        private static Lazy<BezierCurve> linear = new Lazy<BezierCurve>(
-            () => new BezierCurve(
-                new Vector2(0f, 0f),
-                new Vector2(1f, 1f)));
-
-        private static Lazy<BezierCurve> easeIn = new Lazy<BezierCurve>(
-            () => new BezierCurve(
-                new Vector2(0.42f, 0f),
-                new Vector2(1f, 1f)));
-
-        private static Lazy<BezierCurve> easeOut = new Lazy<BezierCurve>(
-            () => new BezierCurve(
-                new Vector2(0f, 0f),
-                new Vector2(0.58f, 1f)));
-
-        private static Lazy<BezierCurve> easeInOut = new Lazy<BezierCurve>(
-            () => new BezierCurve(
-                new Vector2(0.42f, 0f),
-                new Vector2(0.58f, 1f)));
-
-        public static BezierCurve Ease => ease.Value;
-
-        public static BezierCurve Linear => linear.Value;
-
-        public static BezierCurve EaseIn => easeIn.Value;
-
-        public static BezierCurve EaseOut => easeOut.Value;
-
-        public static BezierCurve EaseInOut => easeInOut.Value;
-
         private readonly Vector2 P0;
         private readonly Vector2 P1;
         private readonly Vector2 P2;
@@ -62,8 +27,14 @@ namespace Exa.Math
             P3 = p3;
         }
 
+        public BezierCurve(BezierCurveSettings settings)
+            : this(settings.p1, settings.p2) { }
+
         public BezierCurve(Vector2 p1, Vector2 p2)
             : this(Vector2.zero, p1, p2, Vector2.one) { }
+
+        public BezierCurve(float p1x, float p1y, float p2x, float p2y)
+            : this(new Vector2(p1x, p1y), new Vector2(p2x, p2y)) { }
 
         public float GetY(float x) {
             var y = GetY((double)x);
@@ -183,5 +154,21 @@ namespace Exa.Math
         private static double CubicRoot(double f) {
             return System.Math.Pow(f, 1.0 / 3.0);
         }
+    }
+
+    [Serializable]
+    public struct BezierCurveSettings
+    {
+        public Vector2 p1;
+        public Vector2 p2;
+
+        public BezierCurveSettings(Vector2 p1, Vector2 p2)
+        {
+            this.p1 = p1;
+            this.p2 = p2;
+        }
+
+        public BezierCurveSettings(float p1x, float p1y, float p2x, float p2y)
+            : this(new Vector2(p1x, p1y), new Vector2(p2x, p2y)) { }
     }
 }

@@ -13,9 +13,7 @@ namespace Exa.Generics
             this.max = max;
         }
 
-        public static MinMax<float> ZeroOne {
-            get => new MinMax<float>(0f, 1f);
-        }
+        public static MinMax<float> ZeroOne => new MinMax<float>(0f, 1f);
     }
 
     public static class MinMaxHelpers
