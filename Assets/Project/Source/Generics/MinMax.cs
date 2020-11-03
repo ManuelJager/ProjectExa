@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Exa.Generics
 {
@@ -21,6 +22,10 @@ namespace Exa.Generics
         public static float Evaluate(this MinMax<float> minMax, float t) {
             var diff = minMax.max - minMax.min;
             return minMax.min + diff * t;
+        }
+
+        public static float Clamp(this MinMax<float> minMax, float value) {
+            return Mathf.Clamp(value, minMax.min, minMax.max);
         }
     }
 }

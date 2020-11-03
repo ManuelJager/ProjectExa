@@ -8,28 +8,35 @@ namespace Exa.Gameplay
     {
         private CameraTargetSettings settings;
         private BezierCurve zoomCurve;
+        private float zoomScale;
 
-        public float ZoomScale { get; protected set; } = 0.5f;
+        public float ZoomScale {
+            get => zoomScale;
+            set => zoomScale = Mathf.Clamp01(value);
+        }
+
         public virtual bool TargetValid => true;
 
         protected CameraTarget(CameraTargetSettings settings)
         {
             this.settings = settings;
             zoomCurve = new BezierCurve(settings.bezierCurveSettings);
+            ZoomScale = 0.5f;
         }
 
         public virtual float GetCalculatedOrthoSize() {
-            var multiplier = settings.zoomMultiplier.Evaluate(zoomCurve.GetY(ZoomScale));
-            return GetBaseOrthoSize() * multiplier;
+            var multiplier = settings.zoomMinMax.Evaluate(zoomCurve.GetY(ZoomScale));
+            return settings.orthoMultiplier * multiplier;
         }
 
         public abstract Vector2 GetWorldPosition();
 
-        public abstract float GetBaseOrthoSize();
-
         public void OnScroll(float yScroll) {
             ZoomScale -= yScroll / 1000f * settings.zoomSpeed;
-            ZoomScale = Mathf.Clamp01(ZoomScale);
+        }
+
+        protected void SetZoomFromOrtho(float orthoSize) {
+            ZoomScale = orthoSize / settings.orthoMultiplier;
         }
     }
 }

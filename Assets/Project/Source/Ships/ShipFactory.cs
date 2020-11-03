@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks;
+﻿using System;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using UnityEngine;
 
@@ -16,20 +17,17 @@ namespace Exa.Ships
 
         public FriendlyShip CreateFriendly(Blueprint blueprint, Vector2 worldPos) {
             var shipGo = Instantiate(friendlyShipPrefab, shipContainer);
-            shipGo.transform.position = worldPos;
-
-            return Configure<FriendlyShip>(shipGo, blueprint, ShipContext.UserGroup);
+            return Configure<FriendlyShip>(shipGo, worldPos, blueprint, ShipContext.UserGroup);
         }
 
-        public EnemyShip CreateEnemy(Blueprint blueprintName, Vector2 worldPos) {
+        public EnemyShip CreateEnemy(Blueprint blueprint, Vector2 worldPos) {
             var shipGo = Instantiate(enemyShipPrefab, shipContainer);
-            shipGo.transform.position = worldPos;
-
-            return Configure<EnemyShip>(shipGo, blueprintName, ShipContext.EnemyGroup);
+            return Configure<EnemyShip>(shipGo, worldPos, blueprint, ShipContext.EnemyGroup);
         }
 
-        private T Configure<T>(GameObject shipGo, Blueprint blueprint, ShipContext blockContext)
+        private T Configure<T>(GameObject shipGo, Vector2 worldPos, Blueprint blueprint, ShipContext blockContext)
             where T : Ship {
+            shipGo.transform.position = worldPos;
             var ship = shipGo.GetComponent<T>();
             var overlay = CreateOverlay(ship);
             ship.Import(blueprint, blockContext);

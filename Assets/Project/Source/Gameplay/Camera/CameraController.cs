@@ -11,7 +11,6 @@ namespace Exa.Gameplay
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private float movementSpeed;
         [SerializeField] private CameraTargetSettings defaultSettings;
         private Camera targetCamera;
 

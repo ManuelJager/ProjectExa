@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Ships;
+using UnityEngine;
 
 namespace Exa.Gameplay.Missions
 {
@@ -6,7 +7,8 @@ namespace Exa.Gameplay.Missions
     public class EndlessMission : Mission
     {
         public override void Init(MissionArgs args) {
-            SpawnMothership(args.fleet.mothership);
+            SpawnMothership(args.fleet.mothership.Data);
+            SpawnFriendly("defaultScout", 20, 20);
         }
     }
 }

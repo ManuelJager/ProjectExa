@@ -983,6 +983,72 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.7254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.7053667
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: b9f47330c8d3fd443a5e4dbae17f45a7,
+        type: 3}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_FontData.m_RichText
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552683409821484339, guid: a436a9082e0d759429f1069db7abc94b,
+        type: 3}
+      propertyPath: m_Text
+      value: Options
+      objectReference: {fileID: 0}
     - target: {fileID: 3560878669631610657, guid: a436a9082e0d759429f1069db7abc94b,
         type: 3}
       propertyPath: m_AnchorMin.y

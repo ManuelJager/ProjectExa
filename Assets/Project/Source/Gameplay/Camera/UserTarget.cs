@@ -10,7 +10,6 @@ namespace Exa.Gameplay
         public Vector2 worldPosition;
         public Vector2 movementDelta;
         private float movementSpeedMultiplier = 1.5f;
-        private float baseOrthoSize = 30f;
 
         public UserTarget(CameraTargetSettings settings) 
             : base(settings) { }
@@ -23,14 +22,13 @@ namespace Exa.Gameplay
             return worldPosition;
         }
 
-        public override float GetBaseOrthoSize() {
-            return baseOrthoSize * 0.9f;
+        public override float GetCalculatedOrthoSize() {
+            return base.GetCalculatedOrthoSize() * 0.9f;
         }
 
         public void ImportValues(CameraTarget otherTarget) {
             this.worldPosition = otherTarget.GetWorldPosition();
             this.ZoomScale = otherTarget.ZoomScale;
-            this.baseOrthoSize = otherTarget.GetBaseOrthoSize();
         }
 
         private float GetMovementSpeed() {

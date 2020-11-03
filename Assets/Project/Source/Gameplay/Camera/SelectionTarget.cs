@@ -13,14 +13,11 @@ namespace Exa.Gameplay
         public SelectionTarget(ShipSelection selection, CameraTargetSettings settings)
             : base(settings) {
             this.selection = selection;
+            SetZoomFromOrtho(selection.Max(ship => ship.BlockGrid.MaxSize) * 0.75f);
         }
 
         public override Vector2 GetWorldPosition() {
             return selection.AveragePosition;
-        }
-
-        public override float GetBaseOrthoSize() {
-            return selection.Max(ship => ship.BlockGrid.MaxSize) * 2.5f;
         }
     }
 }

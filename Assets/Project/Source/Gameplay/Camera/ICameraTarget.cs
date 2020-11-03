@@ -10,8 +10,6 @@ namespace Exa.Gameplay
 
         Vector2 GetWorldPosition();
 
-        float GetBaseOrthoSize();
-
         float GetCalculatedOrthoSize();
         
         void OnScroll(float yScroll);
