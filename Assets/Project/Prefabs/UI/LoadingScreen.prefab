@@ -184,6 +184,7 @@ MonoBehaviour:
   wipNotice: {fileID: 3611500890438240634}
   wipNoticeGroup: {fileID: 805018347584677204}
   loadingMessage: {fileID: 4440872499982489621}
+  forceDisplay: 1
 --- !u!114 &2300340450880582600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,7 +492,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3306fa5573e55b14685609893f8c8bf8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a7d62c8e9c05c948aaa1d97ca58e986, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
