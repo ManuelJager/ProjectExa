@@ -78,7 +78,7 @@ namespace Exa
             // Allow the screen to be shown
             UI.wipScreen?.Init();
             UI.loadingScreen.Init();
-            UI.loadingScreen.ShowScreen();
+            UI.loadingScreen.ShowScreen(LoadingScreenDuration.Long);
             UI.root.gameObject.SetActive(false);
 
             yield return 0;

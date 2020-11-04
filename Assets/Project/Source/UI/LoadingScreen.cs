@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DG.Tweening;
 using Exa.Generics;
 using Exa.Utils;
@@ -9,6 +10,12 @@ using UnityEngine.UI;
 
 namespace Exa.UI
 {
+    public enum LoadingScreenDuration
+    {
+        Short,
+        Long
+    }
+
     public class LoadingScreen : MonoBehaviour
     {
         [Header("References")]
@@ -24,6 +31,7 @@ namespace Exa.UI
         [SerializeField] private bool forceDisplay = false;
 
         private bool loaded;
+        private float minimumTimeActive;
         private float timeActive;
         private bool shouldDisplay;
 
@@ -35,9 +43,10 @@ namespace Exa.UI
             shouldDisplay = GetShouldDisplay();
         }
 
-        public void ShowScreen() {
+        public void ShowScreen(LoadingScreenDuration duration) {
             if (!shouldDisplay) return;
 
+            minimumTimeActive = GetDuration(duration);
             timeActive = 0f;
             loaded = false;
 
@@ -80,7 +89,7 @@ namespace Exa.UI
         }
 
         private IEnumerator WaitForDeactivation() {
-            while (!loaded || timeActive < 3f) {
+            while (!loaded || timeActive < minimumTimeActive) {
                 var euler = new Vector3(0, 0, timeActive * 360f % 360f);
                 loadingCircle.rotation = Quaternion.Euler(euler);
                 timeActive += Time.deltaTime;
@@ -128,6 +137,14 @@ namespace Exa.UI
 #else
             return forceDisplay;
 #endif
+        }
+
+        private float GetDuration(LoadingScreenDuration duration) {
+            switch (duration) {
+                case LoadingScreenDuration.Long: return 5f;
+                case LoadingScreenDuration.Short: return 2f;
+                default: throw new ArgumentOutOfRangeException(nameof(duration));
+            }
         }
     }
 }

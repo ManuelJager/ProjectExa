@@ -41,7 +41,7 @@ namespace Exa.SceneManagement
             transition.onPrepared.AddListener(() => { sceneStatuses[name].loading = false; });
 
             if (transitionArgs.loadScreenMode != LoadScreenMode.None) {
-                loadingScreen.ShowScreen();
+                loadingScreen.ShowScreen(LoadingScreenDuration.Short);
 
                 if (transitionArgs.loadScreenMode == LoadScreenMode.CloseOnPrepared)
                     transition.onPrepared.AddListener(loadingScreen.HideScreen);
