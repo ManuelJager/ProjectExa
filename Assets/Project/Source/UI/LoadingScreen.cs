@@ -19,14 +19,24 @@ namespace Exa.UI
         [SerializeField] private CanvasGroup wipNoticeGroup;
         [SerializeField] private Text loadingMessage;
 
+        [Header("Options")] 
+        [SerializeField] private bool forceDisplay = false;
+
         private bool loaded;
         private float time;
+        private bool shouldDisplay;
 
         private Tween foregroundAlphaTween;
         private Tween foregroundAnchoredPosTween;
         private Tween wipNoticeAnchoredPosTween;
 
+        private void Awake() {
+            shouldDisplay = GetShouldDisplay();
+        }
+
         public void ShowScreen() {
+            if (!shouldDisplay) return;
+
             time = 0f;
             loaded = false;
 
@@ -50,6 +60,8 @@ namespace Exa.UI
         }
 
         public void UpdateMessage(string message) {
+            if (!shouldDisplay) return;
+
             loadingMessage.gameObject.SetActive(message != "");
             loadingMessage.text = message;
         }
@@ -59,6 +71,8 @@ namespace Exa.UI
         }
 
         public void HideScreen(string message) {
+            if (!shouldDisplay) return;
+
             loaded = true;
             loadingMessage.text = message;
             loadingCircle.gameObject.SetActive(false);
@@ -104,6 +118,15 @@ namespace Exa.UI
         private Tween SlowSlide(RectTransform target) {
             return target.DOAnchorPos(new Vector2(-80, 0), 10f)
                 .SetEase(Ease.Linear);
+        }
+
+        private bool GetShouldDisplay()
+        {
+#if !UNITY_EDITOR
+            return true;
+#else
+            return forceDisplay;
+#endif
         }
     }
 }

@@ -78,6 +78,7 @@ namespace Exa
             // Allow the screen to be shown
             UI.wipScreen?.Init();
             UI.loadingScreen.ShowScreen();
+            UI.root.gameObject.SetActive(false);
 
             yield return 0;
 
@@ -98,6 +99,7 @@ namespace Exa
 
             UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
             UI.root.missionSetup.fleetBuilder.Init(Blueprints.useableBlueprints);
+            UI.root.gameObject.SetActive(true);
             UI.loadingScreen.HideScreen();
         }
 
