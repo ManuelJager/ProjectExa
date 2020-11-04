@@ -76,7 +76,7 @@ namespace Exa
 
         private IEnumerator Load() {
             // Allow the screen to be shown
-            UI.wipScreen.Init();
+            UI.wipScreen?.Init();
             UI.loadingScreen.ShowScreen();
 
             yield return 0;
