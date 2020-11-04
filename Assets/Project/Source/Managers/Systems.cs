@@ -77,6 +77,7 @@ namespace Exa
         private IEnumerator Load() {
             // Allow the screen to be shown
             UI.wipScreen?.Init();
+            UI.loadingScreen.Init();
             UI.loadingScreen.ShowScreen();
             UI.root.gameObject.SetActive(false);
 

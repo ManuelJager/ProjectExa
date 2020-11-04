@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Exa.Generics;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,21 +24,21 @@ namespace Exa.UI
         [SerializeField] private bool forceDisplay = false;
 
         private bool loaded;
-        private float time;
+        private float timeActive;
         private bool shouldDisplay;
 
         private Tween foregroundAlphaTween;
         private Tween foregroundAnchoredPosTween;
         private Tween wipNoticeAnchoredPosTween;
 
-        private void Awake() {
+        public void Init() {
             shouldDisplay = GetShouldDisplay();
         }
 
         public void ShowScreen() {
             if (!shouldDisplay) return;
 
-            time = 0f;
+            timeActive = 0f;
             loaded = false;
 
             gameObject.SetActive(true);
@@ -79,10 +80,10 @@ namespace Exa.UI
         }
 
         private IEnumerator WaitForDeactivation() {
-            while (!loaded || time < 3f) {
-                var euler = new Vector3(0, 0, time * 360f % 360f);
+            while (!loaded || timeActive < 3f) {
+                var euler = new Vector3(0, 0, timeActive * 360f % 360f);
                 loadingCircle.rotation = Quaternion.Euler(euler);
-                time += Time.deltaTime;
+                timeActive += Time.deltaTime;
 
                 yield return null;
             }
