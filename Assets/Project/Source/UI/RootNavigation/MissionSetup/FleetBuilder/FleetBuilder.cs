@@ -35,6 +35,10 @@ namespace Exa.UI
             Validate();
         }
 
+        private void OnDisable() {
+            fleetView.Clear(5);
+        }
+
         public void Validate() {
             var validationResult = fleetValidator.Validate(Fleet);
             fleetValidation.Invoke(validationResult);

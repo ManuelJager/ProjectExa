@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DG.Tweening;
 using Exa.Data;
 using Exa.Grids.Blueprints;
@@ -58,6 +59,14 @@ namespace Exa.UI
 
             fleetChange.Invoke();
             SetSelected(blueprint, false);
+        }
+
+        public void Clear(int capacity) {
+            var blueprints = Fleet.Where(blueprint => blueprint != null);
+            foreach (var blueprint in blueprints)
+                SetSelected(blueprint, false);
+            Fleet = new Fleet(capacity);
+            UpdateUnitCountText();
         }
 
         private void AddMothership(BlueprintContainer blueprint) {
