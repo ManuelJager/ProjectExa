@@ -25,7 +25,7 @@ namespace Exa.Grids
 
         public float MaxSize {
             get {
-                var size = Size.Value;
+                Vector2Int size = Size;
                 return Mathf.Max(size.x, size.y);
             }
         }

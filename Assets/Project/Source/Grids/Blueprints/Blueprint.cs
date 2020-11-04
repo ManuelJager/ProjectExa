@@ -51,7 +51,7 @@ namespace Exa.Grids.Blueprints
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
             new TooltipText($"Name: {name}"),
             new TooltipText($"Class: {shipClass}"),
-            new TooltipText($"Size: {Blocks.Size.Value}"),
+            new TooltipText($"Size: {(Vector2Int)Blocks.Size}"),
             new TooltipText($"Blocks (Count: {Blocks.GetMemberCount()}):"),
             new TooltipGroup(Blocks.Totals.GetDebugTooltipComponents(), 1)
         };

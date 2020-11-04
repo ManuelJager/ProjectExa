@@ -35,7 +35,7 @@ namespace Exa.UI
             }
 
             nameText.text = blueprint.name;
-            var size = blueprint.Blocks.Size.Value;
+            Vector2Int size = blueprint.Blocks.Size;
 
             blockCountView.SetValue(blueprint.Blocks.GetMemberCount());
             sizeView.SetValue($"{size.x}x{size.y}");
