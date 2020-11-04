@@ -216,7 +216,7 @@ MonoBehaviour:
   textContainer: {fileID: 4965493822835441662}
   wordContainer: {fileID: 1876997361478163929}
   wordLayoutGroup: {fileID: 6591085969980849705}
-  forceShowScreen: 1
+  forceShowScreen: 0
   animSettings:
     textFadeEnter:
       delay: 0.5

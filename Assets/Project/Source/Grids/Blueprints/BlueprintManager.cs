@@ -54,6 +54,8 @@ namespace Exa.Grids.Blueprints
                 iterator++;
                 progress.Report((float) iterator / blueprintTotal);
             }
+
+            yield return null;
         }
 
         public Blueprint GetBlueprint(string name) {

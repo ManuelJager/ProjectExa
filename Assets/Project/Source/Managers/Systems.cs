@@ -86,13 +86,15 @@ namespace Exa
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value => {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)}% complete) ...";
-                UI.loadingScreen.ShowMessage(message);
+                UI.loadingScreen.UpdateMessage(message);
             })), targetFrameRate);
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.Init(new Progress<float>(value => {
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)}% complete) ...";
-                UI.loadingScreen.ShowMessage(message);
+                UI.loadingScreen.UpdateMessage(message);
             })), targetFrameRate);
+
+            yield return null;
 
             UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
             UI.root.missionSetup.fleetBuilder.Init(Blueprints.useableBlueprints);
@@ -100,7 +102,7 @@ namespace Exa
         }
 
         private void OnLoadException(Exception exception) {
-            UI.loadingScreen.HideScreen();
+            UI.loadingScreen.HideScreen("Error");
             UnityEngine.Debug.LogWarning(exception);
             UI.logger.Log($"An error has occurred while loading.\n {exception.Message}");
         }

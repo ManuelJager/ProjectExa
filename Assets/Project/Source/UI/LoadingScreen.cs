@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using DG.Tweening;
+using Exa.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 #pragma warning disable CS0649
@@ -7,33 +10,100 @@ namespace Exa.UI
 {
     public class LoadingScreen : MonoBehaviour
     {
-        [SerializeField] private RectTransform imageTransform;
+        [Header("References")]
+        [SerializeField] private GameObject background;
+        [SerializeField] private RectTransform foreground;
+        [SerializeField] private CanvasGroup foregroundGroup;
+        [SerializeField] private RectTransform loadingCircle;
+        [SerializeField] private RectTransform wipNotice;
+        [SerializeField] private CanvasGroup wipNoticeGroup;
         [SerializeField] private Text loadingMessage;
+
         private bool loaded;
         private float time;
 
-        private void Update() {
-            if (!loaded) {
-                var euler = new Vector3(0, 0, time * 360f % 360f);
-                imageTransform.rotation = Quaternion.Euler(euler);
-                time += Time.deltaTime;
-            }
-        }
+        private Tween foregroundAlphaTween;
+        private Tween foregroundAnchoredPosTween;
+        private Tween wipNoticeAnchoredPosTween;
 
         public void ShowScreen() {
             time = 0f;
             loaded = false;
+
             gameObject.SetActive(true);
+            background.SetActive(true);
+            loadingCircle.gameObject.SetActive(true);
+
+            foregroundAnchoredPosTween = SlowSlide(foreground);
+
+            wipNoticeGroup.alpha = 0f;
+            this.Delay(() => {
+                wipNoticeGroup.DOFade(1f, 1f);
+                SlideIn(wipNotice)
+                    .OnComplete(() => wipNoticeAnchoredPosTween = SlowSlide(wipNotice));
+            }, 0.5f);
+
+            foregroundGroup.alpha = 0;
+            foregroundAlphaTween = foregroundGroup.DOFade(1f, 1f);
+
+            StartCoroutine(WaitForDeactivation());
         }
 
-        public void ShowMessage(string message) {
+        public void UpdateMessage(string message) {
             loadingMessage.gameObject.SetActive(message != "");
             loadingMessage.text = message;
         }
 
         public void HideScreen() {
+            HideScreen("Done");
+        }
+
+        public void HideScreen(string message) {
             loaded = true;
-            gameObject.SetActive(false);
+            loadingMessage.text = message;
+            loadingCircle.gameObject.SetActive(false);
+        }
+
+        private IEnumerator WaitForDeactivation() {
+            while (!loaded || time < 3f) {
+                var euler = new Vector3(0, 0, time * 360f % 360f);
+                loadingCircle.rotation = Quaternion.Euler(euler);
+                time += Time.deltaTime;
+
+                yield return null;
+            }
+
+            wipNoticeGroup.DOFade(0f, 1f);
+            wipNoticeAnchoredPosTween?.Kill();
+            SlideOut(wipNotice);
+
+            background.SetActive(false);
+
+            foregroundAnchoredPosTween = SlideOut(foreground);
+            foregroundAlphaTween = foregroundGroup.DOFade(0f, 1f);
+            this.Delay(() => {
+                foregroundAnchoredPosTween?.Kill();
+                foregroundAlphaTween?.Kill();
+                gameObject.SetActive(false);
+            }, 1f);
+        }
+
+        private Tween SlideIn(RectTransform target) {
+            gameObject.SetActive(true);
+            target.anchoredPosition = new Vector2(50, 0);
+            return target.DOAnchorPos(new Vector2(0, 0), 1f)
+                .SetEase(Ease.OutSine);
+        }
+
+        private Tween SlideOut(RectTransform target) {
+            var targetPos = target.anchoredPosition - new Vector2(50, 0);
+            return target.DOAnchorPos(targetPos, 1f)
+                .SetEase(Ease.InSine);
+        }
+
+        private Tween SlowSlide(RectTransform target) {
+            return target.DOAnchorPos(new Vector2(-80, 0), 10f)
+                .SetEase(Ease.Linear);
         }
     }
 }

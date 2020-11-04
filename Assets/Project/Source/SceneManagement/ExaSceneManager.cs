@@ -79,7 +79,7 @@ namespace Exa.SceneManagement
 
         private IEnumerator ReportOperation(AsyncOperation operation) {
             while (true) {
-                loadingScreen.ShowMessage(
+                loadingScreen.UpdateMessage(
                     $"Loading scene ({Mathf.RoundToInt(operation.progress * 100)}% complete) ...");
 
                 if (operation.isDone)

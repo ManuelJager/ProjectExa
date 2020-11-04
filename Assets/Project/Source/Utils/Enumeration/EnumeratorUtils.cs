@@ -43,7 +43,7 @@ namespace Exa.Utils
 
             while (enumerator.MoveNext())
                 if (Time.realtimeSinceStartup > timeStamp + maxTimeDelta) {
-                    yield return new WaitForEndOfFrame();
+                    yield return null;
                     timeStamp = Time.realtimeSinceStartup;
                 }
         }
