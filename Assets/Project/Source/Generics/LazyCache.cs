@@ -36,5 +36,12 @@ namespace Exa.Generics
         public void Invalidate() {
             valueUpdated = false;
         }
+
+        public static implicit operator T(LazyCache<T> cache) {
+            if (cache == null)
+                throw new ArgumentNullException(nameof(cache));
+
+            return cache.Value;
+        }
     }
 }
