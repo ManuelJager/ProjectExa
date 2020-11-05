@@ -18,7 +18,7 @@ namespace Exa.Weapons
 
         public void Fire(float damage) {
             // TODO: Pool projectiles
-            var projectile = Instantiate(projectilePrefab, GameSystems.SpawnLayer.ships).GetComponent<Projectile>();
+            var projectile = Instantiate(projectilePrefab, GameSystems.SpawnLayer.projectiles).GetComponent<Projectile>();
             projectile.Setup(spawnPoint, 80f, 250f, damage, damageMask);
         }
     }
