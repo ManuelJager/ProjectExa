@@ -33,7 +33,7 @@ namespace Exa.Weapons
             }
         }
 
-        public void OnColliderEnter2D(Collider2D collider) {
+        public void OnTriggerEnter2D(Collider2D collider) {
             var block = collider.transform.GetComponent<Block>();
             if (!block) return;
 
