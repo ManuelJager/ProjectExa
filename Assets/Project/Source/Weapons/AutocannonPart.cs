@@ -42,8 +42,8 @@ namespace Exa.Weapons
             light2D.intensity = peakIntensity;
             DOTween.To(() => light2D.intensity, value => light2D.intensity = value, 0, 0.1f);
 
-            this.Delay(SetCyclingDrumSprite, animTime * 0.25f);
-            this.Delay(SetNormalDrumSprite, animTime * 0.5f);
+            this.DelayLocally(SetCyclingDrumSprite, animTime * 0.25f);
+            this.DelayLocally(SetNormalDrumSprite, animTime * 0.5f);
         }
 
         private void SetCyclingDrumSprite() {
