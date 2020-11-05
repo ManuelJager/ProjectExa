@@ -8,6 +8,7 @@ using Exa.UI;
 using Exa.Utils;
 using System;
 using System.Collections;
+using Exa.Audio.Music;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,6 +31,7 @@ namespace Exa
         [SerializeField] private ExaSceneManager sceneManager;
         [SerializeField] private LoggerInterceptor logger;
         [SerializeField] private MainUI mainUI;
+        [SerializeField] private AtmosphereTrigger atmosphereTrigger;
 
         [Header("Settings")] 
         [SerializeField] private bool godModeIsEnabled = false;
@@ -84,6 +86,10 @@ namespace Exa
             yield return 0;
 
             UI.root.settings.Load();
+
+            // Play music only after settings have been loaded
+            atmosphereTrigger.Trigger();
+
             var targetFrameRate = UI.root.settings.videoSettings.settings.Values.resolution.refreshRate;
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value => {
