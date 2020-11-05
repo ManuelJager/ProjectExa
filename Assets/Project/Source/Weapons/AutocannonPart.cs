@@ -40,7 +40,7 @@ namespace Exa.Weapons
             firingPoint.Fire(damage);
 
             light2D.intensity = peakIntensity;
-            DOTween.To(() => light2D.intensity, value => light2D.intensity = value, 0, 0.1f);
+            light2D.DOIntensity(0, 0.1f);
 
             this.DelayLocally(SetCyclingDrumSprite, animTime * 0.25f);
             this.DelayLocally(SetNormalDrumSprite, animTime * 0.5f);

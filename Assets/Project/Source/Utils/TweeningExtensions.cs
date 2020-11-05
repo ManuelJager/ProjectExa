@@ -2,6 +2,7 @@
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace Exa.Utils
@@ -73,6 +74,17 @@ namespace Exa.Utils
             float endValue, float duration) {
             return DOTween
                 .To(() => target.spacing, x => target.spacing = x, endValue, duration)
+                .SetTarget(target);
+        }
+
+        #endregion
+
+        #region Lights
+
+        public static TweenerCore<float, float, FloatOptions> DOIntensity(this Light2D target, 
+            float value, float time) {
+            return DOTween
+                .To(() => target.intensity, x => target.intensity = x, value, time)
                 .SetTarget(target);
         }
 
