@@ -21,6 +21,7 @@ namespace Exa
         [SerializeField] private ShipFactory shipFactory;
         [SerializeField] private GameplayUI gameplayUI;
         [SerializeField] private AIManager aIManager;
+        [SerializeField] private SpawnLayer spawnLayer;
 
         public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
         public static CameraController CameraController => Instance.cameraController;
@@ -29,6 +30,7 @@ namespace Exa
         public static ShipFactory ShipFactory => Instance.shipFactory;
         public static GameplayUI UI => Instance.gameplayUI;
         public static AIManager AI => Instance.aIManager;
+        public static SpawnLayer SpawnLayer => Instance.spawnLayer;
 
         public Mission Mission { get; private set; }
 

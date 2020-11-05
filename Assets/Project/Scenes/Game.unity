@@ -239,6 +239,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1979375273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979375274}
+  m_Layer: 0
+  m_Name: Projectiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979375274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979375273}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2101903110
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2101903111}
+  - component: {fileID: 2101903112}
   m_Layer: 0
   m_Name: Ships
   m_TagString: Untagged
@@ -269,6 +300,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2101903112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101903110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40bcd5a6fb36f8443b4ca9f352fbc92d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friendlyShipPrefab: {fileID: 6183172587043395867, guid: 3aea6e1a07124344f96c6f74c03a53bb,
+    type: 3}
+  enemyShipPrefab: {fileID: 4004696302299950471, guid: 44ca71e0f5f540246803bc24780a9d64,
+    type: 3}
+  shipOverlayPrefab: {fileID: 7302444608995301460, guid: 46737a4d95a0b474095ba4e71ce3f16a,
+    type: 3}
+  shipContainer: {fileID: 2101903111}
+  overlayContainer: {fileID: 1813677412}
 --- !u!1001 &3971752619075410487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -301,6 +352,11 @@ PrefabInstance:
       propertyPath: navigateable
       value: 
       objectReference: {fileID: 4757615413908949389}
+    - target: {fileID: 3971752618548431353, guid: 5b47039535f26ce4a84ca29216ae1814,
+        type: 3}
+      propertyPath: shipFactory
+      value: 
+      objectReference: {fileID: 2101903112}
     - target: {fileID: 3971752618548431354, guid: 5b47039535f26ce4a84ca29216ae1814,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -361,8 +417,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: MissionManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4286009776099489547, guid: 5b47039535f26ce4a84ca29216ae1814,
+        type: 3}
+      propertyPath: projectiles
+      value: 
+      objectReference: {fileID: 1979375274}
+    - target: {fileID: 4286009776099489547, guid: 5b47039535f26ce4a84ca29216ae1814,
+        type: 3}
+      propertyPath: ships
+      value: 
+      objectReference: {fileID: 2101903111}
     m_RemovedComponents:
     - {fileID: 3971752618548431352, guid: 5b47039535f26ce4a84ca29216ae1814, type: 3}
+    - {fileID: -5148195961969832546, guid: 5b47039535f26ce4a84ca29216ae1814, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5b47039535f26ce4a84ca29216ae1814, type: 3}
 --- !u!114 &3971752619075410488 stripped
 MonoBehaviour:
