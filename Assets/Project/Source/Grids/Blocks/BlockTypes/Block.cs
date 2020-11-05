@@ -27,6 +27,8 @@ namespace Exa.Grids.Blocks.BlockTypes
             get => physicalBehaviour;
         }
 
+        public PhysicalBehaviour PhysicalBehaviour => physicalBehaviour;
+
         public Ship Ship {
             get => ship;
             set {
@@ -53,6 +55,23 @@ namespace Exa.Grids.Blocks.BlockTypes
 
             ship.BlockGrid.Remove(GridAnchor);
             Ship = null;
+        }
+
+        public TComponent GetBlockComponent<TComponent, TValues>()
+            where TComponent : BlockBehaviour<TValues>
+            where TValues : struct, IBlockComponentValues {
+            if (this is IBehaviourMarker<TValues> behaviourMarker && behaviourMarker.Component is TComponent behaviour) {
+                return behaviour;
+            }
+
+            return null;
+        }
+
+        public bool TryGetBlockComponent<TComponent, TValues>(out TComponent value)
+            where TComponent : BlockBehaviour<TValues>
+            where TValues : struct, IBlockComponentValues {
+            value = GetBlockComponent<TComponent, TValues>();
+            return value != null;
         }
 
         public void AddGridTotals(GridTotals totals) {
