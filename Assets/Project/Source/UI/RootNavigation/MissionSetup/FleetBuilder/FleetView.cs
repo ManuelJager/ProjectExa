@@ -36,7 +36,7 @@ namespace Exa.UI
         }
 
         public void Toggle(BlueprintContainer blueprint) {
-            if (viewFactory(blueprint).Selected)
+            if (Fleet.Contains(blueprint))
                 Remove(blueprint);
             else
                 Insert(blueprint);

@@ -184,7 +184,7 @@ MonoBehaviour:
   wipNotice: {fileID: 3611500890438240634}
   wipNoticeGroup: {fileID: 805018347584677204}
   loadingMessage: {fileID: 4440872499982489621}
-  forceDisplay: 1
+  forceDisplay: 0
 --- !u!114 &2300340450880582600
 MonoBehaviour:
   m_ObjectHideFlags: 0

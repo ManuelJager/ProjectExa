@@ -12,16 +12,15 @@ namespace Exa.Ships
         [SerializeField] private GameObject friendlyShipPrefab;
         [SerializeField] private GameObject enemyShipPrefab;
         [SerializeField] private GameObject shipOverlayPrefab;
-        [SerializeField] private Transform shipContainer;
         [SerializeField] private Transform overlayContainer;
 
         public FriendlyShip CreateFriendly(Blueprint blueprint, Vector2 worldPos) {
-            var shipGo = Instantiate(friendlyShipPrefab, shipContainer);
+            var shipGo = Instantiate(friendlyShipPrefab, GameSystems.SpawnLayer.ships);
             return Configure<FriendlyShip>(shipGo, worldPos, blueprint, ShipContext.UserGroup);
         }
 
         public EnemyShip CreateEnemy(Blueprint blueprint, Vector2 worldPos) {
-            var shipGo = Instantiate(enemyShipPrefab, shipContainer);
+            var shipGo = Instantiate(enemyShipPrefab, GameSystems.SpawnLayer.ships);
             return Configure<EnemyShip>(shipGo, worldPos, blueprint, ShipContext.EnemyGroup);
         }
 

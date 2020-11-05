@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3971752618548431354}
   - component: {fileID: 3971752618548431353}
   - component: {fileID: 3971752618548431335}
-  - component: {fileID: -5148195961969832546}
   - component: {fileID: 1150010444763719143}
   - component: {fileID: 8802424649209492626}
+  - component: {fileID: 4286009776099489547}
   m_Layer: 0
   m_Name: GameSystems
   m_TagString: Untagged
@@ -52,9 +52,10 @@ MonoBehaviour:
   cameraController: {fileID: 8802424649209492626}
   raycaster: {fileID: 1556863573202206212}
   navigateable: {fileID: 0}
-  shipFactory: {fileID: -5148195961969832546}
+  shipFactory: {fileID: 0}
   gameplayUI: {fileID: 0}
   aIManager: {fileID: 0}
+  spawnLayer: {fileID: 4286009776099489547}
 --- !u!114 &3971752618548431335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,26 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f44cf94082cf041bfb5bb402f2d68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5148195961969832546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3971752618548431355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40bcd5a6fb36f8443b4ca9f352fbc92d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  friendlyShipPrefab: {fileID: 6183172587043395867, guid: 3aea6e1a07124344f96c6f74c03a53bb,
-    type: 3}
-  enemyShipPrefab: {fileID: 4004696302299950471, guid: 44ca71e0f5f540246803bc24780a9d64,
-    type: 3}
-  shipOverlayPrefab: {fileID: 7302444608995301460, guid: 46737a4d95a0b474095ba4e71ce3f16a,
-    type: 3}
-  shipContainer: {fileID: 0}
-  overlayContainer: {fileID: 0}
 --- !u!114 &1150010444763719143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +104,20 @@ MonoBehaviour:
       max: 2.5
     zoomSpeed: 0.3
     orthoMultiplier: 30
+--- !u!114 &4286009776099489547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971752618548431355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b7490757e9d9f49b6adbcdc1d796f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectiles: {fileID: 0}
+  ships: {fileID: 0}
 --- !u!1 &6801628535618871680
 GameObject:
   m_ObjectHideFlags: 0

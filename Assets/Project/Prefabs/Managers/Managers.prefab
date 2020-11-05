@@ -62,7 +62,9 @@ MonoBehaviour:
   sceneManager: {fileID: 5676475580568291457}
   logger: {fileID: 5676475580568291462}
   mainUI: {fileID: 0}
+  atmosphereTrigger: {fileID: 0}
   godModeIsEnabled: 0
+  loadSafe: 1
 --- !u!114 &5676475580568291462
 MonoBehaviour:
   m_ObjectHideFlags: 0
