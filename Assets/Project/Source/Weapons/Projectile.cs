@@ -33,12 +33,13 @@ namespace Exa.Weapons
             }
         }
 
-        public void OnTriggerEnter2D(Collider2D collider) {
-            var block = collider.transform.GetComponent<Block>();
+        public void OnCollisionEnter2D(Collision2D collision) {
+            var block = collision.transform.GetComponent<Block>();
             if (!block) return;
 
             if ((block.Ship.BlockContext & damageMask) != 0) {
-                block.PhysicalBehaviour.TakeDamage(damage);
+                var physicalBehaviour = (block as IBehaviourMarker<PhysicalData>).Component as PhysicalBehaviour;
+                physicalBehaviour.TakeDamage(damage);
             }
         }
     }
