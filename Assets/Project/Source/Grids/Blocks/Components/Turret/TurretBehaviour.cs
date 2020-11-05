@@ -14,10 +14,14 @@ namespace Exa.Grids.Blocks.Components
 
         private float timeSinceFire;
 
-        public ITarget Target { get; set; }
+        public IWeaponTarget Target { get; set; }
 
         public void Update() {
             timeSinceFire += Time.deltaTime;
+
+            if (!Target?.GetTargetValid() ?? false) {
+                Target = null;
+            }
 
             if (Target == null) {
                 var shipAngle = ship.transform.right.ToVector2().GetAngle();

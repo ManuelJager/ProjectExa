@@ -40,6 +40,10 @@ namespace Exa.Ships
 
         private ShipOverlay CreateOverlay(Ship ship) {
             var overlayGo = Instantiate(shipOverlayPrefab, overlayContainer);
+            ship.destroyEvent.AddListener(() => {
+                Destroy(overlayGo);
+            });
+
             var overlay = overlayGo.GetComponent<ShipOverlay>();
             overlay.ship = ship;
             ship.overlay = overlay;

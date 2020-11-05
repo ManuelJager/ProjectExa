@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.GameObject;
 
 #pragma warning disable CS0649
 
@@ -64,6 +65,12 @@ namespace Exa.Ships
 
         private void LateUpdate() {
             UpdateCentreOfMassPivot(true);
+        }
+
+        // TODO: Make this look nicer by breaking up the ship and adding an explosion
+        public virtual void Destroy() {
+            destroyEvent?.Invoke();
+            Destroy(gameObject);
         }
 
         public virtual void Import(Blueprint blueprint, ShipContext shipContext) {

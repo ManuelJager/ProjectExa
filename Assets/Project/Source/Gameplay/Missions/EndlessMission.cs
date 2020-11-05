@@ -9,7 +9,7 @@ namespace Exa.Gameplay.Missions
         public override void Init(MissionArgs args) {
             SpawnMothership(args.fleet.mothership.Data);
             SpawnFriendly("defaultScout", 20, 20);
-            SpawnEnemy("defaultScout", 20, 20);
+            SpawnEnemy("defaultScout", 30, 20);
         }
     }
 }

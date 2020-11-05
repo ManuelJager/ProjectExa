@@ -2,7 +2,7 @@
 
 namespace Exa.Ships.Targeting
 {
-    public readonly struct ShipTarget : ITarget
+    public readonly struct ShipTarget : IWeaponTarget
     {
         private readonly Ship ship;
 
@@ -12,6 +12,10 @@ namespace Exa.Ships.Targeting
 
         public Vector2 GetPosition(Vector2 current) {
             return ship.Controller.transform.position;
+        }
+
+        public bool GetTargetValid() {
+            return ship != null;
         }
     }
 }

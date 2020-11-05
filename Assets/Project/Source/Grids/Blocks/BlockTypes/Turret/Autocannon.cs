@@ -20,7 +20,7 @@ namespace Exa.Grids.Blocks.BlockTypes
                 .Append(turretBehaviour);
         }
 
-        public void SetTarget(ITarget target) {
+        public void SetTarget(IWeaponTarget target) {
             turretBehaviour.Target = target;
         }
 
