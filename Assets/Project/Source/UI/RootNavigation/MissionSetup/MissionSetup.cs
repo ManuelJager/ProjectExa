@@ -18,10 +18,11 @@ namespace Exa.UI
                 reportProgress = true
             });
 
+            var fleet = fleetBuilder.Fleet;
             transition.onPrepared.AddListener(() => {
                 Systems.UI.root.navigateable.NavigateTo(GameSystems.Navigateable);
                 GameSystems.Instance.LoadMission(options.SelectedMission, new MissionArgs {
-                    fleet = fleetBuilder.Fleet
+                    fleet = fleet
                 });
             });
         }
