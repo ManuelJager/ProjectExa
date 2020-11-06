@@ -17,7 +17,7 @@ MonoBehaviour:
   shipAi: {fileID: 2469817130048324869}
   state: {fileID: 6132491278611923504}
   rb: {fileID: 8204439809409374891}
-  mouseOverCollider: {fileID: 8348579343947322186}
+  mouseOverCollider: {fileID: 8066326369922599270}
   navigationOptions: {fileID: 1658731707252705402}
   cursorOverride:
     value: 0
@@ -158,9 +158,9 @@ Rigidbody2D:
     type: 3}
   m_PrefabInstance: {fileID: 3308525384566981925}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &8348579343947322186 stripped
+--- !u!58 &8066326369922599270 stripped
 CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 6788651837707687535, guid: c338b1f640f93a541a625245831a6e85,
+  m_CorrespondingSourceObject: {fileID: 4763514651900120131, guid: c338b1f640f93a541a625245831a6e85,
     type: 3}
   m_PrefabInstance: {fileID: 3308525384566981925}
   m_PrefabAsset: {fileID: 0}
