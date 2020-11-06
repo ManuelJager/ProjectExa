@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
+using Exa.Ships;
 
 namespace Exa.Grids.Blocks
 {
@@ -14,6 +15,9 @@ namespace Exa.Grids.Blocks
         public void CreateAlivePrefabGroup(BlockTemplate blockTemplate, ShipContext blockContext) {
             var rootInstanceGO = CreatePrefab(blockTemplate, PrefabType);
             var rootInstance = rootInstanceGO.GetComponent<Block>();
+
+            var blockCollider = rootInstanceGO.GetComponentInChildren<BlockCollider>();
+            blockCollider.Block = rootInstance;
 
             foreach (var component in rootInstance.GetBehaviours()) {
                 component.block = rootInstance;

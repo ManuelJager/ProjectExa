@@ -2,6 +2,7 @@
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Math;
+using Exa.Ships;
 using UnityEngine;
 
 namespace Exa.Weapons
@@ -34,9 +35,10 @@ namespace Exa.Weapons
         }
 
         public void OnTriggerEnter2D(Collider2D collider) {
-            var block = collider.transform.GetComponent<Block>();
-            if (!block) return;
+            var blockCollider = collider.transform.GetComponent<BlockCollider>();
+            if (!blockCollider) return;
 
+            var block = blockCollider.Block;
             if ((block.Ship.BlockContext & damageMask) != 0) {
                 block.PhysicalBehaviour.TakeDamage(damage);
             }
