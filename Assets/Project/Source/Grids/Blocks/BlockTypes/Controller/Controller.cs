@@ -19,12 +19,16 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         protected override void OnAdd() {
-            Ship.Controller = this;
+            if (BlockGrid.Ship == null) return;
+
+            BlockGrid.Ship.Controller = this;
         }
 
         protected override void OnRemove() {
-            Ship.Destroy();
-            Ship.Controller = null;
+            if (BlockGrid.Ship == null) return;
+
+            BlockGrid.Ship.Destroy();
+            BlockGrid.Ship.Controller = null;
         }
     }
 }

@@ -16,15 +16,15 @@ namespace Exa.Ships
 
         public FriendlyShip CreateFriendly(Blueprint blueprint, Vector2 worldPos) {
             var shipGo = Instantiate(friendlyShipPrefab, GameSystems.SpawnLayer.ships);
-            return Configure<FriendlyShip>(shipGo, worldPos, blueprint, ShipContext.UserGroup);
+            return Configure<FriendlyShip>(shipGo, worldPos, blueprint, BlockContext.UserGroup);
         }
 
         public EnemyShip CreateEnemy(Blueprint blueprint, Vector2 worldPos) {
             var shipGo = Instantiate(enemyShipPrefab, GameSystems.SpawnLayer.ships);
-            return Configure<EnemyShip>(shipGo, worldPos, blueprint, ShipContext.EnemyGroup);
+            return Configure<EnemyShip>(shipGo, worldPos, blueprint, BlockContext.EnemyGroup);
         }
 
-        private T Configure<T>(GameObject shipGo, Vector2 worldPos, Blueprint blueprint, ShipContext blockContext)
+        private T Configure<T>(GameObject shipGo, Vector2 worldPos, Blueprint blueprint, BlockContext blockContext)
             where T : Ship {
             shipGo.transform.position = worldPos;
             var ship = shipGo.GetComponent<T>();

@@ -5,7 +5,7 @@ namespace Exa.Grids.Blocks
 {
     public class BlockPool : Pool<BlockPoolMember>
     {
-        public ShipContext blockContext;
+        public BlockContext blockContext;
         public BlockTemplate blockTemplate;
 
         public override BlockPoolMember Retrieve() {

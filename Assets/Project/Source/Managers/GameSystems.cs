@@ -22,6 +22,7 @@ namespace Exa
         [SerializeField] private GameplayUI gameplayUI;
         [SerializeField] private AIManager aIManager;
         [SerializeField] private SpawnLayer spawnLayer;
+        [SerializeField] private BlockGridManager blockGridManager;
 
         public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
         public static CameraController CameraController => Instance.cameraController;
@@ -31,6 +32,7 @@ namespace Exa
         public static GameplayUI UI => Instance.gameplayUI;
         public static AIManager AI => Instance.aIManager;
         public static SpawnLayer SpawnLayer => Instance.spawnLayer;
+        public static BlockGridManager BlockGridManager => Instance.blockGridManager;
 
         public Mission Mission { get; private set; }
 

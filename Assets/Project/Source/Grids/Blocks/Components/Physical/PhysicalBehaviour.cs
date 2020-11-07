@@ -24,12 +24,12 @@ namespace Exa.Grids.Blocks.Components
 
         protected override void OnAdd() {
             var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-            Ship.BlockGrid.CentreOfMass.Add(localPos, data.mass);
+            BlockGrid.CentreOfMass.Add(localPos, data.mass);
         }
 
         protected override void OnRemove() {
             var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-            Ship.BlockGrid.CentreOfMass.Remove(localPos);
+            BlockGrid.CentreOfMass.Remove(localPos);
         }
     }
 }

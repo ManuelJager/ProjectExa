@@ -8,20 +8,20 @@ namespace Exa.Grids.Blocks.Components
         where T : struct, IBlockComponentValues
     {
         protected T data;
-        protected Ship ship;
+        protected BlockGrid blockGrid;
 
-        public override Ship Ship {
-            get => ship;
+        public override BlockGrid BlockGrid {
+            get => blockGrid;
             set {
-                if (ship == value) return;
+                if (blockGrid == value) return;
 
-                if (ship != null) {
+                if (blockGrid != null) {
                     OnRemove();
                 }
 
-                ship = value;
+                blockGrid = value;
 
-                if (ship != null) {
+                if (blockGrid != null) {
                     OnAdd();
                 }
             }
@@ -43,7 +43,7 @@ namespace Exa.Grids.Blocks.Components
     {
         [HideInInspector] public Block block;
 
-        public abstract Ship Ship { get; set; }
+        public abstract BlockGrid BlockGrid { get; set; }
 
         public abstract IBlockComponentValues BlockComponentData { get; }
     }

@@ -41,13 +41,14 @@ namespace Exa.Ships
         public UnityEvent destroyEvent = new UnityEvent();
 
         public ActionScheduler ActionScheduler { get; private set; }
-        public ShipContext BlockContext { get; private set; }
+        public BlockContext BlockContext { get; private set; }
         public BlockGrid BlockGrid { get; private set; }
         public Blueprint Blueprint { get; private set; }
         public Controller Controller { get; internal set; }
         public INavigation Navigation { get; private set; }
         public ShipGridTotals Totals { get; private set; }
         public TurretList Turrets { get; private set; }
+        public bool Active { get; private set; }
 
         protected virtual void Awake() {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
@@ -70,24 +71,25 @@ namespace Exa.Ships
         // TODO: Make this look nicer by breaking up the ship and adding an explosion
         public virtual void Destroy() {
             destroyEvent?.Invoke();
-            Destroy(gameObject);
+            Active = false;
         }
 
-        public virtual void Import(Blueprint blueprint, ShipContext shipContext) {
+        public virtual void Import(Blueprint blueprint, BlockContext blockContext) {
             if (blueprint.Blocks.Controller == null) {
                 throw new ArgumentException("Blueprint must have a controller reference");
             }
 
             Totals = new ShipGridTotals(this);
-            BlockGrid = new BlockGrid(pivot, this);
+            BlockGrid = new BlockGrid(pivot, this, blockContext);
             ActionScheduler = new ActionScheduler(this);
             Turrets = new TurretList();
-            BlockContext = shipContext;
+            Active = true;
+            BlockContext = blockContext;
 
             var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
             mouseOverCollider.radius = radius;
             Navigation = navigationOptions.GetNavigation(this, blueprint);
-            BlockGrid.Import(blueprint, shipContext);
+            BlockGrid.Import(blueprint, blockContext);
             Blueprint = blueprint;
 
             UpdateCanvasSize(blueprint);

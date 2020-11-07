@@ -16,31 +16,46 @@ namespace Exa.Ships
 
         public CentreOfMassCache CentreOfMass { get; protected set; }
 
-        public BlockGrid(Transform container, Ship ship)
-            : base(totals: ship.Totals) {
+        public bool Rebuilding { get; set; }
+        public BlockContext BlockContext { get; }
+
+        public Ship Ship => ship;
+
+        public BlockGrid(Transform container, Ship ship, BlockContext blockContext)
+            : base(totals: ship?.Totals) {
             this.container = container;
             this.ship = ship;
             CentreOfMass = new CentreOfMassCache();
+            BlockContext = blockContext;
         }
 
         public override void Add(Block gridMember) {
-            var isController = gridMember.BlueprintBlock.Template.category.Is(BlockCategory.Controller);
-            if (isController && Controller != null) {
+            if (gridMember.GetIsController() && Controller != null) {
                 throw new DuplicateControllerException(gridMember.GridAnchor);
             }
 
             base.Add(gridMember);
         }
 
-        internal void Import(Blueprint blueprint, ShipContext blockContext) {
+        public override Block Remove(Vector2Int key) {
+            var block = base.Remove(key);
+
+            // Only mark this grid as dirty if it's not in the process of being rebuilt
+            if (!Rebuilding)
+                GameSystems.BlockGridManager.MarkDirty(this);
+
+            return block;
+        }
+
+        internal void Import(Blueprint blueprint, BlockContext blockContext) {
             foreach (var anchoredBlueprintBlock in blueprint.Blocks) {
                 Add(CreateBlock(anchoredBlueprintBlock, blockContext));
             }
         }
 
-        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock, ShipContext blockContext) {
+        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock, BlockContext blockContext) {
             var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(container, blockContext);
-            block.Ship = ship;
+            block.BlockGrid = this;
             block.gameObject.SetActive(true);
             return block;
         }

@@ -279,8 +279,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2101903111}
   - component: {fileID: 2101903112}
+  - component: {fileID: 2101903113}
   m_Layer: 0
-  m_Name: Ships
+  m_Name: Clusters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,6 +320,20 @@ MonoBehaviour:
   shipOverlayPrefab: {fileID: 7302444608995301460, guid: 46737a4d95a0b474095ba4e71ce3f16a,
     type: 3}
   overlayContainer: {fileID: 1813677412}
+--- !u!114 &2101903113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101903110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba3555f33d12f2e43aae3eed5b06b37d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debrisGridPrefab: {fileID: 4945679383221027916, guid: ad007978fbf54ca4391efa9b0bac2352,
+    type: 3}
 --- !u!1001 &3971752619075410487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -356,6 +371,11 @@ PrefabInstance:
       propertyPath: shipFactory
       value: 
       objectReference: {fileID: 2101903112}
+    - target: {fileID: 3971752618548431353, guid: 5b47039535f26ce4a84ca29216ae1814,
+        type: 3}
+      propertyPath: blockGridManager
+      value: 
+      objectReference: {fileID: 2101903113}
     - target: {fileID: 3971752618548431354, guid: 5b47039535f26ce4a84ca29216ae1814,
         type: 3}
       propertyPath: m_LocalPosition.x

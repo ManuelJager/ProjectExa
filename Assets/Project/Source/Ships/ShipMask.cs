@@ -5,11 +5,11 @@ namespace Exa.Ships
     public readonly struct ShipMask
     {
         public int LayerMask { get; }
-        public ShipContext ContextMask { get; }
+        public BlockContext ContextMask { get; }
 
-        public ShipMask(ShipContext shipContext) {
+        public ShipMask(BlockContext blockContext) {
             LayerMask = UnityEngine.LayerMask.GetMask("unit");
-            ContextMask = shipContext;
+            ContextMask = blockContext;
         }
     }
 }

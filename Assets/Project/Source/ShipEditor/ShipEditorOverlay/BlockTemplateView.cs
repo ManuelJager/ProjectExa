@@ -30,7 +30,7 @@ namespace Exa.ShipEditor
 
         private void Awake() {
             hoverable.onPointerEnter.AddListener(() => {
-                Systems.UI.tooltips.blockTemplateTooltip.Show(ShipContext.DefaultGroup, data);
+                Systems.UI.tooltips.blockTemplateTooltip.Show(BlockContext.DefaultGroup, data);
             });
             hoverable.onPointerExit.AddListener(() => { Systems.UI.tooltips.blockTemplateTooltip.Hide(); });
         }

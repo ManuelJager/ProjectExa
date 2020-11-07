@@ -17,6 +17,8 @@ namespace Exa.Grids.Blocks.Components
         public IWeaponTarget Target { get; set; }
 
         public void Update() {
+            if (blockGrid.Ship == null) return;
+
             timeSinceFire += Time.deltaTime;
 
             if (!Target?.GetTargetValid() ?? false) {
@@ -24,7 +26,7 @@ namespace Exa.Grids.Blocks.Components
             }
 
             if (Target == null) {
-                var shipAngle = ship.transform.right.ToVector2().GetAngle();
+                var shipAngle = blockGrid.Ship.transform.right.ToVector2().GetAngle();
                 RotateTowards(shipAngle);
                 return;
             }

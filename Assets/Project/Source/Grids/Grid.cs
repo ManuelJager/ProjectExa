@@ -10,7 +10,7 @@ using Exa.Utils;
 namespace Exa.Grids
 {
     public class Grid<T> : IEnumerable<T>
-        where T : IGridMember
+        where T : class, IGridMember
     {
         public LazyCache<Vector2Int> Size { get; protected set; }
 
@@ -51,8 +51,7 @@ namespace Exa.Grids
             Size.Invalidate();
 
             // Assign controller reference
-            var isController = gridMember.BlueprintBlock.Template.category.Is(BlockCategory.Controller);
-            if (isController && Controller == null) {
+            if (gridMember.GetIsController() && Controller == null) {
                 Controller = gridMember;
             }
 
@@ -106,6 +105,12 @@ namespace Exa.Grids
 
         public bool ContainsMember(Vector2Int gridPos) {
             return OccupiedTiles.ContainsKey(gridPos);
+        }
+
+        public bool TryGetMember(Vector2Int gridPos, out T member) {
+            var containsMember = ContainsMember(gridPos);
+            member = containsMember ? GetMember(gridPos) : null;
+            return containsMember;
         }
 
         public T GetMember(Vector2Int gridPos) {

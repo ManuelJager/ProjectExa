@@ -15,7 +15,7 @@ namespace Exa.Ships.Targeting
         }
 
         public bool GetTargetValid() {
-            return ship != null;
+            return ship != null && ship.Active;
         }
     }
 }

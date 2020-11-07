@@ -10,9 +10,9 @@ namespace Exa.Weapons
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private Transform spawnPoint;
 
-        private ShipContext damageMask;
+        private BlockContext damageMask;
 
-        public void Setup(ShipContext damageMask) {
+        public void Setup(BlockContext damageMask) {
             this.damageMask = damageMask;
         }
 

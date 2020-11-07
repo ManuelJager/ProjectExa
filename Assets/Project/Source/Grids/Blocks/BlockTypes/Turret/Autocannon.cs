@@ -25,11 +25,11 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         protected override void OnAdd() {
-            Ship.Turrets.Add(this);
+            BlockGrid.Ship?.Turrets.Add(this);
         }
 
         protected override void OnRemove() {
-            Ship.Turrets.Remove(this);
+            BlockGrid.Ship?.Turrets.Remove(this);
         }
     }
 }

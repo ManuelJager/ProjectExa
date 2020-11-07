@@ -27,7 +27,7 @@ namespace Exa.Weapons
             StopAllCoroutines();
         }
 
-        public void Setup(float animTime, ShipContext damageMask) {
+        public void Setup(float animTime, BlockContext damageMask) {
             this.animTime = animTime;
             barrelAnimator["BarrelAnimation"].speed = 1f / animTime;
             firingPoint.Setup(damageMask);

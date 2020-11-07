@@ -8,7 +8,7 @@ namespace Exa.Grids
     public static class GridUtils
     {
         public static IEnumerable<T> GetNeighbours<T>(this Grid<T> grid, IEnumerable<Vector2Int> tilePositions)
-            where T : IGridMember {
+            where T : class, IGridMember {
             // Get grid positions around block
             var bounds = new GridBounds(tilePositions);
             var neighbourPositions = bounds.GetAdjacentPositions();

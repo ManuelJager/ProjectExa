@@ -4,6 +4,7 @@ using Exa.Grids.Blueprints;
 using Unity.Entities;
 using UnityEngine;
 using System.Collections.Generic;
+using Exa.Utils;
 
 #pragma warning disable CS0649
 
@@ -17,7 +18,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         [HideInInspector] public AnchoredBlueprintBlock anchoredBlueprintBlock;
 
         [SerializeField] private PhysicalBehaviour physicalBehaviour;
-        private Ship ship;
+        private BlockGrid blockGrid;
 
         public Vector2Int GridAnchor => anchoredBlueprintBlock.gridAnchor;
 
@@ -29,23 +30,23 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public PhysicalBehaviour PhysicalBehaviour => physicalBehaviour;
 
-        public Ship Ship {
-            get => ship;
+        public BlockGrid BlockGrid {
+            get => blockGrid;
             set {
-                if (ship == value) return;
+                if (blockGrid == value) return;
 
-                if (ship != null && !Systems.IsQuitting) {
+                if (blockGrid != null && !Systems.IsQuitting) {
                     OnRemove();
                 }
 
-                ship = value;
+                blockGrid = value;
 
-                if (ship != null) {
+                if (blockGrid != null) {
                     OnAdd();
                 }
 
                 foreach (var behaviour in GetBehaviours()) {
-                    behaviour.Ship = value;
+                    behaviour.BlockGrid = value;
                 }
             }
         }
@@ -53,8 +54,8 @@ namespace Exa.Grids.Blocks.BlockTypes
         private void OnDisable() {
             if (Systems.IsQuitting) return;
 
-            ship.BlockGrid.Remove(GridAnchor);
-            Ship = null;
+            blockGrid.Remove(GridAnchor);
+            BlockGrid = null;
         }
 
         public TComponent GetBlockComponent<TComponent, TValues>()

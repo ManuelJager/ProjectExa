@@ -12,10 +12,10 @@ namespace Exa.Weapons
         private Vector2 direction;
         private float damage;
         private float lifeTime;
-        private ShipContext damageMask;
+        private BlockContext damageMask;
         private float timeAlive;
 
-        public void Setup(Transform transform, float speed, float range, float damage, ShipContext damageMask) {
+        public void Setup(Transform transform, float speed, float range, float damage, BlockContext damageMask) {
             this.transform.position = transform.position;
             this.damage = damage;
             this.direction = transform.right * speed;
@@ -39,7 +39,7 @@ namespace Exa.Weapons
             if (!blockCollider) return;
 
             var block = blockCollider.Block;
-            if ((block.Ship.BlockContext & damageMask) != 0) {
+            if ((block.BlockGrid.BlockContext & damageMask) != 0) {
                 block.PhysicalBehaviour.TakeDamage(damage);
             }
         }

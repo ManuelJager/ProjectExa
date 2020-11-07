@@ -14,12 +14,13 @@ namespace Exa.Grids.Blocks
     /// Enum used to identify to which group a block belongs
     /// </summary>
     [Flags]
-    public enum ShipContext : uint
+    public enum BlockContext : uint
     {
         None = 0,
         DefaultGroup = 1 << 0,
         UserGroup = 1 << 1,
         EnemyGroup = 1 << 2,
+        Debris = 1 << 3
     }
 
     public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer>
@@ -56,7 +57,7 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Block GetInactiveBlock(string id, Transform transform, ShipContext blockContext) {
+        public Block GetInactiveBlock(string id, Transform transform, BlockContext blockContext) {
             return GetGroup(blockContext)
                 .GetInactiveBlock(id, transform)
                 .GetComponent<Block>();
@@ -84,17 +85,17 @@ namespace Exa.Grids.Blocks
             }
         }
 
-        private AliveBlockPoolGroup GetGroup(ShipContext blockContext) {
-            return blockContext.Is(ShipContext.DefaultGroup) ? defaultPrefabGroup
-                : blockContext.Is(ShipContext.UserGroup) ? userPrefabGroup
-                : blockContext.Is(ShipContext.EnemyGroup) ? enemyPrefabGroup
+        private AliveBlockPoolGroup GetGroup(BlockContext blockContext) {
+            return blockContext.Is(BlockContext.DefaultGroup) ? defaultPrefabGroup
+                : blockContext.Is(BlockContext.UserGroup) ? userPrefabGroup
+                : blockContext.Is(BlockContext.EnemyGroup) ? enemyPrefabGroup
                 : null;
         }
 
-        private IEnumerable<ShipContext> GetContexts() {
-            yield return ShipContext.DefaultGroup;
-            yield return ShipContext.UserGroup;
-            yield return ShipContext.EnemyGroup;
+        private IEnumerable<BlockContext> GetContexts() {
+            yield return BlockContext.DefaultGroup;
+            yield return BlockContext.UserGroup;
+            yield return BlockContext.EnemyGroup;
         }
     }
 }

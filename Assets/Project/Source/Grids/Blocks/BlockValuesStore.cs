@@ -8,13 +8,13 @@ namespace Exa.Grids.Blocks
 {
     public class BlockValuesStore
     {
-        private readonly Dictionary<ShipContext, BundleDictionary> contextDict;
+        private readonly Dictionary<BlockContext, BundleDictionary> contextDict;
 
         public BlockValuesStore() {
-            contextDict = new Dictionary<ShipContext, BundleDictionary>();
+            contextDict = new Dictionary<BlockContext, BundleDictionary>();
         }
 
-        public void Register(ShipContext blockContext, BlockTemplate blockTemplate) {
+        public void Register(BlockContext blockContext, BlockTemplate blockTemplate) {
             var templateDict = EnsureCreated(blockContext);
 
             if (templateDict.ContainsKey(blockTemplate)) {
@@ -30,17 +30,17 @@ namespace Exa.Grids.Blocks
             templateDict.Add(blockTemplate, bundle);
         }
 
-        public void SetDirty(ShipContext blockContext, BlockTemplate blockTemplate) {
+        public void SetDirty(BlockContext blockContext, BlockTemplate blockTemplate) {
             var bundle = contextDict[blockContext][blockTemplate];
             bundle.valuesAreDirty = true;
             bundle.tooltip.ShouldRefresh = true;
         }
 
-        public Tooltip GetTooltip(ShipContext blockContext, BlockTemplate blockTemplate) {
+        public Tooltip GetTooltip(BlockContext blockContext, BlockTemplate blockTemplate) {
             return contextDict[blockContext][blockTemplate].tooltip;
         }
 
-        public void SetValues(ShipContext blockContext, BlockTemplate blockTemplate, Block block) {
+        public void SetValues(BlockContext blockContext, BlockTemplate blockTemplate, Block block) {
             var bundle = contextDict[blockContext][blockTemplate];
 
             if (bundle.valuesAreDirty) {
@@ -51,7 +51,7 @@ namespace Exa.Grids.Blocks
             bundle.valuesCache.ApplyValues(block);
         }
 
-        private TemplateValuesCache GetValues(ShipContext blockContext, BlockTemplate template) {
+        private TemplateValuesCache GetValues(BlockContext blockContext, BlockTemplate template) {
             var dict = new TemplateValuesCache();
 
             foreach (var partial in template.GetTemplatePartials()) {
@@ -67,7 +67,7 @@ namespace Exa.Grids.Blocks
             return dict;
         }
 
-        private BundleDictionary EnsureCreated(ShipContext blockContext) {
+        private BundleDictionary EnsureCreated(BlockContext blockContext) {
             if (!contextDict.ContainsKey(blockContext)) {
                 contextDict.Add(blockContext, new BundleDictionary());
             }
