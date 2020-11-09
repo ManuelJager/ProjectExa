@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Exa.Generics;
 using Exa.Grids.Blueprints;
 using Exa.Ships;
@@ -33,6 +34,10 @@ namespace Exa.Gameplay.Missions
             var blueprint = Systems.Blueprints.GetBlueprint(name);
             var pos = new Vector2(xPos, yPos);
             return GameSystems.ShipFactory.CreateFriendly(blueprint, pos);
+        }
+
+        protected Coroutine StartCoroutine(IEnumerator enumerator) {
+            return GameSystems.Instance.StartCoroutine(enumerator);
         }
     }
 }

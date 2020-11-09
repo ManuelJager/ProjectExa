@@ -99,10 +99,12 @@ namespace Exa.Ships
         }
 
         public string GetInstanceString() {
-            return $"{Blueprint.name} : {gameObject.GetInstanceID()}";
+            return $"({GetType().Name}) {Blueprint.name} : {gameObject.GetInstanceID()}";
         }
 
         public virtual void OnRaycastEnter() {
+            if (!Active) return;
+
             overlay.overlayCircle.IsHovered = true;
             Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
 
@@ -112,6 +114,8 @@ namespace Exa.Ships
         }
 
         public virtual void OnRaycastExit() {
+            if (!Active) return;
+
             overlay.overlayCircle.IsHovered = false;
             Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
 
@@ -121,12 +125,16 @@ namespace Exa.Ships
         }
 
         // TODO: Somehow cache this, or let the results come from a central manager
-        public IEnumerable<T> QueryNeighbours<T>(float radius, ShipMask shipMask)
-            where T : Ship {
+        public IEnumerable<Ship> QueryNeighbours(float radius, ShipMask shipMask) {
             var colliders = Physics2D.OverlapCircleAll(transform.position, radius, shipMask.LayerMask);
 
             foreach (var collider in colliders) {
-                var neighbour = collider.gameObject.GetComponent<T>();
+                var pivot = collider.gameObject.GetComponent<ShipPivot>();
+                if (pivot == null) {
+                    continue;
+                }
+
+                var neighbour = pivot.ship;
                 var passesContextMask = (neighbour.BlockContext & shipMask.ContextMask) != 0;
                 if (!ReferenceEquals(neighbour, this) && passesContextMask) {
                     yield return neighbour;

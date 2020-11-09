@@ -20,18 +20,18 @@ namespace Exa.Gameplay
             foreach (var collider in colliders) {
                 var ship = collider.gameObject.GetComponent<Ship>();
 
-                if (selection == null) {
-                    selection = ship.GetAppropriateSelection(new VicFormation());
-                }
-
-                if (ship != null && !selection.Contains(ship) && ship.MatchesSelection(selection)) {
-                    selection.Add(ship);
+                if (ship != null && ship.Active) {
+                    if (selection == null) 
+                        selection = ship.GetAppropriateSelection(new VicFormation());
+                    
+                    if (ship.MatchesSelection(selection) && !selection.Contains(ship))
+                        selection.Add(ship);
                 }
             }
         }
 
         public ShipSelection Build() {
-            return selection;
+            return selection?.Count > 0 ? selection : null;
         }
     }
 }

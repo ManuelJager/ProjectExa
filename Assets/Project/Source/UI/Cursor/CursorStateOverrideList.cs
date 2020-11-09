@@ -19,7 +19,8 @@ namespace Exa.UI
         }
 
         public override void Remove(ValueOverride<CursorState> valueOverride) {
-            base.Remove(valueOverride);
+            if (overrides.Contains(valueOverride))
+                base.Remove(valueOverride);
 
             if (overrides.Count == 0)
                 ContainsItemChange?.Invoke(false);

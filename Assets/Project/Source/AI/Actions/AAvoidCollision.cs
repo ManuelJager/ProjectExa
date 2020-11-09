@@ -58,7 +58,7 @@ namespace Exa.AI.Actions
             neighbourCache?.Clear();
             neighbourCache = neighbourCache ?? new List<Ship>();
 
-            foreach (var neighbour in ship.QueryNeighbours<Ship>(settings.detectionRadius, shipMask)) {
+            foreach (var neighbour in ship.QueryNeighbours(settings.detectionRadius, shipMask)) {
                 if (!ShouldYield(neighbour)) continue;
 
                 var neighbourPos = neighbour.transform.position;
