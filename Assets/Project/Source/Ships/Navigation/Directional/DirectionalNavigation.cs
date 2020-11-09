@@ -39,7 +39,7 @@ namespace Exa.Ships.Navigation
 
             if (DebugMode.Navigation.IsEnabled()) {
                 void DrawRay(Vector2 localFrameForce, Color color) {
-                    var force = localFrameForce.Rotate(ship.transform.rotation.eulerAngles.z) / deltaTime;
+                    var force = localFrameForce.Rotate(GetCurrentRotation()) / deltaTime;
                     Debug.DrawRay(ship.transform.position, force / ship.rb.mass / 10, color);
                 }
 
@@ -69,10 +69,9 @@ namespace Exa.Ships.Navigation
         }
 
         private Vector2 GetLocalDifference(ITarget target) {
-            var currentPos = (Vector2) ship.transform.position;
-            var currentRotation = ship.transform.rotation.eulerAngles.z;
+            var currentPos = ship.rb.position;
             var diff = target.GetPosition(currentPos) - currentPos;
-            return diff.Rotate(-currentRotation);
+            return diff.Rotate(-GetCurrentRotation());
         }
 
         private float GetDecelerationVelocity(Vector2 direction, Scalar thrustModifier) {
@@ -138,12 +137,15 @@ namespace Exa.Ships.Navigation
         }
 
         private VelocityValues GetLocalVelocity() {
-            var zRotation = ship.transform.rotation.eulerAngles.z;
-            var localVelocity = ship.rb.velocity.Rotate(-zRotation);
+            var localVelocity = ship.rb.velocity.Rotate(-GetCurrentRotation());
             return new VelocityValues {
                 localVelocity = localVelocity,
                 localVelocityForce = localVelocity * ship.rb.mass
             };
+        }
+
+        private float GetCurrentRotation() {
+            return MathUtils.NormalizeAngle180(ship.rb.rotation);
         }
 
         private struct VelocityValues

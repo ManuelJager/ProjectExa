@@ -23,7 +23,7 @@ namespace Exa.Grids
         public virtual float TurningPower => TurningPowerModifier.GetValue(controllerData.turningRate);
 
         public GridTotals Clone() {
-            return new GridTotals() {
+            return new GridTotals {
                 controllerData = controllerData,
                 Mass = Mass,
                 Hull = Hull,

@@ -73,6 +73,10 @@ namespace Exa.Math
             return NormalizeWrap(angle, new MinMax<float>(0f, 360f));
         }
 
+        public static float NormalizeAngle180(float angle) {
+            return NormalizeWrap(angle, new MinMax<float>(-180f, 180f));
+        }
+
         public static int NormalizeAngle04(int quarterAngle) {
             return (int) NormalizeWrap(quarterAngle, new MinMax<float>(0, 4));
         }

@@ -11,6 +11,7 @@ using Exa.UI;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using static UnityEngine.GameObject;
@@ -55,17 +56,17 @@ namespace Exa.Ships
         }
 
         private void FixedUpdate() {
-            var deltaTime = Time.fixedDeltaTime;
-            Navigation?.Update(deltaTime);
-            ActionScheduler.ExecuteActions(deltaTime);
+            if (Active) {
+                var deltaTime = Time.fixedDeltaTime;
+                Navigation?.Update(deltaTime);
+                ActionScheduler.ExecuteActions(deltaTime);
+            }
+            
+            mouseOverCollider.offset = rb.centerOfMass;
 
             if (debugTooltip != null) {
                 debugTooltip.ShouldRefresh = true;
             }
-        }
-
-        private void LateUpdate() {
-            UpdateCentreOfMassPivot(true);
         }
 
         // TODO: Make this look nicer by breaking up the ship and adding an explosion
@@ -93,7 +94,6 @@ namespace Exa.Ships
             Blueprint = blueprint;
 
             UpdateCanvasSize(blueprint);
-            UpdateCentreOfMassPivot(false);
 
             shipAi.Init();
         }
@@ -129,12 +129,10 @@ namespace Exa.Ships
             var colliders = Physics2D.OverlapCircleAll(transform.position, radius, shipMask.LayerMask);
 
             foreach (var collider in colliders) {
-                var pivot = collider.gameObject.GetComponent<ShipPivot>();
-                if (pivot == null) {
+                var neighbour = collider.gameObject.GetComponent<Ship>();
+                if (neighbour == null) {
                     continue;
                 }
-
-                var neighbour = pivot.ship;
                 var passesContextMask = (neighbour.BlockContext & shipMask.ContextMask) != 0;
                 if (!ReferenceEquals(neighbour, this) && passesContextMask) {
                     yield return neighbour;
@@ -149,18 +147,6 @@ namespace Exa.Ships
         public abstract ShipSelection GetAppropriateSelection(Formation formation);
 
         public abstract bool MatchesSelection(ShipSelection selection);
-
-        private void UpdateCentreOfMassPivot(bool updateSelf) {
-            var comOffset = -BlockGrid.CentreOfMass.GetCentreOfMass();
-
-            if (updateSelf) {
-                var currentPosition = pivot.localPosition.ToVector2();
-                var diff = currentPosition - comOffset;
-                transform.localPosition += diff.ToVector3();
-            }
-
-            pivot.localPosition = comOffset;
-        }
 
         private void UpdateCanvasSize(Blueprint blueprint) {
             var size = blueprint.Blocks.MaxSize * 10 * canvasScaleMultiplier;
@@ -183,11 +169,11 @@ namespace Exa.Ships
             new TooltipGroup(shipAi.GetDebugTooltipComponents(), 1)
         });
 
-        public Vector2 GetPosition() {
+        public Vector2 GetDebugDraggerPosition() {
             return transform.position;
         }
 
-        public void SetGlobals(Vector2 position, Vector2 velocity) {
+        public void SetDebugDraggerGlobals(Vector2 position, Vector2 velocity) {
             transform.position = position;
             rb.velocity = velocity;
         }

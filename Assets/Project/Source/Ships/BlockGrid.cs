@@ -14,8 +14,6 @@ namespace Exa.Ships
         private readonly Transform container;
         private readonly Ship ship;
 
-        public CentreOfMassCache CentreOfMass { get; protected set; }
-
         public bool Rebuilding { get; set; }
         public BlockContext BlockContext { get; }
 
@@ -25,7 +23,6 @@ namespace Exa.Ships
             : base(totals: ship?.Totals) {
             this.container = container;
             this.ship = ship;
-            CentreOfMass = new CentreOfMassCache();
             BlockContext = blockContext;
         }
 
@@ -61,7 +58,6 @@ namespace Exa.Ships
         }
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
-            new TooltipText(CentreOfMass.ToString())
         };
     }
 }

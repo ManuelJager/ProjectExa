@@ -78,6 +78,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: InertMediumThruster
       objectReference: {fileID: 0}
+    - target: {fileID: 6692629685480085147, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692629685480085147, guid: 833d8ea8eb468324d957c13dcdf89414,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7093665725218263424, guid: 833d8ea8eb468324d957c13dcdf89414,
         type: 3}
       propertyPath: m_Size.x

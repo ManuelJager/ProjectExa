@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overlay: {fileID: 0}
-  pivot: {fileID: 2317665541009772918}
+  pivot: {fileID: 4004696302299950466}
   shipAi: {fileID: 2469817130048324869}
   state: {fileID: 6132491278611923504}
-  rb: {fileID: 171999461369172760}
+  rb: {fileID: 8504392954730832350}
   mouseOverCollider: {fileID: 8066326369922599270}
   navigationOptions: {fileID: 1658731707252705402}
   cursorOverride:
@@ -121,6 +121,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3308525384566981925}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &4004696302299950466 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1907754239003912359, guid: c338b1f640f93a541a625245831a6e85,
+    type: 3}
+  m_PrefabInstance: {fileID: 3308525384566981925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2469817130048324869 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1129475341720404000, guid: c338b1f640f93a541a625245831a6e85,
@@ -163,15 +169,9 @@ CircleCollider2D:
     type: 3}
   m_PrefabInstance: {fileID: 3308525384566981925}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2317665541009772918 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 990860952733176915, guid: c338b1f640f93a541a625245831a6e85,
-    type: 3}
-  m_PrefabInstance: {fileID: 3308525384566981925}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &171999461369172760 stripped
+--- !u!50 &8504392954730832350 stripped
 Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 3425320495112623677, guid: c338b1f640f93a541a625245831a6e85,
+  m_CorrespondingSourceObject: {fileID: 6624674223097554171, guid: c338b1f640f93a541a625245831a6e85,
     type: 3}
   m_PrefabInstance: {fileID: 3308525384566981925}
   m_PrefabAsset: {fileID: 0}

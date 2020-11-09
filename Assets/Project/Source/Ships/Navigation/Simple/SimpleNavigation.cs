@@ -32,7 +32,7 @@ namespace Exa.Ships.Navigation
         }
 
         private void UpdatePosition() {
-            var currentPosition = (Vector2) ship.transform.position;
+            var currentPosition = ship.rb.position;
             var moveToTargetPosition = MoveTo.GetPosition(currentPosition);
 
             if (currentPosition == moveToTargetPosition) {
@@ -40,28 +40,28 @@ namespace Exa.Ships.Navigation
                 return;
             }
 
-            var headingAngle = ship.transform.rotation.eulerAngles.z;
+            var headingAngle = ship.rb.rotation;
             var direction = (moveToTargetPosition - currentPosition).Rotate(-headingAngle).normalized;
             ThrustVectors.SetGraphics(direction);
 
             var deltaTime = Time.fixedDeltaTime;
             var newPosition = Vector2.MoveTowards(currentPosition, moveToTargetPosition, 30 * deltaTime);
 
-            ship.transform.position = newPosition;
+            ship.rb.position = newPosition;
         }
 
         private void UpdateRotation() {
-            var currentPosition = (Vector2) ship.transform.position;
+            var currentPosition = ship.rb.position;
             var lookAtTargetPosition = LookAt.GetPosition(currentPosition);
 
             var lookAtDelta = lookAtTargetPosition - currentPosition;
-            var currentRotation = ship.transform.rotation.eulerAngles;
+            var currentRotation = new Vector3(0, 0, ship.rb.rotation);
 
             var targetRotation = new Vector3(0, 0, lookAtDelta.GetAngle());
             var deltaTime = Time.fixedDeltaTime;
             var newRotation = Vector3.RotateTowards(currentRotation, targetRotation, float.MaxValue, 100 * deltaTime);
 
-            ship.transform.rotation = Quaternion.Euler(newRotation);
+            ship.rb.rotation = newRotation.z;
         }
     }
 }

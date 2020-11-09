@@ -1,4 +1,5 @@
-﻿using Exa.Ships;
+﻿using System.Runtime.CompilerServices;
+using Exa.Ships;
 using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 
@@ -8,11 +9,27 @@ namespace Exa.Grids.Blocks.Components
         where T : struct, IBlockComponentValues
     {
         protected T data;
+
+        public T Data {
+            get => data;
+            set => data = value;
+        }
+
+        public override IBlockComponentValues BlockComponentData => data;
+    }
+
+    public abstract class BlockBehaviourBase : MonoBehaviour
+    {
+        [HideInInspector] public Block block;
         protected BlockGrid blockGrid;
 
-        public override BlockGrid BlockGrid {
+        public abstract IBlockComponentValues BlockComponentData { get; }
+
+        public BlockGrid BlockGrid
+        {
             get => blockGrid;
-            set {
+            set
+            {
                 if (blockGrid == value) return;
 
                 if (blockGrid != null) {
@@ -27,24 +44,17 @@ namespace Exa.Grids.Blocks.Components
             }
         }
 
-        public T Data {
-            get => data;
-            set => data = value;
+        private void Update() {
+            if (blockGrid?.Ship != null && blockGrid.Ship.Active)
+                BlockUpdate();
         }
 
-        public override IBlockComponentValues BlockComponentData => data;
+        protected virtual void BlockUpdate() {
+
+        }
 
         protected virtual void OnAdd() { }
 
         protected virtual void OnRemove() { }
-    }
-
-    public abstract class BlockBehaviourBase : MonoBehaviour
-    {
-        [HideInInspector] public Block block;
-
-        public abstract BlockGrid BlockGrid { get; set; }
-
-        public abstract IBlockComponentValues BlockComponentData { get; }
     }
 }

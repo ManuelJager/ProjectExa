@@ -16,7 +16,8 @@ namespace Exa.Grids.Blocks
             var rootInstanceGO = CreatePrefab(blockTemplate, PrefabType);
             var rootInstance = rootInstanceGO.GetComponent<Block>();
 
-            var blockCollider = rootInstanceGO.GetComponentInChildren<BlockCollider>();
+            var blockCollider = rootInstanceGO.GetComponent<BlockCollider>();
+            rootInstance.PhysicalBehaviour.BlockCollider = blockCollider;
             blockCollider.Block = rootInstance;
 
             foreach (var component in rootInstance.GetBehaviours()) {

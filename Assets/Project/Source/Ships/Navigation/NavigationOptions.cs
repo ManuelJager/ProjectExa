@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
+﻿using System;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ namespace Exa.Ships.Navigation
     public enum NavigationType
     {
         Simple,
-        Directional
+        Directional,
+        NewDirectional
     }
 
     public class NavigationOptions : MonoBehaviour
@@ -38,7 +40,7 @@ namespace Exa.Ships.Navigation
                     return new DirectionalNavigation(ship, this, controllerValues.thrustModifier);
 
                 default:
-                    return null;
+                    throw new ArgumentOutOfRangeException(nameof(navigationType));
             }
         }
     }

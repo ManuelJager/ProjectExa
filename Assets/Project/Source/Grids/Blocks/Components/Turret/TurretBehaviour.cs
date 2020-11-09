@@ -16,9 +16,7 @@ namespace Exa.Grids.Blocks.Components
 
         public IWeaponTarget Target { get; set; }
 
-        public void Update() {
-            if (blockGrid.Ship == null) return;
-
+        protected override void BlockUpdate() {
             timeSinceFire += Time.deltaTime;
 
             if (!Target?.GetTargetValid() ?? false) {

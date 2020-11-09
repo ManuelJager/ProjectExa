@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
+  blockCollider: {fileID: 0}
 --- !u!114 &5130527074943234086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,6 +46,11 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1183454859649262047, guid: ef02463284d922a46b676cdb98f75774,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3385939140551075524, guid: ef02463284d922a46b676cdb98f75774,
         type: 3}
       propertyPath: m_Size.x
       value: 3

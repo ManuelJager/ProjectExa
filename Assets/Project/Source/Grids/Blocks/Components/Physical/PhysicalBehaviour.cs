@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Exa.Ships;
+using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -7,14 +9,21 @@ namespace Exa.Grids.Blocks.Components
 
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
     {
-        public void TakeDamage(float damage) {
-            var trueDamage = damage - data.armor;
+        [SerializeField, HideInInspector] private BlockCollider blockCollider;
 
-            if (trueDamage < 0f) return;
+        public BlockCollider BlockCollider {
+            get => blockCollider;
+            set => blockCollider = value;
+        }
+
+        public void TakeDamage(float damage) {
+            damage = ComputeDamage(damage);
+
+            if (damage < 0f) return;
 
             // Get the min between the current hull and damage that should be applied
             // This prevents the block from receiving too much damage
-            var appliedDamage = Mathf.Min(data.hull, trueDamage);
+            var appliedDamage = Mathf.Min(data.hull, damage);
             data.hull -= appliedDamage;
 
             if (data.hull <= 0) {
@@ -22,14 +31,16 @@ namespace Exa.Grids.Blocks.Components
             }
         }
 
+        public float ComputeDamage(float damage) {
+            return damage - data.armor;
+        }
+
         protected override void OnAdd() {
-            var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-            BlockGrid.CentreOfMass.Add(localPos, data.mass);
+            blockCollider.Collider.SetMass(data.mass);
         }
 
         protected override void OnRemove() {
-            var localPos = block.anchoredBlueprintBlock.GetLocalPosition();
-            BlockGrid.CentreOfMass.Remove(localPos);
+            
         }
     }
 }

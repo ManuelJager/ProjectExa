@@ -15,11 +15,11 @@ namespace Exa.Debugging
 
             // Set the velocity
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
-            var velocity = currentDragable.GetPosition() - offset - mouseWorldPoint;
+            var velocity = currentDragable.GetDebugDraggerPosition() - offset - mouseWorldPoint;
             AverageVelocity(-velocity, sampleTime);
 
             var targetPoint = mouseWorldPoint + offset;
-            currentDragable.SetGlobals(targetPoint, Vector2.zero);
+            currentDragable.SetDebugDraggerGlobals(targetPoint, Vector2.zero);
         }
 
         public void OnPress() {
@@ -29,10 +29,10 @@ namespace Exa.Debugging
             averagedVelocity = Vector2.zero;
 
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
-            var currentPoint = currentDragable.GetPosition();
+            var currentPoint = currentDragable.GetDebugDraggerPosition();
 
             offset = currentPoint - mouseWorldPoint;
-            currentDragable.SetGlobals(currentPoint, Vector2.zero);
+            currentDragable.SetDebugDraggerGlobals(currentPoint, Vector2.zero);
         }
 
         public void OnRelease() {
@@ -40,7 +40,7 @@ namespace Exa.Debugging
 
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
             var targetPoint = mouseWorldPoint + offset;
-            currentDragable.SetGlobals(targetPoint, averagedVelocity);
+            currentDragable.SetDebugDraggerGlobals(targetPoint, averagedVelocity);
             currentDragable = null;
         }
 
