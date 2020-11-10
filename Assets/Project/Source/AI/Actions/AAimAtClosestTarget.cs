@@ -27,7 +27,7 @@ namespace Exa.AI.Actions
             var blockMask = new ShipMask(~ship.BlockContext);
             var closestDistance = float.MaxValue;
 
-            foreach (var enemy in ship.QueryNeighbours(detectionRadius, blockMask)) {
+            foreach (var enemy in ship.QueryNeighbours(detectionRadius, blockMask, true)) {
                 var distance = (enemy.transform.position - ship.transform.position).magnitude;
 
                 if (distance < closestDistance) {
@@ -36,11 +36,11 @@ namespace Exa.AI.Actions
                 }
             }
 
-            DebugString = $"Target: {ship.GetInstanceString()}";
-
             if (closestDistance == float.MaxValue) {
                 enemyTarget = null;
             }
+
+            DebugString = $"Target: {enemyTarget?.GetInstanceString()}";
 
             return enemyTarget == null
                 ? 0f
