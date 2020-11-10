@@ -53,9 +53,10 @@ namespace Exa.UI.Gameplay
             return null;
         }
 
-        public void Save(ShipSelection selection) {
-            if (selectedIndex >= 0 && selectedIndex <= 9) {
-                var item = itemDict[selectedIndex];
+        public void Save(ShipSelection selection, int? pIndex = null) {
+            var index = pIndex ?? selectedIndex;
+            if (index >= 0 && index <= 9) {
+                var item = itemDict[index];
                 item.ShipSelection = Clone(selection);
             }
         }

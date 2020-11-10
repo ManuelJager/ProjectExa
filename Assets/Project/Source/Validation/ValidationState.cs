@@ -12,9 +12,9 @@ namespace Exa.Validation
     {
         // Keep track of error handlers in a nested dictionary
         // Access the error handler or cleaner by [validator][error]
-        internal Dictionary<IValidator, Dictionary<string, Action<ValidationError>>> errorHandlers;
+        internal Dictionary<IValidator, IDictionary<string, Action<ValidationError>>> errorHandlers;
 
-        internal Dictionary<IValidator, Dictionary<string, Action<ValidationError>>> errorCleaners;
+        internal Dictionary<IValidator, IDictionary<string, Action<ValidationError>>> errorCleaners;
 
         // Default implementation for the error handlers or cleaners
         internal Action<ValidationError> defaultErrorHandler;
@@ -25,8 +25,8 @@ namespace Exa.Validation
         internal Dictionary<IValidator, IEnumerable<ValidationError>> lastControlErrors;
 
         public ValidationState() {
-            errorHandlers = new Dictionary<IValidator, Dictionary<string, Action<ValidationError>>>();
-            errorCleaners = new Dictionary<IValidator, Dictionary<string, Action<ValidationError>>>();
+            errorHandlers = new Dictionary<IValidator, IDictionary<string, Action<ValidationError>>>();
+            errorCleaners = new Dictionary<IValidator, IDictionary<string, Action<ValidationError>>>();
             lastControlErrors = new Dictionary<IValidator, IEnumerable<ValidationError>>();
         }
 

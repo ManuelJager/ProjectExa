@@ -25,7 +25,7 @@ namespace Exa.Bindings
                     source = null;
                 }
 
-                // if the new value is supossed to be null, clear views and return
+                // if the new value is supposed to be null, clear views and return
                 if (value == null) {
                     OnClear();
                     return;

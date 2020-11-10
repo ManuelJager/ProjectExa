@@ -8,6 +8,7 @@ namespace Exa.Gameplay
     public partial class GameplayInputManager
     {
         private SelectionBuilder selectionBuilder;
+        private bool shiftIsPressed;
 
         public void OnLeftClick(InputAction.CallbackContext context) {
             switch (context.phase) {
@@ -46,11 +47,6 @@ namespace Exa.Gameplay
                         return;
                     }
 
-                    //if (Systems.GodModeIsEnabled && raycastTarget != null && raycastTarget is Ship)
-                    //{
-                    //    var ship = raycastTarget as Ship;
-                    //    ship.BlockGrid.Totals.Hull -= 50f;
-                    //}
                     if (Systems.GodModeIsEnabled && GameSystems.Raycaster.TryGetTarget<Ship>(out var ship)) {
                         var worldPos = ship.transform.position.ToVector2();
                         var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * ship.Totals.Mass;
@@ -76,26 +72,45 @@ namespace Exa.Gameplay
         public void OnEscape(InputAction.CallbackContext context) {
             switch (context.phase) {
                 case InputActionPhase.Started:
-                    if (!HasSelection) {
-                        GameSystems.UI.TogglePause();
-                        return;
-                    }
-
                     if (HasSelection && !IsSelectingArea) {
                         RemoveSelectionArea();
                         return;
                     }
 
+                    GameSystems.UI.TogglePause();
                     break;
             }
         }
 
-        public void OnNumKeys(InputAction.CallbackContext context) {
+        public void OnSelectGroup(InputAction.CallbackContext context) {
+            if (shiftIsPressed) return;
+
             switch (context.phase) {
                 case InputActionPhase.Performed:
-                    var rawValue = context.ReadValue<float>();
-                    var index = Mathf.RoundToInt(rawValue);
-                    OnNumKey(index);
+                    var index = context.ReadValue<float>().Round();
+
+                    CurrentSelection?.Clear();
+                    CurrentSelection = GameSystems.UI.gameplayLayer.selectionHotbar.Select(index);
+                    break;
+            }
+        }
+
+        public void OnSaveGroup(InputAction.CallbackContext context) {
+            switch (context.phase) {
+                case InputActionPhase.Performed:
+                    var index = context.ReadValue<float>().Round();
+                    GameSystems.UI.gameplayLayer.selectionHotbar.Save(CurrentSelection, index);
+                    break;
+            }
+        }
+
+        public void OnSaveGroupModifier(InputAction.CallbackContext context) {
+            switch (context.phase) {
+                case InputActionPhase.Started: 
+                    shiftIsPressed = true;
+                    break;
+                case InputActionPhase.Canceled:
+                    shiftIsPressed = false;
                     break;
             }
         }
@@ -126,10 +141,6 @@ namespace Exa.Gameplay
                 // Get the selection and save it in the hotbar if possible
                 var selection = selectionBuilder.Build();
 
-                var hotbar = GameSystems.UI.gameplayLayer.selectionHotbar;
-                if (!hotbar.HasSelected || !hotbar.CurrentSelection.HasShipSelection)
-                    hotbar.Save(selection);
-
                 CurrentSelection = selection;
                 selectionBuilder = null;
             }
@@ -148,15 +159,8 @@ namespace Exa.Gameplay
             CurrentSelection = null;
         }
 
-        private void OnNumKey(int index) {
-            if (HasSelection && GameSystems.UI.gameplayLayer.selectionHotbar.CurrentSelection == null) {
-                GameSystems.UI.gameplayLayer.selectionHotbar.Select(index);
-                GameSystems.UI.gameplayLayer.selectionHotbar.Save(CurrentSelection);
-            }
-            else {
-                CurrentSelection?.Clear();
-                CurrentSelection = GameSystems.UI.gameplayLayer.selectionHotbar.Select(index);
-            }
+        private void OnSelectGroup(int index) {
+            
         }
     }
 }

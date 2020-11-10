@@ -77,6 +77,14 @@ namespace Exa.Math
             return NormalizeWrap(angle, new MinMax<float>(-180f, 180f));
         }
 
+        public static int Round(this float value) {
+            return Mathf.RoundToInt(value);
+        }
+
+        public static bool Between(this float value, float min, float max) {
+            return value >= min && value <= max;
+        }
+
         public static int NormalizeAngle04(int quarterAngle) {
             return (int) NormalizeWrap(quarterAngle, new MinMax<float>(0, 4));
         }

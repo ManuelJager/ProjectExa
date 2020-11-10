@@ -125,7 +125,7 @@ namespace Exa.Ships
         }
 
         // TODO: Somehow cache this, or let the results come from a central manager
-        public IEnumerable<Ship> QueryNeighbours(float radius, ShipMask shipMask) {
+        public IEnumerable<Ship> QueryNeighbours(float radius, ShipMask shipMask, bool mustBeActive = false) {
             var colliders = Physics2D.OverlapCircleAll(transform.position, radius, shipMask.LayerMask);
 
             foreach (var collider in colliders) {
@@ -133,8 +133,13 @@ namespace Exa.Ships
                 if (neighbour == null) {
                     continue;
                 }
+
                 var passesContextMask = (neighbour.BlockContext & shipMask.ContextMask) != 0;
                 if (!ReferenceEquals(neighbour, this) && passesContextMask) {
+                    if (mustBeActive && !neighbour.Active) {
+                        continue;
+                    }
+
                     yield return neighbour;
                 }
             }

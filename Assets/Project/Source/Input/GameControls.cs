@@ -11,8 +11,8 @@ namespace Exa.Input
     public class @GameControls : IInputActionCollection, IDisposable
     {
         public InputActionAsset asset { get; }
-
-        public @GameControls() {
+        public @GameControls()
+        {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""GameControls"",
     ""maps"": [
@@ -292,7 +292,7 @@ namespace Exa.Input
                     ""id"": ""50bb47ae-7f50-45b0-9e96-b252abb46662"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap""
                 },
                 {
                     ""name"": ""LeftClick"",
@@ -319,9 +319,25 @@ namespace Exa.Input
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""NumKeys"",
+                    ""name"": ""SaveGroup"",
+                    ""type"": ""Value"",
+                    ""id"": ""deada82f-f5b3-47ed-95c4-63ebf35b4af5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SelectGroup"",
                     ""type"": ""Value"",
                     ""id"": ""f1457bf0-3320-4d7d-86b7-f7ddc25cd9e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SaveGroupModifier"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecbfdfaf-389d-481b-b072-9bd6a0a1d0e9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -434,7 +450,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -445,7 +461,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=2)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -456,7 +472,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=3)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -467,7 +483,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=4)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -478,7 +494,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=5)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -489,7 +505,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=6)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -500,7 +516,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=7)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -511,7 +527,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=8)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -522,7 +538,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=9)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -533,7 +549,348 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=0)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1"",
+                    ""id"": ""2b7dfe7c-c23d-49d6-9f64-c5079c4e9e68"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""2637ba8a-e4b2-4c9d-b2ae-11a6f4c72255"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""156d8dcd-b0cf-459a-9136-b60794a3a273"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2"",
+                    ""id"": ""279c576c-f5dc-499e-8f66-c87cc4ce18a8"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""e401e56e-2bda-4c4a-924b-61c92884b822"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""9d8be808-9227-4625-8970-a218f02fb607"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""3"",
+                    ""id"": ""bb344562-e57a-4506-b1da-bff57e049fc0"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""5ef450c6-67a1-4c2e-b9b3-393b70ef5bf9"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""f4b5b814-0aa4-4da7-a0db-b9d2db3ea9e0"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""4"",
+                    ""id"": ""41b0d1b2-1794-43ce-8c93-d2e96fcc1a3c"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""3a3037b5-c81d-4430-a46f-9ca729e5b76e"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""6847251d-5e4f-4bb5-8843-b2ee9c09c539"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""5"",
+                    ""id"": ""2562895f-2dcd-4d9d-bafa-974dc6c845cc"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""7fea6236-cdf3-4267-9f60-7102fcde6187"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""8e2da8db-4c81-4fc6-b29b-21ad5be7543f"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""6"",
+                    ""id"": ""befc81ec-8f85-4633-a82e-d49bf8ab48a4"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=6)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""4f4fc270-50eb-48b3-828d-6c8c55867fb6"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""af3d9435-48c1-4336-9bf8-c54945e73ca1"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""7"",
+                    ""id"": ""998ab962-29e6-4d08-84d4-ef9f583c38dc"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=7)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""b369c8a8-ca96-4ad2-9014-11ce3f95c72f"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""dab5903f-30ef-4df4-87e9-3fdf3d1a62be"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""8"",
+                    ""id"": ""77f5c2bb-f652-4df9-ab4a-703d7e27ff78"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=8)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""c0d21057-5c4c-4d00-8c44-5307a1982339"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""40983828-8fda-4685-9b93-a6a60899cbd0"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""9"",
+                    ""id"": ""e78982ac-fbd0-44fe-ab98-45b21388f857"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=9)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""c260d75c-1de6-404d-9ca2-5354c5a204ff"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""055c8606-3d9d-4fe2-b79f-544dc8dd59bb"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""0"",
+                    ""id"": ""eb22cc86-bce2-4160-ad17-c1b7691df9e0"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""8506a5fc-2282-46aa-ada1-0278cb1c0259"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""1bf6f92f-8ee5-4920-8a05-519442b62854"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2295beaf-044b-4589-9f30-56a42d85decd"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroupModifier"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -582,42 +939,52 @@ namespace Exa.Input
             m_Gameplay_LeftClick = m_Gameplay.FindAction("LeftClick", throwIfNotFound: true);
             m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
             m_Gameplay_Escape = m_Gameplay.FindAction("Escape", throwIfNotFound: true);
-            m_Gameplay_NumKeys = m_Gameplay.FindAction("NumKeys", throwIfNotFound: true);
+            m_Gameplay_SaveGroup = m_Gameplay.FindAction("SaveGroup", throwIfNotFound: true);
+            m_Gameplay_SelectGroup = m_Gameplay.FindAction("SelectGroup", throwIfNotFound: true);
+            m_Gameplay_SaveGroupModifier = m_Gameplay.FindAction("SaveGroupModifier", throwIfNotFound: true);
         }
 
-        public void Dispose() {
+        public void Dispose()
+        {
             UnityEngine.Object.Destroy(asset);
         }
 
-        public InputBinding? bindingMask {
+        public InputBinding? bindingMask
+        {
             get => asset.bindingMask;
             set => asset.bindingMask = value;
         }
 
-        public ReadOnlyArray<InputDevice>? devices {
+        public ReadOnlyArray<InputDevice>? devices
+        {
             get => asset.devices;
             set => asset.devices = value;
         }
 
         public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
-        public bool Contains(InputAction action) {
+        public bool Contains(InputAction action)
+        {
             return asset.Contains(action);
         }
 
-        public IEnumerator<InputAction> GetEnumerator() {
+        public IEnumerator<InputAction> GetEnumerator()
+        {
             return asset.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator() {
+        IEnumerator IEnumerable.GetEnumerator()
+        {
             return GetEnumerator();
         }
 
-        public void Enable() {
+        public void Enable()
+        {
             asset.Enable();
         }
 
-        public void Disable() {
+        public void Disable()
+        {
             asset.Disable();
         }
 
@@ -631,15 +998,10 @@ namespace Exa.Input
         private readonly InputAction m_Editor_RotateRight;
         private readonly InputAction m_Editor_ToggleMirror;
         private readonly InputAction m_Editor_Zoom;
-
         public struct EditorActions
         {
             private @GameControls m_Wrapper;
-
-            public EditorActions(@GameControls wrapper) {
-                m_Wrapper = wrapper;
-            }
-
+            public EditorActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Editor_Movement;
             public InputAction @LeftClick => m_Wrapper.m_Editor_LeftClick;
             public InputAction @RightClick => m_Wrapper.m_Editor_RightClick;
@@ -647,27 +1009,15 @@ namespace Exa.Input
             public InputAction @RotateRight => m_Wrapper.m_Editor_RotateRight;
             public InputAction @ToggleMirror => m_Wrapper.m_Editor_ToggleMirror;
             public InputAction @Zoom => m_Wrapper.m_Editor_Zoom;
-
-            public InputActionMap Get() {
-                return m_Wrapper.m_Editor;
-            }
-
-            public void Enable() {
-                Get().Enable();
-            }
-
-            public void Disable() {
-                Get().Disable();
-            }
-
+            public InputActionMap Get() { return m_Wrapper.m_Editor; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-
-            public static implicit operator InputActionMap(EditorActions set) {
-                return set.Get();
-            }
-
-            public void SetCallbacks(IEditorActions instance) {
-                if (m_Wrapper.m_EditorActionsCallbackInterface != null) {
+            public static implicit operator InputActionMap(EditorActions set) { return set.Get(); }
+            public void SetCallbacks(IEditorActions instance)
+            {
+                if (m_Wrapper.m_EditorActionsCallbackInterface != null)
+                {
                     @Movement.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
                     @Movement.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
                     @Movement.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnMovement;
@@ -690,9 +1040,9 @@ namespace Exa.Input
                     @Zoom.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
                     @Zoom.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
                 }
-
                 m_Wrapper.m_EditorActionsCallbackInterface = instance;
-                if (instance != null) {
+                if (instance != null)
+                {
                     @Movement.started += instance.OnMovement;
                     @Movement.performed += instance.OnMovement;
                     @Movement.canceled += instance.OnMovement;
@@ -717,7 +1067,6 @@ namespace Exa.Input
                 }
             }
         }
-
         public EditorActions @Editor => new EditorActions(this);
 
         // Debug
@@ -725,38 +1074,21 @@ namespace Exa.Input
         private IDebugActions m_DebugActionsCallbackInterface;
         private readonly InputAction m_Debug_ToggleConsole;
         private readonly InputAction m_Debug_Drag;
-
         public struct DebugActions
         {
             private @GameControls m_Wrapper;
-
-            public DebugActions(@GameControls wrapper) {
-                m_Wrapper = wrapper;
-            }
-
+            public DebugActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
             public InputAction @Drag => m_Wrapper.m_Debug_Drag;
-
-            public InputActionMap Get() {
-                return m_Wrapper.m_Debug;
-            }
-
-            public void Enable() {
-                Get().Enable();
-            }
-
-            public void Disable() {
-                Get().Disable();
-            }
-
+            public InputActionMap Get() { return m_Wrapper.m_Debug; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-
-            public static implicit operator InputActionMap(DebugActions set) {
-                return set.Get();
-            }
-
-            public void SetCallbacks(IDebugActions instance) {
-                if (m_Wrapper.m_DebugActionsCallbackInterface != null) {
+            public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+            public void SetCallbacks(IDebugActions instance)
+            {
+                if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+                {
                     @ToggleConsole.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
                     @ToggleConsole.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
                     @ToggleConsole.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
@@ -764,9 +1096,9 @@ namespace Exa.Input
                     @Drag.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
                     @Drag.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
                 }
-
                 m_Wrapper.m_DebugActionsCallbackInterface = instance;
-                if (instance != null) {
+                if (instance != null)
+                {
                     @ToggleConsole.started += instance.OnToggleConsole;
                     @ToggleConsole.performed += instance.OnToggleConsole;
                     @ToggleConsole.canceled += instance.OnToggleConsole;
@@ -776,58 +1108,39 @@ namespace Exa.Input
                 }
             }
         }
-
         public DebugActions @Debug => new DebugActions(this);
 
         // ReturnNavigateable
         private readonly InputActionMap m_ReturnNavigateable;
         private IReturnNavigateableActions m_ReturnNavigateableActionsCallbackInterface;
         private readonly InputAction m_ReturnNavigateable_Return;
-
         public struct ReturnNavigateableActions
         {
             private @GameControls m_Wrapper;
-
-            public ReturnNavigateableActions(@GameControls wrapper) {
-                m_Wrapper = wrapper;
-            }
-
+            public ReturnNavigateableActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Return => m_Wrapper.m_ReturnNavigateable_Return;
-
-            public InputActionMap Get() {
-                return m_Wrapper.m_ReturnNavigateable;
-            }
-
-            public void Enable() {
-                Get().Enable();
-            }
-
-            public void Disable() {
-                Get().Disable();
-            }
-
+            public InputActionMap Get() { return m_Wrapper.m_ReturnNavigateable; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-
-            public static implicit operator InputActionMap(ReturnNavigateableActions set) {
-                return set.Get();
-            }
-
-            public void SetCallbacks(IReturnNavigateableActions instance) {
-                if (m_Wrapper.m_ReturnNavigateableActionsCallbackInterface != null) {
+            public static implicit operator InputActionMap(ReturnNavigateableActions set) { return set.Get(); }
+            public void SetCallbacks(IReturnNavigateableActions instance)
+            {
+                if (m_Wrapper.m_ReturnNavigateableActionsCallbackInterface != null)
+                {
                     @Return.started -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
                     @Return.performed -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
                     @Return.canceled -= m_Wrapper.m_ReturnNavigateableActionsCallbackInterface.OnReturn;
                 }
-
                 m_Wrapper.m_ReturnNavigateableActionsCallbackInterface = instance;
-                if (instance != null) {
+                if (instance != null)
+                {
                     @Return.started += instance.OnReturn;
                     @Return.performed += instance.OnReturn;
                     @Return.canceled += instance.OnReturn;
                 }
             }
         }
-
         public ReturnNavigateableActions @ReturnNavigateable => new ReturnNavigateableActions(this);
 
         // Gameplay
@@ -838,43 +1151,30 @@ namespace Exa.Input
         private readonly InputAction m_Gameplay_LeftClick;
         private readonly InputAction m_Gameplay_Movement;
         private readonly InputAction m_Gameplay_Escape;
-        private readonly InputAction m_Gameplay_NumKeys;
-
+        private readonly InputAction m_Gameplay_SaveGroup;
+        private readonly InputAction m_Gameplay_SelectGroup;
+        private readonly InputAction m_Gameplay_SaveGroupModifier;
         public struct GameplayActions
         {
             private @GameControls m_Wrapper;
-
-            public GameplayActions(@GameControls wrapper) {
-                m_Wrapper = wrapper;
-            }
-
+            public GameplayActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
             public InputAction @RightClick => m_Wrapper.m_Gameplay_RightClick;
             public InputAction @LeftClick => m_Wrapper.m_Gameplay_LeftClick;
             public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
             public InputAction @Escape => m_Wrapper.m_Gameplay_Escape;
-            public InputAction @NumKeys => m_Wrapper.m_Gameplay_NumKeys;
-
-            public InputActionMap Get() {
-                return m_Wrapper.m_Gameplay;
-            }
-
-            public void Enable() {
-                Get().Enable();
-            }
-
-            public void Disable() {
-                Get().Disable();
-            }
-
+            public InputAction @SaveGroup => m_Wrapper.m_Gameplay_SaveGroup;
+            public InputAction @SelectGroup => m_Wrapper.m_Gameplay_SelectGroup;
+            public InputAction @SaveGroupModifier => m_Wrapper.m_Gameplay_SaveGroupModifier;
+            public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-
-            public static implicit operator InputActionMap(GameplayActions set) {
-                return set.Get();
-            }
-
-            public void SetCallbacks(IGameplayActions instance) {
-                if (m_Wrapper.m_GameplayActionsCallbackInterface != null) {
+            public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
+            public void SetCallbacks(IGameplayActions instance)
+            {
+                if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
+                {
                     @Zoom.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
                     @Zoom.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
                     @Zoom.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
@@ -890,13 +1190,19 @@ namespace Exa.Input
                     @Escape.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
                     @Escape.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
                     @Escape.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
-                    @NumKeys.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
-                    @NumKeys.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
-                    @NumKeys.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
+                    @SaveGroup.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroup;
+                    @SaveGroup.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroup;
+                    @SaveGroup.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroup;
+                    @SelectGroup.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectGroup;
+                    @SelectGroup.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectGroup;
+                    @SelectGroup.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectGroup;
+                    @SaveGroupModifier.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroupModifier;
+                    @SaveGroupModifier.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroupModifier;
+                    @SaveGroupModifier.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroupModifier;
                 }
-
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
-                if (instance != null) {
+                if (instance != null)
+                {
                     @Zoom.started += instance.OnZoom;
                     @Zoom.performed += instance.OnZoom;
                     @Zoom.canceled += instance.OnZoom;
@@ -912,23 +1218,28 @@ namespace Exa.Input
                     @Escape.started += instance.OnEscape;
                     @Escape.performed += instance.OnEscape;
                     @Escape.canceled += instance.OnEscape;
-                    @NumKeys.started += instance.OnNumKeys;
-                    @NumKeys.performed += instance.OnNumKeys;
-                    @NumKeys.canceled += instance.OnNumKeys;
+                    @SaveGroup.started += instance.OnSaveGroup;
+                    @SaveGroup.performed += instance.OnSaveGroup;
+                    @SaveGroup.canceled += instance.OnSaveGroup;
+                    @SelectGroup.started += instance.OnSelectGroup;
+                    @SelectGroup.performed += instance.OnSelectGroup;
+                    @SelectGroup.canceled += instance.OnSelectGroup;
+                    @SaveGroupModifier.started += instance.OnSaveGroupModifier;
+                    @SaveGroupModifier.performed += instance.OnSaveGroupModifier;
+                    @SaveGroupModifier.canceled += instance.OnSaveGroupModifier;
                 }
             }
         }
-
         public GameplayActions @Gameplay => new GameplayActions(this);
         private int m_MouseKbSchemeIndex = -1;
-
-        public InputControlScheme MouseKbScheme {
-            get {
+        public InputControlScheme MouseKbScheme
+        {
+            get
+            {
                 if (m_MouseKbSchemeIndex == -1) m_MouseKbSchemeIndex = asset.FindControlSchemeIndex("MouseKb");
                 return asset.controlSchemes[m_MouseKbSchemeIndex];
             }
         }
-
         public interface IEditorActions
         {
             void OnMovement(InputAction.CallbackContext context);
@@ -939,18 +1250,15 @@ namespace Exa.Input
             void OnToggleMirror(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
         }
-
         public interface IDebugActions
         {
             void OnToggleConsole(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
         }
-
         public interface IReturnNavigateableActions
         {
             void OnReturn(InputAction.CallbackContext context);
         }
-
         public interface IGameplayActions
         {
             void OnZoom(InputAction.CallbackContext context);
@@ -958,7 +1266,9 @@ namespace Exa.Input
             void OnLeftClick(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnEscape(InputAction.CallbackContext context);
-            void OnNumKeys(InputAction.CallbackContext context);
+            void OnSaveGroup(InputAction.CallbackContext context);
+            void OnSelectGroup(InputAction.CallbackContext context);
+            void OnSaveGroupModifier(InputAction.CallbackContext context);
         }
     }
 }

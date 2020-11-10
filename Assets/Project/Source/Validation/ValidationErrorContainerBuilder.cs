@@ -14,7 +14,7 @@ namespace Exa.Validation
         /// </summary>
         /// <param name="validator">validator identifier</param>
         /// <returns></returns>
-        private Dictionary<string, Action<ValidationError>> GetHandlerDictionary(IValidator validator) {
+        private IDictionary<string, Action<ValidationError>> GetHandlerDictionary(IValidator validator) {
             if (!container.errorHandlers.ContainsKey(validator)) {
                 container.errorHandlers[validator] = new Dictionary<string, Action<ValidationError>>();
             }
@@ -27,7 +27,7 @@ namespace Exa.Validation
         /// </summary>
         /// <param name="validator">validator identifier</param>
         /// <returns></returns>
-        private Dictionary<string, Action<ValidationError>> GetCleanerDictionary(IValidator validator) {
+        private IDictionary<string, Action<ValidationError>> GetCleanerDictionary(IValidator validator) {
             if (!container.errorHandlers.ContainsKey(validator)) {
                 container.errorHandlers[validator] = new Dictionary<string, Action<ValidationError>>();
             }
