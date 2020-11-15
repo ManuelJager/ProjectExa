@@ -35,9 +35,12 @@ namespace Exa.Weapons
 
         public void OnTriggerEnter2D(Collider2D collider) {
             var block = collider.gameObject.GetComponent<Block>();
-            if (!block) return;
+            if (!block || !PassesDamageMask(block)) return;
 
-            if (PassesDamageMask(block) && block.PhysicalBehaviour.TakeDamage(damage)) {
+            var absorbedAllDamage = block.PhysicalBehaviour.AbsorbDamage(damage, out var eventData);
+            damage -= eventData.absorbedDamage;
+
+            if (absorbedAllDamage) {
                 Destroy(gameObject);
             }
         }

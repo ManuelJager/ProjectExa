@@ -14,12 +14,14 @@ namespace Exa.Grids.Blocks.Components
         /// </summary>
         /// <param name="damage"></param>
         /// <returns>Whether all given damage was absorbed</returns>
-        public bool TakeDamage(float damage) {
+        public bool AbsorbDamage(float damage, out DamageEventData eventData) {
+            eventData = new DamageEventData();
             var computedDamage = ComputeDamage(damage);
-            if (computedDamage < 0f) return true;
+            if (computedDamage < 0f) {
+                eventData.absorbedDamage = damage;
+            }
 
-            // Get the min between the current hull and damage that should be applied
-            // This prevents the block from receiving too much damage
+            eventData.absorbedDamage = Mathf.Min(data.hull, damage);
             data.hull -= computedDamage;
 
             if (data.hull <= 0) {
@@ -43,8 +45,8 @@ namespace Exa.Grids.Blocks.Components
 
     }
 
-    public struct DamageOperationData
+    public struct DamageEventData
     {
-        public bool destroyedBlock;
+        public float absorbedDamage;
     }
 }
