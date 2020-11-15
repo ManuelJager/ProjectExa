@@ -5,14 +5,24 @@ using UnityEngine;
 
 namespace Exa.Ships.Navigation
 {
-    public class AxisThrustVectors : IThrustVectors
+    public class AxisThrustVectors : MonoBehaviour, IThrustVectors
     {
-        public ThrusterAxis XAxis { get; }
-        public ThrusterAxis YAxis { get; }
+        [SerializeField] private Vector2 currentDirection;
+        [SerializeField] private Vector2 targetDirection;
 
-        public AxisThrustVectors(Scalar thrustModifier) {
-            XAxis = new ThrusterAxis(thrustModifier);
-            YAxis = new ThrusterAxis(thrustModifier);
+        private ThrusterAxis xAxis;
+        private ThrusterAxis yAxis;
+
+        public void Setup(Scalar thrustModifier) {
+            xAxis = new ThrusterAxis(thrustModifier);
+            yAxis = new ThrusterAxis(thrustModifier);
+        }
+
+        public void Update() {
+            MathUtils.MoveTowards(ref currentDirection, targetDirection, Time.deltaTime * 2f);
+
+            xAxis.SetGraphics(currentDirection.x);
+            yAxis.SetGraphics(currentDirection.y);
         }
 
         public void Register(IThruster thruster) {
@@ -24,8 +34,8 @@ namespace Exa.Ships.Navigation
         }
 
         public void Fire(Vector2 force) {
-            XAxis.Fire(force.x);
-            YAxis.Fire(force.y);
+            xAxis.Fire(force.x);
+            yAxis.Fire(force.y);
         }
 
         public Vector2 GetForce(Vector2 forceDirection, Scalar thrustModifier) {
@@ -41,14 +51,13 @@ namespace Exa.Ships.Navigation
 
         private Vector2 GetUnClampedForce(Vector2 forceDirection) {
             return new Vector2 {
-                x = XAxis.Clamp(forceDirection.x),
-                y = YAxis.Clamp(forceDirection.y)
+                x = xAxis.Clamp(forceDirection.x),
+                y = yAxis.Clamp(forceDirection.y)
             };
         }
 
         public void SetGraphics(Vector2 directionScalar) {
-            XAxis.SetGraphics(directionScalar.x);
-            YAxis.SetGraphics(directionScalar.y);
+            targetDirection = directionScalar;
         }
 
         private ThrusterAxis SelectAxis(IThruster thruster, out bool positiveAxisComponent) {
@@ -56,9 +65,7 @@ namespace Exa.Ships.Navigation
             var direction = block.BlueprintBlock.Direction;
 
             positiveAxisComponent = direction <= 1;
-            return direction % 2 == 0
-                ? XAxis
-                : YAxis;
+            return direction % 2 == 0 ? xAxis : yAxis;
         }
     }
 }

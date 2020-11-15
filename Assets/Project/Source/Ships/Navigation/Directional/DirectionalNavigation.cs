@@ -23,7 +23,8 @@ namespace Exa.Ships.Navigation
             this.ship = ship;
             this.options = options;
 
-            thrustVectors = new AxisThrustVectors(thrustModifier);
+            thrustVectors = ship.gameObject.AddComponent<AxisThrustVectors>();
+            thrustVectors.Setup(thrustModifier);
         }
 
         public void Update(float deltaTime) {

@@ -73,6 +73,7 @@ namespace Exa.Ships
         public virtual void Destroy() {
             destroyEvent?.Invoke();
             Active = false;
+            Navigation.ThrustVectors.SetGraphics(Vector2.zero);
         }
 
         public virtual void Import(Blueprint blueprint, BlockContext blockContext) {

@@ -1,5 +1,6 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks
 {
@@ -13,19 +14,16 @@ namespace Exa.Grids.Blocks
         /// <param name="blockTemplate"></param>
         /// <returns></returns>
         public void CreateAlivePrefabGroup(BlockTemplate blockTemplate, BlockContext blockContext) {
-            var rootInstanceGO = CreatePrefab(blockTemplate, PrefabType);
-            var rootInstance = rootInstanceGO.GetComponent<Block>();
+            var blockGO = CreatePrefab(blockTemplate, PrefabType);
+            var block = blockGO.GetComponent<Block>();
+            block.Collider = blockGO.GetComponent<BoxCollider2D>();
 
-            var blockCollider = rootInstanceGO.GetComponent<BlockCollider>();
-            rootInstance.PhysicalBehaviour.BlockCollider = blockCollider;
-            blockCollider.Block = rootInstance;
-
-            foreach (var component in rootInstance.GetBehaviours()) {
-                component.block = rootInstance;
+            foreach (var component in block.GetBehaviours()) {
+                component.block = block;
             }
 
             var id = blockTemplate.id;
-            var pool = CreatePool<BlockPool>(rootInstanceGO, $"Block pool: {id}", out var settings);
+            var pool = CreatePool<BlockPool>(blockGO, $"Block pool: {id}", out var settings);
             pool.blockTemplate = blockTemplate;
             pool.blockContext = blockContext;
             poolById[id] = pool;

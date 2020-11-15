@@ -9,7 +9,7 @@ namespace Exa.Weapons
 {
     public class Projectile : MonoBehaviour
     {
-        private Vector2 direction;
+        [SerializeField] private Rigidbody2D rb;
         private float damage;
         private float lifeTime;
         private BlockContext damageMask;
@@ -18,15 +18,14 @@ namespace Exa.Weapons
         public void Setup(Transform transform, float speed, float range, float damage, BlockContext damageMask) {
             this.transform.position = transform.position;
             this.damage = damage;
-            this.direction = transform.right * speed;
             this.lifeTime = range / speed;
             this.damageMask = damageMask;
+
+            rb.velocity = transform.right * speed;
         }
 
         public void Update() {
             var deltaTime = Time.deltaTime;
-
-            transform.position += (direction * deltaTime).ToVector3();
             timeAlive += deltaTime;
 
             if (timeAlive > lifeTime) {
@@ -35,13 +34,16 @@ namespace Exa.Weapons
         }
 
         public void OnTriggerEnter2D(Collider2D collider) {
-            var blockCollider = collider.transform.GetComponent<BlockCollider>();
-            if (!blockCollider) return;
+            var block = collider.gameObject.GetComponent<Block>();
+            if (!block) return;
 
-            var block = blockCollider.Block;
-            if ((block.BlockGrid.BlockContext & damageMask) != 0) {
-                block.PhysicalBehaviour.TakeDamage(damage);
+            if (PassesDamageMask(block) && block.PhysicalBehaviour.TakeDamage(damage)) {
+                Destroy(gameObject);
             }
+        }
+
+        private bool PassesDamageMask(Block block) {
+            return (block.BlockGrid.BlockContext & damageMask) != 0;
         }
     }
 }

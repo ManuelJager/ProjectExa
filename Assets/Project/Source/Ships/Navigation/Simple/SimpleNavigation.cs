@@ -55,13 +55,10 @@ namespace Exa.Ships.Navigation
             var lookAtTargetPosition = LookAt.GetPosition(currentPosition);
 
             var lookAtDelta = lookAtTargetPosition - currentPosition;
-            var currentRotation = new Vector3(0, 0, ship.rb.rotation);
+            var targetRotation = lookAtDelta.GetAngle();
+            var currentRotation = ship.rb.rotation;
 
-            var targetRotation = new Vector3(0, 0, lookAtDelta.GetAngle());
-            var deltaTime = Time.fixedDeltaTime;
-            var newRotation = Vector3.RotateTowards(currentRotation, targetRotation, float.MaxValue, 100 * deltaTime);
-
-            ship.rb.rotation = newRotation.z;
+            ship.rb.rotation = Mathf.MoveTowardsAngle(currentRotation, targetRotation, 100 * Time.fixedDeltaTime);
         }
     }
 }

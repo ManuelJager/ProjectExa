@@ -64,6 +64,22 @@ namespace Exa.Math
             vector.y = (sin * tx) + (cos * ty);
         }
 
+        public static Vector2 MoveTowards(Vector2 current, Vector2 target, float maxDelta) {
+            if (target == current) return current;
+
+            return new Vector2 {
+                x = Mathf.MoveTowards(current.x, target.x, maxDelta),
+                y = Mathf.MoveTowards(current.y, target.y, maxDelta)
+            };
+        }
+
+        public static void MoveTowards(ref Vector2 current, Vector2 target, float maxDelta) {
+            if (target == current) return;
+
+            current.x = Mathf.MoveTowards(current.x, target.x, maxDelta);
+            current.y = Mathf.MoveTowards(current.y, target.y, maxDelta);
+        }
+
         /// <summary>
         /// Rotate a vector2 by the given count of quarter turns
         /// </summary>

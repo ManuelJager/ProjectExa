@@ -9,26 +9,24 @@ namespace Exa.Grids.Blocks.Components
 
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
     {
-        [SerializeField, HideInInspector] private BlockCollider blockCollider;
-
-        public BlockCollider BlockCollider {
-            get => blockCollider;
-            set => blockCollider = value;
-        }
-
-        public void TakeDamage(float damage) {
-            damage = ComputeDamage(damage);
-
-            if (damage < 0f) return;
+        /// <summary>
+        /// Takes a given amount of damage
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <returns>Whether all given damage was absorbed</returns>
+        public bool TakeDamage(float damage) {
+            var computedDamage = ComputeDamage(damage);
+            if (computedDamage < 0f) return true;
 
             // Get the min between the current hull and damage that should be applied
             // This prevents the block from receiving too much damage
-            var appliedDamage = Mathf.Min(data.hull, damage);
-            data.hull -= appliedDamage;
+            data.hull -= computedDamage;
 
             if (data.hull <= 0) {
                 gameObject.SetActive(false);
             }
+
+            return data.hull >= 0f;
         }
 
         public float ComputeDamage(float damage) {
@@ -36,11 +34,17 @@ namespace Exa.Grids.Blocks.Components
         }
 
         protected override void OnAdd() {
-            blockCollider.Collider.SetMass(data.mass);
+            block.Collider.SetMass(data.mass);
         }
 
         protected override void OnRemove() {
             
         }
+
+    }
+
+    public struct DamageOperationData
+    {
+        public bool destroyedBlock;
     }
 }

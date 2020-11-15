@@ -18,6 +18,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         [HideInInspector] public AnchoredBlueprintBlock anchoredBlueprintBlock;
 
         [SerializeField] private PhysicalBehaviour physicalBehaviour;
+        [SerializeField, HideInInspector] private new BoxCollider2D collider;
         private BlockGrid blockGrid;
 
         public Vector2Int GridAnchor => anchoredBlueprintBlock.gridAnchor;
@@ -29,6 +30,11 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         public PhysicalBehaviour PhysicalBehaviour => physicalBehaviour;
+
+        public BoxCollider2D Collider {
+            get => collider;
+            set => collider = value;
+        }
 
         public BlockGrid BlockGrid {
             get => blockGrid;
