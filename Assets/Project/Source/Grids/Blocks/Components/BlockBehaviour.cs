@@ -21,31 +21,33 @@ namespace Exa.Grids.Blocks.Components
     public abstract class BlockBehaviourBase : MonoBehaviour
     {
         [HideInInspector] public Block block;
-        protected BlockGrid blockGrid;
+        private IGridInstance parent;
 
         public abstract IBlockComponentValues BlockComponentData { get; }
 
-        public BlockGrid BlockGrid
+        public IGridInstance Parent
         {
-            get => blockGrid;
+            get => parent;
             set
             {
-                if (blockGrid == value) return;
+                if (parent == value) return;
 
-                if (blockGrid != null) {
+                if (parent != null) {
                     OnRemove();
                 }
 
-                blockGrid = value;
+                parent = value;
 
-                if (blockGrid != null) {
+                if (parent != null) {
                     OnAdd();
                 }
             }
         }
 
+        public Ship Ship => Parent as Ship;
+
         private void Update() {
-            if (blockGrid?.Ship != null && blockGrid.Ship.Active)
+            if (Ship && Ship.Active)
                 BlockUpdate();
         }
 

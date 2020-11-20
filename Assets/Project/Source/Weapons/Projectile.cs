@@ -46,7 +46,7 @@ namespace Exa.Weapons
         }
 
         private bool PassesDamageMask(Block block) {
-            return (block.BlockGrid.BlockContext & damageMask) != 0;
+            return (block.Parent.BlockContext & damageMask) != 0;
         }
     }
 }

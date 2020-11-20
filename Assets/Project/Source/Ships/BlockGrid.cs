@@ -1,10 +1,12 @@
-﻿using Exa.Grids;
+﻿using System;
+using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using Exa.Utils;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Exa.Ships
@@ -12,18 +14,17 @@ namespace Exa.Ships
     public class BlockGrid : Grid<Block>
     {
         private readonly Transform container;
-        private readonly Ship ship;
+        private readonly Action destroyCallback;
 
+        public IGridInstance Parent { get; }
         public bool Rebuilding { get; set; }
-        public BlockContext BlockContext { get; }
 
-        public Ship Ship => ship;
-
-        public BlockGrid(Transform container, Ship ship, BlockContext blockContext)
-            : base(totals: ship?.Totals) {
+        public BlockGrid(Transform container, Action destroyCallback, IGridInstance parent)
+            : base(totals: (parent as Ship)?.Totals) {
             this.container = container;
-            this.ship = ship;
-            BlockContext = blockContext;
+            this.destroyCallback = destroyCallback;
+
+            Parent = parent;
         }
 
         public override void Add(Block gridMember) {
@@ -39,7 +40,7 @@ namespace Exa.Ships
 
             // Only mark this grid as dirty if it's not in the process of being rebuilt
             if (!Rebuilding)
-                GameSystems.BlockGridManager.MarkDirty(this);
+                GameSystems.BlockGridManager.MarkDirty(Parent);
 
             return block;
         }
@@ -51,13 +52,18 @@ namespace Exa.Ships
         }
 
         private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock, BlockContext blockContext) {
-            var block = anchoredBlueprintBlock.CreateInactiveBlockBehaviourInGrid(container, blockContext);
-            block.BlockGrid = this;
+            var block = anchoredBlueprintBlock.CreateInactiveBlockInGrid(container, blockContext);
+            block.Parent = Parent;
             block.gameObject.SetActive(true);
             return block;
         }
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
         };
+
+        public void DestroyIfEmpty() {
+            if (!GridMembers.Any())
+                destroyCallback();
+        }
     }
 }

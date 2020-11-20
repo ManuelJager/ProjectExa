@@ -19,7 +19,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         [SerializeField] private PhysicalBehaviour physicalBehaviour;
         [SerializeField, HideInInspector] private new BoxCollider2D collider;
-        private BlockGrid blockGrid;
+        private IGridInstance parent;
 
         public Vector2Int GridAnchor => anchoredBlueprintBlock.gridAnchor;
 
@@ -36,32 +36,34 @@ namespace Exa.Grids.Blocks.BlockTypes
             set => collider = value;
         }
 
-        public BlockGrid BlockGrid {
-            get => blockGrid;
+        public IGridInstance Parent {
+            get => parent;
             set {
-                if (blockGrid == value) return;
+                if (parent == value) return;
 
-                if (blockGrid != null && !Systems.IsQuitting) {
+                if (parent != null && !Systems.IsQuitting) {
                     OnRemove();
                 }
 
-                blockGrid = value;
+                parent = value;
 
-                if (blockGrid != null) {
+                if (parent != null) {
                     OnAdd();
                 }
 
                 foreach (var behaviour in GetBehaviours()) {
-                    behaviour.BlockGrid = value;
+                    behaviour.Parent = value;
                 }
             }
         }
 
+        public Ship Ship => Parent as Ship;
+
         private void OnDisable() {
             if (Systems.IsQuitting) return;
 
-            blockGrid.Remove(GridAnchor);
-            BlockGrid = null;
+            Parent.BlockGrid.Remove(GridAnchor);
+            Parent = null;
         }
 
         public TComponent GetBlockComponent<TComponent, TValues>()

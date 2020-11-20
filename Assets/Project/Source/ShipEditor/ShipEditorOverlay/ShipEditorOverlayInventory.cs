@@ -24,7 +24,7 @@ namespace Exa.ShipEditor
         private BlockTemplateView activeView;
 
         private void Start() {
-            Source = Systems.Blocks.availibleBlockTemplates;
+            Source = Systems.Blocks.availableBlockTemplates;
         }
 
         public override void OnAdd(BlockTemplateContainer observer) {

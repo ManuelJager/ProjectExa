@@ -14,23 +14,27 @@ namespace Exa.Gameplay
     {
         [SerializeField] private GameObject debrisGridPrefab;
 
-        public void MarkDirty(BlockGrid blockGrid) {
+        public void MarkDirty(IGridInstance gridInstance) {
+            var blockGrid = gridInstance.BlockGrid;
             if (!blockGrid.Any()) 
                 return;
 
-            var clusters = GetClusters(blockGrid);
+            var clusters = GetClusters(gridInstance.BlockGrid);
             if (clusters.Count() > 1)
-                Rebuild(blockGrid, clusters);
+                Rebuild(gridInstance, clusters);
         }
 
-        private void Rebuild(BlockGrid blockGrid, IEnumerable<Cluster> clusters) {
+        private void Rebuild(IGridInstance gridInstance, IEnumerable<Cluster> clusters) {
+            var blockGrid = gridInstance.BlockGrid;
             blockGrid.Rebuilding = true;
             var clustersScheduledForRebuild = clusters.Where(cluster => !cluster.containsController);
-            foreach (var cluster in clusters) {
+            foreach (var cluster in clustersScheduledForRebuild) {
                 var debris = Instantiate(debrisGridPrefab, transform).GetComponent<Debris>();
                 debris.FromCluster(cluster);
+                debris.Rigidbody2D.velocity = gridInstance.Rigidbody2D.velocity;
             }
             blockGrid.Rebuilding = false;
+            blockGrid.DestroyIfEmpty();
         }
 
         private IEnumerable<Cluster> GetClusters(BlockGrid blockGrid) {

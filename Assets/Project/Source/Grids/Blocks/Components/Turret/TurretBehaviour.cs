@@ -24,7 +24,7 @@ namespace Exa.Grids.Blocks.Components
             }
 
             if (Target == null) {
-                var shipAngle = blockGrid.Ship.transform.right.ToVector2().GetAngle();
+                var shipAngle = Parent.Transform.right.ToVector2().GetAngle();
                 RotateTowards(shipAngle);
                 return;
             }

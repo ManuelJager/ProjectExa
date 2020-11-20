@@ -31,7 +31,7 @@ namespace Exa.Grids.Blocks
     /// </summary>
     public class BlockFactory : MonoBehaviour
     {
-        public ObservableBlockTemplateCollection availibleBlockTemplates = new ObservableBlockTemplateCollection();
+        public ObservableBlockTemplateCollection availableBlockTemplates = new ObservableBlockTemplateCollection();
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
         [SerializeField] private BlockTemplateBag blockTemplateBag;
@@ -72,7 +72,7 @@ namespace Exa.Grids.Blocks
                 throw new Exception("Duplicate block id found");
             }
 
-            availibleBlockTemplates.Add(new BlockTemplateContainer(blockTemplate));
+            availableBlockTemplates.Add(new BlockTemplateContainer(blockTemplate));
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
             inertPrefabGroup.CreateInertPrefab(blockTemplate);

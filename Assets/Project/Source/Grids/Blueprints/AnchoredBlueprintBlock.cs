@@ -33,7 +33,7 @@ namespace Exa.Grids.Blueprints
             return blockGO;
         }
 
-        public Block CreateInactiveBlockBehaviourInGrid(Transform parent, BlockContext blockPrefabType) {
+        public Block CreateInactiveBlockInGrid(Transform parent, BlockContext blockPrefabType) {
             var block = Systems.Blocks.GetInactiveBlock(blueprintBlock.id, parent, blockPrefabType);
             var blockGO = block.gameObject;
             block.anchoredBlueprintBlock = this;

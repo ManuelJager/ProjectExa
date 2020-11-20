@@ -11,16 +11,16 @@ using Exa.UI;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
+using Exa.Grids;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEngine.GameObject;
 
 #pragma warning disable CS0649
 
 namespace Exa.Ships
 {
-    public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable
+    public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable, IGridInstance
     {
         [Header("References")] 
         [HideInInspector] public ShipOverlay overlay;
@@ -50,6 +50,8 @@ namespace Exa.Ships
         public ShipGridTotals Totals { get; private set; }
         public TurretList Turrets { get; private set; }
         public bool Active { get; private set; }
+        public Transform Transform => transform;
+        public Rigidbody2D Rigidbody2D => rb;
 
         protected virtual void Awake() {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
@@ -82,7 +84,7 @@ namespace Exa.Ships
             }
 
             Totals = new ShipGridTotals(this);
-            BlockGrid = new BlockGrid(pivot, this, blockContext);
+            BlockGrid = new BlockGrid(pivot, OnGridEmpty, this);
             ActionScheduler = new ActionScheduler(this);
             Turrets = new TurretList();
             Active = true;
@@ -182,6 +184,11 @@ namespace Exa.Ships
         public void SetDebugDraggerGlobals(Vector2 position, Vector2 velocity) {
             transform.position = position;
             rb.velocity = velocity;
+        }
+
+        private void OnGridEmpty() {
+            if (gameObject)
+                Destroy(gameObject);
         }
     }
 }
