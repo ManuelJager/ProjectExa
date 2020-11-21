@@ -6,9 +6,6 @@ namespace Exa.Bindings
     {
         private IObservableEnumerable<T> source = null;
 
-        /// <summary>
-        /// Views data source
-        /// </summary>
         public virtual IObservableEnumerable<T> Source {
             get => source;
             set {
