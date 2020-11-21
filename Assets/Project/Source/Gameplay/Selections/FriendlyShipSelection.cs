@@ -20,8 +20,8 @@ namespace Exa.Gameplay
             foreach (var (ship, formationPosition) in formationShips.AsTupleEnumerable(formationPositions)) {
                 var currentPosition = ship.transform.position.ToVector2();
 
-                ship.shipAi.moveToTarget.Target = new StaticPositionTarget(formationPosition);
-                ship.shipAi.lookAtTarget.Target = new StaticAngleTarget(currentPosition, formationPosition);
+                ship.Ai.moveToTarget.Target = new StaticPositionTarget(formationPosition);
+                ship.Ai.lookAtTarget.Target = new StaticAngleTarget(currentPosition, formationPosition);
             }
         }
 

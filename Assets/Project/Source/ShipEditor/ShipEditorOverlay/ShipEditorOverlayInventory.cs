@@ -27,9 +27,9 @@ namespace Exa.ShipEditor
             Source = Systems.Blocks.availableBlockTemplates;
         }
 
-        public override void OnAdd(BlockTemplateContainer observer) {
-            var category = observer.Data.category;
-            var categoryString = observer.Data.category.ToString();
+        public override void OnAdd(BlockTemplateContainer value) {
+            var category = value.Data.category;
+            var categoryString = value.Data.category.ToString();
 
             if (!blockCategories.ContainsKey(category)) {
                 var newExpandableItemObject = Instantiate(expandableItemPrefab, viewContainer);
@@ -39,7 +39,7 @@ namespace Exa.ShipEditor
             }
 
             var categoryItem = blockCategories[category];
-            var view = base.OnAdd(observer, categoryItem.content);
+            var view = base.OnAdd(value, categoryItem.content);
 
             view.button.onClick.AddListener(() => {
                 if (activeView != null)
@@ -48,7 +48,7 @@ namespace Exa.ShipEditor
                 activeView = view;
                 activeView.Selected = true;
 
-                blockSelected?.Invoke(observer.Data);
+                blockSelected?.Invoke(value.Data);
             });
         }
     }

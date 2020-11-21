@@ -32,12 +32,12 @@ namespace Exa.Gameplay
         public override void Add(Ship ship) {
             base.Add(ship);
 
-            ship.overlay.overlayCircle.IsSelected = true;
+            ship.Overlay.overlayCircle.IsSelected = true;
 
             // Set a callback that removes the Ship from the collection when destroyed
-            UnityAction callback = () => Remove(ship);
-            callbackDict.Add(ship, callback);
-            ship.destroyEvent.AddListener(callback);
+            void Callback() => Remove(ship);
+            callbackDict.Add(ship, Callback);
+            ship.ControllerDestroyedEvent.AddListener(Callback);
         }
 
         public override bool Remove(Ship ship) {
@@ -54,12 +54,12 @@ namespace Exa.Gameplay
         }
 
         private void OnRemove(Ship ship) {
-            ship.overlay.overlayCircle.IsSelected = false;
+            ship.Overlay.overlayCircle.IsSelected = false;
 
             // Get the callback and remove it
             var callback = callbackDict[ship];
             callbackDict.Remove(ship);
-            ship.destroyEvent.RemoveListener(callback);
+            ship.ControllerDestroyedEvent.RemoveListener(callback);
         }
 
         public abstract ShipSelection Clone();

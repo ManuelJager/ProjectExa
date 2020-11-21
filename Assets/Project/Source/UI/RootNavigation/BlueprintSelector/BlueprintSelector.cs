@@ -86,8 +86,8 @@ namespace Exa.UI
                 throw new InvalidOperationException("Source must be an observable collection");
         }
 
-        protected override BlueprintView OnAdd(BlueprintContainer observer, Transform container) {
-            var view = base.OnAdd(observer, container);
+        protected override BlueprintView OnAdd(BlueprintContainer value, Transform container) {
+            var view = base.OnAdd(value, container);
 
             view.button.onClick.AddListener(() => {
                 if (!Interactable) return;
@@ -95,7 +95,7 @@ namespace Exa.UI
                 blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs {
                     current = blueprintSelectorNavigateable
                 });
-                Systems.Editor.Import(observer, TrySave);
+                Systems.Editor.Import(value, TrySave);
             });
             view.deleteButton.onClick.AddListener(() => {
                 if (!Interactable) return;
@@ -105,12 +105,12 @@ namespace Exa.UI
                         if (!yes) return;
 
                         if (Source is ICollection<BlueprintContainer> collection)
-                            collection.Remove(observer);
+                            collection.Remove(value);
                         else
                             throw new InvalidOperationException("Source must be an observable collection");
                     });
             });
-            view.hoverable.onPointerEnter.AddListener(() => { blueprintDetails.Reflect(observer.Data); });
+            view.hoverable.onPointerEnter.AddListener(() => { blueprintDetails.Reflect(value.Data); });
             view.hoverable.onPointerExit.AddListener(() => { blueprintDetails.Reflect(null); });
 
             return view;

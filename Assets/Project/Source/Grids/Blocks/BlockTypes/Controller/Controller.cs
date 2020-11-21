@@ -27,7 +27,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         protected override void OnRemove() {
             if (!Ship) return;
 
-            Ship.Destroy();
+            Ship.OnControllerDestroyed();
             Ship.Controller = null;
         }
     }

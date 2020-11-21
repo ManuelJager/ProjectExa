@@ -32,7 +32,7 @@ namespace Exa.Ships.Navigation
         }
 
         private void UpdatePosition() {
-            var currentPosition = ship.rb.position;
+            var currentPosition = ship.GetPosition();
             var moveToTargetPosition = MoveTo.GetPosition(currentPosition);
 
             if (currentPosition == moveToTargetPosition) {
@@ -40,25 +40,25 @@ namespace Exa.Ships.Navigation
                 return;
             }
 
-            var headingAngle = ship.rb.rotation;
+            var headingAngle = ship.Rigidbody2D.rotation;
             var direction = (moveToTargetPosition - currentPosition).Rotate(-headingAngle).normalized;
             ThrustVectors.SetGraphics(direction);
 
             var deltaTime = Time.fixedDeltaTime;
             var newPosition = Vector2.MoveTowards(currentPosition, moveToTargetPosition, 30 * deltaTime);
 
-            ship.rb.position = newPosition;
+            ship.Rigidbody2D.position = newPosition;
         }
 
         private void UpdateRotation() {
-            var currentPosition = ship.rb.position;
+            var currentPosition = ship.GetPosition();
             var lookAtTargetPosition = LookAt.GetPosition(currentPosition);
 
             var lookAtDelta = lookAtTargetPosition - currentPosition;
             var targetRotation = lookAtDelta.GetAngle();
-            var currentRotation = ship.rb.rotation;
+            var currentRotation = ship.Rigidbody2D.rotation;
 
-            ship.rb.rotation = Mathf.MoveTowardsAngle(currentRotation, targetRotation, 100 * Time.fixedDeltaTime);
+            ship.Rigidbody2D.rotation = Mathf.MoveTowardsAngle(currentRotation, targetRotation, 100 * Time.fixedDeltaTime);
         }
     }
 }

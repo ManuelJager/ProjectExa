@@ -20,14 +20,14 @@ namespace Exa.UI.Gameplay
             container.gameObject.SetActive(false);
         }
 
-        public override void OnAdd(Ship ship) {
-            var view = SelectOrCreateView(ship);
-            view.Add(ship);
+        public override void OnAdd(Ship value) {
+            var view = SelectOrCreateView(value);
+            view.Add(value);
             ProcessEnabled();
         }
 
-        public override void OnRemove(Ship ship) {
-            var key = ship.Blueprint.name;
+        public override void OnRemove(Ship value) {
+            var key = value.Blueprint.name;
             var view = shipViews[key];
 
             // Destroy the view if there are ships it could represent
@@ -37,7 +37,7 @@ namespace Exa.UI.Gameplay
                 Destroy(view.gameObject);
             }
 
-            view.Remove(ship);
+            view.Remove(value);
             ProcessEnabled();
         }
 

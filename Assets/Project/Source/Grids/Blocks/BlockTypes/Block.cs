@@ -13,7 +13,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     /// <summary>
     /// Base class for blocks
     /// </summary>
-    public class Block : MonoBehaviour, IBlock, IConvertGameObjectToEntity, IGridMember, IPhysical
+    public class Block : MonoBehaviour, IBlock, IGridMember, IPhysical
     {
         [HideInInspector] public AnchoredBlueprintBlock anchoredBlueprintBlock;
 
@@ -93,11 +93,6 @@ namespace Exa.Grids.Blocks.BlockTypes
             foreach (var behaviour in GetBehaviours()) {
                 behaviour.BlockComponentData.RemoveGridTotals(totals);
             }
-        }
-
-        // TODO: Convert gameobject to entity
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
-            throw new System.NotImplementedException();
         }
 
         // TODO: cache the result of this operation

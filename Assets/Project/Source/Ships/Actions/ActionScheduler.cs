@@ -52,7 +52,7 @@ namespace Exa.Ships
                 stored = storage;
             }
 
-            ship.overlay.overlayEnergyBar.SetFill(stored / storage);
+            ship.Overlay.overlayEnergyBar.SetFill(stored / storage);
         }
 
         /// <summary>

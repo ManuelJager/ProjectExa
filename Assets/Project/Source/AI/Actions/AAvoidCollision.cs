@@ -30,7 +30,7 @@ namespace Exa.AI.Actions
 
         public override ActionLane Update(ActionLane blockedLanes) {
             var globalPos = ship.transform.position.ToVector2();
-            var currentVel = ship.rb.velocity;
+            var currentVel = ship.Rigidbody2D.velocity;
             var headingVector = currentVel.normalized;
 
             foreach (var neighbour in neighbourCache) {

@@ -22,14 +22,13 @@ namespace Exa.Ships
 {
     public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable, IGridInstance
     {
-        [Header("References")] 
-        [HideInInspector] public ShipOverlay overlay;
-        public Transform pivot;
-        public ShipAi shipAi;
-        public ShipState state;
-        public Rigidbody2D rb;
-        public CircleCollider2D mouseOverCollider;
-        public NavigationOptions navigationOptions;
+        [Header("References")]
+        [SerializeField] private Transform pivot;
+        [SerializeField] private ShipAi shipAi;
+        [SerializeField] private ShipState state;
+        [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private CircleCollider2D mouseOverCollider;
+        [SerializeField] private NavigationOptions navigationOptions;
 
         [Header("Settings")] 
         [SerializeField] private ValueOverride<CursorState> cursorOverride;
@@ -38,8 +37,8 @@ namespace Exa.Ships
 
         private Tooltip debugTooltip;
 
-        [Header("Events")] 
-        public UnityEvent destroyEvent = new UnityEvent();
+        [Header("Events")]
+        public UnityEvent ControllerDestroyedEvent;
 
         public ActionScheduler ActionScheduler { get; private set; }
         public BlockContext BlockContext { get; private set; }
@@ -50,8 +49,11 @@ namespace Exa.Ships
         public ShipGridTotals Totals { get; private set; }
         public TurretList Turrets { get; private set; }
         public bool Active { get; private set; }
+        public ShipOverlay Overlay { get; set; }
         public Transform Transform => transform;
         public Rigidbody2D Rigidbody2D => rb;
+        public ShipAi Ai => shipAi;
+        public ShipState State => state;
 
         protected virtual void Awake() {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
@@ -72,10 +74,13 @@ namespace Exa.Ships
         }
 
         // TODO: Make this look nicer by breaking up the ship and adding an explosion
-        public virtual void Destroy() {
-            destroyEvent?.Invoke();
+        public virtual void OnControllerDestroyed() {
+            ControllerDestroyedEvent?.Invoke();
             Active = false;
-            Navigation.ThrustVectors.SetGraphics(Vector2.zero);
+
+            foreach (var thruster in BlockGrid.Metadata.QueryByType<IThruster>()) {
+                thruster.PowerDown();
+            }
         }
 
         public virtual void Import(Blueprint blueprint, BlockContext blockContext) {
@@ -108,7 +113,7 @@ namespace Exa.Ships
         public virtual void OnRaycastEnter() {
             if (!Active) return;
 
-            overlay.overlayCircle.IsHovered = true;
+            Overlay.overlayCircle.IsHovered = true;
             Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
 
             if (DebugMode.Ships.IsEnabled()) {
@@ -119,7 +124,7 @@ namespace Exa.Ships
         public virtual void OnRaycastExit() {
             if (!Active) return;
 
-            overlay.overlayCircle.IsHovered = false;
+            Overlay.overlayCircle.IsHovered = false;
             Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
 
             if (DebugMode.Ships.IsEnabled()) {
@@ -158,7 +163,7 @@ namespace Exa.Ships
 
         private void UpdateCanvasSize(Blueprint blueprint) {
             var size = blueprint.Blocks.MaxSize * 10 * canvasScaleMultiplier;
-            overlay.rectContainer.sizeDelta = new Vector2(size, size);
+            Overlay.rectContainer.sizeDelta = new Vector2(size, size);
         }
 
         private TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(new ITooltipComponent[] {
@@ -179,6 +184,10 @@ namespace Exa.Ships
 
         public Vector2 GetDebugDraggerPosition() {
             return transform.position;
+        }
+
+        public Vector2 GetPosition() {
+            return Rigidbody2D.worldCenterOfMass;
         }
 
         public void SetDebugDraggerGlobals(Vector2 position, Vector2 velocity) {

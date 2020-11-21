@@ -50,7 +50,7 @@ namespace Exa.Gameplay
                     if (Systems.GodModeIsEnabled && GameSystems.Raycaster.TryGetTarget<Ship>(out var ship)) {
                         var worldPos = ship.transform.position.ToVector2();
                         var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * ship.Totals.Mass;
-                        ship.rb.AddForce(direction, ForceMode2D.Force);
+                        ship.Rigidbody2D.AddForce(direction, ForceMode2D.Force);
                     }
 
                     break;

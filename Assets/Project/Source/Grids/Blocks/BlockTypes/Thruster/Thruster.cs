@@ -17,6 +17,10 @@ namespace Exa.Grids.Blocks.BlockTypes
             thrusterBehaviour.Fire(strength);
         }
 
+        public void PowerDown() {
+            thrusterBehaviour.PowerDown();
+        }
+
         public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
             return base.GetBehaviours()
                 .Append(thrusterBehaviour);

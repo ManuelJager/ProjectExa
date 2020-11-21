@@ -14,7 +14,7 @@ namespace Exa.Gameplay
     {
         [SerializeField] private GameObject debrisGridPrefab;
 
-        public void MarkDirty(IGridInstance gridInstance) {
+        public void AttemptRebuild(IGridInstance gridInstance) {
             var blockGrid = gridInstance.BlockGrid;
             if (!blockGrid.Any()) 
                 return;

@@ -1,5 +1,7 @@
-﻿using Exa.Generics;
+﻿using DG.Tweening;
+using Exa.Generics;
 using Exa.Math;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -19,13 +21,22 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private MinMax<float> yScale;
         [SerializeField] private MinMax<float> lightIntensityScale;
 
+        private float strength;
+
         public void Fire(float strength) {
+            this.strength = strength;
+
             thrusterFlame.transform.localScale = new Vector2 {
                 x = xScale.Evaluate(strength),
                 y = yScale.Evaluate(strength)
             };
 
             light2D.intensity = lightIntensityScale.Evaluate(strength);
+        }
+
+        public void PowerDown() {
+            thrusterFlame.transform.DOScale(0f, 0.5f);
+            light2D.DOIntensity(0f, 0.5f);
         }
 
         protected override void OnAdd() {

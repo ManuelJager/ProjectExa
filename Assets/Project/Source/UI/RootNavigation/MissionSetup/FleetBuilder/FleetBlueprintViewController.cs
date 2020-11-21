@@ -28,21 +28,21 @@ namespace Exa.UI
             Source = enumerable;
         }
 
-        public override void OnAdd(BlueprintContainer observer) {
-            var tab = tabsByType[observer.Data.BlueprintType];
+        public override void OnAdd(BlueprintContainer value) {
+            var tab = tabsByType[value.Data.BlueprintType];
 
-            var view = base.OnAdd(observer, tab.container);
+            var view = base.OnAdd(value, tab.container);
             tab.ChildCount++;
 
             view.ParentTab = tab;
-            view.button.onClick.AddListener(() => viewButtonCallback?.Invoke(observer));
+            view.button.onClick.AddListener(() => viewButtonCallback?.Invoke(value));
         }
 
-        public override void OnRemove(BlueprintContainer observer) {
-            if (GetView(observer).Selected)
-                selectedViewRemoved.Invoke(observer);
+        public override void OnRemove(BlueprintContainer value) {
+            if (GetView(value).Selected)
+                selectedViewRemoved.Invoke(value);
 
-            base.OnRemove(observer);
+            base.OnRemove(value);
         }
 
         public BlueprintTypeTabContent CreateTab(BlueprintType blueprintType) {

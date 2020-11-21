@@ -12,7 +12,7 @@ namespace Exa.Ships
         public ShipOverlayCircle overlayCircle;
 
         private void Update() {
-            transform.position = ship.rb.worldCenterOfMass;
+            transform.position = ship.GetPosition();
         }
     }
 }

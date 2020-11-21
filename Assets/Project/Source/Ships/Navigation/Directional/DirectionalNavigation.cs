@@ -41,7 +41,7 @@ namespace Exa.Ships.Navigation
             if (DebugMode.Navigation.IsEnabled()) {
                 void DrawRay(Vector2 localFrameForce, Color color) {
                     var force = localFrameForce.Rotate(GetCurrentRotation()) / deltaTime;
-                    Debug.DrawRay(ship.transform.position, force / ship.rb.mass / 10, color);
+                    Debug.DrawRay(ship.transform.position, force / ship.Rigidbody2D.mass / 10, color);
                 }
 
                 DrawRay(frameTargetForce, Color.red);
@@ -70,14 +70,14 @@ namespace Exa.Ships.Navigation
         }
 
         private Vector2 GetLocalDifference(ITarget target) {
-            var currentPos = ship.rb.position;
+            var currentPos = ship.GetPosition();
             var diff = target.GetPosition(currentPos) - currentPos;
             return diff.Rotate(-GetCurrentRotation());
         }
 
         private float GetDecelerationVelocity(Vector2 direction, Scalar thrustModifier) {
             var force = thrustVectors.GetClampedForce(direction, thrustModifier);
-            return -(force / Mathf.Pow(ship.rb.mass, 2)).magnitude;
+            return -(force / Mathf.Pow(ship.Rigidbody2D.mass, 2)).magnitude;
         }
 
         // TODO: Fix this
@@ -134,19 +134,19 @@ namespace Exa.Ships.Navigation
         private void Fire(Vector2 frameTargetForce, float deltaTime) {
             // Transform force for this frame to velocity
             thrustVectors.Fire(frameTargetForce / deltaTime);
-            ship.rb.AddForce(frameTargetForce, ForceMode2D.Force);
+            ship.Rigidbody2D.AddForce(frameTargetForce, ForceMode2D.Force);
         }
 
         private VelocityValues GetLocalVelocity() {
-            var localVelocity = ship.rb.velocity.Rotate(-GetCurrentRotation());
+            var localVelocity = ship.Rigidbody2D.velocity.Rotate(-GetCurrentRotation());
             return new VelocityValues {
                 localVelocity = localVelocity,
-                localVelocityForce = localVelocity * ship.rb.mass
+                localVelocityForce = localVelocity * ship.Rigidbody2D.mass
             };
         }
 
         private float GetCurrentRotation() {
-            return MathUtils.NormalizeAngle180(ship.rb.rotation);
+            return MathUtils.NormalizeAngle180(ship.Rigidbody2D.rotation);
         }
 
         private struct VelocityValues

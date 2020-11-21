@@ -14,7 +14,7 @@ namespace Exa.Ships
             get => hullIntegrity;
             set {
                 hullIntegrity = value;
-                ship.overlay.overlayHullBar.SetFill(value);
+                ship.Overlay.overlayHullBar.SetFill(value);
             }
         }
 

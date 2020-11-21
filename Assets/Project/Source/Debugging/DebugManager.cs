@@ -1,5 +1,6 @@
 ﻿using Exa.Input;
 using System.Reflection;
+using Exa.Utils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -81,7 +82,7 @@ namespace Exa.Debugging
         /// <param name="debugMode"></param>
         /// <returns></returns>
         public static bool IsEnabled(this DebugMode debugMode) {
-            return (Systems.Debug.DebugMode & debugMode) != 0;
+            return Systems.Debug.DebugMode.Is(debugMode);
         }
 
         /// <summary>

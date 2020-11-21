@@ -18,6 +18,7 @@ namespace Exa.Ships
 
         public IGridInstance Parent { get; }
         public bool Rebuilding { get; set; }
+        public BlockGridMetadata Metadata { get; private set; }
 
         public BlockGrid(Transform container, Action destroyCallback, IGridInstance parent)
             : base(totals: (parent as Ship)?.Totals) {
@@ -25,6 +26,7 @@ namespace Exa.Ships
             this.destroyCallback = destroyCallback;
 
             Parent = parent;
+            Metadata = new BlockGridMetadata(GridMembers);
         }
 
         public override void Add(Block gridMember) {
@@ -40,7 +42,7 @@ namespace Exa.Ships
 
             // Only mark this grid as dirty if it's not in the process of being rebuilt
             if (!Rebuilding)
-                GameSystems.BlockGridManager.MarkDirty(Parent);
+                GameSystems.BlockGridManager.AttemptRebuild(Parent);
 
             return block;
         }
