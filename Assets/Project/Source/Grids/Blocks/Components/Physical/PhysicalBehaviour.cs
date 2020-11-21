@@ -21,7 +21,11 @@ namespace Exa.Grids.Blocks.Components
                 eventData.absorbedDamage = damage;
             }
 
-            eventData.absorbedDamage = Mathf.Min(data.hull, damage);
+            var absorbedDamage = Mathf.Min(data.hull, damage);
+            if (Ship)
+                Ship.Totals.Hull -= absorbedDamage;
+
+            eventData.absorbedDamage = absorbedDamage;
             data.hull -= computedDamage;
 
             if (data.hull <= 0) {
@@ -40,9 +44,7 @@ namespace Exa.Grids.Blocks.Components
         }
 
         protected override void OnRemove() {
-            
         }
-
     }
 
     public struct DamageEventData
