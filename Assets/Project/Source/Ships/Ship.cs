@@ -47,7 +47,6 @@ namespace Exa.Ships
         public Controller Controller { get; internal set; }
         public INavigation Navigation { get; private set; }
         public ShipGridTotals Totals { get; private set; }
-        public TurretList Turrets { get; private set; }
         public bool Active { get; private set; }
         public ShipOverlay Overlay { get; set; }
         public Transform Transform => transform;
@@ -91,14 +90,13 @@ namespace Exa.Ships
             Totals = new ShipGridTotals(this);
             BlockGrid = new BlockGrid(pivot, OnGridEmpty, this);
             ActionScheduler = new ActionScheduler(this);
-            Turrets = new TurretList();
             Active = true;
             BlockContext = blockContext;
 
             var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
             mouseOverCollider.radius = radius;
             Navigation = navigationOptions.GetNavigation(this, blueprint);
-            BlockGrid.Import(blueprint, blockContext);
+            BlockGrid.Import(blueprint);
             Blueprint = blueprint;
 
             UpdateCanvasSize(blueprint);

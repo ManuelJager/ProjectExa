@@ -18,7 +18,7 @@ namespace Exa.Ships
 
         public IGridInstance Parent { get; }
         public bool Rebuilding { get; set; }
-        public BlockGridMetadata Metadata { get; private set; }
+        public BlockGridMetadata Metadata { get; }
 
         public BlockGrid(Transform container, Action destroyCallback, IGridInstance parent)
             : base(totals: (parent as Ship)?.Totals) {
@@ -40,21 +40,21 @@ namespace Exa.Ships
         public override Block Remove(Vector2Int key) {
             var block = base.Remove(key);
 
-            // Only mark this grid as dirty if it's not in the process of being rebuilt
+            // Only rebuild if it isn't being rebuilt already
             if (!Rebuilding)
                 GameSystems.BlockGridManager.AttemptRebuild(Parent);
 
             return block;
         }
 
-        internal void Import(Blueprint blueprint, BlockContext blockContext) {
+        internal void Import(Blueprint blueprint) {
             foreach (var anchoredBlueprintBlock in blueprint.Blocks) {
-                Add(CreateBlock(anchoredBlueprintBlock, blockContext));
+                Add(CreateBlock(anchoredBlueprintBlock));
             }
         }
 
-        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock, BlockContext blockContext) {
-            var block = anchoredBlueprintBlock.CreateInactiveBlockInGrid(container, blockContext);
+        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock) {
+            var block = anchoredBlueprintBlock.CreateInactiveBlockInGrid(container, Parent.BlockContext);
             block.Parent = Parent;
             block.gameObject.SetActive(true);
             return block;

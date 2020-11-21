@@ -4,6 +4,7 @@ using Exa.Grids.Blueprints;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Bindings;
 using UnityEngine;
 using Exa.Utils;
 
@@ -17,7 +18,7 @@ namespace Exa.Grids
         // NOTE: Grid totals are affected by the context of the blueprint, since they will be subject to change because of tech
         // TODO: Replace the reference by a manager that handles totals versioning
         public virtual GridTotals Totals { get; }
-        protected List<T> GridMembers { get; set; }
+        protected ObservableCollection<T> GridMembers { get; set; }
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
 
@@ -33,7 +34,7 @@ namespace Exa.Grids
         public Grid(
             LazyCache<Vector2Int> size = null,
             GridTotals totals = null,
-            List<T> gridMembers = null,
+            ObservableCollection<T> gridMembers = null,
             Dictionary<Vector2Int, T> occupiedTiles = null,
             Dictionary<T, List<T>> neighbourDict = null) {
             Size = size ?? new LazyCache<Vector2Int>(() => {
@@ -42,7 +43,7 @@ namespace Exa.Grids
             });
 
             Totals = totals ?? new GridTotals();
-            GridMembers = gridMembers ?? new List<T>();
+            GridMembers = gridMembers ?? new ObservableCollection<T>();
             OccupiedTiles = occupiedTiles ?? new Dictionary<Vector2Int, T>();
             NeighbourDict = neighbourDict ?? new Dictionary<T, List<T>>();
         }

@@ -10,12 +10,13 @@ namespace Exa.Grids
 {
     public class BlockGridMetadata : ICollectionObserver<Block>
     {
-        private IEnumerable<Block> blocks;
+        private ObservableCollection<Block> blocks;
 
         public TurretList TurretList;
 
-        public BlockGridMetadata(IEnumerable<Block> blocks) {
+        public BlockGridMetadata(ObservableCollection<Block> blocks) {
             this.blocks = blocks;
+            blocks.Register(this);
 
             TurretList = new TurretList();
         }

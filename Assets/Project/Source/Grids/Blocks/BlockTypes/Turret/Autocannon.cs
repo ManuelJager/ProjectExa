@@ -23,13 +23,5 @@ namespace Exa.Grids.Blocks.BlockTypes
         public void SetTarget(IWeaponTarget target) {
             turretBehaviour.Target = target;
         }
-
-        protected override void OnAdd() {
-            Ship?.Turrets.Add(this);
-        }
-
-        protected override void OnRemove() {
-            Ship?.Turrets.Remove(this);
-        }
     }
 }

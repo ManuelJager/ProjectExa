@@ -18,7 +18,7 @@ namespace Exa.AI.Actions
 
         public override ActionLane Update(ActionLane blockedLanes) {
             var target = new ShipTarget(enemyTarget);
-            ship.Turrets.SetTarget(target);
+            ship.BlockGrid.Metadata.TurretList.SetTarget(target);
 
             return ActionLane.AimTurrets;
         }
