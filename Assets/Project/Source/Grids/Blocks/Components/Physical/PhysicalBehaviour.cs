@@ -22,11 +22,11 @@ namespace Exa.Grids.Blocks.Components
             }
 
             var absorbedDamage = Mathf.Min(data.hull, damage);
-            if (Ship)
-                Ship.Totals.Hull -= absorbedDamage;
-
             eventData.absorbedDamage = absorbedDamage;
             data.hull -= computedDamage;
+
+            if (Ship)
+                Ship.Totals.Hull -= absorbedDamage;
 
             if (data.hull <= 0) {
                 gameObject.SetActive(false);
