@@ -24,14 +24,14 @@ namespace Exa.Bindings
                 child.Observers.Add(this);
         }
 
-        public void OnAdd(T data) {
+        public void OnAdd(T value) {
             foreach (var observer in Observers)
-                observer.OnAdd(data);
+                observer.OnAdd(value);
         }
 
-        public void OnRemove(T data) {
+        public void OnRemove(T value) {
             foreach (var observer in Observers)
-                observer.OnRemove(data);
+                observer.OnRemove(value);
         }
 
         public IEnumerator<T> GetEnumerator() {

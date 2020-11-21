@@ -25,22 +25,22 @@ namespace Exa.Bindings
         /// <summary>
         /// Add observable
         /// </summary>
-        /// <param name="observer"></param>
-        public override void OnAdd(TContainer observer) {
-            OnAdd(observer, viewContainer);
+        /// <param name="value"></param>
+        public override void OnAdd(TContainer value) {
+            OnAdd(value, viewContainer);
         }
 
         /// <summary>
         /// Add Observable with specified view container
         /// </summary>
-        /// <param name="observer"></param>
+        /// <param name="value"></param>
         /// <param name="container"></param>
-        protected virtual TView OnAdd(TContainer observer, Transform container) {
+        protected virtual TView OnAdd(TContainer value, Transform container) {
             var blockObject = Instantiate(viewPrefab, container);
             var view = blockObject.GetComponent<TView>();
-            view.OnUpdate(observer.Data);
-            observer.Register(view);
-            views.Add(observer, view);
+            view.OnUpdate(value.Data);
+            value.Register(view);
+            views.Add(value, view);
             return view;
         }
 
@@ -58,10 +58,10 @@ namespace Exa.Bindings
         /// <summary>
         /// Remove view
         /// </summary>
-        /// <param name="observer"></param>
-        public override void OnRemove(TContainer observer) {
-            var view = views[observer];
-            observer.Unregister(view);
+        /// <param name="value"></param>
+        public override void OnRemove(TContainer value) {
+            var view = views[value];
+            value.Unregister(view);
             Destroy(view.gameObject);
         }
 

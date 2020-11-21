@@ -43,10 +43,10 @@ namespace Exa.Bindings
             }
         }
 
-        public abstract void OnAdd(T data);
+        public abstract void OnAdd(T value);
 
         public abstract void OnClear();
 
-        public abstract void OnRemove(T data);
+        public abstract void OnRemove(T value);
     }
 }
