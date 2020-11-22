@@ -11,6 +11,14 @@ namespace Exa.Math
             return NormalizeAngle360(theta * Mathf.Rad2Deg);
         }
 
+        public static Vector2 RandomVector2(float magnitude) {
+            float RandomComponent() {
+                return UnityEngine.Random.Range(-magnitude, magnitude);
+            }
+
+            return new Vector2(RandomComponent(), RandomComponent());
+        } 
+
         public static Vector2 Clamp(Vector2 value, Vector2 min, Vector2 max) {
             return new Vector2 {
                 x = Mathf.Clamp(value.x, min.x, max.x),

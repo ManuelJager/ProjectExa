@@ -46,6 +46,11 @@ namespace Exa.Weapons
         }
 
         private bool PassesDamageMask(Block block) {
+            if (block.Parent == null) {
+                Debug.LogError("Block has no parent");
+                return false;
+            }
+
             return (block.Parent.BlockContext & damageMask) != 0;
         }
     }

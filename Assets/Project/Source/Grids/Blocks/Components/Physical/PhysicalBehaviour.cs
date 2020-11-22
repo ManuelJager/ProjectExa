@@ -16,17 +16,16 @@ namespace Exa.Grids.Blocks.Components
         /// <returns>Whether all given damage was absorbed</returns>
         public bool AbsorbDamage(float damage, out DamageEventData eventData) {
             eventData = new DamageEventData();
-            var computedDamage = ComputeDamage(damage);
-            if (computedDamage < 0f) {
-                eventData.absorbedDamage = damage;
+
+            var appliedDamage = Mathf.Min(data.hull, ComputeDamage(damage));
+            eventData.absorbedDamage = damage;
+            eventData.appliedDamage = appliedDamage;
+            data.hull -= appliedDamage;
+
+            if (Ship) {
+                Ship.Totals.Hull -= appliedDamage;
+                GameSystems.PopupManager.CreateDamagePopup(transform.position, appliedDamage);
             }
-
-            var absorbedDamage = Mathf.Min(data.hull, damage);
-            eventData.absorbedDamage = absorbedDamage;
-            data.hull -= computedDamage;
-
-            if (Ship)
-                Ship.Totals.Hull -= absorbedDamage;
 
             if (data.hull <= 0) {
                 gameObject.SetActive(false);
@@ -36,7 +35,7 @@ namespace Exa.Grids.Blocks.Components
         }
 
         public float ComputeDamage(float damage) {
-            return damage - data.armor;
+            return Mathf.Max(damage - data.armor, 1f);
         }
 
         protected override void OnAdd() {
@@ -50,5 +49,6 @@ namespace Exa.Grids.Blocks.Components
     public struct DamageEventData
     {
         public float absorbedDamage;
+        public float appliedDamage;
     }
 }

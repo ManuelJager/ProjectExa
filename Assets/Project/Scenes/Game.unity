@@ -218,6 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1813677412}
+  - component: {fileID: 1813677413}
   m_Layer: 0
   m_Name: Overlay
   m_TagString: Untagged
@@ -239,6 +240,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1813677413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813677411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1135c5fd8a32354cb3503087a5f0d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePopupPrefab: {fileID: 4213888523601156989, guid: 3374380d6d9f6f34c8cc0640616f884e,
+    type: 3}
 --- !u!1 &1979375273
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +391,11 @@ PrefabInstance:
       propertyPath: blockGridManager
       value: 
       objectReference: {fileID: 2101903113}
+    - target: {fileID: 3971752618548431353, guid: 5b47039535f26ce4a84ca29216ae1814,
+        type: 3}
+      propertyPath: popupManager
+      value: 
+      objectReference: {fileID: 1813677413}
     - target: {fileID: 3971752618548431354, guid: 5b47039535f26ce4a84ca29216ae1814,
         type: 3}
       propertyPath: m_LocalPosition.x

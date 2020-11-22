@@ -1,10 +1,12 @@
-﻿using Exa.Data;
+﻿using System;
+using Exa.Data;
 using Exa.Generics;
 using Exa.UI.Tooltips;
 using System.Collections.Generic;
 
 namespace Exa.Grids.Blocks.Components
 {
+    [Serializable]
     public struct PowerGeneratorData : IBlockComponentValues
     {
         public Scalar powerGeneration;

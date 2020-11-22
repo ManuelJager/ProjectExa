@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using System;
+using Exa.Generics;
 using Exa.UI.Tooltips;
 using System.Collections.Generic;
 
@@ -10,6 +11,7 @@ namespace Exa.Grids.Blocks.Components
         Volley
     }
 
+    [Serializable]
     public struct AutocannonData : ITurretValues
     {
         public float turningRate;
