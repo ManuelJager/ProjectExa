@@ -50,7 +50,8 @@ namespace Exa.Gameplay
             var cluster = new Cluster();
             var visitedGridPos = new HashSet<Vector2Int>();
 
-            void FloodFill(Vector2Int gridPos) {
+            void FloodFill(int x, int y) {
+                var gridPos = new Vector2Int(x, y);
                 if (visitedGridPos.Contains(gridPos)) {
                     return;
                 }
@@ -70,14 +71,14 @@ namespace Exa.Gameplay
                         }
                     }
 
-                    FloodFill(new Vector2Int(gridPos.x - 1, gridPos.y));
-                    FloodFill(new Vector2Int(gridPos.x + 1, gridPos.y));
-                    FloodFill(new Vector2Int(gridPos.x, gridPos.y - 1));
-                    FloodFill(new Vector2Int(gridPos.x, gridPos.y + 1));
+                    FloodFill(x - 1, y);
+                    FloodFill(x + 1, y);
+                    FloodFill(x, y - 1);
+                    FloodFill(x, y + 1);
                 }
             }
 
-            FloodFill(startPoint);
+            FloodFill(startPoint.x, startPoint.y);
 
             return cluster;
         }
