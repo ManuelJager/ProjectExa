@@ -14,11 +14,11 @@ namespace Exa.Grids.Blocks.Components
         /// </summary>
         /// <param name="damage"></param>
         /// <returns>Whether all given damage was absorbed</returns>
-        public bool AbsorbDamage(float damage, out DamageEventData eventData) {
+        public void AbsorbDamage(float damage, out DamageEventData eventData) {
             eventData = new DamageEventData();
 
             var appliedDamage = Mathf.Min(data.hull, ComputeDamage(damage));
-            eventData.absorbedDamage = damage;
+            eventData.absorbedDamage = Mathf.Min(data.hull, damage);
             eventData.appliedDamage = appliedDamage;
             data.hull -= appliedDamage;
 
@@ -30,8 +30,6 @@ namespace Exa.Grids.Blocks.Components
             if (data.hull <= 0) {
                 gameObject.SetActive(false);
             }
-
-            return data.hull >= 0f;
         }
 
         public float ComputeDamage(float damage) {

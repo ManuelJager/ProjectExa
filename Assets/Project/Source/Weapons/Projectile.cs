@@ -37,10 +37,10 @@ namespace Exa.Weapons
             var block = collider.gameObject.GetComponent<Block>();
             if (!(block && PassesDamageMask(block))) return;
 
-            var absorbedAllDamage = block.PhysicalBehaviour.AbsorbDamage(damage, out var eventData);
+            block.PhysicalBehaviour.AbsorbDamage(damage, out var eventData);
             damage -= eventData.absorbedDamage;
 
-            if (absorbedAllDamage) {
+            if (damage <= 0f) {
                 Destroy(gameObject);
             }
         }
