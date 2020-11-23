@@ -48,17 +48,26 @@ namespace Exa.Gameplay
 
         private Cluster GetCluster(Vector2Int startPoint, ICollection<Block> vacantBlocks, BlockGrid blockGrid) {
             var cluster = new Cluster();
+            var visitedGridPos = new HashSet<Vector2Int>();
 
             void FloodFill(Vector2Int gridPos) {
-                if (blockGrid.TryGetMember(gridPos, out var member) && vacantBlocks.Contains(member)) {
-                    vacantBlocks.Remove(member);
-                    cluster.Add(member);
+                if (visitedGridPos.Contains(gridPos)) {
+                    return;
+                }
 
-                    if (member.GetIsController()) {
-                        if (cluster.containsController)
-                            Debug.LogWarning($"Cluster {cluster} contains multiple controllers, this shouldn't happen");
+                visitedGridPos.Add(gridPos);
 
-                        cluster.containsController = true;
+                if (blockGrid.TryGetMember(gridPos, out var member)) {
+                    if (vacantBlocks.Contains(member)) {
+                        vacantBlocks.Remove(member);
+                        cluster.Add(member);
+
+                        if (member.GetIsController()) {
+                            if (cluster.containsController)
+                                Debug.LogWarning($"Cluster {cluster} contains multiple controllers, this shouldn't happen");
+
+                            cluster.containsController = true;
+                        }
                     }
 
                     FloodFill(new Vector2Int(gridPos.x - 1, gridPos.y));
