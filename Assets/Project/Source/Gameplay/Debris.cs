@@ -25,7 +25,7 @@ namespace Exa.Gameplay
                 BlockGrid.Add(block);
             }
 
-            foreach (var thruster in BlockGrid.Metadata.QueryByType<IThruster>()) {
+            foreach (var thruster in BlockGrid.Metadata.ThrusterList) {
                 thruster.PowerDown();
             }
         }

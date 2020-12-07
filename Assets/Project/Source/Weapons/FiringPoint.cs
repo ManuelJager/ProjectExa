@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks;
+using Exa.Utils;
 using UnityEngine;
 
 #pragma warning disable CS0649
@@ -18,8 +19,8 @@ namespace Exa.Weapons
 
         public void Fire(float damage) {
             // TODO: Pool projectiles
-            var projectile = Instantiate(projectilePrefab, GameSystems.SpawnLayer.projectiles).GetComponent<Projectile>();
-            projectile.Setup(spawnPoint, 80f, 250f, damage, damageMask);
+            this.InstantiateAndGet<Projectile>(projectilePrefab, GameSystems.SpawnLayer.projectiles)
+                .Setup(spawnPoint, 80f, 250f, damage, damageMask);
         }
     }
 }

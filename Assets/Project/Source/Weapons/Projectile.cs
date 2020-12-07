@@ -35,7 +35,11 @@ namespace Exa.Weapons
 
         public void OnTriggerEnter2D(Collider2D collider) {
             var block = collider.gameObject.GetComponent<Block>();
-            if (!(block && PassesDamageMask(block))) return;
+            if (!block) {
+                Debug.LogError($"Collided with {collider.gameObject}, but found no block attached");
+                return;
+            }
+            if (!PassesDamageMask(block)) return;
 
             block.PhysicalBehaviour.AbsorbDamage(damage, out var eventData);
             damage -= eventData.absorbedDamage;
@@ -47,7 +51,7 @@ namespace Exa.Weapons
 
         private bool PassesDamageMask(Block block) {
             if (block.Parent == null) {
-                Debug.LogError("Block has no parent");
+                Debug.LogError($"Block {block.GetInstanceID()} has no parent");
                 return false;
             }
 

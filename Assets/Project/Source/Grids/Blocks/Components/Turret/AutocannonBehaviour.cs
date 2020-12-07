@@ -11,14 +11,6 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private AutocannonPart[] parts;
         private int currentPoint = 0;
 
-        private void Start() {
-            var animTime = GetAnimTime();
-            var damageMask = ~Parent.BlockContext;
-
-            foreach (var part in parts)
-                part.Setup(animTime, damageMask);
-        }
-
         public override void Fire() {
             switch (data.cycleMode) {
                 case CycleMode.Cycling:
@@ -33,6 +25,18 @@ namespace Exa.Grids.Blocks.Components
 
                     break;
             }
+        }
+
+        protected override void OnAdd() {
+            var animTime = GetAnimTime();
+            if (Parent.BlockContext == 0) {
+                throw new InvalidOperationException("Parent's block context must be set");
+            }
+
+            var damageMask = ~Parent.BlockContext;
+
+            foreach (var part in parts)
+                part.Setup(animTime, damageMask);
         }
 
         private float GetAnimTime() {

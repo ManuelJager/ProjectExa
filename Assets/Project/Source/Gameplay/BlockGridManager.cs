@@ -28,11 +28,13 @@ namespace Exa.Gameplay
             var blockGrid = gridInstance.BlockGrid;
             blockGrid.Rebuilding = true;
             var clustersScheduledForRebuild = clusters.Where(cluster => !cluster.containsController);
+
             foreach (var cluster in clustersScheduledForRebuild) {
-                var debris = Instantiate(debrisGridPrefab, transform).GetComponent<Debris>();
+                var debris = this.InstantiateAndGet<Debris>(debrisGridPrefab, transform);
                 debris.FromCluster(cluster);
                 debris.Rigidbody2D.velocity = gridInstance.Rigidbody2D.velocity;
             }
+
             blockGrid.Rebuilding = false;
             blockGrid.DestroyIfEmpty();
         }
