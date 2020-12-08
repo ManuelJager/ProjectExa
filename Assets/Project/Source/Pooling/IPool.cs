@@ -10,5 +10,6 @@
     {
         void Configure(PoolSettings poolSettings);
         bool Return(PoolMember poolMember);
+        void OnDestroyMember();
     }
 }

@@ -42,6 +42,10 @@ namespace Exa.Pooling
             return TryPop();
         }
 
+        public void OnDestroyMember() {
+            totalMembers--;
+        }
+
         public virtual bool Return(PoolMember poolMember) {
             if (!(poolMember is T)) {
                 throw new ArgumentException(
@@ -79,7 +83,7 @@ namespace Exa.Pooling
             poolMemberGO.name = $"{poolSettings.prefab.name} ({totalMembers})";
 
             var poolMember = poolMemberGO.AddComponent<T>();
-            poolMember.pool = this as Pool<PoolMember>;
+            poolMember.pool = this;
 
             return poolMember;
         }

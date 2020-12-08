@@ -5,19 +5,16 @@ namespace Exa.Pooling
 {
     public class PoolMember : MonoBehaviour
     {
-        [HideInInspector] public Pool<PoolMember> pool;
+        [HideInInspector] public IPool<PoolMember> pool;
 
         protected virtual void OnDisable() {
             if (Systems.IsQuitting) return;
-            if (pool?.GetParentSceneIsUnloading() == false)
-                pool.Return(this);
+            pool.Return(this);
         }
 
         protected virtual void OnDestroy() {
             if (Systems.IsQuitting) return;
-
-            if (pool?.GetParentSceneIsUnloading() == false)
-                pool.totalMembers--;
+            pool.OnDestroyMember();
         }
     }
 }
