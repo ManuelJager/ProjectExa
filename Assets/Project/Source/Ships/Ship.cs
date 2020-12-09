@@ -42,6 +42,7 @@ namespace Exa.Ships
 
         public ActionScheduler ActionScheduler { get; private set; }
         public BlockContext BlockContext { get; private set; }
+        public GridInstanceConfiguration Configuration { get; private set; }
         public BlockGrid BlockGrid { get; private set; }
         public Blueprint Blueprint { get; private set; }
         public Controller Controller { get; internal set; }
@@ -82,13 +83,14 @@ namespace Exa.Ships
             }
         }
 
-        public virtual void Import(Blueprint blueprint, BlockContext blockContext) {
+        public virtual void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             if (blueprint.Blocks.Controller == null) {
                 throw new ArgumentException("Blueprint must have a controller reference");
             }
 
             Totals = new ShipGridTotals(this);
             BlockGrid = new BlockGrid(pivot, OnGridEmpty, this);
+            Configuration = configuration;
             ActionScheduler = new ActionScheduler(this);
             Active = true;
             BlockContext = blockContext;

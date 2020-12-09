@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Exa.Grids;
 using Exa.Ships;
 using UnityEngine;
 
@@ -18,7 +19,9 @@ namespace Exa.Gameplay.Missions
             SpawnFriendly("defaultScout", 20, 20);
 
             yield return new WaitForSeconds(0.5f);
-            SpawnEnemy("defaultScout", 30, 20);
+            SpawnEnemy("defaultScout", 30, 20, new GridInstanceConfiguration {
+                Invulnerable = true
+            });
         }
     }
 }

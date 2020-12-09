@@ -15,9 +15,13 @@ namespace Exa.Gameplay
         public Rigidbody2D Rigidbody2D => rb;
         public Transform Transform => transform;
         public BlockContext BlockContext => BlockContext.Debris;
+        public GridInstanceConfiguration Configuration { get; private set; }
 
         public void FromCluster(Cluster cluster) {
             BlockGrid = new BlockGrid(transform, OnGridEmpty, this);
+            Configuration = new GridInstanceConfiguration {
+                Invulnerable = false
+            };
 
             foreach (var block in cluster) {
                 block.transform.SetParent(transform);

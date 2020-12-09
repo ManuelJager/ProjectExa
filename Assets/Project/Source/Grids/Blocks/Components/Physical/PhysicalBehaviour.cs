@@ -12,24 +12,37 @@ namespace Exa.Grids.Blocks.Components
         /// <summary>
         /// Takes a given amount of damage
         /// </summary>
-        /// <param name="damage"></param>
-        /// <returns>Whether all given damage was absorbed</returns>
-        public void AbsorbDamage(float damage, out DamageEventData eventData) {
-            eventData = new DamageEventData();
+        /// <param name="damage">The damage to take</param>
+        /// <returns></returns>
+        public DamageInstanceData AbsorbDamage(float damage) {
+            if (Parent.Configuration.Invulnerable) {
+                return new DamageInstanceData {
+                    absorbedDamage = damage,
+                    appliedDamage = 0
+                };
+            }
 
             var appliedDamage = Mathf.Min(data.hull, ComputeDamage(damage));
-            eventData.absorbedDamage = Mathf.Min(data.hull, damage);
-            eventData.appliedDamage = appliedDamage;
-            data.hull -= appliedDamage;
+            var instanceData = new DamageInstanceData {
+                absorbedDamage = Mathf.Min(data.hull, damage),
+                appliedDamage = appliedDamage
+            };
+
 
             if (Ship) {
                 Ship.Totals.Hull -= appliedDamage;
                 GameSystems.PopupManager.CreateDamagePopup(transform.position, appliedDamage);
             }
+            else {
+                Debug.LogError($"Block: {GetInstanceID()} has no ship attached");
+            }
 
+            data.hull -= appliedDamage;
             if (data.hull <= 0) {
                 gameObject.SetActive(false);
             }
+
+            return instanceData;
         }
 
         public float ComputeDamage(float damage) {
@@ -44,7 +57,7 @@ namespace Exa.Grids.Blocks.Components
         }
     }
 
-    public struct DamageEventData
+    public struct DamageInstanceData
     {
         public float absorbedDamage;
         public float appliedDamage;

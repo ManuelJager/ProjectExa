@@ -41,8 +41,8 @@ namespace Exa.Weapons
             }
             if (!PassesDamageMask(block)) return;
 
-            block.PhysicalBehaviour.AbsorbDamage(damage, out var eventData);
-            damage -= eventData.absorbedDamage;
+            var damageInstanceData = block.PhysicalBehaviour.AbsorbDamage(damage);
+            damage -= damageInstanceData.absorbedDamage;
 
             if (damage <= 0f) {
                 Destroy(gameObject);

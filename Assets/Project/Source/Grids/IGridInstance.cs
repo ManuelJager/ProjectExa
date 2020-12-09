@@ -10,5 +10,6 @@ namespace Exa.Grids
         Rigidbody2D Rigidbody2D { get; }
         Transform Transform { get; }
         BlockContext BlockContext { get; }
+        GridInstanceConfiguration Configuration { get; }
     }
 }
