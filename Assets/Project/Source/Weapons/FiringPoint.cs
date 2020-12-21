@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks;
+﻿using Exa.Grids;
+using Exa.Grids.Blocks;
 using Exa.Utils;
 using UnityEngine;
 
@@ -12,15 +13,17 @@ namespace Exa.Weapons
         [SerializeField] private Transform spawnPoint;
 
         private BlockContext damageMask;
+        private object damageSource;
 
-        public void Setup(BlockContext damageMask) {
+        public void Setup(object damageSource, BlockContext damageMask) {
             this.damageMask = damageMask;
+            this.damageSource = damageSource;
         }
 
         public void Fire(float damage) {
             // TODO: Pool projectiles
             this.InstantiateAndGet<Projectile>(projectilePrefab, GameSystems.SpawnLayer.projectiles)
-                .Setup(spawnPoint, 80f, 250f, damage, damageMask);
+                .Setup(spawnPoint, 80f, 250f, damage, damageSource, damageMask);
         }
     }
 }

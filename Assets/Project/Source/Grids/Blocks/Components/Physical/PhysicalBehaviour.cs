@@ -14,7 +14,7 @@ namespace Exa.Grids.Blocks.Components
         /// </summary>
         /// <param name="damage">The damage to take</param>
         /// <returns></returns>
-        public DamageInstanceData AbsorbDamage(float damage) {
+        public DamageInstanceData AbsorbDamage(object damageSource, float damage) {
             if (Parent.Configuration.Invulnerable) {
                 return new DamageInstanceData {
                     absorbedDamage = damage,
@@ -31,7 +31,7 @@ namespace Exa.Grids.Blocks.Components
 
             if (Ship) {
                 Ship.Totals.Hull -= appliedDamage;
-                GameSystems.PopupManager.CreateDamagePopup(transform.position, appliedDamage);
+                GameSystems.PopupManager.CreateOrUpdateDamagePopup(transform.position, damageSource, appliedDamage);
             }
             else {
                 Debug.LogError($"Block: {GetInstanceID()} has no ship attached");
@@ -46,7 +46,7 @@ namespace Exa.Grids.Blocks.Components
         }
 
         public float ComputeDamage(float damage) {
-            return Mathf.Max(damage - data.armor, 1f);
+            return Mathf.Max(damage - data.armor, 0f);
         }
 
         protected override void OnAdd() {

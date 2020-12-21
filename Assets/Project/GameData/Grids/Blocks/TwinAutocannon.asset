@@ -28,6 +28,6 @@ MonoBehaviour:
     mass: 3
   autocannonTemplatePartial:
     turningRate: 100
-    firingRate: 0.25
-    damage: 40
+    firingRate: 0.5
+    damage: 80
     cycleMode: 0

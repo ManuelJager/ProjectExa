@@ -11,6 +11,12 @@ EditorUserSettings:
     Entity Inspector Settings:
       value: 183b144645154b72031a09301e2253321714132f222c646a6d795159a2a07478a0c33ffaf7363e251a0de22c0b300431e63e101bf349504b170ff11d14950d
       flags: 0
+    RecentlyUsedScenePath-0:
+      value: 224247031146466b1f010627133710231512162f3f670131202c5326ece92021
+      flags: 0
+    RecentlyUsedScenePath-1:
+      value: 224247031146466b1f010627133710231512162f3f670b3124275326ece92021
+      flags: 0
     UIBuilder.EditorExtensionModeKey:
       value: 37434103
       flags: 0
@@ -27,5 +33,7 @@ EditorUserSettings:
   m_SemanticMergeMode: 2
   m_VCShowFailedCheckout: 1
   m_VCOverwriteFailedCheckoutAssets: 1
-  m_VCOverlayIcons: 1
+  m_VCProjectOverlayIcons: 1
+  m_VCHierarchyOverlayIcons: 1
+  m_VCOtherOverlayIcons: 1
   m_VCAllowAsyncUpdate: 0

@@ -181,6 +181,10 @@ namespace Exa.Math
             return new Vector2(vector.x, value);
         }
 
+        public static Vector3 WithZ(this Vector2 vector, float z) {
+            return new Vector3(vector.x, vector.y, z);
+        }
+
         public static string ToShortString(this Vector2Int vector) {
             return $"{vector.x},{vector.y}";
         }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using DG.Tweening;
+using Exa.Grids;
 using Exa.Utils;
 using Exa.Grids.Blocks;
 
@@ -27,10 +28,10 @@ namespace Exa.Weapons
             StopAllCoroutines();
         }
 
-        public void Setup(float animTime, BlockContext damageMask) {
+        public void Setup(float animTime, IGridInstance parent, BlockContext damageMask) {
             this.animTime = animTime;
             barrelAnimator["BarrelAnimation"].speed = 1f / animTime;
-            firingPoint.Setup(damageMask);
+            firingPoint.Setup(parent, damageMask);
         }
 
         public void Fire(float damage) {

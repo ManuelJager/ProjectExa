@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b7f470dd1f744488fad14d5603b4f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderer: {fileID: 4213888523601156976}
   tmp: {fileID: 4213888523601156991}
   scaleAnimationCurve:
     serializedVersion: 2
@@ -245,3 +246,6 @@ MonoBehaviour:
   maxLifetime: 2
   scaleMultiplier: 0.5
   positionMultiplier: 1
+  DestroyEvent:
+    m_PersistentCalls:
+      m_Calls: []

@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks;
+﻿using Exa.Grids;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Math;
@@ -14,11 +15,13 @@ namespace Exa.Weapons
         private float lifeTime;
         private BlockContext damageMask;
         private float timeAlive;
+        private object damageSource;
 
-        public void Setup(Transform transform, float speed, float range, float damage, BlockContext damageMask) {
+        public void Setup(Transform transform, float speed, float range, float damage, object damageSource, BlockContext damageMask) {
             this.transform.position = transform.position;
             this.damage = damage;
             this.lifeTime = range / speed;
+            this.damageSource = damageSource;
             this.damageMask = damageMask;
 
             rb.velocity = transform.right * speed;
@@ -41,7 +44,7 @@ namespace Exa.Weapons
             }
             if (!PassesDamageMask(block)) return;
 
-            var damageInstanceData = block.PhysicalBehaviour.AbsorbDamage(damage);
+            var damageInstanceData = block.PhysicalBehaviour.AbsorbDamage(damageSource, damage);
             damage -= damageInstanceData.absorbedDamage;
 
             if (damage <= 0f) {

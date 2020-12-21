@@ -36,7 +36,7 @@ namespace Exa.Grids.Blocks.Components
             var damageMask = ~Parent.BlockContext;
 
             foreach (var part in parts)
-                part.Setup(animTime, damageMask);
+                part.Setup(animTime, Parent, damageMask);
         }
 
         private float GetAnimTime() {

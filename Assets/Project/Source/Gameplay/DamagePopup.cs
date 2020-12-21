@@ -1,13 +1,14 @@
-﻿using DG.Tweening;
-using Exa.UI.Tweening;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using Exa.Math;
 
 namespace Exa.Gameplay
 {
     public class DamagePopup : MonoBehaviour
     {
-        [Header("References")]
+        [Header("References")] 
+        [SerializeField] private MeshRenderer renderer;
         [SerializeField] private TextMeshPro tmp;
 
         [Header("Settings")]
@@ -17,20 +18,32 @@ namespace Exa.Gameplay
         [SerializeField] private float scaleMultiplier;
         [SerializeField] private float positionMultiplier;
 
+        [Header("Events")] 
+        public UnityEvent DestroyEvent;
+
         private float currentLifetime;
+        private float damage;
         private Vector2 worldPosition;
 
-        public void Setup(Vector2 worldPosition, string text) {
+        private void Awake() {
+            DestroyEvent = new UnityEvent();
+        }
+
+        public void Setup(Vector2 worldPosition, float damage, int order) {
             SetScale(scaleAnimationCurve.Evaluate(0f));
-            transform.position = worldPosition;
+            transform.position = worldPosition.WithZ(-5f);
             this.worldPosition = worldPosition;
-            tmp.SetText(text);
+            renderer.sortingOrder = order;
+            this.damage += damage;
+            tmp.SetText(this.damage.Round().ToString());
+            currentLifetime = 0f;
         }
 
         public void Update() {
             currentLifetime += Time.deltaTime;
 
             if (currentLifetime > maxLifetime) {
+                DestroyEvent.Invoke();
                 Destroy(gameObject);
                 return;
             }
@@ -47,7 +60,7 @@ namespace Exa.Gameplay
 
         private void SetPosition(float time) {
             var evaluatedPosition = positionAnimationCurve.Evaluate(time) * positionMultiplier;
-            transform.localPosition = worldPosition + new Vector2(0f, evaluatedPosition - 1f);
+            transform.localPosition = (worldPosition + new Vector2(0f, evaluatedPosition - 1f)).WithZ(-5);
         }
     }
 }
