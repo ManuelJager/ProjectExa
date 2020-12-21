@@ -26,7 +26,6 @@ namespace Exa.Gameplay
                 return;
             }
 
-            Debug.Log(damageSource);
             var popup = CreateNewDamagePopup(worldPosition, damage);
 
             if (damageSource != null) {

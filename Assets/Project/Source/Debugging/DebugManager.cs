@@ -15,14 +15,13 @@ namespace Exa.Debugging
         public static event DebugChangeDelegate DebugChange;
 
         [SerializeField] private DebugMode debugMode;
+        [SerializeField] private DebugMode buildDebugMode;
         [SerializeField] private DebugDragger debugDragger;
         private GameControls gameControls;
         private UCommandConsole.Console console;
 
-        public DebugMode DebugMode {
-            get => debugMode;
-            set => debugMode = value;
-        }
+        public DebugMode DebugMode => Application.isEditor ? debugMode : buildDebugMode;
+        
 
         public void Awake() {
             console = Systems.UI.console;
@@ -77,30 +76,12 @@ namespace Exa.Debugging
     public static class DebugExtensions
     {
         /// <summary>
-        /// Evaluates wether a debug mode is globally enabled
+        /// Evaluates whether a debug mode is globally enabled
         /// </summary>
         /// <param name="debugMode"></param>
         /// <returns></returns>
         public static bool IsEnabled(this DebugMode debugMode) {
-            return Systems.Debug.DebugMode.Is(debugMode);
-        }
-
-        /// <summary>
-        /// Adds the given debug mode bitmask to the current global debug mode
-        /// </summary>
-        /// <param name="debugMode"></param>
-        public static void BinaryAdd(this DebugMode debugMode) {
-            Systems.Debug.DebugMode |= debugMode;
-            Systems.Debug.InvokeChange();
-        }
-
-        /// <summary>
-        /// To
-        /// </summary>
-        /// <param name="debugMode"></param>
-        public static void Toggle(this DebugMode debugMode) {
-            Systems.Debug.DebugMode ^= debugMode;
-            Systems.Debug.InvokeChange();
+            return (Systems.Debug.DebugMode & debugMode) == debugMode;
         }
     }
 }
