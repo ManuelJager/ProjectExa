@@ -12,13 +12,17 @@ namespace Exa.Ships.Navigation
 
         private ThrusterAxis xAxis;
         private ThrusterAxis yAxis;
+        private Ship ship;
 
-        public void Setup(Scalar thrustModifier) {
+        public void Setup(Ship ship, Scalar thrustModifier) {
+            this.ship = ship;
             xAxis = new ThrusterAxis(thrustModifier);
             yAxis = new ThrusterAxis(thrustModifier);
         }
 
         public void Update() {
+            if (!ship.Active) return;
+
             MathUtils.MoveTowards(ref currentDirection, targetDirection, Time.deltaTime * 2f);
 
             xAxis.SetGraphics(currentDirection.x);
