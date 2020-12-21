@@ -8,7 +8,7 @@ namespace Exa.Gameplay
     public class DamagePopup : MonoBehaviour
     {
         [Header("References")] 
-        [SerializeField] private MeshRenderer renderer;
+        [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private TextMeshPro tmp;
 
         [Header("Settings")]
@@ -33,7 +33,7 @@ namespace Exa.Gameplay
             SetScale(scaleAnimationCurve.Evaluate(0f));
             transform.position = worldPosition.WithZ(-5f);
             this.worldPosition = worldPosition;
-            renderer.sortingOrder = order;
+            meshRenderer.sortingOrder = order;
             this.damage += damage;
             tmp.SetText(this.damage.Round().ToString());
             currentLifetime = 0f;
