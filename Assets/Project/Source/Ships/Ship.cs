@@ -178,6 +178,12 @@ namespace Exa.Ships
             new TooltipText("State:"),
             new TooltipGroup(state.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
+            new TooltipText("State:"),
+            new TooltipGroup(new ITooltipComponent[] {
+                new TooltipText($"Rotation: {rb.rotation}"),
+                new TooltipText($"Clamped Rotation: {MathUtils.NormalizeAngle360(rb.rotation)}"), 
+            }, 1),
+            new TooltipSpacer(), 
             new TooltipText("AI:"),
             new TooltipGroup(shipAi.GetDebugTooltipComponents(), 1)
         });

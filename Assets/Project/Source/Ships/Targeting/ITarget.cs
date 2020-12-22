@@ -9,8 +9,6 @@ namespace Exa.Ships.Targeting
         /// </summary>
         /// <param name="current">Current position</param>
         Vector2 GetPosition(Vector2 current);
-
-        
     }
 
     public interface IWeaponTarget : ITarget

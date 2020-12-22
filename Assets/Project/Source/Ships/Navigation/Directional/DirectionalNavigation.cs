@@ -146,7 +146,7 @@ namespace Exa.Ships.Navigation
         }
 
         private float GetCurrentRotation() {
-            return MathUtils.NormalizeAngle180(ship.Rigidbody2D.rotation);
+            return MathUtils.NormalizeAngle360(ship.Rigidbody2D.rotation);
         }
 
         private struct VelocityValues

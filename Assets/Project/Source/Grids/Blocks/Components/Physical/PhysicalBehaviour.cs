@@ -33,9 +33,6 @@ namespace Exa.Grids.Blocks.Components
                 Ship.Totals.Hull -= appliedDamage;
                 GameSystems.PopupManager.CreateOrUpdateDamagePopup(transform.position, damageSource, appliedDamage);
             }
-            else {
-                Debug.LogError($"Block: {GetInstanceID()} has no ship attached");
-            }
 
             data.hull -= appliedDamage;
             if (data.hull <= 0) {
