@@ -6,8 +6,7 @@ namespace Exa.Debugging.Commands
     {
         public override string GetName() => "cls";
 
-        public override void Execute(Console host)
-        {
+        public override void Execute(Console host) {
             host.output.Clear();
         }
     }

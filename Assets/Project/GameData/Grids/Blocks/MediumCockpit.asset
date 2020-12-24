@@ -14,15 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: MediumCockpit
   displayId: Medium Cockpit
-  category: Controller
-  displayCategory: Controller
+  category: 2
   thumbnail: {fileID: 8996286793590431966, guid: cb750ca62cc8eb04bbaefe5c1601e073,
     type: 3}
   size: {x: 3, y: 1}
-  inertPrefab: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
+  inertPrefab: {fileID: 1524255837376171708, guid: edf254f4645f96b48b0a3338d12f8f67,
     type: 3}
-  alivePrefab: {fileID: 0}
+  alivePrefab: {fileID: 3867314681599816325, guid: d41aedf958e2ee642b8940842ab9524f,
+    type: 3}
   physicalTemplatePartial:
     maxHull: 80
     armor: 25
-    mass: 1500
+    mass: 1.5
+  controllerTemplatePartial:
+    powerGeneration: 100
+    powerConsumption: 100
+    powerStorage: 500
+    turningRate: 30
+    thrustModifier:
+      scalar: 1

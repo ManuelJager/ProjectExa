@@ -1,13 +1,15 @@
-﻿using Exa.IO;
+﻿using System;
+using Exa.IO;
 using System.IO;
 
 namespace Exa.Data
 {
     /// <summary>
-    /// Provides base functionality for a settings object that is serialized and stored in the player prefs
+    /// Provides base functionality for a settings object that is serialized and stored in the data directory
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class SaveableSettings<T> : ISettings
+        where T : class, IEquatable<T>
     {
         /// <summary>
         /// Default setting values
@@ -26,23 +28,17 @@ namespace Exa.Data
         /// </summary>
         public abstract void Apply();
 
-        /// <summary>
-        /// Saves the settings in the player prefs
-        /// </summary>
-        public virtual void Save()
-        {
-            var path = IOUtils.CombinePath(IOUtils.GetPath("settings"), $"{Key}.json");
-            IOUtils.JsonSerializeToPath(Values, path, SerializationMode.readable);
+        public abstract T Clone();
+
+        public virtual void Save() {
+            var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
+            IOUtils.JsonSerializeToPath(Values, path, SerializationMode.Settings);
         }
 
-        /// <summary>
-        /// Loads the settings from the player prefs
-        /// </summary>
-        public virtual void Load()
-        {
-            var path = IOUtils.CombinePath(IOUtils.GetPath("settings"), $"{Key}.json");
+        public virtual void Load() {
+            var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
             Values = File.Exists(path)
-                ? IOUtils.JsonDeserializeFromPath<T>(path)
+                ? IOUtils.JsonDeserializeFromPath<T>(path, SerializationMode.Settings) ?? DefaultValues
                 : DefaultValues;
         }
     }

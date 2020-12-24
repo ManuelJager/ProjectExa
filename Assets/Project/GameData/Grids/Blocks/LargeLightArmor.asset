@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: LargeLightArmor
   displayId: Large Light Armor
-  category: Armor
-  displayCategory: Armor
+  category: 1
   thumbnail: {fileID: 4255077602726073688, guid: cb750ca62cc8eb04bbaefe5c1601e073,
     type: 3}
   size: {x: 3, y: 1}
-  inertPrefab: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
+  inertPrefab: {fileID: 5277436881257897682, guid: ef02463284d922a46b676cdb98f75774,
     type: 3}
-  alivePrefab: {fileID: 0}
+  alivePrefab: {fileID: 7249312673340749134, guid: 78676fd8964da3a4ab5b445ede918731,
+    type: 3}
   physicalTemplatePartial:
     maxHull: 50
     armor: 15
-    mass: 1800
+    mass: 1.8

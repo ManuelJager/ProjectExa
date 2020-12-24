@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &22634452914576118
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 990860952733176915}
-  m_Layer: 8
-  m_Name: Pivot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &990860952733176915
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 22634452914576118}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1907754239003912359}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1907754239003912354
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,8 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1907754239003912359}
-  - component: {fileID: 1907754239003912352}
-  - component: {fileID: 5955771735733772327}
+  - component: {fileID: 1129475341720404000}
+  - component: {fileID: 8714678710057436949}
+  - component: {fileID: 4246544794668748127}
+  - component: {fileID: 4763514651900120131}
+  - component: {fileID: 6624674223097554171}
   m_Layer: 8
   m_Name: Ship
   m_TagString: Untagged
@@ -58,12 +31,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 990860952733176915}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1907754239003912352
+--- !u!114 &1129475341720404000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,15 +44,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1907754239003912354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a1d3a8eeb45bea46b9ee37a8f8bf4f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 424b8bc5bf4d72044a855d1a2c92a5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  references: {fileID: 5955771735733772327}
-  overlay: {fileID: 0}
-  destroyEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &5955771735733772327
+  ship: {fileID: 0}
+  activeValueThreshold: 1
+--- !u!114 &8714678710057436949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,8 +58,64 @@ MonoBehaviour:
   m_GameObject: {fileID: 1907754239003912354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61562e0da05925d429af7f0d6465b142, type: 3}
+  m_Script: {fileID: 11500000, guid: dbac3dbbc1c2fcc42874dd2c059632be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot: {fileID: 990860952733176915}
-  canvasScaleMultiplier: 1.5
+  ship: {fileID: 0}
+--- !u!114 &4246544794668748127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb6d5e7b3de0924296a6e549ee48670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  continuouslyApplySettings: 0
+  navigationType: 1
+  qProportionalBase: 50
+  qIntegral: 2
+  qDerivative: 0
+  pProportional: 2
+  pDerivative: 0
+  maxVel: 50
+--- !u!58 &4763514651900120131
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_Enabled: 1
+  m_Density: 0
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &6624674223097554171
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907754239003912354}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

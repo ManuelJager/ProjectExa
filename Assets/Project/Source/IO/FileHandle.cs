@@ -16,32 +16,28 @@ namespace Exa.IO
         public string TargetPath => pathFactory(item.ItemName);
         public bool PathIsDirty => CurrentPath != TargetPath;
 
-        public FileHandle(ISerializableItem item, Func<string, string> pathFactory, Action<string> serializationFactory, bool generatePath = true)
-        {
+        public FileHandle(ISerializableItem item, Func<string, string> pathFactory, Action<string> serializationFactory,
+            bool generatePath = true) {
             this.item = item;
             this.pathFactory = pathFactory;
             this.serializationFactory = serializationFactory;
 
-            if (generatePath)
-            {
+            if (generatePath) {
                 this.CurrentPath = pathFactory(item.ItemName);
             }
         }
 
-        public void Delete()
-        {
-            if (CurrentPath != "" && File.Exists(CurrentPath))
-            {
+        public void Delete() {
+            if (CurrentPath != "" && File.Exists(CurrentPath)) {
                 File.Delete(CurrentPath);
             }
         }
 
-        public void Refresh()
-        {
-            if (PathIsDirty)
-            {
+        public void Refresh() {
+            if (PathIsDirty) {
                 Delete();
             }
+
             CurrentPath = TargetPath;
             serializationFactory(CurrentPath);
         }

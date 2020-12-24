@@ -3,6 +3,8 @@ using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
+#pragma warning disable CS0649
+
 namespace Exa.UI
 {
     public class UserExceptionView : MonoBehaviour
@@ -10,25 +12,17 @@ namespace Exa.UI
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Text text;
 
-        public string Message
-        {
+        public string Message {
             set => text.text = value;
         }
 
-        private void Awake()
-        {
+        private void Awake() {
             canvasGroup.alpha = 0f;
             canvasGroup.DOFade(1, 0.2f);
 
-            StartCoroutine(EnumeratorUtils.Delay(3f, () =>
-            {
-                canvasGroup.DOFade(0f, 0.2f);
-            }));
+            StartCoroutine(EnumeratorUtils.Delay(() => { canvasGroup.DOFade(0f, 0.2f); }, 3f));
 
-            StartCoroutine(EnumeratorUtils.Delay(3.2f, () =>
-            {
-                Destroy(gameObject);
-            }));
+            StartCoroutine(EnumeratorUtils.Delay(() => { Destroy(gameObject); }, 3.2f));
         }
     }
 }

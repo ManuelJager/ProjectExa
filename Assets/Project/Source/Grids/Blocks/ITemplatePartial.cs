@@ -7,7 +7,7 @@ namespace Exa.Grids.Blocks
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface ITemplatePartial<out T>
-        where T : IBlockComponentData
+        where T : IBlockComponentValues
     {
         T Convert();
     }

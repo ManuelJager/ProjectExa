@@ -8,12 +8,10 @@ namespace Exa.Debugging
     {
         private Console console;
 
-        private void Start()
-        {
+        private void Start() {
             console = Systems.UI.console;
 
             console.Container.AddGetter(() => new ClsCommand());
-            console.Container.AddGetter(() => new ToggleDebugCommand());
             console.Container.AddGetter(() => new SpawnCommand());
             console.Container.AddGetter(() => new ToggleDiagnosticsCommand());
         }

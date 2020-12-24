@@ -14,30 +14,28 @@ namespace Exa.Grids.Blueprints
         [JsonIgnore] public string Key => Data.name;
 
         public BlueprintContainer(BlueprintContainerArgs args)
-            : base(args.blueprint)
-        {
-            if (args.generateBlueprintFileHandle)
-            {
+            : base(args.blueprint) {
+            if (args.generateBlueprintFileHandle) {
                 BlueprintFileHandle = new FileHandle(this,
-                    (name) => IOUtils.CombineWithDirectory("blueprints", $"{name}.json"),
-                    (path) => IOUtils.JsonSerializeToPath(Data, path),
+                    name => DirectoryTree.Blueprints.CombineWith($"{name}.json"),
+                    path => IOUtils.JsonSerializeToPath(Data, path),
                     args.generateBlueprintFileName);
             }
 
-            var thumbnailDirectory = args.useDefaultThumbnailFolder ? "defaultThumbnails" : "thumbnails";
+            var thumbnailDirectory = args.useDefaultThumbnailFolder
+                ? DirectoryTree.DefaultThumbnails
+                : DirectoryTree.Thumbnails;
+
             ThumbnailFileHandle = new FileHandle(this,
-                (name) => IOUtils.CombineWithDirectory(thumbnailDirectory, $"{name}.png"),
-                (path) => IOUtils.SaveTexture2D(Data.Thumbnail, path));
+                name => thumbnailDirectory.CombineWith($"{name}.png"),
+                path => IOUtils.SaveTexture2D(Data.Thumbnail, path));
         }
 
-        public void LoadThumbnail()
-        {
-            if (File.Exists(ThumbnailFileHandle.TargetPath))
-            {
+        public void LoadThumbnail() {
+            if (File.Exists(ThumbnailFileHandle.TargetPath)) {
                 Data.Thumbnail = IOUtils.LoadTexture2D(ThumbnailFileHandle.TargetPath, 512, 512);
             }
-            else
-            {
+            else {
                 Systems.Thumbnails.GenerateThumbnail(Data);
                 ThumbnailFileHandle.Refresh();
             }

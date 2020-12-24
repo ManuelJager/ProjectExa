@@ -7,32 +7,40 @@ namespace Exa.Validation
 {
     public class ValidationResult : IEnumerable<ValidationError>
     {
-        private List<ValidationError> collection;
-        public string ContextID { get; private set; }
+        private readonly List<ValidationError> collection;
 
-        public ValidationError this[int index]
-        {
-            get => collection[index];
-            set => collection[index] = value;
-        }
+        public IValidator Validator { get; private set; }
 
-        public ValidationResult()
-        {
+        internal ValidationResult(IValidator validator) {
             collection = new List<ValidationError>();
+            Validator = validator;
         }
 
-        internal ValidationResult(Type validationContext)
-            : this()
-        {
-            ContextID = validationContext.Name;
-        }
-
-        public void Throw<TError>(string errorMessage)
-            where TError : ValidationError
-        {
-            var error = Activator.CreateInstance(typeof(TError)) as TError;
+        public TError Throw<TError>(string errorMessage)
+            where TError : ValidationError {
+            var error = Activator.CreateInstance<TError>();
             error.Message = errorMessage;
             collection.Add(error);
+            return error;
+        }
+
+        public TError Throw<TError>(string errorMessage, ErrorType errorType)
+            where TError : ValidationError {
+            var error = Throw<TError>(errorMessage);
+            error.ErrorType = errorType;
+            return error;
+        }
+
+        public GenericValidationError Throw(string id, string errorMessage) {
+            var error = new GenericValidationError(id, errorMessage);
+            collection.Add(error);
+            return error;
+        }
+
+        public GenericValidationError Throw(string id, string errorMessage, ErrorType errorType) {
+            var error = Throw(id, errorMessage);
+            error.ErrorType = errorType;
+            return error;
         }
 
         /// <summary>
@@ -41,47 +49,36 @@ namespace Exa.Validation
         /// <typeparam name="TError">Type of error thrown</typeparam>
         /// <param name="errorMessage">Error message</param>
         /// <param name="predicate">Validation condition</param>
-        public void Assert<TError>(string errorMessage, Func<bool> predicate)
-            where TError : ValidationError
-        {
-            if (!predicate())
-            {
-                var error = Activator.CreateInstance(typeof(TError)) as TError;
-                error.Message = errorMessage;
-                collection.Add(error);
-            }
+        public void Assert<TError>(string errorMessage, bool predicate)
+            where TError : ValidationError {
+            if (!predicate)
+                Throw<TError>(errorMessage);
         }
 
-        /// <summary>
-        /// Test the predicate and on false add an error with the given error message
-        /// </summary>
-        /// <typeparam name="TError">Type of error thrown</typeparam>
-        /// <param name="predicate">Validation contidion</param>
-        public void Assert<TError>(Func<ValidationOperationResult> predicate)
-            where TError : ValidationError
-        {
-            var operationResult = predicate();
-            if (!operationResult.Valid)
-            {
-                var error = Activator.CreateInstance(typeof(TError)) as TError;
-                error.Message = operationResult.Message;
-                collection.Add(error);
-            }
+        public IEnumerable<ValidationError> GetErrorsWith(ErrorType errorType) {
+            return this.Where(error => error.ErrorType == errorType);
         }
 
-        public IEnumerator<ValidationError> GetEnumerator()
-        {
+        public ValidationError GetFirstBySeverity() {
+            return
+                GetErrorsWith(ErrorType.Error).FirstOrDefault() ??
+                GetErrorsWith(ErrorType.Warning).FirstOrDefault() ??
+                GetErrorsWith(ErrorType.Warning).FirstOrDefault();
+        }
+
+        public IEnumerator<ValidationError> GetEnumerator() {
             return collection.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             return collection.GetEnumerator();
         }
 
-        public static implicit operator bool(ValidationResult errors)
-        {
-            return !ReferenceEquals(errors, null) && errors.Count() == 0;
+        public static implicit operator bool(ValidationResult errors) {
+            if (ReferenceEquals(errors, null)) 
+                throw new InvalidOperationException("Cannot implicitly check null validation result");
+
+            return errors.All(error => error.ErrorType != ErrorType.Error);
         }
     }
 }

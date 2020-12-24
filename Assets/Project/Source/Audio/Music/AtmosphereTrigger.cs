@@ -8,18 +8,22 @@ namespace Exa.Audio.Music
     /// </summary>
     public class AtmosphereTrigger : MonoBehaviour
     {
-        public Atmosphere targetAtmosphere = Atmosphere.None;
+        [SerializeField] private Atmosphere targetAtmosphere = Atmosphere.None;
+        [SerializeField] private bool triggerOnEnable = false;
 
-        private void OnEnable()
-        {
-            StartCoroutine(DelayedSetAtmosphere());
+        private void OnEnable() {
+            if (triggerOnEnable)
+                StartCoroutine(DelayedSetAtmosphere());
         }
 
-        private IEnumerator DelayedSetAtmosphere()
-        {
-            yield return 0;
-
+        public void Trigger() {
             Systems.Audio.ST_AudioTrack.SetAtmosphere(targetAtmosphere);
+        }
+
+        private IEnumerator DelayedSetAtmosphere() {
+            yield return null;
+
+            Trigger();
         }
     }
 }

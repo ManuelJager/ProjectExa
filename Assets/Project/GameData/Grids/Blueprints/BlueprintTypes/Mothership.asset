@@ -15,5 +15,4 @@ MonoBehaviour:
   displayName: Mothership
   typeGuid: Mothership
   maxSize: {x: 30, y: 21}
-  disallowedBlockCategories:
-  - worker
+  disallowedBlockCategories: 32

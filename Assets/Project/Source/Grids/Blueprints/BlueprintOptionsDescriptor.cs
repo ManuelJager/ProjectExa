@@ -1,49 +1,32 @@
-﻿using Exa.Generics;
-using Exa.UI;
-using System.Collections.Generic;
+﻿using Exa.UI;
+using Exa.UI.Controls;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
 {
-    public class BlueprintClassSource : IDataSourceProvider
-    {
-        public IEnumerable<NamedWrapper<object>> GetValues()
-        {
-            var types = Systems.Blueprints.blueprintTypes.objects;
-            foreach (var type in types)
-            {
-                yield return new NamedWrapper<object>
-                {
-                    Name = type.displayName,
-                    Value = type
-                };
-            }
-        }
-
-        public void OnOptionCreation(object value, GameObject viewObject)
-        {
-            var hoverable = viewObject.AddComponent<Hoverable>();
-            hoverable.onPointerEnter.AddListener(() =>
-            {
-                Systems.UI.variableTooltipManager.blueprintTypeTooltip.ShowTooltip((BlueprintType)value);
-            });
-            hoverable.onPointerExit.AddListener(() =>
-            {
-                Systems.UI.variableTooltipManager.blueprintTypeTooltip.HideTooltip();
-            });
-        }
-    }
-
     public class BlueprintOptionsDescriptor : ModelDescriptor<BlueprintOptions>
     {
-        public string Name { get; set; }
+        private string blueprintName;
+        private BlueprintType blueprintType;
 
-        [Source(typeof(BlueprintClassSource))]
-        public BlueprintType Class { get; set; }
+        public override BlueprintOptions FromDescriptor() {
+            return new BlueprintOptions(blueprintName, blueprintType.typeGuid);
+        }
 
-        public override BlueprintOptions FromDescriptor()
-        {
-            return new BlueprintOptions(Name, Class.typeGuid);
+        public override void GenerateView(Transform container) {
+            var blueprintTypes = Systems.Blueprints.blueprintTypes;
+            Systems.UI.controlFactory.CreateInputField(container, "Name", SetBlueprintName);
+            Systems.UI.controlFactory.CreateDropdown(container, "Class", blueprintTypes,
+                SetBlueprintType, OnOptionCreation);
+        }
+
+        private void SetBlueprintName(string blueprintName) => this.blueprintName = blueprintName;
+        private void SetBlueprintType(BlueprintType blueprintType) => this.blueprintType = blueprintType;
+
+        private void OnOptionCreation(BlueprintType value, DropdownTab tab) {
+            var hoverable = tab.gameObject.AddComponent<Hoverable>();
+            hoverable.onPointerEnter.AddListener(() => Systems.UI.tooltips.blueprintTypeTooltip.Show(value));
+            hoverable.onPointerExit.AddListener(() => Systems.UI.tooltips.blueprintTypeTooltip.Hide());
         }
     }
 }

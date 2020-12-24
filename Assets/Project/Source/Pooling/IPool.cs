@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Exa.Pooling
+﻿namespace Exa.Pooling
 {
     public interface IPool<out T> : IPool
         where T : PoolMember
@@ -12,5 +10,6 @@ namespace Exa.Pooling
     {
         void Configure(PoolSettings poolSettings);
         bool Return(PoolMember poolMember);
+        void OnDestroyMember();
     }
 }

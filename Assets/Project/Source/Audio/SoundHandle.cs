@@ -28,21 +28,17 @@ namespace Exa.Audio
 
         private ITrackContext context;
 
-        public void Play(ITrackContext playableContext)
-        {
+        public void Play(ITrackContext playableContext) {
             context = playableContext;
 
-            if (!sound.allowMultipleOnTrack)
-            {
+            if (!sound.allowMultipleOnTrack) {
                 context.StopAllSounds();
             }
 
-            if (sound.allowMultipleOfType)
-            {
+            if (sound.allowMultipleOfType) {
                 audioSource.PlayOneShot(sound.audioClip, sound.volume);
             }
-            else
-            {
+            else {
                 audioSource.clip = sound.audioClip;
                 audioSource.volume = sound.volume;
                 audioSource.Play();
@@ -53,8 +49,7 @@ namespace Exa.Audio
             context.RegisterHandle(this);
         }
 
-        public void Stop()
-        {
+        public void Stop() {
             onStop?.Invoke();
             audioSource.Stop();
         }

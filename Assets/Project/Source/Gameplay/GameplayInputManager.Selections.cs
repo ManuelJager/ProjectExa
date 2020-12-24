@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Exa.Gameplay
+﻿namespace Exa.Gameplay
 {
     public partial class GameplayInputManager
-    {
-    }
+    { }
 }

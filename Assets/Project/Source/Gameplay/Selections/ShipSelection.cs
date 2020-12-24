@@ -1,69 +1,67 @@
 ﻿using Exa.Bindings;
-using Exa.Grids.Ships;
-using System;
+using Exa.Generics;
+using Exa.Math;
+using Exa.Ships;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Exa.Gameplay
 {
-    public class ShipSelection : ObservableCollection<Ship>, ICloneable
+    public abstract class ShipSelection : ObservableCollection<Ship>, ICloneable<ShipSelection>
     {
+        protected Formation formation;
+
+        protected ShipSelection(Formation formation) {
+            this.formation = formation;
+        }
+
         public bool CanControl { get; protected set; }
 
-        private Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
+        public Vector2 AveragePosition {
+            get {
+                var positions = this.Select(ship => ship.gameObject.transform.position.ToVector2());
 
-        public virtual void MoveTo(Vector2 position)
-        {
-            throw new NotImplementedException();
+                return MathUtils.Average(positions);
+            }
         }
 
-        public override void Add(Ship item)
-        {
-            base.Add(item);
+        private readonly Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
 
-            item.overlay.overlayCircle.IsSelected = true;
+        public override void Add(Ship ship) {
+            base.Add(ship);
 
-            // Set a callback that removes the ship from the collection when destroyed
-            UnityAction callback = () => Remove(item);
-            callbackDict.Add(item, callback);
-            item.destroyEvent.AddListener(callback);
+            ship.Overlay.overlayCircle.IsSelected = true;
+
+            // Set a callback that removes the Ship from the collection when destroyed
+            void Callback() => Remove(ship);
+            callbackDict.Add(ship, Callback);
+            ship.ControllerDestroyedEvent.AddListener(Callback);
         }
 
-        public override bool Remove(Ship ship)
-        {
+        public override bool Remove(Ship ship) {
             OnRemove(ship);
             return base.Remove(ship);
         }
 
-        public override void Clear()
-        {
-            foreach (var ship in this)
-            {
+        public override void Clear() {
+            foreach (var ship in this) {
                 OnRemove(ship);
             }
 
             base.Clear();
         }
 
-        private void OnRemove(Ship ship)
-        {
-            ship.overlay.overlayCircle.IsSelected = false;
+        private void OnRemove(Ship ship) {
+            ship.Overlay.overlayCircle.IsSelected = false;
 
             // Get the callback and remove it
             var callback = callbackDict[ship];
             callbackDict.Remove(ship);
-            ship.destroyEvent.RemoveListener(callback);
+            ship.ControllerDestroyedEvent.RemoveListener(callback);
         }
 
-        public object Clone()
-        {
-            var newSelection = new ShipSelection();
-            foreach (var item in this)
-            {
-                newSelection.Add(item);
-            }
-            return newSelection;
-        }
+        public abstract ShipSelection Clone();
     }
 }

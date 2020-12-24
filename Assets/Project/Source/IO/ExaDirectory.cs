@@ -1,39 +1,44 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Exa.IO
 {
     public class ExaDirectory
     {
-        public string Value { get; private set; }
+        public string Value { get; }
 
-        internal ExaDirectory(string value)
+        internal ExaDirectory(string value, bool combineWithDataPath = true)
         {
-            EnsureCreated(value);
-            this.Value = value;
+            var path = combineWithDataPath 
+                ? IOUtils.CombinePathWithDataPath(value) 
+                : value;
+
+            EnsureCreated(path);
+            this.Value = path;
         }
 
-        internal ExaDirectory(string name, string value)
-            : this(value)
+        internal ExaDirectory(ExaDirectory parent, string value)
         {
-            IOUtils.GlobalDirectories[name] = this;
+            var path = IOUtils.CombinePath(parent, value);
+            EnsureCreated(path);
+            this.Value = path;
         }
 
-        public static ExaDirectory Create(string value)
-        {
-            return new ExaDirectory(value);
+        public string CombineWith(string fileName) {
+            return IOUtils.CombinePath(this, fileName);
         }
 
-        public static ExaDirectory CreateAndRegister(string name, string value)
-        {
-            return new ExaDirectory(name, value);
-        }
-
-        private static void EnsureCreated(string directoryString)
-        {
-            if (!Directory.Exists(directoryString))
-            {
+        private static void EnsureCreated(string directoryString) {
+            if (!Directory.Exists(directoryString)) {
                 Directory.CreateDirectory(directoryString);
             }
+        }
+
+        public static implicit operator string(ExaDirectory directory) {
+            if (directory == null)
+                throw new ArgumentNullException(nameof(directory));
+
+            return directory.Value;
         }
     }
 }

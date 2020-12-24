@@ -1,45 +1,54 @@
 ﻿using Exa.Bindings;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Utils;
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Exa.Utils;
+
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks
 {
-    public enum BlockPrefabType
+    /// <summary>
+    /// Enum used to identify to which group a block belongs
+    /// </summary>
+    [Flags]
+    public enum BlockContext : uint
     {
-        defaultGroup,
-        userGroup,
+        None = 0,
+        DefaultGroup = 1 << 0,
+        UserGroup = 1 << 1,
+        EnemyGroup = 1 << 2,
+        Debris = 1 << 3
     }
 
     public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer>
-    {
-    }
+    { }
 
     /// <summary>
-    /// Registers block types and sets default values
+    /// Registers block types and creates block pools
     /// </summary>
     public class BlockFactory : MonoBehaviour
     {
-        public ObservableBlockTemplateCollection availibleBlockTemplates = new ObservableBlockTemplateCollection();
+        public ObservableBlockTemplateCollection availableBlockTemplates = new ObservableBlockTemplateCollection();
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
         [SerializeField] private BlockTemplateBag blockTemplateBag;
-        [SerializeField] private InertBlockFactoryPrefabGroup inertPrefabGroup;
-        [SerializeField] private BlockFactoryPrefabGroup defaultPrefabGroup;
-        [SerializeField] private BlockFactoryPrefabGroup userPrefabGroup;
+        [SerializeField] private InertBlockPoolGroup inertPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup defaultPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup userPrefabGroup;
+        [SerializeField] private AliveBlockPoolGroup enemyPrefabGroup;
 
-        public IEnumerator StartUp(IProgress<float> progress)
-        {
+        public BlockValuesStore valuesStore;
+
+        public IEnumerator Init(IProgress<float> progress) {
+            valuesStore = new BlockValuesStore();
             var enumerator = EnumeratorUtils.ReportForeachOperation(blockTemplateBag, RegisterBlockTemplate, progress);
             while (enumerator.MoveNext()) yield return enumerator.Current;
         }
 
-        public GameObject GetInactiveInertBlock(string id, Transform transform)
-        {
+        public GameObject GetInactiveInertBlock(string id, Transform transform) {
             return inertPrefabGroup.GetInactiveBlock(id, transform);
         }
 
@@ -48,9 +57,8 @@ namespace Exa.Grids.Blocks
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Block GetInactiveBlock(string id, Transform transform, BlockPrefabType blockPrefabType)
-        {
-            return GetGroup(blockPrefabType)
+        public Block GetInactiveBlock(string id, Transform transform, BlockContext blockContext) {
+            return GetGroup(blockContext)
                 .GetInactiveBlock(id, transform)
                 .GetComponent<Block>();
         }
@@ -59,38 +67,35 @@ namespace Exa.Grids.Blocks
         /// Register a template, and set the values on the block prefab
         /// </summary>
         /// <param name="blockTemplate"></param>
-        private IEnumerator RegisterBlockTemplate(BlockTemplate blockTemplate)
-        {
-            availibleBlockTemplates.Add(new BlockTemplateContainer(blockTemplate));
-
-            if (blockTemplatesDict.ContainsKey(blockTemplate.id))
-            {
+        private IEnumerator RegisterBlockTemplate(BlockTemplate blockTemplate) {
+            if (blockTemplatesDict.ContainsKey(blockTemplate.id)) {
                 throw new Exception("Duplicate block id found");
             }
 
+            availableBlockTemplates.Add(new BlockTemplateContainer(blockTemplate));
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
             yield return null;
-            defaultPrefabGroup.CreateAlivePrefabGroup(blockTemplate);
-            yield return null;
-            userPrefabGroup.CreateAlivePrefabGroup(blockTemplate);
-            yield return null;
+
+            foreach (var context in GetContexts()) {
+                valuesStore.Register(context, blockTemplate);
+                GetGroup(context).CreateAlivePrefabGroup(blockTemplate, context);
+                yield return null;
+            }
         }
 
-        private BlockFactoryPrefabGroup GetGroup(BlockPrefabType blockPrefabType)
-        {
-            switch (blockPrefabType)
-            {
-                case BlockPrefabType.defaultGroup:
-                    return defaultPrefabGroup;
+        private AliveBlockPoolGroup GetGroup(BlockContext blockContext) {
+            return blockContext.Is(BlockContext.DefaultGroup) ? defaultPrefabGroup
+                : blockContext.Is(BlockContext.UserGroup) ? userPrefabGroup
+                : blockContext.Is(BlockContext.EnemyGroup) ? enemyPrefabGroup
+                : null;
+        }
 
-                case BlockPrefabType.userGroup:
-                    return userPrefabGroup;
-
-                default:
-                    return null;
-            }
+        private IEnumerable<BlockContext> GetContexts() {
+            yield return BlockContext.DefaultGroup;
+            yield return BlockContext.UserGroup;
+            yield return BlockContext.EnemyGroup;
         }
     }
 }

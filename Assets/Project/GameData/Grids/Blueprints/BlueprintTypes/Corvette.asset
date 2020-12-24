@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e291881a9bb544546b8fb636a275fc97, type: 3}
   m_Name: Corvette
   m_EditorClassIdentifier: 
+  typeGuid: 2
   displayName: Corvette
-  typeGuid: Corvette
   maxSize: {x: 14, y: 9}
-  disallowedBlockCategories:
-  - worker
+  disallowedBlockCategories: 32

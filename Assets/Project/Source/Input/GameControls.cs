@@ -212,6 +212,22 @@ namespace Exa.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Drag"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b87a355-27b6-40d2-842e-51238e7d1ac3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""84af3c11-3317-4802-9f51-fb60c2435bab"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -223,6 +239,39 @@ namespace Exa.Input
                     ""processors"": """",
                     ""groups"": ""MouseKb"",
                     ""action"": ""ToggleConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02fde2ea-86ba-48b5-9360-8600e5ef0a0e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Drag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51bb6693-5d5d-45f2-851d-ab9734690b0d"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=-1)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5587d601-81ce-48bd-adc0-afd4297eef95"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -273,7 +322,7 @@ namespace Exa.Input
                     ""id"": ""50bb47ae-7f50-45b0-9e96-b252abb46662"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap""
                 },
                 {
                     ""name"": ""LeftClick"",
@@ -300,9 +349,25 @@ namespace Exa.Input
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""NumKeys"",
+                    ""name"": ""SaveGroup"",
+                    ""type"": ""Value"",
+                    ""id"": ""deada82f-f5b3-47ed-95c4-63ebf35b4af5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SelectGroup"",
                     ""type"": ""Value"",
                     ""id"": ""f1457bf0-3320-4d7d-86b7-f7ddc25cd9e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SaveGroupModifier"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecbfdfaf-389d-481b-b072-9bd6a0a1d0e9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -415,7 +480,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -426,7 +491,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=2)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -437,7 +502,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=3)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -448,7 +513,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=4)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -459,7 +524,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=5)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -470,7 +535,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=6)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -481,7 +546,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=7)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -492,7 +557,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=8)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -503,7 +568,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=9)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -514,7 +579,348 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": ""Scale(factor=0)"",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""NumKeys"",
+                    ""action"": ""SelectGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1"",
+                    ""id"": ""2b7dfe7c-c23d-49d6-9f64-c5079c4e9e68"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""2637ba8a-e4b2-4c9d-b2ae-11a6f4c72255"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""156d8dcd-b0cf-459a-9136-b60794a3a273"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2"",
+                    ""id"": ""279c576c-f5dc-499e-8f66-c87cc4ce18a8"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""e401e56e-2bda-4c4a-924b-61c92884b822"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""9d8be808-9227-4625-8970-a218f02fb607"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""3"",
+                    ""id"": ""bb344562-e57a-4506-b1da-bff57e049fc0"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""5ef450c6-67a1-4c2e-b9b3-393b70ef5bf9"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""f4b5b814-0aa4-4da7-a0db-b9d2db3ea9e0"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""4"",
+                    ""id"": ""41b0d1b2-1794-43ce-8c93-d2e96fcc1a3c"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""3a3037b5-c81d-4430-a46f-9ca729e5b76e"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""6847251d-5e4f-4bb5-8843-b2ee9c09c539"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""5"",
+                    ""id"": ""2562895f-2dcd-4d9d-bafa-974dc6c845cc"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""7fea6236-cdf3-4267-9f60-7102fcde6187"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""8e2da8db-4c81-4fc6-b29b-21ad5be7543f"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""6"",
+                    ""id"": ""befc81ec-8f85-4633-a82e-d49bf8ab48a4"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=6)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""4f4fc270-50eb-48b3-828d-6c8c55867fb6"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""af3d9435-48c1-4336-9bf8-c54945e73ca1"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""7"",
+                    ""id"": ""998ab962-29e6-4d08-84d4-ef9f583c38dc"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=7)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""b369c8a8-ca96-4ad2-9014-11ce3f95c72f"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""dab5903f-30ef-4df4-87e9-3fdf3d1a62be"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""8"",
+                    ""id"": ""77f5c2bb-f652-4df9-ab4a-703d7e27ff78"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=8)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""c0d21057-5c4c-4d00-8c44-5307a1982339"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""40983828-8fda-4685-9b93-a6a60899cbd0"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""9"",
+                    ""id"": ""e78982ac-fbd0-44fe-ab98-45b21388f857"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=9)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""c260d75c-1de6-404d-9ca2-5354c5a204ff"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""055c8606-3d9d-4fe2-b79f-544dc8dd59bb"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""0"",
+                    ""id"": ""eb22cc86-bce2-4160-ad17-c1b7691df9e0"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""8506a5fc-2282-46aa-ada1-0278cb1c0259"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""1bf6f92f-8ee5-4920-8a05-519442b62854"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2295beaf-044b-4589-9f30-56a42d85decd"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""SaveGroupModifier"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -552,6 +958,8 @@ namespace Exa.Input
             // Debug
             m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
             m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
+            m_Debug_Drag = m_Debug.FindAction("Drag", throwIfNotFound: true);
+            m_Debug_Rotate = m_Debug.FindAction("Rotate", throwIfNotFound: true);
             // ReturnNavigateable
             m_ReturnNavigateable = asset.FindActionMap("ReturnNavigateable", throwIfNotFound: true);
             m_ReturnNavigateable_Return = m_ReturnNavigateable.FindAction("Return", throwIfNotFound: true);
@@ -562,7 +970,9 @@ namespace Exa.Input
             m_Gameplay_LeftClick = m_Gameplay.FindAction("LeftClick", throwIfNotFound: true);
             m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
             m_Gameplay_Escape = m_Gameplay.FindAction("Escape", throwIfNotFound: true);
-            m_Gameplay_NumKeys = m_Gameplay.FindAction("NumKeys", throwIfNotFound: true);
+            m_Gameplay_SaveGroup = m_Gameplay.FindAction("SaveGroup", throwIfNotFound: true);
+            m_Gameplay_SelectGroup = m_Gameplay.FindAction("SelectGroup", throwIfNotFound: true);
+            m_Gameplay_SaveGroupModifier = m_Gameplay.FindAction("SaveGroupModifier", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -694,11 +1104,15 @@ namespace Exa.Input
         private readonly InputActionMap m_Debug;
         private IDebugActions m_DebugActionsCallbackInterface;
         private readonly InputAction m_Debug_ToggleConsole;
+        private readonly InputAction m_Debug_Drag;
+        private readonly InputAction m_Debug_Rotate;
         public struct DebugActions
         {
             private @GameControls m_Wrapper;
             public DebugActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
+            public InputAction @Drag => m_Wrapper.m_Debug_Drag;
+            public InputAction @Rotate => m_Wrapper.m_Debug_Rotate;
             public InputActionMap Get() { return m_Wrapper.m_Debug; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -711,6 +1125,12 @@ namespace Exa.Input
                     @ToggleConsole.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
                     @ToggleConsole.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
                     @ToggleConsole.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @Drag.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
+                    @Drag.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
+                    @Drag.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
+                    @Rotate.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnRotate;
+                    @Rotate.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnRotate;
+                    @Rotate.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnRotate;
                 }
                 m_Wrapper.m_DebugActionsCallbackInterface = instance;
                 if (instance != null)
@@ -718,6 +1138,12 @@ namespace Exa.Input
                     @ToggleConsole.started += instance.OnToggleConsole;
                     @ToggleConsole.performed += instance.OnToggleConsole;
                     @ToggleConsole.canceled += instance.OnToggleConsole;
+                    @Drag.started += instance.OnDrag;
+                    @Drag.performed += instance.OnDrag;
+                    @Drag.canceled += instance.OnDrag;
+                    @Rotate.started += instance.OnRotate;
+                    @Rotate.performed += instance.OnRotate;
+                    @Rotate.canceled += instance.OnRotate;
                 }
             }
         }
@@ -764,7 +1190,9 @@ namespace Exa.Input
         private readonly InputAction m_Gameplay_LeftClick;
         private readonly InputAction m_Gameplay_Movement;
         private readonly InputAction m_Gameplay_Escape;
-        private readonly InputAction m_Gameplay_NumKeys;
+        private readonly InputAction m_Gameplay_SaveGroup;
+        private readonly InputAction m_Gameplay_SelectGroup;
+        private readonly InputAction m_Gameplay_SaveGroupModifier;
         public struct GameplayActions
         {
             private @GameControls m_Wrapper;
@@ -774,7 +1202,9 @@ namespace Exa.Input
             public InputAction @LeftClick => m_Wrapper.m_Gameplay_LeftClick;
             public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
             public InputAction @Escape => m_Wrapper.m_Gameplay_Escape;
-            public InputAction @NumKeys => m_Wrapper.m_Gameplay_NumKeys;
+            public InputAction @SaveGroup => m_Wrapper.m_Gameplay_SaveGroup;
+            public InputAction @SelectGroup => m_Wrapper.m_Gameplay_SelectGroup;
+            public InputAction @SaveGroupModifier => m_Wrapper.m_Gameplay_SaveGroupModifier;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -799,9 +1229,15 @@ namespace Exa.Input
                     @Escape.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
                     @Escape.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
                     @Escape.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
-                    @NumKeys.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
-                    @NumKeys.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
-                    @NumKeys.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNumKeys;
+                    @SaveGroup.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroup;
+                    @SaveGroup.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroup;
+                    @SaveGroup.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroup;
+                    @SelectGroup.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectGroup;
+                    @SelectGroup.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectGroup;
+                    @SelectGroup.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectGroup;
+                    @SaveGroupModifier.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroupModifier;
+                    @SaveGroupModifier.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroupModifier;
+                    @SaveGroupModifier.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSaveGroupModifier;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -821,9 +1257,15 @@ namespace Exa.Input
                     @Escape.started += instance.OnEscape;
                     @Escape.performed += instance.OnEscape;
                     @Escape.canceled += instance.OnEscape;
-                    @NumKeys.started += instance.OnNumKeys;
-                    @NumKeys.performed += instance.OnNumKeys;
-                    @NumKeys.canceled += instance.OnNumKeys;
+                    @SaveGroup.started += instance.OnSaveGroup;
+                    @SaveGroup.performed += instance.OnSaveGroup;
+                    @SaveGroup.canceled += instance.OnSaveGroup;
+                    @SelectGroup.started += instance.OnSelectGroup;
+                    @SelectGroup.performed += instance.OnSelectGroup;
+                    @SelectGroup.canceled += instance.OnSelectGroup;
+                    @SaveGroupModifier.started += instance.OnSaveGroupModifier;
+                    @SaveGroupModifier.performed += instance.OnSaveGroupModifier;
+                    @SaveGroupModifier.canceled += instance.OnSaveGroupModifier;
                 }
             }
         }
@@ -850,6 +1292,8 @@ namespace Exa.Input
         public interface IDebugActions
         {
             void OnToggleConsole(InputAction.CallbackContext context);
+            void OnDrag(InputAction.CallbackContext context);
+            void OnRotate(InputAction.CallbackContext context);
         }
         public interface IReturnNavigateableActions
         {
@@ -862,7 +1306,9 @@ namespace Exa.Input
             void OnLeftClick(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnEscape(InputAction.CallbackContext context);
-            void OnNumKeys(InputAction.CallbackContext context);
+            void OnSaveGroup(InputAction.CallbackContext context);
+            void OnSelectGroup(InputAction.CallbackContext context);
+            void OnSaveGroupModifier(InputAction.CallbackContext context);
         }
     }
 }

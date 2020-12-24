@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+#pragma warning disable CS0649
+
 namespace Exa.Validation
 {
     /// <summary>
@@ -10,8 +12,7 @@ namespace Exa.Validation
     {
         [SerializeField] private Text text;
 
-        public string Text
-        {
+        public string Text {
             set => text.text = value;
         }
     }

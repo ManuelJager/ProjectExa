@@ -1,9 +1,10 @@
-﻿using Exa.Grids;
+﻿using Exa.Ships;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
-using Exa.Grids.Ships;
+
+#pragma warning disable CS0649
 
 namespace Exa.UI.Gameplay
 {
@@ -15,45 +16,38 @@ namespace Exa.UI.Gameplay
         [SerializeField] private Image sliderImage;
         [SerializeField] private Image thumbnailImage;
         private int count;
-        private List<Ship> ships = new List<Ship>();
+        private readonly List<Ship> ships = new List<Ship>();
 
-        public int Count
-        {
+        public int Count {
             get => count;
-            private set
-            {
+            private set {
                 count = value;
                 countText.text = count.ToString();
             }
         }
 
-        private void Update()
-        {
-            var total = ships.Average((ship) => ship.Hull);
+        private void Update() {
+            var total = ships.Average(ship => ship.State.HullIntegrity);
             SetHull(total);
         }
 
-        public void SetThumbnail(Texture2D thumbnail)
-        {
+        public void SetThumbnail(Texture2D thumbnail) {
             var thumbnailRect = new Rect(0, 0, 512, 512);
             var thumbnailPivot = new Vector2(0.5f, 0.5f);
             thumbnailImage.sprite = Sprite.Create(thumbnail, thumbnailRect, thumbnailPivot);
         }
 
-        public void Add(Ship ship)
-        {
+        public void Add(Ship ship) {
             ships.Add(ship);
             Count++;
         }
 
-        public void Remove(Ship ship)
-        {
+        public void Remove(Ship ship) {
             ships.Remove(ship);
             Count--;
         }
 
-        private void SetHull(float value)
-        {
+        private void SetHull(float value) {
             slider.value = value;
             sliderImage.color = colorGradient.Evaluate(value);
         }

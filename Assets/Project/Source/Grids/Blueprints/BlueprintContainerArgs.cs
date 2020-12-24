@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Exa.Grids.Blueprints
+﻿namespace Exa.Grids.Blueprints
 {
     public class BlueprintContainerArgs
     {
@@ -13,8 +7,7 @@ namespace Exa.Grids.Blueprints
         public bool generateBlueprintFileName = true;
         public bool useDefaultThumbnailFolder = false;
 
-        public BlueprintContainerArgs(Blueprint blueprint)
-        {
+        public BlueprintContainerArgs(Blueprint blueprint) {
             this.blueprint = blueprint;
         }
     }

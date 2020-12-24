@@ -8,12 +8,10 @@ namespace Exa.Grids.Blueprints
     {
         [TextArea(3, 3000)] public string blueprintJson;
 
-        public BlueprintContainer ToContainer()
-        {
-            var blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(blueprintJson, SerializationMode.readable);
+        public BlueprintContainer ToContainer() {
+            var blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(blueprintJson, SerializationMode.Readable);
 
-            var args = new BlueprintContainerArgs(blueprint)
-            {
+            var args = new BlueprintContainerArgs(blueprint) {
                 generateBlueprintFileHandle = false,
                 useDefaultThumbnailFolder = true
             };

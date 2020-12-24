@@ -3,14 +3,14 @@ using UnityEditor;
 
 namespace Exa.CustomEditors
 {
-    [CustomEditor(typeof(CanvasGroupInteractibleAdapter))]
-    internal class CanvasGroupInteractibleAdapterEditor : Editor
+    [CustomEditor(typeof(InteractableAdapter))]
+    internal class InteractableAdapterEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            ((CanvasGroupInteractibleAdapter)target).Interactable = ((CanvasGroupInteractibleAdapter)target).Interactable;
+            ((InteractableAdapter)target).Interactable = ((InteractableAdapter)target).Interactable;
         }
     }
 }

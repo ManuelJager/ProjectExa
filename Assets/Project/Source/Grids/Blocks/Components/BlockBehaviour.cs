@@ -1,54 +1,62 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
-using Exa.Grids.Ships;
+﻿using System.Runtime.CompilerServices;
+using Exa.Ships;
+using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
     public abstract class BlockBehaviour<T> : BlockBehaviourBase
-        where T : IBlockComponentData
+        where T : struct, IBlockComponentValues
     {
-        public T data;
-        protected Ship ship;
+        [SerializeField] protected T data;
 
-        public Ship Ship
-        {
-            get => ship;
-            set
-            {
-                if (ship == value) return;
-
-                if (ship != null)
-                {
-                    OnRemove();
-                }
-
-                ship = value;
-
-                if (ship != null)
-                {
-                    OnAdd();
-                }
-            }
+        public T Data {
+            get => data;
+            set => data = value;
         }
 
-        public override void SetData(object data)
-        {
-            this.data = (T)data;
-        }
-
-        protected virtual void OnAdd()
-        {
-        }
-
-        protected virtual void OnRemove()
-        {
-        }
+        public override IBlockComponentValues BlockComponentData => data;
     }
 
     public abstract class BlockBehaviourBase : MonoBehaviour
     {
         [HideInInspector] public Block block;
+        private IGridInstance parent;
 
-        public abstract void SetData(object data);
+        public abstract IBlockComponentValues BlockComponentData { get; }
+
+        public IGridInstance Parent
+        {
+            get => parent;
+            set
+            {
+                if (parent == value) return;
+
+                if (parent != null) {
+                    OnRemove();
+                }
+
+                parent = value;
+
+                if (parent != null) {
+                    OnAdd();
+                }
+            }
+        }
+
+        public Ship Ship => Parent as Ship;
+
+        private void Update() {
+            if (Ship && Ship.Active)
+                BlockUpdate();
+        }
+
+        protected virtual void BlockUpdate() {
+
+        }
+
+        protected virtual void OnAdd() { }
+
+        protected virtual void OnRemove() { }
     }
 }

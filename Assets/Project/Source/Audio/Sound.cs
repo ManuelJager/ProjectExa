@@ -1,5 +1,4 @@
-﻿using Exa.Data;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.Audio
 {

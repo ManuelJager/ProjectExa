@@ -10,14 +10,12 @@ namespace Exa.UI.Components
     /// </summary>
     public class LayoutGroupContext : MonoBehaviour
     {
-        [SerializeField] private LayoutElement layoutElement;
+        public LayoutElement layoutElement;
 
-        public void UpdateActiveSelf()
-        {
-            layoutElement.ignoreLayout = transform
+        public void UpdateActiveSelf() {
+            layoutElement.ignoreLayout = !transform
                 .GetChildren()
-                .Where(transform => transform.gameObject.activeSelf)
-                .Count() == 0;
+                .Any(transform => transform.gameObject.activeSelf);
         }
     }
 }

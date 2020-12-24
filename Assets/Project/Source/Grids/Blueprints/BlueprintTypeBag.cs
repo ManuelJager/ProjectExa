@@ -9,32 +9,26 @@ namespace Exa.Grids.Blueprints
     {
         private class BlueprintTypeComparer : IComparer<BlueprintType>
         {
-            public int Compare(BlueprintType x, BlueprintType y)
-            {
+            public int Compare(BlueprintType x, BlueprintType y) {
                 return GetBlueprintTypeSize(x) - GetBlueprintTypeSize(y);
             }
 
-            private int GetBlueprintTypeSize(BlueprintType blueprintType)
-            {
+            private static int GetBlueprintTypeSize(BlueprintType blueprintType) {
                 return blueprintType.maxSize.x * blueprintType.maxSize.y;
             }
         }
 
-        public Dictionary<string, BlueprintType> typesById;
+        public Dictionary<BlueprintTypeGuid, BlueprintType> typesById;
 
-        public override void FindObjects()
-        {
+        public override void FindObjects() {
             base.FindObjects();
             objects.Sort(new BlueprintTypeComparer());
         }
 
-        public void OnEnable()
-        {
-            typesById = new Dictionary<string, BlueprintType>();
+        public void OnEnable() {
+            typesById = new Dictionary<BlueprintTypeGuid, BlueprintType>();
             foreach (var type in objects)
-            {
                 typesById[type.typeGuid] = type;
-            }
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Exa.Generics;
+using UnityEngine;
+
+#pragma warning disable CS0649
 
 namespace Exa.UI
 {
@@ -10,34 +13,27 @@ namespace Exa.UI
         [SerializeField] private Texture2D infoMouseTexture;
         [SerializeField] private Texture2D inputMouseTexture;
 
-        private void OnEnable()
-        {
+        public MarkerContainer HoverMarkerContainer { get; } = null;
+
+        private void OnEnable() {
             Cursor.visible = true;
         }
 
-        public void SetActive(bool active)
-        {
+        public void SetActive(bool active) {
             gameObject.SetActive(active);
         }
 
-        public void SetState(CursorState cursorState)
-        {
+        public void SetState(CursorState cursorState) {
             var tex = GetTexture(cursorState);
             Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
         }
 
-        public void OnEnterViewport()
-        {
-        }
+        public void OnEnterViewport() { }
 
-        public void OnExitViewport()
-        {
-        }
+        public void OnExitViewport() { }
 
-        private Texture2D GetTexture(CursorState cursorState)
-        {
-            switch (cursorState)
-            {
+        private Texture2D GetTexture(CursorState cursorState) {
+            switch (cursorState) {
                 case CursorState.idle:
                     return idleMouseTexture;
 

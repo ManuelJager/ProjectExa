@@ -1,5 +1,5 @@
-﻿using Exa.Data;
-using Exa.Grids.Blueprints.Editor;
+﻿using Exa.ShipEditor;
+using Exa.UI.Controls;
 using Exa.UI.Diagnostics;
 using Exa.UI.Tooltips;
 using UCommandConsole;
@@ -9,21 +9,21 @@ namespace Exa.UI
 {
     public class MainUI : MonoBehaviour
     {
-        public Canvas root;
+        public Canvas rootCanvas;
         public RectTransform rootTransform;
         public LoadingScreen loadingScreen;
-        public ShipEditorOverlay shipEditorOverlay;
-        public MainMenu mainMenu;
-        public VariableTooltipManager variableTooltipManager;
+        public ShipEditorOverlay editorOverlay;
+        public RootNavigation root;
+        public VariableTooltipManager tooltips;
         public Console console;
-        public UserExceptionLogger userExceptionLogger;
+        public UserExceptionLogger logger;
         public MouseCursorController mouseCursor;
         public PromptController promptController;
         public DiagnosticsPanel diagnostics;
-        public SettingsManager settingsManager;
+        public ControlFactory controlFactory;
+        public WipScreen wipScreen;
 
-        private void Awake()
-        {
+        private void Awake() {
             console.Initialize();
         }
     }

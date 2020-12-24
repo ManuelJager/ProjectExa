@@ -1,53 +1,48 @@
 ﻿using Exa.Bindings;
 using Exa.Gameplay;
-using Exa.Grids.Ships;
-using System;
+using Exa.Ships;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+#pragma warning disable CS0649
+
 namespace Exa.UI.Gameplay
 {
-    public partial class SelectionOverlay : AbstractCollectionObserver<Ship>
+    public class SelectionOverlay : AbstractCollectionObserver<Ship>
     {
         [SerializeField] private GameObject shipViewPrefab;
         [SerializeField] private Transform container;
 
-        private Dictionary<string, ShipView> shipViews = new Dictionary<string, ShipView>();
+        private readonly Dictionary<string, ShipView> shipViews = new Dictionary<string, ShipView>();
 
-        private void Awake()
-        {
+        private void Awake() {
             container.gameObject.SetActive(false);
         }
 
-        public override void OnAdd(Ship ship)
-        {
-            var view = SelectOrCreateView(ship);
-            view.Add(ship);
+        public override void OnAdd(Ship value) {
+            var view = SelectOrCreateView(value);
+            view.Add(value);
             ProcessEnabled();
         }
 
-        public override void OnRemove(Ship ship)
-        {
-            var key = ship.Blueprint.name;
+        public override void OnRemove(Ship value) {
+            var key = value.Blueprint.name;
             var view = shipViews[key];
 
             // Destroy the view if there are ships it could represent
-            // A 1 is used here instead of a 0 as we assume the ship will be removed from the view
-            if (view.Count == 1)
-            {
+            // A 1 is used here instead of a 0 as we assume the Ship will be removed from the view
+            if (view.Count == 1) {
                 shipViews.Remove(key);
                 Destroy(view.gameObject);
             }
 
-            view.Remove(ship);
+            view.Remove(value);
             ProcessEnabled();
         }
 
-        public override void OnClear()
-        {
-            foreach (var view in shipViews.Values)
-            {
+        public override void OnClear() {
+            foreach (var view in shipViews.Values) {
                 Destroy(view.gameObject);
             }
 
@@ -55,31 +50,26 @@ namespace Exa.UI.Gameplay
             ProcessEnabled();
         }
 
-        public void Reflect(ShipSelection shipSelection)
-        {
+        public void Reflect(ShipSelection shipSelection) {
             this.Source = shipSelection;
             ProcessEnabled();
         }
 
-        private ShipView SelectOrCreateView(Ship ship)
-        {
+        private ShipView SelectOrCreateView(Ship ship) {
             var key = ship.Blueprint.name;
-            if (!shipViews.ContainsKey(key))
-            {
+            if (!shipViews.ContainsKey(key)) {
                 var viewGO = Instantiate(shipViewPrefab, container);
                 var view = viewGO.GetComponent<ShipView>();
                 view.SetThumbnail(ship.Blueprint.Thumbnail);
                 shipViews.Add(key, view);
                 return view;
             }
-            else
-            {
+            else {
                 return shipViews[key];
             }
         }
 
-        private void ProcessEnabled()
-        {
+        private void ProcessEnabled() {
             var active = Source != null && Source.Count() > 0;
             container.gameObject.SetActive(active);
         }

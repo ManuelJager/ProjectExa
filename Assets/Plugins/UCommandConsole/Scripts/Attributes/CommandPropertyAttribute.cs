@@ -6,7 +6,7 @@ namespace UCommandConsole.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class CommandPropertyAttribute : Attribute, IParameterInfo
     {
-        public Type CustomParser { get; private set; }
+        public Type CustomParser { get; }
 
         public bool Required => false;
 

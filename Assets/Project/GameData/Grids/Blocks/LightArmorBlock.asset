@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: LightArmorBlock
   m_EditorClassIdentifier: 
   id: LightArmor
-  displayId: Light Armor Block
-  category: Armor
-  displayCategory: Armor
-  thumbnail: {fileID: -8622130350348527361, guid: b83defb4a441e484193ddcc29009f684,
+  displayId: Light Armor
+  category: 1
+  thumbnail: {fileID: 8968284143069025193, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
-  inertPrefab: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
+  inertPrefab: {fileID: 99981650681454060, guid: 97bc4225b763ee14693b5f3a172d9f7e,
     type: 3}
-  alivePrefab: {fileID: 0}
+  alivePrefab: {fileID: 2367148154100342487, guid: 12c02378d4ee4574683e717462817270,
+    type: 3}
   physicalTemplatePartial:
     maxHull: 15
     armor: 10
-    mass: 600
+    mass: 0.6

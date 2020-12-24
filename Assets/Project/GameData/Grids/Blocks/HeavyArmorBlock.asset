@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: HeavyArmorBlock
   m_EditorClassIdentifier: 
   id: HeavyArmor
-  displayId: Heavy Armor Block
-  category: Armor
-  displayCategory: Armor
-  thumbnail: {fileID: -5334815410903090343, guid: b83defb4a441e484193ddcc29009f684,
+  displayId: Heavy Armor
+  category: 1
+  thumbnail: {fileID: -5260229250703764349, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
-  inertPrefab: {fileID: 4260548639137017485, guid: 833d8ea8eb468324d957c13dcdf89414,
+  inertPrefab: {fileID: 2171179265563681476, guid: bf7e9488ce4c6284f851f7c366bc82f0,
     type: 3}
-  alivePrefab: {fileID: 0}
+  alivePrefab: {fileID: 3638534093892745918, guid: 3b90ce0ac286b70469ab361066a818c0,
+    type: 3}
   physicalTemplatePartial:
     maxHull: 35
     armor: 35
-    mass: 1800
+    mass: 1.8

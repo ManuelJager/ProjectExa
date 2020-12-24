@@ -19,7 +19,7 @@ namespace UCommandConsole
             return methodInfo.Name;
         }
 
-        public Dictionary<string, object> Arguments { get; private set; }
+        public Dictionary<string, object> Arguments { get; }
 
         public MethodCommand(object target, MethodInfo methodInfo)
         {

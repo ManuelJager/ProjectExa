@@ -20,7 +20,7 @@ namespace UCommandConsole.Attributes
             get => customParser;
         }
 
-        public bool Required { get; private set; }
+        public bool Required { get; }
 
         public CommandArgumentAttribute(ParameterType parameterType = ParameterType.Required)
         {

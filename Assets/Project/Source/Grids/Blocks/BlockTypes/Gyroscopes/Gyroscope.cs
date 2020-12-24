@@ -1,22 +1,21 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.Grids.Ships;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Gyroscope : Block, IGyroscope
+    public class Gyroscope : Block, IBehaviourMarker<GyroscopeData>
     {
         [SerializeField] private GyroscopeBehaviour gyroscopeBehaviour;
 
-        public GyroscopeBehaviour GyroscopeBehaviour { get => gyroscopeBehaviour; set => gyroscopeBehaviour = value; }
+        BlockBehaviour<GyroscopeData> IBehaviourMarker<GyroscopeData>.Component => gyroscopeBehaviour;
 
-        public override Ship Ship
-        {
-            set
-            {
-                base.Ship = value;
-                gyroscopeBehaviour.Ship = value;
-            }
+        public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
+            return base.GetBehaviours()
+                .Append(gyroscopeBehaviour);
         }
     }
 }

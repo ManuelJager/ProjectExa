@@ -1,6 +1,9 @@
 ﻿using Exa.Grids.Blocks.Components;
-using Exa.Grids.Ships;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+
+#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
@@ -8,19 +11,27 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private ThrusterBehaviour thrusterBehaviour;
 
-        public ThrusterBehaviour ThrusterBehaviour
-        {
-            get => thrusterBehaviour;
-            set => thrusterBehaviour = value;
+        BlockBehaviour<ThrusterData> IBehaviourMarker<ThrusterData>.Component => thrusterBehaviour;
+
+        public void Fire(float strength) {
+            thrusterBehaviour.Fire(strength);
         }
 
-        public override Ship Ship
-        {
-            set
-            {
-                base.Ship = value;
-                thrusterBehaviour.Ship = value;
-            }
+        public void PowerDown() {
+            thrusterBehaviour.PowerDown();
+        }
+
+        public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
+            return base.GetBehaviours()
+                .Append(thrusterBehaviour);
+        }
+
+        protected override void OnAdd() {
+            Ship?.Navigation.ThrustVectors.Register(this);
+        }
+
+        protected override void OnRemove() {
+            Ship?.Navigation.ThrustVectors.Unregister(this);
         }
     }
 }

@@ -23,55 +23,48 @@ namespace Exa.UI.Components
         public bool fitX;
         public bool fitY;
 
-        public override void CalculateLayoutInputHorizontal()
-        {
+        public override void CalculateLayoutInputHorizontal() {
             base.CalculateLayoutInputHorizontal();
 
             if (fitType == FitType.Width
                 || fitType == FitType.Height
-                || fitType == FitType.Uniform)
-            {
+                || fitType == FitType.Uniform) {
                 var sqrRt = Mathf.Sqrt(transform.childCount);
                 rows = Mathf.CeilToInt(sqrRt);
                 columns = Mathf.CeilToInt(sqrRt);
             }
 
             if (fitType == FitType.Width
-                || fitType == FitType.FixedColumns)
-            {
-                rows = Mathf.CeilToInt(transform.childCount / (float)columns);
+                || fitType == FitType.FixedColumns) {
+                rows = Mathf.CeilToInt(transform.childCount / (float) columns);
             }
+
             if (fitType == FitType.Height
-                || fitType == FitType.FixedRows)
-            {
-                columns = Mathf.CeilToInt(transform.childCount / (float)rows);
+                || fitType == FitType.FixedRows) {
+                columns = Mathf.CeilToInt(transform.childCount / (float) rows);
             }
 
             var parentWidth = rectTransform.rect.width;
             var parentHeight = rectTransform.rect.height;
 
             var cellWidth =
-                parentWidth / (float)columns
-                - ((spacing.x / (float)columns) * 2f)
-                - (padding.left / (float)columns)
-                - (padding.right / (float)columns);
+                parentWidth / (float) columns
+                - spacing.x / (float) columns * 2f
+                - padding.left / (float) columns
+                - padding.right / (float) columns;
 
             var cellHeight =
-                parentHeight / (float)rows
-                - ((spacing.y / (float)rows) * 2f)
-                - (padding.top / (float)rows)
-                - (padding.bottom / (float)rows);
+                parentHeight / (float) rows
+                - spacing.y / (float) rows * 2f
+                - padding.top / (float) rows
+                - padding.bottom / (float) rows;
 
             cellSize.x = fitX ? cellWidth : cellSize.x;
             cellSize.y = fitY ? cellHeight : cellSize.y;
 
-            var columnCount = 0;
-            var rowCount = 0;
-
-            for (int i = 0; i < rectChildren.Count; i++)
-            {
-                rowCount = i / columns;
-                columnCount = i % columns;
+            for (int i = 0; i < rectChildren.Count; i++) {
+                var rowCount = i / columns;
+                var columnCount = i % columns;
 
                 var item = rectChildren[i];
 
@@ -83,16 +76,10 @@ namespace Exa.UI.Components
             }
         }
 
-        public override void CalculateLayoutInputVertical()
-        {
-        }
+        public override void CalculateLayoutInputVertical() { }
 
-        public override void SetLayoutHorizontal()
-        {
-        }
+        public override void SetLayoutHorizontal() { }
 
-        public override void SetLayoutVertical()
-        {
-        }
+        public override void SetLayoutVertical() { }
     }
 }
