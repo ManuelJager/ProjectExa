@@ -1,4 +1,5 @@
-﻿using Exa.Input;
+﻿using System;
+using Exa.Input;
 using System.Reflection;
 using Exa.Utils;
 using UnityEditor;
@@ -58,7 +59,15 @@ namespace Exa.Debugging
                 case InputActionPhase.Canceled:
                     debugDragger.OnRelease();
                     break;
-                default:
+            }
+        }
+
+        public void OnRotate(InputAction.CallbackContext context) {
+            if (!DebugMode.Dragging.IsEnabled()) return;
+
+            switch (context.phase) {
+                case InputActionPhase.Started:
+                    debugDragger.OnRotate(context.ReadValue<float>() * 25);
                     break;
             }
         }

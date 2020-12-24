@@ -44,6 +44,10 @@ namespace Exa.Debugging
             currentDragable = null;
         }
 
+        public void OnRotate(float degrees) {
+            currentDragable?.Rotate(degrees);
+        }
+
         private void AverageVelocity(Vector2 newVelocity, float sampleTime) {
             var deltaTime = Time.deltaTime;
             var total = averagedVelocity * deltaTime * (sampleTime - deltaTime) + newVelocity;

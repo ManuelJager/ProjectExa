@@ -201,6 +201,10 @@ namespace Exa.Ships
             rb.velocity = velocity;
         }
 
+        public void Rotate(float degrees) {
+            Rigidbody2D.rotation += degrees;
+        }
+
         private void OnGridEmpty() {
             if (gameObject)
                 Destroy(gameObject);

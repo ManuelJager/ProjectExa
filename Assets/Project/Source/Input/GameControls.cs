@@ -220,6 +220,14 @@ namespace Exa.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""84af3c11-3317-4802-9f51-fb60c2435bab"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -242,6 +250,28 @@ namespace Exa.Input
                     ""processors"": """",
                     ""groups"": ""MouseKb"",
                     ""action"": ""Drag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51bb6693-5d5d-45f2-851d-ab9734690b0d"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=-1)"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5587d601-81ce-48bd-adc0-afd4297eef95"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -929,6 +959,7 @@ namespace Exa.Input
             m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
             m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
             m_Debug_Drag = m_Debug.FindAction("Drag", throwIfNotFound: true);
+            m_Debug_Rotate = m_Debug.FindAction("Rotate", throwIfNotFound: true);
             // ReturnNavigateable
             m_ReturnNavigateable = asset.FindActionMap("ReturnNavigateable", throwIfNotFound: true);
             m_ReturnNavigateable_Return = m_ReturnNavigateable.FindAction("Return", throwIfNotFound: true);
@@ -1074,12 +1105,14 @@ namespace Exa.Input
         private IDebugActions m_DebugActionsCallbackInterface;
         private readonly InputAction m_Debug_ToggleConsole;
         private readonly InputAction m_Debug_Drag;
+        private readonly InputAction m_Debug_Rotate;
         public struct DebugActions
         {
             private @GameControls m_Wrapper;
             public DebugActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
             public InputAction @Drag => m_Wrapper.m_Debug_Drag;
+            public InputAction @Rotate => m_Wrapper.m_Debug_Rotate;
             public InputActionMap Get() { return m_Wrapper.m_Debug; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1095,6 +1128,9 @@ namespace Exa.Input
                     @Drag.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
                     @Drag.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
                     @Drag.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDrag;
+                    @Rotate.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnRotate;
+                    @Rotate.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnRotate;
+                    @Rotate.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnRotate;
                 }
                 m_Wrapper.m_DebugActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1105,6 +1141,9 @@ namespace Exa.Input
                     @Drag.started += instance.OnDrag;
                     @Drag.performed += instance.OnDrag;
                     @Drag.canceled += instance.OnDrag;
+                    @Rotate.started += instance.OnRotate;
+                    @Rotate.performed += instance.OnRotate;
+                    @Rotate.canceled += instance.OnRotate;
                 }
             }
         }
@@ -1254,6 +1293,7 @@ namespace Exa.Input
         {
             void OnToggleConsole(InputAction.CallbackContext context);
             void OnDrag(InputAction.CallbackContext context);
+            void OnRotate(InputAction.CallbackContext context);
         }
         public interface IReturnNavigateableActions
         {

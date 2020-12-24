@@ -22,7 +22,7 @@ namespace Exa.Ships.Navigation
 
         public void Update() {
             if (!ship.Active) return;
-
+            return;
             MathUtils.MoveTowards(ref currentDirection, targetDirection, Time.deltaTime * 2f);
 
             xAxis.SetGraphics(currentDirection.x);
@@ -62,6 +62,8 @@ namespace Exa.Ships.Navigation
 
         public void SetGraphics(Vector2 directionScalar) {
             targetDirection = directionScalar;
+            xAxis.SetGraphics(targetDirection.x);
+            yAxis.SetGraphics(targetDirection.y);
         }
 
         private ThrusterAxis SelectAxis(IThruster thruster, out bool positiveAxisComponent) {

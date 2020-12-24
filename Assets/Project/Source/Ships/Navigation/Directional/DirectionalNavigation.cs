@@ -41,7 +41,7 @@ namespace Exa.Ships.Navigation
             if (DebugMode.Navigation.IsEnabled()) {
                 void DrawRay(Vector2 localFrameForce, Color color) {
                     var force = localFrameForce.Rotate(GetCurrentRotation()) / deltaTime;
-                    Debug.DrawRay(ship.transform.position, force / ship.Rigidbody2D.mass / 10, color);
+                    Debug.DrawRay(ship.GetPosition(), force / ship.Rigidbody2D.mass / 10, color);
                 }
 
                 DrawRay(frameTargetForce, Color.red);

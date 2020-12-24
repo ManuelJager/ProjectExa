@@ -6,5 +6,6 @@ namespace Exa.Debugging
     {
         Vector2 GetDebugDraggerPosition();
         void SetDebugDraggerGlobals(Vector2 position, Vector2 velocity);
+        void Rotate(float degrees);
     }
 }
