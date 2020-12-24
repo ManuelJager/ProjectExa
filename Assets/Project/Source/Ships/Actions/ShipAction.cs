@@ -5,10 +5,10 @@
     /// </summary>
     public abstract class ShipAction
     {
-        protected Ship ship;
+        protected GridInstance gridInstance;
 
-        protected ShipAction(Ship ship) {
-            this.ship = ship;
+        protected ShipAction(GridInstance gridInstance) {
+            this.gridInstance = gridInstance;
         }
 
         public abstract float CalculateConsumption(float deltaTime);

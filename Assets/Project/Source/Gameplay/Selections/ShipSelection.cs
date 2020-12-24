@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 namespace Exa.Gameplay
 {
-    public abstract class ShipSelection : ObservableCollection<Ship>, ICloneable<ShipSelection>
+    public abstract class ShipSelection : ObservableCollection<GridInstance>, ICloneable<ShipSelection>
     {
         protected Formation formation;
 
@@ -27,22 +27,22 @@ namespace Exa.Gameplay
             }
         }
 
-        private readonly Dictionary<Ship, UnityAction> callbackDict = new Dictionary<Ship, UnityAction>();
+        private readonly Dictionary<GridInstance, UnityAction> callbackDict = new Dictionary<GridInstance, UnityAction>();
 
-        public override void Add(Ship ship) {
-            base.Add(ship);
+        public override void Add(GridInstance gridInstance) {
+            base.Add(gridInstance);
 
-            ship.Overlay.overlayCircle.IsSelected = true;
+            gridInstance.Overlay.overlayCircle.IsSelected = true;
 
             // Set a callback that removes the Ship from the collection when destroyed
-            void Callback() => Remove(ship);
-            callbackDict.Add(ship, Callback);
-            ship.ControllerDestroyedEvent.AddListener(Callback);
+            void Callback() => Remove(gridInstance);
+            callbackDict.Add(gridInstance, Callback);
+            gridInstance.ControllerDestroyedEvent.AddListener(Callback);
         }
 
-        public override bool Remove(Ship ship) {
-            OnRemove(ship);
-            return base.Remove(ship);
+        public override bool Remove(GridInstance gridInstance) {
+            OnRemove(gridInstance);
+            return base.Remove(gridInstance);
         }
 
         public override void Clear() {
@@ -53,13 +53,13 @@ namespace Exa.Gameplay
             base.Clear();
         }
 
-        private void OnRemove(Ship ship) {
-            ship.Overlay.overlayCircle.IsSelected = false;
+        private void OnRemove(GridInstance gridInstance) {
+            gridInstance.Overlay.overlayCircle.IsSelected = false;
 
             // Get the callback and remove it
-            var callback = callbackDict[ship];
-            callbackDict.Remove(ship);
-            ship.ControllerDestroyedEvent.RemoveListener(callback);
+            var callback = callbackDict[gridInstance];
+            callbackDict.Remove(gridInstance);
+            gridInstance.ControllerDestroyedEvent.RemoveListener(callback);
         }
 
         public abstract ShipSelection Clone();

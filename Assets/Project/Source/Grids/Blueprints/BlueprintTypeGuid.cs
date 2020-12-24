@@ -7,6 +7,7 @@
         corvette,
         fighter,
         worker,
-        scout
+        scout,
+        station
     }
 }

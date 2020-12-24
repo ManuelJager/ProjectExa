@@ -1,6 +1,6 @@
 ﻿namespace Exa.ShipEditor
 {
-    public partial class ShipEditor
+    public partial class GridEditor
     {
         public void OnBlueprintClear() {
             // Hide block ghost and ask user for blueprint clear confirmation

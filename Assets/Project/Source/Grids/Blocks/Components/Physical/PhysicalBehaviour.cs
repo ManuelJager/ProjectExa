@@ -29,8 +29,8 @@ namespace Exa.Grids.Blocks.Components
             };
 
 
-            if (Ship) {
-                Ship.Totals.Hull -= appliedDamage;
+            if (GridInstance) {
+                GridInstance.Totals.Hull -= appliedDamage;
                 GameSystems.PopupManager.CreateOrUpdateDamagePopup(transform.position, damageSource, appliedDamage);
             }
 

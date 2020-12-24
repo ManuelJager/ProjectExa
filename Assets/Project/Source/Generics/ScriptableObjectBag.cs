@@ -14,7 +14,7 @@ namespace Exa.Generics
             objects = GetAllInstances();
         }
 
-        private List<T> GetAllInstances() {
+        protected virtual List<T> GetAllInstances() {
 #if UNITY_EDITOR
             var guids = QueryGUIDs();
             var collection = new List<T>(guids.Length);
@@ -38,7 +38,7 @@ namespace Exa.Generics
 #endif
         }
 
-        public IEnumerator<T> GetEnumerator() {
+        public virtual IEnumerator<T> GetEnumerator() {
             return objects.GetEnumerator();
         }
 

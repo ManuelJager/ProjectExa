@@ -28,16 +28,16 @@ namespace Exa.Ships.Navigation
         public float pDerivative;
         public float maxVel;
 
-        public INavigation GetNavigation(Ship ship, Blueprint blueprint) {
+        public INavigation GetNavigation(GridInstance gridInstance, Blueprint blueprint) {
             var template = blueprint.Blocks.Controller.BlueprintBlock.Template as ControllerTemplate;
             var controllerValues = template.controllerTemplatePartial.Convert();
 
             switch (navigationType) {
                 case NavigationType.Simple:
-                    return new SimpleNavigation(ship, this, controllerValues.thrustModifier);
+                    return new SimpleNavigation(gridInstance, this, controllerValues.thrustModifier);
 
                 case NavigationType.Directional:
-                    return new DirectionalNavigation(ship, this, controllerValues.thrustModifier);
+                    return new DirectionalNavigation(gridInstance, this, controllerValues.thrustModifier);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(navigationType));

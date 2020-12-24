@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Exa.ShipEditor
 {
-    public class ShipEditorStopwatch : MonoBehaviour
+    public class GridEditorStopwatch : MonoBehaviour
     {
         public UnityEvent onTime;
 

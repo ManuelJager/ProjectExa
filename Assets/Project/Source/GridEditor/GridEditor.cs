@@ -10,13 +10,13 @@ using static Exa.Input.GameControls;
 
 namespace Exa.ShipEditor
 {
-    [RequireComponent(typeof(ShipEditorNavigateable))]
-    public partial class ShipEditor : MonoBehaviour, IEditorActions, IUIGroup
+    [RequireComponent(typeof(GridEditorNavigateable))]
+    public partial class GridEditor : MonoBehaviour, IEditorActions, IUIGroup
     {
         public EditorGrid editorGrid;
-        public ShipEditorNavigateable navigateable;
+        public GridEditorNavigateable navigateable;
 
-        [SerializeField] private ShipEditorStopwatch stopwatch;
+        [SerializeField] private GridEditorStopwatch stopwatch;
         [SerializeField] private GameObject editorGridBackground;
         [SerializeField] private float zoomSpeed;
         private GameControls gameControls;
@@ -78,6 +78,7 @@ namespace Exa.ShipEditor
             ValidateName(newBlueprint.name);
 
             overlay.infoPanel.blueprintNameInput.SetValue(newBlueprint.name, false);
+            overlay.inventory.SetFilter(blueprintContainer.Data.BlueprintType.allowedBlockCategory);
         }
 
         public void ExportToClipboard() {

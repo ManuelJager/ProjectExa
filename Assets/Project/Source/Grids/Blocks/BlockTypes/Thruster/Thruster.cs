@@ -27,11 +27,11 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         protected override void OnAdd() {
-            Ship?.Navigation.ThrustVectors.Register(this);
+            GridInstance?.Navigation.ThrustVectors.Register(this);
         }
 
         protected override void OnRemove() {
-            Ship?.Navigation.ThrustVectors.Unregister(this);
+            GridInstance?.Navigation.ThrustVectors.Unregister(this);
         }
     }
 }

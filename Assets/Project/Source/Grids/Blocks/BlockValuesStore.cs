@@ -40,6 +40,21 @@ namespace Exa.Grids.Blocks
             return contextDict[blockContext][blockTemplate].tooltip;
         }
 
+        public bool TryGetValues<T>(BlockContext blockContext, BlockTemplate blockTemplate, out T output)
+            where T : struct, IBlockComponentValues {
+            var bundle = contextDict[blockContext][blockTemplate];
+
+            foreach (var value in bundle.valuesCache.Values) {
+                if (value.GetType() == typeof(T)) {
+                    output = (T) value;
+                    return true;
+                }
+            }
+
+            output = default;
+            return true;
+        }
+
         public void SetValues(BlockContext blockContext, BlockTemplate blockTemplate, Block block) {
             var bundle = contextDict[blockContext][blockTemplate];
 

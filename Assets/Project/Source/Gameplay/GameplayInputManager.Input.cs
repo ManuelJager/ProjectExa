@@ -47,7 +47,7 @@ namespace Exa.Gameplay
                         return;
                     }
 
-                    if (Systems.GodModeIsEnabled && GameSystems.Raycaster.TryGetTarget<Ship>(out var ship)) {
+                    if (Systems.GodModeIsEnabled && GameSystems.Raycaster.TryGetTarget<GridInstance>(out var ship)) {
                         var worldPos = ship.transform.position.ToVector2();
                         var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * ship.Totals.Mass;
                         ship.Rigidbody2D.AddForce(direction, ForceMode2D.Force);

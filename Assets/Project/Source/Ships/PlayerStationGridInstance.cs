@@ -2,14 +2,14 @@
 
 namespace Exa.Ships
 {
-    public class EnemyShip : Ship
+    public class PlayerStationGridInstance : GridInstance
     {
         public override ShipSelection GetAppropriateSelection(Formation formation) {
-            return new EnemyShipSelection(formation);
+            return new FriendlyShipSelection(formation);
         }
 
         public override bool MatchesSelection(ShipSelection selection) {
-            return selection is EnemyShipSelection;
+            return selection is FriendlyShipSelection;
         }
     }
 }

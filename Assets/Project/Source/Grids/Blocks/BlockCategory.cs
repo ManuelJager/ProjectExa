@@ -11,6 +11,7 @@ namespace Exa.Grids.Blocks
         Gyroscope = 1 << 3,
         Power = 1 << 4,
         Worker = 1 << 5,
-        Weapon = 1 << 6
+        Weapon = 1 << 6,
+        Station = 1 << 7
     }
 }

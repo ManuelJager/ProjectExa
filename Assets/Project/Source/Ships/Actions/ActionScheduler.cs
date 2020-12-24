@@ -6,14 +6,14 @@ namespace Exa.Ships
 {
     public class ActionScheduler
     {
-        private readonly Ship ship;
+        private readonly GridInstance gridInstance;
         private readonly List<ShipAction> shipActions = new List<ShipAction>();
         private readonly float generation;
         private float stored;
         private readonly float storage;
 
-        public ActionScheduler(Ship ship) {
-            this.ship = ship;
+        public ActionScheduler(GridInstance gridInstance) {
+            this.gridInstance = gridInstance;
             this.generation = 50f;
             this.stored = 500f;
             this.storage = 500f;
@@ -52,7 +52,7 @@ namespace Exa.Ships
                 stored = storage;
             }
 
-            ship.Overlay.overlayEnergyBar.SetFill(stored / storage);
+            gridInstance.Overlay.overlayEnergyBar.SetFill(stored / storage);
         }
 
         /// <summary>

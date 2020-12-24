@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 9133893927100921210}
   - component: {fileID: 8625900837292856731}
   m_Layer: 0
-  m_Name: ShipEditor
+  m_Name: GridEditor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioPlayer: {fileID: 8625900837292856731}
-  shipEditor: {fileID: 1617958063522696134}
+  gridEditor: {fileID: 1617958063522696134}
 --- !u!114 &9133893927100921210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +175,11 @@ PrefabInstance:
       objectReference: {fileID: 9133893927100921210}
     - target: {fileID: 9165474356103406435, guid: ee9987c9c591276448d04c256085f97e,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165474356103406435, guid: ee9987c9c591276448d04c256085f97e,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -190,6 +195,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9165474356103406435, guid: ee9987c9c591276448d04c256085f97e,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165474356103406435, guid: ee9987c9c591276448d04c256085f97e,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -202,16 +212,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9165474356103406435, guid: ee9987c9c591276448d04c256085f97e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9165474356103406435, guid: ee9987c9c591276448d04c256085f97e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9165474356103406435, guid: ee9987c9c591276448d04c256085f97e,
         type: 3}

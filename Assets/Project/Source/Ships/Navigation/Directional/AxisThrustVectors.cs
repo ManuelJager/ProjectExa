@@ -12,16 +12,16 @@ namespace Exa.Ships.Navigation
 
         private ThrusterAxis xAxis;
         private ThrusterAxis yAxis;
-        private Ship ship;
+        private GridInstance gridInstance;
 
-        public void Setup(Ship ship, Scalar thrustModifier) {
-            this.ship = ship;
+        public void Setup(GridInstance gridInstance, Scalar thrustModifier) {
+            this.gridInstance = gridInstance;
             xAxis = new ThrusterAxis(thrustModifier);
             yAxis = new ThrusterAxis(thrustModifier);
         }
 
         public void Update() {
-            if (!ship.Active) return;
+            if (!gridInstance.Active) return;
             return;
             MathUtils.MoveTowards(ref currentDirection, targetDirection, Time.deltaTime * 2f);
 

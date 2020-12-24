@@ -23,7 +23,7 @@ namespace Exa
         [Header("References")] 
         [SerializeField] private BlockFactory blockFactory;
         [SerializeField] private BlueprintManager blueprintManager;
-        [SerializeField] private ShipEditor.ShipEditor shipEditor;
+        [SerializeField] private ShipEditor.GridEditor gridEditor;
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private ThumbnailGenerator thumbnailGenerator;
         [SerializeField] private DebugManager debugManager;
@@ -39,7 +39,7 @@ namespace Exa
 
         public static BlockFactory Blocks => Instance.blockFactory;
         public static BlueprintManager Blueprints => Instance.blueprintManager;
-        public static ShipEditor.ShipEditor Editor => Instance.shipEditor;
+        public static ShipEditor.GridEditor Editor => Instance.gridEditor;
         public static AudioManager Audio => Instance.audioManager;
         public static ThumbnailGenerator Thumbnails => Instance.thumbnailGenerator;
         public static DebugManager Debug => Instance.debugManager;
@@ -105,7 +105,6 @@ namespace Exa
             yield return null;
 
             UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
-            UI.root.missionSetup.fleetBuilder.Init(Blueprints.useableBlueprints);
             UI.root.gameObject.SetActive(true);
             UI.loadingScreen.HideScreen();
         }

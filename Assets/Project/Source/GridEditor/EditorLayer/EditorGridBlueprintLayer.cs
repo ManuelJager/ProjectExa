@@ -12,7 +12,7 @@ namespace Exa.ShipEditor
     {
         public UnityEvent onBlueprintChanged;
 
-        [SerializeField] private ShipEditorStopwatch stopwatch;
+        [SerializeField] private GridEditorStopwatch stopwatch;
         private Dictionary<Vector2Int, GameObject> blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
 
         public Blueprint ActiveBlueprint { get; private set; }

@@ -8,27 +8,27 @@ namespace Exa.AI.Actions
     {
         public override ActionLane Lanes => ActionLane.AimTurrets;
 
-        private Ship enemyTarget = null;
+        private GridInstance enemyTarget = null;
         private readonly float detectionRadius;
 
-        internal AAimAtClosestTarget(Ship ship, float detectionRadius)
-            : base(ship) {
+        internal AAimAtClosestTarget(GridInstance gridInstance, float detectionRadius)
+            : base(gridInstance) {
             this.detectionRadius = detectionRadius;
         }
 
         public override ActionLane Update(ActionLane blockedLanes) {
             var target = new ShipTarget(enemyTarget);
-            ship.BlockGrid.Metadata.TurretList.SetTarget(target);
+            gridInstance.BlockGrid.Metadata.TurretList.SetTarget(target);
 
             return ActionLane.AimTurrets;
         }
 
         protected override float CalculatePriority() {
-            var blockMask = new ShipMask(~ship.BlockContext);
+            var blockMask = new ShipMask(~gridInstance.BlockContext);
             var closestDistance = float.MaxValue;
 
-            foreach (var enemy in ship.QueryNeighbours(detectionRadius, blockMask, true)) {
-                var distance = (enemy.transform.position - ship.transform.position).magnitude;
+            foreach (var enemy in gridInstance.QueryNeighbours(detectionRadius, blockMask, true)) {
+                var distance = (enemy.transform.position - gridInstance.transform.position).magnitude;
 
                 if (distance < closestDistance) {
                     closestDistance = distance;

@@ -18,23 +18,16 @@ namespace Exa.Gameplay.Missions
 
         public abstract void Init(MissionArgs args);
 
-        protected void SpawnMothership(Blueprint mothership, GridInstanceConfiguration configuration = default) {
-            var ship = GameSystems.ShipFactory.CreateFriendly(mothership, Vector2.zero, configuration);
-            var selection = ship.GetAppropriateSelection(new VicFormation());
-            selection.Add(ship);
-            GameSystems.GameplayInputManager.CurrentSelection = selection;
+        protected void SpawnPlayerStation(GridInstanceConfiguration configuration = default) {
+            var blueprint = Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
+            var station = GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
+            GameSystems.UI.gameplayLayer.coreHealthBar.TrackHealth(station);
         }
 
-        protected EnemyShip SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration configuration = default) {
+        protected EnemyGridInstance SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration configuration = default) {
             var blueprint = Systems.Blueprints.GetBlueprint(name);
             var pos = new Vector2(xPos, yPos);
             return GameSystems.ShipFactory.CreateEnemy(blueprint, pos, configuration);
-        }
-
-        protected FriendlyShip SpawnFriendly(string name, float xPos, float yPos, GridInstanceConfiguration configuration = default) {
-            var blueprint = Systems.Blueprints.GetBlueprint(name);
-            var pos = new Vector2(xPos, yPos);
-            return GameSystems.ShipFactory.CreateFriendly(blueprint, pos, configuration);
         }
 
         protected Coroutine StartCoroutine(IEnumerator enumerator) {

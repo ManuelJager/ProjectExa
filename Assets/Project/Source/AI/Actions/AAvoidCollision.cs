@@ -20,17 +20,17 @@ namespace Exa.AI.Actions
     {
         public override ActionLane Lanes => ActionLane.Movement;
 
-        private List<Ship> neighbourCache;
+        private List<GridInstance> neighbourCache;
         private readonly AAvoidCollisionSettings settings;
 
-        internal AAvoidCollision(Ship ship, AAvoidCollisionSettings settings)
-            : base(ship) {
+        internal AAvoidCollision(GridInstance gridInstance, AAvoidCollisionSettings settings)
+            : base(gridInstance) {
             this.settings = settings;
         }
 
         public override ActionLane Update(ActionLane blockedLanes) {
-            var globalPos = ship.transform.position.ToVector2();
-            var currentVel = ship.Rigidbody2D.velocity;
+            var globalPos = gridInstance.transform.position.ToVector2();
+            var currentVel = gridInstance.Rigidbody2D.velocity;
             var headingVector = currentVel.normalized;
 
             foreach (var neighbour in neighbourCache) {
@@ -44,21 +44,21 @@ namespace Exa.AI.Actions
                 settings.detectionRadius);
             var target = new StaticPositionTarget(globalPos + offset);
 
-            ship.Navigation.MoveTo = target;
+            gridInstance.Navigation.MoveTo = target;
 
             return ActionLane.Movement;
         }
 
         // TODO: Improve detection of large ships, as this only registers other ships whose centre overlaps the detection radius
         protected override float CalculatePriority() {
-            var globalPos = ship.transform.position;
+            var globalPos = gridInstance.transform.position;
             var shipMask = new ShipMask(~BlockContext.None);
             var shortestDistance = float.MaxValue;
 
             neighbourCache?.Clear();
-            neighbourCache = neighbourCache ?? new List<Ship>();
+            neighbourCache = neighbourCache ?? new List<GridInstance>();
 
-            foreach (var neighbour in ship.QueryNeighbours(settings.detectionRadius, shipMask)) {
+            foreach (var neighbour in gridInstance.QueryNeighbours(settings.detectionRadius, shipMask)) {
                 if (!ShouldYield(neighbour)) continue;
 
                 var neighbourPos = neighbour.transform.position;
@@ -82,22 +82,22 @@ namespace Exa.AI.Actions
             return distancePriority + settings.priorityBase;
         }
 
-        private void MofidyHeading(ref Vector2 heading, Vector2 direction, Ship other) {
+        private void MofidyHeading(ref Vector2 heading, Vector2 direction, GridInstance other) {
             if (!ShouldYield(other)) return;
 
             var headingModification = direction / settings.detectionRadius;
             heading -= headingModification;
         }
 
-        private bool ShouldYield(Ship other) {
-            var thisMass = ship.Blueprint.Blocks.Totals.Mass;
+        private bool ShouldYield(GridInstance other) {
+            var thisMass = gridInstance.Blueprint.Blocks.Totals.Mass;
             var otherMass = other.Blueprint.Blocks.Totals.Mass;
 
             if (otherMass != thisMass) {
                 return otherMass > thisMass;
             }
 
-            return other.GetInstanceID() > ship.GetInstanceID();
+            return other.GetInstanceID() > gridInstance.GetInstanceID();
         }
     }
 }

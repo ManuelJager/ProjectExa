@@ -705,6 +705,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 494224608770583278, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 525870847999883175, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2650,6 +2655,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -20
       objectReference: {fileID: 0}
+    - target: {fileID: 8555430702455480077, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_Name
+      value: GridEditorOverlay
+      objectReference: {fileID: 0}
     - target: {fileID: 8765884238405259644, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2836,6 +2846,11 @@ PrefabInstance:
       objectReference: {fileID: 1644759584}
     - target: {fileID: 5676475580568291470, guid: 29d1d30fcec04de40816d90ac6e32d7e,
         type: 3}
+      propertyPath: gridEditor
+      value: 
+      objectReference: {fileID: 684846338}
+    - target: {fileID: 5676475580568291470, guid: 29d1d30fcec04de40816d90ac6e32d7e,
+        type: 3}
       propertyPath: shipEditor
       value: 
       objectReference: {fileID: 684846338}
@@ -2931,7 +2946,7 @@ PrefabInstance:
     - target: {fileID: 3467558800746813093, guid: 84dc0bf7b928d2844ba5df3b7352dc5e,
         type: 3}
       propertyPath: m_Name
-      value: ShipEditor
+      value: GridEditor
       objectReference: {fileID: 0}
     - target: {fileID: 3467558800746813093, guid: 84dc0bf7b928d2844ba5df3b7352dc5e,
         type: 3}

@@ -1,9 +1,12 @@
-﻿using Exa.Bindings;
+﻿using System;
+using Exa.Bindings;
 using Exa.Grids.Blocks;
 using Exa.UI.Components;
 using System.Collections.Generic;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 #pragma warning disable CS0649
 
@@ -22,13 +25,25 @@ namespace Exa.ShipEditor
             new Dictionary<BlockCategory, ExpandableItem>();
 
         private BlockTemplateView activeView;
+        private BlockCategory filter;
 
         private void Start() {
             Source = Systems.Blocks.availableBlockTemplates;
         }
 
+        public void SetFilter(BlockCategory blockCategoryFilter) {
+            filter = blockCategoryFilter;
+            foreach (var (category, item) in blockCategories.Unpack()) {
+                item.gameObject.SetActive(category.Is(blockCategoryFilter));
+            }
+        }
+
         public override void OnAdd(BlockTemplateContainer value) {
             var category = value.Data.category;
+            if (!filter.Is(category)) {
+                return;
+            }
+
             var categoryString = value.Data.category.ToString();
 
             if (!blockCategories.ContainsKey(category)) {

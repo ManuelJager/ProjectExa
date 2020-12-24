@@ -13,7 +13,7 @@ namespace Exa.Grids.Blueprints
         public BlueprintTypeGuid typeGuid;
         public string displayName;
         public Vector2Int maxSize;
-        public BlockCategory disallowedBlockCategories;
+        public BlockCategory allowedBlockCategory;
 
         private Tooltip tooltipResult;
 

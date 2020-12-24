@@ -6,6 +6,10 @@ namespace Exa.Utils
 {
     public static class DictionaryExtensions
     {
+        public static IEnumerable<(TKey, TValue)> Unpack<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) {
+            return dictionary.Select(kvp => (kvp.Key, kvp.Value));
+        }
+
         public static void EnsureCreated<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
             Func<TValue> factory) {
             if (!dictionary.ContainsKey(key))

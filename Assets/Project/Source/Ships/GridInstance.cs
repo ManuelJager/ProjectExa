@@ -20,7 +20,7 @@ using UnityEngine.Events;
 
 namespace Exa.Ships
 {
-    public abstract class Ship : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable, IGridInstance
+    public abstract class GridInstance : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable, IGridInstance
     {
         [Header("References")]
         [SerializeField] private Transform pivot;
@@ -47,7 +47,7 @@ namespace Exa.Ships
         public Blueprint Blueprint { get; private set; }
         public Controller Controller { get; internal set; }
         public INavigation Navigation { get; private set; }
-        public ShipGridTotals Totals { get; private set; }
+        public GridTotals Totals { get; private set; }
         public bool Active { get; private set; }
         public ShipOverlay Overlay { get; set; }
         public Transform Transform => transform;
@@ -88,8 +88,8 @@ namespace Exa.Ships
                 throw new ArgumentException("Blueprint must have a controller reference");
             }
 
-            Totals = new ShipGridTotals(this);
-            BlockGrid = new BlockGrid(pivot, OnGridEmpty, this);
+            Totals = new GridTotals();
+            BlockGrid = new BlockGrid(pivot, this);
             Configuration = configuration;
             ActionScheduler = new ActionScheduler(this);
             Active = true;
@@ -133,11 +133,11 @@ namespace Exa.Ships
         }
 
         // TODO: Somehow cache this, or let the results come from a central manager
-        public IEnumerable<Ship> QueryNeighbours(float radius, ShipMask shipMask, bool mustBeActive = false) {
+        public IEnumerable<GridInstance> QueryNeighbours(float radius, ShipMask shipMask, bool mustBeActive = false) {
             var colliders = Physics2D.OverlapCircleAll(transform.position, radius, shipMask.LayerMask);
 
             foreach (var collider in colliders) {
-                var neighbour = collider.gameObject.GetComponent<Ship>();
+                var neighbour = collider.gameObject.GetComponent<GridInstance>();
                 if (neighbour == null) {
                     continue;
                 }
@@ -188,12 +188,16 @@ namespace Exa.Ships
             new TooltipGroup(shipAi.GetDebugTooltipComponents(), 1)
         });
 
-        public Vector2 GetDebugDraggerPosition() {
-            return transform.position;
-        }
-
         public Vector2 GetPosition() {
             return Rigidbody2D.worldCenterOfMass;
+        }
+
+        public void SetPosition(Vector2 position) {
+            transform.position = position - Rigidbody2D.centerOfMass;
+        }
+
+        public Vector2 GetDebugDraggerPosition() {
+            return transform.position;
         }
 
         public void SetDebugDraggerGlobals(Vector2 position, Vector2 velocity) {
@@ -203,11 +207,6 @@ namespace Exa.Ships
 
         public void Rotate(float degrees) {
             Rigidbody2D.rotation += degrees;
-        }
-
-        private void OnGridEmpty() {
-            if (gameObject)
-                Destroy(gameObject);
         }
     }
 }

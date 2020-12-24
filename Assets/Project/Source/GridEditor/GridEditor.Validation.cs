@@ -1,6 +1,6 @@
 ﻿namespace Exa.ShipEditor
 {
-    public partial class ShipEditor
+    public partial class GridEditor
     {
         private BlueprintGridValidator gridValidator;
         private BlueprintNameValidator nameValidator;

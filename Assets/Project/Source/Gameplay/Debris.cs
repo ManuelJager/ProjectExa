@@ -18,7 +18,7 @@ namespace Exa.Gameplay
         public GridInstanceConfiguration Configuration { get; private set; }
 
         public void FromCluster(Cluster cluster) {
-            BlockGrid = new BlockGrid(transform, OnGridEmpty, this);
+            BlockGrid = new BlockGrid(transform, this);
             Configuration = new GridInstanceConfiguration {
                 Invulnerable = false
             };
@@ -32,11 +32,6 @@ namespace Exa.Gameplay
             foreach (var thruster in BlockGrid.Metadata.ThrusterList) {
                 thruster.PowerDown();
             }
-        }
-
-        private void OnGridEmpty() {
-            if (gameObject)
-                Destroy(gameObject);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Exa.Ships
 {
     public class ShipOverlay : MonoBehaviour
     {
-        public Ship ship;
+        public GridInstance gridInstance;
 
         public RectTransform rectContainer;
         public ShipOverlayHullBar overlayHullBar;
@@ -12,7 +12,7 @@ namespace Exa.Ships
         public ShipOverlayCircle overlayCircle;
 
         private void Update() {
-            transform.position = ship.GetPosition();
+            transform.position = gridInstance.GetPosition();
         }
     }
 }

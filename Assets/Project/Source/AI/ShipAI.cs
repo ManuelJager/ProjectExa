@@ -15,11 +15,11 @@ namespace Exa.AI
         public AMoveToTarget moveToTarget;
         public AAvoidCollision avoidCollision;
 
-        [SerializeField] private Ship ship;
+        [SerializeField] private GridInstance gridInstance;
         [SerializeField] private float activeValueThreshold;
         private ActionList actionList;
 
-        public Ship Ship => ship;
+        public GridInstance GridInstance => gridInstance;
 
         public void Init() {
             actionList = BuildActionList();
@@ -31,11 +31,11 @@ namespace Exa.AI
 
         protected virtual ActionList BuildActionList() {
             return new ActionList(activeValueThreshold, new IAction[] {
-                aimAtTarget = new AAimAtClosestTarget(Ship, 200f),
-                lookAtTarget = new ALookAtTarget(Ship),
-                moveToTarget = new AMoveToTarget(Ship),
-                avoidCollision = new AAvoidCollision(Ship, new AAvoidCollisionSettings {
-                    detectionRadius = Ship.BlockGrid.MaxSize,
+                aimAtTarget = new AAimAtClosestTarget(GridInstance, 200f),
+                lookAtTarget = new ALookAtTarget(GridInstance),
+                moveToTarget = new AMoveToTarget(GridInstance),
+                avoidCollision = new AAvoidCollision(GridInstance, new AAvoidCollisionSettings {
+                    detectionRadius = GridInstance.BlockGrid.MaxSize,
                     priorityMultiplier = 1,
                     priorityBase = 10,
                     headingCorrectionMultiplier = 8

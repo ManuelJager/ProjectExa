@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Exa.Ships;
 using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
@@ -16,6 +17,14 @@ namespace Exa.Grids.Blocks.Components
         }
 
         public override IBlockComponentValues BlockComponentData => data;
+
+        public T GetDefaultData() {
+            var context = block.Parent.BlockContext;
+            var template = block.BlueprintBlock.Template;
+            var store = Systems.Blocks.valuesStore;
+            var success = store.TryGetValues<T>(context, template, out var result);
+            return success ? result : throw new InvalidOperationException("Could not find default values");
+        }
     }
 
     public abstract class BlockBehaviourBase : MonoBehaviour
@@ -44,10 +53,10 @@ namespace Exa.Grids.Blocks.Components
             }
         }
 
-        public Ship Ship => Parent as Ship;
+        public GridInstance GridInstance => Parent as GridInstance;
 
         private void Update() {
-            if (Ship && Ship.Active)
+            if (GridInstance && GridInstance.Active)
                 BlockUpdate();
         }
 

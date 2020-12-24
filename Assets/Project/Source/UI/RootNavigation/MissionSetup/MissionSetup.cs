@@ -8,7 +8,6 @@ namespace Exa.UI
     public class MissionSetup : MonoBehaviour
     {
         public MissionOptions options;
-        public FleetBuilder fleetBuilder;
 
         public void NavigateToMission() {
             var transition = Systems.Scenes.Transition("Game", new TransitionArgs {
@@ -18,11 +17,10 @@ namespace Exa.UI
                 reportProgress = true
             });
 
-            var fleet = fleetBuilder.Fleet;
             transition.onPrepared.AddListener(() => {
                 Systems.UI.root.navigateable.NavigateTo(GameSystems.Navigateable);
                 GameSystems.Instance.LoadMission(options.SelectedMission, new MissionArgs {
-                    fleet = fleet
+
                 });
             });
         }

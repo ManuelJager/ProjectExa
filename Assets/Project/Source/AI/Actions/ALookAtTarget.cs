@@ -9,13 +9,13 @@ namespace Exa.AI
 
         public ITarget Target { get; set; } = null;
 
-        internal ALookAtTarget(Ship ship)
-            : base(ship) { }
+        internal ALookAtTarget(GridInstance gridInstance)
+            : base(gridInstance) { }
 
         public override ActionLane Update(ActionLane blockedLanes) {
             if (Target == null) return ActionLane.None;
 
-            ship.Navigation.LookAt = Target;
+            gridInstance.Navigation.LookAt = Target;
             return ActionLane.Rotation;
         }
 

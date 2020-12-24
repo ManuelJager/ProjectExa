@@ -18,7 +18,7 @@ namespace Exa.Gameplay
             var colliders = Physics2D.OverlapAreaAll(startSelectionPos, endSelectionPos, layerMask);
 
             foreach (var collider in colliders) {
-                var ship = collider.gameObject.GetComponent<Ship>();
+                var ship = collider.gameObject.GetComponent<GridInstance>();
 
                 if (ship != null && ship.Active) {
                     if (selection == null) 

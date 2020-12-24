@@ -13,7 +13,7 @@ namespace Exa.Gameplay
             this.echelonAngle = echelonAngle;
         }
 
-        protected override IEnumerable<Vector2> GetLocalLayout(IEnumerable<Ship> ships) {
+        protected override IEnumerable<Vector2> GetLocalLayout(IEnumerable<GridInstance> ships) {
             var enumerator = ships.GetEnumerator();
 
             // Skip first element, as it always has a Vector2.zero position value
@@ -42,16 +42,16 @@ namespace Exa.Gameplay
             }
         }
 
-        private Vector2 GetLocalPosition(Ship ship, ref float echelonMagnitude, ref Vector2 positionPivot,
+        private Vector2 GetLocalPosition(GridInstance gridInstance, ref float echelonMagnitude, ref Vector2 positionPivot,
             float angle) {
             var positionOffset = MathUtils.FromAngledMagnitude(echelonMagnitude, angle);
             positionPivot += positionOffset;
-            echelonMagnitude = CalculateEchelonSpread(ship);
+            echelonMagnitude = CalculateEchelonSpread(gridInstance);
             return positionPivot;
         }
 
-        private float CalculateEchelonSpread(Ship ship) {
-            return ship.Blueprint.Blocks.MaxSize * 2f;
+        private float CalculateEchelonSpread(GridInstance gridInstance) {
+            return gridInstance.Blueprint.Blocks.MaxSize * 2f;
         }
     }
 }

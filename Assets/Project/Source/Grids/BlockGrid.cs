@@ -8,22 +8,21 @@ using Exa.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Exa.Ships
 {
     public class BlockGrid : Grid<Block>
     {
         private readonly Transform container;
-        private readonly Action destroyCallback;
 
         public IGridInstance Parent { get; }
         public bool Rebuilding { get; set; }
         public BlockGridMetadata Metadata { get; }
 
-        public BlockGrid(Transform container, Action destroyCallback, IGridInstance parent)
-            : base(totals: (parent as Ship)?.Totals) {
+        public BlockGrid(Transform container, IGridInstance parent)
+            : base(totals: (parent as GridInstance)?.Totals) {
             this.container = container;
-            this.destroyCallback = destroyCallback;
 
             Parent = parent;
             Metadata = new BlockGridMetadata(GridMembers);
@@ -65,7 +64,7 @@ namespace Exa.Ships
 
         public void DestroyIfEmpty() {
             if (!GridMembers.Any())
-                destroyCallback();
+                Object.Destroy(container.gameObject);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Exa.UI.Gameplay
         [SerializeField] private Image sliderImage;
         [SerializeField] private Image thumbnailImage;
         private int count;
-        private readonly List<Ship> ships = new List<Ship>();
+        private readonly List<GridInstance> ships = new List<GridInstance>();
 
         public int Count {
             get => count;
@@ -37,13 +37,13 @@ namespace Exa.UI.Gameplay
             thumbnailImage.sprite = Sprite.Create(thumbnail, thumbnailRect, thumbnailPivot);
         }
 
-        public void Add(Ship ship) {
-            ships.Add(ship);
+        public void Add(GridInstance gridInstance) {
+            ships.Add(gridInstance);
             Count++;
         }
 
-        public void Remove(Ship ship) {
-            ships.Remove(ship);
+        public void Remove(GridInstance gridInstance) {
+            ships.Remove(gridInstance);
             Count--;
         }
 

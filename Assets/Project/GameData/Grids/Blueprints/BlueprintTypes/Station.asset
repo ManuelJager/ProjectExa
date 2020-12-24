@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e291881a9bb544546b8fb636a275fc97, type: 3}
-  m_Name: Worker
+  m_Name: Station
   m_EditorClassIdentifier: 
-  typeGuid: 4
-  displayName: Worker
-  maxSize: {x: 9, y: 7}
-  allowedBlockCategory: 127
+  typeGuid: 6
+  displayName: Station
+  maxSize: {x: 33, y: 33}
+  allowedBlockCategory: 209

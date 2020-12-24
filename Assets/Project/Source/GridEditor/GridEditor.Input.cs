@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Exa.ShipEditor
 {
-    public partial class ShipEditor
+    public partial class GridEditor
     {
         public void OnMovement(InputAction.CallbackContext context) {
             if (Systems.Input.inputIsCaptured) {

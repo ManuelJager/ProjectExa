@@ -6,7 +6,7 @@ namespace Exa.Ships
 {
     public class ShipState : MonoBehaviour
     {
-        public Ship ship;
+        public GridInstance gridInstance;
 
         private float hullIntegrity;
 
@@ -15,19 +15,19 @@ namespace Exa.Ships
             set {
                 hullIntegrity = value;
 
-                if (ship.Active)
-                    ship.Overlay.overlayHullBar.SetFill(value);
+                if (gridInstance.Active)
+                    gridInstance.Overlay.overlayHullBar.SetFill(value);
             }
         }
 
         public void Update() {
-            var currentHull = ship.BlockGrid.Totals.Hull;
-            var totalHull = ship.Blueprint.Blocks.Totals.Hull;
+            var currentHull = gridInstance.BlockGrid.Totals.Hull;
+            var totalHull = gridInstance.Blueprint.Blocks.Totals.Hull;
             HullIntegrity = currentHull / totalHull;
         }
 
         public float GetTurningRate() {
-            return ship.BlockGrid.Totals.TurningPower / ship.BlockGrid.Totals.Mass;
+            return gridInstance.BlockGrid.Totals.TurningPower / gridInstance.BlockGrid.Totals.Mass;
         }
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {

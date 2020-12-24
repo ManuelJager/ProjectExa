@@ -9,13 +9,13 @@ namespace Exa.AI.Actions
 
         public ITarget Target { get; set; } = null;
 
-        internal AMoveToTarget(Ship ship)
-            : base(ship) { }
+        internal AMoveToTarget(GridInstance gridInstance)
+            : base(gridInstance) { }
 
         public override ActionLane Update(ActionLane blockedLanes) {
             if (Target == null) return ActionLane.None;
 
-            ship.Navigation.MoveTo = Target;
+            gridInstance.Navigation.MoveTo = Target;
             return ActionLane.Movement;
         }
 

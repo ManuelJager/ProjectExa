@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.ShipEditor
 {
-    public partial class ShipEditor
+    public partial class GridEditor
     {
         private bool leftButtonPressed = false;
         private bool rightButtonPressed = false;

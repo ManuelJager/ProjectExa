@@ -4,18 +4,18 @@ namespace Exa.Ships.Targeting
 {
     public readonly struct ShipTarget : IWeaponTarget
     {
-        private readonly Ship ship;
+        private readonly GridInstance gridInstance;
 
-        public ShipTarget(Ship ship) {
-            this.ship = ship;
+        public ShipTarget(GridInstance gridInstance) {
+            this.gridInstance = gridInstance;
         }
 
         public Vector2 GetPosition(Vector2 current) {
-            return ship.Controller.transform.position;
+            return gridInstance.Controller.transform.position;
         }
 
         public bool GetTargetValid() {
-            return ship != null && ship.Active;
+            return gridInstance != null && gridInstance.Active;
         }
     }
 }

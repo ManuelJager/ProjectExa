@@ -57,7 +57,7 @@ namespace Exa.Grids.Blocks.BlockTypes
             }
         }
 
-        public Ship Ship => Parent as Ship;
+        public GridInstance GridInstance => Parent as GridInstance;
 
         private void OnDisable() {
             if (Systems.IsQuitting) return;
