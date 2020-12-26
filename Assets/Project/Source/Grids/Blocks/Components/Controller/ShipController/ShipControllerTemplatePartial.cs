@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public class ControllerTemplatePartial : TemplatePartial<ControllerData>
+    public class ShipControllerTemplatePartial : TemplatePartial<ShipControllerData>
     {
         [SerializeField] private float powerGeneration;
         [SerializeField] private float powerConsumption;
@@ -13,7 +13,7 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private float turningRate;
         [SerializeField] private Scalar thrustModifier;
 
-        public override ControllerData Convert() => new ControllerData {
+        public override ShipControllerData Convert() => new ShipControllerData {
             powerGeneration = powerGeneration,
             powerConsumption = powerConsumption,
             powerStorage = powerStorage,

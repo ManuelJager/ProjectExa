@@ -29,8 +29,8 @@ namespace Exa.Ships.Navigation
         public float maxVel;
 
         public INavigation GetNavigation(GridInstance gridInstance, Blueprint blueprint) {
-            var template = blueprint.Blocks.Controller.BlueprintBlock.Template as ControllerTemplate;
-            var controllerValues = template.controllerTemplatePartial.Convert();
+            var template = blueprint.Blocks.Controller.BlueprintBlock.Template as ShipControllerTemplate;
+            var controllerValues = template.shipControllerTemplatePartial.Convert();
 
             switch (navigationType) {
                 case NavigationType.Simple:

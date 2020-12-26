@@ -1,21 +1,20 @@
 ﻿using System;
-using Exa.Generics;
-using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using Exa.Data;
+using Exa.Generics;
+using Exa.UI.Tooltips;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public struct ControllerData : IBlockComponentValues
+    public struct StationControllerData : IControllerData
     {
         public float powerGeneration;
         public float powerConsumption;
         public float powerStorage;
-        public float turningRate;
-        public Scalar thrustModifier;
 
-        public void AddGridTotals(GridTotals totals) {
+        public void AddGridTotals(GridTotals totals)
+        {
             totals.controllerData = this;
         }
 
@@ -25,8 +24,6 @@ namespace Exa.Grids.Blocks.Components
             new LabeledValue<object>("Generation", $"{powerGeneration} KW"),
             new LabeledValue<object>("Consumption", $"{powerConsumption} KW"),
             new LabeledValue<object>("Storage", $"{powerStorage} KJ"),
-            new LabeledValue<object>("Turning rate", $"{turningRate}"),
-            new LabeledValue<object>("Thrust modifier", $"{thrustModifier.ToPercentageString()}")
         };
     }
 }

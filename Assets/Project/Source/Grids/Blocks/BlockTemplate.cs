@@ -36,7 +36,7 @@ namespace Exa.Grids.Blocks
 
         private void OnEnable() {
             if (!inertPrefab) {
-                throw new Exception("inertPrefab must have a prefab reference");
+                Debug.LogWarning("inertPrefab must have a prefab reference");
             }
         }
 

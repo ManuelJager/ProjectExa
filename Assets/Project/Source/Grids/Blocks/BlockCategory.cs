@@ -6,12 +6,12 @@ namespace Exa.Grids.Blocks
     public enum BlockCategory
     {
         Armor = 1 << 0,
-        Controller = 1 << 1,
+        ShipController = 1 << 1,
         Thruster = 1 << 2,
         Gyroscope = 1 << 3,
         Power = 1 << 4,
         Worker = 1 << 5,
         Weapon = 1 << 6,
-        Station = 1 << 7
+        StationController = 1 << 7
     }
 }

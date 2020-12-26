@@ -8,7 +8,7 @@ namespace Exa.Grids
 {
     public class GridTotals : ICloneable<GridTotals>
     {
-        public ControllerData controllerData;
+        public IControllerData controllerData;
 
         public virtual float Mass { get; set; }
         public virtual float Hull { get; set; }
@@ -17,10 +17,10 @@ namespace Exa.Grids
         public virtual Scalar PowerStorageModifier { get; set; }
         public virtual Scalar TurningPowerModifier { get; set; }
 
-        public virtual float PowerGeneration => PowerGenerationModifier.GetValue(controllerData.powerGeneration);
-        public virtual float PowerConsumption => PowerConsumptionModifier.GetValue(controllerData.powerConsumption);
-        public virtual float PowerStorage => PowerStorageModifier.GetValue(controllerData.powerStorage);
-        public virtual float TurningPower => TurningPowerModifier.GetValue(controllerData.turningRate);
+        public virtual float PowerGeneration => PowerGenerationModifier.GetValue(((ShipControllerData)controllerData).powerGeneration);
+        public virtual float PowerConsumption => PowerConsumptionModifier.GetValue(((ShipControllerData)controllerData).powerConsumption);
+        public virtual float PowerStorage => PowerStorageModifier.GetValue(((ShipControllerData)controllerData).powerStorage);
+        public virtual float TurningPower => TurningPowerModifier.GetValue(((ShipControllerData)controllerData).turningRate);
 
         public GridTotals Clone() {
             return new GridTotals {

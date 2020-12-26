@@ -14,7 +14,7 @@ namespace Exa.ShipEditor
             var blocks = args.blueprintBlocks;
 
             var controllers = blocks
-                .Where(block => block.BlueprintBlock.Template.category.Is(BlockCategory.Controller));
+                .Where(block => block.BlueprintBlock.Template.category.Is(BlockCategory.ShipController));
 
             var controllerCount = controllers.Count();
 

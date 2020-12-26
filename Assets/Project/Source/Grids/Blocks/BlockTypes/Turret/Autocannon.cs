@@ -13,7 +13,6 @@ namespace Exa.Grids.Blocks.BlockTypes
         [SerializeField] private AutocannonBehaviour turretBehaviour;
 
         BlockBehaviour<AutocannonData> IBehaviourMarker<AutocannonData>.Component => turretBehaviour;
-        public ITurretValues Data => (this as IBehaviourMarker<AutocannonData>).Component.Data;
 
         public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
             return base.GetBehaviours()

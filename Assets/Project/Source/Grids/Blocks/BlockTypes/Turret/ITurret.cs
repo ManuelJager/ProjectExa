@@ -5,7 +5,6 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     public interface ITurret
     {
-        ITurretValues Data { get; }
         void SetTarget(IWeaponTarget target);
     }
 }
