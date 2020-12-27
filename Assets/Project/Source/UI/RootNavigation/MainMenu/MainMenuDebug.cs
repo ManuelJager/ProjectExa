@@ -11,7 +11,7 @@ namespace Exa.UI
         [SerializeField] private GameObject gameEditorButton;
 
         public override void OnDebugStateChange(DebugMode state) {
-            gameEditorButton.SetActive(state.Is(DebugMode.Global));
+            gameEditorButton.SetActive(state.HasFlag(DebugMode.Global));
         }
     }
 }

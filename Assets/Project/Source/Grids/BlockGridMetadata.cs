@@ -24,7 +24,7 @@ namespace Exa.Grids
         }
 
         public IEnumerable<Block> QueryByCategory(BlockCategory category) {
-            return blocks.Where(block => block.GetMemberCategory().Is(category));
+            return blocks.Where(block => block.GetMemberCategory().HasValue(category));
         }
 
         public IEnumerable<T> QueryByType<T>()

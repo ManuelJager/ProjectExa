@@ -29,8 +29,10 @@ namespace Exa.Audio
                 return;
             }
 
-            var sound = soundById[soundId];
+            PlayGlobal(soundById[soundId]);
+        }
 
+        public void PlayGlobal(Sound sound) {
             GetTrack(sound.audioType).PlayGlobal(sound);
         }
 

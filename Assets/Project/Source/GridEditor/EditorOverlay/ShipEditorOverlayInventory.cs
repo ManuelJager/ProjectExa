@@ -15,7 +15,7 @@ namespace Exa.ShipEditor
     public class BlockSelectedEvent : UnityEvent<BlockTemplate>
     { }
 
-    public class ShipEditorOverlayInventory : ViewController<BlockTemplateView, BlockTemplateContainer, BlockTemplate>
+    public class ShipEditorOverlayInventory : ViewBinder<BlockTemplateView, BlockTemplateContainer, BlockTemplate>
     {
         public BlockSelectedEvent blockSelected = new BlockSelectedEvent();
 
@@ -34,17 +34,17 @@ namespace Exa.ShipEditor
         public void SetFilter(BlockCategory blockCategoryFilter) {
             filter = blockCategoryFilter;
             foreach (var (category, item) in blockCategories.Unpack()) {
-                item.gameObject.SetActive(category.Is(blockCategoryFilter));
+                item.gameObject.SetActive(blockCategoryFilter.HasValue(category));
             }
         }
 
         public override void OnAdd(BlockTemplateContainer value) {
             var category = value.Data.category;
-            if (!filter.Is(category)) {
+            if (!filter.HasValue(category)) {
                 return;
             }
 
-            var categoryString = value.Data.category.ToString();
+            var categoryString = value.Data.category.ToFriendlyString();
 
             if (!blockCategories.ContainsKey(category)) {
                 var newExpandableItemObject = Instantiate(expandableItemPrefab, viewContainer);
@@ -54,7 +54,7 @@ namespace Exa.ShipEditor
             }
 
             var categoryItem = blockCategories[category];
-            var view = base.OnAdd(value, categoryItem.content);
+            var view = base.CreateView(value, categoryItem.content);
 
             view.button.onClick.AddListener(() => {
                 if (activeView != null)

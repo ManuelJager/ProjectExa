@@ -12,7 +12,7 @@ namespace Exa.Bindings
     /// <typeparam name="TView">View type, must be an observer of <see cref="{TModel}"/></typeparam>
     /// <typeparam name="TContainer">Model observable type</typeparam>
     /// <typeparam name="TModel">Model type</typeparam>
-    public class ViewController<TView, TContainer, TModel> : AbstractCollectionObserver<TContainer>
+    public class ViewBinder<TView, TContainer, TModel> : AbstractCollectionObserver<TContainer>
         where TView : MonoBehaviour, IObserver<TModel>
         where TContainer : Observable<TModel>
         where TModel : class
@@ -27,7 +27,7 @@ namespace Exa.Bindings
         /// </summary>
         /// <param name="value"></param>
         public override void OnAdd(TContainer value) {
-            OnAdd(value, viewContainer);
+            CreateView(value, viewContainer);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Exa.Bindings
         /// </summary>
         /// <param name="value"></param>
         /// <param name="container"></param>
-        protected virtual TView OnAdd(TContainer value, Transform container) {
+        protected virtual TView CreateView(TContainer value, Transform container) {
             var blockObject = Instantiate(viewPrefab, container);
             var view = blockObject.GetComponent<TView>();
             view.OnUpdate(value.Data);

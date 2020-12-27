@@ -13,7 +13,7 @@ namespace Exa.UI
     {
         [Header("References")] 
         [SerializeField] private FleetView fleetView;
-        [SerializeField] private FleetBlueprintViewController viewController;
+        [SerializeField] private FleetBlueprintViewBinder viewBinder;
         [SerializeField] private FleetBuilderBlueprintTypes blueprintTypes;
 
         [Header("Events")] 
@@ -24,12 +24,12 @@ namespace Exa.UI
         public Fleet Fleet => fleetView.Fleet;
 
         public void Init(IObservableEnumerable<BlueprintContainer> source) {
-            blueprintTypes.BuildList(viewController.CreateTab);
-            viewController.Init(fleetView.Toggle, fleetView.Remove, source);
+            blueprintTypes.BuildList(viewBinder.CreateTab);
+            viewBinder.Init(fleetView.Toggle, fleetView.Remove, source);
 
             // NOTE: placeholder value, should be updated later
             var unityCapacity = 5;
-            fleetView.Create(unityCapacity, viewController.GetView);
+            fleetView.Create(unityCapacity, viewBinder.GetView);
             fleetValidator = new FleetValidator();
 
             Validate();

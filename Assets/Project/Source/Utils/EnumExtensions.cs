@@ -11,7 +11,7 @@ namespace Exa.Utils
         /// <param name="value"></param>
         /// <param name="flag"></param>
         /// <returns></returns>
-        public static bool Is<T>(this T value, T flag)
+        public static bool HasValue<T>(this T value, T flag)
             where T : Enum {
             return value.HasFlag(flag);
         }

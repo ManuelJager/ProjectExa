@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace Exa.UI
 {
     public class
-        FleetBlueprintViewController : ViewController<FleetBuilderBlueprintView, BlueprintContainer, Blueprint>
+        FleetBlueprintViewBinder : ViewBinder<FleetBuilderBlueprintView, BlueprintContainer, Blueprint>
     {
         [SerializeField] private GameObject tabPrefab;
 
@@ -31,7 +31,7 @@ namespace Exa.UI
         public override void OnAdd(BlueprintContainer value) {
             var tab = tabsByType[value.Data.BlueprintType];
 
-            var view = base.OnAdd(value, tab.container);
+            var view = base.CreateView(value, tab.container);
             tab.ChildCount++;
 
             view.ParentTab = tab;

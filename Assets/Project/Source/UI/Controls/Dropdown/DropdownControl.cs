@@ -82,7 +82,7 @@ namespace Exa.UI.Controls
                 var tab = Instantiate(tabPrefab, tabContainer).GetComponent<DropdownTab>();
                 tab.Text = option.Label;
                 tab.button.onClick.AddListener(() => {
-                    Value = option.Value;
+                    SetValue(option.Value);
                     ToggleContainer();
                 });
 

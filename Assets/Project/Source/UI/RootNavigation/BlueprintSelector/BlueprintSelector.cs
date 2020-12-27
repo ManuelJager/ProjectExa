@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Exa.UI
 {
-    public class BlueprintSelector : ViewController<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
+    public class BlueprintSelector : ViewBinder<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
     {
         [SerializeField] private Navigateable blueprintSelectorNavigateable;
         [SerializeField] private Navigateable shipEditorNavigateable;
@@ -86,8 +86,8 @@ namespace Exa.UI
                 throw new InvalidOperationException("Source must be an observable collection");
         }
 
-        protected override BlueprintView OnAdd(BlueprintContainer value, Transform container) {
-            var view = base.OnAdd(value, container);
+        protected override BlueprintView CreateView(BlueprintContainer value, Transform container) {
+            var view = base.CreateView(value, container);
 
             view.button.onClick.AddListener(() => {
                 if (!Interactable) return;

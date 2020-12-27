@@ -86,10 +86,12 @@ namespace Exa.Grids.Blocks
         }
 
         private AliveBlockPoolGroup GetGroup(BlockContext blockContext) {
-            return blockContext.Is(BlockContext.DefaultGroup) ? defaultPrefabGroup
-                : blockContext.Is(BlockContext.UserGroup) ? userPrefabGroup
-                : blockContext.Is(BlockContext.EnemyGroup) ? enemyPrefabGroup
-                : null;
+            return blockContext switch {
+                BlockContext.DefaultGroup => defaultPrefabGroup,
+                BlockContext.UserGroup => userPrefabGroup,
+                BlockContext.EnemyGroup => enemyPrefabGroup,
+                _ => null
+            };
         }
 
         private IEnumerable<BlockContext> GetContexts() {

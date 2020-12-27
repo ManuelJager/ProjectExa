@@ -7,5 +7,9 @@ namespace Exa.Audio
         public void Play(string soundId) {
             Systems.Audio.PlayGlobal(soundId);
         }
+
+        public void Play(Sound sound) {
+            Systems.Audio.PlayGlobal(sound);
+        }
     }
 }
