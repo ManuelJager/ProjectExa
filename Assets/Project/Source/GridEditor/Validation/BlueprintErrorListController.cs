@@ -1,4 +1,5 @@
-﻿using Exa.UI.Controls;
+﻿using System.Linq;
+using Exa.UI.Controls;
 using Exa.Validation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ namespace Exa.ShipEditor
 
         public override ValidationResult Validate<T>(IValidator<T> validator, T args) {
             var result = base.Validate(validator, args);
-            var visible = !result;
+            var visible = state.GetActiveErrors().Any();
 
             canvasGroup.interactable = visible;
             canvasGroup.alpha = visible ? 1 : 0;

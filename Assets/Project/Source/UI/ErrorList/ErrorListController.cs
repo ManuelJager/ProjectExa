@@ -24,8 +24,7 @@ namespace Exa.UI.Controls
         [SerializeField] private GameObject errorPanelPrefab;
 
         private void Awake() {
-            var builder = CreateSchemaBuilder();
-            state = builder.Build();
+            state = CreateSchemaBuilder().Build();
         }
 
         public virtual ValidationResult Validate<T>(IValidator<T> validator, T args) {

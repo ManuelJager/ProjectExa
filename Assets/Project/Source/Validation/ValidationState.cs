@@ -69,5 +69,9 @@ namespace Exa.Validation
             // Keep track of the thrown errors for the current validator
             lastControlErrors[validator] = errors;
         }
+
+        public IEnumerable<ValidationError> GetActiveErrors() {
+            return lastControlErrors.SelectMany(kvp => kvp.Value);
+        }
     }
 }
