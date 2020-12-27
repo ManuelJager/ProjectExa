@@ -140,11 +140,11 @@ namespace Exa.UI
         }
 
         private float GetDuration(LoadingScreenDuration duration) {
-            switch (duration) {
-                case LoadingScreenDuration.Long: return 5f;
-                case LoadingScreenDuration.Short: return 2f;
-                default: throw new ArgumentOutOfRangeException(nameof(duration));
-            }
+            return duration switch {
+                LoadingScreenDuration.Long => 5f,
+                LoadingScreenDuration.Short => 2f,
+                _ => throw new ArgumentOutOfRangeException(nameof(duration))
+            };
         }
     }
 }
