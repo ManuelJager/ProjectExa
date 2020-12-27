@@ -25,7 +25,7 @@ namespace Exa.ShipEditor
             new Dictionary<BlockCategory, ExpandableItem>();
 
         private BlockTemplateView activeView;
-        private BlockCategory filter;
+        private BlockCategory filter = BlockCategory.All;
 
         private void Start() {
             Source = Systems.Blocks.availableBlockTemplates;
@@ -40,17 +40,14 @@ namespace Exa.ShipEditor
 
         public override void OnAdd(BlockTemplateContainer value) {
             var category = value.Data.category;
-            if (!filter.HasValue(category)) {
-                return;
-            }
-
-            var categoryString = value.Data.category.ToFriendlyString();
+            var categoryString = category.ToFriendlyString();
 
             if (!blockCategories.ContainsKey(category)) {
                 var newExpandableItemObject = Instantiate(expandableItemPrefab, viewContainer);
                 var newExpandableItem = newExpandableItemObject.GetComponent<ExpandableItem>();
                 newExpandableItem.HeaderText = categoryString;
                 blockCategories[category] = newExpandableItem;
+                newExpandableItem.gameObject.SetActive(filter.HasValue(category));
             }
 
             var categoryItem = blockCategories[category];

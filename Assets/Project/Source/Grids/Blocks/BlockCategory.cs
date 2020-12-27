@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Exa.Grids.Blocks
 {
     [Flags]
-    public enum BlockCategory
+    public enum BlockCategory : int
     {
         Armor = 1 << 0,
         ShipController = 1 << 1,
@@ -14,7 +14,8 @@ namespace Exa.Grids.Blocks
         Worker = 1 << 5,
         Weapon = 1 << 6,
         StationController = 1 << 7,
-        AnyController = ShipController & StationController
+        AnyController = ShipController & StationController,
+        All = ~0
     }
 
     public static class BlockCategoryExtensions
