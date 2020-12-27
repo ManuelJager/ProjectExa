@@ -4,6 +4,7 @@ using Exa.Utils;
 using Exa.Validation;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Grids;
 using UnityEngine;
 
 namespace Exa.ShipEditor
@@ -13,11 +14,7 @@ namespace Exa.ShipEditor
         protected override void AddErrors(ValidationResult errors, BlueprintGridValidationArgs args) {
             var blocks = args.blueprintBlocks;
 
-            var controllers = blocks
-                .Where(block => block.BlueprintBlock.Template.category.HasValue(BlockCategory.ShipController));
-
-            var controllerCount = controllers.Count();
-
+            var controllerCount = blocks.Count(block => block.GetIsController());
             if (controllerCount > 1) {
                 errors.Throw<ControllerError>("Cannot have multiple controllers");
             }
@@ -25,27 +22,13 @@ namespace Exa.ShipEditor
                 errors.Throw<ControllerError>("Must have at least one controller");
             }
 
-            if (blocks.Any(block => blocks.GetNeighbourCount(block) == 0)) {
+            if (blocks.Count() > 1 && BlocksAreDisconnected(blocks)) {
                 errors.Throw<DisconnectedBlocksError>("Blueprint has disconnected blocks");
             }
         }
 
-        public bool BlueprintBlocksAreConnected(Vector2Int startingPoint, BlueprintBlocks blocks) {
-            var visited = new HashSet<Vector2Int>();
-
-            void FloodFill(Vector2Int gridPos) {
-                if (blocks.ContainsMember(gridPos) && !visited.Contains(gridPos)) {
-                    visited.Add(gridPos);
-                    FloodFill(new Vector2Int(gridPos.x - 1, gridPos.y));
-                    FloodFill(new Vector2Int(gridPos.x + 1, gridPos.y));
-                    FloodFill(new Vector2Int(gridPos.x, gridPos.y - 1));
-                    FloodFill(new Vector2Int(gridPos.x, gridPos.y + 1));
-                }
-            }
-
-            FloodFill(startingPoint);
-
-            return blocks.GetOccupiedTileCount() == visited.Count;
+        private bool BlocksAreDisconnected(BlueprintBlocks blocks) {
+            return blocks.Any(block => blocks.GetNeighbourCount(block) == 0);
         }
     }
 }

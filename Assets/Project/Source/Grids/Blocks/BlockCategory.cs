@@ -14,7 +14,7 @@ namespace Exa.Grids.Blocks
         Worker = 1 << 5,
         Weapon = 1 << 6,
         StationController = 1 << 7,
-        AnyController = ShipController & StationController,
+        AnyController = ShipController | StationController,
         All = ~0
     }
 

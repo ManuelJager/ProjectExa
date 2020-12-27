@@ -14,7 +14,7 @@ namespace Exa.Grids
     public static class IGridMemberExtensions
     {
         public static bool GetIsController(this IGridMember gridMember) {
-            return gridMember.GetMemberCategory().HasValue(BlockCategory.ShipController);
+            return BlockCategory.AnyController.HasValue(gridMember.GetMemberCategory());
         }
 
         public static BlockCategory GetMemberCategory(this IGridMember gridMember) {
