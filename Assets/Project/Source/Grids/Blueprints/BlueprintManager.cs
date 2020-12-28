@@ -98,8 +98,9 @@ namespace Exa.Grids.Blueprints
                 generateBlueprintFileName = false
             };
 
-            var observableBlueprint = new BlueprintContainer(args);
-            observableBlueprint.BlueprintFileHandle.CurrentPath = path;
+            var observableBlueprint = new BlueprintContainer(args) {
+                BlueprintFileHandle = { CurrentPath = path }
+            };
             observableBlueprint.LoadThumbnail();
             userBlueprints.Add(observableBlueprint);
         }

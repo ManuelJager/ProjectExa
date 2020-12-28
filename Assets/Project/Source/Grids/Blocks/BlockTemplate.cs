@@ -52,6 +52,11 @@ namespace Exa.Grids.Blocks
             }
         }
 
+        public T GetValues<T>(BlockContext blockContext)
+            where T : struct, IBlockComponentValues {
+            return Systems.Blocks.Values.GetValues<T>(blockContext, this);
+        }
+
         public abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();
     }
 }

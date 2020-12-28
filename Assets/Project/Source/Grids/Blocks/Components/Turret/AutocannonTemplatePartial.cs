@@ -10,7 +10,7 @@ namespace Exa.Grids.Blocks.Components
         public float damage; // Damage per shot
         public CycleMode cycleMode; // Wether guns are cycled or fired simoultaniously
 
-        public override AutocannonData Convert() => new AutocannonData {
+        public override AutocannonData ToBaseComponentValues() => new AutocannonData {
             turningRate = turningRate,
             firingRate = firingRate,
             damage = damage,

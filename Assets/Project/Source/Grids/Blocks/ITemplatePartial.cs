@@ -9,6 +9,6 @@ namespace Exa.Grids.Blocks
     public interface ITemplatePartial<out T>
         where T : IBlockComponentValues
     {
-        T Convert();
+        T ToBaseComponentValues();
     }
 }

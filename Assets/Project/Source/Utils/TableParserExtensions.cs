@@ -90,14 +90,14 @@
         }
 
         private static PropertyInfo GetProperty<T>(Expression<Func<T, object>> expresstion) {
-            if (expresstion.Body is UnaryExpression) {
-                if ((expresstion.Body as UnaryExpression).Operand is MemberExpression) {
-                    return ((expresstion.Body as UnaryExpression).Operand as MemberExpression).Member as PropertyInfo;
+            if (expresstion.Body is UnaryExpression expression) {
+                if (expression.Operand is MemberExpression memberExpression) {
+                    return memberExpression.Member as PropertyInfo;
                 }
             }
 
-            if ((expresstion.Body is MemberExpression)) {
-                return (expresstion.Body as MemberExpression).Member as PropertyInfo;
+            if ((expresstion.Body is MemberExpression body)) {
+                return body.Member as PropertyInfo;
             }
 
             return null;

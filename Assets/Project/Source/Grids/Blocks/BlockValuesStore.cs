@@ -40,6 +40,19 @@ namespace Exa.Grids.Blocks
             return contextDict[blockContext][blockTemplate].tooltip;
         }
 
+        public T GetValues<T>(BlockContext blockContext, BlockTemplate blockTemplate) 
+            where T : struct, IBlockComponentValues {
+            var bundle = contextDict[blockContext][blockTemplate];
+
+            foreach (var value in bundle.valuesCache.Values) {
+                if (value is T convertedValue) {
+                    return convertedValue;
+                }
+            }
+
+            throw new KeyNotFoundException($"Values of type {typeof(T)} was not found on block {blockTemplate}");
+        }
+
         public bool TryGetValues<T>(BlockContext blockContext, BlockTemplate blockTemplate, out T output)
             where T : struct, IBlockComponentValues {
             var bundle = contextDict[blockContext][blockTemplate];
@@ -71,7 +84,7 @@ namespace Exa.Grids.Blocks
 
             foreach (var partial in template.GetTemplatePartials()) {
                 try {
-                    var data = partial.GetValues(blockContext);
+                    var data = partial.GetContextfulValues(blockContext);
                     dict.Add(partial, data);
                 }
                 catch (Exception e) {

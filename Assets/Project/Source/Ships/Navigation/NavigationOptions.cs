@@ -21,7 +21,7 @@ namespace Exa.Ships.Navigation
 
         public INavigation GetNavigation(GridInstance gridInstance, Blueprint blueprint) {
             var template = blueprint.Blocks.Controller.BlueprintBlock.Template as ShipControllerTemplate;
-            var controllerValues = template.shipControllerTemplatePartial.Convert();
+            var controllerValues = template.shipControllerTemplatePartial.ToBaseComponentValues();
 
             return navigationType switch {
                 NavigationType.Simple => new SimpleNavigation(gridInstance, this, controllerValues.thrustModifier),

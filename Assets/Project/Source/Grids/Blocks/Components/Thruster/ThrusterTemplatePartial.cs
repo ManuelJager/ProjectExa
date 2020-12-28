@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks.Components
     {
         [SerializeField] private float thrust;
 
-        public override ThrusterData Convert() => new ThrusterData {
+        public override ThrusterData ToBaseComponentValues() => new ThrusterData {
             thrust = thrust
         };
     }

@@ -11,20 +11,15 @@ namespace Exa.Generics
         [SerializeField] protected List<T> objects = new List<T>();
 
         public override void FindObjects() {
-            objects = GetAllInstances();
+            objects = new List<T>(GetAllInstances());
         }
 
-        protected virtual List<T> GetAllInstances() {
+        protected virtual IEnumerable<T> GetAllInstances() {
 #if UNITY_EDITOR
-            var guids = QueryGUIDs();
-            var collection = new List<T>(guids.Length);
-
-            foreach (var guid in guids) {
+            foreach (var guid in QueryGUIDs()) {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
-                collection.Add(AssetDatabase.LoadAssetAtPath<T>(path));
+                yield return AssetDatabase.LoadAssetAtPath<T>(path);
             }
-
-            return collection;
 #else
             throw new System.Exception("Cannot get instances in runtime");
 #endif

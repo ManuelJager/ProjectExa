@@ -2,17 +2,27 @@
 using Exa.Grids.Blocks.Components;
 using System;
 using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks
 {
     public abstract class TemplatePartial<T> : TemplatePartialBase, ITemplatePartial<T>
         where T : struct, IBlockComponentValues
     {
-        public abstract T Convert();
+        public abstract T ToBaseComponentValues();
 
-        // TODO: Use the given context to apply value modifiers in the conversion step
-        public override IBlockComponentValues GetValues(BlockContext blockContext) {
-            return Convert();
+        public T ToContextfulComponentValues(BlockContext blockContext) {
+            if (typeof(T) == typeof(GaussCannonData) && blockContext == BlockContext.UserGroup) {
+                Debug.Log("GaussCannonData");
+            }
+
+            var baseValues = ToBaseComponentValues();
+            var researchContext = Systems.Research.GetContext(blockContext);
+            return researchContext.ApplyContext(baseValues);
+        }
+
+        public override IBlockComponentValues GetContextfulValues(BlockContext blockContext) {
+            return ToContextfulComponentValues(blockContext);
         }
 
         public override void SetValues(Block block, IBlockComponentValues data) {
@@ -20,12 +30,14 @@ namespace Exa.Grids.Blocks
             partial.Component.Data = (T) data;
         }
 
+        // NOTE: Cannot use context-ful values as the given grid totals have no context
         public override void AddGridTotals(GridTotals totals) {
-            Convert().AddGridTotals(totals);
+            ToBaseComponentValues().AddGridTotals(totals);
         }
 
+        // NOTE: Cannot use context-ful values as the given grid totals have no context
         public override void RemoveGridTotals(GridTotals totals) {
-            Convert().RemoveGridTotals(totals);
+            ToBaseComponentValues().RemoveGridTotals(totals);
         }
 
         private IBehaviourMarker<T> GetMarker(Block block) {
@@ -47,7 +59,7 @@ namespace Exa.Grids.Blocks
 
     public abstract class TemplatePartialBase : IGridTotalsModifier
     {
-        public abstract IBlockComponentValues GetValues(BlockContext blockContext);
+        public abstract IBlockComponentValues GetContextfulValues(BlockContext blockContext);
 
         public abstract void SetValues(Block block, IBlockComponentValues data);
 

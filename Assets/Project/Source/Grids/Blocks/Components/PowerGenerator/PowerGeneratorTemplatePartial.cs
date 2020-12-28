@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks.Components
     {
         [SerializeField] private Scalar peakGeneration;
 
-        public override PowerGeneratorData Convert() => new PowerGeneratorData {
+        public override PowerGeneratorData ToBaseComponentValues() => new PowerGeneratorData {
             powerGeneration = peakGeneration
         };
     }

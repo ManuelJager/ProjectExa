@@ -9,6 +9,9 @@ using Exa.Utils;
 using System;
 using System.Collections;
 using Exa.Audio.Music;
+using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
+using Exa.Research;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,6 +25,7 @@ namespace Exa
     {
         [Header("References")] 
         [SerializeField] private BlockFactory blockFactory;
+        [SerializeField] private ResearchStore researchStore;
         [SerializeField] private BlueprintManager blueprintManager;
         [SerializeField] private ShipEditor.GridEditor gridEditor;
         [SerializeField] private AudioManager audioManager;
@@ -38,6 +42,7 @@ namespace Exa
         [SerializeField] private bool loadSafe = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
+        public static ResearchStore Research => Instance.researchStore;
         public static BlueprintManager Blueprints => Instance.blueprintManager;
         public static ShipEditor.GridEditor Editor => Instance.gridEditor;
         public static AudioManager Audio => Instance.audioManager;
@@ -92,6 +97,9 @@ namespace Exa
 
             var targetFrameRate = UI.root.settings.videoSettings.settings.Values.resolution.refreshRate;
 
+            // Initialize research systems
+            researchStore.Init();
+
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value => {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)}% complete) ...";
                 UI.loadingScreen.UpdateMessage(message);
@@ -107,6 +115,10 @@ namespace Exa
             UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
             UI.root.gameObject.SetActive(true);
             UI.loadingScreen.HideScreen();
+
+            var template = Blocks.FindTemplate<GaussCannonTemplate>();
+            UnityEngine.Debug.Log($"UserGroup: {template.GetValues<GaussCannonData>(BlockContext.UserGroup).damage}");
+            UnityEngine.Debug.Log($"DefaultGroup: {template.GetValues<GaussCannonData>(BlockContext.DefaultGroup).damage}");
         }
 
         private void OnLoadException(Exception exception) {

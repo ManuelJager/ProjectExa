@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks.Components
     {
         [SerializeField] private Scalar powerConsumption; // In MW
 
-        public override PowerConsumerData Convert() => new PowerConsumerData {
+        public override PowerConsumerData ToBaseComponentValues() => new PowerConsumerData {
             powerConsumption = powerConsumption
         };
     }

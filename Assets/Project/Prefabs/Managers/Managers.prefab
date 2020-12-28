@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5676475580568291457}
   - component: {fileID: 5676475580568291456}
   - component: {fileID: 2896225307612050541}
+  - component: {fileID: 2870662635955523299}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -53,8 +54,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockFactory: {fileID: 645744782612201261}
+  researchStore: {fileID: 2870662635955523299}
   blueprintManager: {fileID: 5676475580568291461}
-  shipEditor: {fileID: 0}
+  gridEditor: {fileID: 0}
   audioManager: {fileID: 5676475580605553491}
   thumbnailGenerator: {fileID: 5676475581545504187}
   debugManager: {fileID: 5676475580568291460}
@@ -144,6 +146,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f525f0409cc4ae4ea2698e4ee04a0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2870662635955523299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676475580568291469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf4183f5b938924d8acc5e2b31c1e3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  researchItemBag: {fileID: 11400000, guid: 7d48555a753b13d45ada7eab83ce695e, type: 2}
 --- !u!1 &5676475581545504186
 GameObject:
   m_ObjectHideFlags: 0

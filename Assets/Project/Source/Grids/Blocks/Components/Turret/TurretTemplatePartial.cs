@@ -14,7 +14,7 @@ namespace Exa.Grids.Blocks.Components
 
         public float damage;
 
-        public override TurretData Convert() => new TurretData {
+        public override TurretData ToBaseComponentValues() => new TurretData {
             turningRate = turningRate,
             firingRate = firingRate,
             damage = damage

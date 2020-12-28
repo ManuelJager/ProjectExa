@@ -4,25 +4,13 @@ using Exa.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks
 {
-    /// <summary>
-    /// Enum used to identify to which group a block belongs
-    /// </summary>
-    [Flags]
-    public enum BlockContext : uint
-    {
-        None = 0,
-        DefaultGroup = 1 << 0,
-        UserGroup = 1 << 1,
-        EnemyGroup = 1 << 2,
-        Debris = 1 << 3
-    }
-
     public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer>
     { }
 
@@ -40,10 +28,15 @@ namespace Exa.Grids.Blocks
         [SerializeField] private AliveBlockPoolGroup userPrefabGroup;
         [SerializeField] private AliveBlockPoolGroup enemyPrefabGroup;
 
-        public BlockValuesStore valuesStore;
+        public BlockValuesStore Values { get; private set; }
+
+        public T FindTemplate<T>()
+            where T : class {
+            return blockTemplateBag.FirstOrDefault(item => item is T) as T;
+        }
 
         public IEnumerator Init(IProgress<float> progress) {
-            valuesStore = new BlockValuesStore();
+            Values = new BlockValuesStore();
             var enumerator = EnumeratorUtils.ReportForeachOperation(blockTemplateBag, RegisterBlockTemplate, progress);
             while (enumerator.MoveNext()) yield return enumerator.Current;
         }
@@ -78,8 +71,8 @@ namespace Exa.Grids.Blocks
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
             yield return null;
 
-            foreach (var context in GetContexts()) {
-                valuesStore.Register(context, blockTemplate);
+            foreach (var context in BlockContextExtensions.GetContexts()) {
+                Values.Register(context, blockTemplate);
                 GetGroup(context).CreateAlivePrefabGroup(blockTemplate, context);
                 yield return null;
             }
@@ -92,12 +85,6 @@ namespace Exa.Grids.Blocks
                 BlockContext.EnemyGroup => enemyPrefabGroup,
                 _ => null
             };
-        }
-
-        private IEnumerable<BlockContext> GetContexts() {
-            yield return BlockContext.DefaultGroup;
-            yield return BlockContext.UserGroup;
-            yield return BlockContext.EnemyGroup;
         }
     }
 }

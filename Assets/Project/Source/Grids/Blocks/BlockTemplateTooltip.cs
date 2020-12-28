@@ -7,7 +7,7 @@ namespace Exa.Grids.Blocks
     {
         public void Show(BlockContext blockContext, BlockTemplate blockTemplate) {
             gameObject.SetActive(true);
-            var tooltip = Systems.Blocks.valuesStore.GetTooltip(blockContext, blockTemplate);
+            var tooltip = Systems.Blocks.Values.GetTooltip(blockContext, blockTemplate);
             Systems.UI.tooltips.tooltipGenerator.CreateRootView(tooltip, itemsContainer);
             UpdatePosition(true);
         }
