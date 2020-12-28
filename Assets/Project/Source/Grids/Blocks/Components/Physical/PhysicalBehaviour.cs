@@ -47,7 +47,9 @@ namespace Exa.Grids.Blocks.Components
         }
 
         protected override void OnAdd() {
-            block.Collider.SetMass(data.mass);
+            if (Parent.Rigidbody2D.bodyType == RigidbodyType2D.Dynamic) {
+                block.Collider.SetMass(data.mass);
+            }
         }
 
         protected override void OnRemove() {

@@ -3,13 +3,13 @@ using Exa.Ships.Targeting;
 
 namespace Exa.AI.Actions
 {
-    public class AMoveToTarget : ShipAiAction
+    public class AMoveToTarget : GridAiAction<EnemyGridInstance>
     {
         public override ActionLane Lanes => ActionLane.Movement;
 
         public ITarget Target { get; set; } = null;
 
-        internal AMoveToTarget(GridInstance gridInstance)
+        internal AMoveToTarget(EnemyGridInstance gridInstance)
             : base(gridInstance) { }
 
         public override ActionLane Update(ActionLane blockedLanes) {

@@ -22,7 +22,7 @@ namespace Exa.Weapons
 
         public void Fire(float damage) {
             // TODO: Pool projectiles
-            this.InstantiateAndGet<Projectile>(projectilePrefab, GameSystems.SpawnLayer.projectiles)
+            projectilePrefab.InstantiateAndGet<Projectile>(GameSystems.SpawnLayer.projectiles)
                 .Setup(spawnPoint, 80f, 250f, damage, damageSource, damageMask);
         }
     }

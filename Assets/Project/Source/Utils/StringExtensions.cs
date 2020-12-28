@@ -21,5 +21,34 @@ namespace Exa.Utils
         public static string Format(this string format, params object[] args) {
             return string.Format(format, args);
         }
+
+        public static string ToGenericString(this Type type) {
+            if (type.IsGenericType) {
+                var retType = new StringBuilder();
+                var parentType = type.FullName.Split('`');
+                // We will build the type here.
+                var arguments = type.GetGenericArguments();
+                var argList = new StringBuilder();
+                foreach (var t in arguments) {
+                    // Let's make sure we get the argument list.
+                    var arg = ToGenericString(t);
+                    if (argList.Length > 0) {
+                        argList.AppendFormat(", {0}", arg);
+                    }
+                    else {
+                        argList.Append(arg);
+                    }
+                }
+
+                if (argList.Length > 0) {
+                    retType.AppendFormat("{0}<{1}>", parentType[0], argList);
+                }
+
+                return retType.ToString();
+            }
+            else {
+                return type.ToString();
+            }
+        }
     }
 }

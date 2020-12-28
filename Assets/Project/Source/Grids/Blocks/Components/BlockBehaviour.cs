@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks.Components
     public abstract class BlockBehaviour<T> : BlockBehaviourBase
         where T : struct, IBlockComponentValues
     {
-        [SerializeField] protected T data;
+        [SerializeField, HideInInspector] protected T data;
 
         public T Data {
             get => data;

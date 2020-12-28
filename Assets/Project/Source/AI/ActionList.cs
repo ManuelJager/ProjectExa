@@ -1,16 +1,17 @@
-﻿using Exa.Utils;
+﻿using System.Collections;
+using Exa.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Exa.AI
 {
-    public class ActionList
+    public class ActionList : IEnumerable<IAction>
     {
         private readonly List<IAction> actions;
         private readonly float priorityThreshold;
 
-        public ActionList(float priorityThreshold, IAction[] actions) {
+        public ActionList(float priorityThreshold, IEnumerable<IAction> actions) {
             this.actions = new List<IAction>(actions);
             this.priorityThreshold = priorityThreshold;
         }
@@ -60,6 +61,14 @@ namespace Exa.AI
                     action => action.DebugString);
             sb.AppendLineIndented(tableString, tabs);
             return sb.ToString();
+        }
+
+        public IEnumerator<IAction> GetEnumerator() {
+            return actions.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }

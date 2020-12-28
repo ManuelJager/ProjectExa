@@ -1,6 +1,4 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
-
-namespace Exa.Grids.Blocks.Components
+﻿namespace Exa.Grids.Blocks.Components
 {
     public class GaussCannonBehaviour : TurretBehaviour<GaussCannonData>
     {

@@ -4,7 +4,7 @@ using Exa.Ships.Targeting;
 namespace Exa.AI.Actions
 {
     // TODO: Implement a distance difference threshold that prevents already targeted ships from being untargeted too quickly
-    public class AAimAtClosestTarget : ShipAiAction
+    public class AAimAtClosestTarget : GridAiAction<GridInstance>
     {
         public override ActionLane Lanes => ActionLane.AimTurrets;
 

@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Ships;
 
 #pragma warning disable CS0649
 
@@ -27,11 +28,11 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         protected override void OnAdd() {
-            GridInstance?.Navigation.ThrustVectors.Register(this);
+            (GridInstance as EnemyGridInstance)?.Navigation.ThrustVectors.Register(this);
         }
 
         protected override void OnRemove() {
-            GridInstance?.Navigation.ThrustVectors.Unregister(this);
+            (GridInstance as EnemyGridInstance)?.Navigation.ThrustVectors.Unregister(this);
         }
     }
 }

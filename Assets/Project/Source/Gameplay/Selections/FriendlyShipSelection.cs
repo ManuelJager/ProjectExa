@@ -1,6 +1,8 @@
 ﻿using Exa.Math;
 using Exa.Ships.Targeting;
 using System.Linq;
+using Exa.AI;
+using Exa.AI.Actions;
 using Exa.Utils;
 using UnityEngine;
 
@@ -20,8 +22,8 @@ namespace Exa.Gameplay
             foreach (var (ship, formationPosition) in formationShips.AsTupleEnumerable(formationPositions)) {
                 var currentPosition = ship.transform.position.ToVector2();
 
-                ship.Ai.moveToTarget.Target = new StaticPositionTarget(formationPosition);
-                ship.Ai.lookAtTarget.Target = new StaticAngleTarget(currentPosition, formationPosition);
+                ship.Ai.GetAction<AMoveToTarget>().Target = new StaticPositionTarget(formationPosition);
+                ship.Ai.GetAction<ALookAtTarget>().Target = new StaticAngleTarget(currentPosition, formationPosition);
             }
         }
 

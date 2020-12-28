@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using System;
+using Exa.Utils;
 
 namespace Exa.Grids.Blocks
 {
@@ -31,7 +32,9 @@ namespace Exa.Grids.Blocks
             var partial = block as IBehaviourMarker<T>;
 
             if (partial == null) {
-                throw new Exception($"Partial {typeof(IBehaviourMarker<T>)} is not supported on block: {block}");
+                var partialString = typeof(IBehaviourMarker<T>).ToGenericString();
+                var blockString = block.GetType().ToGenericString();
+                throw new Exception($"Partial {partialString} is not supported on block: {blockString}");
             }
 
             if (partial.Component == null) {

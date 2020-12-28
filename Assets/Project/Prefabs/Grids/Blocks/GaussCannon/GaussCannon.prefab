@@ -21,7 +21,7 @@ MonoBehaviour:
   physicalBehaviour: {fileID: 3183903237534111054}
   collider: {fileID: 0}
   controllerBehaviour: {fileID: 7596730845723094954}
-  turretBehaviour: {fileID: 0}
+  turretBehaviour: {fileID: 7617634622350147509}
 --- !u!114 &3183903237534111054
 MonoBehaviour:
   m_ObjectHideFlags: 0

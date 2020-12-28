@@ -17,29 +17,37 @@ namespace Exa.Ships
         [SerializeField] private Transform overlayContainer;
 
         public PlayerStationGridInstance CreateStation(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration configuration) {
-            var station = this.InstantiateAndGet<PlayerStationGridInstance>(friendlyStationPrefab, GameSystems.SpawnLayer.ships);
-            station.Import(blueprint, BlockContext.UserGroup, configuration);
-            station.SetPosition(worldPos);
-            return station;
+            return Configure<PlayerStationGridInstance>(
+                prefab: friendlyStationPrefab,
+                container: GameSystems.SpawnLayer.ships, 
+                worldPos: worldPos,
+                blueprint: blueprint, 
+                blockContext: BlockContext.UserGroup,
+                configuration: configuration);
         }
 
         public EnemyGridInstance CreateEnemy(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration configuration) {
-            var shipGo = Instantiate(enemyShipPrefab, GameSystems.SpawnLayer.ships);
-            return Configure<EnemyGridInstance>(shipGo, worldPos, blueprint, BlockContext.EnemyGroup, configuration);
+            return Configure<EnemyGridInstance>(
+                prefab: enemyShipPrefab,
+                container: GameSystems.SpawnLayer.ships,
+                worldPos: worldPos,
+                blueprint: blueprint,
+                blockContext: BlockContext.EnemyGroup,
+                configuration: configuration);
         }
 
-        private T Configure<T>(GameObject shipGo, Vector2 worldPos, Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration)
+        private T Configure<T>(GameObject prefab, Transform container, Vector2 worldPos, Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration)
             where T : GridInstance {
-            shipGo.transform.position = worldPos;
-            var ship = shipGo.GetComponent<T>();
-            var overlay = CreateOverlay(ship);
-            ship.Import(blueprint, blockContext, configuration);
+            var gridGo = prefab.InstantiateAndGet<T>(container);
+            gridGo.SetPosition(worldPos);
+            var overlay = CreateOverlay(gridGo);
+            gridGo.Import(blueprint, blockContext, configuration);
 
-            var instanceString = ship.GetInstanceString();
+            var instanceString = gridGo.GetInstanceString();
             overlay.gameObject.name = $"Overlay: {instanceString}";
-            shipGo.name = instanceString;
+            gridGo.name = instanceString;
 
-            return ship;
+            return gridGo;
         }
 
         private ShipOverlay CreateOverlay(GridInstance gridInstance) {

@@ -30,7 +30,7 @@ namespace Exa.Gameplay
             var clustersScheduledForRebuild = clusters.Where(cluster => !cluster.containsController);
 
             foreach (var cluster in clustersScheduledForRebuild) {
-                var debris = this.InstantiateAndGet<Debris>(debrisGridPrefab, transform);
+                var debris = debrisGridPrefab.InstantiateAndGet<Debris>(transform);
                 debris.FromCluster(cluster);
                 debris.Rigidbody2D.velocity = gridInstance.Rigidbody2D.velocity;
             }

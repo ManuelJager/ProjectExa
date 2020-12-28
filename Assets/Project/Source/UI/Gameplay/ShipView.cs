@@ -27,7 +27,7 @@ namespace Exa.UI.Gameplay
         }
 
         private void Update() {
-            var total = ships.Average(ship => ship.State.HullIntegrity);
+            var total = ships.Average(ship => ship.HullIntegrity);
             SetHull(total);
         }
 

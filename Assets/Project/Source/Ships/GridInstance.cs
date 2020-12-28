@@ -15,6 +15,7 @@ using Exa.Grids;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 #pragma warning disable CS0649
 
@@ -24,21 +25,20 @@ namespace Exa.Ships
     {
         [Header("References")]
         [SerializeField] private Transform pivot;
-        [SerializeField] private ShipAi shipAi;
-        [SerializeField] private ShipState state;
+        [SerializeField] private GridAi gridAi;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private CircleCollider2D mouseOverCollider;
-        [SerializeField] private NavigationOptions navigationOptions;
 
         [Header("Settings")] 
         [SerializeField] private ValueOverride<CursorState> cursorOverride;
         public float canvasScaleMultiplier = 1f;
-        public Font shipDebugFont;
-
-        private Tooltip debugTooltip;
+        [FormerlySerializedAs("shipDebugFont")] public Font debugFont;
 
         [Header("Events")]
         public UnityEvent ControllerDestroyedEvent;
+
+        private Tooltip debugTooltip;
+        private float hullIntegrity;
 
         public ActionScheduler ActionScheduler { get; private set; }
         public BlockContext BlockContext { get; private set; }
@@ -46,24 +46,38 @@ namespace Exa.Ships
         public BlockGrid BlockGrid { get; private set; }
         public Blueprint Blueprint { get; private set; }
         public Controller Controller { get; internal set; }
-        public INavigation Navigation { get; private set; }
         public GridTotals Totals { get; private set; }
         public bool Active { get; private set; }
         public ShipOverlay Overlay { get; set; }
         public Transform Transform => transform;
         public Rigidbody2D Rigidbody2D => rb;
-        public ShipAi Ai => shipAi;
-        public ShipState State => state;
+        public GridAi Ai => gridAi;
+
+        public float HullIntegrity
+        {
+            get => hullIntegrity;
+            set
+            {
+                hullIntegrity = value;
+
+                if (Active)
+                    Overlay?.overlayHullBar.SetFill(value);
+            }
+        }
 
         protected virtual void Awake() {
-            debugTooltip = new Tooltip(GetDebugTooltipComponents, shipDebugFont);
+            debugTooltip = new Tooltip(GetDebugTooltipComponents, debugFont);
+        }
+
+        private void Update() {
+            var currentHull = BlockGrid.Totals.Hull;
+            var totalHull = Blueprint.Blocks.Totals.Hull;
+            HullIntegrity = currentHull / totalHull;
         }
 
         private void FixedUpdate() {
             if (Active) {
-                var deltaTime = Time.fixedDeltaTime;
-                Navigation?.Update(deltaTime);
-                ActionScheduler.ExecuteActions(deltaTime);
+                ActiveFixedUpdate(Time.fixedDeltaTime);
             }
             
             mouseOverCollider.offset = rb.centerOfMass;
@@ -71,6 +85,10 @@ namespace Exa.Ships
             if (debugTooltip != null) {
                 debugTooltip.ShouldRefresh = true;
             }
+        }
+
+        protected void ActiveFixedUpdate(float fixedDeltaTime) {
+            ActionScheduler.ExecuteActions(fixedDeltaTime);
         }
 
         // TODO: Make this look nicer by breaking up the ship and adding an explosion
@@ -97,13 +115,12 @@ namespace Exa.Ships
 
             var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
             mouseOverCollider.radius = radius;
-            Navigation = navigationOptions.GetNavigation(this, blueprint);
             BlockGrid.Import(blueprint);
             Blueprint = blueprint;
 
             UpdateCanvasSize(blueprint);
 
-            shipAi.Init();
+            gridAi.Init();
         }
 
         public string GetInstanceString() {
@@ -161,11 +178,6 @@ namespace Exa.Ships
 
         public abstract bool MatchesSelection(ShipSelection selection);
 
-        private void UpdateCanvasSize(Blueprint blueprint) {
-            var size = blueprint.Blocks.MaxSize * 10 * canvasScaleMultiplier;
-            Overlay.rectContainer.sizeDelta = new Vector2(size, size);
-        }
-
         private TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(new ITooltipComponent[] {
             new TooltipTitle(GetInstanceString(), false),
             new TooltipSpacer(),
@@ -176,7 +188,9 @@ namespace Exa.Ships
             new TooltipGroup(BlockGrid.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
             new TooltipText("State:"),
-            new TooltipGroup(state.GetDebugTooltipComponents(), 1),
+            new TooltipGroup(new ITooltipComponent[] {
+                new TooltipText($"HullIntegrity: {HullIntegrity}"),
+            }, 1),
             new TooltipSpacer(),
             new TooltipText("State:"),
             new TooltipGroup(new ITooltipComponent[] {
@@ -185,7 +199,7 @@ namespace Exa.Ships
             }, 1),
             new TooltipSpacer(), 
             new TooltipText("AI:"),
-            new TooltipGroup(shipAi.GetDebugTooltipComponents(), 1)
+            new TooltipGroup(gridAi.GetDebugTooltipComponents(), 1)
         });
 
         public Vector2 GetPosition() {
@@ -207,6 +221,11 @@ namespace Exa.Ships
 
         public void Rotate(float degrees) {
             Rigidbody2D.rotation += degrees;
+        }
+
+        private void UpdateCanvasSize(Blueprint blueprint) {
+            var size = blueprint.Blocks.MaxSize * 10 * canvasScaleMultiplier;
+            Overlay.rectContainer.sizeDelta = new Vector2(size, size);
         }
     }
 }

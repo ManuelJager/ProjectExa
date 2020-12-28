@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private BlockBehaviour<T> controllerBehaviour;
 
-        public BlockBehaviour<T> Component { get; }
+        BlockBehaviour<T> IBehaviourMarker<T>.Component => controllerBehaviour;
 
         public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
             return base.GetBehaviours()

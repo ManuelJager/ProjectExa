@@ -16,14 +16,14 @@ namespace Exa.AI.Actions
     }
 
     // TODO: Use position prediction and target paths to increase accuracy
-    public class AAvoidCollision : ShipAiAction
+    public class AAvoidCollision : GridAiAction<EnemyGridInstance>
     {
         public override ActionLane Lanes => ActionLane.Movement;
 
         private List<GridInstance> neighbourCache;
         private readonly AAvoidCollisionSettings settings;
 
-        internal AAvoidCollision(GridInstance gridInstance, AAvoidCollisionSettings settings)
+        internal AAvoidCollision(EnemyGridInstance gridInstance, AAvoidCollisionSettings settings)
             : base(gridInstance) {
             this.settings = settings;
         }
