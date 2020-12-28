@@ -12,13 +12,7 @@ namespace Exa.Grids.Blocks
         public abstract T ToBaseComponentValues();
 
         public T ToContextfulComponentValues(BlockContext blockContext) {
-            if (typeof(T) == typeof(GaussCannonData) && blockContext == BlockContext.UserGroup) {
-                Debug.Log("GaussCannonData");
-            }
-
-            var baseValues = ToBaseComponentValues();
-            var researchContext = Systems.Research.GetContext(blockContext);
-            return researchContext.ApplyContext(baseValues);
+            return Systems.Research.ApplyModifiers(blockContext, ToBaseComponentValues());
         }
 
         public override IBlockComponentValues GetContextfulValues(BlockContext blockContext) {

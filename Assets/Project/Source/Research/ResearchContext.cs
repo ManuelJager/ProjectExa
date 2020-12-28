@@ -22,7 +22,7 @@ namespace Exa.Research
         public T ApplyContext<T>(T baseValues)
             where T : struct, IBlockComponentValues {
             var currentValues = baseValues;
-            foreach (var (order, researchSteps) in GroupByStepAndFilter(currentValues)) {
+            foreach (var (_, researchSteps) in GroupByStepAndFilter(currentValues)) {
                 var initialValues = currentValues;
 
                 T Reducer(T current, ResearchStep step) {

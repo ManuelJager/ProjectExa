@@ -5,7 +5,7 @@
     /// </summary>
     public enum ValueModificationOrder
     {
-        Percentage,
         Addition,
+        Multiplicative,
     }
 }

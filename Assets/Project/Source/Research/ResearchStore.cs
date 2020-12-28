@@ -4,6 +4,7 @@ using System.Linq;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Research
@@ -14,16 +15,11 @@ namespace Exa.Research
 
         private Dictionary<BlockContext, ResearchContext> researchContexts;
 
-        private void Awake() {
-            researchContexts = new Dictionary<BlockContext, ResearchContext>();
-        }
-
         public void Init() {
-            foreach (var context in BlockContextExtensions.GetContexts()) {
-                AddContext(context);
+            researchContexts = new Dictionary<BlockContext, ResearchContext>();
+            foreach (var blockContext in BlockContextExtensions.GetContexts()) {
+                researchContexts.Add(blockContext, new ResearchContext());
             }
-
-            Find<GaussCannonExplosiveUpgrade>().AddSelf(BlockContext.UserGroup);
         }
 
         public T Find<T>()
@@ -31,12 +27,30 @@ namespace Exa.Research
             return researchItemBag.FirstOrDefault(item => item is T) as T;
         }
 
-        public void AddContext(BlockContext blockContext) {
-            researchContexts.Add(blockContext, new ResearchContext());
+        public T ApplyModifiers<T>(BlockContext context, T baseValues)
+            where T : struct, IBlockComponentValues {
+            return researchContexts[context].ApplyContext(baseValues);
         }
 
-        public ResearchContext GetContext(BlockContext blockContext) {
-            return researchContexts[blockContext];
+        public void AddModifier(BlockContext filter, BlockComponentModifier modifier) {
+            var steps = new List<ResearchStep>(modifier.GetBaseSteps());
+            foreach (var context in FilterDict(filter)) {
+                context.AddSteps(modifier.Id, steps);
+            }
+        }
+
+        public void RemoveModifier(BlockContext filter, BlockComponentModifier modifier) {
+            foreach (var context in FilterDict(filter)) {
+                context.RemoveSteps(modifier.Id);
+            }
+        }
+
+        private IEnumerable<ResearchContext> FilterDict(BlockContext filter) {
+            foreach (var (key, context) in researchContexts.Unpack()) {
+                if (filter.HasValue(key)) {
+                    yield return context;
+                }
+            }
         }
     }
 }

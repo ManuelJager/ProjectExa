@@ -115,10 +115,6 @@ namespace Exa
             UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
             UI.root.gameObject.SetActive(true);
             UI.loadingScreen.HideScreen();
-
-            var template = Blocks.FindTemplate<GaussCannonTemplate>();
-            UnityEngine.Debug.Log($"UserGroup: {template.GetValues<GaussCannonData>(BlockContext.UserGroup).damage}");
-            UnityEngine.Debug.Log($"DefaultGroup: {template.GetValues<GaussCannonData>(BlockContext.DefaultGroup).damage}");
         }
 
         private void OnLoadException(Exception exception) {
