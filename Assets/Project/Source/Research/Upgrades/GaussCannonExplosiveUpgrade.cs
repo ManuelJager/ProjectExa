@@ -8,11 +8,11 @@ namespace Exa.Research
     public class GaussCannonExplosiveUpgrade : BlockComponentModifier<GaussCannonData>
     {
         protected override void AdditiveStep(GaussCannonData initialData, ref GaussCannonData currentData) {
-            currentData.damage += 20;
+            currentData.damage += 10;
         }
 
         protected override void MultiplicativeStep(GaussCannonData initialData, ref GaussCannonData currentData) {
-            currentData.damage += initialData.damage * 0.2f;
+            currentData.damage += initialData.damage * 0.5f;
         }
     }
 }

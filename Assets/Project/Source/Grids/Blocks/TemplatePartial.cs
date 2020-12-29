@@ -34,6 +34,10 @@ namespace Exa.Grids.Blocks
             ToBaseComponentValues().RemoveGridTotals(totals);
         }
 
+        public override Type GetTargetType() {
+            return typeof(T);
+        }
+
         private IBehaviourMarker<T> GetMarker(Block block) {
             var partial = block as IBehaviourMarker<T>;
 
@@ -60,5 +64,7 @@ namespace Exa.Grids.Blocks
         public abstract void AddGridTotals(GridTotals totals);
 
         public abstract void RemoveGridTotals(GridTotals totals);
+
+        public abstract Type GetTargetType();
     }
 }

@@ -13,17 +13,21 @@ namespace Exa.Research
     {
         [SerializeField] private ResearchItemBag researchItemBag;
 
-        private Dictionary<BlockContext, ResearchContext> researchContexts;
+        private Dictionary<BlockContext, ResearchStepGroup> researchContexts;
 
         public void Init() {
-            researchContexts = new Dictionary<BlockContext, ResearchContext>();
+            researchContexts = new Dictionary<BlockContext, ResearchStepGroup>();
             foreach (var blockContext in BlockContextExtensions.GetContexts()) {
-                researchContexts.Add(blockContext, new ResearchContext());
+                researchContexts.Add(blockContext, new ResearchStepGroup());
             }
         }
 
+        public ResearchItem Find(string id) {
+            return researchItemBag.FirstOrDefault(item => item.Id == id);
+        }
+
         public T Find<T>()
-            where T : class {
+            where T : ResearchItem {
             return researchItemBag.FirstOrDefault(item => item is T) as T;
         }
 
@@ -34,21 +38,23 @@ namespace Exa.Research
 
         public void AddModifier(BlockContext filter, BlockComponentModifier modifier) {
             var steps = new List<ResearchStep>(modifier.GetBaseSteps());
-            foreach (var context in FilterDict(filter)) {
-                context.AddSteps(modifier.Id, steps);
+            foreach (var (context, group) in FilterDict(filter)) {
+                Systems.Blocks.Values.SetDirty(context, modifier);
+                group.AddSteps(modifier, steps);
             }
         }
 
         public void RemoveModifier(BlockContext filter, BlockComponentModifier modifier) {
-            foreach (var context in FilterDict(filter)) {
-                context.RemoveSteps(modifier.Id);
+            foreach (var (context, group) in FilterDict(filter)) {
+                Systems.Blocks.Values.SetDirty(context, modifier);
+                group.RemoveSteps(modifier);
             }
         }
 
-        private IEnumerable<ResearchContext> FilterDict(BlockContext filter) {
+        private IEnumerable<(BlockContext, ResearchStepGroup)> FilterDict(BlockContext filter) {
             foreach (var (key, context) in researchContexts.Unpack()) {
                 if (filter.HasValue(key)) {
-                    yield return context;
+                    yield return (key, context);
                 }
             }
         }

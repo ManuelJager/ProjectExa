@@ -1,7 +1,9 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using Exa.Grids.Blocks.Components;
+using Exa.Research;
 using Exa.UI.Tooltips;
 
 namespace Exa.Grids.Blocks
@@ -23,26 +25,27 @@ namespace Exa.Grids.Blocks
 
             var bundle = new TemplateBundle {
                 template = blockTemplate,
-                valuesCache = GetValues(blockContext, blockTemplate),
+                valuesCache = ComputeValues(blockContext, blockTemplate),
                 valuesAreDirty = false
             };
 
             templateDict.Add(blockTemplate, bundle);
         }
 
-        public void SetDirty(BlockContext blockContext, BlockTemplate blockTemplate) {
-            var bundle = contextDict[blockContext][blockTemplate];
-            bundle.valuesAreDirty = true;
-            bundle.tooltip.ShouldRefresh = true;
+        public void SetDirty(BlockContext blockContext, BlockComponentModifier modifier) {
+            foreach (var dirtyBundle in FindBundles(blockContext, modifier)) {
+                dirtyBundle.valuesAreDirty = true;
+                dirtyBundle.tooltip.ShouldRefresh = true;
+            }
         }
 
         public Tooltip GetTooltip(BlockContext blockContext, BlockTemplate blockTemplate) {
-            return contextDict[blockContext][blockTemplate].tooltip;
+            return GetUpdatedBundle(blockContext, blockTemplate).tooltip;
         }
 
         public T GetValues<T>(BlockContext blockContext, BlockTemplate blockTemplate) 
             where T : struct, IBlockComponentValues {
-            var bundle = contextDict[blockContext][blockTemplate];
+            var bundle = GetUpdatedBundle(blockContext, blockTemplate);
 
             foreach (var value in bundle.valuesCache.Values) {
                 if (value is T convertedValue) {
@@ -55,7 +58,7 @@ namespace Exa.Grids.Blocks
 
         public bool TryGetValues<T>(BlockContext blockContext, BlockTemplate blockTemplate, out T output)
             where T : struct, IBlockComponentValues {
-            var bundle = contextDict[blockContext][blockTemplate];
+            var bundle = GetUpdatedBundle(blockContext, blockTemplate);
 
             foreach (var value in bundle.valuesCache.Values) {
                 if (value.GetType() == typeof(T)) {
@@ -69,17 +72,22 @@ namespace Exa.Grids.Blocks
         }
 
         public void SetValues(BlockContext blockContext, BlockTemplate blockTemplate, Block block) {
-            var bundle = contextDict[blockContext][blockTemplate];
-
-            if (bundle.valuesAreDirty) {
-                bundle.valuesCache = GetValues(blockContext, bundle.template);
-                bundle.valuesAreDirty = false;
-            }
-
+            var bundle = GetUpdatedBundle(blockContext, blockTemplate);
             bundle.valuesCache.ApplyValues(block);
         }
 
-        private TemplateValuesCache GetValues(BlockContext blockContext, BlockTemplate template) {
+        private TemplateBundle GetUpdatedBundle(BlockContext blockContext, BlockTemplate blockTemplate) {
+            var bundle = contextDict[blockContext][blockTemplate];
+
+            if (bundle.valuesAreDirty) {
+                bundle.valuesCache = ComputeValues(blockContext, bundle.template);
+                bundle.valuesAreDirty = false;
+            }
+
+            return bundle;
+        }
+
+        private TemplateValuesCache ComputeValues(BlockContext blockContext, BlockTemplate template) {
             var dict = new TemplateValuesCache();
 
             foreach (var partial in template.GetTemplatePartials()) {
@@ -101,6 +109,14 @@ namespace Exa.Grids.Blocks
             }
 
             return contextDict[blockContext];
+        }
+
+        private IEnumerable<TemplateBundle> FindBundles(BlockContext context, BlockComponentModifier modifier) {
+            bool Filter(TemplateBundle bundle) {
+                return modifier.AffectsTemplate(bundle.template);
+            }
+
+            return contextDict[context].Values.Where(Filter);
         }
 
         private class BundleDictionary : Dictionary<BlockTemplate, TemplateBundle>

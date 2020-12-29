@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids.Blocks.Components;
-using Exa.Types;
-using Exa.Utils;
-using UnityEngine;
 
 namespace Exa.Research
 {
-    public class ResearchContext
+    public class ResearchStepGroup
     {
         public StepCache stepCache = new StepCache();
 
-        public void AddSteps(string id, List<ResearchStep> cache) {
-            stepCache.Add(id, cache);
+        public void AddSteps(BlockComponentModifier modifier, List<ResearchStep> cache) {
+            stepCache.Add(modifier, cache);
         }
 
-        public void RemoveSteps(string id) {
-            stepCache.Remove(id);
+        public void RemoveSteps(BlockComponentModifier modifier) {
+            stepCache.Remove(modifier);
         }
 
         public T ApplyContext<T>(T baseValues)
@@ -46,7 +43,7 @@ namespace Exa.Research
         }
     }
 
-    public class StepCache : Dictionary<string, List<ResearchStep>>
+    public class StepCache : Dictionary<BlockComponentModifier, List<ResearchStep>>
     {
 
     }
