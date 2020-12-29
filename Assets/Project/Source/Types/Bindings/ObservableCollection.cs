@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Exa.Bindings
+namespace Exa.Types.Binding
 {
     /// <summary>
     /// Base class for virtual collection that notifies observers of model changes

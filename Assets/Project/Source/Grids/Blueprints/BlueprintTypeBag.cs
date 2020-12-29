@@ -1,5 +1,5 @@
-﻿using Exa.Generics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Exa.Types.Generics;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints

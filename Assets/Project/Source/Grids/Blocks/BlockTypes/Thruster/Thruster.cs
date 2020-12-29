@@ -28,11 +28,11 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         protected override void OnAdd() {
-            (GridInstance as EnemyGridInstance)?.Navigation.ThrustVectors.Register(this);
+            (GridInstance as EnemyGrid)?.Navigation.ThrustVectors.Register(this);
         }
 
         protected override void OnRemove() {
-            (GridInstance as EnemyGridInstance)?.Navigation.ThrustVectors.Unregister(this);
+            (GridInstance as EnemyGrid)?.Navigation.ThrustVectors.Unregister(this);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Exa.Bindings
+namespace Exa.Types.Binding
 {
     /// <summary>
     /// Wrapper that provides a model a way to notify views of changes

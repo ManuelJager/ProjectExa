@@ -16,8 +16,8 @@ namespace Exa.Ships
         [SerializeField] private GameObject shipOverlayPrefab;
         [SerializeField] private Transform overlayContainer;
 
-        public PlayerStationGridInstance CreateStation(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration configuration) {
-            return Configure<PlayerStationGridInstance>(
+        public PlayerStation CreateStation(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration configuration) {
+            return Configure<PlayerStation>(
                 prefab: friendlyStationPrefab,
                 container: GameSystems.SpawnLayer.ships, 
                 worldPos: worldPos,
@@ -26,8 +26,8 @@ namespace Exa.Ships
                 configuration: configuration);
         }
 
-        public EnemyGridInstance CreateEnemy(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration configuration) {
-            return Configure<EnemyGridInstance>(
+        public EnemyGrid CreateEnemy(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration configuration) {
+            return Configure<EnemyGrid>(
                 prefab: enemyShipPrefab,
                 container: GameSystems.SpawnLayer.ships,
                 worldPos: worldPos,
@@ -38,27 +38,23 @@ namespace Exa.Ships
 
         private T Configure<T>(GameObject prefab, Transform container, Vector2 worldPos, Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration)
             where T : GridInstance {
-            var gridGo = prefab.InstantiateAndGet<T>(container);
-            gridGo.SetPosition(worldPos);
-            var overlay = CreateOverlay(gridGo);
-            gridGo.Import(blueprint, blockContext, configuration);
+            var grid = prefab.InstantiateAndGet<T>(container);
+            grid.Import(blueprint, blockContext, configuration);
+            grid.SetPosition(worldPos);
+            grid.name = grid.GetInstanceString();
 
-            var instanceString = gridGo.GetInstanceString();
-            overlay.gameObject.name = $"Overlay: {instanceString}";
-            gridGo.name = instanceString;
-
-            return gridGo;
+            return grid;
         }
 
-        private ShipOverlay CreateOverlay(GridInstance gridInstance) {
+        public GridOverlay CreateOverlay(GridInstance gridInstance) {
             var overlayGo = Instantiate(shipOverlayPrefab, overlayContainer);
             gridInstance.ControllerDestroyedEvent.AddListener(() => {
                 Destroy(overlayGo);
             });
 
-            var overlay = overlayGo.GetComponent<ShipOverlay>();
-            overlay.gridInstance = gridInstance;
-            gridInstance.Overlay = overlay;
+            var overlay = overlayGo.GetComponent<GridOverlay>();
+            overlay.SetGrid(gridInstance);
+            overlay.gameObject.name = $"Overlay: {gridInstance.GetInstanceString()}";
             return overlay;
         }
     }

@@ -1,6 +1,6 @@
-﻿using Exa.Generics;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Exa.Types.Generics;
 using UnityEngine;
 
 #pragma warning disable CS0649

@@ -1,7 +1,7 @@
-﻿using Exa.Bindings;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Exa.Types.Binding;
 
-namespace Exa.Generics
+namespace Exa.Types.Generics
 {
     // NOTE: Poor lookup time, don't use for large datasets
     public class ObservableDictionary<TKey, TValue> : ObservableCollection<TValue>

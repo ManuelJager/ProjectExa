@@ -1,4 +1,4 @@
-﻿namespace Exa.Generics
+﻿namespace Exa.Types.Generics
 {
     /// <summary>
     /// Supports an object that provides a key that may change

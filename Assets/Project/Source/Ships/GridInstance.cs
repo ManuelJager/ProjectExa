@@ -6,13 +6,12 @@ using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Math;
-using Exa.Ships.Navigation;
 using Exa.UI;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
 using Exa.Grids;
-using Exa.Utils;
+using Exa.Types.Generics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -21,7 +20,7 @@ using UnityEngine.Serialization;
 
 namespace Exa.Ships
 {
-    public abstract class GridInstance : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IDebugDragable, IGridInstance
+    public abstract class GridInstance : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IGridInstance
     {
         [Header("References")]
         [SerializeField] private Transform pivot;
@@ -31,7 +30,6 @@ namespace Exa.Ships
 
         [Header("Settings")] 
         [SerializeField] private ValueOverride<CursorState> cursorOverride;
-        public float canvasScaleMultiplier = 1f;
         [FormerlySerializedAs("shipDebugFont")] public Font debugFont;
 
         [Header("Events")]
@@ -48,22 +46,12 @@ namespace Exa.Ships
         public Controller Controller { get; internal set; }
         public GridTotals Totals { get; private set; }
         public bool Active { get; private set; }
-        public ShipOverlay Overlay { get; set; }
+        public IGridOverlay Overlay { get; set; }
         public Transform Transform => transform;
         public Rigidbody2D Rigidbody2D => rb;
         public GridAi Ai => gridAi;
 
-        public float HullIntegrity
-        {
-            get => hullIntegrity;
-            set
-            {
-                hullIntegrity = value;
-
-                if (Active)
-                    Overlay?.overlayHullBar.SetFill(value);
-            }
-        }
+        public float HullIntegrity { get; set; }
 
         protected virtual void Awake() {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, debugFont);
@@ -73,6 +61,9 @@ namespace Exa.Ships
             var currentHull = BlockGrid.Totals.Hull;
             var totalHull = Blueprint.Blocks.Totals.Hull;
             HullIntegrity = currentHull / totalHull;
+
+            if (Active)
+                Overlay.SetHullFill(currentHull, totalHull);
         }
 
         private void FixedUpdate() {
@@ -87,7 +78,7 @@ namespace Exa.Ships
             }
         }
 
-        protected void ActiveFixedUpdate(float fixedDeltaTime) {
+        protected virtual void ActiveFixedUpdate(float fixedDeltaTime) {
             ActionScheduler.ExecuteActions(fixedDeltaTime);
         }
 
@@ -113,12 +104,10 @@ namespace Exa.Ships
             Active = true;
             BlockContext = blockContext;
 
-            var radius = blueprint.Blocks.MaxSize / 2f * canvasScaleMultiplier;
+            var radius = blueprint.Blocks.MaxSize / 2f;
             mouseOverCollider.radius = radius;
             BlockGrid.Import(blueprint);
             Blueprint = blueprint;
-
-            UpdateCanvasSize(blueprint);
 
             gridAi.Init();
         }
@@ -130,7 +119,7 @@ namespace Exa.Ships
         public virtual void OnRaycastEnter() {
             if (!Active) return;
 
-            Overlay.overlayCircle.IsHovered = true;
+            (Overlay as GridOverlay)?.SetHovered(true);
             Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
 
             if (DebugMode.Ships.IsEnabled()) {
@@ -141,7 +130,7 @@ namespace Exa.Ships
         public virtual void OnRaycastExit() {
             if (!Active) return;
 
-            Overlay.overlayCircle.IsHovered = false;
+            (Overlay as GridOverlay)?.SetHovered(false);
             Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
 
             if (DebugMode.Ships.IsEnabled()) {
@@ -202,30 +191,12 @@ namespace Exa.Ships
             new TooltipGroup(gridAi.GetDebugTooltipComponents(), 1)
         });
 
-        public Vector2 GetPosition() {
-            return Rigidbody2D.worldCenterOfMass;
-        }
+        public abstract Vector2 GetPosition();
 
-        public void SetPosition(Vector2 position) {
-            transform.position = position - Rigidbody2D.centerOfMass;
-        }
-
-        public Vector2 GetDebugDraggerPosition() {
-            return transform.position;
-        }
-
-        public void SetDebugDraggerGlobals(Vector2 position, Vector2 velocity) {
-            transform.position = position;
-            rb.velocity = velocity;
-        }
+        public abstract void SetPosition(Vector2 position);
 
         public void Rotate(float degrees) {
             Rigidbody2D.rotation += degrees;
-        }
-
-        private void UpdateCanvasSize(Blueprint blueprint) {
-            var size = blueprint.Blocks.MaxSize * 10 * canvasScaleMultiplier;
-            Overlay.rectContainer.sizeDelta = new Vector2(size, size);
         }
     }
 }

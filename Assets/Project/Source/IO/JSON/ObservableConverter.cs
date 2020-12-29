@@ -1,6 +1,6 @@
-﻿using Exa.Bindings;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
+using Exa.Types.Binding;
 
 namespace Exa.IO.Json
 {

@@ -19,7 +19,8 @@ namespace Exa.Gameplay
         }
 
         public override Vector2 GetWorldPosition() {
-            return worldPosition;
+            var mouseOffset = Systems.Input.MouseOffsetFromCentre * GetCalculatedOrthoSize() * 0.1f;
+            return worldPosition + mouseOffset;
         }
 
         public override float GetCalculatedOrthoSize() {

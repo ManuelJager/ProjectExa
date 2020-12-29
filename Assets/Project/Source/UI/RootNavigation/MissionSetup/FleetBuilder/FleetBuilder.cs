@@ -1,6 +1,6 @@
-﻿using Exa.Bindings;
-using Exa.Grids.Blueprints;
+﻿using Exa.Grids.Blueprints;
 using Exa.Ships;
+using Exa.Types.Binding;
 using Exa.Validation;
 using UnityEngine;
 using UnityEngine.Events;

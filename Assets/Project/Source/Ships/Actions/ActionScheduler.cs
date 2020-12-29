@@ -52,7 +52,7 @@ namespace Exa.Ships
                 stored = storage;
             }
 
-            gridInstance.Overlay.overlayEnergyBar.SetFill(stored / storage);
+            gridInstance.Overlay.SetEnergyFill(stored, storage);
         }
 
         /// <summary>

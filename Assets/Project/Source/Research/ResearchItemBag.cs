@@ -1,5 +1,4 @@
-﻿using Exa.Generics;
-using System.Linq;
+﻿using Exa.Types.Generics;
 using UnityEngine;
 
 namespace Exa.Research

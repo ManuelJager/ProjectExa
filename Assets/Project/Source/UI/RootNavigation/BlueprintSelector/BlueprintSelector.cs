@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using Exa.Bindings;
 using Exa.Grids.Blueprints;
 using Exa.IO;
+using Exa.Types.Binding;
 using Exa.UI.Components;
 using UnityEngine;
 

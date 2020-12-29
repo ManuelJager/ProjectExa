@@ -4,7 +4,8 @@ using Exa.Grids.Blueprints;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Exa.Bindings;
+using Exa.Types.Binding;
+using Exa.Types.Generics;
 using UnityEngine;
 using Exa.Utils;
 

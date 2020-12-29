@@ -1,5 +1,5 @@
-﻿using Exa.Generics;
-using System;
+﻿using System;
+using Exa.Types.Generics;
 using UnityEngine;
 
 namespace Exa.Audio

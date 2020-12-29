@@ -1,6 +1,6 @@
-﻿using Exa.Bindings;
-using Exa.Data;
+﻿using Exa.Data;
 using Exa.Grids.Blocks;
+using Exa.Types.Binding;
 using Exa.UI;
 using Exa.UI.Components;
 using UnityEngine;

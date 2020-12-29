@@ -41,7 +41,7 @@ namespace Exa.UI.Tooltips
         /// <param name="immediate"></param>
         public void UpdatePosition(bool immediate = false) {
             // Get the mouse position
-            var mousePos = Systems.Input.ScaledViewportPoint;
+            var mousePos = Systems.Input.MouseScaledViewportPoint;
             var clampedCorner = ClampPos(mousePos + offset);
             SetAnchoredPos(clampedCorner, immediate);
         }
@@ -56,7 +56,7 @@ namespace Exa.UI.Tooltips
             var pivot = tooltipRoot.pivot;
             var min = GetMinBounds(size, pivot);
             var max = GetMaxBounds(size, pivot, GetSize(RootRect));
-            return MathUtils.Clamp(input, min, max);
+            return input.Clamp(min, max);
         }
 
         protected virtual Vector2 GetTooltipSize() {

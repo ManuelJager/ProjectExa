@@ -19,7 +19,7 @@ namespace Exa.Math
             return new Vector2(RandomComponent(), RandomComponent());
         } 
 
-        public static Vector2 Clamp(Vector2 value, Vector2 min, Vector2 max) {
+        public static Vector2 Clamp(this Vector2 value, Vector2 min, Vector2 max) {
             return new Vector2 {
                 x = Mathf.Clamp(value.x, min.x, max.x),
                 y = Mathf.Clamp(value.y, min.y, max.y)

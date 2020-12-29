@@ -1,7 +1,7 @@
-﻿using Exa.Generics;
-using Exa.Grids.Blocks;
+﻿using Exa.Grids.Blocks;
 using Exa.UI.Tooltips;
 using System;
+using Exa.Types.Generics;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints

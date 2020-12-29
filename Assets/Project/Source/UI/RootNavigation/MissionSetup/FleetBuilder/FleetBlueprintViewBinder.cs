@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using Exa.Bindings;
 using Exa.Grids.Blueprints;
+using Exa.Types.Binding;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Exa.UI
 {
-    public class
-        FleetBlueprintViewBinder : ViewBinder<FleetBuilderBlueprintView, BlueprintContainer, Blueprint>
+    public class FleetBlueprintViewBinder : ViewBinder<FleetBuilderBlueprintView, BlueprintContainer, Blueprint>
     {
         [SerializeField] private GameObject tabPrefab;
 

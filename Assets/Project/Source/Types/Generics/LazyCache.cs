@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exa.Generics
+namespace Exa.Types.Generics
 {
     /// <summary>
     /// Supports a value with lazy initialization that can be invalidated

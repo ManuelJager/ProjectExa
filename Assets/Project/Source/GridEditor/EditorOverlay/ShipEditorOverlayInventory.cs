@@ -1,8 +1,8 @@
 ﻿using System;
-using Exa.Bindings;
 using Exa.Grids.Blocks;
 using Exa.UI.Components;
 using System.Collections.Generic;
+using Exa.Types.Binding;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;

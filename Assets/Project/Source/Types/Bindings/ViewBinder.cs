@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Bindings
+namespace Exa.Types.Binding
 {
     /// <summary>
     /// Controls views for a collection of models

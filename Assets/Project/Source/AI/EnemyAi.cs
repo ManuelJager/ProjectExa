@@ -9,9 +9,9 @@ namespace Exa.AI
     {
         protected override IEnumerable<IAction> BuildActionList() {
             return base.BuildActionList()
-                .Append(new ALookAtTarget(GridInstance as EnemyGridInstance))
-                .Append(new AMoveToTarget(GridInstance as EnemyGridInstance))
-                .Append(new AAvoidCollision(GridInstance as EnemyGridInstance, new AAvoidCollisionSettings {
+                .Append(new ALookAtTarget(GridInstance as EnemyGrid))
+                .Append(new AMoveToTarget(GridInstance as EnemyGrid))
+                .Append(new AAvoidCollision(GridInstance as EnemyGrid, new AAvoidCollisionSettings {
                     detectionRadius = GridInstance.BlockGrid.MaxSize,
                     priorityMultiplier = 1,
                     priorityBase = 10,

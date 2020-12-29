@@ -1,4 +1,4 @@
-﻿using Exa.Generics;
+﻿using Exa.Types;
 using UnityEngine;
 
 #pragma warning disable CS0649

@@ -1,4 +1,4 @@
-﻿namespace Exa.Bindings
+﻿namespace Exa.Types.Binding
 {
     public interface IObserver<T>
     {

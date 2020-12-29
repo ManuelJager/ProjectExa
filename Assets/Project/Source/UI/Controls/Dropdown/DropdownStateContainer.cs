@@ -1,6 +1,6 @@
-﻿using Exa.Generics;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Exa.Types.Generics;
 
 namespace Exa.UI.Controls
 {

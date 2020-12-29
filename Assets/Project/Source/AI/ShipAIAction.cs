@@ -5,10 +5,10 @@ namespace Exa.AI
     public abstract class GridAiAction<T> : GridAiAction
         where T : GridInstance
     {
-        protected T gridInstance;
+        protected T grid;
 
-        internal GridAiAction(T gridInstance) {
-            this.gridInstance = gridInstance;
+        internal GridAiAction(T grid) {
+            this.grid = grid;
         }
     }
 

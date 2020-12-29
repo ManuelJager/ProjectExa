@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
-using Exa.Bindings;
 using Exa.Data;
 using Exa.Grids.Blueprints;
+using Exa.Types.Binding;
 using Exa.UI.Components;
 using Exa.Utils;
 using UnityEngine;

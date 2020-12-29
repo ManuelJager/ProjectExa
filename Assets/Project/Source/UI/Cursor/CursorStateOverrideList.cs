@@ -1,5 +1,5 @@
 ﻿using System;
-using Exa.Generics;
+using Exa.Types.Generics;
 using UnityEngine.Events;
 
 namespace Exa.UI

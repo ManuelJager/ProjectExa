@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exa.Generics
+namespace Exa.Types
 {
     public class MarkerContainer
     {

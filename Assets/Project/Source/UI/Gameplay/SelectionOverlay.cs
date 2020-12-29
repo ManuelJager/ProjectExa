@@ -1,8 +1,8 @@
-﻿using Exa.Bindings;
-using Exa.Gameplay;
+﻿using Exa.Gameplay;
 using Exa.Ships;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Types.Binding;
 using UnityEngine;
 
 #pragma warning disable CS0649

@@ -71,7 +71,7 @@ namespace Exa.UI
         }
 
         private void Update() {
-            var viewportPoint = Systems.Input.ScaledViewportPoint;
+            var viewportPoint = Systems.Input.MouseScaledViewportPoint;
             rectTransform.anchoredPosition = viewportPoint;
             cursorScaleBlender.Update();
             UpdateCursorScaleAnim(viewportPoint);
@@ -119,7 +119,7 @@ namespace Exa.UI
         private void OnLeftMouseStarted(InputAction.CallbackContext context) {
             AnimCursorSize(sizeAnimSettings.active);
             cursorDragState = CursorDragState.BeginDragging;
-            DragPivot = Systems.Input.ScaledViewportPoint;
+            DragPivot = Systems.Input.MouseScaledViewportPoint;
         }
 
         private void OnLeftMouseCanceled(InputAction.CallbackContext context) {

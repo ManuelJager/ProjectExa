@@ -1,4 +1,4 @@
-﻿namespace Exa.Bindings
+﻿namespace Exa.Types.Binding
 {
     /// <summary>
     /// Interface to support sending push-based notification of changes in a collection

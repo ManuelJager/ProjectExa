@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
-using Exa.Generics;
 using Exa.Math;
+using Exa.Types.Generics;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;

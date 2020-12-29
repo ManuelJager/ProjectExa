@@ -18,17 +18,17 @@ namespace Exa.AI.Actions
 
         public override ActionLane Update(ActionLane blockedLanes) {
             var target = new ShipTarget(enemyTarget);
-            gridInstance.BlockGrid.Metadata.TurretList.SetTarget(target);
+            grid.BlockGrid.Metadata.TurretList.SetTarget(target);
 
             return ActionLane.AimTurrets;
         }
 
         protected override float CalculatePriority() {
-            var blockMask = new ShipMask(~gridInstance.BlockContext);
+            var blockMask = new ShipMask(~grid.BlockContext);
             var closestDistance = float.MaxValue;
 
-            foreach (var enemy in gridInstance.QueryNeighbours(detectionRadius, blockMask, true)) {
-                var distance = (enemy.transform.position - gridInstance.transform.position).magnitude;
+            foreach (var enemy in grid.QueryNeighbours(detectionRadius, blockMask, true)) {
+                var distance = (enemy.transform.position - grid.transform.position).magnitude;
 
                 if (distance < closestDistance) {
                     closestDistance = distance;

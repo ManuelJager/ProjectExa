@@ -1,5 +1,5 @@
-﻿using Exa.Generics;
-using System;
+﻿using System;
+using Exa.Types.Generics;
 
 namespace Exa.Grids.Blueprints
 {

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Exa.Bindings;
+using Exa.Types.Binding;
 using UnityEngine;
 
 #pragma warning disable CS0649

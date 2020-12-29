@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Exa.Generics
+namespace Exa.Types.Generics
 {
     [Serializable]
     public struct MinMax<T>

@@ -9,18 +9,14 @@ namespace Exa.Gameplay.Missions
     public class EndlessMission : Mission
     {
         public override void Init(MissionArgs args) {
-            SpawnPlayerStation(new GridInstanceConfiguration {
-                Invulnerable = true
-            });
+            SpawnPlayerStation(GridInstanceConfiguration.InvulnerableConfig);
             StartCoroutine(Spawn());
         }
 
         private IEnumerator Spawn() {
             yield return new WaitForSeconds(0.5f);
             yield return new WaitForSeconds(0.5f);
-            SpawnEnemy("defaultScout", 30, 20, new GridInstanceConfiguration {
-                Invulnerable = true
-            });
+            SpawnEnemy("defaultScout", 30, 20, GridInstanceConfiguration.InvulnerableConfig);
         }
     }
 }

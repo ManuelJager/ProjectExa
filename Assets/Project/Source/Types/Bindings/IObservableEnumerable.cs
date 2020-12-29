@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Exa.Bindings
+namespace Exa.Types.Binding
 {
     /// <summary>
     /// Provides

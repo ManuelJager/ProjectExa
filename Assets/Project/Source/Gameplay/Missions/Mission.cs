@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
-using Exa.Generics;
 using Exa.Grids;
-using Exa.Grids.Blueprints;
 using Exa.Ships;
+using Exa.Types.Generics;
 using UnityEngine;
 
 namespace Exa.Gameplay.Missions
@@ -18,13 +17,12 @@ namespace Exa.Gameplay.Missions
 
         public abstract void Init(MissionArgs args);
 
-        protected void SpawnPlayerStation(GridInstanceConfiguration configuration = default) {
-            var blueprint = Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
-            var station = GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
-            GameSystems.UI.gameplayLayer.coreHealthBar.TrackHealth(station);
+        protected PlayerStation SpawnPlayerStation(GridInstanceConfiguration configuration = default) {
+            var blueprint = Systems.Blueprints.GetBlueprint("defaultPlayerMothership"); 
+            return GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
         }
 
-        protected EnemyGridInstance SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration configuration = default) {
+        protected EnemyGrid SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration configuration = default) {
             var blueprint = Systems.Blueprints.GetBlueprint(name);
             var pos = new Vector2(xPos, yPos);
             return GameSystems.ShipFactory.CreateEnemy(blueprint, pos, configuration);

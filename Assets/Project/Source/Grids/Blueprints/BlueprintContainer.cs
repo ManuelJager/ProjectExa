@@ -1,8 +1,9 @@
-﻿using Exa.Bindings;
-using Exa.Generics;
+﻿using Exa.Generics;
 using Exa.IO;
 using Newtonsoft.Json;
 using System.IO;
+using Exa.Types.Binding;
+using Exa.Types.Generics;
 
 namespace Exa.Grids.Blueprints
 {

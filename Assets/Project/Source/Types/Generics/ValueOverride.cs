@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.Generics
+namespace Exa.Types.Generics
 {
     [System.Serializable]
     public class ValueOverride<T>

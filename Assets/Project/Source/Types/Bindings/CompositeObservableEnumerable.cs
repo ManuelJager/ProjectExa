@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Exa.Bindings
+namespace Exa.Types.Binding
 {
     public class CompositeObservableEnumerable<T> : IObservableEnumerable<T>, ICollectionObserver<T>
     {

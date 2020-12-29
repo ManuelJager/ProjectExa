@@ -1,4 +1,4 @@
-﻿using Exa.Generics;
+﻿using Exa.Types.Generics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;

@@ -16,21 +16,21 @@ namespace Exa.AI.Actions
     }
 
     // TODO: Use position prediction and target paths to increase accuracy
-    public class AAvoidCollision : GridAiAction<EnemyGridInstance>
+    public class AAvoidCollision : GridAiAction<EnemyGrid>
     {
         public override ActionLane Lanes => ActionLane.Movement;
 
         private List<GridInstance> neighbourCache;
         private readonly AAvoidCollisionSettings settings;
 
-        internal AAvoidCollision(EnemyGridInstance gridInstance, AAvoidCollisionSettings settings)
-            : base(gridInstance) {
+        internal AAvoidCollision(EnemyGrid grid, AAvoidCollisionSettings settings)
+            : base(grid) {
             this.settings = settings;
         }
 
         public override ActionLane Update(ActionLane blockedLanes) {
-            var globalPos = gridInstance.transform.position.ToVector2();
-            var currentVel = gridInstance.Rigidbody2D.velocity;
+            var globalPos = grid.transform.position.ToVector2();
+            var currentVel = grid.Rigidbody2D.velocity;
             var headingVector = currentVel.normalized;
 
             foreach (var neighbour in neighbourCache) {
@@ -44,21 +44,21 @@ namespace Exa.AI.Actions
                 settings.detectionRadius);
             var target = new StaticPositionTarget(globalPos + offset);
 
-            gridInstance.Navigation.MoveTo = target;
+            grid.Navigation.MoveTo = target;
 
             return ActionLane.Movement;
         }
 
         // TODO: Improve detection of large ships, as this only registers other ships whose centre overlaps the detection radius
         protected override float CalculatePriority() {
-            var globalPos = gridInstance.transform.position;
+            var globalPos = grid.transform.position;
             var shipMask = new ShipMask(~BlockContext.None);
             var shortestDistance = float.MaxValue;
 
             neighbourCache?.Clear();
             neighbourCache = neighbourCache ?? new List<GridInstance>();
 
-            foreach (var neighbour in gridInstance.QueryNeighbours(settings.detectionRadius, shipMask)) {
+            foreach (var neighbour in grid.QueryNeighbours(settings.detectionRadius, shipMask)) {
                 if (!ShouldYield(neighbour)) continue;
 
                 var neighbourPos = neighbour.transform.position;
@@ -90,14 +90,14 @@ namespace Exa.AI.Actions
         }
 
         private bool ShouldYield(GridInstance other) {
-            var thisMass = gridInstance.Blueprint.Blocks.Totals.Mass;
+            var thisMass = grid.Blueprint.Blocks.Totals.Mass;
             var otherMass = other.Blueprint.Blocks.Totals.Mass;
 
             if (otherMass != thisMass) {
                 return otherMass > thisMass;
             }
 
-            return other.GetInstanceID() > gridInstance.GetInstanceID();
+            return other.GetInstanceID() > grid.GetInstanceID();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blueprints;
+using Exa.Types.Binding;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Exa.UI
 {
-    public class BlueprintView : MonoBehaviour, Bindings.IObserver<Blueprint>
+    public class BlueprintView : MonoBehaviour, IObserver<Blueprint>
     {
         [Header("References")] 
         public Button deleteButton;

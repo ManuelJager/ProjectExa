@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Exa.Bindings;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
+using Exa.Types.Binding;
 using Exa.Utils;
 
 namespace Exa.Grids

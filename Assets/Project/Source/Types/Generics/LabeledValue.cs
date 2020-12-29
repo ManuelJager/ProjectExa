@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace Exa.Generics
+namespace Exa.Types.Generics
 {
     public struct LabeledValue<T> : ILabeledValue<T>, IEquatable<LabeledValue<T>>, ITooltipComponent
     {

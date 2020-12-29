@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Exa.Data;
-using Exa.Generics;
+using Exa.Types.Generics;
 using Exa.UI.Tooltips;
 
 namespace Exa.Grids.Blocks.Components

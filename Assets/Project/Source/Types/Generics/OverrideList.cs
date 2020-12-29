@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Exa.Generics
+namespace Exa.Types.Generics
 {
     public class OverrideList<T> : IEnumerable<ValueOverride<T>>
     {

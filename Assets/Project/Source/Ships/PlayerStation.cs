@@ -2,32 +2,31 @@
 using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
-using Exa.Ships.Navigation;
 using UnityEngine;
 
 namespace Exa.Ships
 {
-    public class EnemyGridInstance : GridInstance
+    public class PlayerStation : GridInstance
     {
-        public INavigation Navigation { get; private set; }
-
-        [SerializeField] private NavigationOptions navigationOptions;
-
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
-            Navigation = navigationOptions.GetNavigation(this, blueprint);
             base.Import(blueprint, blockContext, configuration);
-        }
-
-        public float GetTurningRate() {
-            return BlockGrid.Totals.TurningPower / BlockGrid.Totals.Mass;
+            Overlay = GameSystems.UI.gameplayLayer.coreHealthBar;
         }
 
         public override ShipSelection GetAppropriateSelection(Formation formation) {
-            return new EnemyShipSelection(formation);
+            return new FriendlyShipSelection(formation);
         }
 
         public override bool MatchesSelection(ShipSelection selection) {
-            return selection is EnemyShipSelection;
+            return selection is FriendlyShipSelection;
+        }
+
+        public override Vector2 GetPosition() {
+            return transform.position + Controller.transform.localPosition;
+        }
+
+        public override void SetPosition(Vector2 position) {
+            transform.position = position - (Vector2)Controller.transform.localPosition;
         }
     }
 }

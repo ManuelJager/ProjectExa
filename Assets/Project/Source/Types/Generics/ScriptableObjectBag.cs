@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Exa.Generics
+namespace Exa.Types.Generics
 {
     public class ScriptableObjectBag<T> : ScriptableObjectBagBase, IEnumerable<T>
         where T : ScriptableObject
@@ -40,10 +40,5 @@ namespace Exa.Generics
         IEnumerator IEnumerable.GetEnumerator() {
             return objects.GetEnumerator();
         }
-    }
-
-    public abstract class ScriptableObjectBagBase : ScriptableObject
-    {
-        public abstract void FindObjects();
     }
 }

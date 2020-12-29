@@ -1,4 +1,4 @@
-﻿using Exa.Bindings;
+﻿using Exa.Types.Binding;
 
 namespace Exa.Grids.Blocks
 {

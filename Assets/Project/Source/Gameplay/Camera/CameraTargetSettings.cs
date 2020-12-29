@@ -1,6 +1,6 @@
 ﻿using System;
-using Exa.Generics;
 using Exa.Math;
+using Exa.Types.Generics;
 using UnityEngine;
 
 namespace Exa.Gameplay

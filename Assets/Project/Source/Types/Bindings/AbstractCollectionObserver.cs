@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.Bindings
+namespace Exa.Types.Binding
 {
     public abstract class AbstractCollectionObserver<T> : MonoBehaviour, ICollectionObserver<T>
     {

@@ -6,28 +6,20 @@ using UnityEngine.UI;
 
 namespace Exa.Gameplay
 {
-    public class CoreHealthBar : MonoBehaviour
+    public class CoreHealthBar : MonoBehaviour, IGridOverlay
     {
         [SerializeField] private RectTransform bar;
         [SerializeField] private Text maxHullText;
         [SerializeField] private Text currentHullText;
-        private GridInstance instance;
 
-        public void TrackHealth(GridInstance instance) {
-            this.instance = instance;
+        public void SetEnergyFill(float current, float max) {
+            
         }
 
-        public void Update() {
-            if (instance == null) return;
-
-            var physicalBehaviour = instance.Controller.PhysicalBehaviour;
-            var currentHull = physicalBehaviour.Data.hull;
-            var maxHull = physicalBehaviour.GetDefaultData().hull;
-            var integrity = currentHull / maxHull;
-
-            bar.localScale = new Vector3(integrity, 1, 1);
-            currentHullText.text = Mathf.RoundToInt(currentHull).ToString();
-            maxHullText.text = Mathf.RoundToInt(maxHull).ToString();
+        public void SetHullFill(float current, float max) {
+            bar.localScale = new Vector3(current / max, 1, 1);
+            currentHullText.text = Mathf.RoundToInt(current).ToString();
+            maxHullText.text = Mathf.RoundToInt(max).ToString();
         }
     }
 }
