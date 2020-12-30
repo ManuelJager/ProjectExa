@@ -2846,6 +2846,11 @@ PrefabInstance:
       objectReference: {fileID: 1644759584}
     - target: {fileID: 5676475580568291470, guid: 29d1d30fcec04de40816d90ac6e32d7e,
         type: 3}
+      propertyPath: loadSafe
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676475580568291470, guid: 29d1d30fcec04de40816d90ac6e32d7e,
+        type: 3}
       propertyPath: gridEditor
       value: 
       objectReference: {fileID: 684846338}

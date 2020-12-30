@@ -36,14 +36,14 @@ namespace Exa.Grids
         }
 
         public void OnAdd(Block value) {
-            if (value is ITurret turret)
+            if (value is ITurretPlatform turret)
                 TurretList.Add(turret);
             if (value is IThruster thruster)
                 ThrusterList.Add(thruster);
         }
 
         public void OnRemove(Block value) {
-            if (value is ITurret turret)
+            if (value is ITurretPlatform turret)
                 TurretList.Remove(turret);
             if (value is IThruster thruster)
                 ThrusterList.Remove(thruster);

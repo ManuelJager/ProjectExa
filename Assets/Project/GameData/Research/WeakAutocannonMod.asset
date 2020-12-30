@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7284ed509dd5c9d4a9196237c9a7789a, type: 3}
-  m_Name: GaussCannonExplosiveUpgrade
+  m_Script: {fileID: 11500000, guid: b8e576c87acc7ad4782dbfe5fea273eb, type: 3}
+  m_Name: WeakAutocannonMod
   m_EditorClassIdentifier: 
-  autoEnableOn: 0
+  autoEnableOn: 6

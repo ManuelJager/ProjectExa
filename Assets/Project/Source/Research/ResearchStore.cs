@@ -22,6 +22,12 @@ namespace Exa.Research
             }
         }
 
+        public void AutoEnableItems() {
+            foreach (var researchItem in researchItemBag) {
+                researchItem.AutoEnable();
+            }
+        }
+
         public ResearchItem Find(string id) {
             return researchItemBag.FirstOrDefault(item => item.Id == id);
         }

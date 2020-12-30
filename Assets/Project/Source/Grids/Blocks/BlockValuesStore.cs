@@ -23,10 +23,11 @@ namespace Exa.Grids.Blocks
                 throw new ArgumentException("Block template with given Id is already registered");
             }
 
+            // Create a bundle with an empty cache, as research modifiers may yet still be applied
             var bundle = new TemplateBundle {
                 template = blockTemplate,
-                valuesCache = ComputeValues(blockContext, blockTemplate),
-                valuesAreDirty = false
+                valuesCache = null,
+                valuesAreDirty = true
             };
 
             templateDict.Add(blockTemplate, bundle);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Exa.Grids;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
 using Exa.Types.Generics;
 using UnityEngine;
@@ -14,12 +15,17 @@ namespace Exa.Gameplay.Missions
 
         public string Label => missionName;
         public Mission Value => this;
+        public PlayerStation Station { get; protected set; }
 
         public abstract void Init(MissionArgs args);
 
-        protected PlayerStation SpawnPlayerStation(GridInstanceConfiguration configuration = default) {
-            var blueprint = Systems.Blueprints.GetBlueprint("defaultPlayerMothership"); 
-            return GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
+        public void Update() {
+        }
+
+        protected void SpawnPlayerStation(GridInstanceConfiguration configuration = default) {
+            var blueprint = Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
+            Station = GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
+            (Station.Controller as ITurretPlatform).SetTarget(new MouseCursorTarget());
         }
 
         protected EnemyGrid SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration configuration = default) {

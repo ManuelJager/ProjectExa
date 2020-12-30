@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Exa.Grids.Blocks.Components;
+﻿using Exa.Grids.Blocks.Components;
 using UnityEngine;
 
 namespace Exa.Research

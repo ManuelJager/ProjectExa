@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Autocannon : Block, IBehaviourMarker<AutocannonData>, ITurret
+    public class Autocannon : Block, IBehaviourMarker<AutocannonData>, ITurretPlatform
     {
         [SerializeField] private AutocannonBehaviour turretBehaviour;
 
@@ -18,6 +18,8 @@ namespace Exa.Grids.Blocks.BlockTypes
             return base.GetBehaviours()
                 .Append(turretBehaviour);
         }
+
+        public bool AutoFireEnabled => turretBehaviour.AutoFireEnabled;
 
         public void SetTarget(IWeaponTarget target) {
             turretBehaviour.Target = target;

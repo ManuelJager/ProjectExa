@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public class AutocannonBehaviour : TurretBehaviour<AutocannonData>
+    public class AutocannonBehaviour : AutoFireTurret<AutocannonData>
     {
         [SerializeField] private AutocannonPart[] parts;
         private int currentPoint = 0;

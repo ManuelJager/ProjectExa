@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp:Exa.Research:ResearchItemBag
   objects:
   - {fileID: 11400000, guid: a970d0facbb1f1b43b386e57a391b144, type: 2}
+  - {fileID: 11400000, guid: 15a6113968eb4884e812fcd2326562b3, type: 2}

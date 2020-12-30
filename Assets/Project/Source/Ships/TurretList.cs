@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 namespace Exa.Ships
 {
-    public class TurretList : List<ITurret>
+    public class TurretList : List<ITurretPlatform>
     {
         public void SetTarget(IWeaponTarget target) {
             foreach (var turret in this) {
-                turret.SetTarget(target);
+                if (turret.AutoFireEnabled) {
+                    turret.SetTarget(target);
+                }
             }
         }
     }

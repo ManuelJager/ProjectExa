@@ -105,6 +105,9 @@ namespace Exa
                 UI.loadingScreen.UpdateMessage(message);
             })), targetFrameRate);
 
+            // Enable research items after the block factory is initialized, as research items call the block factory when enabled
+            researchStore.AutoEnableItems();
+
             yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.Init(new Progress<float>(value => {
                 var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)}% complete) ...";
                 UI.loadingScreen.UpdateMessage(message);

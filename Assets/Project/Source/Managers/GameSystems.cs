@@ -45,5 +45,11 @@ namespace Exa
             Mission = mission;
             mission.Init(args);
         }
+
+        public void Update() {
+            if (Mission != null) {
+                Mission.Update();
+            }
+        }
     }
 }

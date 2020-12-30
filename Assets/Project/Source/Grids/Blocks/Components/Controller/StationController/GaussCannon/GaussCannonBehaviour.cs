@@ -1,4 +1,6 @@
-﻿namespace Exa.Grids.Blocks.Components
+﻿using UnityEngine;
+
+namespace Exa.Grids.Blocks.Components
 {
     public class GaussCannonBehaviour : TurretBehaviour<GaussCannonData>
     {
