@@ -25,7 +25,7 @@ namespace Exa.Gameplay.Missions
         protected void SpawnPlayerStation(GridInstanceConfiguration configuration = default) {
             var blueprint = Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
             Station = GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
-            (Station.Controller as ITurretPlatform).SetTarget(new MouseCursorTarget());
+            ((ITurretPlatform)Station.Controller).SetTarget(new MouseCursorTarget());
         }
 
         protected EnemyGrid SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration configuration = default) {
