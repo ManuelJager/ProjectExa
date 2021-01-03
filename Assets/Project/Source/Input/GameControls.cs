@@ -925,6 +925,33 @@ namespace Exa.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerStation"",
+            ""id"": ""d0b94873-f500-4793-a15b-0dac208926b7"",
+            ""actions"": [
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d02f292-a019-4882-b2d9-e5b82ca30e1b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ade5d63f-cadd-425b-839d-78b4aa859b3a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -973,6 +1000,9 @@ namespace Exa.Input
             m_Gameplay_SaveGroup = m_Gameplay.FindAction("SaveGroup", throwIfNotFound: true);
             m_Gameplay_SelectGroup = m_Gameplay.FindAction("SelectGroup", throwIfNotFound: true);
             m_Gameplay_SaveGroupModifier = m_Gameplay.FindAction("SaveGroupModifier", throwIfNotFound: true);
+            // PlayerStation
+            m_PlayerStation = asset.FindActionMap("PlayerStation", throwIfNotFound: true);
+            m_PlayerStation_Fire = m_PlayerStation.FindAction("Fire", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1270,6 +1300,39 @@ namespace Exa.Input
             }
         }
         public GameplayActions @Gameplay => new GameplayActions(this);
+
+        // PlayerStation
+        private readonly InputActionMap m_PlayerStation;
+        private IPlayerStationActions m_PlayerStationActionsCallbackInterface;
+        private readonly InputAction m_PlayerStation_Fire;
+        public struct PlayerStationActions
+        {
+            private @GameControls m_Wrapper;
+            public PlayerStationActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Fire => m_Wrapper.m_PlayerStation_Fire;
+            public InputActionMap Get() { return m_Wrapper.m_PlayerStation; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerStationActions set) { return set.Get(); }
+            public void SetCallbacks(IPlayerStationActions instance)
+            {
+                if (m_Wrapper.m_PlayerStationActionsCallbackInterface != null)
+                {
+                    @Fire.started -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnFire;
+                    @Fire.performed -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnFire;
+                    @Fire.canceled -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnFire;
+                }
+                m_Wrapper.m_PlayerStationActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Fire.started += instance.OnFire;
+                    @Fire.performed += instance.OnFire;
+                    @Fire.canceled += instance.OnFire;
+                }
+            }
+        }
+        public PlayerStationActions @PlayerStation => new PlayerStationActions(this);
         private int m_MouseKbSchemeIndex = -1;
         public InputControlScheme MouseKbScheme
         {
@@ -1309,6 +1372,10 @@ namespace Exa.Input
             void OnSaveGroup(InputAction.CallbackContext context);
             void OnSelectGroup(InputAction.CallbackContext context);
             void OnSaveGroupModifier(InputAction.CallbackContext context);
+        }
+        public interface IPlayerStationActions
+        {
+            void OnFire(InputAction.CallbackContext context);
         }
     }
 }

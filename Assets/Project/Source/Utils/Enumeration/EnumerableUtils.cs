@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Exa.Utils
 {
@@ -44,6 +46,16 @@ namespace Exa.Utils
             foreach (var element in enumerable) {
                 action(element);
             }
+        }
+
+        public static TTarget FindFirst<TTarget>(this IEnumerable enumerable) {
+            foreach (var elem in enumerable) {
+                if (elem is TTarget target) {
+                    return target;
+                }
+            }
+
+            return default;
         }
     }
 }

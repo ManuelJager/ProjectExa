@@ -1,4 +1,6 @@
-﻿using Exa.Math;
+﻿using System;
+using Exa.Grids.Blocks.BlockTypes;
+using Exa.Math;
 using Exa.Ships;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -41,7 +43,7 @@ namespace Exa.Gameplay
         public void OnRightClick(InputAction.CallbackContext context) {
             switch (context.phase) {
                 case InputActionPhase.Started:
-                    if (HasSelection && CurrentSelection is FriendlyShipSelection selection) {
+                    if (CurrentSelection is FriendlyShipSelection selection) {
                         var point = Systems.Input.MouseWorldPoint;
                         selection.MoveLookAt(point);
                         return;

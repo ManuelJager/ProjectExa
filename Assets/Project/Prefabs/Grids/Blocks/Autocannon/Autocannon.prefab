@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5632532741842114357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70032b9cfafc6c24fb1a7bd4630b1441, type: 3}
+  m_Script: {fileID: 11500000, guid: e0137dd24c4320a4f86371eda34de905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
+  data:
+    turningRate: 0
+    firingRate: 0
+    damage: 0
+    cycleMode: 0
   turret: {fileID: 4869053145928036473}
   parts:
   - {fileID: 4044106038289045004}
@@ -30,6 +35,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
+  data:
+    hull: 0
+    armor: 0
+    mass: 0
 --- !u!114 &7208588484925278604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,6 +58,7 @@ MonoBehaviour:
       flippedX: 0
       flippedY: 0
   physicalBehaviour: {fileID: 7208588484925278603}
+  collider: {fileID: 0}
   turretBehaviour: {fileID: 7208588484925278602}
 --- !u!114 &4044106038289045004
 MonoBehaviour:
@@ -256,6 +266,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1128024027608330024, guid: 32232d525af1553449ae80920da2fe74,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128024027608330024, guid: 32232d525af1553449ae80920da2fe74,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -271,6 +286,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1128024027608330024, guid: 32232d525af1553449ae80920da2fe74,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128024027608330024, guid: 32232d525af1553449ae80920da2fe74,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -282,16 +302,6 @@ PrefabInstance:
     - target: {fileID: 1128024027608330024, guid: 32232d525af1553449ae80920da2fe74,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1128024027608330024, guid: 32232d525af1553449ae80920da2fe74,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1128024027608330024, guid: 32232d525af1553449ae80920da2fe74,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1128024027608330024, guid: 32232d525af1553449ae80920da2fe74,
@@ -326,12 +336,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7959871513899177796, guid: 32232d525af1553449ae80920da2fe74,
         type: 3}
-      propertyPath: m_LocalPosition.z
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7959871513899177796, guid: 32232d525af1553449ae80920da2fe74,
         type: 3}
-      propertyPath: m_LocalPosition.x
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

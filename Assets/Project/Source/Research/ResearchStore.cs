@@ -34,7 +34,7 @@ namespace Exa.Research
 
         public T Find<T>()
             where T : ResearchItem {
-            return researchItemBag.FirstOrDefault(item => item is T) as T;
+            return researchItemBag.FindFirst<T>();
         }
 
         public T ApplyModifiers<T>(BlockContext context, T baseValues)

@@ -6,15 +6,17 @@ using Exa.UI.Tooltips;
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
-    public struct GaussCannonData : ITurretValues
+    public struct GaussCannonData : IChargeableTurretValues
     {
         public float turningRate;
         public float firingRate;
         public float damage;
+        public float chargeTime;
 
         public float TurningRate => turningRate;
         public float FiringRate => firingRate;
         public float Damage => damage;
+        public float ChargeTime => chargeTime;
 
         public void AddGridTotals(GridTotals totals) { }
 

@@ -32,7 +32,7 @@ namespace Exa.Grids.Blocks
 
         public T FindTemplate<T>()
             where T : class {
-            return blockTemplateBag.FirstOrDefault(item => item is T) as T;
+            return blockTemplateBag.FindFirst<T>();
         }
 
         public IEnumerator Init(IProgress<float> progress) {

@@ -6,5 +6,6 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         bool AutoFireEnabled { get; }
         void SetTarget(IWeaponTarget target);
+        void Fire();
     }
 }

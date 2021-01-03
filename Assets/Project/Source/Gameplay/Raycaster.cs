@@ -35,7 +35,7 @@ namespace Exa.Gameplay
                 return false;
             }
 
-            result = CurrentTargets.FirstOrDefault(target => target is T) as T;
+            result = CurrentTargets.FindFirst<T>();
             return result != null;
         }
 

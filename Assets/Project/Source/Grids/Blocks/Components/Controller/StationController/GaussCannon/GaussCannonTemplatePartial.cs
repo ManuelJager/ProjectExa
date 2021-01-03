@@ -9,11 +9,13 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private float turningRate;
         [SerializeField] private float firingRate;
         [SerializeField] private float damage;
+        [SerializeField] private float chargeTime;
 
         public override GaussCannonData ToBaseComponentValues() => new GaussCannonData {
             turningRate = turningRate,
             firingRate = firingRate,
-            damage = damage
+            damage = damage,
+            chargeTime = chargeTime
         };
     }
 }

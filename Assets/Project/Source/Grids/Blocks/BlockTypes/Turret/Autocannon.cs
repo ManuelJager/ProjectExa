@@ -24,5 +24,9 @@ namespace Exa.Grids.Blocks.BlockTypes
         public void SetTarget(IWeaponTarget target) {
             turretBehaviour.Target = target;
         }
+
+        public void Fire() {
+            turretBehaviour.Fire();
+        }
     }
 }
