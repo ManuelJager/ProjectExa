@@ -6,15 +6,18 @@ namespace Exa.Grids.Blocks.Components
     public abstract class ChargeableTurretBehaviour<T> : TurretBehaviour<T>
         where T : struct, IChargeableTurretValues
     {
-        private bool charging;
-        private float chargeTime;
+        protected bool charging;
+        protected float chargeTime;
 
-        public void StartCharge() {
+        [Header("Settings")]
+        [SerializeField] protected float chargeDecaySpeed = 4f;
+
+        public virtual void StartCharge() {
             charging = true;
             chargeTime = 0f;
         }
 
-        public void EndCharge() {
+        public virtual void EndCharge() {
             charging = false;
         }
 
@@ -23,10 +26,22 @@ namespace Exa.Grids.Blocks.Components
             if (charging) {
                 chargeTime += Time.deltaTime;
                 if (chargeTime > Data.ChargeTime) {
+                    charging = false;
                     Fire();
                     chargeTime = 0f;
                 }
             }
+            else {
+                chargeTime -= Time.deltaTime * chargeDecaySpeed;
+            }
+
+            if (chargeTime < 0f) {
+                chargeTime = 0f;
+            }
+        }
+
+        protected float GetNormalizedChargeProgress() {
+            return chargeTime == 0f ? 0f : chargeTime / Data.ChargeTime;
         }
     }
 }

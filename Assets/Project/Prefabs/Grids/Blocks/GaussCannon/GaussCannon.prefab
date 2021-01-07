@@ -75,6 +75,7 @@ MonoBehaviour:
     damage: 0
     chargeTime: 0
   turret: {fileID: 4706351059954302035}
+  animator: {fileID: 5789612439872278005}
 --- !u!95 &5789612439872278005
 Animator:
   serializedVersion: 3
@@ -85,7 +86,7 @@ Animator:
   m_GameObject: {fileID: 3265098442535201980}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98aa9dfc44c683d43ada0ee5387461fe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

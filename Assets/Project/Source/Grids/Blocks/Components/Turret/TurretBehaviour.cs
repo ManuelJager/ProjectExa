@@ -10,7 +10,7 @@ namespace Exa.Grids.Blocks.Components
         where T : struct, ITurretValues
     {
         [Header("References")]
-        [SerializeField] private Transform turret;
+        [SerializeField] protected Transform turret;
 
         protected float timeSinceFire;
 

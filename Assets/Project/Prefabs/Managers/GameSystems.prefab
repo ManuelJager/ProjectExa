@@ -56,6 +56,8 @@ MonoBehaviour:
   gameplayUI: {fileID: 0}
   aIManager: {fileID: 0}
   spawnLayer: {fileID: 4286009776099489547}
+  blockGridManager: {fileID: 0}
+  popupManager: {fileID: 0}
 --- !u!114 &3971752618548431335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +67,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3971752618548431355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7f44cf94082cf041bfb5bb402f2d68c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b0122423b776e94dae13c2a9b3b4da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1150010444763719143
