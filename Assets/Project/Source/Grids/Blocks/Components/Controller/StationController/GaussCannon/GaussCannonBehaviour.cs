@@ -33,7 +33,7 @@ namespace Exa.Grids.Blocks.Components
             lineRenderer.SetPosition(1, endPoint);
 
             lineRenderer.enabled = true;
-            lineRenderer.widthMultiplier = 1f;
+            lineRenderer.widthMultiplier = 1.5f;
             lineRenderer.DOWidthMultiplier(0f, 0.5f)
                 .OnComplete(() => lineRenderer.enabled = false);
         }

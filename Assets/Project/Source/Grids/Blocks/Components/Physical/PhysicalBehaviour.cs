@@ -9,9 +9,11 @@ namespace Exa.Grids.Blocks.Components
 
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
     {
+        // TODO: replace damage source by an actual type
         /// <summary>
         /// Takes a given amount of damage
         /// </summary>
+        /// <param name="damageSource">Damage source metadata</param>
         /// <param name="damage">The damage to take</param>
         /// <returns></returns>
         public DamageInstanceData AbsorbDamage(object damageSource, float damage) {

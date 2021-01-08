@@ -32,6 +32,6 @@ MonoBehaviour:
   gaussCannonTemplatePartial:
     turningRate: 0
     firingRate: 0
-    damage: 50
+    damage: 250
     chargeTime: 1
     range: 100
