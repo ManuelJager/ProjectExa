@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -6,13 +8,16 @@ namespace Exa.Grids.Blocks.Components
     {
         [Header("References")]
         [SerializeField] private Animator animator;
+        [SerializeField] private Transform beamOrigin;
+        [SerializeField] private LineRenderer lineRenderer;
 
         public override void StartCharge() {
             base.StartCharge();
             animator.Play("Charge", 0, GetNormalizedChargeProgress());
-#if UNITY_EDITOR
-            UnityEditor.EditorGUIUtility.PingObject(turret);
-#endif
+        }
+
+        protected override void BlockUpdate() {
+            base.BlockUpdate();
         }
 
         public override void EndCharge() {
@@ -23,7 +28,13 @@ namespace Exa.Grids.Blocks.Components
         }
 
         public override void Fire() {
-            Debug.Log("Fired");
+            lineRenderer.SetPosition(0, beamOrigin.position);
+            lineRenderer.SetPosition(1, beamOrigin.right * 10);
+
+            lineRenderer.enabled = true;
+            lineRenderer.widthMultiplier = 1f;
+            lineRenderer.DOWidthMultiplier(0f, 0.5f)
+                .OnComplete(() => lineRenderer.enabled = false);
         }
 
         protected override void OnAdd() {

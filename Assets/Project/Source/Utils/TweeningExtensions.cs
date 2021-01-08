@@ -90,6 +90,17 @@ namespace Exa.Utils
 
         #endregion
 
+        #region LineRenderer
+
+        public static TweenerCore<float, float, FloatOptions> DOWidthMultiplier(this LineRenderer target,
+            float value, float time) {
+            return DOTween
+                .To(() => target.widthMultiplier, x => target.widthMultiplier = x, value, time)
+                .SetTarget(target);
+        }
+
+        #endregion
+
         #endregion
     }
 }
