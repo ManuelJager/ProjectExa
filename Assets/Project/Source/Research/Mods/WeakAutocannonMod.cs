@@ -7,7 +7,7 @@ namespace Exa.Research
     public class WeakAutocannonMod : BlockComponentModifier<AutocannonData>
     {
         protected override void MultiplicativeStep(AutocannonData initialData, ref AutocannonData currentData) {
-            currentData.damage *= 0.05f;
+            currentData.damage *= 0.01f;
         }
     }
 }

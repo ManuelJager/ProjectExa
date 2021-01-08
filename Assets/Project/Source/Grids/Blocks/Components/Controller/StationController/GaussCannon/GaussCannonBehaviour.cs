@@ -1,4 +1,7 @@
-﻿using DG.Tweening;
+﻿using System.Linq;
+using DG.Tweening;
+using Exa.Grids.Blocks.BlockTypes;
+using Exa.Ships;
 using Exa.Utils;
 using UnityEngine;
 
@@ -16,10 +19,6 @@ namespace Exa.Grids.Blocks.Components
             animator.Play("Charge", 0, GetNormalizedChargeProgress());
         }
 
-        protected override void BlockUpdate() {
-            base.BlockUpdate();
-        }
-
         public override void EndCharge() {
             if (charging) {
                 animator.Play("CancelCharge", 0, 1f - GetNormalizedChargeProgress());
@@ -28,8 +27,10 @@ namespace Exa.Grids.Blocks.Components
         }
 
         public override void Fire() {
+            var endPoint = HitScanFire(Data.Damage, Data.Range, beamOrigin);
+
             lineRenderer.SetPosition(0, beamOrigin.position);
-            lineRenderer.SetPosition(1, beamOrigin.right * 10);
+            lineRenderer.SetPosition(1, endPoint);
 
             lineRenderer.enabled = true;
             lineRenderer.widthMultiplier = 1f;

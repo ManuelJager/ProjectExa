@@ -12,6 +12,12 @@ namespace Exa.Utils
             return monoBehaviour.StartCoroutine(DelayOneFrame(callback));
         }
 
+        public static bool MoveNext<T>(this IEnumerator<T> enumerator, out T current) {
+            var next = enumerator.MoveNext();
+            current = enumerator.Current;
+            return next;
+        }
+
         public static IEnumerator EnumerateSafe(IEnumerator enumerator, Action<Exception> catcher) {
             while (true) {
                 object current;

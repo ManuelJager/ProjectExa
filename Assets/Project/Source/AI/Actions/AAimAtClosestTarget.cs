@@ -24,7 +24,7 @@ namespace Exa.AI.Actions
         }
 
         protected override float CalculatePriority() {
-            var blockMask = new ShipMask(~grid.BlockContext);
+            var blockMask = (~grid.BlockContext).GetShipMask();
             var closestDistance = float.MaxValue;
 
             foreach (var enemy in grid.QueryNeighbours(detectionRadius, blockMask, true)) {

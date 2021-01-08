@@ -16,7 +16,7 @@ namespace Exa.Gameplay.Missions
         private IEnumerator Spawn() {
             yield return new WaitForSeconds(0.5f);
             yield return new WaitForSeconds(0.5f);
-            SpawnEnemy("defaultScout", 30, 20, GridInstanceConfiguration.InvulnerableConfig);
+            SpawnEnemy("defaultScout", 10, 0);
         }
     }
 }

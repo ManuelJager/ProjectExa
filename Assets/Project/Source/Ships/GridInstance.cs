@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using Exa.Grids;
 using Exa.Types.Generics;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -139,8 +140,8 @@ namespace Exa.Ships
         }
 
         // TODO: Somehow cache this, or let the results come from a central manager
-        public IEnumerable<GridInstance> QueryNeighbours(float radius, ShipMask shipMask, bool mustBeActive = false) {
-            var colliders = Physics2D.OverlapCircleAll(transform.position, radius, shipMask.LayerMask);
+        public IEnumerable<GridInstance> QueryNeighbours(float radius, ContextMask contextMask, bool mustBeActive = false) {
+            var colliders = Physics2D.OverlapCircleAll(transform.position, radius, contextMask.LayerMask);
 
             foreach (var collider in colliders) {
                 var neighbour = collider.gameObject.GetComponent<GridInstance>();
@@ -148,7 +149,7 @@ namespace Exa.Ships
                     continue;
                 }
 
-                var passesContextMask = (neighbour.BlockContext & shipMask.ContextMask) != 0;
+                var passesContextMask = contextMask.HasValue(neighbour.BlockContext);
                 if (!ReferenceEquals(neighbour, this) && passesContextMask) {
                     if (mustBeActive && !neighbour.Active) {
                         continue;

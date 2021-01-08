@@ -12,11 +12,13 @@ namespace Exa.Grids.Blocks.Components
         public float firingRate;
         public float damage;
         public float chargeTime;
+        public float range;
 
         public float TurningRate => turningRate;
         public float FiringRate => firingRate;
         public float Damage => damage;
         public float ChargeTime => chargeTime;
+        public float Range => range;
 
         public void AddGridTotals(GridTotals totals) { }
 

@@ -52,7 +52,7 @@ namespace Exa.AI.Actions
         // TODO: Improve detection of large ships, as this only registers other ships whose centre overlaps the detection radius
         protected override float CalculatePriority() {
             var globalPos = grid.transform.position;
-            var shipMask = new ShipMask(~BlockContext.None);
+            var shipMask = (~BlockContext.None).GetShipMask();
             var shortestDistance = float.MaxValue;
 
             neighbourCache?.Clear();

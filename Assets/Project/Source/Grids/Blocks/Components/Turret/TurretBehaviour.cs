@@ -1,5 +1,7 @@
 ﻿using Exa.Math;
+using Exa.Ships;
 using Exa.Ships.Targeting;
+using Exa.Utils;
 using UnityEngine;
 
 #pragma warning disable CS0649
@@ -51,5 +53,26 @@ namespace Exa.Grids.Blocks.Components
         }
 
         public abstract void Fire();
+
+        protected Vector3 HitScanFire(float damage, float maxDistance, Transform firingPoint) {
+            var enemyMask = (~Parent.BlockContext).GetBlockMask();
+            var hits = PhysicsExtensions.RaycastAll(firingPoint.position, firingPoint.right, maxDistance, enemyMask);
+
+            var lastHitPosition = new Vector2();
+
+            using var hitsEnumerator = hits.GetEnumerator();
+
+            while (damage > 0f && hitsEnumerator.MoveNext(out var hit)) {
+                lastHitPosition = hit.hit.point;
+                var damageInstance = hit.block.PhysicalBehaviour.AbsorbDamage(Parent, damage);
+                damage -= damageInstance.absorbedDamage;
+            }
+
+            if (damage > 0f) {
+                return firingPoint.right * maxDistance;
+            }
+
+            return lastHitPosition;
+        }
     }
 }
