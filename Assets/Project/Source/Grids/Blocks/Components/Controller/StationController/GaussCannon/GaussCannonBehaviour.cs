@@ -4,6 +4,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
 using Exa.Utils;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -12,6 +13,7 @@ namespace Exa.Grids.Blocks.Components
         [Header("References")]
         [SerializeField] private Animator animator;
         [SerializeField] private Transform beamOrigin;
+        [SerializeField] private VisualEffect visualEffect;
         [SerializeField] private LineRenderer lineRenderer;
 
         public override void StartCharge() {
