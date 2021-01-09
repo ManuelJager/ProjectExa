@@ -26,7 +26,4 @@ MonoBehaviour:
     },\r\n      \"15,19\":{\r\n         \"id\":\"HeavyArmor\"\r\n      },\r\n     
     \"16,19\":{\r\n         \"id\":\"HeavyArmor\"\r\n      },\r\n      \"15,14\":{\r\n        
     \"id\":\"HeavyArmor\"\r\n      },\r\n      \"16,14\":{\r\n         \"id\":\"HeavyArmor\"\r\n     
-    },\r\n      \"14,19\":{\r\n         \"id\":\"TwinAutocannon\",\r\n         \"Rotation\":2\r\n     
-    },\r\n      \"17,19\":{\r\n         \"id\":\"TwinAutocannon\"\r\n      },\r\n     
-    \"17,14\":{\r\n         \"id\":\"TwinAutocannon\"\r\n      },\r\n      \"14,14\":{\r\n        
-    \"id\":\"TwinAutocannon\",\r\n         \"Rotation\":2\r\n      }\r\n   }\r\n}"
+    }\n   }\r\n}"

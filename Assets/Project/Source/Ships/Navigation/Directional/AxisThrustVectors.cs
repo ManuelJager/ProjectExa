@@ -22,6 +22,10 @@ namespace Exa.Ships.Navigation
 
         public void Update() {
             if (!gridInstance.Active) return;
+
+            xAxis.SetGraphics(0f);
+            yAxis.SetGraphics(0f);
+
             return;
             MathUtils.MoveTowards(ref currentDirection, targetDirection, Time.deltaTime * 2f);
 

@@ -29,6 +29,9 @@ namespace Exa.Ships.Navigation
             if (MoveTo != null) {
                 UpdatePosition();
             }
+            else {
+                ThrustVectors.SetGraphics(new Vector2(0, 0));
+            }
         }
 
         private void UpdatePosition() {

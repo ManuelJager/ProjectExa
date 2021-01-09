@@ -33,5 +33,5 @@ MonoBehaviour:
     turningRate: 0
     firingRate: 0
     damage: 250
-    chargeTime: 1
+    chargeTime: 3
     range: 100
