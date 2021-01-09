@@ -4,6 +4,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
 using Exa.Utils;
 using Exa.VFX;
+using Exa.Math;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -38,8 +39,8 @@ namespace Exa.Grids.Blocks.Components
             var endPoint = HitScanFire(Data.Damage, Data.Range, beamOrigin);
             arcs.gameObject.SetActive(false);
 
-            lineRenderer.SetPosition(0, beamOrigin.position);
-            lineRenderer.SetPosition(1, endPoint);
+            lineRenderer.SetPosition(0, beamOrigin.position.SetZ(-0.2f));
+            lineRenderer.SetPosition(1, endPoint.SetZ(-0.2f));
 
             lineRenderer.gameObject.SetActive(true);
             lineRenderer.widthMultiplier = 1.5f;

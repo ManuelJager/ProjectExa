@@ -20,5 +20,10 @@ namespace Exa.Math
         public static Vector2 ToVector2(this Vector3 from) {
             return new Vector2(from.x, from.y);
         }
+
+        public static Vector3 SetZ(this Vector3 from, float value) {
+            from.z = value;
+            return from;
+        }
     }
 }

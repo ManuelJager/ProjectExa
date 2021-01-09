@@ -1,37 +1,37 @@
 fileFormatVersion: 2
-guid: 0194226347009ad4182e325d08135933
+guid: fa877d6fb1dc78b448c0e33bced9bb2b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4667604210075092596
-    second: gauss-cannon_0
+      213: 8500343177690839154
+    second: turret-coils-internal_0
   - first:
-      213: 1637845319722388232
-    second: gauss-cannon_1
+      213: -4706438675243731524
+    second: turret-coils-internal_1
   - first:
-      213: 2830447955661543584
-    second: gauss-cannon_2
+      213: -3883040197747083646
+    second: turret-coils-internal_2
   - first:
-      213: 621218046654465418
-    second: gauss-cannon_3
+      213: 8520245342746727361
+    second: turret-coils-internal_3
   - first:
-      213: -2837208758175534189
-    second: gauss-cannon_4
+      213: -357266675920862457
+    second: turret-coils-internal_4
   - first:
-      213: -1236727034029229001
-    second: gauss-cannon_5
+      213: -7461231742267673901
+    second: turret-coils-internal_5
   - first:
-      213: -1163463921122608057
-    second: gauss-cannon_6
+      213: -4129081721917932550
+    second: turret-coils-internal_6
   - first:
-      213: -4902227075570637604
-    second: gauss-cannon_7
+      213: 2977838308912007353
+    second: turret-coils-internal_7
   - first:
-      213: -7715373656822585299
-    second: gauss-cannon_8
+      213: -2980328173887759716
+    second: turret-coils-internal_8
   - first:
-      213: -7779530171794940747
-    second: gauss-cannon_9
+      213: -7698326860322731828
+    second: turret-coils-internal_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,7 +121,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gauss-cannon_0
+      name: turret-coils-internal_0
       rect:
         serializedVersion: 2
         x: 0
@@ -135,14 +135,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c893b5273b6593fb0800000000000000
-      internalID: -4667604210075092596
+      spriteID: 2787d27551947f570800000000000000
+      internalID: 8500343177690839154
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_1
+      name: turret-coils-internal_1
       rect:
         serializedVersion: 2
         x: 288
@@ -156,14 +156,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80bc61ff3abcab610800000000000000
-      internalID: 1637845319722388232
+      spriteID: cb5ffece5fe5faeb0800000000000000
+      internalID: -4706438675243731524
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_2
+      name: turret-coils-internal_2
       rect:
         serializedVersion: 2
         x: 576
@@ -177,14 +177,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a8df685b65c74720800000000000000
-      internalID: 2830447955661543584
+      spriteID: 286f8bc638bac1ac0800000000000000
+      internalID: -3883040197747083646
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_3
+      name: turret-coils-internal_3
       rect:
         serializedVersion: 2
         x: 864
@@ -198,14 +198,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a85c6e6a5820f9800800000000000000
-      internalID: 621218046654465418
+      spriteID: 1c3589d3ffdfd3670800000000000000
+      internalID: 8520245342746727361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_4
+      name: turret-coils-internal_4
       rect:
         serializedVersion: 2
         x: 1152
@@ -219,14 +219,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 393f157aaa530a8d0800000000000000
-      internalID: -2837208758175534189
+      spriteID: 70307a3e9dbba0bf0800000000000000
+      internalID: -357266675920862457
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_5
+      name: turret-coils-internal_5
       rect:
         serializedVersion: 2
         x: 0
@@ -240,14 +240,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73cb094a05346dee0800000000000000
-      internalID: -1236727034029229001
+      spriteID: 3d2344ff241647890800000000000000
+      internalID: -7461231742267673901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_6
+      name: turret-coils-internal_6
       rect:
         serializedVersion: 2
         x: 288
@@ -261,14 +261,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74cf0806abb8adfe0800000000000000
-      internalID: -1163463921122608057
+      spriteID: afbf58cfc0e82b6c0800000000000000
+      internalID: -4129081721917932550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_7
+      name: turret-coils-internal_7
       rect:
         serializedVersion: 2
         x: 576
@@ -282,14 +282,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd46f48a27ac7fbb0800000000000000
-      internalID: -4902227075570637604
+      spriteID: 9b800492a28635920800000000000000
+      internalID: 2977838308912007353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_8
+      name: turret-coils-internal_8
       rect:
         serializedVersion: 2
         x: 864
@@ -303,14 +303,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d28eea3798c7de490800000000000000
-      internalID: -7715373656822585299
+      spriteID: c9ad459f05fb3a6d0800000000000000
+      internalID: -2980328173887759716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gauss-cannon_9
+      name: turret-coils-internal_9
       rect:
         serializedVersion: 2
         x: 1152
@@ -324,8 +324,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5bc9ab6c68e890490800000000000000
-      internalID: -7779530171794940747
+      spriteID: cc88d9d028c0a2590800000000000000
+      internalID: -7698326860322731828
       vertices: []
       indices: 
       edges: []

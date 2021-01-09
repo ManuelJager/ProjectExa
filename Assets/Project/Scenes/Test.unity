@@ -300,6 +300,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1323540494993351275, guid: 5246ab3b0a4e35a4d876a3e32059717c,
+        type: 3}
+      propertyPath: m_Positions.Array.data[0].z
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1420592358885256687, guid: 5246ab3b0a4e35a4d876a3e32059717c,
         type: 3}
       propertyPath: m_IsActive
