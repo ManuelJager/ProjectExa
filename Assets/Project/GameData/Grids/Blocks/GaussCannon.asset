@@ -30,7 +30,7 @@ MonoBehaviour:
     powerConsumption: 0
     powerStorage: 100
   gaussCannonTemplatePartial:
-    turningRate: 0
+    turningRate: 50
     firingRate: 0
     damage: 250
     chargeTime: 3

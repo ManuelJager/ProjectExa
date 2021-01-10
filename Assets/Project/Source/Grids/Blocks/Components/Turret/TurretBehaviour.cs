@@ -1,10 +1,9 @@
-﻿using Exa.Math;
+﻿using Exa.Debugging;
+using Exa.Math;
 using Exa.Ships;
 using Exa.Ships.Targeting;
 using Exa.Utils;
 using UnityEngine;
-
-#pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -45,11 +44,22 @@ namespace Exa.Grids.Blocks.Components
             return Parent.Transform.right.ToVector2().GetAngle();
         }
 
-        // TODO: Actually rotate using the rotation speed
         protected float RotateTowards(float targetAngle) {
-            turret.rotation = Quaternion.Euler(0, 0, targetAngle);
             var currentAngle = turret.rotation.eulerAngles.z;
-            return Mathf.DeltaAngle(currentAngle, targetAngle);
+            var deltaAngle = Mathf.DeltaAngle(currentAngle, targetAngle);
+
+            if (deltaAngle == 0f) {
+                return 0f;
+            }
+
+            var maxAngles = Data.TurningRate * Time.deltaTime;
+            var offset = deltaAngle > 0f
+                ? Mathf.Min(maxAngles, deltaAngle)
+                : Mathf.Max(-maxAngles, deltaAngle);
+
+            turret.rotation = Quaternion.Euler(0, 0, currentAngle + offset);
+
+            return Mathf.DeltaAngle(turret.rotation.eulerAngles.z, targetAngle);
         }
 
         public abstract void Fire();
