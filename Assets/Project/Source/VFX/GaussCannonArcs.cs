@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,15 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using MathUtils = Exa.Math.MathUtils;
+using Random = System.Random;
 
 namespace Exa.VFX
 {
     public class GaussCannonArcs : MonoBehaviour
     {
+        private static int NoiseOffsetID = Shader.PropertyToID("_NoiseOffset");
+        private static int FlickeringOffsetID = Shader.PropertyToID("_FlickeringOffset");
+
         [Header("Arc settings")]
         [SerializeField] private int arcCount;
         [SerializeField] private float arcDistance;
@@ -23,8 +28,12 @@ namespace Exa.VFX
         public float ChargeTime { get; set; }
 
         public void RandomizeMaterials() {
-            foreach (var mat in arcs.Select(arc => arc.GetComponent<SpriteRenderer>().CopyMaterial())) {
-                mat.SetVector("_NoiseOffset", MathUtils.RandomVector2(10f));
+            var random = new Random();
+            var propertyBlock = new MaterialPropertyBlock();
+            foreach (var renderer in arcs.Select(arc => arc.GetComponent<SpriteRenderer>())) {
+                propertyBlock.SetVector(NoiseOffsetID, MathUtils.RandomVector2(10f));
+                propertyBlock.SetFloat(FlickeringOffsetID, random.Next() % 1000);
+                renderer.SetPropertyBlock(propertyBlock);
             }
         }
 

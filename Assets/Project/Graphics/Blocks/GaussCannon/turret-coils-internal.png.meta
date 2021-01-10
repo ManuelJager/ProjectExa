@@ -32,6 +32,15 @@ TextureImporter:
   - first:
       213: -7698326860322731828
     second: turret-coils-internal_9
+  - first:
+      213: 5413515514340459201
+    second: turret-coils-internal_10
+  - first:
+      213: 2201436745883532920
+    second: turret-coils-internal_11
+  - first:
+      213: 1439543882171662536
+    second: turret-coils-internal_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -125,7 +134,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 288
+        y: 576
         width: 288
         height: 288
       alignment: 0
@@ -146,7 +155,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 288
+        y: 576
         width: 288
         height: 288
       alignment: 0
@@ -167,7 +176,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 576
-        y: 288
+        y: 576
         width: 288
         height: 288
       alignment: 0
@@ -188,7 +197,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 864
-        y: 288
+        y: 576
         width: 288
         height: 288
       alignment: 0
@@ -209,7 +218,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1152
-        y: 288
+        y: 576
         width: 288
         height: 288
       alignment: 0
@@ -230,7 +239,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 288
         width: 288
         height: 288
       alignment: 0
@@ -251,7 +260,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 0
+        y: 288
         width: 288
         height: 288
       alignment: 0
@@ -272,7 +281,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 576
-        y: 0
+        y: 288
         width: 288
         height: 288
       alignment: 0
@@ -293,7 +302,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 864
-        y: 0
+        y: 288
         width: 288
         height: 288
       alignment: 0
@@ -314,7 +323,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1152
-        y: 0
+        y: 288
         width: 288
         height: 288
       alignment: 0
@@ -326,6 +335,69 @@ TextureImporter:
       bones: []
       spriteID: cc88d9d028c0a2590800000000000000
       internalID: -7698326860322731828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turret-coils-internal_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 288
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c24452adaba02b40800000000000000
+      internalID: 5413515514340459201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turret-coils-internal_11
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 288
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87e31e18e031d8e10800000000000000
+      internalID: 2201436745883532920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: turret-coils-internal_12
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 288
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c0cd67a8894af310800000000000000
+      internalID: 1439543882171662536
       vertices: []
       indices: 
       edges: []

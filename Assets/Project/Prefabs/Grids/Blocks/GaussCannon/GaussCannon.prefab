@@ -93,6 +93,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurretArmsBase
       objectReference: {fileID: 0}
+    - target: {fileID: 3345392841715669895, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6371902840315417119, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}
       propertyPath: m_Sprite
@@ -159,6 +164,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7334607006928491402, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334607006928491402, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334607006928491402, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334607006928491402, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 96d1545cc484067429bd9bd8da062edd, type: 2}
     - target: {fileID: 7923256227314171141, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}
       propertyPath: m_LocalPosition.z
