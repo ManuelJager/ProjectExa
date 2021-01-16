@@ -46,7 +46,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "ToggleMirror",
+                    "name": "ToggleVerticalMirror",
                     "type": "Button",
                     "id": "5cd15413-dd5d-4c6c-aed7-035969a257fa",
                     "expectedControlType": "Button",
@@ -169,7 +169,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "MouseKb",
-                    "action": "ToggleMirror",
+                    "action": "ToggleVerticalMirror",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

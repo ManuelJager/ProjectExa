@@ -19,7 +19,8 @@ namespace Exa.ShipEditor
         public ShipEditorOverlayInfoPanel infoPanel;
 
         public ShipEditorOverlayInventory inventory;
-        public MirrorView mirrorView;
+        [FormerlySerializedAs("mirrorView")]
+        public MirrorView verticalMirrorView;
 
         public UnityEvent onPointerEnter;
         public UnityEvent onPointerExit;

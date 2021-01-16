@@ -1,123 +1,145 @@
-﻿using Exa.Grids;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
+using Exa.Types;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.ShipEditor
 {
     public class EditorGridGhostLayer : MonoBehaviour
     {
-        private bool ghostVisible = true;
-        private bool mirrorEnabled = false;
-        private bool mouseOverUI = false;
-
         public GameObject ghostPrefab;
-        public BlockGhost ghost;
-        public BlockGhost mirrorGhost;
+        public EditorGridBackgroundLayer backgroundLayer;
+        public EditorGridBlueprintLayer blueprintLayer;
 
-        public bool GhostCreated { get; private set; }
+        private IEnumerable<GhostController> controllers;
 
-        /// <summary>
-        /// Ghost was created
-        /// </summary>
-        public bool GhostVisible {
-            get => ghostVisible;
-            set {
-                ghostVisible = value;
-
-                CalculateGhostEnabled();
-            }
-        }
-
-        /// <summary>
-        /// Ghost is enabled
-        /// </summary>
-        public bool MirrorEnabled {
-            get => mirrorEnabled;
-            set {
-                mirrorEnabled = value;
-
-                CalculateGhostEnabled();
-            }
-        }
-
-        /// <summary>
-        /// If player is hovering over ui
-        /// </summary>
-        public bool MouseOverUI {
-            get => mouseOverUI;
-            set {
-                mouseOverUI = value;
-
-                CalculateGhostEnabled();
-            }
-        }
+        public bool PlacementIsAllowed { get; private set; }
+        public bool Initialized { get; private set; }
 
         private void Awake() {
-            ghost = Instantiate(ghostPrefab, transform).GetComponent<BlockGhost>();
-            mirrorGhost = Instantiate(ghostPrefab, transform).GetComponent<BlockGhost>();
-
-            GhostCreated = false;
-            GhostVisible = false;
+            controllers = new List<GhostController> {
+                InitController(BlockFlip.None),
+                InitController(BlockFlip.FlipX),
+                InitController(BlockFlip.FlipY),
+                InitController(BlockFlip.Both)
+            };
         }
 
-        private void OnDisable() {
-            GhostVisible = false;
-        }
-
-        public void CreateGhost(BlockTemplate template) {
-            ghost.ImportBlock(new BlueprintBlock {
-                id = template.id,
-                Rotation = 0,
-                flippedX = false,
-                flippedY = false
-            });
-
-            mirrorGhost.ImportBlock(new BlueprintBlock {
-                id = template.id,
-                Rotation = 0,
-                flippedX = false,
-                flippedY = true
-            });
-
-            GhostCreated = true;
-        }
-
-        public void MoveGhost(Vector2Int gridSize, Vector2Int? anchorPos) {
-            if (!GhostCreated) return;
-
-            GhostVisible = anchorPos != null;
-
-            if (!GhostVisible) return;
-
-            var realAnchorPos = anchorPos.GetValueOrDefault();
-            var mirroredAnchorPos = GridUtils.GetMirroredGridPos(gridSize, realAnchorPos);
-
-            ghost.AnchoredBlueprintBlock.gridAnchor = realAnchorPos;
-            ghost.ReflectState();
-            mirrorGhost.AnchoredBlueprintBlock.gridAnchor = mirroredAnchorPos;
-            mirrorGhost.ReflectState();
-
-            CalculateGhostEnabled();
+        public void SetFlip(BlockFlip mask) {
+            controllers.ForEach(controller => controller.SetActive(mask));
+            UpdateGhostsOverlap();
         }
 
         public void RotateGhosts(int value) {
-            ghost.AnchoredBlueprintBlock.blueprintBlock.Rotation += value;
-            ghost.ReflectState();
-            mirrorGhost.AnchoredBlueprintBlock.blueprintBlock.Rotation += value;
-            mirrorGhost.ReflectState();
+            controllers.ForEach(controller => {
+                controller.Ghost.AnchoredBlueprintBlock.blueprintBlock.Rotation += value;
+                controller.Ghost.ReflectState();
+            });
+
+            UpdateGhosts();
         }
 
-        private void CalculateGhostEnabled() {
-            ghost.gameObject.SetActive(
-                GhostVisible &&
-                !mouseOverUI);
+        public void TryPlace() {
+            if (!PlacementIsAllowed) return;
 
-            mirrorGhost.gameObject.SetActive(
-                MirrorEnabled &&
-                GhostVisible &&
-                ghost.AnchoredBlueprintBlock.gridAnchor != mirrorGhost.AnchoredBlueprintBlock.gridAnchor
-                && !mouseOverUI);
+            QueryActiveControllers().ForEach(controller => {
+                blueprintLayer.AddBlock(controller.BlueprintBlock.Clone());
+            });
+
+            UpdateGhosts();
+        }
+
+        public void TryDelete() {
+            QueryActiveControllers().ForEach(controller => {
+                blueprintLayer.RemoveBlock(controller.BlueprintBlock.GridAnchor);
+            });
+
+            UpdateGhosts();
+        }
+
+        public void ImportTemplate(BlockTemplate template) {
+            if (!Initialized) {
+                Initialized = true;
+            }
+
+            var block = new BlueprintBlock {
+                id = template.id,
+                Rotation = 0
+            };
+
+            controllers.ForEach((controller) => controller.ImportBlock(block));
+        }
+
+        public void MoveGhost(Vector2Int gridSize, Vector2Int? gridPos) {
+            SetVisibility(gridPos != null);
+            if (gridPos != null) {
+                controllers.ForEach(controller => controller.MoveGhost(gridSize, gridPos.GetValueOrDefault()));
+            }
+
+            UpdateGhostsOverlap();
+            UpdateGhosts();
+        }
+
+        public void SetVisibility(bool value) {
+            controllers.ForEach(controller => {
+                controller.State = controller.State.SetFlag(GhostControllerState.Visible, value);
+            });
+        }
+
+        private void UpdateGhostsOverlap() {
+            void SetFlags(IEnumerable<GhostController> controllers, bool value) {
+                controllers.ForEach(controller => {
+                    controller.State = controller.State.SetFlag(GhostControllerState.Overlapped, value);
+                });
+            }
+
+            var activeControllers = QueryActiveControllers().ToList();
+            SetFlags(controllers.Except(activeControllers).ToList(), true);
+            SetFlags(activeControllers, false);
+        }
+
+        private void UpdateGhosts() {
+            var ghostPlacementIsValid = GetBlockPlacementIsValid();
+            PlacementIsAllowed = ghostPlacementIsValid;
+            SetFilter(ghostPlacementIsValid);
+        }
+
+        private bool GetBlockPlacementIsValid() {
+            var activeControllers = QueryActiveControllers();
+
+            if (!activeControllers.Any()) {
+                return false;
+            }
+
+            var occupiedBlocks = activeControllers
+                .Select(controller => controller.BlueprintBlock.GetOccupiedTiles())
+                .SelectMany(block => block);
+
+            return occupiedBlocks.Distinct().Count() == occupiedBlocks.Count()
+                   && occupiedBlocks.All(pos => backgroundLayer.PosIsInGrid(pos))
+                   && !blueprintLayer.ActiveBlueprint.Blocks.HasOverlap(occupiedBlocks);
+        }
+
+        private GhostController InitController(BlockFlip flip) {
+            var ghost = Instantiate(ghostPrefab, transform).GetComponent<BlockGhost>();
+            ghost.gameObject.name = $"GhostController (Flip: {flip})";
+            ghost.gameObject.SetActive(false);
+            return new GhostController(ghost, flip);
+        }
+
+        private IEnumerable<GhostController> QueryActiveControllers() {
+            return controllers.Where(controller => controller.State.HasValue(GhostControllerState.Active))
+                .GroupBy(controller => controller.BlueprintBlock.gridAnchor)
+                .Select(group => group.First());
+        }
+
+        private void SetFilter(bool active) {
+            controllers.ForEach(controller => controller.SetFilterColor(active));
         }
     }
 }

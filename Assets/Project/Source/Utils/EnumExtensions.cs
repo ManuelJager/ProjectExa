@@ -15,5 +15,12 @@ namespace Exa.Utils
             where T : Enum {
             return value.HasFlag(flag);
         }
+
+        public static T SetFlag<T>(this T value, T flag, bool set)
+            where T : Enum {
+            var valueInt = (int) (object) value;
+            var flagInt = (int) (object) flag;
+            return (T) (object) (set ? valueInt | flagInt : valueInt & ~flagInt);
+        }
     }
 }

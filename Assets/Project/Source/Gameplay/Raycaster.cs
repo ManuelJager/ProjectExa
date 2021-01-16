@@ -66,7 +66,7 @@ namespace Exa.Gameplay
         private void ClearTargets() {
             if (CurrentTargets == null) return;
 
-            CurrentTargets.Foreach(target => target.OnRaycastExit());
+            CurrentTargets.ForEach(target => target.OnRaycastExit());
             CurrentTargets = null;
         }
     }

@@ -78,10 +78,10 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void OnToggleMirror(InputAction.CallbackContext context) {
+        public void OnToggleVerticalMirror(InputAction.CallbackContext context) {
             switch (context.phase) {
                 case InputActionPhase.Started:
-                    MirrorEnabled = !MirrorEnabled;
+                    FlipState ^= BlockFlip.FlipY;
                     break;
 
                 default:

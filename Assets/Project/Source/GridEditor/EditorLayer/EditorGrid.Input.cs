@@ -30,64 +30,35 @@ namespace Exa.ShipEditor
                 }
 
                 ghostLayer.MoveGhost(size, value);
-                CalculateGhostEnabled();
             }
         }
 
         public void OnBlockSelected(BlockTemplate template) {
-            ghostLayer.CreateGhost(template);
+            ghostLayer.ImportTemplate(template);
         }
 
         public void OnRotateLeft() {
-            if (!ghostLayer.GhostCreated) return;
-
             ghostLayer.RotateGhosts(1);
-            CalculateGhostEnabled();
         }
 
         public void OnRotateRight() {
-            if (!ghostLayer.GhostCreated) return;
-
             ghostLayer.RotateGhosts(-1);
-            CalculateGhostEnabled();
         }
 
         public void OnLeftClickPressed() {
-            // if mouse position is invalid
-            if (MouseGridPos == null) return;
-
-            // if ghost cannot be placed
-            if (!canPlaceGhost) return;
-
-            // if the editor grid is interactable
-            if (!Interactable) return;
-
-            canPlaceGhost = false;
-
-            blueprintLayer.AddBlock(ghostLayer.ghost.AnchoredBlueprintBlock.Clone());
-
-            if (MirrorEnabled && ghostLayer.ghost.AnchoredBlueprintBlock.GridAnchor
-                != ghostLayer.mirrorGhost.AnchoredBlueprintBlock.GridAnchor) {
-                blueprintLayer.AddBlock(ghostLayer.mirrorGhost.AnchoredBlueprintBlock.Clone());
+            if (MouseGridPos == null || !Interactable || MouseOverUI) {
+                return;
             }
 
-            CalculateGhostEnabled();
+            ghostLayer.TryPlace();
         }
 
         public void OnRightClickPressed() {
-            if (MouseGridPos == null) return;
-
-            if (!Interactable) return;
-
-            var realGridPos = MouseGridPos.GetValueOrDefault();
-
-            blueprintLayer.RemoveBlock(realGridPos);
-
-            if (MirrorEnabled) {
-                blueprintLayer.RemoveBlock(GridUtils.GetMirroredGridPos(size, realGridPos));
+            if (MouseGridPos == null || !Interactable) {
+                return;
             }
 
-            CalculateGhostEnabled();
+            ghostLayer.TryDelete();
         }
 
         private void OnEnterGrid(Vector2Int? gridPos) {
@@ -102,11 +73,6 @@ namespace Exa.ShipEditor
             if (gridPos == null) return;
 
             backgroundLayer.SetGridBackgroundItemColor(gridPos, enter);
-
-            GridUtils.ConditionallyApplyToMirror(gridPos, size,
-                mirroredGridPos => {
-                    backgroundLayer.SetGridBackgroundItemColor(mirroredGridPos, MirrorEnabled && enter);
-                });
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Exa.Grids
             gridMember.AddGridTotals(Totals);
 
             // Get grid positions of blueprint block
-            var tilePositions = GridUtils.GetOccupiedTilesByAnchor(gridMember);
+            var tilePositions = gridMember.GetOccupiedTiles();
 
             EnsureNeighbourKeyIsCreated(gridMember);
 
@@ -86,7 +86,7 @@ namespace Exa.Grids
                 Controller = default;
             }
 
-            var tilePositions = GridUtils.GetOccupiedTilesByAnchor(gridMember);
+            var tilePositions = gridMember.GetOccupiedTiles();
 
             GridMembers.Remove(gridMember);
             gridMember.RemoveGridTotals(Totals);

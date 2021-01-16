@@ -18,14 +18,10 @@ namespace Exa.ShipEditor
     public partial class EditorGrid : MonoBehaviour, IUIGroup
     {
         [SerializeField] private float movementSpeed;
-        private bool interactible = true;
-        private bool mirrorEnabled = false;
-        private bool mouseOverUI = false;
-        private bool canPlaceGhost = false;
+        private bool interactable = true;
         private Vector2 centerPos;
         private Vector2 playerPos = Vector2.zero;
         private Vector2Int size;
-        private Tween positionTweener;
         private TweenWrapper<Vector3> positionTween;
 
         public EditorGridBackgroundLayer backgroundLayer;
@@ -36,44 +32,22 @@ namespace Exa.ShipEditor
         public float ZoomScale { private get; set; }
 
         /// <summary>
-        /// Wether or not the grid can be interacted with
+        /// Whether or not the grid can be interacted with
         /// </summary>
         public bool Interactable {
-            get => interactible;
+            get => interactable;
             set {
-                interactible = value;
+                interactable = value;
                 if (!value) {
-                    ghostLayer.GhostVisible = false;
+                    ghostLayer.SetVisibility(false);
                 }
             }
         }
 
         /// <summary>
-        /// Wether of not a ghost mirror is enabled
+        /// Whether or not the mouse is over UI
         /// </summary>
-        public bool MirrorEnabled {
-            get => mirrorEnabled;
-            set {
-                mirrorEnabled = value;
-
-                ghostLayer.MirrorEnabled = value;
-                SetActiveBackground(mouseGridPos, true);
-                CalculateGhostEnabled();
-            }
-        }
-
-        /// <summary>
-        /// Wether or not the mouse is over UI
-        /// </summary>
-        public bool MouseOverUI {
-            get => mouseOverUI;
-            set {
-                mouseOverUI = value;
-
-                ghostLayer.MouseOverUI = value;
-                CalculateGhostEnabled();
-            }
-        }
+        public bool MouseOverUI { get; set; }
 
         private void Awake() {
             backgroundLayer.EnterGrid += OnEnterGrid;
@@ -153,53 +127,6 @@ namespace Exa.ShipEditor
                 x = -halfSize.x + 0.5f,
                 y = -halfSize.y + 0.5f
             };
-        }
-
-        /// <summary>
-        /// Walk through all cases and calculate wether the ghost/s should be enabled
-        /// </summary>
-        public void CalculateGhostEnabled() {
-            if (!ghostLayer.GhostCreated) return;
-
-            if (MouseOverUI) {
-                canPlaceGhost = false;
-                return;
-            }
-
-            var ghostTiles = GridUtils.GetOccupiedTilesByAnchor(ghostLayer.ghost.AnchoredBlueprintBlock);
-            var mirrorGhostTiles = GridUtils.GetOccupiedTilesByAnchor(ghostLayer.mirrorGhost.AnchoredBlueprintBlock);
-
-            bool GetGhostIsClear(IEnumerable<Vector2Int> occupiedGhostTiles) {
-                return !blueprintLayer.ActiveBlueprint.Blocks.HasOverlap(occupiedGhostTiles) &&
-                       occupiedGhostTiles.All(gridPos => backgroundLayer.PosIsInGrid(gridPos));
-            }
-
-            // Calculate wether the main ghost doesn't overlap existing blocks or is outside of the grid
-            var ghostIsClear = GetGhostIsClear(ghostTiles);
-
-            if (MirrorEnabled) {
-                // Calculate wether the mirror ghost doesn't overlap existing blocks or is outside of the grid
-                var mirrorGhostIsClear = GetGhostIsClear(mirrorGhostTiles);
-
-                // Calculate if the ghosts intersect
-                var ghostsIntersect = ghostTiles.Intersect(mirrorGhostTiles).Any() &&
-                                      !(ghostLayer.ghost.AnchoredBlueprintBlock.gridAnchor
-                                        == ghostLayer.mirrorGhost.AnchoredBlueprintBlock.gridAnchor);
-
-                // Set the color for the main ghost
-                ghostLayer.ghost.SetFilterColor(ghostIsClear && !ghostsIntersect);
-
-                // Set the color for the mirror ghost
-                ghostLayer.mirrorGhost.SetFilterColor(mirrorGhostIsClear && !ghostsIntersect);
-
-                // Only allow block placement when both ghosts are clear
-                canPlaceGhost = ghostIsClear && mirrorGhostIsClear && !ghostsIntersect;
-            }
-            else {
-                // Set the filter color to the clear state of the ghost
-                ghostLayer.ghost.SetFilterColor(ghostIsClear);
-                canPlaceGhost = ghostIsClear;
-            }
         }
     }
 }

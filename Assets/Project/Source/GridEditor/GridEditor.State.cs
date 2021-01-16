@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blueprints;
 using Exa.Validation;
 using System;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.ShipEditor
@@ -9,23 +10,24 @@ namespace Exa.ShipEditor
     {
         private bool leftButtonPressed = false;
         private bool rightButtonPressed = false;
-        private bool mirrorEnabled = false;
         private bool mouseOverUI = false;
         private bool interactible = true;
         private float zoom;
         private BlueprintContainer container;
         private Action<BlueprintContainer> saveCallback;
+        private BlockFlip flipState;
 
         public bool IsSaved { get; private set; }
         public ValidationResult NameValidationResult { get; private set; }
         public ValidationResult GridValidationResult { get; private set; }
 
-        public bool MirrorEnabled {
-            get => mirrorEnabled;
+        public BlockFlip FlipState {
+            get => flipState;
             set {
-                mirrorEnabled = value;
-                editorGrid.MirrorEnabled = value;
-                overlay.mirrorView.SetState(value);
+                flipState = value;
+
+                overlay.verticalMirrorView.SetState(value.HasValue(BlockFlip.FlipY));
+                editorGrid.ghostLayer.SetFlip(value);
             }
         }
 

@@ -18,7 +18,7 @@ namespace Exa.Utils
             var delta = time ?? Time.deltaTime;
             callbackDict
                 .WhereKeys(callbackTime => currentTime.Between(callbackTime, callbackTime + delta))
-                .Foreach(callback => callback());
+                .ForEach(callback => callback());
             currentTime += delta;
         }
 

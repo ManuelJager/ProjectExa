@@ -2,6 +2,7 @@
 using Exa.Grids.Blocks;
 using Exa.UI.Components;
 using System.Collections.Generic;
+using System.Linq;
 using Exa.Types.Binding;
 using Exa.Utils;
 using UnityEngine;
@@ -27,8 +28,12 @@ namespace Exa.ShipEditor
         private BlockTemplateView activeView;
         private BlockCategory filter = BlockCategory.All;
 
-        private void Start() {
+        public void Init() {
             Source = Systems.Blocks.availableBlockTemplates;
+        }
+
+        public void SelectFirst() {
+            SetSelected(Source.First(value => filter.HasValue(value.Data.category)));
         }
 
         public void SetFilter(BlockCategory blockCategoryFilter) {
@@ -53,15 +58,17 @@ namespace Exa.ShipEditor
             var categoryItem = blockCategories[category];
             var view = base.CreateView(value, categoryItem.content);
 
-            view.button.onClick.AddListener(() => {
-                if (activeView != null)
-                    activeView.Selected = false;
+            view.button.onClick.AddListener(() => SetSelected(value));
+        }
 
-                activeView = view;
-                activeView.Selected = true;
+        public void SetSelected(BlockTemplateContainer value) {
+            if (activeView != null)
+                activeView.Selected = false;
 
-                blockSelected?.Invoke(value.Data);
-            });
+            activeView = GetView(value);
+            activeView.Selected = true;
+
+            blockSelected?.Invoke(value.Data);
         }
     }
 }

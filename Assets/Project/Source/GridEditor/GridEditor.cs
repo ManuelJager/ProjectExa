@@ -30,6 +30,7 @@ namespace Exa.ShipEditor
 
             overlay.infoPanel.clearButton.onClick.AddListener(OnBlueprintClear);
             overlay.inventory.blockSelected.AddListener(editorGrid.OnBlockSelected);
+            overlay.inventory.Init();
             overlay.onPointerEnter.AddListener(OnOverlayPointerEnter);
             overlay.onPointerExit.AddListener(OnOverlayPointerExit);
             overlay.infoPanel.blueprintNameInput.inputField.onValueChanged.AddListener(OnBlueprintNameInputChanged);
@@ -79,6 +80,9 @@ namespace Exa.ShipEditor
 
             overlay.infoPanel.blueprintNameInput.SetValue(newBlueprint.name, false);
             overlay.inventory.SetFilter(blueprintContainer.Data.BlueprintType.allowedBlockCategory);
+            overlay.inventory.SelectFirst();
+
+            FlipState = BlockFlip.None;
         }
 
         public void ExportToClipboard() {

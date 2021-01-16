@@ -4,28 +4,29 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.IO.Json
 {
     public class BlueprintBlocksConverter : JsonConverter<BlueprintBlocks>
     {
-        public static readonly string[] SEPARATORS = new[] {"(", ",", ")"};
+        public static readonly string[] SEPARATORS = {"(", ",", ")"};
 
         public override BlueprintBlocks ReadJson(JsonReader reader, Type objectType, BlueprintBlocks existingValue,
             bool hasExistingValue, JsonSerializer serializer) {
             if (reader.TokenType == JsonToken.Null) return null;
 
             var blocks = new BlueprintBlocks();
-            foreach (var pair in JObject.Load(reader)) {
-                var vector = pair.Key.Split(SEPARATORS, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var pair in JObject.Load(reader).Unpack()) {
+                var vector = pair.key.Split(SEPARATORS, StringSplitOptions.RemoveEmptyEntries);
 
                 var key = new Vector2Int {
-                    x = Convert.ToInt32(vector.First()),
-                    y = Convert.ToInt32(vector.Last())
+                    x = Convert.ToInt32(vector[0]),
+                    y = Convert.ToInt32(vector[1])
                 };
 
-                var value = pair.Value.ToObject<BlueprintBlock>(serializer);
+                var value = pair.value.ToObject<BlueprintBlock>(serializer);
 
                 blocks.Add(new AnchoredBlueprintBlock(key, value));
             }

@@ -61,7 +61,7 @@ namespace Exa.Input
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""ToggleMirror"",
+                    ""name"": ""ToggleVerticalMirror"",
                     ""type"": ""Button"",
                     ""id"": ""5cd15413-dd5d-4c6c-aed7-035969a257fa"",
                     ""expectedControlType"": ""Button"",
@@ -184,7 +184,7 @@ namespace Exa.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MouseKb"",
-                    ""action"": ""ToggleMirror"",
+                    ""action"": ""ToggleVerticalMirror"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -980,7 +980,7 @@ namespace Exa.Input
             m_Editor_RightClick = m_Editor.FindAction("RightClick", throwIfNotFound: true);
             m_Editor_RotateLeft = m_Editor.FindAction("RotateLeft", throwIfNotFound: true);
             m_Editor_RotateRight = m_Editor.FindAction("RotateRight", throwIfNotFound: true);
-            m_Editor_ToggleMirror = m_Editor.FindAction("ToggleMirror", throwIfNotFound: true);
+            m_Editor_ToggleVerticalMirror = m_Editor.FindAction("ToggleVerticalMirror", throwIfNotFound: true);
             m_Editor_Zoom = m_Editor.FindAction("Zoom", throwIfNotFound: true);
             // Debug
             m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
@@ -1057,7 +1057,7 @@ namespace Exa.Input
         private readonly InputAction m_Editor_RightClick;
         private readonly InputAction m_Editor_RotateLeft;
         private readonly InputAction m_Editor_RotateRight;
-        private readonly InputAction m_Editor_ToggleMirror;
+        private readonly InputAction m_Editor_ToggleVerticalMirror;
         private readonly InputAction m_Editor_Zoom;
         public struct EditorActions
         {
@@ -1068,7 +1068,7 @@ namespace Exa.Input
             public InputAction @RightClick => m_Wrapper.m_Editor_RightClick;
             public InputAction @RotateLeft => m_Wrapper.m_Editor_RotateLeft;
             public InputAction @RotateRight => m_Wrapper.m_Editor_RotateRight;
-            public InputAction @ToggleMirror => m_Wrapper.m_Editor_ToggleMirror;
+            public InputAction @ToggleVerticalMirror => m_Wrapper.m_Editor_ToggleVerticalMirror;
             public InputAction @Zoom => m_Wrapper.m_Editor_Zoom;
             public InputActionMap Get() { return m_Wrapper.m_Editor; }
             public void Enable() { Get().Enable(); }
@@ -1094,9 +1094,9 @@ namespace Exa.Input
                     @RotateRight.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
                     @RotateRight.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
                     @RotateRight.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnRotateRight;
-                    @ToggleMirror.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
-                    @ToggleMirror.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
-                    @ToggleMirror.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleMirror;
+                    @ToggleVerticalMirror.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleVerticalMirror;
+                    @ToggleVerticalMirror.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleVerticalMirror;
+                    @ToggleVerticalMirror.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnToggleVerticalMirror;
                     @Zoom.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
                     @Zoom.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
                     @Zoom.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnZoom;
@@ -1119,9 +1119,9 @@ namespace Exa.Input
                     @RotateRight.started += instance.OnRotateRight;
                     @RotateRight.performed += instance.OnRotateRight;
                     @RotateRight.canceled += instance.OnRotateRight;
-                    @ToggleMirror.started += instance.OnToggleMirror;
-                    @ToggleMirror.performed += instance.OnToggleMirror;
-                    @ToggleMirror.canceled += instance.OnToggleMirror;
+                    @ToggleVerticalMirror.started += instance.OnToggleVerticalMirror;
+                    @ToggleVerticalMirror.performed += instance.OnToggleVerticalMirror;
+                    @ToggleVerticalMirror.canceled += instance.OnToggleVerticalMirror;
                     @Zoom.started += instance.OnZoom;
                     @Zoom.performed += instance.OnZoom;
                     @Zoom.canceled += instance.OnZoom;
@@ -1349,7 +1349,7 @@ namespace Exa.Input
             void OnRightClick(InputAction.CallbackContext context);
             void OnRotateLeft(InputAction.CallbackContext context);
             void OnRotateRight(InputAction.CallbackContext context);
-            void OnToggleMirror(InputAction.CallbackContext context);
+            void OnToggleVerticalMirror(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
         }
         public interface IDebugActions

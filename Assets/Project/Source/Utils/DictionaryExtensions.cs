@@ -6,7 +6,7 @@ namespace Exa.Utils
 {
     public static class DictionaryExtensions
     {
-        public static IEnumerable<(TKey, TValue)> Unpack<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) {
+        public static IEnumerable<(TKey key, TValue value)> Unpack<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) {
             return dictionary.Select(kvp => (kvp.Key, kvp.Value));
         }
 
