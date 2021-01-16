@@ -26,6 +26,7 @@ MonoBehaviour:
     maxHull: 50
     armor: 15
     mass: 3
+  turretRadius: 1.375
   autocannonTemplatePartial:
     turningRate: 100
     firingRate: 0.5

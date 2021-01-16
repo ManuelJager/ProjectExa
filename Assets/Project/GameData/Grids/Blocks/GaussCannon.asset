@@ -29,6 +29,7 @@ MonoBehaviour:
     powerGeneration: 5
     powerConsumption: 0
     powerStorage: 100
+  turretRadius: 3.4375
   gaussCannonTemplatePartial:
     turningRate: 50
     firingRate: 0
