@@ -27,6 +27,7 @@ namespace Exa.ShipEditor
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
         public EditorGridGhostLayer ghostLayer;
+        public EditorGridTurretLayer turretLayer;
 
         public Vector2 MovementVector { private get; set; }
         public float ZoomScale { private get; set; }

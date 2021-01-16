@@ -3,6 +3,8 @@ using Exa.Input;
 using Exa.IO;
 using Exa.UI;
 using System;
+using Exa.Grids.Blocks.BlockTypes;
+using Exa.Utils;
 using UnityEngine;
 using static Exa.Input.GameControls;
 
@@ -46,11 +48,18 @@ namespace Exa.ShipEditor
         private void OnEnable() {
             ResetState();
 
+            var templates = Systems.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
+            foreach (var template in templates) {
+                editorGrid.turretLayer.GenerateTurretOverlayPrefab(template);
+            }
+
             overlay.gameObject.SetActive(true);
             gameControls.Enable();
         }
 
         private void OnDisable() {
+            editorGrid.turretLayer.ClearPrefabs();
+
             overlay.gameObject.SetActive(false);
             gameControls.Disable();
         }

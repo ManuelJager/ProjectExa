@@ -48,6 +48,12 @@ namespace Exa.Utils
             }
         }
 
+        public static IEnumerable<TResult> SelectNonNull<TElement, TResult>(this IEnumerable<TElement> enumerable,
+            Func<TElement, TResult> selector)
+            where TResult : class {
+            return enumerable.Select(selector).Where(elem => elem != null);
+        }
+
         public static TTarget FindFirst<TTarget>(this IEnumerable enumerable) {
             foreach (var elem in enumerable) {
                 if (elem is TTarget target) {

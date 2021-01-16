@@ -52,14 +52,5 @@ namespace Exa.Grids
                 y = flip.HasValue(BlockFlip.FlipY) ? size.y - 1 - gridPos.y : gridPos.y
             };
         }
-
-        public static void ConditionallyApplyToMirror(Vector2Int? gridPos, Vector2Int size, Action<Vector2Int> action) {
-            if (gridPos == null) return;
-
-            var realGridPos = gridPos.GetValueOrDefault();
-            var mirroredGridPos = GetMirroredGridPos(size, realGridPos);
-            if (realGridPos == mirroredGridPos) return;
-            action(mirroredGridPos);
-        }
     }
 }

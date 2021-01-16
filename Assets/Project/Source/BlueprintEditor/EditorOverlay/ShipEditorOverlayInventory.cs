@@ -29,7 +29,7 @@ namespace Exa.ShipEditor
         private BlockCategory filter = BlockCategory.All;
 
         public void Init() {
-            Source = Systems.Blocks.availableBlockTemplates;
+            Source = Systems.Blocks.blockTemplates;
         }
 
         public void SelectFirst() {

@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 5794473422174108555}
   - component: {fileID: 3392767795847574525}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,6 +120,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

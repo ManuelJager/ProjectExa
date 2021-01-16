@@ -33,12 +33,7 @@ namespace Exa.Math
 
         public static Vector2 Average(IEnumerable<Vector2> positions) {
             var count = positions.Count();
-            var total = Vector2.zero;
-
-            foreach (var position in positions) {
-                total += position;
-            }
-
+            var total = positions.Aggregate(Vector2.zero, (current, position) => current + position);
             return total / count;
         }
 

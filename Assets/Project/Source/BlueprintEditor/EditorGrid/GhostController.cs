@@ -29,7 +29,6 @@ namespace Exa.ShipEditor
             get => state;
             set {
                 state = value;
-                Debug.Log($"State: {Ghost.gameObject.name} {State}");
                 Ghost.gameObject.SetActive(state == GhostControllerState.Valid);
             }
         }
