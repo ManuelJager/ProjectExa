@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blueprints;
 using Exa.Math;
 using Exa.Types;
 using Exa.Types.Binding;
@@ -12,34 +14,45 @@ namespace Exa.ShipEditor
 {
     public class EditorGridTurretLayer : MonoBehaviour
     {
+        [SerializeField] private GameObject basePrefab;
         [SerializeField] private Transform prefabContainer;
         [SerializeField] private Transform instanceContainer;
 
-        private Dictionary<ITurretTemplate, GameObject> turretOverlayPrefabs = new Dictionary<ITurretTemplate, GameObject>();
+        private Dictionary<ITurretTemplate, GameObject> overlayPrefabs;
+        private Dictionary<AnchoredBlueprintBlock, TurretOverlay> overlayInstances;
+        private bool stationaryOverlayVisibility;
 
-        public void ClearPrefabs() {
+        public bool StationaryOverlayVisibility {
+            set {
+                stationaryOverlayVisibility = value;
+                overlayInstances.Values.ForEach(overlay => overlay.gameObject.SetActive(value));
+            }
+        }
+
+        public void Init() {
             prefabContainer.DestroyChildren();
-            turretOverlayPrefabs.Clear();
+            instanceContainer.DestroyChildren();
+            overlayPrefabs = new Dictionary<ITurretTemplate, GameObject>();
+            overlayInstances = new Dictionary<AnchoredBlueprintBlock, TurretOverlay>();
+        }
+
+        public void AddStationaryOverlay(AnchoredBlueprintBlock block, ITurretTemplate template) {
+            var overlay = overlayPrefabs[template].InstantiateAndGet<TurretOverlay>(instanceContainer);
+            overlay.transform.localPosition = block.GetLocalPosition();
+            overlay.Color = Color.white.SetAlpha(0.5f);
+            overlay.gameObject.SetActive(stationaryOverlayVisibility);
+            overlayInstances[block] = overlay;
+        }
+
+        public void RemoveStationaryOverlay(AnchoredBlueprintBlock block) {
+            Destroy(overlayInstances[block].gameObject);
+            overlayInstances.Remove(block);
         }
 
         public void GenerateTurretOverlayPrefab(ITurretTemplate template) {
-            var go = new GameObject($"{template} overlay");
-            go.SetActive(false);
-            go.transform.SetParent(prefabContainer);
-            go.transform.position = prefabContainer.position;
-            var renderer = go.AddComponent<SpriteRenderer>();
-            renderer.sprite = GenerateTexture(template).CreateSprite();
-            renderer.color = Color.white;
-            turretOverlayPrefabs[template] = go;
-        }
-         
-        private Texture2D GenerateTexture(ITurretTemplate template) {
-            var pixelRadius = Mathf.RoundToInt(template.TurretRadius * 32);
-            var size = pixelRadius * 2;
-            var centre = (pixelRadius - 0.5f).ToVector2();
-            return new Texture2D(size, size).SetDefaults()
-                .DrawCircle(new Color(1, 1, 1, 0.5f), centre, pixelRadius, true)
-                .DrawCircle(new Color(1, 1, 1, 0.2f), centre, pixelRadius - 2);
+            var overlay = basePrefab.InstantiateAndGet<TurretOverlay>(prefabContainer);
+            overlay.Import(template);
+            overlayPrefabs[template] = overlay.gameObject;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Exa.Grids;
 using Exa.Grids.Blocks;
+using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 
 namespace Exa.ShipEditor
@@ -35,6 +36,7 @@ namespace Exa.ShipEditor
 
         public void OnBlockSelected(BlockTemplate template) {
             ghostLayer.ImportTemplate(template);
+            turretLayer.StationaryOverlayVisibility = template is ITurretTemplate;
         }
 
         public void OnRotateLeft() {

@@ -48,6 +48,7 @@ namespace Exa.ShipEditor
         private void OnEnable() {
             ResetState();
 
+            editorGrid.turretLayer.Init();
             var templates = Systems.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
             foreach (var template in templates) {
                 editorGrid.turretLayer.GenerateTurretOverlayPrefab(template);
@@ -58,8 +59,6 @@ namespace Exa.ShipEditor
         }
 
         private void OnDisable() {
-            editorGrid.turretLayer.ClearPrefabs();
-
             overlay.gameObject.SetActive(false);
             gameControls.Disable();
         }

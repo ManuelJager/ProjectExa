@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blueprints;
 using Exa.Utils;
 using System.Collections.Generic;
+using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,8 +12,9 @@ namespace Exa.ShipEditor
     public class EditorGridBlueprintLayer : MonoBehaviour
     {
         public UnityEvent onBlueprintChanged;
-
+        [SerializeField] private EditorGridTurretLayer turretLayer;
         [SerializeField] private GridEditorStopwatch stopwatch;
+
         private Dictionary<Vector2Int, GameObject> blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
 
         public Blueprint ActiveBlueprint { get; private set; }
@@ -31,12 +33,12 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void AddBlock(AnchoredBlueprintBlock anchoredBlueprintBlock) {
+        public void AddBlock(AnchoredBlueprintBlock block) {
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
             onBlueprintChanged?.Invoke();
-            PlaceBlock(anchoredBlueprintBlock);
-            ActiveBlueprint.Add(anchoredBlueprintBlock);
+            PlaceBlock(block);
+            ActiveBlueprint.Add(block);
         }
 
         public void RemoveBlock(Vector2Int gridPos) {
@@ -45,12 +47,16 @@ namespace Exa.ShipEditor
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
 
-            var anchoredBlock = ActiveBlueprint.Blocks.GetMember(gridPos);
-            var anchoredPos = anchoredBlock.GridAnchor;
+            var block = ActiveBlueprint.Blocks.GetMember(gridPos);
+            var pos = block.GridAnchor;
 
-            ActiveBlueprint.Remove(anchoredPos);
+            ActiveBlueprint.Remove(pos);
             onBlueprintChanged?.Invoke();
-            blocksByBlueprintAnchor[anchoredPos].SetActive(false);
+            blocksByBlueprintAnchor[pos].SetActive(false);
+
+            if (block.blueprintBlock.Template is ITurretTemplate) {
+                turretLayer.RemoveStationaryOverlay(block);
+            }
         }
 
         public void ClearBlueprint() {
@@ -63,6 +69,10 @@ namespace Exa.ShipEditor
             var blockGO = block.CreateInactiveInertBlockInGrid(transform);
             blockGO.SetActive(true);
             blocksByBlueprintAnchor[block.gridAnchor] = blockGO;
+            
+            if (block.blueprintBlock.Template is ITurretTemplate template) {
+                turretLayer.AddStationaryOverlay(block, template);
+            }
         }
     }
 }

@@ -68,9 +68,9 @@ namespace Exa.Grids.Blocks.Components
             var enemyMask = (~Parent.BlockContext).GetBlockMask();
             var hits = PhysicsExtensions.RaycastAll(firingPoint.position, firingPoint.right, maxDistance, enemyMask);
 
-            var lastHitPosition = new Vector2();
-
             using var hitsEnumerator = hits.GetEnumerator();
+
+            var lastHitPosition = new Vector2();
 
             while (damage > 0f && hitsEnumerator.MoveNext(out var hit)) {
                 lastHitPosition = hit.hit.point;
@@ -78,11 +78,9 @@ namespace Exa.Grids.Blocks.Components
                 damage -= damageInstance.absorbedDamage;
             }
 
-            if (damage > 0f) {
-                return firingPoint.right * maxDistance;
-            }
-
-            return lastHitPosition;
+            return damage > 0f 
+                ? firingPoint.right * maxDistance 
+                : lastHitPosition.ToVector3();
         }
     }
 }

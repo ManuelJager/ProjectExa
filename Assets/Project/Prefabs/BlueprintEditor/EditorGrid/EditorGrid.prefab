@@ -175,6 +175,7 @@ MonoBehaviour:
   onBlueprintChanged:
     m_PersistentCalls:
       m_Calls: []
+  turretLayer: {fileID: 7011621268033262747}
   stopwatch: {fileID: 0}
 --- !u!1 &4277175631151073247
 GameObject:
@@ -221,6 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb662c03d5b24e54a9feb8d2bf68e706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePrefab: {fileID: 3072400777044392306, guid: 4e819fb3964162343af431ca048f7df5,
+    type: 3}
   prefabContainer: {fileID: 4724731655166668673}
   instanceContainer: {fileID: 2882395266020634550}
 --- !u!1 &5895357026409253044

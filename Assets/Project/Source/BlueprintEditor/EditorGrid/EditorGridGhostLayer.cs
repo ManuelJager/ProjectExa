@@ -98,8 +98,8 @@ namespace Exa.ShipEditor
                 });
             }
 
-            var activeControllers = QueryActiveControllers().ToList();
-            SetFlags(controllers.Except(activeControllers).ToList(), true);
+            var activeControllers = QueryActiveControllers();
+            SetFlags(controllers.Except(activeControllers), true);
             SetFlags(activeControllers, false);
         }
 
