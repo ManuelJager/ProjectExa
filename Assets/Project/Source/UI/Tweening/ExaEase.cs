@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using UnityEngine;
 
 namespace Exa.UI.Tweening
@@ -10,6 +11,12 @@ namespace Exa.UI.Tweening
         public ExaEaseType easeType;
         public Ease ease;
         public AnimationCurve animationCurve;
+
+        public float Evaluate(float time) => easeType switch {
+            ExaEaseType.Classic => EaseManager.Evaluate(ease, null, time, 1f, 0f, 0f),
+            ExaEaseType.AnimationCurve => animationCurve.Evaluate(time),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
     public enum ExaEaseType
@@ -22,14 +29,11 @@ namespace Exa.UI.Tweening
     {
         public static T SetEase<T>(this T tween, ExaEase ease)
             where T : Tween {
-            switch (ease.easeType) {
-                case ExaEaseType.Classic:
-                    return tween.SetEase(ease.ease);
-                case ExaEaseType.AnimationCurve:
-                    return tween.SetEase(ease.animationCurve);
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            return ease.easeType switch {
+                ExaEaseType.Classic => tween.SetEase(ease.ease),
+                ExaEaseType.AnimationCurve => tween.SetEase(ease.animationCurve),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

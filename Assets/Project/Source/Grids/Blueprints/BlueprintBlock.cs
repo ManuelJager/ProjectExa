@@ -44,9 +44,8 @@ namespace Exa.Grids.Blueprints
             }
         }
 
-        [JsonIgnore]
-        public Quaternion QuaternionRotation {
-            get => Quaternion.Euler(0, 0, Rotation * 90f);
+        public Quaternion GetRotation() {
+            return Quaternion.Euler(0, 0, Rotation * 90f);
         }
 
         public Vector2Int CalculateSizeDelta() {

@@ -1,7 +1,9 @@
-﻿namespace Exa.Grids.Blocks.BlockTypes
+﻿using Exa.Grids.Blocks.Components;
+
+namespace Exa.Grids.Blocks.BlockTypes
 {
     public interface ITurretTemplate
     {
-        public float TurretRadius { get; }
+        public ITurretValues GetTurretValues(BlockContext context);
     }
 }

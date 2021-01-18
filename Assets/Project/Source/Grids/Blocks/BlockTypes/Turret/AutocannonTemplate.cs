@@ -19,5 +19,9 @@ namespace Exa.Grids.Blocks.BlockTypes
             return base.GetTemplatePartials()
                 .Append(autocannonTemplatePartial);
         }
+
+        public ITurretValues GetTurretValues(BlockContext context) {
+            return autocannonTemplatePartial.ToContextfulComponentValues(context);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Exa.Grids.Blocks
     /// Provides a generic base class for storing and setting the base values of blocks
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BlockTemplate<T> : BlockTemplate
+    public abstract class BlockTemplate<T> : BlockTemplate
         where T : Block
     {
         [Header("Template partials")] 

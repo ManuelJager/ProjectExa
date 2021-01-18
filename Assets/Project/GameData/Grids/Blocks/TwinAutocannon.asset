@@ -30,5 +30,7 @@ MonoBehaviour:
   autocannonTemplatePartial:
     turningRate: 100
     firingRate: 0.5
+    turretArc: 200
+    turretRadius: 1.375
     damage: 80
     cycleMode: 0

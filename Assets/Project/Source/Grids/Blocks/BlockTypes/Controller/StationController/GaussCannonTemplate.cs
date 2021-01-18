@@ -12,6 +12,10 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] private GaussCannonTemplatePartial gaussCannonTemplatePartial;
 
+        public override ITurretValues GetTurretValues(BlockContext context) {
+            return gaussCannonTemplatePartial.ToContextfulComponentValues(context);
+        }
+
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             return base.GetTemplatePartials()
                 .Append(gaussCannonTemplatePartial);

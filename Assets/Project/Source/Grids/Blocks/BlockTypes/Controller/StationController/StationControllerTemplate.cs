@@ -8,13 +8,12 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/ShipController")]
-    public class StationControllerTemplate<T> : BlockTemplate<T>, ITurretTemplate
+    public abstract class StationControllerTemplate<T> : BlockTemplate<T>, ITurretTemplate
         where T : Block
     {
         [SerializeField] public StationControllerTemplatePartial stationControllerTemplatePartial;
-        [SerializeField] private float turretRadius;
 
-        public float TurretRadius => turretRadius;
+        public abstract ITurretValues GetTurretValues(BlockContext context);
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             return base.GetTemplatePartials()

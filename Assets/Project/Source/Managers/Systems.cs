@@ -25,6 +25,7 @@ namespace Exa
     {
         [Header("References")] 
         [SerializeField] private BlockFactory blockFactory;
+        [SerializeField] private ColorManager colorManager;
         [SerializeField] private ResearchStore researchStore;
         [SerializeField] private BlueprintManager blueprintManager;
         [SerializeField] private ShipEditor.GridEditor gridEditor;
@@ -42,6 +43,7 @@ namespace Exa
         [SerializeField] private bool loadSafe = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
+        public static ColorManager Colors => Instance.colorManager;
         public static ResearchStore Research => Instance.researchStore;
         public static BlueprintManager Blueprints => Instance.blueprintManager;
         public static ShipEditor.GridEditor Editor => Instance.gridEditor;

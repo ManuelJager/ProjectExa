@@ -16,11 +16,15 @@ namespace Exa.Grids.Blocks.Components
     {
         public float turningRate;
         public float firingRate;
+        public float turretArc;
+        public float turretRadius;
         public float damage;
         public CycleMode cycleMode;
 
         public float TurningRate => turningRate;
         public float FiringRate => firingRate;
+        public float TurretArc => turretArc;
+        public float TurretRadius => turretRadius;
         public float Damage => damage;
 
         public void AddGridTotals(GridTotals totals) { }
@@ -30,6 +34,7 @@ namespace Exa.Grids.Blocks.Components
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
             new LabeledValue<object>("Turning rate", $"{turningRate}°/s"),
             new LabeledValue<object>("Firing rate", $"{60 / firingRate} RPM"),
+            new LabeledValue<object>("Firing arc", $"{TurretArc}°"), 
             new LabeledValue<object>("Damage", $"{damage}"),
             new LabeledValue<object>("Cycle mode", $"{cycleMode}")
         };

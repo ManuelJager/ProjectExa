@@ -39,7 +39,8 @@ namespace Exa.ShipEditor
         public void AddStationaryOverlay(AnchoredBlueprintBlock block, ITurretTemplate template) {
             var overlay = overlayPrefabs[template].InstantiateAndGet<TurretOverlay>(instanceContainer);
             overlay.transform.localPosition = block.GetLocalPosition();
-            overlay.Color = Color.white.SetAlpha(0.5f);
+            overlay.transform.localRotation = block.BlueprintBlock.GetRotation();
+            overlay.Color = Colors.Verdigris.SetAlpha(0.5f);
             overlay.gameObject.SetActive(stationaryOverlayVisibility);
             overlayInstances[block] = overlay;
         }
@@ -49,9 +50,10 @@ namespace Exa.ShipEditor
             overlayInstances.Remove(block);
         }
 
+        // TODO: Don't hardcode the user group here
         public void GenerateTurretOverlayPrefab(ITurretTemplate template) {
             var overlay = basePrefab.InstantiateAndGet<TurretOverlay>(prefabContainer);
-            overlay.Import(template);
+            overlay.Generate(template.GetTurretValues(BlockContext.UserGroup));
             overlayPrefabs[template] = overlay.gameObject;
         }
     }
