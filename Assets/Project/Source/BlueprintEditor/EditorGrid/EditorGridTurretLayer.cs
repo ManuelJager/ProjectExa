@@ -40,7 +40,7 @@ namespace Exa.ShipEditor
             var overlay = overlayPrefabs[template].InstantiateAndGet<TurretOverlay>(instanceContainer);
             overlay.transform.localPosition = block.GetLocalPosition();
             overlay.transform.localRotation = block.BlueprintBlock.GetRotation();
-            overlay.Color = Colors.Verdigris.SetAlpha(0.5f);
+            overlay.Color = Colors.Verdigris.SetAlpha(0.8f);
             overlay.gameObject.SetActive(stationaryOverlayVisibility);
             overlayInstances[block] = overlay;
         }

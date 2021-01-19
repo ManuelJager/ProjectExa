@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 5364704981457727891}
   - component: {fileID: 7959331781846871724}
   - component: {fileID: 5237793496089656769}
-  m_Layer: 0
+  - component: {fileID: 5982397156135832462}
+  m_Layer: 24
   m_Name: TurretOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7959331781846871724}
+  meshCollider: {fileID: 5982397156135832462}
   ease:
     easeType: 1
     ease: 0
@@ -132,3 +134,17 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+--- !u!64 &5982397156135832462
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072400777044392306}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
