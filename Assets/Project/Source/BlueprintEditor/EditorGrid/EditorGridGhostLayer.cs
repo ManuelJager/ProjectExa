@@ -19,7 +19,7 @@ namespace Exa.ShipEditor
         private IEnumerable<GhostController> controllers;
 
         public bool PlacementIsAllowed { get; private set; }
-        public bool Initialized { get; private set; }
+        public bool ImportedTemplate { get; private set; }
 
         private void Awake() {
             controllers = new List<GhostController> {
@@ -63,9 +63,7 @@ namespace Exa.ShipEditor
         }
 
         public void ImportTemplate(BlockTemplate template) {
-            if (!Initialized) {
-                Initialized = true;
-            }
+            ImportedTemplate = true;
 
             var block = new BlueprintBlock {
                 id = template.id,
@@ -77,6 +75,11 @@ namespace Exa.ShipEditor
 
         public void MoveGhost(Vector2Int gridSize, Vector2Int? gridPos) {
             SetVisibility(gridPos != null);
+
+            if (!ImportedTemplate) {
+                return;
+            }
+
             if (gridPos != null) {
                 controllers.ForEach(controller => controller.MoveGhost(gridSize, gridPos.GetValueOrDefault()));
             }
@@ -134,6 +137,7 @@ namespace Exa.ShipEditor
 
         private IEnumerable<GhostController> QueryActiveControllers() {
             return controllers.Where(controller => controller.State.HasValue(GhostControllerState.Active))
+                .Where(controller => controller.BlueprintBlock != null)
                 .GroupBy(controller => controller.BlueprintBlock.gridAnchor)
                 .Select(group => group.First());
         }

@@ -33,7 +33,9 @@ namespace Exa.ShipEditor
         }
 
         public void SelectFirst() {
-            SetSelected(Source.First(value => filter.HasValue(value.Data.category)));
+            var selectedBlock = Source.First(value => filter.HasValue(value.Data.category));
+            SetSelected(selectedBlock);
+            blockCategories[selectedBlock.Data.category].Expanded = true;
         }
 
         public void SetFilter(BlockCategory blockCategoryFilter) {

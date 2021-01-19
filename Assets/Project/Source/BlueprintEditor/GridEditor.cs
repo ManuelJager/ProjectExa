@@ -46,14 +46,6 @@ namespace Exa.ShipEditor
         }
 
         private void OnEnable() {
-            ResetState();
-
-            editorGrid.turretLayer.Init();
-            var templates = Systems.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
-            foreach (var template in templates) {
-                editorGrid.turretLayer.GenerateTurretOverlayPrefab(template);
-            }
-
             overlay.gameObject.SetActive(true);
             gameControls.Enable();
         }
@@ -76,6 +68,14 @@ namespace Exa.ShipEditor
         }
 
         public void Import(BlueprintContainer blueprintContainer, Action<BlueprintContainer> saveCallback) {
+            ResetState();
+
+            editorGrid.turretLayer.Init();
+            var templates = Systems.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
+            foreach (var template in templates) {
+                editorGrid.turretLayer.GenerateTurretOverlayPrefab(template);
+            }
+
             this.container = blueprintContainer;
             this.saveCallback = saveCallback;
             this.gridValidator = new BlueprintGridValidator();
@@ -88,7 +88,7 @@ namespace Exa.ShipEditor
 
             overlay.infoPanel.blueprintNameInput.SetValue(newBlueprint.name, false);
             overlay.inventory.SetFilter(blueprintContainer.Data.BlueprintType.allowedBlockCategory);
-            overlay.inventory.SelectFirst();
+            //overlay.inventory.SelectFirst();
 
             FlipState = BlockFlip.None;
         }

@@ -1,17 +1,12 @@
 ﻿using Exa.Grids.Blueprints;
 using Exa.Math;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Exa.ShipEditor
 {
-    public static class ShipEditorUtils
+    public static class GridEditorUtils
     {
-        public static IEnumerable<Vector2Int> GetOccupiedTilesByGhost(BlockGhost blockGhost) {
-            return GetOccupiedTilesByAnchor(blockGhost.AnchoredBlueprintBlock);
-        }
-
         public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(AnchoredBlueprintBlock anchoredBlueprintBlock) {
             var block = anchoredBlueprintBlock.BlueprintBlock;
             var gridAnchor = anchoredBlueprintBlock.GridAnchor;
@@ -32,15 +27,6 @@ namespace Exa.ShipEditor
                 x = gridPos.x,
                 y = size.y - 1 - gridPos.y
             };
-        }
-
-        public static void ConditionallyApplyToMirror(Vector2Int? gridPos, Vector2Int size, Action<Vector2Int> action) {
-            if (gridPos == null) return;
-
-            var realGridPos = gridPos.GetValueOrDefault();
-            var mirroredGridPos = GetMirroredGridPos(size, realGridPos);
-            if (realGridPos == mirroredGridPos) return;
-            action(mirroredGridPos);
         }
     }
 }
