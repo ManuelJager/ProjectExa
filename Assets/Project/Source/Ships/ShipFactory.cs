@@ -38,7 +38,7 @@ namespace Exa.Ships
 
         private T Configure<T>(GameObject prefab, Transform container, Vector2 worldPos, Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration? configuration)
             where T : GridInstance {
-            var grid = prefab.InstantiateAndGet<T>(container);
+            var grid = prefab.Create<T>(container);
             grid.Import(blueprint, blockContext, configuration ?? new GridInstanceConfiguration {
                 Invulnerable = false
             });

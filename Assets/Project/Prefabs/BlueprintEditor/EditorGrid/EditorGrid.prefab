@@ -47,6 +47,7 @@ MonoBehaviour:
     type: 3}
   backgroundLayer: {fileID: 4635185658990925759}
   blueprintLayer: {fileID: 7112577619619822814}
+  gridTurretLayer: {fileID: 7011621268033262747}
 --- !u!1 &773986875373929855
 GameObject:
   m_ObjectHideFlags: 0

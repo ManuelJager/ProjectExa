@@ -10,9 +10,7 @@ namespace Exa.Grids
             var gridAnchor = gridMember.GridAnchor;
 
             blockGO.name = $"{blueprintBlock.Template.displayId} {gridAnchor}";
-            var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
-            gridMember.BlueprintBlock.SetSpriteRendererFlips(spriteRenderer);
-            gridMember.UpdateLocals(blockGO);
+            blockGO.GetComponent<BlockPresenter>().Present(gridMember);
         }
 
         public static void UpdateLocals(this IGridMember gridMember, GameObject blockGO) {

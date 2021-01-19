@@ -1,9 +1,10 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids;
 using Exa.Grids.Blocks;
-using Exa.Grids.Blueprints;
+ using Exa.Grids.Blocks.BlockTypes;
+ using Exa.Grids.Blueprints;
 using Exa.Types;
 using Exa.Utils;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Exa.ShipEditor
         public GameObject ghostPrefab;
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
+        public EditorGridTurretLayer gridTurretLayer;
 
         private IEnumerable<GhostController> controllers;
 
@@ -36,11 +38,7 @@ namespace Exa.ShipEditor
         }
 
         public void RotateGhosts(int value) {
-            controllers.ForEach(controller => {
-                controller.Ghost.AnchoredBlueprintBlock.blueprintBlock.Rotation += value;
-                controller.Ghost.ReflectState();
-            });
-
+            controllers.ForEach(controller => controller.Rotate(value));
             UpdateGhosts();
         }
 
@@ -70,8 +68,14 @@ namespace Exa.ShipEditor
                 Rotation = 0
             };
 
-            controllers.ForEach((controller) => controller.ImportBlock(block));
-        }
+            controllers.ForEach(controller => {
+                controller.ImportBlock(block);
+                var handle = template is ITurretTemplate turretTemplate
+                    ? gridTurretLayer.CreateTurretGhostOverlayHandle(turretTemplate)
+                    : null;
+                controller.SetOverlayHandle(handle);
+            });
+         }
 
         public void MoveGhost(Vector2Int gridSize, Vector2Int? gridPos) {
             SetVisibility(gridPos != null);
@@ -79,10 +83,8 @@ namespace Exa.ShipEditor
             if (!ImportedTemplate) {
                 return;
             }
-
-            if (gridPos != null) {
-                controllers.ForEach(controller => controller.MoveGhost(gridSize, gridPos.GetValueOrDefault()));
-            }
+            
+            controllers.ForEach(controller => controller.MoveGhost(gridSize, gridPos));
 
             UpdateGhostsOverlap();
             UpdateGhosts();

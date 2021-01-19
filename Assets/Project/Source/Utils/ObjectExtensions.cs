@@ -10,7 +10,7 @@ namespace Exa.Utils
             return go;
         }
 
-        public static T InstantiateAndGet<T>(this GameObject prefab, Transform parent, string name = null) {
+        public static T Create<T>(this GameObject prefab, Transform parent, string name = null) {
             return Instantiate(prefab, parent, name ?? typeof(T).Name).GetComponent<T>();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Exa.Grids;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Utils;
 using UnityEngine;
@@ -17,19 +18,19 @@ namespace Exa.ShipEditor
 
     public class GhostController
     {
-        private bool isOverlapped;
-        private bool visible;
         private BlockFlip flip;
         private GhostControllerState state;
+        private TurretOverlayHandle turretOverlayHandle;
 
         public BlockGhost Ghost { get; }
-        public AnchoredBlueprintBlock BlueprintBlock => Ghost.AnchoredBlueprintBlock;
+        public AnchoredBlueprintBlock BlueprintBlock => Ghost.Block;
 
         public GhostControllerState State {
             get => state;
             set {
                 state = value;
                 Ghost.gameObject.SetActive(state == GhostControllerState.Valid);
+                UpdateOverlay();
             }
         }
 
@@ -55,14 +56,43 @@ namespace Exa.ShipEditor
             });
         }
 
-        public void MoveGhost(Vector2Int gridSize, Vector2Int originalPos) {
-            var gridPos = GetMirroredGridPos(gridSize, originalPos);
-            Ghost.AnchoredBlueprintBlock.GridAnchor = gridPos;
-            Ghost.ReflectState();
+        public void SetOverlayHandle(TurretOverlayHandle turretOverlayHandle) {
+            this.turretOverlayHandle?.Destroy();
+            this.turretOverlayHandle = turretOverlayHandle;
+            turretOverlayHandle?.Overlay.gameObject.SetActive(false);
+            UpdateOverlay();
+        }
+
+        public void Rotate(int value) {
+            Ghost.Block.blueprintBlock.Rotation += value;
+            Ghost.Presenter.Present(Ghost.Block);
+
+            UpdateOverlay();
+        }
+
+        public void MoveGhost(Vector2Int gridSize, Vector2Int? originalPos) {
+            if (originalPos != null) {
+                var gridPos = GetMirroredGridPos(gridSize, originalPos.Value);
+                Ghost.Block.GridAnchor = gridPos;
+                Ghost.Presenter.Present(Ghost.Block);
+
+                turretOverlayHandle?.SetActive(true);
+                UpdateOverlay();
+            }
+            else {
+                turretOverlayHandle?.SetActive(false);
+            }
         }
 
         public Vector2Int GetMirroredGridPos(Vector2Int gridSize, Vector2Int originalPos) {
             return GridUtils.GetMirroredGridPos(gridSize, originalPos, flip);
+        }
+
+        private void UpdateOverlay() {
+            if (turretOverlayHandle != null) {
+                turretOverlayHandle.Overlay.Presenter.Present(Ghost.Block);
+                turretOverlayHandle.Overlay.gameObject.SetActive(state.HasValue(GhostControllerState.Valid));
+            }
         }
     }
 }

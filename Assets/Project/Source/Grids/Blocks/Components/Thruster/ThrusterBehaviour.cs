@@ -44,9 +44,7 @@ namespace Exa.Grids.Blocks.Components
             blueprintBlock.SetSpriteRendererFlips(thrusterFlame);
 
             var pos = thrusterFlameContainer.localPosition.ToVector2().Rotate(-blueprintBlock.Rotation);
-
             pos *= blueprintBlock.FlipVector;
-
             thrusterFlameContainer.localPosition = pos.Rotate(blueprintBlock.Rotation);
         }
     }

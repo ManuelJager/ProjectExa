@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Exa.Grids;
 using Exa.Grids.Blocks.Components;
 using Exa.Math;
 using Exa.UI.Tweening;
@@ -10,25 +11,26 @@ namespace Exa.ShipEditor
 {
     public class TurretOverlay : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private BlockPresenter presenter;
         [SerializeField] private MeshCollider meshCollider;
         [SerializeField] private ExaEase ease;
 
-        private bool isGhostOverlay = false;
-        private TurretOverlayGhostIdentity identity;
+        private TurretOverlayHandle handle;
+
+        public BlockPresenter Presenter => presenter;
 
         public Color Color {
-            set => spriteRenderer.color = value;
+            set => presenter.Renderer.color = value;
         }
 
         public void Generate(ITurretValues values) {
-            spriteRenderer.sprite = GenerateTexture(values).CreateSprite();
+            presenter.Renderer.sprite = GenerateTexture(values).CreateSprite();
             meshCollider.sharedMesh = GenerateMesh(values);
             gameObject.SetActive(false);
         }
 
-        public void ConfigureAsGhostOverlay(TurretOverlayGhostIdentity identity) {
-            this.identity = identity;
+        public void ConfigureAsGhostOverlay(TurretOverlayHandle handle) {
+            this.handle = handle;
             meshCollider.isTrigger = true;
         }
 
@@ -67,18 +69,14 @@ namespace Exa.ShipEditor
             return mesh;
         }
 
-        private void OnTriggerEnter2D() {
+        private void OnTriggerEnter2D(Collider2D other) {
             Debug.Log("Entered");
-            if (identity != null) {
-                identity.Collides = true;
-            }
+            handle.Collides = true;
         }
 
-        private void OnTriggerExit2D() {
+        private void OnTriggerExit2D(Collider2D other) {
             Debug.Log("Exited");
-            if (identity != null) {
-                identity.Collides = false;
-            }
+            handle.Collides = false;
         }
     }
 }

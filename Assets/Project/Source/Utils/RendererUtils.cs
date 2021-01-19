@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.ShipEditor;
+using UnityEngine;
 
 namespace Exa.Utils
 {
@@ -8,6 +9,11 @@ namespace Exa.Utils
             var materialCopy = new Material(renderer.material);
             renderer.material = materialCopy;
             return materialCopy;
+        }
+
+        public static void SetFlip(this SpriteRenderer renderer, BlockFlip flip) {
+            renderer.flipX = flip.HasValue(BlockFlip.FlipX);
+            renderer.flipY = flip.HasFlag(BlockFlip.FlipY);
         }
     }
 }

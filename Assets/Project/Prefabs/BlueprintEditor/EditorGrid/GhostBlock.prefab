@@ -46,6 +46,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7311039082771557908
@@ -91,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2856743381429611794}
   - component: {fileID: 7138874039998286403}
+  - component: {fileID: 1592240752413919358}
   m_Layer: 0
   m_Name: GhostBlock
   m_TagString: Untagged
@@ -126,15 +128,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5414b8559b217c14e82ba2208e89b2fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ghostImage: {fileID: 2328400462197416724}
   filter: {fileID: 1656620625760434138}
+  presenter: {fileID: 1592240752413919358}
   filterTransform: {fileID: 672676629116447004}
   activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 0.19607843}
   inactiveColor: {r: 1, g: 0, b: 0, a: 0.19607843}
-  blueprintBlock:
-    id: 
-    flippedX: 0
-    flippedY: 0
+--- !u!114 &1592240752413919358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7311039082771557908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565cfc078da651a4ba1632dc9c61f5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2328400462197416724}
 --- !u!1 &7572590843215005451
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +192,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
