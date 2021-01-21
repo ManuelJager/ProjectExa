@@ -10,6 +10,8 @@ namespace Exa.ShipEditor
         [SerializeField] private Color defaultColor;
         [SerializeField] private Color hoverColor;
 
+        public Vector2Int GridPosition { get; set; }
+
         public void SetColor(bool enabled) {
             spriteRenderer.color = enabled ? hoverColor : defaultColor;
         }

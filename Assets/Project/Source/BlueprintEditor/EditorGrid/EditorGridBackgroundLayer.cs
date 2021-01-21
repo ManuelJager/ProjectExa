@@ -49,9 +49,9 @@ namespace Exa.ShipEditor
             gridItems.Clear();
 
             foreach (var vector in MathUtils.EnumerateVectors(size)) {
-                var gridItemGO = Instantiate(gridItemPrefab, transform);
-                gridItemGO.transform.localPosition = vector.ToVector3();
-                var gridItem = gridItemGO.GetComponent<EditorGridItem>();
+                var gridItem = gridItemPrefab.Create<EditorGridItem>(transform);
+                gridItem.transform.localPosition = vector.ToVector3();
+                gridItem.GridPosition = vector;
                 gridItems.Add(vector, gridItem);
             }
         }

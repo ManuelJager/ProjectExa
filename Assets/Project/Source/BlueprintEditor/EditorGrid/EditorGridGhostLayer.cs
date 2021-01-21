@@ -21,7 +21,7 @@ namespace Exa.ShipEditor
         private IEnumerable<GhostController> controllers;
 
         public bool PlacementIsAllowed { get; private set; }
-        public bool ImportedTemplate { get; private set; }
+        public BlockTemplate ImportedTemplate { get; private set; }
 
         private void Awake() {
             controllers = new List<GhostController> {
@@ -61,7 +61,7 @@ namespace Exa.ShipEditor
         }
 
         public void ImportTemplate(BlockTemplate template) {
-            ImportedTemplate = true;
+            ImportedTemplate = template;
 
             var block = new BlueprintBlock {
                 id = template.id,
@@ -70,10 +70,11 @@ namespace Exa.ShipEditor
 
             controllers.ForEach(controller => {
                 controller.ImportBlock(block);
-                var handle = template is ITurretTemplate turretTemplate
-                    ? gridTurretLayer.CreateTurretGhostOverlayHandle(turretTemplate)
+
+                var overlay = template is ITurretTemplate turretTemplate
+                    ? gridTurretLayer.CreateGhostOverlay(controller.Ghost.Block, turretTemplate)
                     : null;
-                controller.SetOverlayHandle(handle);
+                controller.SetOverlay(overlay);
             });
          }
 
@@ -122,12 +123,22 @@ namespace Exa.ShipEditor
             }
 
             var occupiedBlocks = activeControllers
-                .Select(controller => controller.BlueprintBlock.GetOccupiedTiles())
-                .SelectMany(block => block);
+                .SelectMany(controller => controller.BlueprintBlock.GetOccupiedTiles());
 
-            return occupiedBlocks.Distinct().Count() == occupiedBlocks.Count()
+            var positionValid = occupiedBlocks.Distinct().Count() == occupiedBlocks.Count()
                    && occupiedBlocks.All(pos => backgroundLayer.PosIsInGrid(pos))
                    && !blueprintLayer.ActiveBlueprint.Blocks.HasOverlap(occupiedBlocks);
+
+            if (!positionValid) {
+                return false;
+            }
+
+            if (ImportedTemplate is ITurretTemplate) {
+                var turretContacts = activeControllers.SelectMany(controller => controller.Overlay.GetContacts());
+                return !turretContacts.Intersect(occupiedBlocks).Any();
+            }
+
+            return true;
         }
 
         private GhostController InitController(BlockFlip flip) {

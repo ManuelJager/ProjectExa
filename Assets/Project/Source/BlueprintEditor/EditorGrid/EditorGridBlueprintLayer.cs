@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blueprints;
 using Exa.Utils;
 using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,6 +17,7 @@ namespace Exa.ShipEditor
         [SerializeField] private GridEditorStopwatch stopwatch;
 
         private Dictionary<Vector2Int, GameObject> blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
+        private List<Vector2Int> turretBlockContacts = new List<Vector2Int>();
 
         public Blueprint ActiveBlueprint { get; private set; }
 
@@ -52,17 +54,27 @@ namespace Exa.ShipEditor
 
             ActiveBlueprint.Remove(pos);
             onBlueprintChanged?.Invoke();
-            blocksByBlueprintAnchor[pos].SetActive(false);
 
             if (block.blueprintBlock.Template is ITurretTemplate) {
+                foreach (var contact in turretLayer.GetStationaryOverlay(block).GetContacts()) {
+                    turretBlockContacts.Remove(contact);
+                }
                 turretLayer.RemoveStationaryOverlay(block);
+                Debug.Log(turretBlockContacts.Count);
             }
+
+            blocksByBlueprintAnchor[pos].SetActive(false);
         }
 
         public void ClearBlueprint() {
             transform.SetActiveChildren(false);
 
             ActiveBlueprint?.ClearBlocks();
+        }
+
+        public void OnTurretOverlayStart(TurretOverlay overlay) {
+            turretBlockContacts.AddRange(overlay.GetContacts());
+            Debug.Log($"{overlay.Block} {turretBlockContacts.Count}");
         }
 
         public void PlaceBlock(AnchoredBlueprintBlock block) {

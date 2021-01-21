@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2765531761494197332}
   - component: {fileID: 1688177386627731569}
   - component: {fileID: 1081067659551580334}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: EditorGridItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5794473422174108555}
   - component: {fileID: 3392767795847574525}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

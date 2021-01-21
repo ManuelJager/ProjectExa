@@ -1,37 +1,58 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids;
 using Exa.Grids.Blocks.Components;
+using Exa.Grids.Blueprints;
 using Exa.Math;
 using Exa.UI.Tweening;
 using Exa.Utils;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Exa.ShipEditor
 {
+    public enum TurretOverlayMode
+    {
+        Stationary,
+        Ghost
+    }
+
     public class TurretOverlay : MonoBehaviour
     {
         [SerializeField] private BlockPresenter presenter;
-        [SerializeField] private MeshCollider meshCollider;
+        [SerializeField] private PolygonCollider2D polygonCollider;
         [SerializeField] private ExaEase ease;
-
-        private TurretOverlayHandle handle;
+        private TurretOverlayMode mode;
 
         public BlockPresenter Presenter => presenter;
+        public AnchoredBlueprintBlock Block { get; private set; }
 
         public Color Color {
             set => presenter.Renderer.color = value;
         }
 
+        private void Start() {
+            if (mode == TurretOverlayMode.Stationary) {
+                Systems.Editor.editorGrid.blueprintLayer.OnTurretOverlayStart(this);
+            }
+        }
+
         public void Generate(ITurretValues values) {
             presenter.Renderer.sprite = GenerateTexture(values).CreateSprite();
-            meshCollider.sharedMesh = GenerateMesh(values);
+            polygonCollider.points = GeneratePoints(values);
             gameObject.SetActive(false);
         }
 
-        public void ConfigureAsGhostOverlay(TurretOverlayHandle handle) {
-            this.handle = handle;
-            meshCollider.isTrigger = true;
+        public void SetMode(AnchoredBlueprintBlock block, TurretOverlayMode mode) {
+            this.Block = block;
+            this.mode = mode;
+        }
+
+        public IEnumerable<Vector2Int> GetContacts() {
+            return polygonCollider.StationaryCast(LayerMask.GetMask("editorGridItems"))
+                .Select(hit => hit.transform.GetComponent<EditorGridItem>().GridPosition)
+                .Except(Block.GetOccupiedTiles());
         }
 
         private Texture2D GenerateTexture(ITurretValues values) {
@@ -44,39 +65,19 @@ namespace Exa.ShipEditor
                 .DrawFadingCone(Color.white.SetAlpha(0.5f), centre, pixelRadius - 1.2f, arc, ease.Evaluate);
         }
 
-        private Mesh GenerateMesh(ITurretValues values, int subdivisions = 20) {
-            var mesh = new Mesh();
-            var vertices = new List<Vector3>(subdivisions + 2) { Vector3.zero };
-            var triangles = new List<int>(subdivisions * 3);
-
-            void AddVertex(float angle) {
-                vertices.Add(MathUtils.FromAngledMagnitude(values.TurretRadius, angle));
-            }
+        private Vector2[] GeneratePoints(ITurretValues values, int subdivisions = 20) {
+            var points = new Vector2[subdivisions + 2];
+            points[0] = Vector2.zero;
 
             var startAngle = -(values.TurretArc / 2f);
             var subdivisionAngleSize = values.TurretArc / subdivisions;
 
-            AddVertex(startAngle);
-            for (var index = 0; index < subdivisions; index ++) {
-                var angleOffset = subdivisionAngleSize * (index + 1);
-                AddVertex(startAngle + angleOffset);
-                triangles.AddRange(0, index + 1, index + 2);
+            for (var i = 0; i < subdivisions + 1; i++) {
+                var angle = startAngle + subdivisionAngleSize * i;
+                points[i + 1] = MathUtils.FromAngledMagnitude(values.TurretRadius, angle);
             }
 
-            mesh.vertices = vertices.ToArray();
-            mesh.triangles = triangles.ToArray();
-
-            return mesh;
-        }
-
-        private void OnTriggerEnter2D(Collider2D other) {
-            Debug.Log("Entered");
-            handle.Collides = true;
-        }
-
-        private void OnTriggerExit2D(Collider2D other) {
-            Debug.Log("Exited");
-            handle.Collides = false;
+            return points;
         }
     }
 }

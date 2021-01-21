@@ -13,5 +13,9 @@ namespace Exa.Utils
         public static T Create<T>(this GameObject prefab, Transform parent, string name = null) {
             return Instantiate(prefab, parent, name ?? typeof(T).Name).GetComponent<T>();
         }
+
+        public static void Destroy(this Object @object) {
+            Object.Destroy(@object);
+        }
     }
 }

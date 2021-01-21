@@ -66,5 +66,9 @@ namespace Exa.Grids.Blueprints
                 ? flippedY
                 : flippedX;
         }
+
+        public override string ToString() {
+            return $"{id}:{rotation}";
+        }
     }
 }

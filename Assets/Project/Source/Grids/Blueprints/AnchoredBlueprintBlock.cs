@@ -52,5 +52,9 @@ namespace Exa.Grids.Blueprints
         public void RemoveGridTotals(GridTotals totals) {
             blueprintBlock.Template.RemoveGridTotals(totals);
         }
+
+        public override string ToString() {
+            return $"{gridAnchor}:{blueprintBlock}";
+        }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
@@ -20,9 +22,10 @@ namespace Exa.ShipEditor
     {
         private BlockFlip flip;
         private GhostControllerState state;
-        private TurretOverlayHandle turretOverlayHandle;
 
         public BlockGhost Ghost { get; }
+        public TurretOverlay Overlay { get; private set; }
+
         public AnchoredBlueprintBlock BlueprintBlock => Ghost.Block;
 
         public GhostControllerState State {
@@ -56,10 +59,10 @@ namespace Exa.ShipEditor
             });
         }
 
-        public void SetOverlayHandle(TurretOverlayHandle turretOverlayHandle) {
-            this.turretOverlayHandle?.Destroy();
-            this.turretOverlayHandle = turretOverlayHandle;
-            turretOverlayHandle?.Overlay.gameObject.SetActive(false);
+        public void SetOverlay(TurretOverlay overlay) {
+            Overlay?.gameObject.Destroy();
+            Overlay = overlay;
+            overlay?.gameObject.SetActive(false);
             UpdateOverlay();
         }
 
@@ -76,11 +79,11 @@ namespace Exa.ShipEditor
                 Ghost.Block.GridAnchor = gridPos;
                 Ghost.Presenter.Present(Ghost.Block);
 
-                turretOverlayHandle?.SetActive(true);
+                Overlay?.gameObject.SetActive(true);
                 UpdateOverlay();
             }
             else {
-                turretOverlayHandle?.SetActive(false);
+                Overlay?.gameObject.SetActive(false);
             }
         }
 
@@ -89,9 +92,9 @@ namespace Exa.ShipEditor
         }
 
         private void UpdateOverlay() {
-            if (turretOverlayHandle != null) {
-                turretOverlayHandle.Overlay.Presenter.Present(Ghost.Block);
-                turretOverlayHandle.Overlay.gameObject.SetActive(state.HasValue(GhostControllerState.Valid));
+            if (Overlay != null) {
+                Overlay.Presenter.Present(Ghost.Block);
+                Overlay.gameObject.SetActive(state.HasValue(GhostControllerState.Valid));
             }
         }
     }

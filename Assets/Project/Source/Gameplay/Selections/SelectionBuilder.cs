@@ -21,9 +21,8 @@ namespace Exa.Gameplay
                 var ship = collider.gameObject.GetComponent<GridInstance>();
 
                 if (ship != null && ship.Active) {
-                    if (selection == null) 
-                        selection = ship.GetAppropriateSelection(new VicFormation());
-                    
+                    selection ??= ship.GetAppropriateSelection(new VicFormation());
+
                     if (ship.MatchesSelection(selection) && !selection.Contains(ship))
                         selection.Add(ship);
                 }
