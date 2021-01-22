@@ -10,7 +10,8 @@ namespace Exa.Grids
 
         public virtual void Present(IGridMember gridMember) {
             gridMember.UpdateLocals(gameObject);
-            gridMember.BlueprintBlock.SetSpriteRendererFlips(spriteRenderer);
+            // As all current block sprites are horizontally symmetric, sprite renderers don't need to flip the sprite
+            // gridMember.BlueprintBlock.SetSpriteRendererFlips(spriteRenderer);
         }
     }
 }

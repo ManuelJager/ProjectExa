@@ -60,7 +60,7 @@ namespace Exa.ShipEditor
                     turretBlockContacts.Remove(contact);
                 }
                 turretLayer.RemoveStationaryOverlay(block);
-                Debug.Log(turretBlockContacts.Count);
+                //Debug.Log(turretBlockContacts.Count);
             }
 
             blocksByBlueprintAnchor[pos].SetActive(false);
@@ -74,7 +74,6 @@ namespace Exa.ShipEditor
 
         public void OnTurretOverlayStart(TurretOverlay overlay) {
             turretBlockContacts.AddRange(overlay.GetContacts());
-            Debug.Log($"{overlay.Block} {turretBlockContacts.Count}");
         }
 
         public void PlaceBlock(AnchoredBlueprintBlock block) {

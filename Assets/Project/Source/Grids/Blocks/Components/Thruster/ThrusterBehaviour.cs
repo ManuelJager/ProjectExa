@@ -38,14 +38,5 @@ namespace Exa.Grids.Blocks.Components
             thrusterFlame.transform.DOScale(0f, 0.5f);
             light2D.DOIntensity(0f, 0.5f);
         }
-
-        protected override void OnAdd() {
-            var blueprintBlock = block.anchoredBlueprintBlock.blueprintBlock;
-            blueprintBlock.SetSpriteRendererFlips(thrusterFlame);
-
-            var pos = thrusterFlameContainer.localPosition.ToVector2().Rotate(-blueprintBlock.Rotation);
-            pos *= blueprintBlock.FlipVector;
-            thrusterFlameContainer.localPosition = pos.Rotate(blueprintBlock.Rotation);
-        }
     }
 }

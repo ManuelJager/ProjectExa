@@ -28,8 +28,8 @@ namespace Exa.ShipEditor
         public BlockPresenter Presenter => presenter;
         public AnchoredBlueprintBlock Block { get; private set; }
 
-        public Color Color {
-            set => presenter.Renderer.color = value;
+        public void SetColor(Color color) {
+            presenter.Renderer.color = color;
         }
 
         private void Start() {
@@ -44,7 +44,7 @@ namespace Exa.ShipEditor
             gameObject.SetActive(false);
         }
 
-        public void SetMode(AnchoredBlueprintBlock block, TurretOverlayMode mode) {
+        public void Import(AnchoredBlueprintBlock block, TurretOverlayMode mode) {
             this.Block = block;
             this.mode = mode;
         }

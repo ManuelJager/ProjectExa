@@ -48,6 +48,8 @@ namespace Exa.ShipEditor
 
         public void SetFilterColor(bool active) {
             Ghost.SetFilterColor(active);
+
+            Overlay?.SetColor(Colors.GetActiveColor(active));
         }
 
         public void ImportBlock(BlueprintBlock block) {
@@ -63,6 +65,7 @@ namespace Exa.ShipEditor
             Overlay?.gameObject.Destroy();
             Overlay = overlay;
             overlay?.gameObject.SetActive(false);
+
             UpdateOverlay();
         }
 

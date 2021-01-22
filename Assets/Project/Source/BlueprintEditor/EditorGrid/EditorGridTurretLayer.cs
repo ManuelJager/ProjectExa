@@ -41,8 +41,8 @@ namespace Exa.ShipEditor
         }
 
         public TurretOverlay AddStationaryOverlay(AnchoredBlueprintBlock block, ITurretTemplate template) {
-            var overlay = overlayPrefabs[template].Create<TurretOverlay>(instanceContainer);
-            overlay.SetMode(block, TurretOverlayMode.Stationary);
+            var overlay = CreateOverlay(template, block, TurretOverlayMode.Stationary);
+            overlay.SetColor(Color.white.SetAlpha(0.5f)); 
             overlay.Presenter.Present(block);
             overlay.gameObject.SetActive(stationaryOverlayVisibility);
             overlayInstances[block] = overlay;
@@ -50,8 +50,12 @@ namespace Exa.ShipEditor
         }
 
         public TurretOverlay CreateGhostOverlay(AnchoredBlueprintBlock block, ITurretTemplate template) {
+            return CreateOverlay(template, block, TurretOverlayMode.Ghost);
+        }
+
+        private TurretOverlay CreateOverlay(ITurretTemplate template, AnchoredBlueprintBlock block, TurretOverlayMode mode) {
             var overlay = overlayPrefabs[template].Create<TurretOverlay>(instanceContainer);
-            overlay.SetMode(block, TurretOverlayMode.Ghost);
+            overlay.Import(block, mode);
             return overlay;
         }
 

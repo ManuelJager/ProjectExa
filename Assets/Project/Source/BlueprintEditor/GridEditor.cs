@@ -3,6 +3,7 @@ using Exa.Input;
 using Exa.IO;
 using Exa.UI;
 using System;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Utils;
 using UnityEngine;
@@ -23,6 +24,8 @@ namespace Exa.ShipEditor
         [SerializeField] private float zoomSpeed;
         private GameControls gameControls;
         private ShipEditorOverlay overlay;
+
+        public BlockContext Context { get; private set; }
 
         private void Awake() {
             overlay = Systems.UI.editorOverlay;
@@ -67,7 +70,7 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void Import(BlueprintContainer blueprintContainer, Action<BlueprintContainer> saveCallback) {
+        public void Import(BlueprintContainer blueprintContainer, BlockContext context, Action<BlueprintContainer> saveCallback) {
             ResetState();
 
             editorGrid.turretLayer.Init();
@@ -80,6 +83,7 @@ namespace Exa.ShipEditor
             this.saveCallback = saveCallback;
             this.gridValidator = new BlueprintGridValidator();
             this.nameValidator = new BlueprintNameValidator();
+            this.Context = context;
 
             var newBlueprint = blueprintContainer.Data.Clone();
             editorGrid.Import(newBlueprint);
