@@ -23,19 +23,12 @@ namespace Exa.ShipEditor
         [SerializeField] private BlockPresenter presenter;
         [SerializeField] private PolygonCollider2D polygonCollider;
         [SerializeField] private ExaEase ease;
-        private TurretOverlayMode mode;
 
         public BlockPresenter Presenter => presenter;
-        public AnchoredBlueprintBlock Block { get; private set; }
+        public ABpBlock Block { get; private set; }
 
         public void SetColor(Color color) {
             presenter.Renderer.color = color;
-        }
-
-        private void Start() {
-            if (mode == TurretOverlayMode.Stationary) {
-                Systems.Editor.editorGrid.blueprintLayer.OnTurretOverlayStart(this);
-            }
         }
 
         public void Generate(ITurretValues values) {
@@ -44,15 +37,19 @@ namespace Exa.ShipEditor
             gameObject.SetActive(false);
         }
 
-        public void Import(AnchoredBlueprintBlock block, TurretOverlayMode mode) {
+        public void Import(ABpBlock block) {
             this.Block = block;
-            this.mode = mode;
         }
 
-        public IEnumerable<Vector2Int> GetContacts() {
+        public IEnumerable<Vector2Int> GetTurretClaims() {
             return polygonCollider.StationaryCast(LayerMask.GetMask("editorGridItems"))
                 .Select(hit => hit.transform.GetComponent<EditorGridItem>().GridPosition)
-                .Except(Block.GetOccupiedTiles());
+                .Except(Block.GetTileClaims());
+        }
+
+        [Button("Print turret claims")]
+        public void PrintTurretClaims() {
+            Debug.Log(GetTurretClaims().Join(", "));
         }
 
         private Texture2D GenerateTexture(ITurretValues values) {

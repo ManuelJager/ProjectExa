@@ -63,5 +63,9 @@ namespace Exa.Utils
 
             return default;
         }
+
+        public static string Join<T>(this IEnumerable<T> enumerable, string separator) {
+            return string.Join(separator, enumerable);
+        }
     }
 }

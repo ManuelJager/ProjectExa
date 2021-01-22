@@ -86,13 +86,14 @@ namespace Exa.ShipEditor
             this.Context = context;
 
             var newBlueprint = blueprintContainer.Data.Clone();
-            editorGrid.Import(newBlueprint);
-
-            ValidateName(newBlueprint.name);
+            editorGrid.Import(newBlueprint, () => {
+                ValidateName(newBlueprint.name);
+            });
 
             overlay.infoPanel.blueprintNameInput.SetValue(newBlueprint.name, false);
             overlay.inventory.SetFilter(blueprintContainer.Data.BlueprintType.allowedBlockCategory);
-            //overlay.inventory.SelectFirst();
+            overlay.inventory.SetSelected(null);
+            overlay.inventory.CloseTabs();
 
             FlipState = BlockFlip.None;
         }

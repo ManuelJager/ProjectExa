@@ -61,7 +61,7 @@ namespace Exa.Ships.Navigation
                 : thrusterDict[3];
 
         private int GetDirection(IThruster thruster) {
-            return thruster.Component.block.anchoredBlueprintBlock.blueprintBlock.Direction;
+            return thruster.Component.block.aBpBlock.blueprintBlock.Direction;
         }
     }
 }

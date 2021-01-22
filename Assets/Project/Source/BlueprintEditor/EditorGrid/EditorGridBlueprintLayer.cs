@@ -17,7 +17,6 @@ namespace Exa.ShipEditor
         [SerializeField] private GridEditorStopwatch stopwatch;
 
         private Dictionary<Vector2Int, GameObject> blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
-        private List<Vector2Int> turretBlockContacts = new List<Vector2Int>();
 
         public Blueprint ActiveBlueprint { get; private set; }
 
@@ -35,7 +34,7 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void AddBlock(AnchoredBlueprintBlock block) {
+        public void AddBlock(ABpBlock block) {
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
             onBlueprintChanged?.Invoke();
@@ -46,21 +45,19 @@ namespace Exa.ShipEditor
         public void RemoveBlock(Vector2Int gridPos) {
             if (!ActiveBlueprint.Blocks.ContainsMember(gridPos)) return;
 
+            RemoveBlock(ActiveBlueprint.Blocks.GetMember(gridPos));
+        }
+
+        public void RemoveBlock(ABpBlock block) {
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
-
-            var block = ActiveBlueprint.Blocks.GetMember(gridPos);
             var pos = block.GridAnchor;
 
             ActiveBlueprint.Remove(pos);
             onBlueprintChanged?.Invoke();
 
             if (block.blueprintBlock.Template is ITurretTemplate) {
-                foreach (var contact in turretLayer.GetStationaryOverlay(block).GetContacts()) {
-                    turretBlockContacts.Remove(contact);
-                }
-                turretLayer.RemoveStationaryOverlay(block);
-                //Debug.Log(turretBlockContacts.Count);
+                turretLayer.TurretBlocks.Remove(block);
             }
 
             blocksByBlueprintAnchor[pos].SetActive(false);
@@ -72,17 +69,13 @@ namespace Exa.ShipEditor
             ActiveBlueprint?.ClearBlocks();
         }
 
-        public void OnTurretOverlayStart(TurretOverlay overlay) {
-            turretBlockContacts.AddRange(overlay.GetContacts());
-        }
-
-        public void PlaceBlock(AnchoredBlueprintBlock block) {
+        public void PlaceBlock(ABpBlock block) {
             var blockGO = block.CreateInactiveInertBlockInGrid(transform);
             blockGO.SetActive(true);
             blocksByBlueprintAnchor[block.gridAnchor] = blockGO;
             
             if (block.blueprintBlock.Template is ITurretTemplate template) {
-                turretLayer.AddStationaryOverlay(block, template);
+                turretLayer.TurretBlocks.AddTurret(block, template);
             }
         }
     }

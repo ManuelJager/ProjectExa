@@ -61,7 +61,7 @@ namespace Exa.Grids
             gridMember.AddGridTotals(Totals);
 
             // Get grid positions of blueprint block
-            var tilePositions = gridMember.GetOccupiedTiles();
+            var tilePositions = gridMember.GetTileClaims();
 
             EnsureNeighbourKeyIsCreated(gridMember);
 
@@ -78,15 +78,18 @@ namespace Exa.Grids
 
         public virtual T Remove(Vector2Int key) {
             Size.Invalidate();
-
             var gridMember = GetMember(key);
+            Remove(gridMember);
+            return gridMember;
+        }
 
+        public virtual void Remove(T gridMember) {
             // Remove controller reference
             if (ReferenceEquals(gridMember, Controller)) {
                 Controller = default;
             }
 
-            var tilePositions = gridMember.GetOccupiedTiles();
+            var tilePositions = gridMember.GetTileClaims();
 
             GridMembers.Remove(gridMember);
             gridMember.RemoveGridTotals(Totals);
@@ -101,8 +104,6 @@ namespace Exa.Grids
             foreach (var occupiedTile in tilePositions) {
                 OccupiedTiles.Remove(occupiedTile);
             }
-
-            return gridMember;
         }
 
         public bool ContainsMember(Vector2Int gridPos) {

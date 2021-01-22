@@ -7,9 +7,9 @@ namespace Exa.ShipEditor
 {
     public static class GridEditorUtils
     {
-        public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(AnchoredBlueprintBlock anchoredBlueprintBlock) {
-            var block = anchoredBlueprintBlock.BlueprintBlock;
-            var gridAnchor = anchoredBlueprintBlock.GridAnchor;
+        public static IEnumerable<Vector2Int> GetOccupiedTilesByAnchor(ABpBlock aBpBlock) {
+            var block = aBpBlock.BlueprintBlock;
+            var gridAnchor = aBpBlock.GridAnchor;
             return GetOccupiedTilesByAnchor(block, gridAnchor);
         }
 

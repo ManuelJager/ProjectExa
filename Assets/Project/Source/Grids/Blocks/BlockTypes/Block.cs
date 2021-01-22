@@ -16,15 +16,15 @@ namespace Exa.Grids.Blocks.BlockTypes
     /// </summary>
     public class Block : MonoBehaviour, IBlock, IGridMember, IPhysical
     {
-        [HideInInspector] public AnchoredBlueprintBlock anchoredBlueprintBlock;
+        [HideInInspector] public ABpBlock aBpBlock;
 
         [SerializeField] private PhysicalBehaviour physicalBehaviour;
         [SerializeField, HideInInspector] private new BoxCollider2D collider;
         private IGridInstance parent;
 
-        public Vector2Int GridAnchor => anchoredBlueprintBlock.gridAnchor;
+        public Vector2Int GridAnchor => aBpBlock.gridAnchor;
 
-        public BlueprintBlock BlueprintBlock => anchoredBlueprintBlock.blueprintBlock;
+        public BlueprintBlock BlueprintBlock => aBpBlock.blueprintBlock;
 
         BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component {
             get => physicalBehaviour;

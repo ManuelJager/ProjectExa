@@ -8,15 +8,17 @@ using Exa.Grids.Blocks;
 using Exa.Types;
 using Exa.Utils;
 using UnityEngine;
-
-namespace Exa.ShipEditor
+ using UnityEngine.Serialization;
+ 
+ namespace Exa.ShipEditor
 {
     public class EditorGridGhostLayer : MonoBehaviour
     {
         public GameObject ghostPrefab;
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
-        public EditorGridTurretLayer gridTurretLayer;
+        [FormerlySerializedAs("gridTurretLayer")]
+        public EditorGridTurretLayer turretLayer;
 
         private IEnumerable<GhostController> controllers;
 
@@ -42,42 +44,6 @@ namespace Exa.ShipEditor
             UpdateGhosts();
         }
 
-        public void TryPlace() {
-            if (!PlacementIsAllowed) return;
-
-            QueryActiveControllers().ForEach(controller => {
-                blueprintLayer.AddBlock(controller.BlueprintBlock.Clone());
-            });
-
-            UpdateGhosts();
-        }
-
-        public void TryDelete() {
-            QueryActiveControllers().ForEach(controller => {
-                blueprintLayer.RemoveBlock(controller.BlueprintBlock.GridAnchor);
-            });
-
-            UpdateGhosts();
-        }
-
-        public void ImportTemplate(BlockTemplate template) {
-            ImportedTemplate = template;
-
-            var block = new BlueprintBlock {
-                id = template.id,
-                Rotation = 0
-            };
-
-            controllers.ForEach(controller => {
-                controller.ImportBlock(block);
-
-                var overlay = template is ITurretTemplate turretTemplate
-                    ? gridTurretLayer.CreateGhostOverlay(controller.Ghost.Block, turretTemplate)
-                    : null;
-                controller.SetOverlay(overlay);
-            });
-         }
-
         public void MoveGhost(Vector2Int gridSize, Vector2Int? gridPos) {
             SetVisibility(gridPos != null);
 
@@ -89,6 +55,53 @@ namespace Exa.ShipEditor
 
             UpdateGhostsOverlap();
             UpdateGhosts();
+        }
+
+        public void TryPlace() {
+            if (!PlacementIsAllowed) return;
+
+            QueryActiveControllers().ForEach(controller => {
+                var block = controller.BlueprintBlock.Clone();
+                blueprintLayer.AddBlock(block);
+            });
+
+            UpdateGhosts();
+        }
+
+        public void TryDelete() {
+            var blocks = blueprintLayer.ActiveBlueprint.Blocks;
+
+            QueryActiveControllers().ForEach(controller => {
+                var pos = controller.BlueprintBlock.gridAnchor;
+                if (blocks.TryGetMember(pos, out var member)) {
+                    blueprintLayer.RemoveBlock(member);
+                }
+            });
+
+            UpdateGhosts();
+        }
+
+        public void ImportTemplate(BlockTemplate template) {
+            ImportedTemplate = template;
+
+            if (template == null) {
+                controllers.ForEach(controller => controller.Clear());
+                return;
+            }
+
+            var block = new BlueprintBlock {
+                id = template.id,
+                Rotation = 0
+            };
+
+            controllers.ForEach(controller => {
+                controller.ImportBlock(block);
+
+                var overlay = template is ITurretTemplate turretTemplate
+                    ? turretLayer.CreateGhostOverlay(controller.Ghost.Block, turretTemplate)
+                    : null;
+                controller.SetOverlay(overlay);
+            });
         }
 
         public void SetVisibility(bool value) {
@@ -110,6 +123,9 @@ namespace Exa.ShipEditor
         }
 
         private void UpdateGhosts() {
+            // Block placement validation may rely on collider casts,
+            // which by default only sync with the transform in fixedUpdate
+            Physics2D.SyncTransforms();
             var ghostPlacementIsValid = GetBlockPlacementIsValid();
             PlacementIsAllowed = ghostPlacementIsValid;
             SetFilter(ghostPlacementIsValid);
@@ -123,7 +139,7 @@ namespace Exa.ShipEditor
             }
 
             var occupiedBlocks = activeControllers
-                .SelectMany(controller => controller.BlueprintBlock.GetOccupiedTiles());
+                .SelectMany(controller => controller.BlueprintBlock.GetTileClaims());
 
             var positionValid = occupiedBlocks.Distinct().Count() == occupiedBlocks.Count()
                    && occupiedBlocks.All(pos => backgroundLayer.PosIsInGrid(pos))
@@ -134,8 +150,11 @@ namespace Exa.ShipEditor
             }
 
             if (ImportedTemplate is ITurretTemplate) {
-                var turretContacts = activeControllers.SelectMany(controller => controller.Overlay.GetContacts());
-                return !turretContacts.Intersect(occupiedBlocks).Any();
+                var ghostTurretClaims = activeControllers.SelectMany(controller => controller.Overlay.GetTurretClaims());
+                var currentBlockClaims = turretLayer.TurretBlocks.SelectMany(block => block.GetTileClaims());
+                return !ghostTurretClaims.Intersect(occupiedBlocks).Any() 
+                       && !ghostTurretClaims.Intersect(currentBlockClaims).Any()
+                       && !turretLayer.TurretBlocks.GetTurretClaims().Intersect(occupiedBlocks).Any();
             }
 
             return true;

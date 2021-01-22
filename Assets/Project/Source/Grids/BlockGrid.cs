@@ -36,14 +36,13 @@ namespace Exa.Ships
             base.Add(gridMember);
         }
 
-        public override Block Remove(Vector2Int key) {
-            var block = base.Remove(key);
+        public override void Remove(Block gridMember) {
+            base.Remove(gridMember);
 
             // Only rebuild if it isn't being rebuilt already
-            if (!Rebuilding)
+            if (!Rebuilding) {
                 GameSystems.BlockGridManager.AttemptRebuild(Parent);
-
-            return block;
+            }
         }
 
         internal void Import(Blueprint blueprint) {
@@ -52,8 +51,8 @@ namespace Exa.Ships
             }
         }
 
-        private Block CreateBlock(AnchoredBlueprintBlock anchoredBlueprintBlock) {
-            var block = anchoredBlueprintBlock.CreateInactiveBlockInGrid(container, Parent.BlockContext);
+        private Block CreateBlock(ABpBlock aBpBlock) {
+            var block = aBpBlock.CreateInactiveBlockInGrid(container, Parent.BlockContext);
             block.Parent = Parent;
             block.gameObject.SetActive(true);
             return block;

@@ -44,7 +44,7 @@ namespace Exa.Grids.Blueprints
             }
         }
 
-        public Quaternion GetRotation() {
+        public Quaternion GetDirection() {
             return Quaternion.Euler(0, 0, Direction * 90f);
         }
 

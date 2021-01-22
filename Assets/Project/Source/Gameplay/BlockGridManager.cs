@@ -54,11 +54,9 @@ namespace Exa.Gameplay
 
             void FloodFill(int x, int y) {
                 var gridPos = new Vector2Int(x, y);
-                if (visitedGridPos.Contains(gridPos)) {
+                if (!visitedGridPos.Add(gridPos)) {
                     return;
                 }
-
-                visitedGridPos.Add(gridPos);
 
                 if (blockGrid.TryGetMember(gridPos, out var member)) {
                     if (vacantBlocks.Contains(member)) {

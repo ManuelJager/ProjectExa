@@ -19,7 +19,7 @@ namespace Exa.ShipEditor
         [SerializeField] private Color inactiveColor;
 
         public BlockPresenter Presenter => presenter;
-        public AnchoredBlueprintBlock Block { get; private set; }
+        public ABpBlock Block { get; private set; }
 
         /// <summary>
         /// Update the block the ghost is representing
@@ -28,12 +28,18 @@ namespace Exa.ShipEditor
         public void ImportBlock(BlueprintBlock block) {
             presenter.Renderer.sprite = block.Template.thumbnail;
             filterTransform.localScale = block.Template.size.ToVector3();
-            Block = new AnchoredBlueprintBlock(new Vector2Int(), block);
+            Block = new ABpBlock(new Vector2Int(), block);
             presenter.Present(Block);
         }
 
         public void SetFilterColor(bool active) {
             filter.color = active ? activeColor : inactiveColor;
+        }
+
+        public void Clear() {
+            presenter.Renderer.sprite = null;
+            filterTransform.localScale = Vector3.one;
+            Block = null;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Exa.UI.Controls
 
         public override string Value {
             get => inputField.text;
-            protected set => inputField.text = value;
+            protected set => inputField.SetTextWithoutNotify(value);
         }
 
         [SerializeField] private readonly InputFieldEvent onValueChange = new InputFieldEvent();

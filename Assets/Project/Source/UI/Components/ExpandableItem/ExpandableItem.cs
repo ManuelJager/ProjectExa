@@ -8,6 +8,7 @@ namespace Exa.UI.Components
 {
     public class ExpandableItem : MonoBehaviour
     {
+        [SerializeField] private Transform content;
         [SerializeField] private Button button;
         [SerializeField] private Image shrinkExpandImage;
         [SerializeField] private Text headerText;
@@ -15,7 +16,7 @@ namespace Exa.UI.Components
         [Space] 
         [SerializeField] private bool expanded = false;
 
-        public Transform content;
+        public Transform Content => content;
 
         public bool Expanded {
             get => expanded;

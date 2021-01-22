@@ -1,4 +1,6 @@
-﻿using DG.Tweening;
+﻿using System;
+using System.Collections;
+using DG.Tweening;
 using Exa.Grids;
 using Exa.Grids.Blueprints;
 using Exa.Math;
@@ -94,7 +96,7 @@ namespace Exa.ShipEditor
         /// </summary>
         /// <param name="size"></param>
         public void GenerateGrid(Vector2Int size) {
-            // Set the active size and set targe player position the center of the grid
+            // Set the active size and set target player position the center of the grid
             this.size = size;
 
             // Set the movement pivot
@@ -105,17 +107,12 @@ namespace Exa.ShipEditor
             backgroundLayer.GenerateGrid(size);
         }
 
-        /// <summary>
-        /// Import a blueprint
-        /// </summary>
-        /// <param name="blueprint"></param>
-        public void Import(Blueprint blueprint) {
+        public void Import(Blueprint blueprint, Action callback) {
             // Get size of blueprint class and resize the grid accordingly
             var editorSize = blueprint.BlueprintType.maxSize;
             GenerateGrid(editorSize);
 
-            // Import the blueprint
-            blueprintLayer.Import(blueprint);
+            StartCoroutine(ImportDelayed(blueprint, callback));
         }
 
         public void ClearBlueprint() {
@@ -128,6 +125,13 @@ namespace Exa.ShipEditor
                 x = -halfSize.x + 0.5f,
                 y = -halfSize.y + 0.5f
             };
+        }
+
+        private IEnumerator ImportDelayed(Blueprint blueprint, Action callback) {
+            yield return new WaitForSeconds(0.5f);
+
+            blueprintLayer.Import(blueprint);
+            callback();
         }
     }
 }

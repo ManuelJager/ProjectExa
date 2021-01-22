@@ -26,8 +26,9 @@
             NameValidationResult = overlay.infoPanel.errorListController
                 .Validate(nameValidator, args);
 
-            if (NameValidationResult)
+            if (NameValidationResult) {
                 editorGrid.blueprintLayer.ActiveBlueprint.name = name;
+            }
         }
     }
 }

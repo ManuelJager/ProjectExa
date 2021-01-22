@@ -16,7 +16,7 @@ namespace Exa.Grids
         public static void UpdateLocals(this IGridMember gridMember, GameObject blockGO) {
             var blueprintBlock = gridMember.BlueprintBlock;
 
-            blockGO.transform.localRotation = blueprintBlock.GetRotation();
+            blockGO.transform.localRotation = blueprintBlock.GetDirection();
             blockGO.transform.localPosition = gridMember.GetLocalPosition();
         }
 

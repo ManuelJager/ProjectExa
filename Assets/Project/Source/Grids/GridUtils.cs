@@ -27,7 +27,7 @@ namespace Exa.Grids
                 }
         }
 
-        public static IEnumerable<Vector2Int> GetOccupiedTiles(this IGridMember gridMember) {
+        public static IEnumerable<Vector2Int> GetTileClaims(this IGridMember gridMember) {
             var block = gridMember.BlueprintBlock;
             var gridAnchor = gridMember.GridAnchor;
             var area = block.Template.size.Rotate(block.Rotation);

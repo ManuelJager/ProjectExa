@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Exa.Grids.Blueprints
 {
     [JsonConverter(typeof(BlueprintBlocksConverter))]
-    public class BlueprintBlocks : Grid<AnchoredBlueprintBlock>, ICloneable<BlueprintBlocks>
+    public class BlueprintBlocks : Grid<ABpBlock>, ICloneable<BlueprintBlocks>
     {
         public BlueprintBlocks Clone() {
             var newBlocks = new BlueprintBlocks();

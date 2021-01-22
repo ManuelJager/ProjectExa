@@ -28,7 +28,7 @@ namespace Exa.IO.Json
 
                 var value = pair.value.ToObject<BlueprintBlock>(serializer);
 
-                blocks.Add(new AnchoredBlueprintBlock(key, value));
+                blocks.Add(new ABpBlock(key, value));
             }
 
             return blocks;

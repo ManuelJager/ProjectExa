@@ -22,7 +22,7 @@ namespace Exa.ShipEditor
 
         [SerializeField] private GameObject expandableItemPrefab;
 
-        private readonly Dictionary<BlockCategory, ExpandableItem> blockCategories =
+        private readonly Dictionary<BlockCategory, ExpandableItem> tabs =
             new Dictionary<BlockCategory, ExpandableItem>();
 
         private BlockTemplateView activeView;
@@ -35,12 +35,12 @@ namespace Exa.ShipEditor
         public void SelectFirst() {
             var selectedBlock = Source.First(value => filter.HasValue(value.Data.category));
             SetSelected(selectedBlock);
-            blockCategories[selectedBlock.Data.category].Expanded = true;
+            tabs[selectedBlock.Data.category].Expanded = true;
         }
 
         public void SetFilter(BlockCategory blockCategoryFilter) {
             filter = blockCategoryFilter;
-            foreach (var (category, item) in blockCategories.Unpack()) {
+            foreach (var (category, item) in tabs.Unpack()) {
                 item.gameObject.SetActive(blockCategoryFilter.HasValue(category));
             }
         }
@@ -49,28 +49,39 @@ namespace Exa.ShipEditor
             var category = value.Data.category;
             var categoryString = category.ToFriendlyString();
 
-            if (!blockCategories.ContainsKey(category)) {
+            if (!tabs.ContainsKey(category)) {
                 var newExpandableItemObject = Instantiate(expandableItemPrefab, viewContainer);
                 var newExpandableItem = newExpandableItemObject.GetComponent<ExpandableItem>();
                 newExpandableItem.HeaderText = categoryString;
-                blockCategories[category] = newExpandableItem;
+                tabs[category] = newExpandableItem;
                 newExpandableItem.gameObject.SetActive(filter.HasValue(category));
             }
 
-            var categoryItem = blockCategories[category];
-            var view = base.CreateView(value, categoryItem.content);
+            var categoryItem = tabs[category];
+            var view = base.CreateView(value, categoryItem.Content);
 
             view.button.onClick.AddListener(() => SetSelected(value));
         }
 
         public void SetSelected(BlockTemplateContainer value) {
-            if (activeView != null)
+            if (activeView != null) {
                 activeView.Selected = false;
+            }
+
+            if (value == null) {
+                activeView = null;
+                blockSelected?.Invoke(null);
+                return;
+            }
 
             activeView = GetView(value);
             activeView.Selected = true;
 
             blockSelected?.Invoke(value.Data);
+        }
+
+        public void CloseTabs() {
+            tabs.Values.ForEach(expandableItem => expandableItem.Expanded = false);
         }
     }
 }

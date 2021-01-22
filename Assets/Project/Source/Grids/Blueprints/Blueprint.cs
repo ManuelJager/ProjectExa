@@ -31,8 +31,8 @@ namespace Exa.Grids.Blueprints
             this.Blocks = blocks;
         }
 
-        public void Add(AnchoredBlueprintBlock anchoredBlueprintBlock) {
-            Blocks.Add(anchoredBlueprintBlock);
+        public void Add(ABpBlock aBpBlock) {
+            Blocks.Add(aBpBlock);
         }
 
         public void Remove(Vector2Int gridPos) {

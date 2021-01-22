@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Exa.Grids.Blueprints
 {
     [Serializable]
-    public class AnchoredBlueprintBlock : ICloneable<AnchoredBlueprintBlock>, IGridMember
+    public class ABpBlock : ICloneable<ABpBlock>, IGridMember
     {
         public Vector2Int gridAnchor;
         public BlueprintBlock blueprintBlock;
@@ -22,7 +22,9 @@ namespace Exa.Grids.Blueprints
             set => blueprintBlock = value;
         }
 
-        public AnchoredBlueprintBlock(Vector2Int gridAnchor, BlueprintBlock blueprintBlock) {
+        public BlockTemplate Template => BlueprintBlock.Template;
+
+        public ABpBlock(Vector2Int gridAnchor, BlueprintBlock blueprintBlock) {
             this.gridAnchor = gridAnchor;
             this.blueprintBlock = blueprintBlock;
         }
@@ -36,13 +38,13 @@ namespace Exa.Grids.Blueprints
         public Block CreateInactiveBlockInGrid(Transform parent, BlockContext blockPrefabType) {
             var block = Systems.Blocks.GetInactiveBlock(blueprintBlock.id, parent, blockPrefabType);
             var blockGO = block.gameObject;
-            block.anchoredBlueprintBlock = this;
+            block.aBpBlock = this;
             this.SetupGameObject(blockGO);
             return block;
         }
 
-        public AnchoredBlueprintBlock Clone() {
-            return new AnchoredBlueprintBlock(gridAnchor, blueprintBlock);
+        public ABpBlock Clone() {
+            return new ABpBlock(gridAnchor, blueprintBlock);
         }
 
         public void AddGridTotals(GridTotals totals) {
