@@ -1,23 +1,22 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids;
 using Exa.Grids.Blocks;
- using Exa.Grids.Blocks.BlockTypes;
- using Exa.Grids.Blueprints;
+using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blueprints;
 using Exa.Types;
 using Exa.Utils;
 using UnityEngine;
- using UnityEngine.Serialization;
+using UnityEngine.Serialization;
  
- namespace Exa.ShipEditor
+namespace Exa.ShipEditor
 {
     public class EditorGridGhostLayer : MonoBehaviour
     {
         public GameObject ghostPrefab;
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
-        [FormerlySerializedAs("gridTurretLayer")]
         public EditorGridTurretLayer turretLayer;
 
         private IEnumerable<GhostController> controllers;

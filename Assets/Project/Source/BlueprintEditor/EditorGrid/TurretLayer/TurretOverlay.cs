@@ -8,7 +8,9 @@ using Exa.Math;
 using Exa.UI.Tweening;
 using Exa.Utils;
 using NaughtyAttributes;
+using UnityEditor;
 using UnityEngine;
+using MathUtils = Exa.Math.MathUtils;
 
 namespace Exa.ShipEditor
 {
@@ -27,6 +29,10 @@ namespace Exa.ShipEditor
         public BlockPresenter Presenter => presenter;
         public ABpBlock Block { get; private set; }
 
+        public void SetVisibility(bool value) {
+            Presenter.Renderer.gameObject.SetActive(value);
+        }
+
         public void SetColor(Color color) {
             presenter.Renderer.color = color;
         }
@@ -34,7 +40,7 @@ namespace Exa.ShipEditor
         public void Generate(ITurretValues values) {
             presenter.Renderer.sprite = GenerateTexture(values).CreateSprite();
             polygonCollider.points = GeneratePoints(values);
-            gameObject.SetActive(false);
+            SetVisibility(false);
         }
 
         public void Import(ABpBlock block) {
@@ -42,8 +48,10 @@ namespace Exa.ShipEditor
         }
 
         public IEnumerable<Vector2Int> GetTurretClaims() {
+            // 
+            Physics2D.SyncTransforms();
             return polygonCollider.StationaryCast(LayerMask.GetMask("editorGridItems"))
-                .Select(hit => hit.transform.GetComponent<EditorGridItem>().GridPosition)
+                .Select(hit => hit.transform.GetComponent<EditorGridBackgroundItem>().GridPosition)
                 .Except(Block.GetTileClaims());
         }
 

@@ -40,14 +40,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 144273548558085617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de04747110957d448a1b8a14e4ae7fec, type: 3}
+  m_Script: {fileID: 11500000, guid: 24355614bbf73474a84d500f181dfa6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ghostPrefab: {fileID: 7311039082771557908, guid: 9525c2987aac89e4791910f19185f734,
     type: 3}
   backgroundLayer: {fileID: 4635185658990925759}
   blueprintLayer: {fileID: 7112577619619822814}
-  gridTurretLayer: {fileID: 7011621268033262747}
+  turretLayer: {fileID: 7011621268033262747}
 --- !u!1 &773986875373929855
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  customLayers:
+  - {fileID: 7011621268033262747}
   backgroundLayer: {fileID: 4635185658990925759}
   blueprintLayer: {fileID: 7112577619619822814}
   ghostLayer: {fileID: 4173039399431463573}
@@ -176,8 +178,8 @@ MonoBehaviour:
   onBlueprintChanged:
     m_PersistentCalls:
       m_Calls: []
-  turretLayer: {fileID: 7011621268033262747}
   stopwatch: {fileID: 0}
+  editorGrid: {fileID: 7045163967011279385}
 --- !u!1 &4277175631151073247
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4277175631151073247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb662c03d5b24e54a9feb8d2bf68e706, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f28abf814533344a8169547f005702e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   basePrefab: {fileID: 3072400777044392306, guid: 4e819fb3964162343af431ca048f7df5,
@@ -267,7 +269,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5895357026409253044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc6c2862bff6d1d4f8260812fe6b2417, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ba9dda985693f24bb22a74bf63f3d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gridItemPrefab: {fileID: 5952255028486761140, guid: 6463c40691da1d84ea755dff96d9a183,
@@ -296,7 +298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6416305948822044121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 7.15, y: 3.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2241177416421289781}

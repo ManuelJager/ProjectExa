@@ -4,7 +4,7 @@
 
 namespace Exa.ShipEditor
 {
-    public class EditorGridItem : MonoBehaviour
+    public class EditorGridBackgroundItem : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Color defaultColor;

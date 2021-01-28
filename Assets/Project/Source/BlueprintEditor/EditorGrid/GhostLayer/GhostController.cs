@@ -69,13 +69,13 @@ namespace Exa.ShipEditor
 
         public void SetOverlay(TurretOverlay overlay) {
             if (Overlay != null) {
-                Overlay.gameObject.Destroy();
+                Overlay.gameObject.DestroyObject();
             }
             
             Overlay = overlay;
 
             if (overlay != null) {
-                overlay.gameObject.SetActive(false);
+                overlay.SetVisibility(false);
             }
 
             UpdateOverlay();
@@ -95,14 +95,14 @@ namespace Exa.ShipEditor
                 Ghost.Presenter.Present(Ghost.Block);
 
                 if (Overlay != null) {
-                    Overlay.gameObject.SetActive(true);
+                    Overlay.SetVisibility(true);
                 }
                 
                 UpdateOverlay();
             }
             else {
                 if (Overlay != null) {
-                    Overlay.gameObject.SetActive(false);
+                    Overlay.SetVisibility(false);
                 }
             }
         }
@@ -114,7 +114,7 @@ namespace Exa.ShipEditor
         private void UpdateOverlay() {
             if (Overlay != null && Ghost.Block != null) {
                 Overlay.Presenter.Present(Ghost.Block);
-                Overlay.gameObject.SetActive(state.HasValue(GhostControllerState.Valid));
+                Overlay.SetVisibility(state.HasValue(GhostControllerState.Valid));
             }
         }
     }

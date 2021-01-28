@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Exa.ShipEditor
 {
-    public class EditorGridTurretLayer : MonoBehaviour
+    public class EditorGridTurretLayer : CustomEditorGridLayer<ITurretTemplate>
     {
         [SerializeField] private GameObject basePrefab;
         [SerializeField] private Transform prefabContainer;
@@ -21,12 +21,12 @@ namespace Exa.ShipEditor
 
         private Dictionary<ITurretTemplate, GameObject> overlayPrefabs;
         private Dictionary<ABpBlock, TurretOverlay> overlayInstances;
-        private bool stationaryOverlayVisibility;
+        private bool overlayVisibility;
 
-        public bool StationaryOverlayVisibility {
+        public bool OverlayVisibility {
             set {
-                stationaryOverlayVisibility = value;
-                overlayInstances.Values.ForEach(overlay => overlay.gameObject.SetActive(value));
+                overlayVisibility = value;
+                overlayInstances.Values.ForEach(overlay => overlay.SetVisibility(value));
             }
         }
 
@@ -45,24 +45,20 @@ namespace Exa.ShipEditor
             Debug.Log(TurretBlocks.GetTurretClaims().Join(", "));
         }
 
-        public TurretOverlay GetStationaryOverlay(ABpBlock block) {
-            return overlayInstances[block];
+        public TurretOverlay CreateGhostOverlay(ABpBlock block, ITurretTemplate template) {
+            return CreateOverlay(block, template);
         }
 
-        public TurretOverlay AddStationaryOverlay(ABpBlock block, ITurretTemplate template) {
-            var overlay = CreateOverlay(template, block);
+        public TurretOverlay CreateStationaryOverlay(ABpBlock block, ITurretTemplate template) {
+            var overlay = CreateOverlay(block, template);
             overlay.SetColor(Color.white.SetAlpha(0.5f)); 
             overlay.Presenter.Present(block);
-            overlay.gameObject.SetActive(stationaryOverlayVisibility);
+            overlay.SetVisibility(overlayVisibility);
             overlayInstances[block] = overlay;
             return overlay;
         }
 
-        public TurretOverlay CreateGhostOverlay(ABpBlock block, ITurretTemplate template) {
-            return CreateOverlay(template, block);
-        }
-
-        private TurretOverlay CreateOverlay(ITurretTemplate template, ABpBlock block) {
+        private TurretOverlay CreateOverlay(ABpBlock block, ITurretTemplate template) {
             var overlay = overlayPrefabs[template].Create<TurretOverlay>(instanceContainer);
             overlay.Import(block);
             return overlay;
@@ -78,6 +74,14 @@ namespace Exa.ShipEditor
             var overlay = basePrefab.Create<TurretOverlay>(prefabContainer);
             overlay.Generate(template.GetTurretValues(BlockContext.UserGroup));
             overlayPrefabs[template] = overlay.gameObject;
+        }
+
+        protected override void OnAdd(ABpBlock block, ITurretTemplate template) {
+            TurretBlocks.AddTurret(block, template);
+        }
+
+        protected override void OnRemove(ABpBlock block, ITurretTemplate template) {
+            TurretBlocks.Remove(block);
         }
     }
 }

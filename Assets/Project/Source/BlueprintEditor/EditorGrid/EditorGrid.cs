@@ -26,6 +26,7 @@ namespace Exa.ShipEditor
         private Vector2Int size;
         private TweenWrapper<Vector3> positionTween;
 
+        [SerializeReference] private List<CustomEditorGridLayer> customLayers;
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
         public EditorGridGhostLayer ghostLayer;
@@ -46,6 +47,8 @@ namespace Exa.ShipEditor
                 }
             }
         }
+
+        public IEnumerable<ICustomEditorGridLayer> CustomLayers => customLayers;
 
         /// <summary>
         /// Whether or not the mouse is over UI
@@ -112,7 +115,7 @@ namespace Exa.ShipEditor
             var editorSize = blueprint.BlueprintType.maxSize;
             GenerateGrid(editorSize);
 
-            StartCoroutine(ImportDelayed(blueprint, callback));
+            StartCoroutine(ImportRoutine(blueprint, callback));
         }
 
         public void ClearBlueprint() {
@@ -127,10 +130,8 @@ namespace Exa.ShipEditor
             };
         }
 
-        private IEnumerator ImportDelayed(Blueprint blueprint, Action callback) {
-            yield return new WaitForSeconds(0.5f);
-
-            blueprintLayer.Import(blueprint);
+        private IEnumerator ImportRoutine(Blueprint blueprint, Action callback) {
+            yield return blueprintLayer.Import(blueprint);
             callback();
         }
     }

@@ -125,14 +125,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7311039082771557908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5414b8559b217c14e82ba2208e89b2fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 68eb71d6eca0ae34695d69ca111ad29c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   filter: {fileID: 1656620625760434138}
-  presenter: {fileID: 1592240752413919358}
   filterTransform: {fileID: 672676629116447004}
+  presenter: {fileID: 1592240752413919358}
   activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 0.19607843}
-  inactiveColor: {r: 1, g: 0, b: 0, a: 0.19607843}
+  inactiveColor: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 0.19607843}
 --- !u!114 &1592240752413919358
 MonoBehaviour:
   m_ObjectHideFlags: 0

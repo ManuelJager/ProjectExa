@@ -15,14 +15,13 @@ namespace Exa.ShipEditor
     public class EditorGridBackgroundLayer : MonoBehaviour
     {
         public event HoverDelegate EnterGrid;
-
         public event ExitDelegate ExitGrid;
 
         [SerializeField] private GameObject gridItemPrefab;
-        private KeyValuePair<Vector2Int, EditorGridItem>? currActiveGridItem;
+        private KeyValuePair<Vector2Int, EditorGridBackgroundItem>? currActiveGridItem;
 
-        private readonly Dictionary<Vector2Int, EditorGridItem>
-            gridItems = new Dictionary<Vector2Int, EditorGridItem>();
+        private readonly Dictionary<Vector2Int, EditorGridBackgroundItem>
+            gridItems = new Dictionary<Vector2Int, EditorGridBackgroundItem>();
 
         private Vector2Int size = Vector2Int.zero;
 
@@ -49,7 +48,7 @@ namespace Exa.ShipEditor
             gridItems.Clear();
 
             foreach (var vector in MathUtils.EnumerateVectors(size)) {
-                var gridItem = gridItemPrefab.Create<EditorGridItem>(transform);
+                var gridItem = gridItemPrefab.Create<EditorGridBackgroundItem>(transform);
                 gridItem.transform.localPosition = vector.ToVector3();
                 gridItem.GridPosition = vector;
                 gridItems.Add(vector, gridItem);
@@ -74,7 +73,7 @@ namespace Exa.ShipEditor
 
             // If no currently active grid item has been set
             if (currActiveGridItem == null) {
-                currActiveGridItem = new KeyValuePair<Vector2Int, EditorGridItem>(gridPos, gridItem);
+                currActiveGridItem = new KeyValuePair<Vector2Int, EditorGridBackgroundItem>(gridPos, gridItem);
                 EnterGrid?.Invoke(gridPos);
                 return;
             }
@@ -87,7 +86,7 @@ namespace Exa.ShipEditor
 
             // Grid item events
             EnterGrid?.Invoke(gridPos);
-            currActiveGridItem = new KeyValuePair<Vector2Int, EditorGridItem>(gridPos, gridItem);
+            currActiveGridItem = new KeyValuePair<Vector2Int, EditorGridBackgroundItem>(gridPos, gridItem);
         }
 
         public bool PosIsInGrid(Vector2Int pos) {

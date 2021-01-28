@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Exa.ShipEditor
 {
-    public class  TurretBlocks : Grid<ABpBlock>
+    public class TurretBlocks : Grid<ABpBlock>
     {
         private Dictionary<ABpBlock, TurretCache> cache;
         private EditorGridTurretLayer turretLayer;
@@ -18,7 +18,7 @@ namespace Exa.ShipEditor
         }
 
         public void AddTurret(ABpBlock block, ITurretTemplate template) {
-            var overlay = turretLayer.AddStationaryOverlay(block, template);
+            var overlay = turretLayer.CreateStationaryOverlay(block, template);
             var claims = overlay.GetTurretClaims().ToList();
             cache.Add(block, new TurretCache {
                 Template = template,

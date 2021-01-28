@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -13,6 +14,10 @@ namespace Exa.Utils
         }
 
         public static IEnumerable<RaycastHit2D> StationaryCast(this Collider2D collider, LayerMask layerMask, int maxHits = 100) {
+            if (!collider.enabled || !collider.gameObject.activeSelf) {
+                throw new InvalidOperationException("Cannot perform a cast on a disabled collider");
+            }
+            
             var hits = new RaycastHit2D[maxHits];
             var filter = new ContactFilter2D {
                 useLayerMask = true,
