@@ -55,11 +55,32 @@ namespace Exa.ShipEditor
         private Texture2D GenerateTexture(ITurretValues values) {
             var pixelRadius = Mathf.RoundToInt(values.TurretRadius * 32);
             var size = pixelRadius * 2;
-            var centre = (pixelRadius - 0.5f).ToVector2();
-            var arc = values.TurretArc;
-            return new Texture2D(size, size).SetDefaults()
-                .DrawCone(Color.white.SetAlpha(1f), centre, pixelRadius, arc)
-                .DrawFadingCone(Color.white.SetAlpha(0.5f), centre, pixelRadius - 1.2f, arc, ease.Evaluate);
+            var baseConfig = new Texture2DExtensions.ConeArgs {
+                color = Color.white,
+                centre = (pixelRadius - 0.5f).ToVector2(),
+                radius = pixelRadius,
+                arc = values.TurretArc
+            };
+
+            var fadedConfig = baseConfig;
+            fadedConfig.color = Color.white.SetAlpha(0.5f);
+            fadedConfig.easingFunc = ease.Evaluate;
+
+            var tex = new Texture2D(size, size).SetDefaults();
+
+            return tex
+                .DrawSuperSampledCone(fadedConfig)
+                .DrawSuperSampledCone(baseConfig, new Texture2DExtensions.SuperSamplingArgs<float> {
+                    applier = (pixel, value) => {
+                        if (value > tex.GetPixel(pixel).a) {
+                            tex.SetPixel(pixel, baseConfig.color.SetAlpha(value));
+                        }
+                    },
+                    sampler = (point, localPoint) => {
+                        var between = localPoint.magnitude.Between(pixelRadius - 2f, pixelRadius);
+                        return between ? Texture2DExtensions.ConeSampler(localPoint, baseConfig, false) : 0f;
+                    }
+                });
         }
 
         private Vector2[] GeneratePoints(ITurretValues values, int subdivisions = 20) {
