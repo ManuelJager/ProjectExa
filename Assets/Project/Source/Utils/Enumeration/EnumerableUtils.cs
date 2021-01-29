@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 namespace Exa.Utils
 {
@@ -52,6 +53,10 @@ namespace Exa.Utils
             Func<TElement, TResult> selector)
             where TResult : class {
             return enumerable.Select(selector).Where(elem => elem != null);
+        }
+
+        public static T GetRandomElement<T>(this IEnumerable<T> enumerable) {
+            return enumerable.ElementAt(Random.Range(0, enumerable.Count()));
         }
 
         public static TTarget FindFirst<TTarget>(this IEnumerable enumerable) {

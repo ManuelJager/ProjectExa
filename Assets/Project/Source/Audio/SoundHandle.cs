@@ -9,7 +9,7 @@ namespace Exa.Audio
     public class SoundHandle
     {
         public AudioSource audioSource;
-        public Sound sound;
+        public ISound sound;
 
         /// <summary>
         /// Is invoked when played
@@ -31,20 +31,20 @@ namespace Exa.Audio
         public void Play(ITrackContext playableContext) {
             context = playableContext;
 
-            if (!sound.allowMultipleOnTrack) {
+            if (!sound.Config.allowMultipleOfType) {
                 context.StopAllSounds();
             }
 
-            if (sound.allowMultipleOfType) {
-                audioSource.PlayOneShot(sound.audioClip, sound.volume);
+            if (sound.Config.allowMultipleOfType) {
+                audioSource.PlayOneShot(sound.AudioClip, sound.Config.volume);
             }
             else {
-                audioSource.clip = sound.audioClip;
-                audioSource.volume = sound.volume;
+                audioSource.clip = sound.AudioClip;
+                audioSource.volume = sound.Config.volume;
                 audioSource.Play();
             }
 
-            audioSource.pitch = sound.pitch;
+            audioSource.pitch = sound.Config.pitch;
 
             context.RegisterHandle(this);
         }

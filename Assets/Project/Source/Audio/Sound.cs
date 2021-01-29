@@ -6,41 +6,16 @@ namespace Exa.Audio
     /// Supports an audioclip with additional properties that gives audio tracks more context
     /// </summary>
     [CreateAssetMenu(menuName = "Audio/Sound")]
-    public class Sound : ScriptableObject
+    public class Sound : ScriptableObject, ISound
     {
-        /// <summary>
-        /// Global audio identifier
-        /// </summary>
-        public string id;
+        [SerializeField] private string id;
+        [SerializeField] private AudioType audioType;
+        [SerializeField] private AudioClip audioClip;
+        [SerializeField] private SoundConfig soundConfig;
 
-        /// <summary>
-        /// Type of the audio object
-        /// </summary>
-        public AudioType audioType;
-
-        /// <summary>
-        /// Clip of the audio object
-        /// </summary>
-        public AudioClip audioClip;
-
-        /// <summary>
-        /// Volume the clip should be played at
-        /// </summary>
-        public float volume = 1f;
-
-        /// <summary>
-        /// Pitch the clip should be played at
-        /// </summary>
-        public float pitch = 1f;
-
-        /// <summary>
-        /// Wether or not it cancels other sounds playing on the current track
-        /// </summary>
-        public bool allowMultipleOnTrack = true;
-
-        /// <summary>
-        /// Wether or not multiple sounds of this type can be played simoultaniously
-        /// </summary>
-        public bool allowMultipleOfType = true;
+        public string Id => id;
+        public AudioType AudioType => audioType;
+        public AudioClip AudioClip => audioClip;
+        public SoundConfig Config => soundConfig;
     }
 }

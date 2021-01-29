@@ -14,7 +14,7 @@ namespace Exa.Audio
         [SerializeField] private AudioType filter;
 
         protected override IEnumerable<Sound> GetAllInstances() {
-            return base.GetAllInstances().Where(sound => filter.HasValue(sound.audioType));
+            return base.GetAllInstances().Where(sound => filter.HasValue(sound.AudioType));
         }
     }
 }

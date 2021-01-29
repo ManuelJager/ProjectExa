@@ -8,8 +8,8 @@ namespace Exa.Audio
     public class AudioManager : MonoBehaviour
     {
         public SoundBag soundBag;
-        public MusicTrack ST_AudioTrack;
-        public AudioTrack UI_SFX_AudioTrack;
+        public MusicPlayerGroup ST_AudioTrack;
+        public AudioPlayerGroup UI_SFX_AudioTrack;
 
         private readonly Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
 
@@ -17,6 +17,8 @@ namespace Exa.Audio
             foreach (var sound in soundBag) {
                 Register(sound);
             }
+
+            ST_AudioTrack.SetDefaultSoundtrack();
         }
 
         /// <summary>
@@ -33,23 +35,20 @@ namespace Exa.Audio
         }
 
         public void PlayGlobal(Sound sound) {
-            GetTrack(sound.audioType).PlayGlobal(sound);
+            GetTrack(sound.AudioType).PlayGlobal(sound);
         }
 
         public void Register(Sound sound) {
-            soundById[sound.id] = sound;
-            GetTrack(sound.audioType).Register(sound);
+            soundById[sound.Id] = sound;
+            GetTrack(sound.AudioType).Register(sound);
         }
         
-        private AudioTrack GetTrack(AudioType audioType)
-        {
-            if (audioType == AudioType.ST)
-                return ST_AudioTrack;
-
-            if (audioType == AudioType.UI_SFX)
-                return UI_SFX_AudioTrack;
-
-            throw new ArgumentException("Invalid audioType given", nameof(audioType));
+        private AudioPlayerGroup GetTrack(AudioType audioType) {
+            return audioType switch {
+                AudioType.ST => ST_AudioTrack,
+                AudioType.UI_SFX => UI_SFX_AudioTrack,
+                _ => throw new ArgumentException("Invalid audioType given", nameof(audioType))
+            };
         }
     }
 }

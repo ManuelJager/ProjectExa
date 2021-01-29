@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2ac0b803bafc8409147f19b4a4771d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetAtmosphere: 0
+  targetAtmosphere: 2
   triggerOnEnable: 0
 --- !u!1 &374036195
 GameObject:
