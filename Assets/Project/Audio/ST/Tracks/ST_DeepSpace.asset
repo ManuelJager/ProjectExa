@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ST_DeepSpace
   m_EditorClassIdentifier: 
   id: ST_DeepSpace
+  audioType: 1
   audioClip: {fileID: 8300000, guid: a24bdad56cb0ff9428637a90065c53f8, type: 3}
   soundConfig:
-    audioType: 1
     volume: 1
     pitch: 1
     allowMultipleOfType: 1

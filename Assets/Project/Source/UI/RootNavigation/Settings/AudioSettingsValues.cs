@@ -7,6 +7,7 @@ namespace Exa.UI.Settings
         public float masterVolume;
         public float musicVolume;
         public float effectsVolume;
+        public string soundTrackName;
 
         public bool Equals(AudioSettingsValues other) {
             if (ReferenceEquals(null, other)) return false;

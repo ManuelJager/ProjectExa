@@ -17,7 +17,7 @@ namespace Exa.Audio.Music
         }
 
         public void Trigger() {
-            Systems.Audio.ST_AudioTrack.SetAtmosphere(targetAtmosphere);
+            Systems.Audio.Music.SetAtmosphere(targetAtmosphere);
         }
 
         private IEnumerator DelayedSetAtmosphere() {

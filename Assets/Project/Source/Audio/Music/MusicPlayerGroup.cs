@@ -18,9 +18,9 @@ namespace Exa.Audio.Music
     public class MusicPlayerGroup : AudioPlayerGroup
     {
         [SerializeField] private SoundTrackProvider soundTrackProvider;
+
         private Atmosphere activeAtmosphere = Atmosphere.None;
         private ISoundTrack currentSoundtrack;
-
         private SoundHandle soundHandle;
 
         public ISoundTrack CurrentSoundtrack {
@@ -33,9 +33,7 @@ namespace Exa.Audio.Music
             }
         }
 
-        public void SetDefaultSoundtrack() {
-            CurrentSoundtrack = SelectDescription().GetSoundTrack();
-        }
+        public SoundTrackProvider Provider => soundTrackProvider;
 
         private ISoundTrackDescription SelectDescription() {
             var descriptions = soundTrackProvider.GetSoundTrackDescriptions();

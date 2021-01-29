@@ -4,7 +4,6 @@
     {
         private ISoundTrack soundTrack;
 
-
         public string Name => "Default soundtrack";
 
         public DefaultSoundTrackDescription(ISoundTrack soundTrack) {

@@ -31,7 +31,7 @@ namespace Exa.UI.Controls
             get => value;
             protected set {
                 if (!stateContainer.ContainsValue(value))
-                    throw new ArgumentException("Value not found", nameof(value));
+                    throw new ArgumentException($"Value {value} not found", nameof(value));
 
                 if (stateContainer.ContainsValue(this.value))
                     stateContainer.GetTab(this.value).Selected = false;

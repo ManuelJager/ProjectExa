@@ -7,9 +7,12 @@ namespace Exa.Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        public SoundBag soundBag;
-        public MusicPlayerGroup ST_AudioTrack;
-        public AudioPlayerGroup UI_SFX_AudioTrack;
+        [SerializeField] private SoundBag soundBag;
+        [SerializeField] private MusicPlayerGroup ST_AudioTrack;
+        [SerializeField] private AudioPlayerGroup UI_SFX_AudioTrack;
+
+        public MusicPlayerGroup Music => ST_AudioTrack;
+        public AudioPlayerGroup Effects => UI_SFX_AudioTrack;
 
         private readonly Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
 
@@ -17,8 +20,6 @@ namespace Exa.Audio
             foreach (var sound in soundBag) {
                 Register(sound);
             }
-
-            ST_AudioTrack.SetDefaultSoundtrack();
         }
 
         /// <summary>

@@ -38,8 +38,12 @@ namespace Exa.Data
         public virtual void Load() {
             var path = Tree.Root.Settings.CombineWith($"{Key}.json");
             Values = File.Exists(path)
-                ? IOUtils.JsonDeserializeFromPath<T>(path, SerializationMode.Settings) ?? DefaultValues
+                ? DeserializeValues(path) ?? DefaultValues
                 : DefaultValues;
+        }
+
+        protected virtual T DeserializeValues(string path) {
+            return IOUtils.JsonDeserializeFromPath<T>(path, SerializationMode.Settings);
         }
     }
 }

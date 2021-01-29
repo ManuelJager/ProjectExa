@@ -6,6 +6,7 @@ namespace Exa.Audio.Music
 {
     public interface ISoundTrack : IEnumerable<ISong>
     {
+        public ISoundTrackDescription Description { get; }
     }
 
     public static class ISoundTrackExtensions
