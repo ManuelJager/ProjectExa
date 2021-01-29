@@ -97,10 +97,11 @@ namespace Exa
             // Play music only after settings have been loaded
             atmosphereTrigger.Trigger();
 
-            var targetFrameRate = UI.root.settings.videoSettings.settings.Values.resolution.refreshRate;
-
             // Initialize research systems
             researchStore.Init();
+
+            // Select a target frame rate
+            var targetFrameRate = UI.root.settings.videoSettings.settings.Values.resolution.refreshRate;
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value => {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)}% complete) ...";
