@@ -31,12 +31,12 @@ namespace Exa.Data
         public abstract T Clone();
 
         public virtual void Save() {
-            var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
+            var path = Tree.Root.Settings.CombineWith($"{Key}.json");
             IOUtils.JsonSerializeToPath(Values, path, SerializationMode.Settings);
         }
 
         public virtual void Load() {
-            var path = DirectoryTree.Settings.CombineWith($"{Key}.json");
+            var path = Tree.Root.Settings.CombineWith($"{Key}.json");
             Values = File.Exists(path)
                 ? IOUtils.JsonDeserializeFromPath<T>(path, SerializationMode.Settings) ?? DefaultValues
                 : DefaultValues;

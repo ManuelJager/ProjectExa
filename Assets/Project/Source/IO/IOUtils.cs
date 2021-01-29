@@ -29,5 +29,11 @@ namespace Exa.IO
 
             return tex;
         }
+
+        public static void EnsureCreated(string directoryString) {
+            if (!Directory.Exists(directoryString)) {
+                Directory.CreateDirectory(directoryString);
+            }
+        }
     }
 }

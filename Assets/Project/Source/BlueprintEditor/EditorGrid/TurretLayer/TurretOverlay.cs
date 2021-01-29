@@ -48,7 +48,7 @@ namespace Exa.ShipEditor
         }
 
         public IEnumerable<Vector2Int> GetTurretClaims() {
-            // 
+            // Sync transforms, as the collider may be out of sync with the parent transform
             Physics2D.SyncTransforms();
             return polygonCollider.StationaryCast(LayerMask.GetMask("editorGridItems"))
                 .Select(hit => hit.transform.GetComponent<EditorGridBackgroundItem>().GridPosition)

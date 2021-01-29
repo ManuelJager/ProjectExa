@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Exa.Types.Binding;
 using UnityEngine;
+using Tree = Exa.IO.Tree;
 
 #pragma warning disable CS0649
 
@@ -21,7 +22,7 @@ namespace Exa.Grids.Blueprints
 
         public IEnumerator Init(IProgress<float> progress) {
             var userBlueprintPaths = CollectionUtils
-                .GetJsonPathsFromDirectory(DirectoryTree.Blueprints)
+                .GetJsonPathsFromDirectory(Tree.Root.Blueprints)
                 .ToList();
 
             var defaultBlueprintsList = defaultBlueprintBag.ToList();

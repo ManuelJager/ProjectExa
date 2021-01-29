@@ -18,14 +18,14 @@ namespace Exa.Grids.Blueprints
             : base(args.blueprint) {
             if (args.generateBlueprintFileHandle) {
                 BlueprintFileHandle = new FileHandle(this,
-                    name => DirectoryTree.Blueprints.CombineWith($"{name}.json"),
+                    name => Tree.Root.Blueprints.CombineWith($"{name}.json"),
                     path => IOUtils.JsonSerializeToPath(Data, path),
                     args.generateBlueprintFileName);
             }
 
             var thumbnailDirectory = args.useDefaultThumbnailFolder
-                ? DirectoryTree.DefaultThumbnails
-                : DirectoryTree.Thumbnails;
+                ? Tree.Root.DefaultThumbnails
+                : Tree.Root.Thumbnails;
 
             ThumbnailFileHandle = new FileHandle(this,
                 name => thumbnailDirectory.CombineWith($"{name}.png"),
