@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Exa.Drawing;
 using Exa.Grids;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
@@ -8,9 +8,9 @@ using Exa.Math;
 using Exa.UI.Tweening;
 using Exa.Utils;
 using NaughtyAttributes;
-using UnityEditor;
 using UnityEngine;
 using MathUtils = Exa.Math.MathUtils;
+using Texture2DExtensions = Exa.Drawing.Texture2DExtensions;
 
 namespace Exa.ShipEditor
 {
@@ -63,7 +63,7 @@ namespace Exa.ShipEditor
         private Texture2D GenerateTexture(ITurretValues values) {
             var pixelRadius = Mathf.RoundToInt(values.TurretRadius * 32);
             var size = pixelRadius * 2;
-            var baseConfig = new Texture2DExtensions.ConeArgs {
+            var baseConfig = new ConeArgs {
                 color = Color.white,
                 centre = (pixelRadius - 0.5f).ToVector2(),
                 radius = pixelRadius,
@@ -78,7 +78,7 @@ namespace Exa.ShipEditor
 
             return tex
                 .DrawSuperSampledCone(fadedConfig)
-                .DrawSuperSampledCone(baseConfig, new Texture2DExtensions.SuperSamplingArgs<float> {
+                .DrawSuperSampledCone(baseConfig, new SuperSamplingArgs<float> {
                     applier = (pixel, value) => {
                         if (value > tex.GetPixel(pixel).a) {
                             tex.SetPixel(pixel, baseConfig.color.SetAlpha(value));
