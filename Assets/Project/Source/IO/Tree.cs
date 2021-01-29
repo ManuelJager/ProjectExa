@@ -27,6 +27,7 @@ namespace Exa.IO
             public DirectoryNode Settings { get; }
             public DirectoryNode Thumbnails { get; }
             public DirectoryNode DefaultThumbnails { get; }
+            public DirectoryNode CustomSoundTracks { get; }
 
             public RootNode(string rootFolder) {
                 this.rootFolder = rootFolder;
@@ -36,6 +37,7 @@ namespace Exa.IO
                 Settings = new DirectoryNode(this, "settings");
                 Thumbnails = new DirectoryNode(this, "thumbnails");
                 DefaultThumbnails = new DirectoryNode(this, "defaultThumbnails");
+                CustomSoundTracks = new DirectoryNode(this, "customSoundTracks");
             }
 
             public RootNode(string rootFolder, string postFix)

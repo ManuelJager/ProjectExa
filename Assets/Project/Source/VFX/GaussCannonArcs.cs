@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Exa.Utils;
 using UnityEditor;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 using UnityEngine;
 using MathUtils = Exa.Math.MathUtils;
 using Random = System.Random;
@@ -65,7 +67,7 @@ namespace Exa.VFX
 
             prevActivatedArcIndex = index;
         }
-
+#if UNITY_EDITOR
         [ContextMenu("Create Arcs")]
         private void CreateArcs() {
             foreach (var child in transform.GetChildren().ToList()) {
@@ -87,6 +89,7 @@ namespace Exa.VFX
 
             EditorUtility.SetDirty(gameObject);
         }
+#endif
     }
 }
 

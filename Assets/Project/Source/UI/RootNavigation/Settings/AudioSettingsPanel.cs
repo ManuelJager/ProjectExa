@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using Exa.Audio.Music;
+using Exa.IO;
 using Exa.Types.Generics;
 using Exa.UI.Controls;
+using Exa.Utils;
+using UnityEngine.UI;
 
 namespace Exa.UI.Settings
 {
@@ -11,9 +15,11 @@ namespace Exa.UI.Settings
         public SliderControl musicVolumeSlider;
         public SliderControl effectsVolumeSlider;
         public DropdownControl soundTrackNameDropdown;
+        public Button soundTrackNameFolderButton;
 
         public override void Init() {
             CreateSoundTrackDropdownTabs();
+            soundTrackNameFolderButton.onClick.AddListener(OpenFolder);
             base.Init();
         }
 
@@ -36,6 +42,14 @@ namespace Exa.UI.Settings
             var items = Systems.Audio.Music.Provider.GetSoundTrackDescriptions()
                 .Select(description => description.GetLabeledValue());
             soundTrackNameDropdown.CreateTabs(items);
+        }
+
+        private void OpenFolder() {
+            var startInfo = new ProcessStartInfo {
+                Arguments = Tree.Root.CustomSoundTracks,
+                FileName = "explorer.exe"
+            };
+            Process.Start(startInfo).Focus();
         }
     }
 }
