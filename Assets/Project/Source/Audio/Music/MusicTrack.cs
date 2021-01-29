@@ -49,13 +49,10 @@ namespace Exa.Audio.Music
         }
 
         private TrackList GetTrackList(Atmosphere atmosphere) {
-            switch (atmosphere) {
-                case Atmosphere.MainMenu:
-                    return MainMenuTrackList;
-
-                default:
-                    return null;
-            }
+            return atmosphere switch {
+                Atmosphere.MainMenu => MainMenuTrackList,
+                _ => null
+            };
         }
     }
 }
