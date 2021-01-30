@@ -35,11 +35,6 @@ namespace Exa.Audio.Music
 
         public SoundTrackProvider Provider => soundTrackProvider;
 
-        private ISoundTrackDescription SelectDescription() {
-            var descriptions = soundTrackProvider.GetSoundTrackDescriptions();
-            return descriptions.First();
-        }
-
         public void SetAtmosphere(Atmosphere atmosphere) {
             if (activeAtmosphere == atmosphere) return;
 

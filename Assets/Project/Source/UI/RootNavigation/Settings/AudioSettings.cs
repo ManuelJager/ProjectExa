@@ -41,7 +41,7 @@ namespace Exa.UI.Settings
         protected override AudioSettingsValues DeserializeValues(string path) {
             var values = base.DeserializeValues(path);
 
-            if (string.IsNullOrEmpty(values.soundTrackName)) {
+            if (Systems.Audio.Music.Provider.Find(values.soundTrackName) == null) {
                 values.soundTrackName = GetDefaultSoundTrackName();
             }
 

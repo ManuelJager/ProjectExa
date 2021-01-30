@@ -5,6 +5,7 @@ namespace Exa.Audio.Music
     public interface ISoundTrackDescription
     {
         public string Name { get; }
+        public int SongCount { get; }
         public ISoundTrack GetSoundTrack();
     }
 

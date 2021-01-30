@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Exa.IO
 {
@@ -15,6 +16,10 @@ namespace Exa.IO
 
         public string GetPath() {
             return IOUtils.CombinePath(parent.GetPath(), name);
+        }
+
+        public IEnumerable<string> GetFiles(string pattern) {
+            return System.IO.Directory.GetFiles(GetPath(), pattern);
         }
 
         public static implicit operator string(DirectoryNode node) {

@@ -12,7 +12,7 @@ namespace Exa.Types.Generics
         protected T value;
         protected bool valueUpdated = false;
 
-        private T Value {
+        public T Value {
             get {
                 // If value is not up to date, create it and set the flag
                 if (!valueUpdated) {

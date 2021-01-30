@@ -39,7 +39,7 @@ namespace Exa.UI.Settings
         }
 
         private void CreateSoundTrackDropdownTabs() {
-            var items = Systems.Audio.Music.Provider.GetSoundTrackDescriptions()
+            var items = Systems.Audio.Music.Provider.Descriptions
                 .Select(description => description.GetLabeledValue());
             soundTrackNameDropdown.CreateTabs(items);
         }
