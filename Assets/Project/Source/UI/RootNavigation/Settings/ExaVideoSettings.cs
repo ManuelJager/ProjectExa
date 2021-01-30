@@ -1,4 +1,6 @@
 ﻿using Exa.Data;
+using UnityEngine;
+
 #if !UNITY_EDITOR
 using UnityEngine;
 #endif
@@ -30,5 +32,15 @@ namespace Exa.UI.Settings
             resolution = Values.resolution,
             fullscreen = Values.fullscreen
         };
+
+        protected override VideoSettingsValues DeserializeValues(string path) {
+            var values = base.DeserializeValues(path);
+
+            if (values.resolution.Equals(default(Resolution))) {
+                values.resolution = Resolutions.GetHighestSupportedResolution();
+            }
+
+            return values;
+        }
     }
 }

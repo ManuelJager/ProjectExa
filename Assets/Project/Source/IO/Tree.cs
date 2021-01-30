@@ -31,7 +31,7 @@ namespace Exa.IO
 
             public RootNode(string rootFolder) {
                 this.rootFolder = rootFolder;
-                IOUtils.EnsureCreated(this.GetPath());
+                IOUtils.EnsureCreated(GetPath());
 
                 Blueprints = new DirectoryNode(this, "blueprints");
                 Settings = new DirectoryNode(this, "settings");
@@ -43,8 +43,8 @@ namespace Exa.IO
             public RootNode(string rootFolder, string postFix)
                 : this(IOUtils.CombinePath(rootFolder, postFix)) { }
 
-            public StringBuilder GetPathBuilder() {
-                return new StringBuilder(rootFolder);
+            public string GetPath() {
+                return rootFolder;
             }
         }
     }

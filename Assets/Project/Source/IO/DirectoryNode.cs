@@ -10,11 +10,11 @@ namespace Exa.IO
         public DirectoryNode(IDirectoryNode parent, string name) {
             this.parent = parent;
             this.name = name;
-            IOUtils.EnsureCreated(this.GetPath());
+            IOUtils.EnsureCreated(GetPath());
         }
 
-        public StringBuilder GetPathBuilder() {
-            return parent.GetPathBuilder().Append($"{System.IO.Path.DirectorySeparatorChar}{name}");
+        public string GetPath() {
+            return IOUtils.CombinePath(parent.GetPath(), name);
         }
 
         public static implicit operator string(DirectoryNode node) {

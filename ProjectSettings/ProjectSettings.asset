@@ -572,8 +572,9 @@ PlayerSettings:
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
-    Standalone: 1
-  il2cppCompilerConfiguration: {}
+    Standalone: 0
+  il2cppCompilerConfiguration:
+    Standalone: 0
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
   suppressCommonWarnings: 1

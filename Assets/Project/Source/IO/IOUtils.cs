@@ -14,7 +14,7 @@ namespace Exa.IO
         }
 
         public static string CombinePath(params string[] paths) {
-            return Path.Combine(paths).Replace("/", "\\");
+            return Path.Combine(paths).Replace('/', '\\');
         }
 
         public static void SaveTexture2D(Texture2D tex, string filePath) {

@@ -45,8 +45,9 @@ namespace Exa.UI.Settings
         }
 
         private void OpenFolder() {
+            var path = Tree.Root.CustomSoundTracks.GetPath();
             var startInfo = new ProcessStartInfo {
-                Arguments = Tree.Root.CustomSoundTracks,
+                Arguments = path,
                 FileName = "explorer.exe"
             };
             Process.Start(startInfo).Focus();
