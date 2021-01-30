@@ -2,6 +2,8 @@
 using System.Linq;
 using Exa.Utils;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 #pragma warning disable CS0649
@@ -9,10 +11,13 @@ using UnityEngine;
 namespace Exa.Audio.Music
 {
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Atmosphere
     {
         None = 1 << 0,
         MainMenu = 1 << 1,
+        Combat = 1 << 2,
+        All = ~0
     }
 
     public class MusicPlayerGroup : AudioPlayerGroup

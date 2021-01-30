@@ -1,38 +1,68 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ICSharpCode.SharpZipLib.Zip;
+using System.Text;
+using Exa.IO;
+using Exa.Utils;
+using Ionic.Zip;
+using Newtonsoft.Json;
 using UnityEngine;
+using CompressionLevel = Ionic.Zlib.CompressionLevel;
 
 namespace Exa.Audio.Music
 {
     public class CustomSoundTrackDescription : ISoundTrackDescription
     {
-        public string Name { get; }
-        public int SongCount { get; }
+        private CustomSoundTrackMetadata metadata;
+
+        public string Name => metadata.Name;
+        public int SongCount => metadata.Songs.Count();
+
+        public CustomSoundTrackDescription(string path) {
+            metadata = GetMetadata(path);
+        }
 
         public ISoundTrack GetSoundTrack() {
             return null;
         }
 
-        public CustomSoundTrackDescription(string path) {
-            var entries = GetZipEntries(path, out var archive);
-            foreach (var entry in entries) {
-                Debug.Log(entry.Name);
-            }
+        private CustomSoundTrackMetadata GetMetadata(string path) {
+            using var zip = ZipFile.Read(path);
+            zip.CompressionLevel = CompressionLevel.BestCompression;
+            var configEntry = zip.Entries.FirstOrDefault(entry => entry.FileName == "config.json");
 
-            Name = Path.GetFileNameWithoutExtension(path);
+            return configEntry == null 
+                ? GenerateMetadata(zip) 
+                : null;
         }
 
-        private IEnumerable<ZipEntry> GetZipEntries(string path, out ZipFile archive) {
-            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-            archive = new ZipFile(fileStream);
-            return archive.Cast<ZipEntry>()
-                .Where(entry => entry.IsFile);
+        private CustomSoundTrackMetadata GenerateMetadata(ZipFile zip) {
+            var name = Path.GetFileNameWithoutExtension(zip.Name);
+            var songs = FilterEntries(zip.Entries, ".mp3").Select(entry => new CustomSongMetadata {
+                Name = Path.GetFileNameWithoutExtension(entry.FileName),
+                FileName = Path.GetFileName(entry.FileName),
+                Atmospheres = Atmosphere.All,
+            });
+
+            var metadata = new CustomSoundTrackMetadata {
+                Name = name,
+                Songs = songs.ToList()
+            };
+
+            AppendMetadata(zip, metadata);
+
+            return metadata;
+        }
+
+        private void AppendMetadata(ZipFile file, CustomSoundTrackMetadata metadata) {
+            var json = IOUtils.JsonSerializeWithSettings(metadata, SerializationMode.Readable);
+            file.AddEntry("config.json", Encoding.UTF8.GetBytes(json));
+            file.Save();
         }
 
         private IEnumerable<ZipEntry> FilterEntries(IEnumerable<ZipEntry> entries, string extension) {
-            return entries.Where(entry => Path.GetExtension(entry.Name) == extension);
+            return entries.Where(entry => Path.GetExtension(entry.FileName) == extension);
         }
     }
 }
