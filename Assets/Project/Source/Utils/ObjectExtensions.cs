@@ -17,5 +17,10 @@ namespace Exa.Utils
         public static void DestroyObject(this Object @object) {
             Object.Destroy(@object);
         }
+
+        public static T Or<T>(this T @object, T newObject)
+            where T : Object {
+            return @object.IsNull() ? newObject : @object;
+        }
     }
 }

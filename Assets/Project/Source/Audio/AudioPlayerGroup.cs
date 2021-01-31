@@ -50,7 +50,9 @@ namespace Exa.Audio
         /// </summary>
         /// <param name="sound"></param>
         public void Register(ISound sound) {
-            var source = gameObject.AddComponent<AudioSource>();
+            var go = new GameObject($"Player: {sound.Id}");
+            go.transform.SetParent(transform);
+            var source = go.AddComponent<AudioSource>();
             source.outputAudioMixerGroup = audioMixerGroup;
             players[sound.Id] = source;
             handleGroups.RegisterGroup(sound.Id);
@@ -70,7 +72,7 @@ namespace Exa.Audio
         }
 
         public void Clear() {
-            players.Values.ForEach(player => player.DestroyObject());
+            players.Values.ForEach(player => player.gameObject.DestroyObject());
             players.Clear();
             handleGroups.Clear();
         }

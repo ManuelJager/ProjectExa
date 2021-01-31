@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Exa.Audio;
 using Ionic.Zip;
 using UnityEngine;
 
@@ -21,19 +22,15 @@ namespace Exa.IO
             });
         }
 
-        public static byte[] GetBytes(this ZipEntry entry) {
-            using var ms = new MemoryStream();
+        public static MemoryStream GetStream(this ZipEntry entry) {
+            var ms = new MemoryStream();
             entry.Extract(ms);
-            return ms.ToArray();
+            return ms;
         }
 
         public static T ReadJson<T>(this ZipEntry entry, SerializationMode mode) {
-            var json = Encoding.UTF8.GetString(entry.GetBytes());
+            var json = Encoding.UTF8.GetString(entry.GetStream().ToArray());
             return IOUtils.JsonDeserializeWithSettings<T>(json, mode);
-        }
-
-        public static AudioClip ReadAudioClip(this ZipEntry entry) {
-
         }
     }
 }

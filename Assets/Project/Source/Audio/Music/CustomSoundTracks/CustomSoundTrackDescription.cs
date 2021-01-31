@@ -30,7 +30,14 @@ namespace Exa.Audio.Music
         }
 
         public ISoundTrack GetSoundTrack() {
-            return null;
+            using var zip = ZipFile.Read(path);
+            var songs = metadata.Songs.Select(songMetadata => {
+                var songEntry = zip.FirstOrDefault(entry => entry.FileName == songMetadata.FileName);
+                using var stream = songEntry.GetStream();
+                return new CustomSong(stream, songMetadata); ;
+            }).ToList();
+
+            return new CustomSoundTrack(songs, this);
         }
 
         private CustomSoundTrackMetadata GetMetadata(string path) {
@@ -47,7 +54,7 @@ namespace Exa.Audio.Music
             var name = Path.GetFileNameWithoutExtension(zip.Name);
             var songs = zip.Entries.Filter(SupportedAudioTypes).Select(entry => new CustomSongMetadata {
                 Name = Path.GetFileNameWithoutExtension(entry.FileName),
-                FileName = Path.GetFileName(entry.FileName),
+                FileName = entry.FileName,
                 Atmospheres = Atmosphere.All,
             });
 

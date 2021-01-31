@@ -31,10 +31,15 @@ namespace Exa.Audio.Music
         public ISoundTrack CurrentSoundtrack {
             get => currentSoundtrack;
             set {
+                if (value == currentSoundtrack) {
+                    return;
+                }
+
                 currentSoundtrack = value;
 
                 Clear();
                 value.ForEach(Register);
+                SetAtmosphere(activeAtmosphere);
             }
         }
 
@@ -46,7 +51,10 @@ namespace Exa.Audio.Music
             activeAtmosphere = atmosphere;
 
             soundHandle?.Stop();
-            soundHandle = PlayGlobal(currentSoundtrack.SelectSong(atmosphere));
+
+            if (!currentSoundtrack.SelectSong(atmosphere).IsNull(out var song)) {
+                soundHandle = PlayGlobal(song);
+            }
         }
     }
 }

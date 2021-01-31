@@ -56,7 +56,10 @@ namespace Exa.Utils
         }
 
         public static T GetRandomElement<T>(this IEnumerable<T> enumerable) {
-            return enumerable.ElementAt(Random.Range(0, enumerable.Count()));
+            var count = enumerable.Count();
+            return count == 0 
+                ? default 
+                : enumerable.ElementAt(Random.Range(0, count));
         }
 
         public static TTarget FindFirst<TTarget>(this IEnumerable enumerable) {

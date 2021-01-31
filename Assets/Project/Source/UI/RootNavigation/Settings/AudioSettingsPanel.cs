@@ -1,9 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Exa.Audio.Music;
 using Exa.IO;
 using Exa.Types.Generics;
 using Exa.UI.Controls;
+using Exa.UI.Tooltips;
 using Exa.Utils;
 using UnityEngine.UI;
 
@@ -39,9 +41,13 @@ namespace Exa.UI.Settings
         }
 
         private void CreateSoundTrackDropdownTabs() {
-            var items = Systems.Audio.Music.Provider.Descriptions
-                .Select(description => description.GetLabeledValue());
-            soundTrackNameDropdown.CreateTabs(items);
+            var dict = Systems.Audio.Music.Provider.Descriptions
+                .ToDictionary(description => description.Name);
+            var options = dict.Values.Select(description => description.GetLabeledValue());
+            soundTrackNameDropdown.CreateTabs(options, (key, tab) => {
+                var text = $"Song count: {dict[key].SongCount}";
+                tab.gameObject.AddComponent<TextTooltipTrigger>().SetText(text);
+            });
         }
 
         private void OpenFolder() {

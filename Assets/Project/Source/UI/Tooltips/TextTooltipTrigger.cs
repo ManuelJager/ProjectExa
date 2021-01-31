@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Utils;
+using UnityEngine;
 
 #pragma warning disable CS0649
 
@@ -11,7 +12,7 @@ namespace Exa.UI.Tooltips
         [SerializeField] private string message;
 
         private void Awake() {
-            hoverable = hoverable ?? GetComponent<Hoverable>();
+            hoverable = GetComponent<Hoverable>();
             hoverable.onPointerEnter.AddListener(() => {
                 if (!string.IsNullOrEmpty(message))
                     TextTooltip.ShowTooltip(message);
@@ -21,6 +22,10 @@ namespace Exa.UI.Tooltips
         }
 
         public void SetText(string message) {
+            if (hoverable == null) {
+                hoverable = GetComponent<Hoverable>();
+            }
+
             this.message = message;
             var stringNullOrEmpty = string.IsNullOrEmpty(message);
 

@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Object = System.Object;
 
 namespace Exa.UI.Controls
 {
@@ -77,8 +78,8 @@ namespace Exa.UI.Controls
             clickAction.Disable();
         }
 
-        public virtual void CreateTabs(IEnumerable<ILabeledValue<object>> options,
-            Action<object, DropdownTab> onTabCreated = null) {
+        public virtual void CreateTabs<T>(IEnumerable<ILabeledValue<T>> options,
+            Action<T, DropdownTab> onTabCreated = null) {
             foreach (var option in options) {
                 var tab = Instantiate(tabPrefab, tabContainer).GetComponent<DropdownTab>();
                 tab.Text = option.Label;
@@ -89,7 +90,7 @@ namespace Exa.UI.Controls
 
                 onTabCreated?.Invoke(option.Value, tab);
 
-                stateContainer.Add(option, tab);
+                stateContainer.Add(option as ILabeledValue<object>, tab);
             }
 
             SelectFirst();
