@@ -14,12 +14,18 @@ namespace Exa.Audio.Music
 {
     public class CustomSoundTrackDescription : ISoundTrackDescription
     {
+        private static readonly IEnumerable<string> SupportedAudioTypes = new [] {".wav"};
+        private static readonly string ConfigName = "config.json";
+
         private CustomSoundTrackMetadata metadata;
+        private string path;
 
         public string Name => metadata.Name;
         public int SongCount => metadata.Songs.Count();
 
         public CustomSoundTrackDescription(string path) {
+            this.path = path;
+
             metadata = GetMetadata(path);
         }
 
@@ -30,16 +36,16 @@ namespace Exa.Audio.Music
         private CustomSoundTrackMetadata GetMetadata(string path) {
             using var zip = ZipFile.Read(path);
             zip.CompressionLevel = CompressionLevel.BestCompression;
-            var configEntry = zip.Entries.FirstOrDefault(entry => entry.FileName == "config.json");
+            var configEntry = zip.Entries.FirstOrDefault(entry => entry.FileName == ConfigName);
 
             return configEntry == null 
                 ? GenerateMetadata(zip) 
-                : null;
+                : configEntry.ReadJson<CustomSoundTrackMetadata>(SerializationMode.Readable);
         }
 
         private CustomSoundTrackMetadata GenerateMetadata(ZipFile zip) {
             var name = Path.GetFileNameWithoutExtension(zip.Name);
-            var songs = FilterEntries(zip.Entries, ".mp3").Select(entry => new CustomSongMetadata {
+            var songs = zip.Entries.Filter(SupportedAudioTypes).Select(entry => new CustomSongMetadata {
                 Name = Path.GetFileNameWithoutExtension(entry.FileName),
                 FileName = Path.GetFileName(entry.FileName),
                 Atmospheres = Atmosphere.All,
@@ -57,12 +63,8 @@ namespace Exa.Audio.Music
 
         private void AppendMetadata(ZipFile file, CustomSoundTrackMetadata metadata) {
             var json = IOUtils.JsonSerializeWithSettings(metadata, SerializationMode.Readable);
-            file.AddEntry("config.json", Encoding.UTF8.GetBytes(json));
+            file.AddEntry(ConfigName, Encoding.UTF8.GetBytes(json));
             file.Save();
-        }
-
-        private IEnumerable<ZipEntry> FilterEntries(IEnumerable<ZipEntry> entries, string extension) {
-            return entries.Where(entry => Path.GetExtension(entry.FileName) == extension);
         }
     }
 }
