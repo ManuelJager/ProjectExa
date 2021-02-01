@@ -5,17 +5,16 @@ namespace Exa.Audio.Music
 {
     public class CustomSoundTrack : ISoundTrack
     {
-        private IEnumerable<ISong> songs;
-
+        public IList<ISong> Songs { get; }
         public ISoundTrackDescription Description { get; }
 
-        public CustomSoundTrack(IEnumerable<ISong> songs, ISoundTrackDescription description) {
-            this.songs = songs;
+        public CustomSoundTrack(IList<ISong> songs, ISoundTrackDescription description) {
+            Songs = songs;
             Description = description;
         }
 
         public IEnumerator<ISong> GetEnumerator() {
-            return songs.GetEnumerator();
+            return Songs.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() {

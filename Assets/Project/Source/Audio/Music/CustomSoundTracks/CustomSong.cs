@@ -12,18 +12,11 @@ namespace Exa.Audio.Music
         public SoundConfig Config { get; }
         public Atmosphere AtmosphereFilter { get; }
 
-        public CustomSong(MemoryStream stream, CustomSongMetadata metadata) {
+        public CustomSong(AudioClip audioClip, CustomSongMetadata metadata) {
             Id = metadata.Name;
-            AudioClip = GetAudioClip(stream, Path.GetExtension(metadata.FileName));
+            AudioClip = audioClip;
             Config = new SoundConfig();
             AtmosphereFilter = metadata.Atmospheres;
-        }
-
-        private AudioClip GetAudioClip(MemoryStream stream, string extension) {
-            return extension switch {
-                ".wav" => AudioClipUtils.GetWavAudioClip(stream, Id),
-                _ => throw new ArgumentException($"{extension} is not a supported audio type", nameof(extension))
-            };
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Exa.Data;
+﻿using System;
+using System.Collections;
+using Exa.Audio.Music;
+using Exa.Data;
 using UnityEngine;
 
 namespace Exa.UI.Settings
@@ -18,17 +21,28 @@ namespace Exa.UI.Settings
             AudioListener.volume = Values.masterVolume;
             Systems.Audio.Music.Volume = Values.musicVolume;
             Systems.Audio.Effects.Volume = Values.effectsVolume;
+            Systems.Audio.Music.CurrentSoundtrack = GetSoundTrack();
+        }
 
+        private ISoundTrack GetSoundTrack() {
             var provider = Systems.Audio.Music.Provider;
             var soundTrack = provider.Find(Values.soundTrackName);
             if (soundTrack == null) {
                 Systems.UI.logger.Log($"Could not find soundtrack by name \"{Values.soundTrackName}\"");
+                return provider.DefaultSoundTrack;
             }
-            Systems.Audio.Music.CurrentSoundtrack = soundTrack ?? provider.DefaultSoundTrack;
+
+            var customSoundTrack = soundTrack.GetSoundTrack(GetProgressReporter(), out var enumerator);
+            Systems.Instance.StartCoroutine(enumerator);
+            return customSoundTrack;
         }
 
         private string GetDefaultSoundTrackName() {
             return Systems.Audio.Music.Provider.DefaultSoundTrack.Description.Name;
+        }
+
+        private IProgress<float> GetProgressReporter() {
+            return new Progress<float>((progress) => Debug.Log($"Progress: {progress}"));
         }
 
         public override AudioSettingsValues Clone() => new AudioSettingsValues {

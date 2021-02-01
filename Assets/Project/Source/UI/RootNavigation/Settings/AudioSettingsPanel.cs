@@ -25,6 +25,10 @@ namespace Exa.UI.Settings
             base.Init();
         }
 
+        protected override ExaAudioSettings GetSettingsContainer() {
+            return new ExaAudioSettings();
+        }
+
         public override AudioSettingsValues GetSettingsValues() =>
             new AudioSettingsValues {
                 masterVolume = masterVolumeSlider.Value / 100f,

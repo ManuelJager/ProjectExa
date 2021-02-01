@@ -1,4 +1,6 @@
-﻿using Exa.Types.Generics;
+﻿using System;
+using System.Collections;
+using Exa.Types.Generics;
 
 namespace Exa.Audio.Music
 {
@@ -6,7 +8,7 @@ namespace Exa.Audio.Music
     {
         public string Name { get; }
         public int SongCount { get; }
-        public ISoundTrack GetSoundTrack();
+        public ISoundTrack GetSoundTrack(IProgress<float> progress, out IEnumerator loadEnumerator);
     }
 
     public static class ISoundTrackDescriptionExtensions

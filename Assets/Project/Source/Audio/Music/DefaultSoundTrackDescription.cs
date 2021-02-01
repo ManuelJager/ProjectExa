@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Linq;
 
 namespace Exa.Audio.Music
 {
@@ -13,7 +15,8 @@ namespace Exa.Audio.Music
             this.soundTrack = soundTrack;
         }
 
-        public ISoundTrack GetSoundTrack() {
+        public ISoundTrack GetSoundTrack(IProgress<float> progress, out IEnumerator loadEnumerator) {
+            loadEnumerator = null;
             return soundTrack;
         }
     }

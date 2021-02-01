@@ -101,7 +101,7 @@ namespace Exa
             researchStore.Init();
 
             // Select a target frame rate
-            var targetFrameRate = UI.root.settings.videoSettings.settings.Values.resolution.refreshRate;
+            var targetFrameRate = UI.root.settings.videoSettings.Settings.Values.resolution.refreshRate;
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value => {
                 var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)}% complete) ...";

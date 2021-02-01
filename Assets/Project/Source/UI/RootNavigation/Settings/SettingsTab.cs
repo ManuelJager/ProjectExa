@@ -10,16 +10,18 @@ namespace Exa.UI.Settings
     /// <typeparam name="TSettings">Type of the settings object</typeparam>
     /// <typeparam name="TValues">Type of the settings values for the settings object</typeparam>
     public abstract class SettingsTab<TSettings, TValues> : SettingsTabBase
-        where TSettings : SaveableSettings<TValues>, new()
+        where TSettings : SaveableSettings<TValues>
         where TValues : class, IEquatable<TValues>
     {
         /// <summary>
         /// Current stored settings object
         /// </summary>
-        public TSettings settings = new TSettings();
+        private TSettings settingsBackingField;
 
-        public override bool IsDefault => settings.Values.Equals(settings.DefaultValues);
-        public override bool IsDirty => !settings.Values.Equals(GetSettingsValues());
+        public TSettings Settings => settingsBackingField ??= GetSettingsContainer();
+
+        public override bool IsDefault => Settings.Values.Equals(Settings.DefaultValues);
+        public override bool IsDirty => !Settings.Values.Equals(GetSettingsValues());
 
         /// <summary>
         /// Reflects the values of the settings
@@ -34,14 +36,14 @@ namespace Exa.UI.Settings
         public abstract TValues GetSettingsValues();
 
         public virtual void Init() {
-            settings.Load();
-            settings.Apply();
-            settings.Save();
-            ReflectValues(settings.Values);
+            Settings.Load();
+            Settings.Apply();
+            Settings.Save();
+            ReflectValues(Settings.Values);
         }
 
         public override void SetDefaultValues() {
-            var values = settings.DefaultValues;
+            var values = Settings.DefaultValues;
             ReflectValues(values);
             Apply(values);
         }
@@ -55,10 +57,12 @@ namespace Exa.UI.Settings
         /// </summary>
         /// <param name="values"></param>
         protected void Apply(TValues values) {
-            settings.Values = values;
-            settings.Save();
-            settings.Apply();
+            Settings.Values = values;
+            Settings.Save();
+            Settings.Apply();
         }
+
+        protected abstract TSettings GetSettingsContainer();
     }
 
     public abstract class SettingsTabBase : SettingsTab

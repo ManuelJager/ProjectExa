@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using Exa.Utils;
 using Ionic.Zip;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Networking;
 using CompressionLevel = Ionic.Zlib.CompressionLevel;
 
 namespace Exa.Audio.Music
@@ -29,15 +31,38 @@ namespace Exa.Audio.Music
             metadata = GetMetadata(path);
         }
 
-        public ISoundTrack GetSoundTrack() {
-            using var zip = ZipFile.Read(path);
-            var songs = metadata.Songs.Select(songMetadata => {
-                var songEntry = zip.FirstOrDefault(entry => entry.FileName == songMetadata.FileName);
-                using var stream = songEntry.GetStream();
-                return new CustomSong(stream, songMetadata); ;
-            }).ToList();
+        public ISoundTrack GetSoundTrack(IProgress<float> progress, out IEnumerator loadOperation) {
+            var zip = ZipFile.Read(path);
+            var songList = new List<ISong>();
+            var soundTrack = new CustomSoundTrack(songList, this);
+            loadOperation = LoadFiles(metadata, zip, progress, soundTrack);
+            return soundTrack;
+        }
 
-            return new CustomSoundTrack(songs, this);
+        public IEnumerator LoadFiles(CustomSoundTrackMetadata metadata, ZipFile zip, IProgress<float> progress, ISoundTrack target) {
+            var zipEntries = zip.Entries.ToDictionary(entry => entry.FileName);
+            var fileNames = metadata.Songs.Select(songMetadata => {
+                using var stream = zipEntries[songMetadata.FileName].GetStream();
+                var fileName = Path.GetTempFileName();
+                File.WriteAllBytes(fileName, stream.ToArray());
+                return (fileName, songMetadata);
+            });
+
+            var songCount = (float)metadata.Songs.Count();
+            var count = 1f;
+            progress.Report(0);
+
+            foreach (var (fileName, songMetadata) in fileNames) {
+                var www = UnityWebRequestMultimedia.GetAudioClip(fileName, UnityEngine.AudioType.WAV);
+                yield return www.SendWebRequest();
+                var clip = DownloadHandlerAudioClip.GetContent(www);
+
+                File.Delete(fileName);
+
+                target.Songs.Add(new CustomSong(clip, songMetadata));
+                progress.Report(count / songCount);
+                count++;
+            }
         }
 
         private CustomSoundTrackMetadata GetMetadata(string path) {

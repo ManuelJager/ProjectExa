@@ -23,9 +23,10 @@ namespace Exa.IO
         }
 
         public static MemoryStream GetStream(this ZipEntry entry) {
-            var ms = new MemoryStream();
-            entry.Extract(ms);
-            return ms;
+            var stream = new MemoryStream();
+            entry.Extract(stream);
+            stream.Position = 0;
+            return stream;
         }
 
         public static T ReadJson<T>(this ZipEntry entry, SerializationMode mode) {

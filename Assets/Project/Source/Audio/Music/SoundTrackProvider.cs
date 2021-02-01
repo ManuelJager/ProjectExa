@@ -28,14 +28,16 @@ namespace Exa.Audio.Music
             }
         }
 
-        public ISoundTrack Find(string soundTrackName) {
+        public bool HasSoundTrack(string soundTrackName) {
+            return Descriptions.Any(description => description.Name == soundTrackName);
+        }
+
+        public ISoundTrackDescription Find(string soundTrackName) {
             if (string.IsNullOrEmpty(soundTrackName)) {
                 return null;
             }
 
-            return Descriptions
-                .FirstOrDefault(description => description.Name == soundTrackName)
-                ?.GetSoundTrack();
+            return Descriptions.FirstOrDefault(description => description.Name == soundTrackName);
         }
     }
 }
