@@ -33,7 +33,9 @@ namespace Exa.UI.Settings
             }
 
             var customSoundTrack = soundTrack.GetSoundTrack(GetProgressReporter(), out var enumerator);
-            Systems.Instance.StartCoroutine(enumerator);
+            if (enumerator != null) {
+                Systems.Instance.StartCoroutine(enumerator);
+            }
             return customSoundTrack;
         }
 
