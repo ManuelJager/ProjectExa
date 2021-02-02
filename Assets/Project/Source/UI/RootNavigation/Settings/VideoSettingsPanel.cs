@@ -22,7 +22,7 @@ namespace Exa.UI.Settings
         public override void ReflectValues(VideoSettingsValues values) {
             // TODO: Notify user of invalid configuration
             if (!resolutionDropdown.ContainsItem(values.resolution)) {
-                values.resolution = Settings.DefaultValues.resolution;
+                values.resolution = Container.DefaultValues.resolution;
             }
             
             resolutionDropdown.SetValue(values.resolution, false);
@@ -31,9 +31,9 @@ namespace Exa.UI.Settings
         }
 
         public override void Init() {
-            Settings.Resolutions = new Resolutions();
+            Container.Resolutions = new Resolutions();
 
-            refreshRatesDropdown.CreateTabs(Settings.Resolutions
+            refreshRatesDropdown.CreateTabs(Container.Resolutions
                 .GetRefreshRateLabels());
 
             refreshRatesDropdown.OnValueChange.AddListener(obj => {
@@ -41,7 +41,7 @@ namespace Exa.UI.Settings
                 resolutionDropdown.SelectFirst();
             });
 
-            resolutionDropdown.CreateTabs(Settings.Resolutions
+            resolutionDropdown.CreateTabs(Container.Resolutions
                 .GetResolutionLabels()
                 .Reverse());
 
@@ -56,7 +56,7 @@ namespace Exa.UI.Settings
             const int length = 15;
             const string format = "Do you wish to keep these settings? (Reverting in {0} seconds)";
 
-            var currentValues = Settings.Clone();
+            var currentValues = Container.Clone();
             var setter = Systems.UI.promptController.PromptTextSetter;
             var uiGroup = Systems.UI.root.interactableAdapter;
 

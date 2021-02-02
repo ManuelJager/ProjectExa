@@ -15,9 +15,15 @@ namespace Exa.Audio.Music
             this.soundTrack = soundTrack;
         }
 
-        public ISoundTrack GetSoundTrack(IProgress<float> progress, out IEnumerator loadEnumerator) {
-            loadEnumerator = null;
-            return soundTrack;
+        public void LoadSoundTrack(SoundTrackLoadHandler loadHandler) {
+            loadHandler.LoadEnumerator = Load(loadHandler);
+        }
+
+        private IEnumerator Load(SoundTrackLoadHandler loadHandler) {
+            yield return null;
+
+            loadHandler.Reporter.Report(1);
+            loadHandler.OutputSoundtrack = soundTrack;
         }
     }
 }

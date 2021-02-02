@@ -10,12 +10,12 @@ namespace Exa.Audio.Music
     {
         [SerializeField] private DefaultSoundTrack defaultSoundTrack;
 
-        public ISoundTrack DefaultSoundTrack => defaultSoundTrack;
-        public LazyCache<IEnumerable<ISoundTrackDescription>> DescriptionsBackingCache;
-        public IEnumerable<ISoundTrackDescription> Descriptions => DescriptionsBackingCache.Value;
+        public ISoundTrackDescription DefaultSoundTrack => defaultSoundTrack.Description;
+        public LazyCache<IEnumerable<ISoundTrackDescription>> descriptionsBackingField;
+        public IEnumerable<ISoundTrackDescription> Descriptions => descriptionsBackingField.Value;
 
         private void Awake() {
-            DescriptionsBackingCache = new LazyCache<IEnumerable<ISoundTrackDescription>>(() => {
+            descriptionsBackingField = new LazyCache<IEnumerable<ISoundTrackDescription>>(() => {
                 return GetSoundTrackDescriptions().ToList();
             });
         }

@@ -39,7 +39,6 @@ namespace Exa.Audio.Music
 
                 Clear();
                 value.ForEach(Register);
-                SetAtmosphere(activeAtmosphere);
             }
         }
 
@@ -55,6 +54,10 @@ namespace Exa.Audio.Music
             if (!currentSoundtrack.SelectSong(atmosphere).IsNull(out var song)) {
                 soundHandle = PlayGlobal(song);
             }
+        }
+
+        public void Play() {
+            SetAtmosphere(activeAtmosphere);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Exa.Audio.Music
     {
         public string Name { get; }
         public int SongCount { get; }
-        public ISoundTrack GetSoundTrack(IProgress<float> progress, out IEnumerator loadEnumerator);
+        public void LoadSoundTrack(SoundTrackLoadHandler loadHandler);
     }
 
     public static class ISoundTrackDescriptionExtensions

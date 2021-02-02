@@ -9,6 +9,7 @@ using Exa.Utils;
 using System;
 using System.Collections;
 using Exa.Audio.Music;
+using Exa.Data;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Research;
@@ -33,6 +34,7 @@ namespace Exa
         [SerializeField] private ThumbnailGenerator thumbnailGenerator;
         [SerializeField] private DebugManager debugManager;
         [SerializeField] private InputManager inputManager;
+        [SerializeField] private SettingsManager settingsManager;
         [SerializeField] private ExaSceneManager sceneManager;
         [SerializeField] private LoggerInterceptor logger;
         [SerializeField] private MainUI mainUI;
@@ -51,6 +53,7 @@ namespace Exa
         public static ThumbnailGenerator Thumbnails => Instance.thumbnailGenerator;
         public static DebugManager Debug => Instance.debugManager;
         public static InputManager Input => Instance.inputManager;
+        public static SettingsManager Settings => Instance.settingsManager;
         public static ExaSceneManager Scenes => Instance.sceneManager;
         public static LoggerInterceptor Logger => Instance.logger;
         public static MainUI UI => Instance.mainUI;
@@ -90,9 +93,27 @@ namespace Exa
             UI.loadingScreen.ShowScreen(LoadingScreenDuration.Long);
             UI.root.gameObject.SetActive(false);
 
-            yield return 0;
+            yield return null;
 
-            UI.root.settings.Load();
+            // Select a target frame rate
+            var targetFrameRate = Settings.VideoSettings.Values.resolution.refreshRate;
+
+            Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
+                Reporter = new Progress<float>(value => {
+                    UI.loadingScreen.UpdateMessage("soundtrack", value);
+                })
+            };
+
+            Settings.Load();
+            var enumerator = Settings.AudioSettings.LoadHandler.LoadEnumerator;
+            yield return EnumeratorUtils.ScheduleWithFramerate(enumerator, targetFrameRate);
+
+            Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
+                Reporter = new Progress<float>(value => {
+                    UnityEngine.Debug.Log(value);
+                })
+            };
+            
 
             // Play music only after settings have been loaded
             atmosphereTrigger.Trigger();
@@ -100,20 +121,15 @@ namespace Exa
             // Initialize research systems
             researchStore.Init();
 
-            // Select a target frame rate
-            var targetFrameRate = UI.root.settings.videoSettings.Settings.Values.resolution.refreshRate;
-
             yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value => {
-                var message = $"Loading blocks ({Mathf.RoundToInt(value * 100)}% complete) ...";
-                UI.loadingScreen.UpdateMessage(message);
+                UI.loadingScreen.UpdateMessage("blocks", value);
             })), targetFrameRate);
 
             // Enable research items after the block factory is initialized, as research items call the block factory when enabled
             researchStore.AutoEnableItems();
 
             yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.Init(new Progress<float>(value => {
-                var message = $"Loading blueprints ({Mathf.RoundToInt(value * 100)}% complete) ...";
-                UI.loadingScreen.UpdateMessage(message);
+                UI.loadingScreen.UpdateMessage("blueprints", value);
             })), targetFrameRate);
 
             yield return null;

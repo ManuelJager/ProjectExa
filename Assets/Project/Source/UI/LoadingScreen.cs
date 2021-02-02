@@ -69,6 +69,10 @@ namespace Exa.UI
             StartCoroutine(WaitForDeactivation());
         }
 
+        public void UpdateMessage(string thing, float progress) {
+            UpdateMessage($"Loading {thing} ({Mathf.RoundToInt(progress)}% complete)");
+        }
+
         public void UpdateMessage(string message) {
             if (!shouldDisplay) return;
 

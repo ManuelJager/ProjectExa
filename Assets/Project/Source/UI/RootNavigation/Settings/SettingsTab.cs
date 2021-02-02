@@ -18,10 +18,10 @@ namespace Exa.UI.Settings
         /// </summary>
         private TSettings settingsBackingField;
 
-        public TSettings Settings => settingsBackingField ??= GetSettingsContainer();
+        public TSettings Container => settingsBackingField ??= GetSettingsContainer();
 
-        public override bool IsDefault => Settings.Values.Equals(Settings.DefaultValues);
-        public override bool IsDirty => !Settings.Values.Equals(GetSettingsValues());
+        public override bool IsDefault => Container.Values.Equals(Container.DefaultValues);
+        public override bool IsDirty => !Container.Values.Equals(GetSettingsValues());
 
         /// <summary>
         /// Reflects the values of the settings
@@ -36,14 +36,14 @@ namespace Exa.UI.Settings
         public abstract TValues GetSettingsValues();
 
         public virtual void Init() {
-            Settings.Load();
-            Settings.Apply();
-            Settings.Save();
-            ReflectValues(Settings.Values);
+            Container.Load();
+            Container.Apply();
+            Container.Save();
+            ReflectValues(Container.Values);
         }
 
         public override void SetDefaultValues() {
-            var values = Settings.DefaultValues;
+            var values = Container.DefaultValues;
             ReflectValues(values);
             Apply(values);
         }
@@ -57,9 +57,9 @@ namespace Exa.UI.Settings
         /// </summary>
         /// <param name="values"></param>
         protected void Apply(TValues values) {
-            Settings.Values = values;
-            Settings.Save();
-            Settings.Apply();
+            Container.Values = values;
+            Container.Save();
+            Container.Apply();
         }
 
         protected abstract TSettings GetSettingsContainer();

@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections;
+using Exa.Audio;
 using Exa.Audio.Music;
 using Exa.Data;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.UI.Settings
 {
     public class ExaAudioSettings : SaveableSettings<AudioSettingsValues>
     {
+        public SoundTrackLoadHandler LoadHandler { get; set; }
+
         public override AudioSettingsValues DefaultValues => new AudioSettingsValues {
             masterVolume = 0.75f,
             musicVolume = 0.5f,
@@ -21,30 +25,41 @@ namespace Exa.UI.Settings
             AudioListener.volume = Values.masterVolume;
             Systems.Audio.Music.Volume = Values.musicVolume;
             Systems.Audio.Effects.Volume = Values.effectsVolume;
-            Systems.Audio.Music.CurrentSoundtrack = GetSoundTrack();
+            LoadSoundTrack();
         }
 
-        private ISoundTrack GetSoundTrack() {
-            var provider = Systems.Audio.Music.Provider;
-            var soundTrack = provider.Find(Values.soundTrackName);
-            if (soundTrack == null) {
-                Systems.UI.logger.Log($"Could not find soundtrack by name \"{Values.soundTrackName}\"");
-                return provider.DefaultSoundTrack;
+        private void LoadSoundTrack() {
+            if (LoadHandler == null) {
+                throw new InvalidOperationException("Load handler not set when loading soundtrack");
             }
 
-            var customSoundTrack = soundTrack.GetSoundTrack(GetProgressReporter(), out var enumerator);
-            if (enumerator != null) {
-                Systems.Instance.StartCoroutine(enumerator);
+            var music = Systems.Audio.Music;
+
+            if (music.CurrentSoundtrack != null && 
+                music.CurrentSoundtrack.Description.Name == Values.soundTrackName) {
+                return;
             }
-            return customSoundTrack;
+
+            var provider = music.Provider;
+
+            // Make sure we can atleast load the default soundtrack
+            var description = provider.Find(Values.soundTrackName);
+            if (description == null) {
+                Systems.UI.logger.Log($"Could not find soundtrack by name \"{Values.soundTrackName}\"");
+                provider.DefaultSoundTrack.LoadSoundTrack(LoadHandler);
+            }
+            else {
+                description.LoadSoundTrack(LoadHandler);
+            }
+
+            LoadHandler.LoadEnumerator = LoadHandler.LoadEnumerator.Then(() => {
+                Systems.Audio.Music.CurrentSoundtrack = LoadHandler.OutputSoundtrack;
+                Systems.Audio.Music.Play();
+            });
         }
 
         private string GetDefaultSoundTrackName() {
-            return Systems.Audio.Music.Provider.DefaultSoundTrack.Description.Name;
-        }
-
-        private IProgress<float> GetProgressReporter() {
-            return new Progress<float>((progress) => Debug.Log($"Progress: {progress}"));
+            return Systems.Audio.Music.Provider.DefaultSoundTrack.Name;
         }
 
         public override AudioSettingsValues Clone() => new AudioSettingsValues {

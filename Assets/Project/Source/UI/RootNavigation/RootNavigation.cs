@@ -10,7 +10,7 @@ namespace Exa.UI
     {
         public InteractableAdapter interactableAdapter;
         public BlueprintSelector blueprintSelector;
-        public SettingsManager settings;
+        [SerializeField] private SettingsManager settings;
         public MissionSetup missionSetup;
         public Navigateable navigateable;
 

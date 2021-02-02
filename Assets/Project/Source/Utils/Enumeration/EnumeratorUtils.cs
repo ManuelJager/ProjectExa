@@ -37,6 +37,14 @@ namespace Exa.Utils
             }
         }
 
+        public static IEnumerator Then(this IEnumerator enumerator, Action callback) {
+            while (enumerator.MoveNext()) {
+                yield return enumerator.Current;
+            }
+
+            callback();
+        }
+
         public static IEnumerable Enumerate(IEnumerator enumerator) {
             while (enumerator.MoveNext()) {
                 yield return enumerator.Current;

@@ -31,15 +31,14 @@ namespace Exa.Audio.Music
             metadata = GetMetadata(path);
         }
 
-        public ISoundTrack GetSoundTrack(IProgress<float> progress, out IEnumerator loadOperation) {
+        public void LoadSoundTrack(SoundTrackLoadHandler loadHandler) {
             var zip = ZipFile.Read(path);
             var songList = new List<ISong>();
             var soundTrack = new CustomSoundTrack(songList, this);
-            loadOperation = LoadFiles(metadata, zip, progress, soundTrack);
-            return soundTrack;
+            loadHandler.LoadEnumerator = LoadFiles(metadata, zip, loadHandler, soundTrack);
         }
 
-        public IEnumerator LoadFiles(CustomSoundTrackMetadata metadata, ZipFile zip, IProgress<float> progress, ISoundTrack target) {
+        public IEnumerator LoadFiles(CustomSoundTrackMetadata metadata, ZipFile zip, SoundTrackLoadHandler loadHandler, ISoundTrack target) {
             var zipEntries = zip.Entries.ToDictionary(entry => entry.FileName);
             var fileNames = metadata.Songs.Select(songMetadata => {
                 using var stream = zipEntries[songMetadata.FileName].GetStream();
@@ -50,7 +49,10 @@ namespace Exa.Audio.Music
 
             var songCount = (float)metadata.Songs.Count();
             var count = 1f;
-            progress.Report(0);
+
+            yield return null;
+
+            loadHandler.Reporter.Report(0f);
 
             foreach (var (fileName, songMetadata) in fileNames) {
                 var www = UnityWebRequestMultimedia.GetAudioClip(fileName, UnityEngine.AudioType.WAV);
@@ -60,9 +62,11 @@ namespace Exa.Audio.Music
                 File.Delete(fileName);
 
                 target.Songs.Add(new CustomSong(clip, songMetadata));
-                progress.Report(count / songCount);
+                loadHandler.Reporter.Report(count / songCount);
                 count++;
             }
+
+            loadHandler.OutputSoundtrack = target;
         }
 
         private CustomSoundTrackMetadata GetMetadata(string path) {
