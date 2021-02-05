@@ -75,7 +75,7 @@ namespace Exa.UI.Settings
                 ReflectValues(currentValues);
             });
 
-            Apply(GetSettingsValues());
+            base.ApplyChanges();
         }
 
         protected override ExaVideoSettings GetSettingsContainer() {

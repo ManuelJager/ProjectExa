@@ -35,6 +35,9 @@ namespace Exa.Audio.Music
                     return;
                 }
 
+                soundHandle?.Stop();
+                soundHandle = null;
+
                 currentSoundtrack = value;
 
                 Clear();
@@ -45,13 +48,11 @@ namespace Exa.Audio.Music
         public SoundTrackProvider Provider => soundTrackProvider;
 
         public void SetAtmosphere(Atmosphere atmosphere) {
-            if (activeAtmosphere == atmosphere) return;
-
             activeAtmosphere = atmosphere;
 
             soundHandle?.Stop();
 
-            if (!currentSoundtrack.SelectSong(atmosphere).IsNull(out var song)) {
+            if (currentSoundtrack.SelectSong(atmosphere).IsNotNull(out var song)) {
                 soundHandle = PlayGlobal(song);
             }
         }

@@ -95,25 +95,19 @@ namespace Exa
 
             yield return null;
 
-            // Select a target frame rate
-            var targetFrameRate = Settings.VideoSettings.Values.resolution.refreshRate;
-
             Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
-                Reporter = new Progress<float>(value => {
-                    UI.loadingScreen.UpdateMessage("soundtrack", value);
-                })
+                Reporter = UI.loadingScreen.GetLoadReporter("soundtrack")
             };
 
             Settings.Load();
-            var enumerator = Settings.AudioSettings.LoadHandler.LoadEnumerator;
-            yield return EnumeratorUtils.ScheduleWithFramerate(enumerator, targetFrameRate);
+
+            yield return Settings.AudioSettings.LoadHandler.LoadEnumerator.ScheduleWithTargetFramerate();
 
             Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
                 Reporter = new Progress<float>(value => {
                     UnityEngine.Debug.Log(value);
                 })
             };
-            
 
             // Play music only after settings have been loaded
             atmosphereTrigger.Trigger();
@@ -121,16 +115,14 @@ namespace Exa
             // Initialize research systems
             researchStore.Init();
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(blockFactory.Init(new Progress<float>(value => {
-                UI.loadingScreen.UpdateMessage("blocks", value);
-            })), targetFrameRate);
+            yield return blockFactory.Init(UI.loadingScreen.GetLoadReporter("blocks"))
+                .ScheduleWithTargetFramerate();
 
             // Enable research items after the block factory is initialized, as research items call the block factory when enabled
             researchStore.AutoEnableItems();
 
-            yield return EnumeratorUtils.ScheduleWithFramerate(blueprintManager.Init(new Progress<float>(value => {
-                UI.loadingScreen.UpdateMessage("blueprints", value);
-            })), targetFrameRate);
+            yield return blueprintManager.Init(UI.loadingScreen.GetLoadReporter("blueprints"))
+                .ScheduleWithTargetFramerate();
 
             yield return null;
 

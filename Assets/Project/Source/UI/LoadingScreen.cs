@@ -73,6 +73,13 @@ namespace Exa.UI
             UpdateMessage($"Loading {thing} ({Mathf.RoundToInt(progress)}% complete)");
         }
 
+        // Creates a new progress object that updates the loading screen message when reporting
+        public IProgress<float> GetLoadReporter(string label) {
+            return new Progress<float>(value => {
+                UpdateMessage(label, value);
+            });
+        }
+
         public void UpdateMessage(string message) {
             if (!shouldDisplay) return;
 

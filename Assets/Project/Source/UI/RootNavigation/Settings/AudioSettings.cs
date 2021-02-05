@@ -54,7 +54,6 @@ namespace Exa.UI.Settings
 
             LoadHandler.LoadEnumerator = LoadHandler.LoadEnumerator.Then(() => {
                 Systems.Audio.Music.CurrentSoundtrack = LoadHandler.OutputSoundtrack;
-                Systems.Audio.Music.Play();
             });
         }
 

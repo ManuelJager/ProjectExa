@@ -15,7 +15,9 @@ namespace Exa.Audio.Music
         public CustomSong(AudioClip audioClip, CustomSongMetadata metadata) {
             Id = metadata.Name;
             AudioClip = audioClip;
-            Config = new SoundConfig();
+            Config = new SoundConfig {
+                volume = metadata.Volume,
+            };
             AtmosphereFilter = metadata.Atmospheres;
         }
     }

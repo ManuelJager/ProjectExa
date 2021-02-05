@@ -45,6 +45,14 @@ namespace Exa.UI.Settings
             soundTrackNameDropdown.SetValue(values.soundTrackName, false);
         }
 
+        public override void ApplyChanges() {
+            base.ApplyChanges();
+
+            StartCoroutine(Container.LoadHandler.LoadEnumerator.Then(() => {
+                Systems.Audio.Music.Play();
+            }));
+        }
+
         private void CreateSoundTrackDropdownTabs() {
             var dict = Systems.Audio.Music.Provider.Descriptions
                 .ToDictionary(description => description.Name);

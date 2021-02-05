@@ -51,7 +51,14 @@ namespace Exa.Utils
             }
         }
 
-        public static IEnumerator ScheduleWithFramerate(IEnumerator enumerator, float framerate) {
+        public static IEnumerator ScheduleWithTargetFramerate(this IEnumerator enumerator) {
+            // Select a target frame rate
+            var targetFrameRate = Systems.Settings.VideoSettings.Values.resolution.refreshRate;
+
+            return ScheduleWithFramerate(enumerator, targetFrameRate);
+        }
+
+        private static IEnumerator ScheduleWithFramerate(IEnumerator enumerator, float framerate) {
             var maxTimeDelta = 1.0f / framerate;
             var timeStamp = Time.realtimeSinceStartup;
 

@@ -85,6 +85,7 @@ namespace Exa.Audio.Music
                 Name = Path.GetFileNameWithoutExtension(entry.FileName),
                 FileName = entry.FileName,
                 Atmospheres = Atmosphere.All,
+                Volume = 1f,
             });
 
             var metadata = new CustomSoundTrackMetadata {
