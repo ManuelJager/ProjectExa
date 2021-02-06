@@ -13,11 +13,10 @@ namespace Exa.UI.Settings
         public DropdownControl refreshRatesDropdown;
         public RadioControl fullscreenRadio;
 
-        public override VideoSettingsValues GetSettingsValues() =>
-            new VideoSettingsValues {
-                resolution = (Resolution) resolutionDropdown.Value,
-                fullscreen = fullscreenRadio.Value
-            };
+        public override VideoSettingsValues GetSettingsValues() => new VideoSettingsValues {
+            resolution = (Resolution) resolutionDropdown.Value,
+            fullscreen = fullscreenRadio.Value
+        };
 
         public override void ReflectValues(VideoSettingsValues values) {
             // TODO: Notify user of invalid configuration
