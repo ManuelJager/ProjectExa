@@ -3,7 +3,7 @@
 namespace Exa.Types.Generics
 {
     [System.Serializable]
-    public class ValueOverride<T>
+    public class ValueOverride<T> : IValueOverride<T>
     {
         [SerializeField] private T value;
 

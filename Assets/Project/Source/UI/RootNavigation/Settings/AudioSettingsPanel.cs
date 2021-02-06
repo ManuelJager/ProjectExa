@@ -49,7 +49,7 @@ namespace Exa.UI.Settings
 
             StartCoroutine(Container.LoadHandler.LoadEnumerator
                 .ScheduleWithTargetFramerate()
-                .Then(Systems.Audio.Music.Play));
+                .Then(() => Systems.Audio.Music.IsPlaying = true));
         }
 
         private void CreateSoundTrackDropdownTabs() {

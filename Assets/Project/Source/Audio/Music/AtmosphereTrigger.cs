@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Exa.Types.Generics;
 using UnityEngine;
 
 namespace Exa.Audio.Music
@@ -6,24 +7,10 @@ namespace Exa.Audio.Music
     /// <summary>
     /// Sets the current atmosphere when enabled
     /// </summary>
-    public class AtmosphereTrigger : MonoBehaviour
+    public class AtmosphereTrigger : MonoOverride<Atmosphere>
     {
-        [SerializeField] private Atmosphere targetAtmosphere = Atmosphere.None;
-        [SerializeField] private bool triggerOnEnable = false;
-
-        private void OnEnable() {
-            if (triggerOnEnable)
-                StartCoroutine(DelayedSetAtmosphere());
-        }
-
-        public void Trigger() {
-            Systems.Audio.Music.SetAtmosphere(targetAtmosphere);
-        }
-
-        private IEnumerator DelayedSetAtmosphere() {
-            yield return null;
-
-            Trigger();
+        protected override OverrideList<Atmosphere> GetPath() {
+            return Systems.Audio.Music.Atmospheres;
         }
     }
 }

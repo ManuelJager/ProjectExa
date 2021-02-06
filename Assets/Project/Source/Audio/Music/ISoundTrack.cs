@@ -14,7 +14,7 @@ namespace Exa.Audio.Music
     {
         public static ISong SelectSong(this ISoundTrack soundTrack, Atmosphere currentAtmosphere) {
             return soundTrack
-                .Where(sound => sound.AtmosphereFilter.HasValue(currentAtmosphere))
+                .Where(sound => sound.AtmosphereFilter.HasAnyValue(currentAtmosphere))
                 .GetRandomElement();
         }
     }

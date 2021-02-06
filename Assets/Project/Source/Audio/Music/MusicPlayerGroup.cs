@@ -24,9 +24,11 @@ namespace Exa.Audio.Music
     {
         [SerializeField] private SoundTrackProvider soundTrackProvider;
 
-        private Atmosphere activeAtmosphere = Atmosphere.None;
+        private Atmosphere atmosphere = Atmosphere.None;
         private ISoundTrack currentSoundtrack;
-        private SoundHandle soundHandle;
+        private SoundHandle currentSoundHandle;
+        private ISong currentSong;
+        private bool isPlaying;
 
         public ISoundTrack CurrentSoundtrack {
             get => currentSoundtrack;
@@ -35,8 +37,7 @@ namespace Exa.Audio.Music
                     return;
                 }
 
-                soundHandle?.Stop();
-                soundHandle = null;
+                Stop();
 
                 currentSoundtrack = value;
 
@@ -45,20 +46,53 @@ namespace Exa.Audio.Music
             }
         }
 
-        public SoundTrackProvider Provider => soundTrackProvider;
+        public bool IsPlaying {
+            get => isPlaying;
+            set {
+                if (!isPlaying && value) {
+                    Play();
+                }
 
-        public void SetAtmosphere(Atmosphere atmosphere) {
-            activeAtmosphere = atmosphere;
+                if (isPlaying && !value) {
+                    Stop();
+                }
 
-            soundHandle?.Stop();
-
-            if (currentSoundtrack.SelectSong(atmosphere).IsNotNull(out var song)) {
-                soundHandle = PlayGlobal(song);
+                isPlaying = value;
             }
         }
 
-        public void Play() {
-            SetAtmosphere(activeAtmosphere);
+        public SoundTrackProvider Provider => soundTrackProvider;
+        public AtmosphereOverrideList Atmospheres { get; private set; }
+
+        private void Awake() {
+            Atmospheres = new AtmosphereOverrideList(Atmosphere.None, SetAtmosphere);
+        }
+
+        protected void SetAtmosphere(Atmosphere atmosphere) {
+            this.atmosphere = atmosphere;
+
+            if (currentSong != null && !currentSong.AtmosphereFilter.HasValue(atmosphere) && isPlaying) {
+                Stop();
+                Play();
+            }
+        }
+
+        private void Play() {
+            if (currentSoundtrack.SelectSong(atmosphere).IsNotNull(out var song)) {
+                currentSoundHandle = PlayGlobal(song);
+                currentSong = song;
+            }
+            else {
+                var message = $"Cannot select a song from the current soundtrack {currentSoundtrack.Description.Name}, " +
+                              $"as it probably doesn't have a song for the atmosphere {atmosphere}";
+                throw new InvalidOperationException(message);
+            }
+        }
+
+        private void Stop() {
+            currentSoundHandle?.Stop();
+            currentSoundHandle = null;
+            currentSong = null;
         }
     }
 }

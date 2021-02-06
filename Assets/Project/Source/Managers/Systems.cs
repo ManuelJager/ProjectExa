@@ -108,7 +108,7 @@ namespace Exa
             };
 
             // Play music only after settings have been loaded
-            atmosphereTrigger.Trigger();
+            atmosphereTrigger.gameObject.SetActive(true);
 
             // Initialize research systems
             researchStore.Init();

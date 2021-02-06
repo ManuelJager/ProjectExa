@@ -11,14 +11,14 @@ namespace Exa.UI
         public CursorStateOverrideList(CursorState defaultValue, Action<CursorState> onValueChange)
             : base(defaultValue, onValueChange) { }
 
-        public override void Add(ValueOverride<CursorState> valueOverride) {
+        public override void Add(IValueOverride<CursorState> valueOverride) {
             if (overrides.Count == 0)
                 ContainsItemChange?.Invoke(true);
 
             base.Add(valueOverride);
         }
 
-        public override void Remove(ValueOverride<CursorState> valueOverride) {
+        public override void Remove(IValueOverride<CursorState> valueOverride) {
             if (overrides.Contains(valueOverride))
                 base.Remove(valueOverride);
 

@@ -44,7 +44,7 @@ namespace Exa.Audio.Music
 
             var zipEntries = zip.Entries.ToDictionary(entry => entry.FileName);
             var songCount = (float)metadata.Songs.Count();
-            var count = 1f;
+            var count = 0f;
 
             yield return new WaitForEndOfFrame();
 
@@ -67,8 +67,7 @@ namespace Exa.Audio.Music
                 File.Delete(fileName);
 
                 target.Songs.Add(new CustomSong(clip, songMetadata));
-                loadHandler.Progress.Report(count / songCount);
-                count++;
+                loadHandler.Progress.Report(++count / songCount);
             }
 
             loadHandler.OutputSoundtrack = target;

@@ -18,6 +18,12 @@ namespace Exa.Utils
             return next;
         }
 
+        public static bool MoveNext(this IEnumerator enumerator, out object current) {
+            var next = enumerator.MoveNext();
+            current = enumerator.Current;
+            return next;
+        }
+
         public static IEnumerator EnumerateSafe(IEnumerator enumerator, Action<Exception> catcher) {
             while (true) {
                 object current;
@@ -62,17 +68,15 @@ namespace Exa.Utils
             var maxTimeDelta = 1.0f / framerate;
             var timeStamp = Time.realtimeSinceStartup;
 
-            while (enumerator.MoveNext()) {
-                Debug.Log(Time.realtimeSinceStartup - timeStamp);
-
-                if (enumerator.Current is WorkUnit) {
+            while (enumerator.MoveNext(out var current)) {
+                if (current is WorkUnit) {
                     if (Time.realtimeSinceStartup - timeStamp > maxTimeDelta) {
                         yield return null;
                         timeStamp = Time.realtimeSinceStartup;
                     }
                 }
                 else {
-                    yield return enumerator.Current;
+                    yield return current;
                 }
             }
         }
@@ -85,7 +89,7 @@ namespace Exa.Utils
 
             foreach (var item in list) {
                 var enumerator = func(item);
-                while (enumerator.MoveNext()) yield return enumerator.Current;
+                while (enumerator.MoveNext(out var current)) yield return current;
 
                 index++;
                 progress.Report((float) index / list.Count);
