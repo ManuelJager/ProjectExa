@@ -69,12 +69,12 @@ namespace Exa.Grids.Blocks
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
 
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
-            yield return null;
+            yield return new WorkUnit();
 
             foreach (var context in BlockContextExtensions.GetContexts()) {
                 Values.Register(context, blockTemplate);
                 GetGroup(context).CreateAlivePrefabGroup(blockTemplate, context);
-                yield return null;
+                yield return new WorkUnit();
             }
         }
 

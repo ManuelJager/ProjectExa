@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Exa.Types.Binding;
+using Exa.Utils;
 using UnityEngine;
 using Tree = Exa.IO.Tree;
 
@@ -41,7 +42,7 @@ namespace Exa.Grids.Blueprints
                     Systems.UI.logger.Log($"Error loading blueprint: {e.Message}");
                 }
 
-                yield return null;
+                yield return new WorkUnit();
                 iterator++;
                 progress.Report((float) iterator / blueprintTotal);
             }
@@ -51,12 +52,12 @@ namespace Exa.Grids.Blueprints
             foreach (var defaultBlueprint in defaultBlueprintBag) {
                 AddDefaultBlueprint(defaultBlueprint);
 
-                yield return null;
+                yield return new WorkUnit();
                 iterator++;
                 progress.Report((float) iterator / blueprintTotal);
             }
 
-            yield return null;
+            yield return new WorkUnit();
         }
 
         public Blueprint GetBlueprint(string name) {

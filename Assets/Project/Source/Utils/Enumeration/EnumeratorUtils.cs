@@ -62,11 +62,19 @@ namespace Exa.Utils
             var maxTimeDelta = 1.0f / framerate;
             var timeStamp = Time.realtimeSinceStartup;
 
-            while (enumerator.MoveNext())
-                if (Time.realtimeSinceStartup > timeStamp + maxTimeDelta) {
-                    yield return null;
-                    timeStamp = Time.realtimeSinceStartup;
+            while (enumerator.MoveNext()) {
+                Debug.Log(Time.realtimeSinceStartup - timeStamp);
+
+                if (enumerator.Current is WorkUnit) {
+                    if (Time.realtimeSinceStartup - timeStamp > maxTimeDelta) {
+                        yield return null;
+                        timeStamp = Time.realtimeSinceStartup;
+                    }
                 }
+                else {
+                    yield return enumerator.Current;
+                }
+            }
         }
 
         public static IEnumerator ReportForeachOperation<T>(IEnumerable<T> enumerable, Func<T, IEnumerator> func,

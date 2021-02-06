@@ -48,9 +48,9 @@ namespace Exa.UI.Settings
         public override void ApplyChanges() {
             base.ApplyChanges();
 
-            StartCoroutine(Container.LoadHandler.LoadEnumerator.Then(() => {
-                Systems.Audio.Music.Play();
-            }));
+            StartCoroutine(Container.LoadHandler.LoadEnumerator
+                .ScheduleWithTargetFramerate()
+                .Then(Systems.Audio.Music.Play));
         }
 
         private void CreateSoundTrackDropdownTabs() {

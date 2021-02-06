@@ -60,14 +60,16 @@ namespace Exa.UI.Settings
             var setter = Systems.UI.promptController.PromptTextSetter;
             var uiGroup = Systems.UI.root.interactableAdapter;
 
+            var prompt = null as Prompt;
+
             var coroutine = StartCoroutine(UpdatePromptCountdown(length, format, setter, () => {
                 Apply(currentValues);
                 ReflectValues(currentValues);
 
-                Systems.UI.promptController.CleanupYesNo(uiGroup);
+                prompt.CleanUp();
             }));
 
-            Systems.UI.promptController.PromptYesNo(format.Format(length), uiGroup, value => {
+            prompt = Systems.UI.promptController.PromptYesNo(format.Format(length), uiGroup, value => {
                 StopCoroutine(coroutine);
                 if (value) return;
 

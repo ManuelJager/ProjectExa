@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using UnityEngine;
 
 namespace Exa.Audio.Music
 {
@@ -17,12 +18,13 @@ namespace Exa.Audio.Music
 
         public void LoadSoundTrack(SoundTrackLoadHandler loadHandler) {
             loadHandler.LoadEnumerator = Load(loadHandler);
+            loadHandler.Progress.Report(0f);
         }
 
         private IEnumerator Load(SoundTrackLoadHandler loadHandler) {
-            yield return null;
+            yield return new WaitForSeconds(0.5f);
 
-            loadHandler.Reporter.Report(1);
+            loadHandler.Progress.Report(1f);
             loadHandler.OutputSoundtrack = soundTrack;
         }
     }

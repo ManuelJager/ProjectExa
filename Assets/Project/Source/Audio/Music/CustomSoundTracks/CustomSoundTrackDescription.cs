@@ -8,6 +8,7 @@ using Exa.IO;
 using Exa.Utils;
 using Ionic.Zip;
 using Newtonsoft.Json;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Networking;
 using CompressionLevel = Ionic.Zlib.CompressionLevel;
@@ -39,30 +40,34 @@ namespace Exa.Audio.Music
         }
 
         public IEnumerator LoadFiles(CustomSoundTrackMetadata metadata, ZipFile zip, SoundTrackLoadHandler loadHandler, ISoundTrack target) {
-            var zipEntries = zip.Entries.ToDictionary(entry => entry.FileName);
-            var fileNames = metadata.Songs.Select(songMetadata => {
-                using var stream = zipEntries[songMetadata.FileName].GetStream();
-                var fileName = Path.GetTempFileName();
-                File.WriteAllBytes(fileName, stream.ToArray());
-                return (fileName, songMetadata);
-            });
+            loadHandler.Progress.Report(0f);
 
+            var zipEntries = zip.Entries.ToDictionary(entry => entry.FileName);
             var songCount = (float)metadata.Songs.Count();
             var count = 1f;
 
-            yield return null;
+            yield return new WaitForEndOfFrame();
 
-            loadHandler.Reporter.Report(0f);
+            foreach (var songMetadata in metadata.Songs) {
+                using var stream = zipEntries[songMetadata.FileName].GetStream();
+                var fileName = Path.GetTempFileName();
+                File.WriteAllBytes(fileName, stream.ToArray());
 
-            foreach (var (fileName, songMetadata) in fileNames) {
+                yield return new WaitForEndOfFrame();
+
                 var www = UnityWebRequestMultimedia.GetAudioClip(fileName, UnityEngine.AudioType.WAV);
-                yield return www.SendWebRequest();
+                var request = www.SendWebRequest();
+                while (!request.isDone) {
+                    loadHandler.Progress.Report(count / songCount + request.progress / songCount);
+                    yield return new WaitForEndOfFrame();
+                }
+
                 var clip = DownloadHandlerAudioClip.GetContent(www);
 
                 File.Delete(fileName);
 
                 target.Songs.Add(new CustomSong(clip, songMetadata));
-                loadHandler.Reporter.Report(count / songCount);
+                loadHandler.Progress.Report(count / songCount);
                 count++;
             }
 

@@ -93,10 +93,10 @@ namespace Exa
             UI.loadingScreen.ShowScreen(LoadingScreenDuration.Long);
             UI.root.gameObject.SetActive(false);
 
-            yield return null;
+            yield return new WorkUnit();
 
             Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
-                Reporter = UI.loadingScreen.GetLoadReporter("soundtrack")
+                Progress = UI.loadingScreen.GetLoadReporter("soundtrack")
             };
 
             Settings.Load();
@@ -104,9 +104,7 @@ namespace Exa
             yield return Settings.AudioSettings.LoadHandler.LoadEnumerator.ScheduleWithTargetFramerate();
 
             Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
-                Reporter = new Progress<float>(value => {
-                    UnityEngine.Debug.Log(value);
-                })
+                Progress = UI.promptController.PromptProgress("Loading soundtrack", UI.root.interactableAdapter)
             };
 
             // Play music only after settings have been loaded
@@ -124,7 +122,7 @@ namespace Exa
             yield return blueprintManager.Init(UI.loadingScreen.GetLoadReporter("blueprints"))
                 .ScheduleWithTargetFramerate();
 
-            yield return null;
+            yield return new WorkUnit();
 
             UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
             UI.root.gameObject.SetActive(true);

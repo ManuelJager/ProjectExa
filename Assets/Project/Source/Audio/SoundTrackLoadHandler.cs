@@ -6,7 +6,7 @@ namespace Exa.Audio
 {
     public class SoundTrackLoadHandler
     {
-        public IProgress<float> Reporter { get; set; }
+        public IProgress<float> Progress { get; set; }
         public IEnumerator LoadEnumerator { get; set; }
         public ISoundTrack OutputSoundtrack { get; set; }
     }
