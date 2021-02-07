@@ -33,9 +33,5 @@ namespace Exa.Gameplay.Missions
             var pos = new Vector2(xPos, yPos);
             return GameSystems.ShipFactory.CreateEnemy(blueprint, pos, configuration);
         }
-
-        protected Coroutine StartCoroutine(IEnumerator enumerator) {
-            return GameSystems.Instance.StartCoroutine(enumerator);
-        }
     }
 }

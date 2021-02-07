@@ -12,11 +12,6 @@ namespace Exa.Audio
         public ISound sound;
 
         /// <summary>
-        /// Is invoked when played
-        /// </summary>
-        public UnityEvent onPlay = new UnityEvent();
-
-        /// <summary>
         /// Is invoked when the sound ends or is stopped
         /// </summary>
         public UnityEvent onEnd = new UnityEvent();

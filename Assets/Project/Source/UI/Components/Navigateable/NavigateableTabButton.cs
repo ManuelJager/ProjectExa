@@ -30,7 +30,7 @@ namespace Exa.UI.Components
 
         public override void HandleExit(Navigateable target) {
             content.HandleExit(target is NavigateableTabButton button
-                ? Vector2.left * (button.order > order).To1()
+                ? Vector2.right * (button.order > order).To1()
                 : Vector2.zero);
 
             Animate(animArgs.inactive);
@@ -38,7 +38,7 @@ namespace Exa.UI.Components
 
         public override void HandleEnter(NavigationArgs args) {
             content.HandleEnter(args?.current is NavigateableTabButton button
-                ? Vector2.right * (button.order > order).To1()
+                ? Vector2.left * (button.order > order).To1()
                 : Vector2.zero);
 
             Animate(animArgs.active);

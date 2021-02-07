@@ -69,9 +69,7 @@ namespace Exa.Pooling
                 return false;
             }
 
-            Action action = () => poolMember.transform.SetParent(transform);
-            var enumerator = EnumeratorUtils.DelayOneFrame(action);
-            Systems.Instance.StartCoroutine(enumerator);
+            EnumeratorUtils.DelayOneFrame(() => poolMember.transform.SetParent(transform)).Start();
             poolMembers.Push(poolMember);
             return true;
         }

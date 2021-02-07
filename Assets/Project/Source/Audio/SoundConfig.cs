@@ -7,7 +7,7 @@ namespace Exa.Audio
     {
         public float volume = 1f;
         public float pitch = 1f;
-        public bool allowMultipleOfType = true;
+        public bool allowMultipleOfType = false;
         public bool allowMultipleOnTrack = true;
     }
 }

@@ -27,7 +27,6 @@ namespace Exa.Audio.Music
         private Atmosphere atmosphere = Atmosphere.None;
         private ISoundTrack currentSoundtrack;
         private SoundHandle currentSoundHandle;
-        private ISong currentSong;
         private bool isPlaying;
 
         public ISoundTrack CurrentSoundtrack {
@@ -37,8 +36,7 @@ namespace Exa.Audio.Music
                     return;
                 }
 
-                Stop();
-
+                IsPlaying = false;
                 currentSoundtrack = value;
 
                 Clear();
@@ -71,7 +69,9 @@ namespace Exa.Audio.Music
         protected void SetAtmosphere(Atmosphere atmosphere) {
             this.atmosphere = atmosphere;
 
-            if (currentSong != null && !currentSong.AtmosphereFilter.HasValue(atmosphere) && isPlaying) {
+            if (currentSoundHandle?.sound is ISong song 
+                && song.AtmosphereFilter.HasValue(atmosphere)
+                && isPlaying) {
                 Stop();
                 Play();
             }
@@ -80,7 +80,6 @@ namespace Exa.Audio.Music
         private void Play() {
             if (currentSoundtrack.SelectSong(atmosphere).IsNotNull(out var song)) {
                 currentSoundHandle = PlayGlobal(song);
-                currentSong = song;
             }
             else {
                 var message = $"Cannot select a song from the current soundtrack {currentSoundtrack.Description.Name}, " +
@@ -92,7 +91,6 @@ namespace Exa.Audio.Music
         private void Stop() {
             currentSoundHandle?.Stop();
             currentSoundHandle = null;
-            currentSong = null;
         }
     }
 }

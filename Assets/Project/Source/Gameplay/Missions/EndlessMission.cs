@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Exa.Grids;
 using Exa.Ships;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Gameplay.Missions
@@ -10,7 +11,7 @@ namespace Exa.Gameplay.Missions
     {
         public override void Init(MissionArgs args) {
             SpawnPlayerStation(GridInstanceConfiguration.InvulnerableConfig);
-            StartCoroutine(Spawn());
+            Spawn().Start();
         }
 
         private IEnumerator Spawn() {

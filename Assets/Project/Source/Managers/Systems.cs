@@ -109,6 +109,7 @@ namespace Exa
 
             // Play music only after settings have been loaded
             atmosphereTrigger.gameObject.SetActive(true);
+            Audio.Music.IsPlaying = true;
 
             // Initialize research systems
             researchStore.Init();
