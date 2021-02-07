@@ -63,8 +63,8 @@ namespace Exa.Audio
             var endRoutine = WaitForSoundEnd(handle).Start();
 
             handle.onStop.AddListener(() => {
-                handle.onEnd.Invoke();
                 handleGroups.Remove(handle);
+                handle.onEnd.Invoke();
                 StopCoroutine(endRoutine);
             });
 

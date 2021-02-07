@@ -7,13 +7,15 @@ using UnityEngine.UI;
 
 namespace Exa.UI
 {
-    public class UserExceptionView : MonoBehaviour
+    public class NotificationView : MonoBehaviour
     {
         [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private Text text;
+        [SerializeField] private Text header;
+        [SerializeField] private Text body;
 
-        public string Message {
-            set => text.text = value;
+        public void Setup(string header, string body) {
+            this.header.text = header;
+            this.body.text = body;
         }
 
         private void Awake() {

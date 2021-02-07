@@ -66,7 +66,7 @@ namespace Exa.Audio.Music
             Atmospheres = new AtmosphereOverrideList(Atmosphere.None, SetAtmosphere);
         }
 
-        protected void SetAtmosphere(Atmosphere atmosphere) {
+        private void SetAtmosphere(Atmosphere atmosphere) {
             this.atmosphere = atmosphere;
 
             if (currentSoundHandle?.sound is ISong song 
@@ -80,6 +80,8 @@ namespace Exa.Audio.Music
         private void Play() {
             if (currentSoundtrack.SelectSong(atmosphere).IsNotNull(out var song)) {
                 currentSoundHandle = PlayGlobal(song);
+                currentSoundHandle.onEnd.AddListener(Play); 
+                Systems.UI.logger.NotifyNowPlaying(song.Id);
             }
             else {
                 var message = $"Cannot select a song from the current soundtrack {currentSoundtrack.Description.Name}, " +

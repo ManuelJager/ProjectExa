@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Exa.Audio
 {
@@ -11,7 +12,7 @@ namespace Exa.Audio
         /// Stop every sound
         /// </summary>
         public void Stop() {
-            foreach (var handle in this) {
+            foreach (var handle in this.ToList()) {
                 handle.Stop();
             }
         }

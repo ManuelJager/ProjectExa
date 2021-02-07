@@ -109,7 +109,6 @@ namespace Exa
 
             // Play music only after settings have been loaded
             atmosphereTrigger.gameObject.SetActive(true);
-            Audio.Music.IsPlaying = true;
 
             // Initialize research systems
             researchStore.Init();
@@ -128,12 +127,14 @@ namespace Exa
             UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
             UI.root.gameObject.SetActive(true);
             UI.loadingScreen.HideScreen();
+
+            Audio.Music.IsPlaying = true;
         }
 
         private void OnLoadException(Exception exception) {
             UI.loadingScreen.HideScreen("Error");
             UnityEngine.Debug.LogWarning(exception);
-            UI.logger.Log($"An error has occurred while loading.\n {exception.Message}");
+            UI.logger.LogException($"An error has occurred while loading.\n {exception.Message}", true);
         }
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5902739707318206018}
   - component: {fileID: 2070488185489477815}
   m_Layer: 5
-  m_Name: UserExceptionLogger
+  m_Name: NotificationLogger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c571d2818dcaddd45beb8a30c4f2bb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userExceptionPrefab: {fileID: 4718999622183323108, guid: af7b2c2dd0856de42a52d05edad193ed,
+  notificationPrefab: {fileID: 1239511231989301239, guid: 5988e0009c6e6384cb248f9a40c8262d,
     type: 3}
   container: {fileID: 4621365057763628049}
 --- !u!1 &4621365057763628048

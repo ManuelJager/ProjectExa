@@ -9,10 +9,10 @@ namespace Exa.Debugging
     public class LoggerInterceptor : MonoBehaviour, ILogHandler
     {
         private ILogHandler defaultLogHandler;
-        private UserExceptionLogger userExceptionLogger;
+        private NotificationLogger notificationLogger;
 
         private void Awake() {
-            userExceptionLogger = Systems.UI.logger;
+            notificationLogger = Systems.UI.logger;
             defaultLogHandler = Debug.unityLogger.logHandler;
             Debug.unityLogger.logHandler = this;
         }
@@ -32,7 +32,7 @@ namespace Exa.Debugging
 
         [System.Diagnostics.DebuggerHidden]
         public void LogUserException(UserException exception) {
-            userExceptionLogger.Log(exception);
+            notificationLogger.LogException(exception);
         }
 
         [System.Diagnostics.DebuggerHidden]

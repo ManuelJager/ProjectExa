@@ -1678,6 +1678,21 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5526384382393517144, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_Name
+      value: NotificationLogger
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526384382393517145, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526384382393517145, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5526384382514086163, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: m_Name
@@ -2277,6 +2292,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494097066478924946, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -47.99994
       objectReference: {fileID: 0}
     - target: {fileID: 7528278427315002214, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}

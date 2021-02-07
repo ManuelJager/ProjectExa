@@ -42,7 +42,7 @@ namespace Exa.UI
             var clipboardText = GUIUtility.systemCopyBuffer;
 
             if (string.IsNullOrEmpty(clipboardText)) {
-                Systems.UI.logger.Log("Clipboard is empty");
+                Systems.UI.logger.LogException("Clipboard is empty");
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace Exa.UI
             var container = new BlueprintContainer(args);
 
             if (Systems.Blueprints.ContainsName(blueprint.name)) {
-                Systems.UI.logger.Log("Blueprint with given name already added");
+                Systems.UI.logger.LogException("Blueprint with given name already added");
                 return;
             }
 
@@ -66,7 +66,7 @@ namespace Exa.UI
                 return true;
             }
             catch {
-                Systems.UI.logger.Log("Clipboard data is formatted incorrectly");
+                Systems.UI.logger.LogException("Clipboard data is formatted incorrectly", false);
                 blueprint = null;
                 return false;
             }
@@ -121,7 +121,7 @@ namespace Exa.UI
             var blueprint = new Blueprint(options);
 
             if (Systems.Blueprints.ContainsName(blueprint.name)) {
-                Systems.UI.logger.Log($"Blueprint name \"{blueprint.name}\" is already used");
+                Systems.UI.logger.LogException($"Blueprint name \"{blueprint.name}\" is already used");
                 return;
             }
 

@@ -15,7 +15,7 @@ namespace Exa.Utils
             catch (Exception consoleException) {
                 var message = "An exception has occurred while logging an exception to the console (seriously?)";
                 Debug.LogError(new Exception(message, consoleException));
-                Systems.UI.logger.Log(message);
+                Systems.UI.logger.LogException(message);
             }
         }
     }
