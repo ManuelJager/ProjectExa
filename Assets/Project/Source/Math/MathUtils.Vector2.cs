@@ -37,6 +37,10 @@ namespace Exa.Math
             return total / count;
         }
 
+        public static Vector2 FromAngledMagnitude(float distance) {
+            return FromAngledMagnitude(distance, Random.Range(0f, 360f));
+        }
+
         public static Vector2 FromAngledMagnitude(float magnitude, float angle) {
             var vector = Vector2.right;
             Rotate(ref vector, angle);

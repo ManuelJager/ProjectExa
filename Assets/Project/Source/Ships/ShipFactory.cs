@@ -16,7 +16,7 @@ namespace Exa.Ships
         [SerializeField] private GameObject shipOverlayPrefab;
         [SerializeField] private Transform overlayContainer;
 
-        public PlayerStation CreateStation(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration? configuration) {
+        public PlayerStation CreateStation(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration? configuration = null) {
             return Configure<PlayerStation>(
                 prefab: friendlyStationPrefab,
                 container: GameSystems.SpawnLayer.ships, 
@@ -26,7 +26,7 @@ namespace Exa.Ships
                 configuration: configuration);
         }
 
-        public EnemyGrid CreateEnemy(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration? configuration) {
+        public EnemyGrid CreateEnemy(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration? configuration = null) {
             return Configure<EnemyGrid>(
                 prefab: enemyShipPrefab,
                 container: GameSystems.SpawnLayer.ships,

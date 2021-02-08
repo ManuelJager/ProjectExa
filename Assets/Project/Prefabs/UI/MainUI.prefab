@@ -162,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f2c303d0114294aa9ccdd0decda861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 5259033962641442089, guid: a7d4e03c5f59d4d4aaa4aa8e370e3bde,
+    type: 3}
   dropdownPrefab: {fileID: 214129591251731524, guid: 70629459d73ad224abf7e33d946cbdd6,
     type: 3}
   inputFieldPrefab: {fileID: 3896904596393045585, guid: 3b615f3a5808fcd4da198ad89c20ad8f,

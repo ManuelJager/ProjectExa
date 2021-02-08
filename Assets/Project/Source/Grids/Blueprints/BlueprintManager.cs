@@ -6,6 +6,7 @@ using System.Linq;
 using Exa.Types.Binding;
 using Exa.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Tree = Exa.IO.Tree;
 
 #pragma warning disable CS0649
@@ -19,14 +20,14 @@ namespace Exa.Grids.Blueprints
         [HideInInspector] public CompositeObservableEnumerable<BlueprintContainer> useableBlueprints;
         public BlueprintTypeBag blueprintTypes;
 
-        [SerializeField] private DefaultBlueprintBag defaultBlueprintBag;
+        [FormerlySerializedAs("defaultBlueprintBag")] [SerializeField] private StaticBlueprintBag staticBlueprintBag;
 
         public IEnumerator Init(IProgress<float> progress) {
             var userBlueprintPaths = CollectionUtils
                 .GetJsonPathsFromDirectory(Tree.Root.Blueprints)
                 .ToList();
 
-            var defaultBlueprintsList = defaultBlueprintBag.ToList();
+            var defaultBlueprintsList = staticBlueprintBag.ToList();
             var iterator = 0;
             var blueprintTotal = userBlueprintPaths.Count + defaultBlueprintsList.Count;
 
@@ -49,7 +50,7 @@ namespace Exa.Grids.Blueprints
 
 
             // Load default blueprints
-            foreach (var defaultBlueprint in defaultBlueprintBag) {
+            foreach (var defaultBlueprint in staticBlueprintBag) {
                 AddDefaultBlueprint(defaultBlueprint);
 
                 yield return new WorkUnit();
@@ -71,15 +72,21 @@ namespace Exa.Grids.Blueprints
         }
 
         public bool ContainsName(string name) {
-            return defaultBlueprints.ContainsKey(name)
-                   || userBlueprints.ContainsKey(name);
+            return GetBlueprintNames().Contains(name);
         }
 
-        private void AddDefaultBlueprint(DefaultBlueprint defaultBlueprint) {
-            var blueprint = defaultBlueprint.ToContainer();
+        public IEnumerable<string> GetBlueprintNames() {
+            return defaultBlueprints
+                .Concat(userBlueprints)
+                .Select(blueprint => blueprint.Data.name);
+        }
 
-            if (ContainsName(blueprint.Data.name))
+        private void AddDefaultBlueprint(StaticBlueprint staticBlueprint) {
+            var blueprint = staticBlueprint.GetContainer();
+
+            if (ContainsName(blueprint.Data.name)) {
                 throw new ArgumentException("Blueprint named is duplicate");
+            }
 
             defaultBlueprints.Add(blueprint);
         }

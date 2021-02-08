@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Exa.Types.Generics;
+using Exa.Utils;
 using UnityEngine;
+using UnityEngine.UI;
 
 #pragma warning disable CS0649
 
@@ -9,10 +11,17 @@ namespace Exa.UI.Controls
 {
     public class ControlFactory : MonoBehaviour
     {
+        [SerializeField] private GameObject buttonPrefab;
         [SerializeField] private GameObject dropdownPrefab;
         [SerializeField] private GameObject inputFieldPrefab;
         [SerializeField] private GameObject radioPrefab;
         [SerializeField] private GameObject sliderPrefab;
+
+        public ButtonControl CreateButton(Transform container, string label) {
+            var control = buttonPrefab.Create<ButtonControl>(container);
+            control.Setup(label);
+            return control;
+        }
 
         public DropdownControl CreateDropdown<T>(Transform container, string label,
             IEnumerable<ILabeledValue<T>> possibleValues, Action<T> setter,

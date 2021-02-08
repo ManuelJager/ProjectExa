@@ -5,6 +5,6 @@ using UnityEngine;
 namespace Exa.Grids.Blueprints
 {
     [CreateAssetMenu(menuName = "Grids/Blueprints/DefaultBlueprintBag")]
-    public class DefaultBlueprintBag : ScriptableObjectBag<DefaultBlueprint>
+    public class StaticBlueprintBag : ScriptableObjectBag<StaticBlueprint>
     { }
 }

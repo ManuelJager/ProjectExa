@@ -27,11 +27,10 @@ namespace Exa.ShipEditor
             blocksByBlueprintAnchor = new Dictionary<Vector2Int, GameObject>();
         }
 
-        public IEnumerator Import(Blueprint blueprint) {
+        public void Import(Blueprint blueprint) {
             ActiveBlueprint = blueprint;
 
             foreach (var block in blueprint.Blocks) {
-                yield return new WaitForSeconds(0.05f);
                 PlaceBlock(block);
             }
         }

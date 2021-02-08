@@ -70,10 +70,7 @@ namespace Exa.ShipEditor
 
             // Calculate movement offset
             playerPos -=
-                MovementVector *
-                movementSpeed *
-                Time.deltaTime *
-                remappedZoomScale;
+                MovementVector * (movementSpeed * Time.deltaTime * remappedZoomScale);
 
             // Clamp movement offset to prevent going out of bounds
             playerPos = Vector2.ClampMagnitude(playerPos, 15f);
@@ -131,7 +128,8 @@ namespace Exa.ShipEditor
         }
 
         private IEnumerator ImportRoutine(Blueprint blueprint, Action callback) {
-            yield return blueprintLayer.Import(blueprint);
+            blueprintLayer.Import(blueprint);
+            yield return null;
             callback();
         }
     }

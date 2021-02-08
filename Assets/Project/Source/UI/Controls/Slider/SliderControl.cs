@@ -1,4 +1,5 @@
-﻿using Exa.Types.Generics;
+﻿using System;
+using Exa.Types.Generics;
 using Exa.UI.Components;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,6 +12,11 @@ namespace Exa.UI.Controls
 {
     public class SliderControl : InputControl<float>
     {
+        public static SliderControl Create(Transform container, string label, Action<float> setter,
+            MinMax<float>? minMax = null) {
+            return Systems.UI.controlFactory.CreateSlider(container, label, setter, minMax);
+        }
+        
         [SerializeField] private Slider slider;
         [SerializeField] private ExtendedInputField inputField;
         [SerializeField] private ValueOverride<CursorState> cursorState;

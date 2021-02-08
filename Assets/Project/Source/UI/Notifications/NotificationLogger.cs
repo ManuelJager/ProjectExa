@@ -18,7 +18,7 @@ namespace Exa.UI
         }
 
         public void LogException(string message, bool unhandled = true) {
-            var header = unhandled ? "Unhandled exception" : "Exception";
+            var header = unhandled ? "Unhandled exception" : "Error";
             notificationPrefab.Create<NotificationView>(container).Setup(header, message);
         }
     }

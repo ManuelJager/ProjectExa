@@ -950,7 +950,7 @@ MonoBehaviour:
   editorOverlay: {fileID: 2563220100341616592}
   infoPanel: {fileID: 6879205927546333943}
   inventory: {fileID: 1170116247793472876}
-  mirrorView: {fileID: 238357010777143755}
+  verticalMirrorView: {fileID: 238357010777143755}
   onPointerEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -2450,6 +2450,7 @@ MonoBehaviour:
   errorListController: {fileID: 5673830809506211472}
   saveButtonCanvasGroup: {fileID: 4357921600955329012}
   gridTotalsView: {fileID: 1979450873785362252}
+  controlsContainer: {fileID: 1787738287343351759}
 --- !u!114 &7693724912663897459
 MonoBehaviour:
   m_ObjectHideFlags: 0

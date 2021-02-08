@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Exa.Utils
@@ -20,6 +22,20 @@ namespace Exa.Utils
 
         public static string Format(this string format, params object[] args) {
             return string.Format(format, args);
+        }
+
+        public static string GetUniqueName(string name, IEnumerable<string> existingNames) {
+            string NextName(string currentName, int number) {
+                if (number != 0) {
+                    currentName = $"{currentName}{number}";
+                }
+
+                return existingNames.Contains(currentName) 
+                    ? NextName(currentName, number + 1) 
+                    : currentName;
+            }
+
+            return NextName(name, 0);
         }
 
         public static string ToGenericString(this Type type) {

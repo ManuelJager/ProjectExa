@@ -5,6 +5,7 @@ using Exa.UI;
 using System;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.UI.Controls;
 using Exa.Utils;
 using UnityEngine;
 using static Exa.Input.GameControls;
@@ -44,6 +45,16 @@ namespace Exa.ShipEditor
             editorGrid.blueprintLayer.onBlueprintChanged.AddListener(OnBlueprintChanged);
 
             stopwatch.onTime.AddListener(OnBlueprintGridValidationRequested);
+            
+            #if UNITY_EDITOR
+            var button = ButtonControl.Create(overlay.infoPanel.controlsContainer, "Save as asset");
+            button.OnClick.AddListener(() => {
+                var blueprint = editorGrid.blueprintLayer.ActiveBlueprint;
+                var staticBlueprint = ScriptableObject.CreateInstance<StaticBlueprint>();
+                staticBlueprint.Save(blueprint);
+            });
+            button.LayoutElement.preferredHeight = 32;
+            #endif
 
             SetGridBackground();
         }

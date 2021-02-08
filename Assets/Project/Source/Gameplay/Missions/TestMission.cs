@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace Exa.Gameplay.Missions
 {
-    [CreateAssetMenu(menuName = "Missions/Endless")]
-    public class EndlessMission : Mission
+    [CreateAssetMenu(menuName = "Missions/Test")]
+    public class TestMission : Mission
     {
         public override void Init(MissionArgs args) {
             SpawnPlayerStation(GridInstanceConfiguration.InvulnerableConfig);
