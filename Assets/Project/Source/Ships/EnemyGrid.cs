@@ -39,7 +39,7 @@ namespace Exa.Ships
         }
 
         public override Vector2 GetPosition() {
-            return (Vector2)transform.position + Rigidbody2D.centerOfMass.Rotate(-Rigidbody2D.rotation);
+            return Rigidbody2D.worldCenterOfMass;
         }
 
         public override void SetPosition(Vector2 position) {

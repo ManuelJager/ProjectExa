@@ -14,13 +14,15 @@ namespace Exa.Gameplay.Missions
         
         public override void Init(MissionArgs args) {
             SpawnPlayerStation();
-            SpawnRandomEnemy(50f);
+            SpawnRandomEnemy(100f);
         }
 
         private void SpawnRandomEnemy(float distance) {
             var blueprint = enemyBlueprints.GetRandomElement().GetBlueprint();
             var position = MathUtils.RandomVector2(distance);
-            GameSystems.ShipFactory.CreateEnemy(blueprint, position);
+            var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint, position);
+            Physics2D.SyncTransforms();
+            enemy.SetRotation(Station.GetPosition());
         }
     }
 }
