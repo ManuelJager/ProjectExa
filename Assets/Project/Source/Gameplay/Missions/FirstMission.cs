@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids;
 using Exa.Grids.Blueprints;
 using Exa.Math;
@@ -14,14 +15,28 @@ namespace Exa.Gameplay.Missions
         
         public override void Init(MissionArgs args) {
             SpawnPlayerStation();
-            SpawnRandomEnemy(100f);
+            SpawnFormationAtRandomPosition(new VicFormation(), 100f);
+        }
+
+        private void SpawnFormationAtRandomPosition(Formation formation, float distance) {
+            var position = MathUtils.RandomVector2(distance);
+            var angle = (Station.GetPosition() - position).GetAngle();
+            SpawnEnemyFormation(formation, position, angle, 100f);
+        }
+
+        private void SpawnEnemyFormation(Formation formation, Vector2 origin, float angle, float weight) {
+            var blueprints = Enumerable.Repeat(enemyBlueprints.GetRandomElement().GetBlueprint(), 5);
+            var formationLayout = formation.GetGlobalLayout(blueprints, origin, angle);
+            foreach (var (position, blueprint) in formationLayout.AsTupleEnumerable(blueprints)) {
+                var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint, position);
+                enemy.SetRotation(angle);
+            }
         }
 
         private void SpawnRandomEnemy(float distance) {
-            var blueprint = enemyBlueprints.GetRandomElement().GetBlueprint();
+            var blueprint = enemyBlueprints.GetRandomElement().GetContainer();
             var position = MathUtils.RandomVector2(distance);
-            var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint, position);
-            Physics2D.SyncTransforms();
+            var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint.Data, position);
             enemy.SetRotation(Station.GetPosition());
         }
     }

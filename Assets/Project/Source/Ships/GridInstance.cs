@@ -200,6 +200,10 @@ namespace Exa.Ships
             Rigidbody2D.rotation = (globalLookAt - GetPosition()).GetAngle();
         }
 
+        public void SetRotation(float angle) {
+            Rigidbody2D.rotation = angle;
+        }
+
         public void Rotate(float degrees) {
             Rigidbody2D.rotation += degrees;
         }

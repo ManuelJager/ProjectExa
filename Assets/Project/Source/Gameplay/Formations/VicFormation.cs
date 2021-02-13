@@ -1,6 +1,7 @@
 ﻿using Exa.Math;
 using Exa.Ships;
 using System.Collections.Generic;
+using Exa.Grids.Blueprints;
 using UnityEngine;
 
 namespace Exa.Gameplay
@@ -13,8 +14,8 @@ namespace Exa.Gameplay
             this.echelonAngle = echelonAngle;
         }
 
-        protected override IEnumerable<Vector2> GetLocalLayout(IEnumerable<GridInstance> ships) {
-            var enumerator = ships.GetEnumerator();
+        protected override IEnumerable<Vector2> GetLocalLayout(IEnumerable<Blueprint> blueprints) {
+            using var enumerator = blueprints.GetEnumerator();
 
             // Skip first element, as it always has a Vector2.zero position value
             enumerator.MoveNext();
@@ -42,16 +43,16 @@ namespace Exa.Gameplay
             }
         }
 
-        private Vector2 GetLocalPosition(GridInstance gridInstance, ref float echelonMagnitude, ref Vector2 positionPivot,
+        private Vector2 GetLocalPosition(Blueprint blueprint, ref float echelonMagnitude, ref Vector2 positionPivot,
             float angle) {
             var positionOffset = MathUtils.FromAngledMagnitude(echelonMagnitude, angle);
             positionPivot += positionOffset;
-            echelonMagnitude = CalculateEchelonSpread(gridInstance);
+            echelonMagnitude = CalculateEchelonSpread(blueprint);
             return positionPivot;
         }
 
-        private float CalculateEchelonSpread(GridInstance gridInstance) {
-            return gridInstance.Blueprint.Blocks.MaxSize * 2f;
+        private float CalculateEchelonSpread(Blueprint blueprint) {
+            return blueprint.Blocks.MaxSize * 2f;
         }
     }
 }

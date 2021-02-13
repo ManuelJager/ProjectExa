@@ -44,6 +44,8 @@ namespace Exa.Ships
             });
             grid.SetPosition(worldPos);
             grid.name = grid.GetInstanceString();
+            
+            Physics2D.SyncTransforms();
 
             return grid;
         }

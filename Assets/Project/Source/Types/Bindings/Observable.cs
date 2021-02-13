@@ -19,7 +19,7 @@ namespace Exa.Types.Binding
             this.Data = data;
         }
 
-        public void SetData(T data, bool notify = true) {
+        public virtual void SetData(T data, bool notify = true) {
             this.Data = data;
             if (notify) Notify();
         }
