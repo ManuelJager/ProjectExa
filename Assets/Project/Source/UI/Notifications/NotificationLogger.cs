@@ -10,7 +10,7 @@ namespace Exa.UI
         [SerializeField] private Transform container;
 
         public void NotifyNowPlaying(string name) {
-            notificationPrefab.Create<NotificationView>(container).Setup("Now playing", name);
+            Notify("Now playing", name);
         }
         
         public void LogException(UserException exception) {
@@ -19,6 +19,10 @@ namespace Exa.UI
 
         public void LogException(string message, bool unhandled = true) {
             var header = unhandled ? "Unhandled exception" : "Error";
+            Notify(header, message);
+        }
+
+        public void Notify(string header, string message) {
             notificationPrefab.Create<NotificationView>(container).Setup(header, message);
         }
     }

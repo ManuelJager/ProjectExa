@@ -9,11 +9,11 @@ namespace Exa.UI.Tooltips
         [SerializeField] private RectTransform verticalContainer;
 
         public static void ShowTooltip(string message) {
-            Systems.UI.tooltips.textTooltip.ShowTooltipInternal(message);
+            Systems.UI.Tooltips.textTooltip.ShowTooltipInternal(message);
         }
 
         public static void HideTooltip() {
-            Systems.UI.tooltips.textTooltip.HideTooltipInternal();
+            Systems.UI.Tooltips.textTooltip.HideTooltipInternal();
         }
 
         protected override Vector2 GetTooltipSize() {

@@ -15,7 +15,7 @@ namespace Exa.UI.Tooltips
         }
 
         public TooltipComponentView InstantiateComponentView(Transform parent) {
-            var titleView = Systems.UI.tooltips.tooltipGenerator.GenerateTooltipTitle(parent, this);
+            var titleView = Systems.UI.Tooltips.tooltipGenerator.GenerateTooltipTitle(parent, this);
 
             if (animated) {
                 titleView.AddAnimator();

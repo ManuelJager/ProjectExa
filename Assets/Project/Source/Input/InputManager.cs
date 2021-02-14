@@ -22,8 +22,8 @@ namespace Exa.Input
         public Vector2 MouseOffsetFromCentre { get; private set; }
 
         private void Awake() {
-            mouseCursor = Systems.UI.mouseCursor;
-            root = Systems.UI.rootCanvas;
+            mouseCursor = Systems.UI.MouseCursor;
+            root = Systems.UI.RootCanvas;
         }
 
         private void Update() {

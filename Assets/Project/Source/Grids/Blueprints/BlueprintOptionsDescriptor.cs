@@ -15,9 +15,8 @@ namespace Exa.Grids.Blueprints
 
         public override void GenerateView(Transform container) {
             var blueprintTypes = Systems.Blueprints.blueprintTypes;
-            Systems.UI.controlFactory.CreateInputField(container, "Name", SetBlueprintName);
-            Systems.UI.controlFactory.CreateDropdown(container, "Class", blueprintTypes,
-                SetBlueprintType, OnOptionCreation);
+            InputFieldControl.Create(container, "Name", SetBlueprintName);
+            DropdownControl.Create(container, "Class", blueprintTypes, SetBlueprintType, OnOptionCreation);
         }
 
         private void SetBlueprintName(string blueprintName) => this.blueprintName = blueprintName;
@@ -25,8 +24,8 @@ namespace Exa.Grids.Blueprints
 
         private void OnOptionCreation(BlueprintType value, DropdownTab tab) {
             var hoverable = tab.gameObject.AddComponent<Hoverable>();
-            hoverable.onPointerEnter.AddListener(() => Systems.UI.tooltips.blueprintTypeTooltip.Show(value));
-            hoverable.onPointerExit.AddListener(() => Systems.UI.tooltips.blueprintTypeTooltip.Hide());
+            hoverable.onPointerEnter.AddListener(() => Systems.UI.Tooltips.blueprintTypeTooltip.Show(value));
+            hoverable.onPointerExit.AddListener(() => Systems.UI.Tooltips.blueprintTypeTooltip.Hide());
         }
     }
 }

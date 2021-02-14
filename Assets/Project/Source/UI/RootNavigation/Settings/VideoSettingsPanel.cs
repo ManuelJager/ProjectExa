@@ -55,25 +55,25 @@ namespace Exa.UI.Settings
             const int length = 15;
             const string format = "Do you wish to keep these settings? (Reverting in {0} seconds)";
 
-            var currentValues = Container.Clone();
-            var setter = Systems.UI.promptController.PromptTextSetter;
-            var uiGroup = Systems.UI.root.interactableAdapter;
+            var backupValues = Container.Clone();
+            var setter = Systems.UI.Prompts.PromptTextSetter;
+            var uiGroup = Systems.UI.Root.interactableAdapter;
 
             var prompt = null as Prompt;
 
             var coroutine = StartCoroutine(UpdatePromptCountdown(length, format, setter, () => {
-                Apply(currentValues);
-                ReflectValues(currentValues);
+                Apply(backupValues);
+                ReflectValues(backupValues);
 
                 prompt.CleanUp();
             }));
 
-            prompt = Systems.UI.promptController.PromptYesNo(format.Format(length), uiGroup, value => {
+            prompt = Systems.UI.Prompts.PromptYesNo(format.Format(length), uiGroup, value => {
                 StopCoroutine(coroutine);
                 if (value) return;
 
-                Apply(currentValues);
-                ReflectValues(currentValues);
+                Apply(backupValues);
+                ReflectValues(backupValues);
             });
 
             base.ApplyChanges();

@@ -9,7 +9,7 @@ namespace Exa.UI.Controls
     public class InputFieldControl : InputControl<string>
     {
         public static InputFieldControl Create(Transform container, string label, Action<string> setter) {
-            return Systems.UI.controlFactory.CreateInputField(container, label, setter);
+            return Systems.UI.Controls.CreateInputField(container, label, setter);
         }
         
         public Text placeholderText;

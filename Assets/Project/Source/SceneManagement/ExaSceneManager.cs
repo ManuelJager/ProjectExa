@@ -28,7 +28,7 @@ namespace Exa.SceneManagement
         private Dictionary<string, SceneStatus> sceneStatuses;
 
         private void Awake() {
-            loadingScreen = Systems.UI.loadingScreen;
+            loadingScreen = Systems.UI.LoadingScreen;
             sceneStatuses = new Dictionary<string, SceneStatus>();
         }
 

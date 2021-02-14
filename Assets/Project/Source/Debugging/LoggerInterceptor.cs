@@ -12,7 +12,7 @@ namespace Exa.Debugging
         private NotificationLogger notificationLogger;
 
         private void Awake() {
-            notificationLogger = Systems.UI.logger;
+            notificationLogger = Systems.UI.Logger;
             defaultLogHandler = Debug.unityLogger.logHandler;
             Debug.unityLogger.logHandler = this;
         }

@@ -14,7 +14,7 @@ namespace Exa.UI.Controls
     {
         public static SliderControl Create(Transform container, string label, Action<float> setter,
             MinMax<float>? minMax = null) {
-            return Systems.UI.controlFactory.CreateSlider(container, label, setter, minMax);
+            return Systems.UI.Controls.CreateSlider(container, label, setter, minMax);
         }
         
         [SerializeField] private Slider slider;
@@ -55,11 +55,11 @@ namespace Exa.UI.Controls
         }
 
         public void OnBeginDrag() {
-            Systems.UI.mouseCursor.stateManager.Add(cursorState);
+            Systems.UI.MouseCursor.stateManager.Add(cursorState);
         }
 
         public void OnEndDrag() {
-            Systems.UI.mouseCursor.stateManager.Remove(cursorState);
+            Systems.UI.MouseCursor.stateManager.Remove(cursorState);
         }
 
         private void OnSliderValueChanged(float value) {

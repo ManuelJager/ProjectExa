@@ -29,7 +29,7 @@ namespace Exa.ShipEditor
         public BlockContext Context { get; private set; }
 
         private void Awake() {
-            overlay = Systems.UI.editorOverlay;
+            overlay = Systems.UI.EditorOverlay;
 
             gameControls = new GameControls();
             gameControls.Editor.SetCallbacks(this);

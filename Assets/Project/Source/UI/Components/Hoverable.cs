@@ -32,8 +32,9 @@ namespace Exa.UI
         }
 
         private void OnEnable() {
-            if (checkMouseInsideRectOnEnable)
+            if (checkMouseInsideRectOnEnable) {
                 CheckMouseInsideRect();
+            }
         }
 
         private void OnDisable() {
@@ -49,14 +50,14 @@ namespace Exa.UI
         }
 
         public void ForceExit() {
-            if (!mouseOverControl)
-                return;
-
+            if (!mouseOverControl) return;
+            
             mouseOverControl = false;
             onPointerExit?.Invoke();
 
-            if (InvokeStateChange)
+            if (InvokeStateChange) {
                 OnExit();
+            }
         }
 
         public void Refresh() {
@@ -69,8 +70,9 @@ namespace Exa.UI
             mouseOverControl = true;
             onPointerEnter?.Invoke();
 
-            if (InvokeStateChange)
+            if (InvokeStateChange) {
                 OnEnter();
+            }
         }
 
         private void TryExit() {
@@ -79,25 +81,28 @@ namespace Exa.UI
             mouseOverControl = false;
             onPointerExit?.Invoke();
 
-            if (InvokeStateChange)
+            if (InvokeStateChange) {
                 OnExit();
+            }
         }
 
         private void CheckMouseInsideRect(bool exit = false) {
             if (mouseOverControl && !exit) return;
 
-            if (Systems.Input.GetMouseInsideRect(rectTransform))
+            if (Systems.Input.GetMouseInsideRect(rectTransform)) {
                 TryEnter();
-            else if (exit)
+            }
+            else if (exit) {
                 TryExit();
+            }
         }
 
         private void OnEnter() {
-            Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
+            Systems.UI.MouseCursor.stateManager.Add(cursorOverride);
         }
 
         private void OnExit() {
-            Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
+            Systems.UI.MouseCursor.stateManager.Remove(cursorOverride);
         }
     }
 }

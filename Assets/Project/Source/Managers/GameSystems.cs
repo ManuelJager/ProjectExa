@@ -35,6 +35,7 @@ namespace Exa
         public static SpawnLayer SpawnLayer => Instance.spawnLayer;
         public static BlockGridManager BlockGridManager => Instance.blockGridManager;
         public static PopupManager PopupManager => Instance.popupManager;
+        public static GameObject GameObject => Instance.gameObject;
         public static Mission Mission { get; private set; }
 
         public void LoadMission(Mission mission, MissionArgs args) {

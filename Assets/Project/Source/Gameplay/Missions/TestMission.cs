@@ -9,15 +9,17 @@ namespace Exa.Gameplay.Missions
     [CreateAssetMenu(menuName = "Missions/Test")]
     public class TestMission : Mission
     {
+        private Spawner spawner;
+        
         public override void Init(MissionArgs args) {
-            SpawnPlayerStation(GridInstanceConfiguration.InvulnerableConfig);
+            spawner = new Spawner(null);
+            spawner.SpawnPlayerStation(GridInstanceConfiguration.InvulnerableConfig);
             Spawn().Start();
         }
 
         private IEnumerator Spawn() {
-            yield return new WaitForSeconds(0.5f);
-            yield return new WaitForSeconds(0.5f);
-            SpawnEnemy("defaultScout", 10, 0);
+            yield return new WaitForSeconds(1f);
+            spawner.SpawnEnemy("defaultScout", 10, 0);
         }
     }
 }

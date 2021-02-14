@@ -10,7 +10,7 @@ namespace Exa.UI.Controls
     public class ButtonControl : MonoBehaviour
     {
         public static ButtonControl Create(Transform container, string label) {
-            return Systems.UI.controlFactory.CreateButton(container, label);
+            return Systems.UI.Controls.CreateButton(container, label);
         }
         
         [SerializeField] private Button button;

@@ -29,7 +29,7 @@ namespace Exa.UI
         }
 
         public void OnAddNewBlueprint() {
-            Systems.UI.promptController.PromptForm(
+            Systems.UI.Prompts.PromptForm(
                 message: "Add blueprint",
                 uiGroup: this,
                 modelDescriptor: new BlueprintOptionsDescriptor(),
@@ -42,7 +42,7 @@ namespace Exa.UI
             var clipboardText = GUIUtility.systemCopyBuffer;
 
             if (string.IsNullOrEmpty(clipboardText)) {
-                Systems.UI.logger.LogException("Clipboard is empty");
+                Systems.UI.Logger.LogException("Clipboard is empty");
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace Exa.UI
             var container = new BlueprintContainer(args);
 
             if (Systems.Blueprints.ContainsName(blueprint.name)) {
-                Systems.UI.logger.LogException("Blueprint with given name already added");
+                Systems.UI.Logger.LogException("Blueprint with given name already added");
                 return;
             }
 
@@ -66,7 +66,7 @@ namespace Exa.UI
                 return true;
             }
             catch {
-                Systems.UI.logger.LogException("Clipboard data is formatted incorrectly", false);
+                Systems.UI.Logger.LogException("Clipboard data is formatted incorrectly", false);
                 blueprint = null;
                 return false;
             }
@@ -101,15 +101,16 @@ namespace Exa.UI
             view.deleteButton.onClick.AddListener(() => {
                 if (!Interactable) return;
 
-                Systems.UI.promptController.PromptYesNo("Are you sure you want to delete this blueprint?", this,
-                    yes => {
-                        if (!yes) return;
+                Systems.UI.Prompts.PromptYesNo("Are you sure you want to delete this blueprint?", this, yes => {
+                    if (!yes) return;
 
-                        if (Source is ICollection<BlueprintContainer> collection)
-                            collection.Remove(value);
-                        else
-                            throw new InvalidOperationException("Source must be an observable collection");
-                    });
+                    if (Source is ICollection<BlueprintContainer> collection) {
+                        collection.Remove(value);
+                    }
+                    else {
+                        throw new InvalidOperationException("Source must be an observable collection");
+                    }
+                });
             });
             view.hoverable.onPointerEnter.AddListener(() => { blueprintDetails.Reflect(value.Data); });
             view.hoverable.onPointerExit.AddListener(() => { blueprintDetails.Reflect(null); });
@@ -121,7 +122,7 @@ namespace Exa.UI
             var blueprint = new Blueprint(options);
 
             if (Systems.Blueprints.ContainsName(blueprint.name)) {
-                Systems.UI.logger.LogException($"Blueprint name \"{blueprint.name}\" is already used");
+                Systems.UI.Logger.LogException($"Blueprint name \"{blueprint.name}\" is already used");
                 return;
             }
 

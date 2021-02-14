@@ -37,7 +37,7 @@ namespace Exa.Math
             return total / count;
         }
 
-        public static Vector2 FromAngledMagnitude(float distance) {
+        public static Vector2 RandomFromAngledMagnitude(float distance) {
             return FromAngledMagnitude(distance, Random.Range(0f, 360f));
         }
 

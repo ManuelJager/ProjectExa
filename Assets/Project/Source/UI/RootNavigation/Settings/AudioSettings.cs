@@ -45,7 +45,7 @@ namespace Exa.UI.Settings
             // Make sure we can atleast load the default soundtrack
             var description = provider.Find(Values.soundTrackName);
             if (description == null) {
-                Systems.UI.logger.LogException($"Could not find soundtrack by name \"{Values.soundTrackName}\"");
+                Systems.UI.Logger.LogException($"Could not find soundtrack by name \"{Values.soundTrackName}\"");
                 provider.DefaultSoundTrack.LoadSoundTrack(LoadHandler);
             }
             else {

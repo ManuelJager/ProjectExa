@@ -19,7 +19,7 @@ namespace Exa.UI.Controls
         public static DropdownControl Create<T>(Transform container, string label,
             IEnumerable<ILabeledValue<T>> possibleValues, Action<T> setter,
             Action<T, DropdownTab> onTabCreated = null) {
-            return Systems.UI.controlFactory.CreateDropdown(container, label, possibleValues, setter, onTabCreated);
+            return Systems.UI.Controls.CreateDropdown(container, label, possibleValues, setter, onTabCreated);
         }
         
         protected DropdownStateContainer<object> stateContainer = new DropdownStateContainer<object>();

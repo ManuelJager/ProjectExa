@@ -15,7 +15,7 @@ namespace Exa.ShipEditor
 
             var confirmationString = "Are you sure you want to exit without saving?";
             if (!gridEditor.IsSaved) {
-                Systems.UI.promptController.PromptYesNo(confirmationString, gridEditor, OnClosePrompt);
+                Systems.UI.Prompts.PromptYesNo(confirmationString, gridEditor, OnClosePrompt);
             }
             else {
                 base.Return();

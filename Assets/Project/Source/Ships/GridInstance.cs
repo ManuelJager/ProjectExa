@@ -121,10 +121,10 @@ namespace Exa.Ships
             if (!Active) return;
 
             (Overlay as GridOverlay)?.SetHovered(true);
-            Systems.UI.mouseCursor.stateManager.Add(cursorOverride);
+            Systems.UI.MouseCursor.stateManager.Add(cursorOverride);
 
             if (DebugMode.Ships.IsEnabled()) {
-                Systems.UI.tooltips.shipAIDebugTooltip.Show(this);
+                Systems.UI.Tooltips.shipAIDebugTooltip.Show(this);
             }
         }
 
@@ -132,10 +132,10 @@ namespace Exa.Ships
             if (!Active) return;
 
             (Overlay as GridOverlay)?.SetHovered(false);
-            Systems.UI.mouseCursor.stateManager.Remove(cursorOverride);
+            Systems.UI.MouseCursor.stateManager.Remove(cursorOverride);
 
             if (DebugMode.Ships.IsEnabled()) {
-                Systems.UI.tooltips.shipAIDebugTooltip.Hide();
+                Systems.UI.Tooltips.shipAIDebugTooltip.Hide();
             }
         }
 

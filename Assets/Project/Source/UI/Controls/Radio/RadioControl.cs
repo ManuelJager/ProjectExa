@@ -10,7 +10,7 @@ namespace Exa.UI.Controls
     public class RadioControl : InputControl<bool>
     {
         public static RadioControl Create(Transform container, string label, Action<bool> setter) {
-            return Systems.UI.controlFactory.CreateRadio(container, label, setter);
+            return Systems.UI.Controls.CreateRadio(container, label, setter);
         }
         
         [SerializeField] private Image buttonImage;

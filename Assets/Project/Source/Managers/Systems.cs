@@ -88,15 +88,15 @@ namespace Exa
 
         private IEnumerator Load() {
             // Allow the screen to be shown
-            UI.wipScreen?.Init();
-            UI.loadingScreen.Init();
-            UI.loadingScreen.ShowScreen(LoadingScreenDuration.Long);
-            UI.root.gameObject.SetActive(false);
+            UI.WipScreen?.Init();
+            UI.LoadingScreen.Init();
+            UI.LoadingScreen.ShowScreen(LoadingScreenDuration.Long);
+            UI.Root.gameObject.SetActive(false);
 
             yield return new WorkUnit();
 
             Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
-                Progress = UI.loadingScreen.GetLoadReporter("soundtrack")
+                Progress = UI.LoadingScreen.GetLoadReporter("soundtrack")
             };
 
             Settings.Load();
@@ -104,7 +104,7 @@ namespace Exa
             yield return Settings.AudioSettings.LoadHandler.LoadEnumerator.ScheduleWithTargetFramerate();
 
             Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
-                Progress = UI.promptController.PromptProgress("Loading soundtrack", UI.root.interactableAdapter)
+                Progress = UI.Prompts.PromptProgress("Loading soundtrack", UI.Root.interactableAdapter)
             };
 
             // Play music only after settings have been loaded
@@ -113,28 +113,28 @@ namespace Exa
             // Initialize research systems
             researchStore.Init();
 
-            yield return blockFactory.Init(UI.loadingScreen.GetLoadReporter("blocks"))
+            yield return blockFactory.Init(UI.LoadingScreen.GetLoadReporter("blocks"))
                 .ScheduleWithTargetFramerate();
 
             // Enable research items after the block factory is initialized, as research items call the block factory when enabled
             researchStore.AutoEnableItems();
 
-            yield return blueprintManager.Init(UI.loadingScreen.GetLoadReporter("blueprints"))
+            yield return blueprintManager.Init(UI.LoadingScreen.GetLoadReporter("blueprints"))
                 .ScheduleWithTargetFramerate();
 
             yield return new WorkUnit();
 
-            UI.root.blueprintSelector.Source = Blueprints.userBlueprints;
-            UI.root.gameObject.SetActive(true);
-            UI.loadingScreen.HideScreen();
+            UI.Root.blueprintSelector.Source = Blueprints.userBlueprints;
+            UI.Root.gameObject.SetActive(true);
+            UI.LoadingScreen.HideScreen();
 
             Audio.Music.IsPlaying = true;
         }
 
         private void OnLoadException(Exception exception) {
-            UI.loadingScreen.HideScreen("Error");
+            UI.LoadingScreen.HideScreen("Error");
             UnityEngine.Debug.LogWarning(exception);
-            UI.logger.LogException($"An error has occurred while loading.\n {exception.Message}", true);
+            UI.Logger.LogException($"An error has occurred while loading.\n {exception.Message}", true);
         }
     }
 }

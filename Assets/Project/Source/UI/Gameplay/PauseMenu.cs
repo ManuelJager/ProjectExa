@@ -32,7 +32,7 @@ namespace Exa.UI.Gameplay
         }
 
         public void QuitToMenu() {
-            GameSystems.Navigateable.NavigateTo(Systems.UI.root.navigateable);
+            GameSystems.Navigateable.NavigateTo(Systems.UI.Root.navigateable);
             Systems.Scenes.UnloadAsync("Game");
         }
 

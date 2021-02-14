@@ -26,7 +26,7 @@ namespace Exa.UI.Tooltips
 
         private Rect RootRect {
             get {
-                rootRect = rootRect ?? Systems.UI.rootTransform.rect;
+                rootRect = rootRect ?? Systems.UI.RootTransform.rect;
                 return rootRect.Value;
             }
         }
