@@ -11,5 +11,6 @@ namespace Exa.UI.Gameplay
         public SelectionArea selectionArea;
         public CoreHealthBar coreHealthBar;
         public Navigateable navigateable;
+        public MissionState missionState;
     }
 }

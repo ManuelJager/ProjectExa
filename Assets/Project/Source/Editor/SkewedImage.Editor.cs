@@ -22,10 +22,10 @@ namespace Exa.CustomEditors
             base.OnInspectorGUI();
 
             serializedObject.Update();
-
+            
+            (target as AngleSkewedImage)?.InvalidatePixels();
             // ReSharper disable once PossibleNullReferenceException
             (target as Graphic).SetAllDirty();
-            (target as AngleSkewedImage)?.RecalculatePixels();
             
             EditorGUILayout.PropertyField(skew);
 

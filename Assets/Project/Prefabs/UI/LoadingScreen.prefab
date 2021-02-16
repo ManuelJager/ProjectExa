@@ -425,7 +425,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  skew: {x: -10, y: 0}
+  skew: {x: -20, y: 0}
 --- !u!1 &4046629517471457367
 GameObject:
   m_ObjectHideFlags: 0

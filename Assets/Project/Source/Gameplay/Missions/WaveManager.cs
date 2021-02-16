@@ -17,7 +17,7 @@ namespace Exa.Gameplay.Missions
         public void NextWave() {
             wave++;
             
-            Systems.UI.Logger.Notify("Next wave", $"Wave {wave}");
+            GameSystems.UI.gameplayLayer.missionState.SetText("Combat phase", $"Wave {wave}");
             
             var enemies = spawner.SpawnFormationAtRandomPosition(new VicFormation(), 100f).ToList();
             var totalCount = enemies.Count;

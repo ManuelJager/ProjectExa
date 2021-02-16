@@ -6,23 +6,31 @@ namespace Exa.UI
 {
     public class AngleSkewedImage : PixelSkewedImage
     {
-        private Vector2 pixelSkew;
+        private Vector2? pixelSkew;
+
         
-        protected override void Awake() {
-            base.Awake();
-            RecalculatePixels();
+        private void Update() {
+            if (transform.hasChanged) {
+                transform.hasChanged = false;
+                
+                InvalidatePixels();
+            }
+        }
+        
+        public void InvalidatePixels() {
+            pixelSkew = null;
+        }
+        
+        protected override Vector2 GetPixelSkew() {
+            return pixelSkew ??= RecalculatePixels();
         }
 
-        public void RecalculatePixels() {
+        private Vector2 RecalculatePixels() {
             var r = GetPixelAdjustedRect();
-            pixelSkew = new Vector2 {
+            return new Vector2 {
                 x = new Vector2(0, r.height / 2).Rotate(-skew.x).x,
                 y = new Vector2(r.width / 2, 0).Rotate(-skew.y).y
             };
-        }
-
-        protected override Vector2 GetPixelSkew() {
-            return pixelSkew;
         }
     }
 }
