@@ -11,14 +11,16 @@ namespace Exa.Gameplay.Missions
     [CreateAssetMenu(menuName = "Missions/First")]
     public class FirstMission : Mission
     {
-        [SerializeField] private List<StaticBlueprint> enemyBlueprints;
+        [SerializeField] private List<Wave> waves;
+        
         private WaveManager waveManager;
         
         public override void Init(MissionArgs args) {
-            var spawner = new Spawner(enemyBlueprints.Select(x => x.GetBlueprint()).ToList());
-            spawner.SpawnPlayerStation();
+            var spawner = new Spawner();
+            spawner.SpawnPlayerStation(null);
+            
             waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
-            waveManager.Setup(spawner);
+            waveManager.Setup(spawner, waves);
             waveManager.NextWave();
         }
     }

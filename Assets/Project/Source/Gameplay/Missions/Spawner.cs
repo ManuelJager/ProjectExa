@@ -12,21 +12,16 @@ namespace Exa.Gameplay.Missions
 {
     public class Spawner
     {
-        private IEnumerable<Blueprint> availableBlueprints;
         private PlayerStation station;
 
-        public Spawner(IEnumerable<Blueprint> availableBlueprints) {
-            this.availableBlueprints = availableBlueprints;
-        }
-        
-        public IEnumerable<EnemyGrid> SpawnFormationAtRandomPosition(Formation formation, float distance) {
+        public IEnumerable<EnemyGrid> SpawnFormationAtRandomPosition(IWave wave, Formation formation, float distance) {
             var position = MathUtils.RandomFromAngledMagnitude(distance);
             var angle = (station.GetPosition() - position).GetAngle();
-            return SpawnEnemyFormation(formation, position, angle, 100f);
+            return SpawnEnemyFormation(wave, formation, position, angle, 100f);
         }
 
-        public IEnumerable<EnemyGrid> SpawnEnemyFormation(Formation formation, Vector2 origin, float angle, float weight) {
-            var blueprints = Enumerable.Repeat(availableBlueprints.GetRandomElement(), 5);
+        public IEnumerable<EnemyGrid> SpawnEnemyFormation(IWave wave, Formation formation, Vector2 origin, float angle, float weight) {
+            var blueprints = wave.GetSpawnAbleBlueprints();
             var formationLayout = formation.GetGlobalLayout(blueprints, origin, angle);
             foreach (var (position, blueprint) in formationLayout.AsTupleEnumerable(blueprints)) {
                 var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint, position);
@@ -35,15 +30,15 @@ namespace Exa.Gameplay.Missions
             }
         }
 
-        public void SpawnRandomEnemy(float distance) {
-            var blueprint = availableBlueprints.GetRandomElement();
+        public void SpawnRandomEnemy(IWave wave, float distance) {
+            var blueprint = wave.GetSpawnAbleBlueprints().GetRandomElement();
             var position = MathUtils.RandomVector2(distance);
             var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint, position);
             enemy.SetRotation(station.GetPosition());
         }
         
-        public void SpawnPlayerStation(GridInstanceConfiguration? configuration = null) {
-            var blueprint = Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
+        public void SpawnPlayerStation(Blueprint blueprint, GridInstanceConfiguration? configuration = null) {
+            blueprint ??= Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
             station = GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
             ((ITurretPlatform)station.Controller).SetTarget(new MouseCursorTarget());
         }

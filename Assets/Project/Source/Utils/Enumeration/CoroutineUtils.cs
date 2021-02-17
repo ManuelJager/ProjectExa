@@ -13,6 +13,10 @@ namespace Exa.Utils
         public static Coroutine Start(this IEnumerator enumerator) {
             return Systems.Instance.StartCoroutine(enumerator);
         }
+        
+        public static Coroutine Start(this IEnumerator enumerator, MonoBehaviour target) {
+            return target.StartCoroutine(enumerator);
+        }
 
         public static Coroutine DelayLocally(this MonoBehaviour monoBehaviour, Action action, float seconds) {
             return monoBehaviour.StartCoroutine(EnumeratorUtils.Delay(action, seconds));
