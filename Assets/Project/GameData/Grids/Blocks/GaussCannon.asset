@@ -36,4 +36,4 @@ MonoBehaviour:
     turretRadius: 3.4375
     damage: 250
     chargeTime: 3
-    range: 100
+    range: 150

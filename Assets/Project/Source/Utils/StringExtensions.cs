@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = System.Random;
 
 namespace Exa.Utils
 {
@@ -36,6 +39,14 @@ namespace Exa.Utils
             }
 
             return NextName(name, 0);
+        }
+
+        public static void LogInstanceString(this Object obj) {
+            Debug.Log(GetInstanceString(obj));
+        }
+
+        public static string GetInstanceString(this Object obj) {
+            return $"{obj.name} : {obj.GetInstanceID()}";
         }
 
         public static string ToGenericString(this Type type) {

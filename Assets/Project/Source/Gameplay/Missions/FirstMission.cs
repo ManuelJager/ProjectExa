@@ -21,7 +21,7 @@ namespace Exa.Gameplay.Missions
             
             waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
-            waveManager.NextWave();
+            waveManager.StartPreparationPhase();
         }
     }
 }

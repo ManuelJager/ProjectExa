@@ -14,7 +14,8 @@ namespace Exa.Gameplay.Missions
         private Spawner spawner;
         private List<Wave> waves;
         
-        private int waveIndex;
+        private int currentWaveIndex;
+        private int preparationPhaseLength = 5;
         private WaveState currentWaveState;
 
         public void Setup(Spawner spawner, List<Wave> waves) {
@@ -23,15 +24,16 @@ namespace Exa.Gameplay.Missions
         }
         
         public void NextWave() {
-            if (waveIndex >= waves.Count) {
+            if (currentWaveIndex >= waves.Count) {
                 throw new InvalidOperationException("Cannot find wave");
             }
             
-            GameSystems.UI.gameplayLayer.missionState.SetText("Combat phase", $"Wave {waveIndex + 1}");
-            
-            waves[waveIndex].Spawn(spawner, currentWaveState = new WaveState(OnWaveEnded));
+            GameSystems.UI.gameplayLayer.missionState.SetText("Combat phase", $"Wave {currentWaveIndex + 1}");
 
-            waveIndex++;
+            currentWaveState = new WaveState(OnWaveEnded);
+            waves[currentWaveIndex].Spawn(spawner, currentWaveState);
+
+            currentWaveIndex++;
         }
 
         private void OnMissionEnded() {
@@ -41,16 +43,20 @@ namespace Exa.Gameplay.Missions
         private void OnWaveEnded() {
             Debug.Log("Wave ended");
 
-            if (waveIndex >= waves.Count) {
+            if (currentWaveIndex >= waves.Count) {
                 OnMissionEnded();
             }
             else {
-                PreparationPhase().Start(this);
+                StartPreparationPhase();
             }
         }
 
+        public void StartPreparationPhase() {
+            PreparationPhase().Start(this);
+        }
+
         private IEnumerator PreparationPhase() {
-            for (var i = 15; i > 0; i--) {
+            for (var i = preparationPhaseLength; i > 0; i--) {
                 GameSystems.UI.gameplayLayer.missionState.SetText("Preparation phase", $"{i} Second/s remaining");
                 yield return new WaitForSeconds(1);
             }

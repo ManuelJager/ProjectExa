@@ -17,7 +17,7 @@ namespace Exa.Gameplay.Missions
         
         // TODO: Implement some kind of mechanism that distributes blueprints based on the blueprint and wave strength
         public IEnumerable<Blueprint> GetSpawnAbleBlueprints() {
-            return Enumerable.Repeat(Blueprints.GetRandomElement(), 5);
+            return Enumerable.Repeat(Blueprints.GetRandomElement(), 1);
         }
 
         public void Spawn(Spawner spawner, WaveState state) {

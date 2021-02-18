@@ -77,13 +77,13 @@ namespace Exa.Grids
         }
 
         public virtual T Remove(Vector2Int key) {
-            Size.Invalidate();
             var gridMember = GetMember(key);
             Remove(gridMember);
             return gridMember;
         }
 
         public virtual void Remove(T gridMember) {
+            Size.Invalidate();
             // Remove controller reference
             if (ReferenceEquals(gridMember, Controller)) {
                 Controller = default;
