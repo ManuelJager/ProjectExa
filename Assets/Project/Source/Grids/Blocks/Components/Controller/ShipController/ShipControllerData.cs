@@ -14,7 +14,12 @@ namespace Exa.Grids.Blocks.Components
         public float powerStorage;
         public float turningRate;
         public Scalar thrustModifier;
-
+        
+        public float PowerGeneration => powerGeneration;
+        public float PowerConsumption => powerConsumption;
+        public float PowerStorage => powerStorage;
+        public float TurningRate => turningRate;
+        
         public void AddGridTotals(GridTotals totals) {
             totals.controllerData = this;
         }

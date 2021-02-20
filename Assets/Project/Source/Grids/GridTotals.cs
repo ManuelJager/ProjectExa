@@ -17,10 +17,10 @@ namespace Exa.Grids
         public virtual Scalar PowerStorageModifier { get; set; }
         public virtual Scalar TurningPowerModifier { get; set; }
 
-        public virtual float PowerGeneration => PowerGenerationModifier.GetValue(((ShipControllerData)controllerData).powerGeneration);
-        public virtual float PowerConsumption => PowerConsumptionModifier.GetValue(((ShipControllerData)controllerData).powerConsumption);
-        public virtual float PowerStorage => PowerStorageModifier.GetValue(((ShipControllerData)controllerData).powerStorage);
-        public virtual float TurningPower => TurningPowerModifier.GetValue(((ShipControllerData)controllerData).turningRate);
+        public virtual float PowerGeneration => PowerGenerationModifier.GetValue(controllerData.PowerGeneration);
+        public virtual float PowerConsumption => PowerConsumptionModifier.GetValue(controllerData.PowerConsumption);
+        public virtual float PowerStorage => PowerStorageModifier.GetValue(controllerData.PowerStorage);
+        public virtual float TurningPower => TurningPowerModifier.GetValue(controllerData.TurningRate);
 
         public GridTotals Clone() {
             return new GridTotals {

@@ -9,12 +9,13 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] private float powerGeneration;
         [SerializeField] private float powerConsumption;
         [SerializeField] private float powerStorage;
+        [SerializeField] private float turningRate;
 
-        public override StationControllerData ToBaseComponentValues() => new StationControllerData
-        {
+        public override StationControllerData ToBaseComponentValues() => new StationControllerData {
             powerGeneration = powerGeneration,
             powerConsumption = powerConsumption,
-            powerStorage = powerStorage
+            powerStorage = powerStorage,
+            turningRate = turningRate
         };
     }
 }

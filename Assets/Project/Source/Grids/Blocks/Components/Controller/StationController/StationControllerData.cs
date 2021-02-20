@@ -11,9 +11,14 @@ namespace Exa.Grids.Blocks.Components
         public float powerGeneration;
         public float powerConsumption;
         public float powerStorage;
+        public float turningRate;
 
-        public void AddGridTotals(GridTotals totals)
-        {
+        public float PowerGeneration => powerGeneration;
+        public float PowerConsumption => powerConsumption;
+        public float PowerStorage => powerStorage;
+        public float TurningRate => turningRate;
+        
+        public void AddGridTotals(GridTotals totals) {
             totals.controllerData = this;
         }
 
