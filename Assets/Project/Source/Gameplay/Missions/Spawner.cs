@@ -34,7 +34,7 @@ namespace Exa.Gameplay.Missions
             var blueprint = wave.GetSpawnAbleBlueprints().GetRandomElement();
             var position = MathUtils.RandomVector2(distance);
             var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint, position);
-            enemy.SetRotation(station.GetPosition());
+            enemy.SetLookAt(station.GetPosition());
         }
         
         public void SpawnPlayerStation(Blueprint blueprint, GridInstanceConfiguration? configuration = null) {

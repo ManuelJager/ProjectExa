@@ -12,7 +12,7 @@ namespace Exa.Ships
         [SerializeField] private ShipOverlayEnergyBar overlayEnergyBar;
         [SerializeField] private ShipOverlayCircle overlayCircle;
 
-        private void Update() {
+        public void Update() {
             transform.position = gridInstance.GetPosition();
         }
 

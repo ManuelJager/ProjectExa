@@ -19,7 +19,6 @@ namespace Exa.Ships
         public PlayerStation CreateStation(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration? configuration = null) {
             return Configure<PlayerStation>(
                 prefab: friendlyStationPrefab,
-                container: GameSystems.SpawnLayer.ships, 
                 worldPos: worldPos,
                 blueprint: blueprint, 
                 blockContext: BlockContext.UserGroup,
@@ -29,16 +28,15 @@ namespace Exa.Ships
         public EnemyGrid CreateEnemy(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration? configuration = null) {
             return Configure<EnemyGrid>(
                 prefab: enemyShipPrefab,
-                container: GameSystems.SpawnLayer.ships,
                 worldPos: worldPos,
                 blueprint: blueprint,
                 blockContext: BlockContext.EnemyGroup,
                 configuration: configuration);
         }
-
-        private T Configure<T>(GameObject prefab, Transform container, Vector2 worldPos, Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration? configuration)
+        
+        private T Configure<T>(GameObject prefab, Vector2 worldPos, Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration? configuration)
             where T : GridInstance {
-            var grid = prefab.Create<T>(container);
+            var grid = prefab.Create<T>(GameSystems.SpawnLayer.ships);
             grid.Import(blueprint, blockContext, configuration ?? new GridInstanceConfiguration {
                 Invulnerable = false
             });
@@ -58,6 +56,7 @@ namespace Exa.Ships
 
             var overlay = overlayGo.GetComponent<GridOverlay>();
             overlay.SetGrid(gridInstance);
+            overlay.Update();
             overlay.gameObject.name = $"Overlay: {gridInstance.GetInstanceString()}";
             return overlay;
         }

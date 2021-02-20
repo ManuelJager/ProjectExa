@@ -44,14 +44,12 @@ namespace Exa.Grids.Blocks.BlockTypes
 
                 if (parent != null && !Systems.IsQuitting) {
                     OnRemove();
-                    Debug.Log($"{this.GetInstanceString()} removed");
                 }
 
                 parent = value;
 
                 if (parent != null) {
                     OnAdd();
-                    Debug.Log($"{this.GetInstanceString()} added");
                 }
 
                 foreach (var behaviour in GetBehaviours()) {

@@ -35,8 +35,9 @@ namespace Exa.Ships
 
         [Header("Events")]
         public UnityEvent ControllerDestroyedEvent;
-
+        
         private Tooltip debugTooltip;
+        private bool hovered = false;
         private float hullIntegrity;
 
         public ActionScheduler ActionScheduler { get; private set; }
@@ -85,12 +86,14 @@ namespace Exa.Ships
 
         // TODO: Make this look nicer by breaking up the ship and adding an explosion
         public virtual void OnControllerDestroyed() {
-            ControllerDestroyedEvent?.Invoke();
-            Active = false;
-
             foreach (var thruster in BlockGrid.Metadata.QueryByType<IThruster>()) {
                 thruster.PowerDown();
             }
+            
+            ControllerDestroyedEvent?.Invoke();
+            Active = false;
+            
+            ExitRaycast();
         }
 
         public virtual void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
@@ -120,6 +123,12 @@ namespace Exa.Ships
         public virtual void OnRaycastEnter() {
             if (!Active) return;
 
+            EnterRaycast();
+        }
+
+        private void EnterRaycast() {
+            hovered = true;
+
             (Overlay as GridOverlay)?.SetHovered(true);
             Systems.UI.MouseCursor.stateManager.Add(cursorOverride);
 
@@ -130,6 +139,12 @@ namespace Exa.Ships
 
         public virtual void OnRaycastExit() {
             if (!Active) return;
+
+            ExitRaycast();
+        }
+
+        private void ExitRaycast() {
+            hovered = false;
 
             (Overlay as GridOverlay)?.SetHovered(false);
             Systems.UI.MouseCursor.stateManager.Remove(cursorOverride);
@@ -168,6 +183,10 @@ namespace Exa.Ships
 
         public abstract bool MatchesSelection(ShipSelection selection);
 
+        public abstract Vector2 GetPosition();
+
+        public abstract void SetPosition(Vector2 position);
+
         private TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(new ITooltipComponent[] {
             new TooltipTitle(GetInstanceString(), false),
             new TooltipSpacer(),
@@ -191,12 +210,8 @@ namespace Exa.Ships
             new TooltipText("AI:"),
             new TooltipGroup(gridAi.GetDebugTooltipComponents(), 1)
         });
-
-        public abstract Vector2 GetPosition();
-
-        public abstract void SetPosition(Vector2 position);
-
-        public void SetRotation(Vector2 globalLookAt) {
+        
+        public void SetLookAt(Vector2 globalLookAt) {
             Rigidbody2D.rotation = (globalLookAt - GetPosition()).GetAngle();
         }
 
