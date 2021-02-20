@@ -6,5 +6,7 @@ namespace Exa.Grids.Blocks
     public class BlockPoolMember : PoolMember
     {
         public Block block;
+
+        protected override bool IgnoreClause() => GameSystems.IsQuitting;
     }
 }

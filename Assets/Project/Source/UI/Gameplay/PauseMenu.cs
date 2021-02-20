@@ -7,14 +7,12 @@ namespace Exa.UI.Gameplay
     {
         public Action continueAction;
 
-        public override void HandleEnter(NavigationArgs args)
-        {
+        public override void HandleEnter(NavigationArgs args) {
             GameSystems.Raycaster.IsRaycasting = false;
             base.HandleEnter(args);
         }
 
-        public override void HandleExit(Navigateable target)
-        {
+        public override void HandleExit(Navigateable target) {
             GameSystems.Raycaster.IsRaycasting = true;
             base.HandleExit(target);
         }
@@ -34,6 +32,7 @@ namespace Exa.UI.Gameplay
         public void QuitToMenu() {
             GameSystems.Navigateable.NavigateTo(Systems.UI.Root.navigateable);
             Systems.Scenes.UnloadAsync("Game");
+            GameSystems.Instance.UnloadMission();
         }
 
         public void QuitToDesktop() {

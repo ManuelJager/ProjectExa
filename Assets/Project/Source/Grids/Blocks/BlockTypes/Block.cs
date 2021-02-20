@@ -61,7 +61,10 @@ namespace Exa.Grids.Blocks.BlockTypes
         public GridInstance GridInstance => Parent as GridInstance;
 
         private void OnDisable() {
-            if (Systems.IsQuitting) return;
+            if (GameSystems.IsQuitting) {
+                parent = null;
+                return;
+            }
 
             Parent.BlockGrid.Remove(GridAnchor);
             Parent = null;

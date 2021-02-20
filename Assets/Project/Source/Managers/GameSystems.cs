@@ -37,6 +37,8 @@ namespace Exa
         public static PopupManager PopupManager => Instance.popupManager;
         public static GameObject GameObject => Instance.gameObject;
         public static Mission Mission { get; private set; }
+        // TODO: Cache this
+        public static bool IsQuitting => Systems.IsQuitting || Systems.Scenes.GetSceneIsUnloading("Game");
 
         public void LoadMission(Mission mission, MissionArgs args) {
             if (Mission != null)
@@ -44,6 +46,10 @@ namespace Exa
 
             Mission = mission;
             mission.Init(args);
+        }
+
+        public void UnloadMission() {
+            Mission = null;
         }
 
         public void Update() {

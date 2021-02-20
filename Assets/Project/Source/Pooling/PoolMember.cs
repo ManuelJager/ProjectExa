@@ -8,13 +8,15 @@ namespace Exa.Pooling
         [HideInInspector] public IPool<PoolMember> pool;
 
         protected virtual void OnDisable() {
-            if (Systems.IsQuitting) return;
+            if (IgnoreClause()) return;
             pool.Return(this);
         }
 
         protected virtual void OnDestroy() {
-            if (Systems.IsQuitting) return;
+            if (IgnoreClause()) return;
             pool.OnDestroyMember();
         }
+
+        protected virtual bool IgnoreClause() => Systems.IsQuitting;
     }
 }
