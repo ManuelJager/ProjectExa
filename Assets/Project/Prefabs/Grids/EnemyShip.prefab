@@ -32,7 +32,6 @@ MonoBehaviour:
   mouseOverCollider: {fileID: 8066326369922599270}
   cursorOverride:
     value: 2
-  canvasScaleMultiplier: 1
   debugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
   ControllerDestroyedEvent:
     m_PersistentCalls:

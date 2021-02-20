@@ -49,12 +49,11 @@ namespace Exa.Grids.Blocks.Components
         }
 
         protected override void OnAdd() {
-            if (Parent.Rigidbody2D.bodyType == RigidbodyType2D.Dynamic) {
-                block.Collider.SetMass(data.mass);
-            }
+            Parent.Rigidbody2D.mass += data.mass;
         }
 
         protected override void OnRemove() {
+            Parent.Rigidbody2D.mass -= data.mass;
         }
     }
 

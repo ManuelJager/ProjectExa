@@ -18,7 +18,6 @@ MonoBehaviour:
   mouseOverCollider: {fileID: 985683296314031610}
   cursorOverride:
     value: 1
-  canvasScaleMultiplier: 1
   debugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
   ControllerDestroyedEvent:
     m_PersistentCalls:
@@ -126,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 2479367940092683939}
     - target: {fileID: 6624674223097554171, guid: c338b1f640f93a541a625245831a6e85,
         type: 3}
-      propertyPath: m_BodyType
+      propertyPath: m_LinearDrag
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7313425749043291350, guid: c338b1f640f93a541a625245831a6e85,
