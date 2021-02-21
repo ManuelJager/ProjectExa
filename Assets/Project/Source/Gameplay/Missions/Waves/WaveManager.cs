@@ -15,8 +15,10 @@ namespace Exa.Gameplay.Missions
         private List<Wave> waves;
         
         private int currentWaveIndex;
-        private int preparationPhaseLength = 5;
+        private float preparationPhaseLength = 5f;
         private WaveState currentWaveState;
+        
+        public bool PausedPreparationPhase { get; set; }
 
         public void Setup(Spawner spawner, List<Wave> waves) {
             this.spawner = spawner;
@@ -56,11 +58,28 @@ namespace Exa.Gameplay.Missions
         }
 
         private IEnumerator PreparationPhase() {
-            for (var i = preparationPhaseLength; i > 0; i--) {
-                GameSystems.UI.gameplayLayer.missionState.SetText("Preparation phase", $"{i} Second/s remaining");
-                yield return new WaitForSeconds(1);
+            void UpdateText(float time) {
+                var phaseInfo = "{0} Second/s remaining".Format(Mathf.CeilToInt(time));
+                GameSystems.UI.gameplayLayer.missionState.SetText("Preparation phase", phaseInfo);
             }
+            
+            var timeRemaining = preparationPhaseLength;
+            UpdateText(timeRemaining);
 
+            yield return null;
+            
+            GameSystems.UI.gameplayLayer.missionState.ShowEditorButton();
+            
+            while (timeRemaining > 0f) {
+                if (!PausedPreparationPhase) {
+                    timeRemaining -= Time.deltaTime;
+                    UpdateText(timeRemaining);
+                }
+                
+                yield return null;
+            }
+            
+            GameSystems.UI.gameplayLayer.missionState.HideEditorButton();
             NextWave();
         }
     }

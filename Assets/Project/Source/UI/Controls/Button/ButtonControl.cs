@@ -17,6 +17,8 @@ namespace Exa.UI.Controls
         [SerializeField] private Text text;
         [SerializeField] private LayoutElement layoutElement;
         
+        public Button Button => button;
+        
         public LayoutElement LayoutElement => layoutElement;
 
         public UnityEvent OnClick => button.onClick;

@@ -47,6 +47,9 @@ TagManager:
   - name: Prompt
     uniqueID: 1372706283
     locked: 0
+  - name: Lower-Overlay
+    uniqueID: 761055637
+    locked: 0
   - name: Overlay
     uniqueID: 842884435
     locked: 0

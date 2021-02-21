@@ -27,5 +27,9 @@ namespace Exa.Utils
                 Object.Destroy(child.gameObject);
             }
         }
+
+        public static RectTransform GetRectTransform(this Component behaviour) {
+            return behaviour.transform as RectTransform;
+        }
     }
 }

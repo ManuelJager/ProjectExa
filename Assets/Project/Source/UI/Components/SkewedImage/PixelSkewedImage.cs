@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Exa.UI
 {
-    public abstract class PixelSkewedImage : Image
+    public class PixelSkewedImage : Image
     {
         public Vector2 skew;
 
