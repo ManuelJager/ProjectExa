@@ -9,7 +9,7 @@ namespace Exa.Utils
     public static class EnumeratorUtils
     {
         public static Coroutine DelayOneFrame(this MonoBehaviour monoBehaviour, Action callback) {
-            return monoBehaviour.StartCoroutine(DelayOneFrame(callback));
+            return DelayOneFrame(callback).Start(monoBehaviour);
         }
 
         public static bool MoveNext<T>(this IEnumerator<T> enumerator, out T current) {

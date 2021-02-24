@@ -53,18 +53,19 @@ namespace Exa.Gameplay.Missions
             }
         }
 
-        public void StartPreparationPhase() {
-            PreparationPhase().Start(this);
+        public void StartPreparationPhase(bool firstWave = false) {
+            PreparationPhase(firstWave).Start(this);
         }
 
-        private IEnumerator PreparationPhase() {
-            void UpdateText(float time) {
+        private IEnumerator PreparationPhase(bool firstWave) {
+            // TODO: Prevent calling this every frame
+            void UpdateText(float time, bool animate) {
                 var phaseInfo = "{0} Second/s remaining".Format(Mathf.CeilToInt(time));
-                GameSystems.UI.gameplayLayer.missionState.SetText("Preparation phase", phaseInfo);
+                GameSystems.UI.gameplayLayer.missionState.SetText("Preparation phase", phaseInfo, animate);
             }
             
             var timeRemaining = preparationPhaseLength;
-            UpdateText(timeRemaining);
+            UpdateText(timeRemaining, !firstWave);
 
             yield return null;
             
@@ -73,7 +74,7 @@ namespace Exa.Gameplay.Missions
             while (timeRemaining > 0f) {
                 if (!PausedPreparationPhase) {
                     timeRemaining -= Time.deltaTime;
-                    UpdateText(timeRemaining);
+                    UpdateText(timeRemaining, true);
                 }
                 
                 yield return null;
