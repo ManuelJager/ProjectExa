@@ -37,6 +37,7 @@ public class ElementTracker : MonoBehaviour
     }
 
     private void SetSize(Vector2 size) {
+        currentAnimation?.Kill();
         switch(animationMode) {
             case AnimationMode.Both: layoutElement.SetPreferredSize(size);
                 break;
