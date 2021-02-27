@@ -124,5 +124,23 @@ namespace Exa.Utils
 
             callback();
         }
+
+        public static IEnumerator OnceEverySecond(int seconds, Action<int> secondCallback, Func<bool> timePasses = null) {
+            var time = 0f;
+            var currentSecond = -1;
+
+            while (currentSecond < seconds) {
+                if (timePasses == null || timePasses()) {
+                    if (time > currentSecond) {
+                        currentSecond = Mathf.FloorToInt(time);
+                        secondCallback(currentSecond);
+                    }
+                    
+                    time += Time.deltaTime;
+                }
+                
+                yield return null;
+            }
+        }
     }
 }

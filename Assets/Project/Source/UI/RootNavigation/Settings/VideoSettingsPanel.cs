@@ -60,13 +60,15 @@ namespace Exa.UI.Settings
             var uiGroup = Systems.UI.Root.interactableAdapter;
 
             var prompt = null as Prompt;
-
-            var coroutine = StartCoroutine(UpdatePromptCountdown(length, format, setter, () => {
+            
+            var coroutine = EnumeratorUtils.OnceEverySecond(length, (second) => {
+                setter(format.Format(length - second));
+            }).Then(() => {
                 Apply(backupValues);
                 ReflectValues(backupValues);
 
                 prompt.CleanUp();
-            }));
+            }).Start(this);
 
             prompt = Systems.UI.Prompts.PromptYesNo(format.Format(length), uiGroup, value => {
                 StopCoroutine(coroutine);
@@ -81,15 +83,6 @@ namespace Exa.UI.Settings
 
         protected override ExaVideoSettings GetSettingsContainer() {
             return new ExaVideoSettings();
-        }
-
-        private IEnumerator UpdatePromptCountdown(int length, string format, Action<string> setter, Action onCountdownEnd) {
-            for (var i = length; i > 0; i--) {
-                setter(format.Format(i));
-                yield return new WaitForSeconds(1);
-            }
-
-            onCountdownEnd();
         }
     }
 }

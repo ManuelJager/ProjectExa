@@ -38,7 +38,9 @@ namespace Exa
         public static GameObject GameObject => Instance.gameObject;
         public static Mission Mission { get; private set; }
         // TODO: Cache this
+        public static bool IsEditing { get; set; }
         public static bool IsQuitting => Systems.IsQuitting || Systems.Scenes.GetSceneIsUnloading("Game");
+        public static bool IsPaused => UI.IsPaused || IsEditing;
 
         public void LoadMission(Mission mission, MissionArgs args) {
             if (Mission != null)
