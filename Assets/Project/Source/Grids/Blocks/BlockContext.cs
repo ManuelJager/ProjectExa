@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks
     /// Enum used to identify to which group a block belongs
     /// </summary>
     [Flags]
-    public enum BlockContext : uint
+    public enum BlockContext
     {
         None = 0,
         DefaultGroup = 1 << 0,

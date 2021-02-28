@@ -16,5 +16,9 @@ namespace Exa.ShipEditor
         public CanvasGroup saveButtonCanvasGroup;
         public GridTotalsView gridTotalsView;
         public Transform controlsContainer;
+
+        public void SetNameEditingActive(bool active) {
+            blueprintNameInput.gameObject.SetActive(active);
+        }
     }
 }

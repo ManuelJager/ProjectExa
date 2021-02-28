@@ -37,10 +37,11 @@ namespace Exa.Gameplay.Missions
             enemy.SetLookAt(station.GetPosition());
         }
         
-        public void SpawnPlayerStation(Blueprint blueprint, GridInstanceConfiguration? configuration = null) {
+        public PlayerStation SpawnPlayerStation(Blueprint blueprint = null, GridInstanceConfiguration? configuration = null) {
             blueprint ??= Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
             station = GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
             ((ITurretPlatform)station.Controller).SetTarget(new MouseCursorTarget());
+            return station;
         }
 
         public EnemyGrid SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration? configuration = null) {

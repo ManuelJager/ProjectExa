@@ -1,4 +1,6 @@
-﻿namespace Exa.ShipEditor
+﻿using UnityEngine;
+
+namespace Exa.ShipEditor
 {
     public partial class GridEditor
     {
@@ -17,17 +19,22 @@
         }
 
         public void ValidateName(string name) {
-            var args = new BlueprintNameValidationArgs {
-                collectionContext = Systems.Blueprints.userBlueprints,
-                requestedName = name,
-                blueprintContainer = container
-            };
+            if (ImportArgs is ContainerImportArgs containerImportArgs) {
+                var args = new BlueprintNameValidationArgs {
+                    collectionContext = Systems.Blueprints.userBlueprints,
+                    requestedName = name,
+                    blueprintContainer = containerImportArgs.Container
+                };
 
-            NameValidationResult = overlay.infoPanel.errorListController
-                .Validate(nameValidator, args);
+                NameValidationResult = overlay.infoPanel.errorListController
+                    .Validate(nameValidator, args);
 
-            if (NameValidationResult) {
-                editorGrid.blueprintLayer.ActiveBlueprint.name = name;
+                if (NameValidationResult) {
+                    editorGrid.blueprintLayer.ActiveBlueprint.name = name;
+                }
+            }
+            else {
+                Debug.LogError("Attempted to validate name on unsupported import arguments");
             }
         }
     }

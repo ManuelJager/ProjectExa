@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.IO;
+using Exa.ShipEditor;
 using Exa.Types.Binding;
 using Exa.UI.Components;
 using UnityEngine;
@@ -75,10 +76,6 @@ namespace Exa.UI
         #endregion
 
         public void TrySave(BlueprintContainer container) {
-            Systems.Thumbnails.GenerateThumbnail(container.Data);
-            container.ThumbnailFileHandle.Refresh();
-            container.BlueprintFileHandle.Refresh();
-
             if (Source is ICollection<BlueprintContainer> collection) {
                 if (!collection.Contains(container))
                     collection.Add(container);
@@ -96,7 +93,7 @@ namespace Exa.UI
                 blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs {
                     current = blueprintSelectorNavigateable
                 });
-                Systems.Editor.Import(value, BlockContext.UserGroup, TrySave);
+                Systems.Editor.Import(new ContainerImportArgs(value, TrySave));
             });
             view.deleteButton.onClick.AddListener(() => {
                 if (!Interactable) return;
@@ -130,7 +127,7 @@ namespace Exa.UI
             var container = new BlueprintContainer(args);
 
             blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable);
-            Systems.Editor.Import(container, BlockContext.UserGroup, TrySave);
+            Systems.Editor.Import(new ContainerImportArgs(container, TrySave));
         }
     }
 }

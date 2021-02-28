@@ -26,8 +26,6 @@ namespace Exa.ShipEditor
         private GameControls gameControls;
         private ShipEditorOverlay overlay;
 
-        public BlockContext Context { get; private set; }
-
         private void Awake() {
             overlay = Systems.UI.EditorOverlay;
 
@@ -45,8 +43,8 @@ namespace Exa.ShipEditor
             editorGrid.blueprintLayer.onBlueprintChanged.AddListener(OnBlueprintChanged);
 
             stopwatch.onTime.AddListener(OnBlueprintGridValidationRequested);
-            
-            #if UNITY_EDITOR
+
+#if UNITY_EDITOR
             var button = ButtonControl.Create(overlay.infoPanel.controlsContainer, "Save as asset");
             button.OnClick.AddListener(() => {
                 var blueprint = editorGrid.blueprintLayer.ActiveBlueprint;
@@ -54,7 +52,7 @@ namespace Exa.ShipEditor
                 staticBlueprint.Save(blueprint);
             });
             button.LayoutElement.preferredHeight = 32;
-            #endif
+#endif
 
             SetGridBackground();
         }
@@ -81,28 +79,29 @@ namespace Exa.ShipEditor
             }
         }
 
-        public void Import(BlueprintContainer blueprintContainer, BlockContext context, Action<BlueprintContainer> saveCallback) {
+        public void Import(GridEditorImportArgs importArgs) {
+            ImportArgs = importArgs;
+            BaseImport(importArgs.GetBlueprint(), importArgs is ContainerImportArgs);
+        }
+
+        private void BaseImport(Blueprint blueprint, bool validateName) {
             ResetState();
 
             editorGrid.turretLayer.Init();
-            var templates = Systems.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
-            foreach (var template in templates) {
-                editorGrid.turretLayer.GenerateTurretOverlayPrefab(template);
-            }
-
-            this.container = blueprintContainer;
-            this.saveCallback = saveCallback;
-            this.gridValidator = new BlueprintGridValidator();
-            this.nameValidator = new BlueprintNameValidator();
-            this.Context = context;
-
-            var newBlueprint = blueprintContainer.Data.Clone();
+            
+            gridValidator = new BlueprintGridValidator();
+            nameValidator = validateName ? new BlueprintNameValidator() : null;
+            overlay.infoPanel.SetNameEditingActive(validateName);
+            
+            var newBlueprint = blueprint.Clone();
             editorGrid.Import(newBlueprint, () => {
-                ValidateName(newBlueprint.name);
+                if (validateName) {
+                    ValidateName(newBlueprint.name);
+                }
             });
 
             overlay.infoPanel.blueprintNameInput.SetValue(newBlueprint.name, false);
-            overlay.inventory.SetFilter(blueprintContainer.Data.BlueprintType.allowedBlockCategory);
+            overlay.inventory.SetFilter(blueprint.BlueprintType.allowedBlockCategory);
             overlay.inventory.SetSelected(null);
             overlay.inventory.CloseTabs();
 

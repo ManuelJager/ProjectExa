@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1150010444763719143}
   - component: {fileID: 8802424649209492626}
   - component: {fileID: 4286009776099489547}
+  - component: {fileID: 4769013451734808969}
   m_Layer: 0
   m_Name: GameSystems
   m_TagString: Untagged
@@ -58,6 +59,7 @@ MonoBehaviour:
   spawnLayer: {fileID: 4286009776099489547}
   blockGridManager: {fileID: 0}
   popupManager: {fileID: 0}
+  missionManager: {fileID: 4769013451734808969}
 --- !u!114 &3971752618548431335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +122,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectiles: {fileID: 0}
   ships: {fileID: 0}
+--- !u!114 &4769013451734808969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971752618548431355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1af965eb9df5418c9acd8a39b28c963f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6801628535618871680
 GameObject:
   m_ObjectHideFlags: 0

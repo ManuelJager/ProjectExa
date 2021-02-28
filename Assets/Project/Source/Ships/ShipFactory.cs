@@ -14,7 +14,6 @@ namespace Exa.Ships
         [SerializeField] private GameObject enemyShipPrefab;
         [SerializeField] private GameObject friendlyStationPrefab;
         [SerializeField] private GameObject shipOverlayPrefab;
-        [SerializeField] private Transform overlayContainer;
 
         public PlayerStation CreateStation(Blueprint blueprint, Vector2 worldPos, GridInstanceConfiguration? configuration = null) {
             return Configure<PlayerStation>(
@@ -49,7 +48,7 @@ namespace Exa.Ships
         }
 
         public GridOverlay CreateOverlay(GridInstance gridInstance) {
-            var overlayGo = Instantiate(shipOverlayPrefab, overlayContainer);
+            var overlayGo = Instantiate(shipOverlayPrefab, GameSystems.SpawnLayer.overlay);
             gridInstance.ControllerDestroyedEvent.AddListener(() => {
                 Destroy(overlayGo);
             });

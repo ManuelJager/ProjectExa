@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Exa.Utils;
 using UnityEngine;
@@ -18,12 +19,24 @@ namespace Exa.UI.Gameplay
         [Header("Input")]
         [SerializeField] private InputAction editorAction;
 
+        private bool buttonIsVisible;
+
+        private bool ShouldEnableButton => gameObject.activeSelf && buttonIsVisible;
+
         private void Awake() {
             editorAction.started += (context) => {
-                Debug.Log("Open editor");
+                GameSystems.MissionManager.StartEditing();
             };
         }
-        
+
+        private void OnEnable() {
+            editorAction.SetEnabled(ShouldEnableButton);
+        }
+
+        private void OnDisable() {
+            editorAction.SetEnabled(ShouldEnableButton);
+        }
+
         public void SetText(string headerText, string infoText, bool animate = true) {
             this.headerText.text = headerText;
             this.infoText.text = infoText;
@@ -35,13 +48,14 @@ namespace Exa.UI.Gameplay
         }
 
         public void ShowEditorButton() {
-            editorAction.Enable();
+            buttonIsVisible = true;
+            editorAction.SetEnabled(ShouldEnableButton);
             this.DelayOneFrame(buttonTracker.TrackOnce);
         }
 
         public void HideEditorButton() {
-            editorAction.Disable();
-            buttonTracker.Hide();
+            buttonIsVisible = false;
+            editorAction.SetEnabled(ShouldEnableButton);
         }
     }
 }

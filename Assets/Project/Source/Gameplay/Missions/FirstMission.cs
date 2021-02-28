@@ -17,7 +17,7 @@ namespace Exa.Gameplay.Missions
         
         public override void Init(MissionArgs args) {
             var spawner = new Spawner();
-            spawner.SpawnPlayerStation(null);
+            Station = spawner.SpawnPlayerStation();
             
             waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);

@@ -20,7 +20,7 @@ namespace Exa.Gameplay.Missions
 
         public abstract void Init(MissionArgs args);
 
-        public void Update() {
+        public virtual void Update() {
         }
     }
 }

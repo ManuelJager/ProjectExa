@@ -63,7 +63,7 @@ namespace Exa.Validation
             return
                 GetErrorsWith(ErrorType.Error).FirstOrDefault() ??
                 GetErrorsWith(ErrorType.Warning).FirstOrDefault() ??
-                GetErrorsWith(ErrorType.Warning).FirstOrDefault();
+                GetErrorsWith(ErrorType.Suggestion).FirstOrDefault();
         }
 
         public IEnumerator<ValidationError> GetEnumerator() {

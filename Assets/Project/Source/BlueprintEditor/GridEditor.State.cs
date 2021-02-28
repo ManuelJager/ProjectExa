@@ -8,19 +8,18 @@ namespace Exa.ShipEditor
 {
     public partial class GridEditor
     {
-        private bool leftButtonPressed = false;
-        private bool rightButtonPressed = false;
-        private bool mouseOverUI = false;
+        private bool leftButtonPressed;
+        private bool rightButtonPressed;
+        private bool mouseOverUI;
         private bool interactible = true;
         private float zoom;
-        private BlueprintContainer container;
-        private Action<BlueprintContainer> saveCallback;
         private BlockFlip flipState;
 
         public bool IsSaved { get; private set; }
         public ValidationResult NameValidationResult { get; private set; }
         public ValidationResult GridValidationResult { get; private set; }
-
+        public GridEditorImportArgs ImportArgs { get; set; }
+        
         public BlockFlip FlipState {
             get => flipState;
             set {

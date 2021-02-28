@@ -14,6 +14,16 @@ namespace Exa.Grids.Blueprints
         [JsonIgnore] public FileHandle ThumbnailFileHandle { get; set; }
         [JsonIgnore] public string Key => Data.name;
 
+        public override void SetData(Blueprint data, bool notify = true) {
+            if (notify) {
+                Systems.Thumbnails.GenerateThumbnail(Data);
+                ThumbnailFileHandle.Refresh();
+                BlueprintFileHandle.Refresh();
+            }
+            
+            base.SetData(data, notify);
+        }
+
         public BlueprintContainer(BlueprintContainerArgs args)
             : base(args.blueprint) {
             if (args.generateBlueprintFileHandle) {

@@ -24,6 +24,7 @@ namespace Exa
         [SerializeField] private SpawnLayer spawnLayer;
         [SerializeField] private BlockGridManager blockGridManager;
         [SerializeField] private PopupManager popupManager;
+        [SerializeField] private MissionManager missionManager;
 
         public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
         public static CameraController CameraController => Instance.cameraController;
@@ -35,29 +36,10 @@ namespace Exa
         public static SpawnLayer SpawnLayer => Instance.spawnLayer;
         public static BlockGridManager BlockGridManager => Instance.blockGridManager;
         public static PopupManager PopupManager => Instance.popupManager;
+        public static MissionManager MissionManager => Instance.missionManager;
         public static GameObject GameObject => Instance.gameObject;
-        public static Mission Mission { get; private set; }
-        // TODO: Cache this
-        public static bool IsEditing { get; set; }
+        
         public static bool IsQuitting => Systems.IsQuitting || Systems.Scenes.GetSceneIsUnloading("Game");
-        public static bool IsPaused => UI.IsPaused || IsEditing;
-
-        public void LoadMission(Mission mission, MissionArgs args) {
-            if (Mission != null)
-                throw new InvalidOperationException("Cannot load a mission without unloading previous one");
-
-            Mission = mission;
-            mission.Init(args);
-        }
-
-        public void UnloadMission() {
-            Mission = null;
-        }
-
-        public void Update() {
-            if (Mission != null) {
-                Mission.Update();
-            }
-        }
+        public static bool IsPaused => UI.IsPaused || MissionManager.IsEditing;
     }
 }

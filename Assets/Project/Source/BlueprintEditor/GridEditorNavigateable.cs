@@ -18,14 +18,19 @@ namespace Exa.ShipEditor
                 Systems.UI.Prompts.PromptYesNo(confirmationString, gridEditor, OnClosePrompt);
             }
             else {
-                base.Return();
+                DoReturn(force);
             }
         }
 
         private void OnClosePrompt(bool confirm) {
             if (confirm) {
-                base.Return(true);
+                DoReturn(true);
             }
+        }
+
+        private void DoReturn(bool force) {
+            gridEditor.ImportArgs.OnExit?.Invoke();
+            base.Return(force);
         }
     }
 }

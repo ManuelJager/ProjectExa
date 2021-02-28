@@ -249,7 +249,6 @@ MonoBehaviour:
     type: 3}
   shipOverlayPrefab: {fileID: 7302444608995301460, guid: 46737a4d95a0b474095ba4e71ce3f16a,
     type: 3}
-  overlayContainer: {fileID: 1813677412}
 --- !u!114 &2101903113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +375,11 @@ PrefabInstance:
       propertyPath: ships
       value: 
       objectReference: {fileID: 2101903111}
+    - target: {fileID: 4286009776099489547, guid: 5b47039535f26ce4a84ca29216ae1814,
+        type: 3}
+      propertyPath: overlay
+      value: 
+      objectReference: {fileID: 1813677412}
     - target: {fileID: 4286009776099489547, guid: 5b47039535f26ce4a84ca29216ae1814,
         type: 3}
       propertyPath: projectiles

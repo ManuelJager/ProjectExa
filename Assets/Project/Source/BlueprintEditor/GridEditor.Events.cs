@@ -49,14 +49,7 @@
             IsSaved = true;
             UpdateSaveButton();
 
-            // Set the value of the observable
-            container.SetData(editorGrid.blueprintLayer.ActiveBlueprint, false);
-
-            // Save the blueprint, generate the thumbnail
-            saveCallback(container);
-
-            // Notify after saving as observers require the thumbnail to be generated
-            container.Notify();
+            ImportArgs.Save(editorGrid.blueprintLayer.ActiveBlueprint);
         }
     }
 }
