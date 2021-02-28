@@ -4,6 +4,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Math;
 using Exa.Ships;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Weapons
@@ -58,7 +59,7 @@ namespace Exa.Weapons
                 return false;
             }
 
-            return (block.Parent.BlockContext & damageMask) != 0;
+            return block.Parent.BlockContext.HasAnyValue(damageMask);
         }
     }
 }

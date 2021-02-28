@@ -44,6 +44,8 @@ namespace Exa.Pooling
 
         public void OnDestroyMember() {
             totalMembers--;
+            
+            Debug.LogWarning("Pool member destroyed, this shouldn't happen");
         }
 
         public virtual bool Return(PoolMember poolMember) {

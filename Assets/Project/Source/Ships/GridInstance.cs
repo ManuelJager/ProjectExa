@@ -64,8 +64,9 @@ namespace Exa.Ships
             var totalHull = Blueprint.Blocks.Totals.Hull;
             HullIntegrity = currentHull / totalHull;
 
-            if (Active)
+            if (Active) {
                 Overlay.SetHullFill(currentHull, totalHull);
+            }
         }
 
         private void FixedUpdate() {

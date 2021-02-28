@@ -89,6 +89,7 @@ namespace Exa.Grids
                 Controller = default;
             }
 
+            // TODO: Cache this result
             var tilePositions = gridMember.GetTileClaims();
 
             GridMembers.Remove(gridMember);

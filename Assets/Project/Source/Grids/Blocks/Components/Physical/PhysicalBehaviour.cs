@@ -38,7 +38,7 @@ namespace Exa.Grids.Blocks.Components
 
             data.hull -= appliedDamage;
             if (data.hull <= 0) {
-                gameObject.SetActive(false);
+                block.DestroyBlock();
             }
 
             return instanceData;

@@ -7,6 +7,12 @@ namespace Exa.Grids.Blocks
     {
         public Block block;
 
+        protected override void OnDisable() { }
+
+        public void ReturnBlock() {
+            base.OnDisable();
+        }
+
         protected override bool IgnoreClause() => GameSystems.IsQuitting;
     }
 }

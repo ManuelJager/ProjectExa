@@ -17,7 +17,8 @@ namespace Exa.Grids.Blocks.BlockTypes
     public class Block : MonoBehaviour, IBlock, IGridMember, IPhysical
     {
         [HideInInspector] public ABpBlock aBpBlock;
-
+        [HideInInspector] public BlockPoolMember blockPoolMember;
+        
         [SerializeField] private PhysicalBehaviour physicalBehaviour;
         [SerializeField, HideInInspector] private new BoxCollider2D collider;
         private IGridInstance parent;
@@ -60,7 +61,10 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public GridInstance GridInstance => Parent as GridInstance;
 
-        private void OnDisable() {
+        /// <summary>
+        /// Returns the block to the pool
+        /// </summary>
+        public void DestroyBlock() {
             if (GameSystems.IsQuitting) {
                 parent = null;
                 return;
@@ -68,6 +72,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 
             Parent.BlockGrid.Remove(GridAnchor);
             Parent = null;
+            blockPoolMember.ReturnBlock();
         }
 
         public TComponent GetBlockComponent<TComponent, TValues>()

@@ -17,7 +17,9 @@ namespace Exa.Grids.Blocks
 
         protected override BlockPoolMember InstantiatePrefab() {
             var member = base.InstantiatePrefab();
-            member.block = member.gameObject.GetComponent<Block>();
+            var block = member.gameObject.GetComponent<Block>();
+            block.blockPoolMember = member;
+            member.block = block;
             return member;
         }
     }
