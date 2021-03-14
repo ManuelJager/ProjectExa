@@ -1,13 +1,14 @@
 ﻿using Exa.Math;
 using Exa.Types.Generics;
+using Exa.UI.Tweening;
 using UnityEngine;
 
-namespace Exa.Gameplay
+namespace Exa.Camera
 {
     public abstract class CameraTarget : ICameraTarget
     {
         private CameraTargetSettings settings;
-        private BezierCurve zoomCurve;
+        private ExaEase zoomCurve;
         private float zoomScale;
 
         public float ZoomScale {
@@ -17,15 +18,14 @@ namespace Exa.Gameplay
 
         public virtual bool TargetValid => true;
 
-        protected CameraTarget(CameraTargetSettings settings)
-        {
+        protected CameraTarget(CameraTargetSettings settings) {
             this.settings = settings;
-            zoomCurve = new BezierCurve(settings.bezierCurveSettings);
             ZoomScale = 0.5f;
         }
 
         public virtual float GetCalculatedOrthoSize() {
-            var multiplier = settings.zoomMinMax.Evaluate(zoomCurve.GetY(ZoomScale));
+            var easedZoomScale = settings.ZoomEase.Evaluate(ZoomScale);
+            var multiplier = settings.zoomMinMax.Evaluate(easedZoomScale);
             return settings.orthoMultiplier * multiplier;
         }
 

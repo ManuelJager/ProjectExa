@@ -93,13 +93,8 @@ namespace Exa.ShipEditor
             if (MouseOverUI) return;
 
             if (context.phase == InputActionPhase.Performed) {
-                var v2delta = context.ReadValue<Vector2>();
-                var yDelta = v2delta.y;
-                if (yDelta == 0f) return;
-
-                yDelta /= 100f;
-                Zoom = Mathf.Clamp(Zoom + (-yDelta * zoomSpeed), 3, 15);
-                Camera.main.DOOrthoSize(Zoom, 0.5f);
+                var delta = context.ReadValue<Vector2>();
+                editorCameraTarget.OnScroll(delta.y);
             }
         }
     }

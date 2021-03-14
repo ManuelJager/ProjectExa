@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.Gameplay
+namespace Exa.Camera
 {
     public interface ICameraTarget
     {

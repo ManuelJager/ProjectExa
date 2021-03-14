@@ -30,8 +30,8 @@ namespace Exa.Input
             var mousePos = Mouse.current.position.ReadValue();
             MouseScaledViewportPoint = mousePos / root.scaleFactor;
             MouseScreenPoint = mousePos;
-            MouseWorldPoint = Camera.main.ScreenToWorldPoint(mousePos);
-            MouseViewportPoint = Camera.main.ScreenToViewportPoint(mousePos);
+            MouseWorldPoint = Systems.CameraController.Camera.ScreenToWorldPoint(mousePos);
+            MouseViewportPoint = Systems.CameraController.Camera.ScreenToViewportPoint(mousePos);
             MouseOffsetFromCentre = CalculateMouseOffsetFromCentre(MouseViewportPoint);
 
             var currFrameMouseInViewport = !(
@@ -44,7 +44,7 @@ namespace Exa.Input
         }
 
         public bool GetMouseInsideRect(RectTransform rect) {
-            return RectTransformUtility.RectangleContainsScreenPoint(rect, MouseScreenPoint, Camera.main);
+            return RectTransformUtility.RectangleContainsScreenPoint(rect, MouseScreenPoint, Systems.CameraController.Camera);
         }
 
         public bool GetMouseInsideRect(params RectTransform[] rects) {

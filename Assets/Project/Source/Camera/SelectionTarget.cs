@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using UnityEditor;
+using Exa.Gameplay;
 using UnityEngine;
 
-namespace Exa.Gameplay
+namespace Exa.Camera
 {
     public class SelectionTarget : CameraTarget
     {

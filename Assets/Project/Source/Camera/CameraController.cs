@@ -2,38 +2,40 @@
 using DG.Tweening;
 using Exa.Math;
 using Exa.Utils;
-using UnityEditor;
+using Exa.Gameplay;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Gameplay
+namespace Exa.Camera
 {
     public class CameraController : MonoBehaviour
     {
         [SerializeField] private CameraTargetSettings defaultSettings;
-        private Camera targetCamera;
+        [SerializeField] private UnityEngine.Camera targetCamera;
 
         private Tween cameraMoveTween;
         private Tween cameraZoomTween;
 
-        public CameraTarget CurrentTarget { get; private set; }
+        public ICameraTarget CurrentTarget { get; private set; }
         public UserTarget UserTarget { get; private set; }
         public CameraTargetSettings DefaultSettings => defaultSettings;
+        public UnityEngine.Camera Camera => targetCamera;
 
         private void Awake() {
-            targetCamera = Camera.main;
             UserTarget = new UserTarget(defaultSettings);
         }
 
         private void Update() {
-            if (CurrentTarget != null && !CurrentTarget.TargetValid)
+            if (CurrentTarget != null && !CurrentTarget.TargetValid) {
                 EscapeTarget();
+            }
 
-            if (CurrentTarget != null)
+            if (CurrentTarget != null) {
                 UserTarget.ImportValues(CurrentTarget);
-            else
-                UserTarget.Tick();
+            }
+            
+            UserTarget.Tick();
 
             var target = GetTarget();
             var cameraOrthoSize = target.GetCalculatedOrthoSize();
@@ -53,7 +55,7 @@ namespace Exa.Gameplay
             SetTarget(target, teleport);
         }
 
-        public void SetTarget(CameraTarget newTarget, bool teleport = false) {
+        public void SetTarget(ICameraTarget newTarget, bool teleport = false) {
             if (teleport) {
                 targetCamera.transform.position = newTarget.GetWorldPosition().ToVector3(-10);
                 targetCamera.orthographicSize = newTarget.GetCalculatedOrthoSize();

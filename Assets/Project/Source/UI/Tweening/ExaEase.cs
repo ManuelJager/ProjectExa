@@ -12,6 +12,18 @@ namespace Exa.UI.Tweening
         public Ease ease;
         public AnimationCurve animationCurve;
 
+        public ExaEase(Ease ease)
+            : this(ExaEaseType.Classic, ease, null) { }
+
+        public ExaEase(AnimationCurve curve)
+            : this(ExaEaseType.AnimationCurve, Ease.INTERNAL_Zero, curve) { }
+
+        private ExaEase(ExaEaseType easeType, Ease ease, AnimationCurve animationCurve) {
+            this.easeType = easeType;
+            this.ease = ease;
+            this.animationCurve = animationCurve;
+        }
+
         public float Evaluate(float time) => easeType switch {
             ExaEaseType.Classic => EaseManager.Evaluate(ease, null, time, 1f, 0f, 0f),
             ExaEaseType.AnimationCurve => animationCurve.Evaluate(time),

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Exa.Gameplay
+namespace Exa.Camera
 {
     /// <summary>
     /// Represents a camera target the user may move
@@ -27,7 +27,7 @@ namespace Exa.Gameplay
             return base.GetCalculatedOrthoSize() * 0.9f;
         }
 
-        public void ImportValues(CameraTarget otherTarget) {
+        public void ImportValues(ICameraTarget otherTarget) {
             this.worldPosition = otherTarget.GetWorldPosition();
             this.ZoomScale = otherTarget.ZoomScale;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Exa.Camera;
 using Exa.AI;
 using Exa.Gameplay;
 using Exa.Gameplay.Missions;
@@ -15,7 +16,6 @@ namespace Exa
     public class GameSystems : MonoSingleton<GameSystems>
     {
         [SerializeField] private GameplayInputManager gameplayInputManager;
-        [SerializeField] private CameraController cameraController;
         [SerializeField] private Raycaster raycaster;
         [SerializeField] private Navigateable navigateable;
         [SerializeField] private ShipFactory shipFactory;
@@ -27,7 +27,6 @@ namespace Exa
         [SerializeField] private MissionManager missionManager;
 
         public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
-        public static CameraController CameraController => Instance.cameraController;
         public static Raycaster Raycaster => Instance.raycaster;
         public static Navigateable Navigateable => Instance.navigateable;
         public static ShipFactory ShipFactory => Instance.shipFactory;

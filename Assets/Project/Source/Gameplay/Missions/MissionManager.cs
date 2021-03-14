@@ -1,4 +1,5 @@
 ﻿using System;
+using Exa.Camera;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.ShipEditor;
@@ -29,18 +30,21 @@ namespace Exa.Gameplay.Missions
         public void StartEditing() {
             IsEditing = true;
 
+            var currentTarget = Systems.CameraController.CurrentTarget;
             GameSystems.SpawnLayer.SetLayerActive(false);
             GameSystems.UI.gameplayLayer.navigateable.NavigateTo(Systems.Editor.navigateable);
 
             var import = new BlueprintImportArgs(Mission.Station.Blueprint, result => editResult = result) {
-                OnExit = StopEditing
+                OnExit = () => StopEditing(currentTarget)
             };
             
             Systems.Editor.Import(import);
         }
 
-        public void StopEditing() {
+        public void StopEditing(ICameraTarget cameraTarget) {
             IsEditing = false;
+            
+            Systems.CameraController.SetTarget(cameraTarget);
             GameSystems.SpawnLayer.SetLayerActive(true);
             
             // TODO: use edit result

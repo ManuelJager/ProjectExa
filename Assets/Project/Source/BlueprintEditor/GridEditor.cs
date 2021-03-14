@@ -3,6 +3,8 @@ using Exa.Input;
 using Exa.IO;
 using Exa.UI;
 using System;
+using Exa.Gameplay;
+using Exa.Camera;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.UI.Controls;
@@ -21,13 +23,14 @@ namespace Exa.ShipEditor
         public GridEditorNavigateable navigateable;
 
         [SerializeField] private GridEditorStopwatch stopwatch;
-        [SerializeField] private GameObject editorGridBackground;
         [SerializeField] private float zoomSpeed;
         private GameControls gameControls;
         private ShipEditorOverlay overlay;
+        private EditorCameraTarget editorCameraTarget;
 
         private void Awake() {
             overlay = Systems.UI.EditorOverlay;
+            editorCameraTarget = new EditorCameraTarget(new CameraTargetSettings());
 
             gameControls = new GameControls();
             gameControls.Editor.SetCallbacks(this);
@@ -53,13 +56,13 @@ namespace Exa.ShipEditor
             });
             button.LayoutElement.preferredHeight = 32;
 #endif
-
-            SetGridBackground();
         }
 
         private void OnEnable() {
             overlay.gameObject.SetActive(true);
             gameControls.Enable();
+            
+            Systems.CameraController.SetTarget(editorCameraTarget, true);
         }
 
         private void OnDisable() {
@@ -111,12 +114,6 @@ namespace Exa.ShipEditor
         public void ExportToClipboard() {
             var json = IOUtils.JsonSerializeWithSettings(editorGrid.blueprintLayer.ActiveBlueprint);
             GUIUtility.systemCopyBuffer = json;
-        }
-
-        private void SetGridBackground() {
-            var screenHeightInUnits = Camera.main.orthographicSize * 2;
-            var screenWidthInUnits = screenHeightInUnits * Screen.width / Screen.height;
-            editorGridBackground.transform.localScale = new Vector3(screenWidthInUnits, screenHeightInUnits);
         }
     }
 }

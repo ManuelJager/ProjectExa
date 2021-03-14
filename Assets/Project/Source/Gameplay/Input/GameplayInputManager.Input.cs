@@ -27,12 +27,12 @@ namespace Exa.Gameplay
         public void OnMovement(InputAction.CallbackContext context) {
             switch (context.phase) {
                 case InputActionPhase.Performed:
-                    GameSystems.CameraController.EscapeTarget();
-                    GameSystems.CameraController.UserTarget.movementDelta = context.ReadValue<Vector2>();
+                    Systems.CameraController.EscapeTarget();
+                    Systems.CameraController.UserTarget.movementDelta = context.ReadValue<Vector2>();
                     break;
 
                 case InputActionPhase.Canceled:
-                    GameSystems.CameraController.UserTarget.movementDelta = Vector2.zero;
+                    Systems.CameraController.UserTarget.movementDelta = Vector2.zero;
                     break;
 
                 default:
@@ -65,7 +65,7 @@ namespace Exa.Gameplay
                     var yScroll = context.ReadValue<Vector2>().y;
                     if (yScroll == 0f) return;
 
-                    var target = GameSystems.CameraController.GetTarget();
+                    var target = Systems.CameraController.GetTarget();
                     target.OnScroll(yScroll);
                     break;
             }

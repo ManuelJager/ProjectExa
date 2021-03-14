@@ -99,7 +99,7 @@ namespace Exa.ShipEditor
 
         private Vector2Int GetGridPosFromMousePos(Vector2 playerPos) {
             // Get grid position from world position mouse
-            var screenPoint = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            var screenPoint = Systems.Input.MouseWorldPoint;
 
             var posXFloor = Mathf.FloorToInt(screenPoint.x - playerPos.x + 0.5f);
             var posYFloor = Mathf.FloorToInt(screenPoint.y - playerPos.y + 0.5f);

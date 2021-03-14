@@ -9,6 +9,7 @@ using Exa.Utils;
 using System;
 using System.Collections;
 using Exa.Audio.Music;
+using Exa.Camera;
 using Exa.Data;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
@@ -26,6 +27,7 @@ namespace Exa
     {
         [Header("References")] 
         [SerializeField] private BlockFactory blockFactory;
+        [SerializeField] private CameraController cameraController;
         [SerializeField] private ColorManager colorManager;
         [SerializeField] private ResearchStore researchStore;
         [SerializeField] private BlueprintManager blueprintManager;
@@ -45,6 +47,7 @@ namespace Exa
         [SerializeField] private bool loadSafe = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
+        public static CameraController CameraController => Instance.cameraController;
         public static ColorManager Colors => Instance.colorManager;
         public static ResearchStore Research => Instance.researchStore;
         public static BlueprintManager Blueprints => Instance.blueprintManager;

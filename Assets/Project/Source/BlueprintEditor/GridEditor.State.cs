@@ -73,8 +73,6 @@ namespace Exa.ShipEditor
             IsSaved = true;
             NameValidationResult = null;
             GridValidationResult = null;
-
-            Camera.main.orthographicSize = Zoom;
         }
 
         public void UpdateSaveButton() {
