@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Exa.Ships;
+using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace Exa.Gameplay
     public class CoreHealthBar : MonoBehaviour, IGridOverlay
     {
         [SerializeField] private RectTransform bar;
+        [SerializeField] private float maxHullSize;
         [SerializeField] private Text maxHullText;
         [SerializeField] private Text currentHullText;
 
@@ -17,7 +19,7 @@ namespace Exa.Gameplay
         }
 
         public void SetHullFill(float current, float max) {
-            bar.localScale = new Vector3(current / max, 1, 1);
+            bar.SetRight(4 + Mathf.Min((1 - current / max) * maxHullSize, maxHullSize));
             currentHullText.text = Mathf.RoundToInt(current).ToString();
             maxHullText.text = Mathf.RoundToInt(max).ToString();
         }

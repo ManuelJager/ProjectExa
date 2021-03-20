@@ -33,7 +33,7 @@ namespace Exa.Grids.Blocks
             templateDict.Add(blockTemplate, bundle);
         }
 
-        public void SetDirty(BlockContext blockContext, BlockComponentModifier modifier) {
+        public void SetDirty(BlockContext blockContext, IBlockComponentModifier modifier) {
             foreach (var dirtyBundle in FindBundles(blockContext, modifier)) {
                 dirtyBundle.valuesAreDirty = true;
                 dirtyBundle.tooltip.ShouldRefresh = true;
@@ -112,7 +112,7 @@ namespace Exa.Grids.Blocks
             return contextDict[blockContext];
         }
 
-        private IEnumerable<TemplateBundle> FindBundles(BlockContext context, BlockComponentModifier modifier) {
+        private IEnumerable<TemplateBundle> FindBundles(BlockContext context, IBlockComponentModifier modifier) {
             bool Filter(TemplateBundle bundle) {
                 return modifier.AffectsTemplate(bundle.template);
             }

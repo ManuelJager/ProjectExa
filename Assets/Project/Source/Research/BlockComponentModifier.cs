@@ -17,7 +17,7 @@ namespace Exa.Research
             };
         }
 
-        public override IEnumerable<ResearchStep> GetBaseSteps() {
+        public override IEnumerable<ResearchStep> GetResearchSteps() {
             return GetModifiers();
         }
 
@@ -29,7 +29,7 @@ namespace Exa.Research
         protected virtual void MultiplicativeStep(T initialData, ref T currentData) { }
     }
 
-    public abstract class BlockComponentModifier : ResearchItem
+    public abstract class BlockComponentModifier : ResearchItem, IBlockComponentModifier
     {
         public override void EnableOn(BlockContext filter) {
             Systems.Research.AddModifier(filter, this);
@@ -49,7 +49,7 @@ namespace Exa.Research
             return template.GetTemplatePartials().Any(Filter);
         }
 
-        public abstract IEnumerable<ResearchStep> GetBaseSteps();
+        public abstract IEnumerable<ResearchStep> GetResearchSteps();
         public abstract Type GetTargetType();
     }
 }

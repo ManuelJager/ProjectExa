@@ -42,15 +42,30 @@ namespace Exa.Research
             return researchContexts[context].ApplyContext(baseValues);
         }
 
-        public void AddModifier(BlockContext filter, BlockComponentModifier modifier) {
-            var steps = new List<ResearchStep>(modifier.GetBaseSteps());
+        public void AddModifier(BlockContext filter, IBlockComponentModifier modifier) {
+            var steps = new List<ResearchStep>(modifier.GetResearchSteps());
             foreach (var (context, group) in FilterDict(filter)) {
                 Systems.Blocks.Values.SetDirty(context, modifier);
                 group.AddSteps(modifier, steps);
             }
         }
 
-        public void RemoveModifier(BlockContext filter, BlockComponentModifier modifier) {
+        public Action AddDynamicModifier<T>(
+            ResearchStep<T>.ApplyValues applyFunc, 
+            BlockContext filter = BlockContext.UserGroup, 
+            ValueModificationOrder order = ValueModificationOrder.Multiplicative)
+            where T : struct, IBlockComponentValues {
+
+            var step = new ResearchStep<T>(applyFunc, order);
+            var dynamicModifier = new DynamicBlockComponentModifier(step, template => {
+                return template.GetTemplatePartials().Any(partial => typeof(T).IsAssignableFrom(partial.GetTargetType()));
+            });
+            
+            AddModifier(filter, dynamicModifier);
+            return () => RemoveModifier(filter, dynamicModifier);
+        }
+
+        public void RemoveModifier(BlockContext filter, IBlockComponentModifier modifier) {
             foreach (var (context, group) in FilterDict(filter)) {
                 Systems.Blocks.Values.SetDirty(context, modifier);
                 group.RemoveSteps(modifier);

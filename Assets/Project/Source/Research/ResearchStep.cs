@@ -21,7 +21,7 @@ namespace Exa.Research
         }
 
         public override bool MatchesType(IBlockComponentValues values) {
-            return values.GetType() == typeof(T);
+            return values is T;
         }
     }
 

@@ -8,11 +8,11 @@ namespace Exa.Research
     {
         public StepCache stepCache = new StepCache();
 
-        public void AddSteps(BlockComponentModifier modifier, List<ResearchStep> cache) {
+        public void AddSteps(IBlockComponentModifier modifier, List<ResearchStep> cache) {
             stepCache.Add(modifier, cache);
         }
 
-        public void RemoveSteps(BlockComponentModifier modifier) {
+        public void RemoveSteps(IBlockComponentModifier modifier) {
             stepCache.Remove(modifier);
         }
 
@@ -43,7 +43,7 @@ namespace Exa.Research
         }
     }
 
-    public class StepCache : Dictionary<BlockComponentModifier, List<ResearchStep>>
+    public class StepCache : Dictionary<IBlockComponentModifier, List<ResearchStep>>
     {
 
     }
