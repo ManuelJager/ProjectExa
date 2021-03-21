@@ -19,7 +19,7 @@ namespace Exa.Gameplay
             if (!blockGrid.Any()) 
                 return;
 
-            var clusters = GetClusters(gridInstance.BlockGrid);
+            var clusters = GetClusters(blockGrid);
             if (clusters.Count() > 1)
                 Rebuild(gridInstance, clusters);
         }

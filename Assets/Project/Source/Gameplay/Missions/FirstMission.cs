@@ -20,12 +20,22 @@ namespace Exa.Gameplay.Missions
         
         public override void Init(MissionArgs args) {
             var spawner = new Spawner();
-            Systems.Research.AddDynamicModifier((PhysicalData initialValues, ref PhysicalData currentValues) => {
-                currentValues.hull *= 10;
-            });
-            
+
             Station = spawner.SpawnPlayerStation();
+            var totals = Systems.TotalsManager.StartWatching(Station.BlockGrid, BlockContext.UserGroup);
+
+            var removeModifier = Systems.Research.AddDynamicModifier(
+                BlockContext.UserGroup,
+                (PhysicalData initial, ref PhysicalData current) => {
+                    current.hull *= 10;
+                });
             
+            Debug.Log(totals.Hull);
+
+            removeModifier();
+            
+            Debug.Log(totals.Hull);
+
             waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
             waveManager.StartPreparationPhase(true);

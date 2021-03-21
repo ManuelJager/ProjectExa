@@ -46,13 +46,14 @@ namespace Exa.Research
             var steps = new List<ResearchStep>(modifier.GetResearchSteps());
             foreach (var (context, group) in FilterDict(filter)) {
                 Systems.Blocks.Values.SetDirty(context, modifier);
+                Systems.TotalsManager.InvalidateTotals(context);
                 group.AddSteps(modifier, steps);
             }
         }
 
         public Action AddDynamicModifier<T>(
-            ResearchStep<T>.ApplyValues applyFunc, 
-            BlockContext filter = BlockContext.UserGroup, 
+            BlockContext filter,
+            ResearchStep<T>.ApplyValues applyFunc,
             ValueModificationOrder order = ValueModificationOrder.Multiplicative)
             where T : struct, IBlockComponentValues {
 
@@ -68,6 +69,7 @@ namespace Exa.Research
         public void RemoveModifier(BlockContext filter, IBlockComponentModifier modifier) {
             foreach (var (context, group) in FilterDict(filter)) {
                 Systems.Blocks.Values.SetDirty(context, modifier);
+                Systems.TotalsManager.InvalidateTotals(context);
                 group.RemoveSteps(modifier);
             }
         }

@@ -27,6 +27,7 @@ namespace Exa
     {
         [Header("References")] 
         [SerializeField] private BlockFactory blockFactory;
+        [SerializeField] private TotalsManager totalsManager;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private ColorManager colorManager;
         [SerializeField] private ResearchStore researchStore;
@@ -47,6 +48,7 @@ namespace Exa
         [SerializeField] private bool loadSafe = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
+        public static TotalsManager TotalsManager => Instance.totalsManager;
         public static CameraController CameraController => Instance.cameraController;
         public static ColorManager Colors => Instance.colorManager;
         public static ResearchStore Research => Instance.researchStore;

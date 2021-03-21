@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2896225307612050541}
   - component: {fileID: 2870662635955523299}
   - component: {fileID: 9162152097546090845}
+  - component: {fileID: 2356325581261096467}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -55,6 +56,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockFactory: {fileID: 645744782612201261}
+  totalsManager: {fileID: 2356325581261096467}
+  cameraController: {fileID: 0}
   colorManager: {fileID: 9162152097546090845}
   researchStore: {fileID: 2870662635955523299}
   blueprintManager: {fileID: 5676475580568291461}
@@ -63,6 +66,7 @@ MonoBehaviour:
   thumbnailGenerator: {fileID: 5676475581545504187}
   debugManager: {fileID: 5676475580568291460}
   inputManager: {fileID: 5676475580568291456}
+  settingsManager: {fileID: 0}
   sceneManager: {fileID: 5676475580568291457}
   logger: {fileID: 5676475580568291462}
   mainUI: {fileID: 0}
@@ -94,8 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blueprintTypes: {fileID: 11400000, guid: ea5f593b3dc3ed142a8d8854ab70e880, type: 2}
-  defaultBlueprintBag: {fileID: 11400000, guid: c1c7e923b5a0cf445bb12d051651cfc8,
-    type: 2}
+  staticBlueprintBag: {fileID: 11400000, guid: c1c7e923b5a0cf445bb12d051651cfc8, type: 2}
 --- !u!114 &5676475580568291460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +182,18 @@ MonoBehaviour:
   raisinBlack: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
   verdigris: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
   roseVale: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}
+--- !u!114 &2356325581261096467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676475580568291469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff703281f8ef47f7bee2b1beeac323e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5676475581545504186
 GameObject:
   m_ObjectHideFlags: 0

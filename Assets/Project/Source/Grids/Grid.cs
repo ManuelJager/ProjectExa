@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using System;
+using Exa.Generics;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using System.Collections;
@@ -7,13 +8,18 @@ using System.Linq;
 using Exa.Types.Binding;
 using Exa.Types.Generics;
 using UnityEngine;
-using Exa.Utils;
+using Project.Source.Grids;
 
 namespace Exa.Grids
 {
-    public class Grid<T> : IEnumerable<T>
+    public class Grid<T> : IEnumerable<T>, IMemberCollection
         where T : class, IGridMember
     {
+        private TotalsManager totalsManager;
+        
+        public event IMemberCollection.MemberChange MemberAdded;
+        public event IMemberCollection.MemberChange MemberRemoved;
+
         public LazyCache<Vector2Int> Size { get; protected set; }
 
         // NOTE: Grid totals are affected by the context of the blueprint, since they will be subject to change because of tech
@@ -38,6 +44,8 @@ namespace Exa.Grids
             ObservableCollection<T> gridMembers = null,
             Dictionary<Vector2Int, T> occupiedTiles = null,
             Dictionary<T, List<T>> neighbourDict = null) {
+            totalsManager = Systems.TotalsManager;
+            
             Size = size ?? new LazyCache<Vector2Int>(() => {
                 var bounds = new GridBounds(OccupiedTiles.Keys);
                 return bounds.GetDelta();
@@ -47,6 +55,8 @@ namespace Exa.Grids
             GridMembers = gridMembers ?? new ObservableCollection<T>();
             OccupiedTiles = occupiedTiles ?? new Dictionary<Vector2Int, T>();
             NeighbourDict = neighbourDict ?? new Dictionary<T, List<T>>();
+
+            totalsManager.StartWatching(this, BlockContext.DefaultGroup);
         }
 
         public virtual void Add(T gridMember) {
@@ -58,7 +68,9 @@ namespace Exa.Grids
             }
 
             GridMembers.Add(gridMember);
+            
             gridMember.AddGridTotals(Totals);
+            MemberAdded?.Invoke(gridMember);
 
             // Get grid positions of blueprint block
             var tilePositions = gridMember.GetTileClaims();
@@ -93,7 +105,9 @@ namespace Exa.Grids
             var tilePositions = gridMember.GetTileClaims();
 
             GridMembers.Remove(gridMember);
+            
             gridMember.RemoveGridTotals(Totals);
+            MemberRemoved?.Invoke(gridMember);
 
             // Remove neighbour references
             foreach (var neighbour in NeighbourDict[gridMember]) {
@@ -105,6 +119,10 @@ namespace Exa.Grids
             foreach (var occupiedTile in tilePositions) {
                 OccupiedTiles.Remove(occupiedTile);
             }
+        }
+        
+        public IEnumerable<IGridMember> GetMembers() {
+            return GridMembers;
         }
 
         public bool ContainsMember(Vector2Int gridPos) {
@@ -153,7 +171,7 @@ namespace Exa.Grids
         public int GetNeighbourCount(T gridMember) {
             return NeighbourDict[gridMember].Count;
         }
-
+        
         public IEnumerator<T> GetEnumerator() {
             return GridMembers.GetEnumerator();
         }

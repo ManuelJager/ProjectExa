@@ -23,15 +23,15 @@ namespace Exa.Grids.Blocks
             var partial = GetMarker(block);
             partial.Component.Data = (T) data;
         }
-
-        // NOTE: Cannot use context-ful values as the given grid totals have no context
+        
+        // TODO: Use cached values
         public override void AddGridTotals(GridTotals totals) {
-            ToBaseComponentValues().AddGridTotals(totals);
+            ToContextfulComponentValues(totals.GetInjectedContext()).AddGridTotals(totals);
         }
-
-        // NOTE: Cannot use context-ful values as the given grid totals have no context
+        
+        // TODO: Use cached values
         public override void RemoveGridTotals(GridTotals totals) {
-            ToBaseComponentValues().RemoveGridTotals(totals);
+            ToContextfulComponentValues(totals.GetInjectedContext()).RemoveGridTotals(totals);
         }
 
         public override Type GetTargetType() {
