@@ -15,10 +15,10 @@ namespace Exa.Grids.Blocks
 
         private void Awake() {
             totalsDictionary = new Dictionary<IMemberCollection, Dictionary<BlockContext, TotalsCache>>();
+            Systems.Research.ResearchChanged += InvalidateTotals;
         }
         
         public GridTotals StartWatching(IMemberCollection grid, BlockContext context) {
-            // TODO: Prevent allocation
             if (totalsDictionary.ContainsKey(grid) && totalsDictionary[grid].ContainsKey(context)) {
                 throw new Exception("Grid with given context already being watched");
             }
@@ -37,22 +37,6 @@ namespace Exa.Grids.Blocks
             return cache.totals;
         }
 
-        public void InvalidateTotals(BlockContext context) {
-            IEnumerable<TotalsCache> GetInvalidCaches() {
-                foreach (var (cacheContext, cache) in totalsDictionary
-                    .SelectMany(blockContextDict => blockContextDict.Value.Unpack())
-                ) {
-                    if (cacheContext == context) {
-                        yield return cache;
-                    }
-                }
-            }
-            
-            foreach (var cache in GetInvalidCaches()) {
-                cache.Reset();
-            }
-        }
-
         public GridTotals GetGridTotals(IMemberCollection grid, BlockContext context) {
             return totalsDictionary[grid][context].totals;
         }
@@ -63,6 +47,22 @@ namespace Exa.Grids.Blocks
 
             if (totalsDictionary[grid].Values.Count == 0) {
                 totalsDictionary.Remove(grid);
+            }
+        }
+        
+        private void InvalidateTotals(BlockContext context) {
+            IEnumerable<TotalsCache> GetInvalidCaches() {
+                foreach (var (cacheContext, cache) in totalsDictionary
+                    .SelectMany(blockContextDict => blockContextDict.Value.Unpack())
+                ) {
+                    if (cacheContext == context) {
+                        yield return cache;
+                    }
+                }
+            }
+
+            foreach (var cache in GetInvalidCaches()) {
+                cache.Reset();
             }
         }
 

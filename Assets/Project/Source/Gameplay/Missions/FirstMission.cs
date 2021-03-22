@@ -22,20 +22,26 @@ namespace Exa.Gameplay.Missions
             var spawner = new Spawner();
 
             Station = spawner.SpawnPlayerStation();
-            var totals = Systems.TotalsManager.StartWatching(Station.BlockGrid, BlockContext.UserGroup);
 
-            var removeModifier = Systems.Research.AddDynamicModifier(
-                BlockContext.UserGroup,
-                (PhysicalData initial, ref PhysicalData current) => {
-                    current.hull *= 10;
-                });
+            Systems.Instance.Delay(() => {
+                var totals = Systems.TotalsManager.StartWatching(Station.Blueprint.Blocks, BlockContext.UserGroup);
+
+                var removeModifier = Systems.Research.AddDynamicModifier(
+                    BlockContext.UserGroup,
+                    (PhysicalData initial, ref PhysicalData current) => {
+                        current.hull *= 10;
+                    }
+                );
+
+                Debug.Log(totals.Hull);
+
+                removeModifier();
+
+                Debug.Log(totals.Hull);
+            }, 1f);
+
+            return;
             
-            Debug.Log(totals.Hull);
-
-            removeModifier();
-            
-            Debug.Log(totals.Hull);
-
             waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
             waveManager.StartPreparationPhase(true);

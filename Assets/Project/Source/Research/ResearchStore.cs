@@ -11,9 +11,13 @@ namespace Exa.Research
 {
     public class ResearchStore : MonoBehaviour
     {
+        public delegate void ResearchChangedDelegate(BlockContext blockContext);
+        
         [SerializeField] private ResearchItemBag researchItemBag;
 
         private Dictionary<BlockContext, ResearchStepGroup> researchContexts;
+
+        public event ResearchChangedDelegate ResearchChanged;
 
         public void Init() {
             researchContexts = new Dictionary<BlockContext, ResearchStepGroup>();
@@ -45,9 +49,9 @@ namespace Exa.Research
         public void AddModifier(BlockContext filter, IBlockComponentModifier modifier) {
             var steps = new List<ResearchStep>(modifier.GetResearchSteps());
             foreach (var (context, group) in FilterDict(filter)) {
-                Systems.Blocks.Values.SetDirty(context, modifier);
-                Systems.TotalsManager.InvalidateTotals(context);
                 group.AddSteps(modifier, steps);
+                Systems.Blocks.Values.SetDirty(context, modifier);
+                ResearchChanged?.Invoke(context);
             }
         }
 
@@ -68,9 +72,9 @@ namespace Exa.Research
 
         public void RemoveModifier(BlockContext filter, IBlockComponentModifier modifier) {
             foreach (var (context, group) in FilterDict(filter)) {
-                Systems.Blocks.Values.SetDirty(context, modifier);
-                Systems.TotalsManager.InvalidateTotals(context);
                 group.RemoveSteps(modifier);
+                Systems.Blocks.Values.SetDirty(context, modifier);
+                ResearchChanged?.Invoke(context);
             }
         }
 
