@@ -10,6 +10,11 @@ namespace Exa.Utils
             return dictionary.Select(kvp => (kvp.Key, kvp.Value));
         }
 
+        public static TValue Get<Tkey, TValue>(this IDictionary<Tkey, TValue> dictionary, Tkey key)
+            where TValue : class {
+            return dictionary.ContainsKey(key) ? dictionary[key] : null;
+        }
+        
         public static void EnsureCreated<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
             Func<TValue> factory) {
             if (!dictionary.ContainsKey(key))

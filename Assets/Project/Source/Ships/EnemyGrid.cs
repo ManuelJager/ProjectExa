@@ -27,7 +27,9 @@ namespace Exa.Ships
         }
 
         public float GetTurningRate() {
-            return BlockGrid.Totals.TurningPower / BlockGrid.Totals.Mass;
+            var totals = BlockGrid.GetTotals(); 
+            
+            return totals.TurningPower / totals.Mass;
         }
 
         public override ShipSelection GetAppropriateSelection(Formation formation) {

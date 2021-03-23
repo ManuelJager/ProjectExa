@@ -90,8 +90,8 @@ namespace Exa.AI.Actions
         }
 
         private bool ShouldYield(GridInstance other) {
-            var thisMass = grid.Blueprint.Blocks.Totals.Mass;
-            var otherMass = other.Blueprint.Blocks.Totals.Mass;
+            var thisMass = grid.BlockGrid.GetTotals().Mass;
+            var otherMass = other.BlockGrid.GetTotals().Mass;
 
             if (otherMass != thisMass) {
                 return otherMass > thisMass;

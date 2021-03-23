@@ -46,7 +46,6 @@ namespace Exa.Ships
         public BlockGrid BlockGrid { get; private set; }
         public Blueprint Blueprint { get; private set; }
         public Controller Controller { get; internal set; }
-        public GridTotals Totals { get; private set; }
         public bool Active { get; private set; }
         public IGridOverlay Overlay { get; set; }
         public Transform Transform => transform;
@@ -60,8 +59,8 @@ namespace Exa.Ships
         }
 
         private void Update() {
-            var currentHull = BlockGrid.Totals.Hull;
-            var totalHull = Blueprint.Blocks.Totals.Hull;
+            var currentHull = BlockGrid.GetTotals().Hull;
+            var totalHull = Blueprint.Blocks.GetTotals(BlockContext).Hull;
             HullIntegrity = currentHull / totalHull;
 
             if (Active) {
@@ -101,8 +100,7 @@ namespace Exa.Ships
             if (blueprint.Blocks.Controller == null) {
                 throw new ArgumentException("Blueprint must have a controller reference");
             }
-
-            Totals = new GridTotals();
+            
             BlockGrid = new BlockGrid(pivot, this);
             Configuration = configuration;
             ActionScheduler = new ActionScheduler(this);

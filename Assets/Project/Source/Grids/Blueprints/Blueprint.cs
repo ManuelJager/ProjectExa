@@ -53,7 +53,7 @@ namespace Exa.Grids.Blueprints
             new TooltipText($"Class: {shipClass}"),
             new TooltipText($"Size: {(Vector2Int)Blocks.Size}"),
             new TooltipText($"Blocks (Count: {Blocks.GetMemberCount()}):"),
-            new TooltipGroup(Blocks.Totals.GetDebugTooltipComponents(), 1)
+            new TooltipGroup(Blocks.GetTotals().GetDebugTooltipComponents(), 1)
         };
     }
 }

@@ -37,6 +37,12 @@ namespace Exa.Grids.Blocks
             return cache.totals;
         }
 
+        public GridTotals GetGridTotalsSafe(IMemberCollection grid, BlockContext context) {
+            return totalsDictionary.Get(grid)?.Get(context) == null 
+                ? StartWatching(grid, context) 
+                : GetGridTotals(grid, context);
+        }
+
         public GridTotals GetGridTotals(IMemberCollection grid, BlockContext context) {
             return totalsDictionary[grid][context].totals;
         }

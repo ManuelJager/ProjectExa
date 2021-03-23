@@ -7,6 +7,7 @@ using Exa.UI.Tooltips;
 using Exa.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Source.Grids;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -15,17 +16,22 @@ namespace Exa.Ships
     public class BlockGrid : Grid<Block>
     {
         private readonly Transform container;
+        private GridTotals totals;
 
         public IGridInstance Parent { get; }
         public bool Rebuilding { get; set; }
         public BlockGridMetadata Metadata { get; }
 
-        public BlockGrid(Transform container, IGridInstance parent)
-            : base(totals: (parent as GridInstance)?.Totals) {
+        public BlockGrid(Transform container, IGridInstance parent) {
             this.container = container;
+            this.totals = Systems.TotalsManager.StartWatching(this, parent.BlockContext);
 
             Parent = parent;
             Metadata = new BlockGridMetadata(GridMembers);
+        }
+
+        public GridTotals GetTotals() {
+            return totals;
         }
 
         public override void Add(Block gridMember) {

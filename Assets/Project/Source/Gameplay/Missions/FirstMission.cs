@@ -24,20 +24,12 @@ namespace Exa.Gameplay.Missions
             Station = spawner.SpawnPlayerStation();
 
             Systems.Instance.Delay(() => {
-                var totals = Systems.TotalsManager.StartWatching(Station.Blueprint.Blocks, BlockContext.UserGroup);
-
-                var removeModifier = Systems.Research.AddDynamicModifier(
+                Systems.Research.AddDynamicModifier(
                     BlockContext.UserGroup,
                     (PhysicalData initial, ref PhysicalData current) => {
                         current.hull *= 10;
                     }
                 );
-
-                Debug.Log(totals.Hull);
-
-                removeModifier();
-
-                Debug.Log(totals.Hull);
             }, 1f);
 
             return;

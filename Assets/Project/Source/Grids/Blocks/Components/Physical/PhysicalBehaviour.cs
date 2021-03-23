@@ -32,7 +32,7 @@ namespace Exa.Grids.Blocks.Components
 
 
             if (GridInstance) {
-                GridInstance.Totals.Hull -= appliedDamage;
+                GridInstance.BlockGrid.GetTotals().Hull -= appliedDamage;
                 GameSystems.PopupManager.CreateOrUpdateDamagePopup(transform.position, damageSource, appliedDamage);
             }
 

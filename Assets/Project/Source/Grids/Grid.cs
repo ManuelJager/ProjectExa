@@ -12,19 +12,14 @@ using Project.Source.Grids;
 
 namespace Exa.Grids
 {
-    public class Grid<T> : IEnumerable<T>, IMemberCollection
+    public abstract class Grid<T> : IEnumerable<T>, IMemberCollection
         where T : class, IGridMember
     {
-        private TotalsManager totalsManager;
-        
         public event IMemberCollection.MemberChange MemberAdded;
         public event IMemberCollection.MemberChange MemberRemoved;
 
         public LazyCache<Vector2Int> Size { get; protected set; }
-
-        // NOTE: Grid totals are affected by the context of the blueprint, since they will be subject to change because of tech
-        // TODO: Replace the reference by a manager that handles totals versioning
-        public virtual GridTotals Totals { get; }
+        
         protected ObservableCollection<T> GridMembers { get; set; }
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
@@ -37,26 +32,20 @@ namespace Exa.Grids
                 return Mathf.Max(size.x, size.y);
             }
         }
-
-        public Grid(
+        
+        protected Grid(
             LazyCache<Vector2Int> size = null,
-            GridTotals totals = null,
             ObservableCollection<T> gridMembers = null,
             Dictionary<Vector2Int, T> occupiedTiles = null,
             Dictionary<T, List<T>> neighbourDict = null) {
-            totalsManager = Systems.TotalsManager;
-            
             Size = size ?? new LazyCache<Vector2Int>(() => {
                 var bounds = new GridBounds(OccupiedTiles.Keys);
                 return bounds.GetDelta();
             });
-
-            Totals = totals ?? new GridTotals();
+            
             GridMembers = gridMembers ?? new ObservableCollection<T>();
             OccupiedTiles = occupiedTiles ?? new Dictionary<Vector2Int, T>();
             NeighbourDict = neighbourDict ?? new Dictionary<T, List<T>>();
-
-            totalsManager.StartWatching(this, BlockContext.DefaultGroup);
         }
 
         public virtual void Add(T gridMember) {
@@ -69,7 +58,6 @@ namespace Exa.Grids
 
             GridMembers.Add(gridMember);
             
-            gridMember.AddGridTotals(Totals);
             MemberAdded?.Invoke(gridMember);
 
             // Get grid positions of blueprint block
@@ -106,7 +94,6 @@ namespace Exa.Grids
 
             GridMembers.Remove(gridMember);
             
-            gridMember.RemoveGridTotals(Totals);
             MemberRemoved?.Invoke(gridMember);
 
             // Remove neighbour references

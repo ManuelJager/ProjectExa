@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blueprints;
+﻿using Exa.Grids.Blocks;
+using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,10 +38,12 @@ namespace Exa.UI
             nameText.text = blueprint.name;
             Vector2Int size = blueprint.Blocks.Size;
 
+            var totals = blueprint.Blocks.GetTotals(BlockContext.UserGroup);
+
             blockCountView.SetValue(blueprint.Blocks.GetMemberCount());
             sizeView.SetValue($"{size.x}x{size.y}");
-            massView.SetValue($"{blueprint.Blocks.Totals.Mass:0} Tonne");
-            energyView.SetValue($"{blueprint.Blocks.Totals.PowerGeneration:0} KW");
+            massView.SetValue($"{totals.Mass:0} Tonne");
+            energyView.SetValue($"{totals.PowerGeneration:0} KW");
         }
 
         private void OnEnable() {
