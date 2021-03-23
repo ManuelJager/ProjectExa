@@ -22,17 +22,6 @@ namespace Exa.Gameplay.Missions
             var spawner = new Spawner();
 
             Station = spawner.SpawnPlayerStation();
-
-            Systems.Instance.Delay(() => {
-                Systems.Research.AddDynamicModifier(
-                    BlockContext.UserGroup,
-                    (PhysicalData initial, ref PhysicalData current) => {
-                        current.hull *= 10;
-                    }
-                );
-            }, 1f);
-
-            return;
             
             waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
