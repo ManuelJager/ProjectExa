@@ -9,21 +9,19 @@ namespace Exa.Grids
 {
     public class GridTotals : ICloneable<GridTotals>
     {
-        public IControllerData controllerData;
-        
         private BlockContext context;
 
-        public virtual float Mass { get; set; }
-        public virtual float Hull { get; set; }
-        public virtual Scalar PowerGenerationModifier { get; set; }
-        public virtual Scalar TurningPowerModifier { get; set; }
+        public float Mass { get; set; }
+        public float Hull { get; set; }
+        public float Strength { get; set; }
+        public float UnscaledPowerGeneration { get; set; }
+        public float UnscaledTurningPower { get; set; }
+        public Scalar PowerGenerationModifier { get; set; }
+        public Scalar TurningPowerModifier { get; set; }
 
-        public virtual float PowerGeneration => PowerGenerationModifier.GetValue(controllerData.PowerGeneration);
-        public virtual float TurningPower => TurningPowerModifier.GetValue(controllerData.TurningRate);
+        public float PowerGeneration => PowerGenerationModifier.GetValue(UnscaledPowerGeneration);
+        public float TurningPower => TurningPowerModifier.GetValue(UnscaledTurningPower);
         
-        public GridTotals()
-            : this(BlockContext.DefaultGroup){ }
-
         public GridTotals(BlockContext context) {
             this.context = context;
         }
@@ -39,8 +37,7 @@ namespace Exa.Grids
             TurningPowerModifier = new Scalar();
         }
 
-        public GridTotals Clone() => new GridTotals {
-            controllerData = controllerData,
+        public GridTotals Clone() => new GridTotals(context) {
             Mass = Mass,
             Hull = Hull,
             PowerGenerationModifier = PowerGenerationModifier,

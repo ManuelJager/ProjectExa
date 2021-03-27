@@ -1,5 +1,4 @@
-﻿using Exa.Data;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
@@ -7,10 +6,10 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class GyroscopeTemplatePartial : TemplatePartial<GyroscopeData>
     {
-        [SerializeField] private Scalar turningRate;
-
+        [SerializeField] private float turningPower;
+        
         public override GyroscopeData ToBaseComponentValues() => new GyroscopeData {
-            turningRate = turningRate
+            turningPower = turningPower 
         };
     }
 }

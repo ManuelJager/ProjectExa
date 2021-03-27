@@ -18,6 +18,7 @@ MonoBehaviour:
   thumbnail: {fileID: 4028293609388341736, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
+  strength: 8
   inertPrefab: {fileID: 3381617769083692569, guid: 32232d525af1553449ae80920da2fe74,
     type: 3}
   alivePrefab: {fileID: 5632532741842114357, guid: 67dc6d15d140c08438680a80282db6af,

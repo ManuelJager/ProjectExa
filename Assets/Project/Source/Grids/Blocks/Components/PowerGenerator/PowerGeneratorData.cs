@@ -9,14 +9,14 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public struct PowerGeneratorData : IBlockComponentValues
     {
-        public Scalar powerGeneration;
+        public float powerGeneration;
 
         public void AddGridTotals(GridTotals totals) {
-            totals.PowerGenerationModifier += powerGeneration;
+            totals.UnscaledPowerGeneration += powerGeneration;
         }
 
         public void RemoveGridTotals(GridTotals totals) {
-            totals.PowerGenerationModifier -= powerGeneration;
+            totals.UnscaledPowerGeneration -= powerGeneration;
         }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {

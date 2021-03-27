@@ -1,4 +1,5 @@
 ﻿using System;
+using Exa.Data;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
@@ -6,16 +7,12 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class StationControllerTemplatePartial : TemplatePartial<StationControllerData>
     {
-        [SerializeField] private float powerGeneration;
-        [SerializeField] private float powerConsumption;
-        [SerializeField] private float powerStorage;
-        [SerializeField] private float turningRate;
+        [SerializeField] private Scalar powerGenerationModifier;
+        [SerializeField] private Scalar turningPowerModifier;
 
         public override StationControllerData ToBaseComponentValues() => new StationControllerData {
-            powerGeneration = powerGeneration,
-            powerConsumption = powerConsumption,
-            powerStorage = powerStorage,
-            turningRate = turningRate
+            powerGenerationModifier = powerGenerationModifier,
+            turningPowerModifier = turningPowerModifier
         };
     }
 }

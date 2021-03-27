@@ -31,6 +31,7 @@ namespace Exa.Grids.Blocks
         public BlockCategory category;
         public Sprite thumbnail;
         public Vector2Int size;
+        public float strength;
         public GameObject inertPrefab;
         public GameObject alivePrefab;
 
@@ -41,12 +42,16 @@ namespace Exa.Grids.Blocks
         }
 
         public void AddGridTotals(GridTotals totals) {
+            totals.Strength += strength;
+            
             foreach (var partial in GetTemplatePartials()) {
                 partial.AddGridTotals(totals);
             }
         }
 
         public void RemoveGridTotals(GridTotals totals) {
+            totals.Strength += strength;
+            
             foreach (var partial in GetTemplatePartials()) {
                 partial.RemoveGridTotals(totals);
             }

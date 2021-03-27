@@ -3,35 +3,30 @@ using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using Exa.Data;
 using Exa.Types.Generics;
+using Unity.Entities;
 
 namespace Exa.Grids.Blocks.Components
 {
     [Serializable]
     public struct ShipControllerData : IControllerData
     {
-        public float powerGeneration;
-        public float powerConsumption;
-        public float powerStorage;
-        public float turningRate;
+        public Scalar powerGenerationModifier;
+        public Scalar turningPowerModifier;
         public Scalar thrustModifier;
-        
-        public float PowerGeneration => powerGeneration;
-        public float PowerConsumption => powerConsumption;
-        public float PowerStorage => powerStorage;
-        public float TurningRate => turningRate;
-        
+
         public void AddGridTotals(GridTotals totals) {
-            totals.controllerData = this;
+            totals.PowerGenerationModifier += powerGenerationModifier;
+            totals.TurningPowerModifier += turningPowerModifier;
         }
 
-        public void RemoveGridTotals(GridTotals totals) { }
+        public void RemoveGridTotals(GridTotals totals) {
+            totals.PowerGenerationModifier -= powerGenerationModifier;
+            totals.TurningPowerModifier -= turningPowerModifier;
+        }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
-            new LabeledValue<object>("Generation", $"{powerGeneration} KW"),
-            new LabeledValue<object>("Consumption", $"{powerConsumption} KW"),
-            new LabeledValue<object>("Storage", $"{powerStorage} KJ"),
-            new LabeledValue<object>("Turning rate", $"{turningRate}"),
-            new LabeledValue<object>("Thrust modifier", $"{thrustModifier.ToPercentageString()}")
+            new LabeledValue<object>("Generation", powerGenerationModifier.ToPercentageString()),
+            new LabeledValue<object>("Consumption", turningPowerModifier.ToPercentageString())
         };
     }
 }

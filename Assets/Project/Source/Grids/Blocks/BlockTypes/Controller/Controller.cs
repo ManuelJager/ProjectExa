@@ -2,7 +2,7 @@
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public abstract class Controller : Block, IController
+    public abstract class Controller : Block
     {
         protected override void OnAdd() {
             if (!GridInstance) return;

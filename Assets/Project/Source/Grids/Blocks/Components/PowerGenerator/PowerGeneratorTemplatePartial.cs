@@ -7,10 +7,10 @@ namespace Exa.Grids.Blocks.Components
     [Serializable]
     public class PowerGeneratorTemplatePartial : TemplatePartial<PowerGeneratorData>
     {
-        [SerializeField] private Scalar peakGeneration;
+        [SerializeField] private float powerGeneration; // In MW
 
         public override PowerGeneratorData ToBaseComponentValues() => new PowerGeneratorData {
-            powerGeneration = peakGeneration
+            powerGeneration = powerGeneration
         };
     }
 }

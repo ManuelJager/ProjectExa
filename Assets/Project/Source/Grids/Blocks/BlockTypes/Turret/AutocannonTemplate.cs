@@ -10,10 +10,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     [CreateAssetMenu(menuName = "Grids/Blocks/Autocannon")]
     public class AutocannonTemplate : BlockTemplate<Autocannon>, ITurretTemplate
     {
-        [SerializeField] private float turretRadius;
         [SerializeField] private AutocannonTemplatePartial autocannonTemplatePartial;
-
-        public float TurretRadius => turretRadius;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             return base.GetTemplatePartials()
