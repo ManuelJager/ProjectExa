@@ -13,12 +13,12 @@ namespace Exa.Grids
 
         public float Mass { get; set; }
         public float Hull { get; set; }
-        public float Strength { get; set; }
         public float UnscaledPowerGeneration { get; set; }
         public float UnscaledTurningPower { get; set; }
         public Scalar PowerGenerationModifier { get; set; }
         public Scalar TurningPowerModifier { get; set; }
-
+        public BlockMetadata Metadata { get; set; }
+        
         public float PowerGeneration => PowerGenerationModifier.GetValue(UnscaledPowerGeneration);
         public float TurningPower => TurningPowerModifier.GetValue(UnscaledTurningPower);
         
@@ -31,8 +31,8 @@ namespace Exa.Grids
         }
 
         public void Reset() {
-            Mass = 0f;
-            Hull = 0f;
+            Mass = 1f;
+            Hull = 1f;
             PowerGenerationModifier = new Scalar();
             TurningPowerModifier = new Scalar();
         }

@@ -149,6 +149,7 @@ namespace Exa.Grids.Blocks
 
             private IEnumerable<ITooltipComponent> SelectTooltipComponents() {
                 var components = new List<ITooltipComponent> {
+                    template.metadata,
                     new TooltipTitle(template.displayId)
                 };
 

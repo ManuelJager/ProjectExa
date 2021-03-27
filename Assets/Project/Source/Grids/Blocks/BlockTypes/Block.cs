@@ -93,7 +93,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         public void AddGridTotals(GridTotals totals) {
-            totals.Strength += BlueprintBlock.Template.strength; 
+            totals.Metadata += BlueprintBlock.Template.metadata;
             
             foreach (var behaviour in GetBehaviours()) {
                 behaviour.BlockComponentData.AddGridTotals(totals);
@@ -101,7 +101,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         public void RemoveGridTotals(GridTotals totals) {
-            totals.Strength += BlueprintBlock.Template.strength; 
+            totals.Metadata += BlueprintBlock.Template.metadata;
             
             foreach (var behaviour in GetBehaviours()) {
                 behaviour.BlockComponentData.RemoveGridTotals(totals);

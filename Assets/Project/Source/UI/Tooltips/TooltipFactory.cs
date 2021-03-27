@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Grids.Blocks;
+using UnityEngine;
 
 #pragma warning disable CS0649
 
@@ -11,6 +12,7 @@ namespace Exa.UI.Tooltips
         [SerializeField] private GameObject titlePrefab;
         [SerializeField] private GameObject spacerPrefab;
         [SerializeField] private GameObject textPrefab;
+        [SerializeField] private GameObject metadataPrefab;
 
         private Tooltip currentTooltip;
 
@@ -50,6 +52,10 @@ namespace Exa.UI.Tooltips
             return CreateComponent<SpacerView>(spacerPrefab, parent, value);
         }
 
+        public MetadataView CreateMetadataView(Transform parent, BlockMetadata metadata) {
+            return CreateComponent<MetadataView>(metadataPrefab, parent, metadata);
+        }
+        
         public TextView GenerateTooltipText(Transform parent, TooltipText value) {
             var view = CreateComponent<TextView>(textPrefab, parent, value);
 
