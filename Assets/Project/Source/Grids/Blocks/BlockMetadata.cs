@@ -9,17 +9,20 @@ namespace Exa.Grids.Blocks
     {
         public int strength;
         public int creditCost;
+        public int metalsCost;
 
         public static BlockMetadata operator +(BlockMetadata a, BlockMetadata b) {
             a.strength += b.strength;
             a.creditCost += b.creditCost;
-
+            a.metalsCost += b.metalsCost;
+            
             return a;
         }
 
         public static BlockMetadata operator -(BlockMetadata a, BlockMetadata b) {
             a.strength -= b.strength;
             a.creditCost -= b.creditCost;
+            a.metalsCost -= b.metalsCost;
 
             return a;
         }

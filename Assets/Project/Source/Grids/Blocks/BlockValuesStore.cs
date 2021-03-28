@@ -149,10 +149,8 @@ namespace Exa.Grids.Blocks
 
             private IEnumerable<ITooltipComponent> SelectTooltipComponents() {
                 var components = new List<ITooltipComponent> {
-                    new TooltipGroup(new ITooltipComponent[] {
-                        new TooltipTitle(template.displayId),
-                        template.metadata
-                    }, 0, -4)
+                    new TooltipTitle(template.displayId), 
+                    template.metadata
                 };
 
                 foreach (var componentData in valuesCache.Values) {

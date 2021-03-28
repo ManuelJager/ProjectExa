@@ -21,6 +21,7 @@ MonoBehaviour:
   metadata:
     strength: 3
     creditCost: 30
+    metalsCost: 1
   inertPrefab: {fileID: 9135450384423534818, guid: ebfb89a637c2e8a4aa93425e10f8bb04,
     type: 3}
   alivePrefab: {fileID: 4166625144049295618, guid: c401a2b3fb7edc645ba12478200efbd0,

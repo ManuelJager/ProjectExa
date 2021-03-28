@@ -9,6 +9,7 @@ namespace Exa.ShipEditor
     public class GridTotalsView : MonoBehaviour
     {
         [Header("References")]
+        [SerializeField] private MetadataView metadataView;
         [SerializeField] private PropertyView massView;
         [SerializeField] private PropertyView hullView;
         [SerializeField] private PropertyView energyView;
@@ -22,6 +23,7 @@ namespace Exa.ShipEditor
         }
 
         private void Render(GridTotals totals) {
+            metadataView.Refresh(totals.Metadata);
             massView.SetValue($"{totals.Mass:0} Tonne");
             hullView.SetValue($"{totals.Hull:0}");
             energyView.SetValue($"{totals.PowerGenerationModifier:0}");
