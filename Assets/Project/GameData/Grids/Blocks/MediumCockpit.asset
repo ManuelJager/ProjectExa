@@ -18,7 +18,9 @@ MonoBehaviour:
   thumbnail: {fileID: 8996286793590431966, guid: cb750ca62cc8eb04bbaefe5c1601e073,
     type: 3}
   size: {x: 3, y: 1}
-  strength: 10
+  metadata:
+    strength: 10
+    creditCost: 100
   inertPrefab: {fileID: 1524255837376171708, guid: edf254f4645f96b48b0a3338d12f8f67,
     type: 3}
   alivePrefab: {fileID: 3867314681599816325, guid: d41aedf958e2ee642b8940842ab9524f,

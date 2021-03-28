@@ -18,7 +18,9 @@ MonoBehaviour:
   thumbnail: {fileID: -6292391568748222180, guid: b83defb4a441e484193ddcc29009f684,
     type: 3}
   size: {x: 1, y: 1}
-  strength: 3
+  metadata:
+    strength: 3
+    creditCost: 30
   inertPrefab: {fileID: 9135450384423534818, guid: ebfb89a637c2e8a4aa93425e10f8bb04,
     type: 3}
   alivePrefab: {fileID: 4166625144049295618, guid: c401a2b3fb7edc645ba12478200efbd0,
@@ -28,4 +30,4 @@ MonoBehaviour:
     armor: 0
     mass: 1
   gyroscopeTemplatePartial:
-    turningPower: 10
+    turningPower: 15

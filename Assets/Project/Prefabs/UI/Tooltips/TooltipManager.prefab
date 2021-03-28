@@ -138,7 +138,7 @@ MonoBehaviour:
     type: 3}
   textPrefab: {fileID: 3963280057861318030, guid: 382b2815f3705b549970a8f7f1f15ce2,
     type: 3}
-  metadataPrefab: {fileID: 4996764847642273916, guid: dcba3e548bdbdf94ea2f76065d70e756,
+  metadataPrefab: {fileID: 2684111501116982609, guid: 4b82a56f278cc9841ae9e9178742ed32,
     type: 3}
 --- !u!1001 &1283002112867567586
 PrefabInstance:
