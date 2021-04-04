@@ -10,6 +10,7 @@ namespace Exa.UI.Gameplay
         public SelectionHotbar selectionHotbar;
         public SelectionArea selectionArea;
         public CoreHealthBar coreHealthBar;
+        public BlockCostsView currentResources;
         public Navigateable navigateable;
         public MissionState missionState;
     }

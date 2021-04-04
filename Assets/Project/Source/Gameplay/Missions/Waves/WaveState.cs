@@ -26,6 +26,9 @@ namespace Exa.Gameplay.Missions
         
         private void OnEnemyDestroyed(EnemyGrid grid) {
             totalDestroyed++;
+            
+            // Add on the costs of the destroyed ship to the current resources
+            GameSystems.MissionManager.CurrentResources += grid.GetBaseTotals().Metadata.blockCosts;
 
             if (totalDestroyed == totalCount && finishedSpawning) {
                 onWaveEnded();

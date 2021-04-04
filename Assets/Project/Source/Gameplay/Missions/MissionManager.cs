@@ -9,8 +9,10 @@ namespace Exa.Gameplay.Missions
 {
     public class MissionManager : MonoBehaviour
     {
-        public static bool IsEditing { get; set; }
-        public static Mission Mission { get; private set; }
+        public  bool IsEditing { get; set; }
+        public Mission Mission { get; private set; }
+        public BlockMetadata.BlockCosts CurrentResources { get; set; }
+
 
         private Blueprint editResult;
 
@@ -55,6 +57,8 @@ namespace Exa.Gameplay.Missions
             if (Mission != null) {
                 Mission.Update();
             }
+            
+            GameSystems.UI.gameplayLayer.currentResources.Refresh(CurrentResources);
         }
     }
 }

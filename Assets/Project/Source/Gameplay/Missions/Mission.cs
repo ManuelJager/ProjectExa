@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Exa.Grids;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Ships;

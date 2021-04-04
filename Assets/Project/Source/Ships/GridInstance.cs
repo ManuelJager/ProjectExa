@@ -37,8 +37,6 @@ namespace Exa.Ships
         public UnityEvent ControllerDestroyedEvent;
         
         private Tooltip debugTooltip;
-        private bool hovered = false;
-        private float hullIntegrity;
 
         public ActionScheduler ActionScheduler { get; private set; }
         public BlockContext BlockContext { get; private set; }
@@ -96,6 +94,14 @@ namespace Exa.Ships
             ExitRaycast();
         }
 
+        public GridTotals GetCurrentTotals() {
+            return BlockGrid.GetTotals();
+        }
+
+        public GridTotals GetBaseTotals() {
+            return Blueprint.Blocks.GetTotals(BlockContext);
+        }
+
         public virtual void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             if (blueprint.Blocks.Controller == null) {
                 throw new ArgumentException("Blueprint must have a controller reference");
@@ -126,8 +132,6 @@ namespace Exa.Ships
         }
 
         private void EnterRaycast() {
-            hovered = true;
-
             (Overlay as GridOverlay)?.SetHovered(true);
             Systems.UI.MouseCursor.stateManager.Add(cursorOverride);
 
@@ -143,8 +147,6 @@ namespace Exa.Ships
         }
 
         private void ExitRaycast() {
-            hovered = false;
-
             (Overlay as GridOverlay)?.SetHovered(false);
             Systems.UI.MouseCursor.stateManager.Remove(cursorOverride);
 
