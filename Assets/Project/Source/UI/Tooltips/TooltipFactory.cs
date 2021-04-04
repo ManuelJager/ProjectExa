@@ -52,8 +52,8 @@ namespace Exa.UI.Tooltips
             return CreateComponent<SpacerView>(spacerPrefab, parent, value);
         }
 
-        public MetadataView CreateMetadataView(Transform parent, BlockMetadata metadata) {
-            return CreateComponent<MetadataView>(metadataPrefab, parent, metadata);
+        public BlockCostsView CreateMetadataView(Transform parent, BlockMetadata.BlockCosts metadata) {
+            return CreateComponent<BlockCostsView>(metadataPrefab, parent, metadata);
         }
         
         public TextView GenerateTooltipText(Transform parent, TooltipText value) {

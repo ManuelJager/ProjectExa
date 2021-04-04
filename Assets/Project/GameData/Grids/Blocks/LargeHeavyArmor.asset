@@ -22,6 +22,9 @@ MonoBehaviour:
     strength: 6
     creditCost: 40
     metalsCost: 3
+    blockCosts:
+      creditCost: 40
+      metalsCost: 3
   inertPrefab: {fileID: 629283983640481579, guid: a913b7f6f31d651408e59c414dfb1391,
     type: 3}
   alivePrefab: {fileID: 7854684309494694163, guid: ae0ad9411c864ba42add8284bea1367d,
