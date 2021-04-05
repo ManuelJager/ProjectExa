@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using Exa.Ships;
 using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;

@@ -1,6 +1,4 @@
-﻿using Exa.Grids.Blocks.Components;
-
-namespace Exa.Grids.Blocks.BlockTypes
+﻿namespace Exa.Grids.Blocks.BlockTypes
 {
     public abstract class Controller : Block
     {

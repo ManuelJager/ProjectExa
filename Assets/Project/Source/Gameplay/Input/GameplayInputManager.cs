@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Exa.Input;
-using Exa.Utils;
+﻿using Exa.Input;
 using UnityEngine;
 using static Exa.Input.GameControls;
 

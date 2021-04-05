@@ -1,5 +1,4 @@
-﻿using System;
-using Exa.Grids.Blocks;
+﻿using Exa.Grids.Blocks;
 using Exa.UI.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,6 @@ using Exa.Types.Binding;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
 
 #pragma warning disable CS0649
 

@@ -1,6 +1,5 @@
 ﻿using Exa.Math;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Exa.UI
 {

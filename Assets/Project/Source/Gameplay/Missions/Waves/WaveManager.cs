@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Exa.Grids.Blueprints;
 using Exa.Ships;
 using Exa.Utils;
 using UnityEngine;

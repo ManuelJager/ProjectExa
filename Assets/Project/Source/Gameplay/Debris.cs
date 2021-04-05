@@ -1,6 +1,5 @@
 ﻿using Exa.Grids;
 using Exa.Grids.Blocks;
-using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
 using UnityEngine;
 #pragma warning disable CS0649

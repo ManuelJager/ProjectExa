@@ -2,7 +2,6 @@
 using Exa.Grids.Blocks.Components;
 using System;
 using Exa.Utils;
-using UnityEngine;
 
 namespace Exa.Grids.Blocks
 {

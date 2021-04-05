@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using Exa.Grids;
-using Exa.Grids.Blocks;
-using Exa.Grids.Blocks.BlockTypes;
-using Exa.Grids.Blueprints;
-using Exa.Ships;
+﻿using Exa.Ships;
 using Exa.Types.Generics;
 using UnityEngine;
 

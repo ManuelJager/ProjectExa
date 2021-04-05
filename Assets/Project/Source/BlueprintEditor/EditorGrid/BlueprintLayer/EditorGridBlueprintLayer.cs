@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using Exa.Grids.Blueprints;
+﻿using Exa.Grids.Blueprints;
 using Exa.Utils;
 using System.Collections.Generic;
-using System.Linq;
-using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 using UnityEngine.Events;
 

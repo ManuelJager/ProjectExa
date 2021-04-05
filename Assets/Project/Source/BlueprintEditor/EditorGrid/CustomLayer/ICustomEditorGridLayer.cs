@@ -1,5 +1,4 @@
-﻿using System;
-using Exa.Grids.Blueprints;
+﻿using Exa.Grids.Blueprints;
 
 namespace Exa.ShipEditor
 {

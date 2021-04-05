@@ -1,5 +1,4 @@
-﻿using Exa.Debugging;
-using Exa.Math;
+﻿using Exa.Math;
 using Exa.Ships;
 using Exa.Ships.Targeting;
 using Exa.Utils;

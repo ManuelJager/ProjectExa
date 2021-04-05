@@ -1,11 +1,7 @@
-﻿using Exa.Grids.Blocks;
-using Exa.Grids.Blueprints;
-using Exa.Utils;
+﻿using Exa.Grids.Blueprints;
 using Exa.Validation;
-using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids;
-using UnityEngine;
 
 namespace Exa.ShipEditor
 {

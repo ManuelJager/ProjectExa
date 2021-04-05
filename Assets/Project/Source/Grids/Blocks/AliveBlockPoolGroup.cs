@@ -1,5 +1,4 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
-using Exa.Ships;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks

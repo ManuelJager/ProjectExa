@@ -1,6 +1,4 @@
-﻿using System;
-using Exa.Grids.Blocks.BlockTypes;
-using Exa.Math;
+﻿using Exa.Math;
 using Exa.Ships;
 using UnityEngine;
 using UnityEngine.InputSystem;

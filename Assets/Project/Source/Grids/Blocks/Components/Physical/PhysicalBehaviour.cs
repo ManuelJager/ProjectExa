@@ -1,6 +1,4 @@
-﻿using Exa.Ships;
-using Exa.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {

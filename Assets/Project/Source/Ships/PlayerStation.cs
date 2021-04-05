@@ -1,5 +1,4 @@
-﻿using System;
-using Exa.Gameplay;
+﻿using Exa.Gameplay;
 using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;

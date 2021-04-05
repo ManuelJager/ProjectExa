@@ -1,6 +1,4 @@
-﻿using System;
-using Exa.Camera;
-using Exa.AI;
+﻿using Exa.AI;
 using Exa.Gameplay;
 using Exa.Gameplay.Missions;
 using Exa.Ships;

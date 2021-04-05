@@ -1,5 +1,4 @@
 ﻿using System;
-using Exa.Data;
 using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using Exa.Types.Generics;

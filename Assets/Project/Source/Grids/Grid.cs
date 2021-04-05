@@ -1,7 +1,4 @@
-﻿using System;
-using Exa.Generics;
-using Exa.Grids.Blocks;
-using Exa.Grids.Blueprints;
+﻿using Exa.Grids.Blueprints;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

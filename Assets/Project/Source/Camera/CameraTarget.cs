@@ -1,5 +1,4 @@
-﻿using Exa.Math;
-using Exa.Types.Generics;
+﻿using Exa.Types.Generics;
 using Exa.UI.Tweening;
 using UnityEngine;
 

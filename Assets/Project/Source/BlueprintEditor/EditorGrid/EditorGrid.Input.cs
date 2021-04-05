@@ -1,5 +1,4 @@
-﻿using Exa.Grids;
-using Exa.Grids.Blocks;
+﻿using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 

@@ -1,7 +1,6 @@
 ﻿using Exa.AI;
 using Exa.Debugging;
 using Exa.Gameplay;
-using Exa.Generics;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
@@ -12,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using Exa.Grids;
 using Exa.Types.Generics;
-using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;

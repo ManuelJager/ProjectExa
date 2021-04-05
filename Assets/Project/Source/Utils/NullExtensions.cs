@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Exa.Utils
+﻿namespace Exa.Utils
 {
     public static class NullExtensions
     {

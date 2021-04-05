@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using Exa.Math;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 #pragma warning disable CS0649
 

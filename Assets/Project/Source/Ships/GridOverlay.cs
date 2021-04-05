@@ -1,5 +1,4 @@
-﻿using Exa.Grids.Blueprints;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.Ships
 {

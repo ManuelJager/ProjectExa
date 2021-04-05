@@ -1,12 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
-using Exa.Math;
-using Exa.Types;
-using Exa.Types.Binding;
 using Exa.Utils;
 using NaughtyAttributes;
 using UnityEngine;

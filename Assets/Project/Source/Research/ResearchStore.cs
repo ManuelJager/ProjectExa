@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids.Blocks;
-using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Utils;
 using UnityEngine;

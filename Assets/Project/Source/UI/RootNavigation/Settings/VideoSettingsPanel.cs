@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using Exa.UI.Controls;
 using Exa.Utils;
 using UnityEngine;

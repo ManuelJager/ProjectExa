@@ -2,7 +2,6 @@
 using Exa.Utils;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 #pragma warning disable CS0649
 

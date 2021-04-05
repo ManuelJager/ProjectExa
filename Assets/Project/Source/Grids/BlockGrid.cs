@@ -1,13 +1,9 @@
-﻿using System;
-using Exa.Grids;
-using Exa.Grids.Blocks;
+﻿using Exa.Grids;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
-using Exa.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Source.Grids;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

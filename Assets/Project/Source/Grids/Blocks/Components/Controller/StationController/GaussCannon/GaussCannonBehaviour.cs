@@ -1,12 +1,8 @@
-﻿using System.Linq;
-using DG.Tweening;
-using Exa.Grids.Blocks.BlockTypes;
-using Exa.Ships;
+﻿using DG.Tweening;
 using Exa.Utils;
 using Exa.VFX;
 using Exa.Math;
 using UnityEngine;
-using UnityEngine.VFX;
 
 #pragma warning disable 649
 

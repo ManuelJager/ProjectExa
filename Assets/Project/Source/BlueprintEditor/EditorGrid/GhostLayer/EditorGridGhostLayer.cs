@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
-using Exa.Types;
 using Exa.Utils;
 using UnityEngine;
-using UnityEngine.Serialization;
- 
+
 namespace Exa.ShipEditor
 {
     public class EditorGridGhostLayer : MonoBehaviour

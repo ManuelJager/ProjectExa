@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Exa.Audio.Music
+﻿namespace Exa.Audio.Music
 {
     public interface ISong : ISound
     {

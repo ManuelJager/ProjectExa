@@ -1,5 +1,4 @@
 ﻿using Exa.Grids.Blocks;
-using Exa.ShipEditor;
 using Exa.Validation;
 
 namespace Exa.Gameplay.Missions

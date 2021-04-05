@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using DG.Tweening;
-using Exa.Generics;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;

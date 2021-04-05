@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Exa.Ships;
 using Exa.Utils;
 using UnityEngine;

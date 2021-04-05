@@ -1,5 +1,4 @@
-﻿using Exa.Data;
-using Exa.Ships.Targeting;
+﻿using Exa.Ships.Targeting;
 
 namespace Exa.Ships.Navigation
 {

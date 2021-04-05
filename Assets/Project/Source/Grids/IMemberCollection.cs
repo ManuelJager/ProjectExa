@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Exa;
+﻿using System.Collections.Generic;
 using Exa.Grids;
-using Exa.Grids.Blocks;
 
 namespace Project.Source.Grids
 {

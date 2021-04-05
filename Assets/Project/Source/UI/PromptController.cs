@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Exa.UI.Components;
-using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 

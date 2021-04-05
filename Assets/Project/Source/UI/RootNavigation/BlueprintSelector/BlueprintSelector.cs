@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.IO;
 using Exa.ShipEditor;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Exa.Types.Generics;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 

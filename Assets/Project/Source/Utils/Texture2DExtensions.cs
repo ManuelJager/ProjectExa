@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using Exa.Math;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using MathUtils = Exa.Math.MathUtils;
 

@@ -1,7 +1,5 @@
-﻿using System;
-using Exa.Input;
+﻿using Exa.Input;
 using System.Reflection;
-using Exa.Utils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;

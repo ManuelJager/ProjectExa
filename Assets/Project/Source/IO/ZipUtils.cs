@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Exa.Audio;
 using Ionic.Zip;
-using UnityEngine;
 
 namespace Exa.IO
 {

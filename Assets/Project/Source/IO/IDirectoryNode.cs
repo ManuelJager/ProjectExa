@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Exa.IO
+﻿namespace Exa.IO
 {
     public interface IDirectoryNode
     {

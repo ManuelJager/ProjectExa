@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Exa.Types.Generics;
 using Exa.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 #pragma warning disable CS0649
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using Exa.Types.Generics;
-using UnityEngine;
+﻿using Exa.Types.Generics;
 
 namespace Exa.Audio.Music
 {

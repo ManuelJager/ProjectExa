@@ -3,7 +3,6 @@ using Exa.AI.Actions;
 using Exa.Ships;
 using Exa.UI.Tooltips;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 #pragma warning disable CS0649

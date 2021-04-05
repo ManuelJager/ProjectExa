@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Exa.Grids.Blocks;
 
 namespace Exa.Research

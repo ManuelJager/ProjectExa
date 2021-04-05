@@ -1,5 +1,3 @@
-using System;
-using DG.Tweening;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;

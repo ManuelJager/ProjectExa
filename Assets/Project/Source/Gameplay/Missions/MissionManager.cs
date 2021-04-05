@@ -1,6 +1,5 @@
 ﻿using System;
 using Exa.Camera;
-using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.ShipEditor;
