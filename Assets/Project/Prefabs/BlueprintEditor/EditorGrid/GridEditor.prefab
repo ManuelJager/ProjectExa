@@ -81,8 +81,21 @@ MonoBehaviour:
   editorGrid: {fileID: 1127281402421229076}
   navigateable: {fileID: 6027265397929423277}
   stopwatch: {fileID: 9133893927100921210}
-  editorGridBackground: {fileID: 0}
-  zoomSpeed: 0.8
+  cameraSettings:
+    ZoomEase:
+      easeType: 0
+      ease: 4
+      animationCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    zoomMinMax:
+      min: 0.1
+      max: 2.5
+    zoomSpeed: 2
+    orthoMultiplier: 30
 --- !u!114 &6027265397929423277
 MonoBehaviour:
   m_ObjectHideFlags: 0

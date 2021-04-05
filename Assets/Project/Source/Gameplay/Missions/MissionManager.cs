@@ -78,8 +78,7 @@ namespace Exa.Gameplay.Missions
             
             void BlueprintChangedHandler() { 
                 var args = new BlueprintCostValidatorArgs {
-                    currentCosts = Systems.Editor.editorGrid.blueprintLayer.ActiveBlueprint.Blocks
-                        .GetTotals().Metadata.blockCosts,
+                    currentCosts = Systems.Editor.ActiveBlueprintTotals.Metadata.blockCosts,
                 }; 
                 
                 addErrors(Systems.Editor.Validate(validator, args));

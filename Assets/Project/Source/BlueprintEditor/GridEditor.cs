@@ -4,6 +4,7 @@ using Exa.IO;
 using Exa.UI;
 using System.Collections.Generic;
 using Exa.Camera;
+using Exa.Grids;
 using Exa.UI.Controls;
 using Exa.Utils;
 using Exa.Validation;
@@ -17,18 +18,21 @@ namespace Exa.ShipEditor
     [RequireComponent(typeof(GridEditorNavigateable))]
     public partial class GridEditor : MonoBehaviour, IEditorActions, IUIGroup
     {
-        public EditorGrid editorGrid;
+        [SerializeField] private EditorGrid editorGrid;
         public GridEditorNavigateable navigateable;
 
         [SerializeField] private GridEditorStopwatch stopwatch;
-        [SerializeField] private float zoomSpeed;
+        [SerializeField] private CameraTargetSettings cameraSettings;
         private GameControls gameControls;
         private ShipEditorOverlay overlay;
         private EditorCameraTarget editorCameraTarget;
 
+        public Blueprint ActiveBlueprint => editorGrid.blueprintLayer.ActiveBlueprint;
+        public GridTotals ActiveBlueprintTotals => ActiveBlueprint.Blocks.GetTotals(ImportArgs.BlockContext);
+
         private void Awake() {
             overlay = Systems.UI.EditorOverlay;
-            editorCameraTarget = new EditorCameraTarget(new CameraTargetSettings());
+            editorCameraTarget = new EditorCameraTarget(cameraSettings);
 
             gameControls = new GameControls();
             gameControls.Editor.SetCallbacks(this);

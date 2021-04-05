@@ -35,9 +35,9 @@ namespace Exa.ShipEditor
         public void AddBlock(ABpBlock block) {
             // Reset the stopwatch timer used by the shipeditor to time blueprint grid validation
             stopwatch.Reset();
-            onBlueprintChanged?.Invoke();
             PlaceBlock(block);
             ActiveBlueprint.Add(block);
+            onBlueprintChanged?.Invoke();
         }
 
         public void PlaceBlock(ABpBlock block) {
