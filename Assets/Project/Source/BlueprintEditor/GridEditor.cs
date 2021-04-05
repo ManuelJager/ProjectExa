@@ -3,12 +3,14 @@ using Exa.Input;
 using Exa.IO;
 using Exa.UI;
 using System;
+using System.Collections.Generic;
 using Exa.Gameplay;
 using Exa.Camera;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.UI.Controls;
 using Exa.Utils;
+using Exa.Validation;
 using UnityEngine;
 using static Exa.Input.GameControls;
 
@@ -68,6 +70,8 @@ namespace Exa.ShipEditor
         private void OnDisable() {
             overlay.gameObject.SetActive(false);
             gameControls.Disable();
+
+            customValidators.Values.ForEach(cache => cache.cleanUp());
         }
 
         private void Update() {
@@ -84,21 +88,37 @@ namespace Exa.ShipEditor
 
         public void Import(GridEditorImportArgs importArgs) {
             ImportArgs = importArgs;
-            BaseImport(importArgs.GetBlueprint(), importArgs is ContainerImportArgs);
+            customValidators = new Dictionary<IValidator, CustomValidatorCache>();
+            
+            if (ImportArgs.CustomValidators.IsNotNull(out var value)) {
+                foreach (var customValidator in value) {
+                    var cache = new CustomValidatorCache();
+                    
+                    var (validator, cleanUp) = customValidator((errors) => {
+                        cache.result = errors;
+                    });
+
+                    cache.cleanUp = cleanUp;
+                    
+                    customValidators.Add(validator, cache);
+                }
+            }
+           
+            BaseImport(importArgs.GetBlueprint(), importArgs.ValidateName);
         }
 
-        private void BaseImport(Blueprint blueprint, bool validateName) {
+        private void BaseImport(Blueprint blueprint, bool enableNameChanging) {
             ResetState();
 
             editorGrid.turretLayer.Init();
-            
+
             gridValidator = new BlueprintGridValidator();
-            nameValidator = validateName ? new BlueprintNameValidator() : null;
-            overlay.infoPanel.SetNameEditingActive(validateName);
+            nameValidator = enableNameChanging ? new BlueprintNameValidator() : null;
+            overlay.infoPanel.SetNameEditingActive(enableNameChanging);
             
             var newBlueprint = blueprint.Clone();
             editorGrid.Import(newBlueprint, () => {
-                if (validateName) {
+                if (enableNameChanging) {
                     ValidateName(newBlueprint.name);
                 }
             });

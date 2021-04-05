@@ -83,24 +83,5 @@ namespace Exa.ShipEditor
             overlay.infoPanel.saveButtonCanvasGroup.alpha = ShouldSave ? 1f : 0.5f;
         }
 
-        private bool GetShouldSave(out string message) {
-            if (IsSaved) {
-                message = "Blueprint is already saved";
-                return false;
-            }
-
-            if (NameValidationResult != null && !NameValidationResult) {
-                message = NameValidationResult.GetFirstBySeverity().Message;
-                return false;
-            }
-
-            if (GridValidationResult != null && !GridValidationResult) {
-                message = GridValidationResult.GetFirstBySeverity().Message;
-                return false;
-            }
-
-            message = null;
-            return true;
-        }
     }
 }

@@ -1,7 +1,11 @@
-﻿namespace Exa.ShipEditor
+﻿using System;
+
+namespace Exa.ShipEditor
 {
     public partial class GridEditor
     {
+        public event Action BlueprintChangedEvent;
+        
         public void OnBlueprintClear() {
             // Hide block ghost and ask user for blueprint clear confirmation
             Systems.UI.Prompts.PromptYesNo("Are you sure you want to clear the blueprint?", this, yes => {
@@ -21,6 +25,7 @@
         }
 
         public void OnBlueprintChanged() {
+            BlueprintChangedEvent?.Invoke();
             IsSaved = false;
             UpdateSaveButton();
         }

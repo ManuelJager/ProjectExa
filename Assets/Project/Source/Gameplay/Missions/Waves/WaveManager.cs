@@ -30,10 +30,14 @@ namespace Exa.Gameplay.Missions
             
             GameSystems.UI.gameplayLayer.missionState.SetText("Combat phase", $"Wave {currentWaveIndex + 1}");
 
-            currentWaveState = new WaveState(OnWaveEnded);
+            currentWaveState = new WaveState(OnWaveEnded, OnEnemyDestroyed);
             waves[currentWaveIndex].Spawn(spawner, currentWaveState);
 
             currentWaveIndex++;
+        }
+
+        private void OnEnemyDestroyed(EnemyGrid grid) {
+            GameSystems.MissionManager.AddResources(grid.GetBaseTotals().Metadata.blockCosts);
         }
 
         private void OnMissionEnded() {

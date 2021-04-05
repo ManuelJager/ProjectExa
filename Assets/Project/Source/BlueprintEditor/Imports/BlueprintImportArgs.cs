@@ -9,7 +9,7 @@ namespace Exa.ShipEditor
         private Action<Blueprint> save;
         private Blueprint blueprint;
 
-        public  BlueprintImportArgs(Blueprint blueprint, Action<Blueprint> save) {
+        public BlueprintImportArgs(Blueprint blueprint, Action<Blueprint> save) {
             this.blueprint = blueprint;
             this.save = save;
         }

@@ -10,9 +10,11 @@ namespace Exa.Gameplay.Missions
         private int totalCount;
         private int totalDestroyed;
         private bool finishedSpawning;
+        private Action<EnemyGrid> onEnemyDestroyed;
 
-        public WaveState(Action onWaveEnded) {
+        public WaveState(Action onWaveEnded, Action<EnemyGrid> onEnemyDestroyed) {
             this.onWaveEnded = onWaveEnded;
+            this.onEnemyDestroyed = onEnemyDestroyed;
         }
         
         public void OnEnemySpawned(EnemyGrid grid) {
@@ -28,8 +30,8 @@ namespace Exa.Gameplay.Missions
             totalDestroyed++;
             
             // Add on the costs of the destroyed ship to the current resources
-            GameSystems.MissionManager.CurrentResources += grid.GetBaseTotals().Metadata.blockCosts;
-
+            onEnemyDestroyed?.Invoke(grid);
+            
             if (totalDestroyed == totalCount && finishedSpawning) {
                 onWaveEnded();
             }

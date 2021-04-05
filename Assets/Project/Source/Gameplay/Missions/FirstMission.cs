@@ -14,10 +14,10 @@ namespace Exa.Gameplay.Missions
         public override void Init(MissionArgs args) {
             var spawner = new Spawner();
 
-            GameSystems.MissionManager.CurrentResources = new BlockMetadata.BlockCosts {
+            GameSystems.MissionManager.AddResources(new BlockCosts {
                 creditCost = 100,
                 metalsCost = 10,
-            };
+            });
             
             Station = spawner.SpawnPlayerStation();
             

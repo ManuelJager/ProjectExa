@@ -12,7 +12,8 @@ namespace Exa.ShipEditor
 
         public ContainerImportArgs(BlueprintContainer container, Action<BlueprintContainer> save) {
             Container = container;
-            
+
+            this.ValidateName = true;
             this.save = save;
         }
         
