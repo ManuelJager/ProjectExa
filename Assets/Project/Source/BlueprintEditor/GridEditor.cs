@@ -71,7 +71,9 @@ namespace Exa.ShipEditor
             overlay.gameObject.SetActive(false);
             gameControls.Disable();
 
-            customValidators.ForEach(validator => validator.CleanUp());
+            foreach (var validator in customValidators) {
+                validator.Remove();
+            }
         }
 
         private void Update() {
@@ -112,6 +114,10 @@ namespace Exa.ShipEditor
                     ValidateName(newBlueprint.name);
                 }
             });
+
+            foreach (var validator in customValidators) {
+                validator.Add();
+            }
 
             overlay.infoPanel.blueprintNameInput.SetValue(newBlueprint.name, false);
             overlay.inventory.SetFilter(blueprint.BlueprintType.allowedBlockCategory);

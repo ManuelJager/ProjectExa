@@ -9,9 +9,6 @@ namespace Exa.Gameplay.Missions
 
         public BlueprintCostValidator(BlockCosts budget, BlockCosts currentCosts) {
             maxAllowedCosts = budget + currentCosts;
-            
-            BlueprintChangedHandler();
-            Systems.Editor.BlueprintChangedEvent += BlueprintChangedHandler;
         }
         
         protected override void AddErrors(ValidationResult errors, BlueprintCostValidatorArgs args) {
@@ -28,8 +25,13 @@ namespace Exa.Gameplay.Missions
     
             Result = Systems.Editor.Validate(this, args);
         }
+
+        public override void Add() {
+            Systems.Editor.BlueprintChangedEvent += BlueprintChangedHandler;
+            BlueprintChangedHandler();
+        }
         
-        public override void CleanUp() {
+        public override void Remove() {
             Systems.Editor.BlueprintChangedEvent -= BlueprintChangedHandler;
         }
     }

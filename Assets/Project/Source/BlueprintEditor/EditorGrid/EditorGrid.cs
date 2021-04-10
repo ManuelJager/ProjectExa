@@ -109,8 +109,8 @@ namespace Exa.ShipEditor
             // Get size of blueprint class and resize the grid accordingly
             var editorSize = blueprint.BlueprintType.maxSize;
             GenerateGrid(editorSize);
-
-            StartCoroutine(ImportRoutine(blueprint, callback));
+            blueprintLayer.Import(blueprint);
+            callback();
         }
 
         public void ClearBlueprint() {
@@ -123,12 +123,6 @@ namespace Exa.ShipEditor
                 x = -halfSize.x + 0.5f,
                 y = -halfSize.y + 0.5f
             };
-        }
-
-        private IEnumerator ImportRoutine(Blueprint blueprint, Action callback) {
-            blueprintLayer.Import(blueprint);
-            yield return null;
-            callback();
         }
     }
 }

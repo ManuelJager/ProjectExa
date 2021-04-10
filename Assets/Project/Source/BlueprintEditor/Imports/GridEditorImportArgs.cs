@@ -11,7 +11,7 @@ namespace Exa.ShipEditor
     {
         public BlockContext BlockContext { get; } = BlockContext.UserGroup;
         public Action OnExit { get; set; }
-        public IEnumerable<IPlugableValidator> PlugableValidators { get; set; }
+        public PlugableValidatorBuilder PlugableValidators { get; set; }
         public bool ValidateName { get; protected set; }
 
         public abstract void Save(Blueprint blueprint);

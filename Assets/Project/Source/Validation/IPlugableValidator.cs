@@ -1,10 +1,9 @@
-﻿using System;
-
-namespace Exa.Validation
+﻿namespace Exa.Validation
 {
     public interface IPlugableValidator : IValidator
     {
         public ValidationResult Result { get; }
-        void CleanUp();
+        void Add();
+        void Remove();
     }
 }
