@@ -71,7 +71,7 @@ namespace Exa.ShipEditor
             overlay.gameObject.SetActive(false);
             gameControls.Disable();
 
-            customValidators.Values.ForEach(cache => cache.cleanUp());
+            customValidators.ForEach(validator => validator.CleanUp());
         }
 
         private void Update() {
@@ -88,20 +88,12 @@ namespace Exa.ShipEditor
 
         public void Import(GridEditorImportArgs importArgs) {
             ImportArgs = importArgs;
-            customValidators = new Dictionary<IValidator, CustomValidatorCache>();
+            customValidators = new List<IPlugableValidator>();
 
             BaseImport(importArgs.GetBlueprint(), importArgs.ValidateName);
 
-            if (!ImportArgs.CustomValidators.IsNotNull(out var value)) return;
-            
-            foreach (var customValidator in value) {
-                var cache = new CustomValidatorCache();
-
-                var (validator, cleanUp) = customValidator((errors) => { cache.result = errors; });
-
-                cache.cleanUp = cleanUp;
-
-                customValidators.Add(validator, cache);
+            if (ImportArgs.PlugableValidators.IsNotNull(out var value)) {
+                customValidators.AddRange(value);
             }
         }
 

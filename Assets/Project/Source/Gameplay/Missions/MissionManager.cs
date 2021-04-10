@@ -43,9 +43,11 @@ namespace Exa.Gameplay.Missions
 
             var import = new BlueprintImportArgs(Mission.Station.Blueprint, result => editResult = result) {
                 OnExit = () => StopEditing(currentTarget),
-                CustomValidators = new GridEditorImportArgs.AddCustomValidator [] {
-                    AddBlueprintCostValidator
-                } 
+                PlugableValidators = new PlugableValidatorBuilder()
+                    .AddValidator(new BlueprintCostValidator(
+                        CurrentResources, 
+                        Mission.Station.GetBaseTotals().Metadata.blockCosts
+                    ))    
             };
             
             Systems.Editor.Import(import);
@@ -67,32 +69,6 @@ namespace Exa.Gameplay.Missions
             }
             
             GameSystems.UI.gameplayLayer.currentResources.Refresh(CurrentResources);
-        }
-
-        /// <summary>
-        /// Adds a blueprint cost validator to the grid editor.
-        /// </summary>
-        /// <param name="addErrors">Callback used for setting validator errors</param>
-        private (IValidator, Action) AddBlueprintCostValidator(Action<ValidationResult> addErrors) {
-            var validator = new BlueprintCostValidator(CurrentResources, Mission.Station.GetBaseTotals().Metadata.blockCosts);
-            
-            void BlueprintChangedHandler() { 
-                var args = new BlueprintCostValidatorArgs {
-                    currentCosts = Systems.Editor.ActiveBlueprintTotals.Metadata.blockCosts,
-                }; 
-                
-                addErrors(Systems.Editor.Validate(validator, args));
-            }
-            
-            BlueprintChangedHandler();
-            
-            Systems.Editor.BlueprintChangedEvent += BlueprintChangedHandler;
-
-            void ClearValidator() {
-                Systems.Editor.BlueprintChangedEvent -= BlueprintChangedHandler;
-            }
-
-            return (validator, ClearValidator);
         }
     }
 }

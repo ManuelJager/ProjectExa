@@ -10,7 +10,7 @@ namespace Exa.ShipEditor
     {
         private BlueprintGridValidator gridValidator;
         private BlueprintNameValidator nameValidator;
-        private Dictionary<IValidator, CustomValidatorCache> customValidators;
+        private List<IPlugableValidator> customValidators;
 
         public void ValidateGrid() {
             var args = new BlueprintGridValidationArgs {
@@ -59,21 +59,15 @@ namespace Exa.ShipEditor
                 return false;
             }
 
-            foreach (var (_, cache) in customValidators.Unpack()) {
-                if (cache.result == null || cache.result) continue;
+            foreach (var validator in customValidators) {
+                if (validator.Result == null || validator.Result) continue;
                 
-                message = cache.result.GetFirstBySeverity().Message;
+                message = validator.Result.GetFirstBySeverity().Message;
                 return false;
             }
 
             message = null;
             return true;
-        }
-
-        private class CustomValidatorCache
-        {
-            public ValidationResult result;
-            public Action cleanUp;
         }
     }
 }

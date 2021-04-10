@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
@@ -8,15 +9,30 @@ namespace Exa.ShipEditor
 {
     public abstract class GridEditorImportArgs
     {
-        // Signature for a method that adds a custom validators to the the grid editor
-        public delegate (IValidator, Action) AddCustomValidator(Action<ValidationResult> addErrors);
-        
-        public BlockContext BlockContext { get; set; } = BlockContext.UserGroup;
+        public BlockContext BlockContext { get; } = BlockContext.UserGroup;
         public Action OnExit { get; set; }
-        public IEnumerable<AddCustomValidator> CustomValidators { get; set; }
+        public IEnumerable<IPlugableValidator> PlugableValidators { get; set; }
         public bool ValidateName { get; protected set; }
 
         public abstract void Save(Blueprint blueprint);
         public abstract Blueprint GetBlueprint();
+    }
+
+    public class PlugableValidatorBuilder : IEnumerable<IPlugableValidator>
+    {
+        private List<IPlugableValidator> validators = new List<IPlugableValidator>();
+        
+        public PlugableValidatorBuilder AddValidator(IPlugableValidator validator) {
+            validators.Add(validator);
+            return this;
+        }
+
+        public IEnumerator<IPlugableValidator> GetEnumerator() {
+            return validators.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
     }
 }
