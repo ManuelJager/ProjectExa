@@ -92,11 +92,11 @@ namespace Exa.ShipEditor
             ImportArgs = importArgs;
             customValidators = new List<IPlugableValidator>();
 
-            BaseImport(importArgs.GetBlueprint(), importArgs.ValidateName);
-
             if (ImportArgs.PlugableValidators.IsNotNull(out var value)) {
                 customValidators.AddRange(value);
             }
+            
+            BaseImport(importArgs.GetBlueprint(), importArgs.ValidateName);
         }
 
         private void BaseImport(Blueprint blueprint, bool enableNameChanging) {

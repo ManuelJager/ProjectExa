@@ -1,5 +1,6 @@
 ﻿using Exa.Grids.Blocks;
 using Exa.Validation;
+using UnityEngine;
 
 namespace Exa.Gameplay.Missions
 {
@@ -22,7 +23,7 @@ namespace Exa.Gameplay.Missions
             var args = new BlueprintCostValidatorArgs {
                 currentCosts = Systems.Editor.ActiveBlueprintTotals.Metadata.blockCosts,
             }; 
-    
+            
             Result = Systems.Editor.Validate(this, args);
         }
 
