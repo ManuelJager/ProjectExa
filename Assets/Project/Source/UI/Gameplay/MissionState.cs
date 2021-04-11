@@ -32,7 +32,7 @@ namespace Exa.UI.Gameplay
         }
 
         private void OnDisable() {
-            editorAction.SetEnabled(ShouldEnableButton);
+            editorAction.SetEnabled(false);
         }
 
         public void SetText(string headerText, string infoText, bool animate = true) {
@@ -53,7 +53,7 @@ namespace Exa.UI.Gameplay
 
         public void HideEditorButton() {
             buttonIsVisible = false;
-            editorAction.SetEnabled(ShouldEnableButton);
+            editorAction.SetEnabled(false);
             buttonTracker.Hide();
         }
     }
