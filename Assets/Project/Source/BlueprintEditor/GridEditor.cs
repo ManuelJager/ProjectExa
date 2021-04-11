@@ -91,10 +91,7 @@ namespace Exa.ShipEditor
         public void Import(GridEditorImportArgs importArgs) {
             ImportArgs = importArgs;
             customValidators = new List<IPlugableValidator>();
-
-            if (ImportArgs.PlugableValidators.IsNotNull(out var value)) {
-                customValidators.AddRange(value);
-            }
+            customValidators.AddRange(importArgs.Validators);
             
             BaseImport(importArgs.GetBlueprint(), importArgs.ValidateName);
         }

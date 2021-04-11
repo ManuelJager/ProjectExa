@@ -43,12 +43,12 @@ namespace Exa.Gameplay.Missions
 
             var import = new BlueprintImportArgs(Mission.Station.Blueprint, result => editResult = result) {
                 OnExit = () => StopEditing(currentTarget),
-                PlugableValidators = new PlugableValidatorBuilder()
-                    .AddValidator(new BlueprintCostValidator(
-                        CurrentResources, 
-                        Mission.Station.GetBaseTotals().Metadata.blockCosts
-                    ))    
             };
+
+            import.AddValidator(new BlueprintCostValidator(
+                CurrentResources,
+                Mission.Station.GetBaseTotals().Metadata.blockCosts
+            ));
             
             Systems.Editor.Import(import);
         }

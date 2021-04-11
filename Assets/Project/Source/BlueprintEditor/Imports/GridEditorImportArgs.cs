@@ -9,30 +9,22 @@ namespace Exa.ShipEditor
 {
     public abstract class GridEditorImportArgs
     {
+        private List<IPlugableValidator> validators;
+        
         public BlockContext BlockContext { get; } = BlockContext.UserGroup;
         public Action OnExit { get; set; }
-        public PlugableValidatorBuilder PlugableValidators { get; set; }
+        public IEnumerable<IPlugableValidator> Validators => validators;
         public bool ValidateName { get; protected set; }
 
+        public GridEditorImportArgs() {
+            validators = new List<IPlugableValidator>();
+        }
+        
         public abstract void Save(Blueprint blueprint);
         public abstract Blueprint GetBlueprint();
-    }
 
-    public class PlugableValidatorBuilder : IEnumerable<IPlugableValidator>
-    {
-        private List<IPlugableValidator> validators = new List<IPlugableValidator>();
-        
-        public PlugableValidatorBuilder AddValidator(IPlugableValidator validator) {
+        public void AddValidator(IPlugableValidator validator) {
             validators.Add(validator);
-            return this;
-        }
-
-        public IEnumerator<IPlugableValidator> GetEnumerator() {
-            return validators.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GetEnumerator();
         }
     }
 }
