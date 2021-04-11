@@ -54,6 +54,7 @@ namespace Exa.UI.Gameplay
         public void HideEditorButton() {
             buttonIsVisible = false;
             editorAction.SetEnabled(ShouldEnableButton);
+            buttonTracker.Hide();
         }
     }
 }
