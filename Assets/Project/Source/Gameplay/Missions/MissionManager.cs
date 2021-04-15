@@ -39,7 +39,7 @@ namespace Exa.Gameplay.Missions
 
             var currentTarget = Systems.CameraController.CurrentTarget;
             GameSystems.SpawnLayer.SetLayerActive(false);
-            GameSystems.UI.gameplayLayer.navigateable.NavigateTo(Systems.Editor.navigateable);
+            GameSystems.UI.gameplayLayer.NavigateTo(Systems.Editor.navigateable);
 
             var import = new BlueprintImportArgs(Mission.Station.Blueprint, result => editResult = result) {
                 OnExit = () => StopEditing(currentTarget),

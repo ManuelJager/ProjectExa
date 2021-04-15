@@ -3,22 +3,20 @@ using Exa.UI.Components;
 
 namespace Exa.UI.Gameplay
 {
-    public class PauseMenu : Navigateable
+    public class PauseMenu : ReturnNavigateable
     {
-        public Action continueAction;
-
+        public bool Paused { get; private set; }
+        
         public override void HandleEnter(NavigationArgs args) {
             GameSystems.Raycaster.IsRaycasting = false;
+            Paused = true;
             base.HandleEnter(args);
         }
 
         public override void HandleExit(Navigateable target) {
             GameSystems.Raycaster.IsRaycasting = true;
+            Paused = false;
             base.HandleExit(target);
-        }
-
-        public void Continue() {
-            continueAction();
         }
 
         public void Save() {

@@ -37,6 +37,6 @@ namespace Exa
         public static GameObject GameObject => Instance.gameObject;
         
         public static bool IsQuitting => Systems.IsQuitting || Systems.Scenes.GetSceneIsUnloading("Game");
-        public static bool IsPaused => UI.IsPaused || MissionManager.IsEditing;
+        public static bool IsPaused => UI.pauseMenu.Paused || MissionManager.IsEditing;
     }
 }

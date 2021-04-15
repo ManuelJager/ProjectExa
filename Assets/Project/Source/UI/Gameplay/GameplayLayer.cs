@@ -4,14 +4,17 @@ using UnityEngine;
 
 namespace Exa.UI.Gameplay
 {
-    public class GameplayLayer : MonoBehaviour
+    public class GameplayLayer : Navigateable
     {
         public SelectionOverlay selectionOverlay;
         public SelectionHotbar selectionHotbar;
         public SelectionArea selectionArea;
         public CoreHealthBar coreHealthBar;
         public BlockCostsView currentResources;
-        public Navigateable navigateable;
         public MissionState missionState;
+
+        public void Pause() {
+            NavigateTo(GameSystems.UI.pauseMenu);
+        }
     }
 }

@@ -77,7 +77,10 @@ namespace Exa.Gameplay
                         return;
                     }
 
-                    GameSystems.UI.TogglePause();
+                    if (!GameSystems.IsPaused) {
+                        GameSystems.UI.gameplayLayer.Pause();
+                    }
+
                     break;
             }
         }

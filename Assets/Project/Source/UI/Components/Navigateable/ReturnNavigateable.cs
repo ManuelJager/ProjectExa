@@ -11,9 +11,9 @@ namespace Exa.UI.Components
 {
     public class ReturnNavigateable : Navigateable, IReturnNavigateableActions
     {
-        public GameControls gameControls;
 
         [SerializeField] private GlobalAudioPlayerProxy audioPlayer;
+        private GameControls gameControls;
         private Navigateable returnTarget = null;
 
         protected virtual void Awake() {
