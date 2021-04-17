@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
-  data:
-    hull: 0
-    armor: 0
-    mass: 0
 --- !u!114 &3963789266654642281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,12 +25,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b9e0eca0994644e8b0fa1bff585834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchoredBlueprintBlock:
-    gridAnchor: {x: 0, y: 0}
-    blueprintBlock:
-      id: 
-      flippedX: 0
-      flippedY: 0
   physicalBehaviour: {fileID: 3183903237534111054}
   collider: {fileID: 0}
   controllerBehaviour: {fileID: 7596730845723094954}
@@ -51,11 +41,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94a1ceb55be6a843ba5db513312cdfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  block: {fileID: 0}
-  data:
-    powerGeneration: 0
-    powerConsumption: 0
-    powerStorage: 0
 --- !u!114 &7617634622350147509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,12 +54,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
-  data:
-    turningRate: 0
-    firingRate: 0
-    damage: 0
-    chargeTime: 0
-    range: 0
   turret: {fileID: 4706351059954302035}
   chargeDecaySpeed: 4
   animator: {fileID: 3807540685108769277}

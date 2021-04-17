@@ -1,4 +1,5 @@
-﻿using Exa.Ships;
+﻿using System;
+using Exa.Ships;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     /// </summary>
     public class Block : MonoBehaviour, IBlock, IGridMember, IPhysical
     {
-        [HideInInspector] public ABpBlock aBpBlock;
+        [NonSerialized] public ABpBlock aBpBlock;
         [HideInInspector] public BlockPoolMember blockPoolMember;
         
         [SerializeField] private PhysicalBehaviour physicalBehaviour;

@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ff825921b5ab04f91cb6668f515782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchoredBlueprintBlock:
-    gridAnchor: {x: 0, y: 0}
-    blueprintBlock:
-      id: 
-      flippedX: 0
-      flippedY: 0
   physicalBehaviour: {fileID: 3478639850444596420}
   collider: {fileID: 0}
   controllerBehaviour: {fileID: 4752509573575635510}
@@ -34,10 +28,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
-  data:
-    hull: 0
-    armor: 0
-    mass: 0
 --- !u!114 &4752509573575635510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,13 +41,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
-  data:
-    powerGeneration: 0
-    powerConsumption: 0
-    powerStorage: 0
-    turningRate: 0
-    thrustModifier:
-      scalar: 0
 --- !u!1001 &2345329414674824249
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f121ac56bbdea54b8f616cacba87458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchoredBlueprintBlock:
-    gridAnchor: {x: 0, y: 0}
-    blueprintBlock:
-      id: 
-      flippedX: 0
-      flippedY: 0
   physicalBehaviour: {fileID: 7875990950422104508}
   gyroscopeBehaviour: {fileID: 6771484502415086781}
 --- !u!114 &6771484502415086781

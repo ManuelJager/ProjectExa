@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
-  data:
-    turningRate: 0
-    firingRate: 0
-    damage: 0
-    cycleMode: 0
   turret: {fileID: 4869053145928036473}
   parts:
   - {fileID: 4044106038289045004}
