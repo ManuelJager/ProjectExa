@@ -615,7 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverable: {fileID: 7659458319699722735}
-  message: Noooooooo
+  message: Play mission
 --- !u!222 &310495316214893833
 CanvasRenderer:
   m_ObjectHideFlags: 0

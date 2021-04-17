@@ -66,13 +66,20 @@ namespace Exa.Grids.Blocks
 
             blockTemplates.Add(new BlockTemplateContainer(blockTemplate));
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
-
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
+            
             yield return new WorkUnit();
 
             foreach (var context in BlockContextExtensions.GetContexts()) {
                 Values.Register(context, blockTemplate);
-                GetGroup(context).CreateAlivePrefabGroup(blockTemplate, context);
+
+                try {
+                    GetGroup(context).CreateAlivePrefabGroup(blockTemplate, context);
+                }
+                catch (Exception e) {
+                    throw new Exception($"Exception while registering block template: {blockTemplate} for {context}", e);
+                }
+                
                 yield return new WorkUnit();
             }
         }

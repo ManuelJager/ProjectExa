@@ -115,5 +115,9 @@ namespace Exa.Grids.Blocks.BlockTypes
         protected virtual void OnAdd() { }
 
         protected virtual void OnRemove() { }
+
+        public override string ToString() {
+            return $"Block: {BlueprintBlock.Template.id}";
+        }
     }
 }

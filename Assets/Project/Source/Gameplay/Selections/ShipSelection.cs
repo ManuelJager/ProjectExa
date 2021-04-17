@@ -32,7 +32,7 @@ namespace Exa.Gameplay
         public override void Add(GridInstance gridInstance) {
             base.Add(gridInstance);
 
-            (gridInstance.Overlay as GridOverlay).SetSelected(true);
+            (gridInstance.Overlay as GridOverlay)?.SetSelected(true);
 
             // Set a callback that removes the Ship from the collection when destroyed
             void Callback() => Remove(gridInstance);
@@ -54,7 +54,7 @@ namespace Exa.Gameplay
         }
 
         private void OnRemove(GridInstance gridInstance) {
-            (gridInstance.Overlay as GridOverlay).SetSelected(false);
+            (gridInstance.Overlay as GridOverlay)?.SetSelected(false);
 
             // Get the callback and remove it
             var callback = callbackDict[gridInstance];

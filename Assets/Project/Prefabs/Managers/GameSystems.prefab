@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3971752618548431354}
   - component: {fileID: 3971752618548431353}
-  - component: {fileID: 3971752618548431335}
   - component: {fileID: 1150010444763719143}
   - component: {fileID: 4286009776099489547}
   - component: {fileID: 4769013451734808969}
@@ -48,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3304b620dfa6b4dabc0b9f2596f496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameplayInputManager: {fileID: 3971752618548431335}
+  gameplayInputManager: {fileID: 0}
   raycaster: {fileID: 1556863573202206212}
   navigateable: {fileID: 0}
   shipFactory: {fileID: 0}
@@ -58,18 +57,6 @@ MonoBehaviour:
   blockGridManager: {fileID: 0}
   popupManager: {fileID: 0}
   missionManager: {fileID: 4769013451734808969}
---- !u!114 &3971752618548431335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3971752618548431355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b0122423b776e94dae13c2a9b3b4da3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1150010444763719143
 MonoBehaviour:
   m_ObjectHideFlags: 0

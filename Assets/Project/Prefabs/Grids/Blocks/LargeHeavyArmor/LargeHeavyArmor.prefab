@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1491fef2167eb41844618b313d1e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchoredBlueprintBlock:
+  aBpBlock:
     gridAnchor: {x: 0, y: 0}
     blueprintBlock:
       id: 
       flippedX: 0
       flippedY: 0
+  blockPoolMember: {fileID: 0}
   physicalBehaviour: {fileID: 5674596282013065745}
+  collider: {fileID: 0}
 --- !u!114 &5674596282013065745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,7 +34,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
-  blockCollider: {fileID: 0}
+  data:
+    hull: 0
+    armor: 0
+    mass: 0
 --- !u!1001 &7330412899069840952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44,6 +49,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LargeHeavyArmor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022419902597760538, guid: a913b7f6f31d651408e59c414dfb1391,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3022419902597760538, guid: a913b7f6f31d651408e59c414dfb1391,
         type: 3}
@@ -62,6 +72,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3022419902597760538, guid: a913b7f6f31d651408e59c414dfb1391,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022419902597760538, guid: a913b7f6f31d651408e59c414dfb1391,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -73,16 +88,6 @@ PrefabInstance:
     - target: {fileID: 3022419902597760538, guid: a913b7f6f31d651408e59c414dfb1391,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022419902597760538, guid: a913b7f6f31d651408e59c414dfb1391,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022419902597760538, guid: a913b7f6f31d651408e59c414dfb1391,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3022419902597760538, guid: a913b7f6f31d651408e59c414dfb1391,

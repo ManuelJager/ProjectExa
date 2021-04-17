@@ -15,6 +15,14 @@ namespace Exa.Ships
     {
         private GameControls gameControls;
 
+        public void OnEnable() {
+            gameControls?.Enable();
+        }
+
+        public void OnDisable() {
+            gameControls.Disable();
+        }
+        
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             base.Import(blueprint, blockContext, configuration);
             Overlay = GameSystems.UI.gameplayLayer.coreHealthBar;

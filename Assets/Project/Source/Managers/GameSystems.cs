@@ -13,7 +13,6 @@ namespace Exa
 {
     public class GameSystems : MonoSingleton<GameSystems>
     {
-        [SerializeField] private GameplayInputManager gameplayInputManager;
         [SerializeField] private Raycaster raycaster;
         [SerializeField] private Navigateable navigateable;
         [SerializeField] private ShipFactory shipFactory;
@@ -24,7 +23,6 @@ namespace Exa
         [SerializeField] private PopupManager popupManager;
         [SerializeField] private MissionManager missionManager;
 
-        public static GameplayInputManager GameplayInputManager => Instance.gameplayInputManager;
         public static Raycaster Raycaster => Instance.raycaster;
         public static Navigateable Navigateable => Instance.navigateable;
         public static ShipFactory ShipFactory => Instance.shipFactory;

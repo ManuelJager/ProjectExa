@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
+﻿using System;
+using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks
@@ -18,6 +19,10 @@ namespace Exa.Grids.Blocks
             block.Collider = blockGO.GetComponent<BoxCollider2D>();
 
             foreach (var component in block.GetBehaviours()) {
+                if (component == null) {
+                    throw new Exception($"Null component in block of template {blockTemplate.id} on block {blockGO.name}");
+                }
+                
                 component.block = block;
             }
 
