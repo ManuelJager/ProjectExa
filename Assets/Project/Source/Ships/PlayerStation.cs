@@ -15,8 +15,15 @@ namespace Exa.Ships
     {
         private GameControls gameControls;
 
+        protected override void Awake() {
+            base.Awake();
+            
+            gameControls = new GameControls();
+            gameControls.PlayerStation.SetCallbacks(this);
+        }
+        
         public void OnEnable() {
-            gameControls?.Enable();
+            gameControls.Enable();
         }
 
         public void OnDisable() {
@@ -26,14 +33,12 @@ namespace Exa.Ships
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             base.Import(blueprint, blockContext, configuration);
             Overlay = GameSystems.UI.gameplayLayer.coreHealthBar;
-            gameControls = new GameControls();
-            gameControls.PlayerStation.SetCallbacks(this);
-            gameControls.Enable();
         }
 
         public override void OnControllerDestroyed() {
             base.OnControllerDestroyed();
             gameControls.Disable();
+            gameControls = null;
         }
 
         public override ShipSelection GetAppropriateSelection(Formation formation) {
