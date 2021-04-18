@@ -6,10 +6,6 @@ namespace Exa.UI
     public class AngleSkewedImage : PixelSkewedImage
     {
         private Vector2? pixelSkew;
-
-        public void SetAngleSkew(Vector2 skew) {
-            pixelSkew = skew;
-        }
         
         private void Update() {
             if (transform.hasChanged) {

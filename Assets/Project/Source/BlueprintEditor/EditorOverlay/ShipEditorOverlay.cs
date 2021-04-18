@@ -1,4 +1,5 @@
-﻿using Exa.UI;
+﻿using System;
+using Exa.UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -12,7 +13,8 @@ namespace Exa.ShipEditor
         [SerializeField] private Hoverable blueprintInventoryHoverable;
         [SerializeField] private Hoverable blueprintInfoPanelHoverable;
         [SerializeField] private Hoverable editorStatePanelHoverable;
-
+        [SerializeField] private BudgetView budgetView;
+        
         public InteractableAdapter editorOverlay;
 
         [FormerlySerializedAs("blueprintInfoPanel")]
@@ -28,6 +30,15 @@ namespace Exa.ShipEditor
         private void Awake() {
             AddListenerToGroupOnPointerEnter(onPointerEnter.Invoke);
             AddListenerToGroupOnPointerExit(onPointerExit.Invoke);
+        }
+
+        public BudgetView EnableBudgetView() {
+            budgetView.gameObject.SetActive(true);
+            return budgetView;
+        }
+
+        private void OnDisable() {
+            budgetView.gameObject.SetActive(false);    
         }
 
         private void AddListenerToGroupOnPointerEnter(UnityAction action) {

@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks;
+using Exa.ShipEditor;
 using Exa.Validation;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ namespace Exa.Gameplay.Missions
     public class BlueprintCostValidator : PlugableValidator<BlueprintCostValidatorArgs>
     {
         private BlockCosts maxAllowedCosts;
-
+        private BudgetView view;
+        
         public BlueprintCostValidator(BlockCosts budget, BlockCosts currentCosts) {
             maxAllowedCosts = budget + currentCosts;
         }
@@ -24,10 +26,12 @@ namespace Exa.Gameplay.Missions
                 currentCosts = Systems.Editor.ActiveBlueprintTotals.Metadata.blockCosts,
             }; 
             
+            view.SetBudget(maxAllowedCosts - args.currentCosts);
             Result = Systems.Editor.Validate(this, args);
         }
 
         public override void Add() {
+            this.view = Systems.UI.EditorOverlay.EnableBudgetView();
             Systems.Editor.BlueprintChangedEvent += BlueprintChangedHandler;
             BlueprintChangedHandler();
         }
