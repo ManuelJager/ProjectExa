@@ -828,6 +828,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   credits: {fileID: 7161395114026740188}
   metals: {fileID: 2417009506358898106}
+  creditsBackground: {fileID: 6528648522550106359}
+  metalsBackground: {fileID: 3486530854681188489}
 --- !u!114 &134261575387057635
 MonoBehaviour:
   m_ObjectHideFlags: 0
