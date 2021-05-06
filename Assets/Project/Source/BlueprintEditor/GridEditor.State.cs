@@ -10,7 +10,6 @@ namespace Exa.ShipEditor
         private bool rightButtonPressed;
         private bool mouseOverUI;
         private bool interactible = true;
-        private float zoom;
         private BlockFlip flipState;
 
         public bool IsSaved { get; private set; }
@@ -18,7 +17,7 @@ namespace Exa.ShipEditor
         public ValidationResult GridValidationResult { get; private set; }
         public GridEditorImportArgs ImportArgs { get; set; }
         
-        public BlockFlip FlipState {
+        private BlockFlip FlipState {
             get => flipState;
             set {
                 flipState = value;
@@ -55,31 +54,20 @@ namespace Exa.ShipEditor
             }
         }
 
-        public float Zoom {
-            get => zoom;
-            set {
-                zoom = value;
-
-                editorGrid.ZoomScale = value / 5f;
-            }
-        }
-
         private bool ShouldSave { get; set; }
 
         private void ResetState() {
-            Zoom = 5f;
             IsSaved = true;
             NameValidationResult = null;
             GridValidationResult = null;
         }
 
-        public void UpdateSaveButton() {
+        private void UpdateSaveButton() {
             ShouldSave = GetShouldSave(out var message);
 
             overlay.infoPanel.saveButtonTooltipTrigger.SetText(message);
             overlay.infoPanel.saveButtonCanvasGroup.interactable = ShouldSave;
             overlay.infoPanel.saveButtonCanvasGroup.alpha = ShouldSave ? 1f : 0.5f;
         }
-
     }
 }

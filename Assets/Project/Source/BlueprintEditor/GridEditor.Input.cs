@@ -5,6 +5,8 @@ namespace Exa.ShipEditor
 {
     public partial class GridEditor
     {
+        public EditorCameraTarget EditorCameraTarget { get; private set; }
+        
         public void OnMovement(InputAction.CallbackContext context) {
             if (Systems.Input.inputIsCaptured) {
                 editorGrid.MovementVector = Vector2.zero;
@@ -93,7 +95,7 @@ namespace Exa.ShipEditor
 
             if (context.phase == InputActionPhase.Performed) {
                 var delta = context.ReadValue<Vector2>();
-                editorCameraTarget.OnScroll(delta.y);
+                EditorCameraTarget.OnScroll(delta.y);
             }
         }
     }

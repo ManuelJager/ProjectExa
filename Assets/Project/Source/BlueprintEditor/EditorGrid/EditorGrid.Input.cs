@@ -1,11 +1,16 @@
-﻿using Exa.Grids.Blocks;
+﻿using System;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Math;
+using Exa.Types.Generics;
+using Exa.UI.Tweening;
 using UnityEngine;
 
 namespace Exa.ShipEditor
 {
     public partial class EditorGrid
     {
+        [SerializeField] private MovementConfiguration movementCfg;
         private Vector2Int? mouseGridPos;
 
         /// <summary>
@@ -62,6 +67,21 @@ namespace Exa.ShipEditor
             ghostLayer.TryDelete();
         }
 
+        private void UpdatePosition() {
+            // Move the grid to keyboard input
+            // Remap zoom scale range to damp scale
+            var remappedZoomScale = movementCfg.zoomCurve.Evaluate(Systems.Editor.EditorCameraTarget.ZoomScale);
+            
+            // Calculate movement offset
+            playerPos -= MovementVector * (movementCfg.speed * Time.deltaTime * remappedZoomScale);
+
+            // Clamp movement offset to prevent going out of bounds
+            playerPos = Vector2.ClampMagnitude(playerPos, 15f);
+
+            // Get position by adding the pivot to the offset
+            positionTween.To(centerPos + playerPos, 0.3f);
+        }
+
         private void OnEnterGrid(Vector2Int? gridPos) {
             MouseGridPos = gridPos;
         }
@@ -74,6 +94,16 @@ namespace Exa.ShipEditor
             if (gridPos == null) return;
 
             backgroundLayer.SetGridBackgroundItemColor(gridPos, enter);
+        }
+
+        [Serializable]
+        public struct MovementConfiguration
+        {
+            [Header("Base movement speed multiplier")]
+            public float speed;
+
+            [Header("Zoom to movement speed remapping multiplier")]
+            public ExaEase zoomCurve;
         }
     }
 }

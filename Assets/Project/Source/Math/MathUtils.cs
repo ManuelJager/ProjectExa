@@ -29,6 +29,10 @@ namespace Exa.Math
             }
         }
 
+        public static float Remap(this float value, MinMax<float> from, MinMax<float> to) {
+            return value.Remap(from.min, from.max, to.min, to.max);
+        }
+
         public static float Remap(
             this float value,
             float from1,

@@ -25,14 +25,13 @@ namespace Exa.ShipEditor
         [SerializeField] private CameraTargetSettings cameraSettings;
         private GameControls gameControls;
         private ShipEditorOverlay overlay;
-        private EditorCameraTarget editorCameraTarget;
 
         public Blueprint ActiveBlueprint => editorGrid.blueprintLayer.ActiveBlueprint;
         public GridTotals ActiveBlueprintTotals => ActiveBlueprint.Blocks.GetTotals(ImportArgs.BlockContext);
 
         private void Awake() {
             overlay = Systems.UI.EditorOverlay;
-            editorCameraTarget = new EditorCameraTarget(cameraSettings);
+            EditorCameraTarget = new EditorCameraTarget(cameraSettings);
 
             gameControls = new GameControls();
             gameControls.Editor.SetCallbacks(this);
@@ -64,7 +63,7 @@ namespace Exa.ShipEditor
             overlay.gameObject.SetActive(true);
             gameControls.Enable();
             
-            Systems.CameraController.SetTarget(editorCameraTarget, true);
+            Systems.CameraController.SetTarget(EditorCameraTarget, true);
         }
 
         private void OnDisable() {

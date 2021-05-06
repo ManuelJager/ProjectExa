@@ -125,7 +125,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63395ac0aec248445a7abe66f67b2f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  movementCfg:
+    speed: 35
+    zoomCurve:
+      easeType: 1
+      ease: 0
+      animationCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0.2004717
+          inSlope: 2.0733755
+          outSlope: 2.0733755
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.048913043
+        - serializedVersion: 3
+          time: 1
+          value: 1.503175
+          inSlope: 4.4764066
+          outSlope: 4.4764066
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.051147163
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
   customLayers:
   - {fileID: 7011621268033262747}
   backgroundLayer: {fileID: 4635185658990925759}

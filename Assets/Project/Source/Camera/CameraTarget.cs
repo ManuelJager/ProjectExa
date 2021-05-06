@@ -7,7 +7,6 @@ namespace Exa.Camera
     public abstract class CameraTarget : ICameraTarget
     {
         private CameraTargetSettings settings;
-        private ExaEase zoomCurve;
         private float zoomScale;
 
         public float ZoomScale {

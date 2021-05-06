@@ -17,7 +17,6 @@ namespace Exa.ShipEditor
     /// </summary>
     public partial class EditorGrid : MonoBehaviour, IUIGroup
     {
-        [SerializeField] private float movementSpeed;
         private bool interactable = true;
         private Vector2 centerPos;
         private Vector2 playerPos = Vector2.zero;
@@ -31,7 +30,6 @@ namespace Exa.ShipEditor
         public EditorGridTurretLayer turretLayer;
 
         public Vector2 MovementVector { private get; set; }
-        public float ZoomScale { private get; set; }
 
         /// <summary>
         /// Whether or not the grid can be interacted with
@@ -62,22 +60,8 @@ namespace Exa.ShipEditor
         public void Update() {
             if (!Interactable) return;
 
-            // Move the grid to keyboard input
-            // Remap zoom scale range to damp scale
-            var remappedZoomScale = ZoomScale.Remap(0f, 3f, 0.5f, 1.5f);
-
-            // Calculate movement offset
-            playerPos -=
-                MovementVector * (movementSpeed * Time.deltaTime * remappedZoomScale);
-
-            // Clamp movement offset to prevent going out of bounds
-            playerPos = Vector2.ClampMagnitude(playerPos, 15f);
-
-            // Get position by adding the pivot to the offset
-            var position = centerPos + playerPos;
-
-            positionTween.To(position, 0.3f);
-
+            UpdatePosition();
+            
             // Check for mouse input
             backgroundLayer.UpdateCurrActiveGridItem(transform.localPosition.ToVector2());
         }
