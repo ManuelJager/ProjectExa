@@ -1,11 +1,13 @@
-﻿using Exa.Grids.Blocks;
+﻿using System;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.Utils;
+using Project.Source.Grids;
 using UnityEngine;
 
 namespace Exa.Grids
 {
-    public interface IGridMember : IGridTotalsModifier
+    public interface IGridMember : IGridTotalsModifier, IEquatable<IGridMember>
     {
         Vector2Int GridAnchor { get; }
         BlueprintBlock BlueprintBlock { get; }

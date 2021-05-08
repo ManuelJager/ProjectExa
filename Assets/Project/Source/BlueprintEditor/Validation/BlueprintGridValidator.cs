@@ -8,7 +8,7 @@ namespace Exa.ShipEditor
     public class BlueprintGridValidator : Validator<BlueprintGridValidationArgs>
     {
         protected override void AddErrors(ValidationResult errors, BlueprintGridValidationArgs args) {
-            var blocks = args.blueprintBlocks;
+            var blocks = args.blueprintGrid;
 
             var controllerCount = blocks.Count(block => block.GetIsController());
             if (controllerCount > 1) {
@@ -23,8 +23,8 @@ namespace Exa.ShipEditor
             }
         }
 
-        private bool BlocksAreDisconnected(BlueprintBlocks blocks) {
-            return blocks.Any(block => blocks.GetNeighbourCount(block) == 0);
+        private bool BlocksAreDisconnected(BlueprintGrid grid) {
+            return grid.Any(block => grid.GetNeighbourCount(block) == 0);
         }
     }
 }

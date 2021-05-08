@@ -5,6 +5,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Input;
+using Project.Source.Grids;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;
@@ -14,6 +15,8 @@ namespace Exa.Ships
     public class PlayerStation : GridInstance, IPlayerStationActions
     {
         private GameControls gameControls;
+
+        public BlockGridDiff Diff { get; private set; }
 
         protected override void Awake() {
             base.Awake();
@@ -32,7 +35,13 @@ namespace Exa.Ships
         
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             base.Import(blueprint, blockContext, configuration);
+            Diff = Systems.Blocks.Diffs.StartWatching(BlockGrid, Blueprint.Grid);
             Overlay = GameSystems.UI.gameplayLayer.coreHealthBar;
+        }
+
+        public override void SetBlueprint(Blueprint blueprint) {
+            base.SetBlueprint(blueprint);
+            Diff.TrackNewTarget(blueprint.Grid);
         }
 
         public override void OnControllerDestroyed() {

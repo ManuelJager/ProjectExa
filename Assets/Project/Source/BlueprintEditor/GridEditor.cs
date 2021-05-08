@@ -27,7 +27,7 @@ namespace Exa.ShipEditor
         private ShipEditorOverlay overlay;
 
         public Blueprint ActiveBlueprint => editorGrid.blueprintLayer.ActiveBlueprint;
-        public GridTotals ActiveBlueprintTotals => ActiveBlueprint.Blocks.GetTotals(ImportArgs.BlockContext);
+        public GridTotals ActiveBlueprintTotals => ActiveBlueprint.Grid.GetTotals(ImportArgs.BlockContext);
 
         private void Awake() {
             overlay = Systems.UI.EditorOverlay;
@@ -105,11 +105,11 @@ namespace Exa.ShipEditor
             overlay.infoPanel.SetNameEditingActive(enableNameChanging);
 
             var newBlueprint = blueprint.Clone();
-            editorGrid.Import(newBlueprint, () => {
-                if (enableNameChanging) {
-                    ValidateName(newBlueprint.name);
-                }
-            });
+            editorGrid.Import(newBlueprint);
+                
+            if (enableNameChanging) {
+                ValidateName(newBlueprint.name);
+            }
 
             foreach (var validator in customValidators) {
                 validator.Add();

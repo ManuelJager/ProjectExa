@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Grids.Blocks;
 using Exa.Utils;
 using Project.Source.Grids;
 using UnityEngine;
 
-namespace Exa.Grids.Blocks
+namespace Exa.Grids
 {
-    // TODO: Add totals invalidation, when the research context of the 
     public class TotalsManager : MonoBehaviour
     {
         private Dictionary<IMemberCollection, Dictionary<BlockContext, TotalsCache>> totalsDictionary;
@@ -22,8 +22,7 @@ namespace Exa.Grids.Blocks
                 throw new Exception("Grid with given context already being watched");
             }
             
-            var cache = new TotalsCache {
-                collection = grid,
+            var cache = new TotalsCache(grid) {
                 totals = new GridTotals(context)
             };
             
@@ -71,34 +70,22 @@ namespace Exa.Grids.Blocks
             }
         }
 
-        private class TotalsCache
+        private class TotalsCache : MemberCollectionListener<IMemberCollection>
         {
-            public IMemberCollection collection;
             public GridTotals totals;
 
-            public void AddListeners() {
-                collection.MemberAdded += OnMemberAdded;
-                collection.MemberRemoved += OnMemberRemoved;
-            }
-
-            public void RemoveListeners() {
-                collection.MemberAdded -= OnMemberAdded;
-                collection.MemberRemoved -= OnMemberRemoved;
-            }
-
-            public void Reset() {
+            public TotalsCache(IMemberCollection source) : base(source) { }
+ 
+            public override void Reset() {
                 totals.Reset();
-                
-                foreach (var member in collection.GetMembers()) {
-                    OnMemberAdded(member);
-                }
+                base.Reset();
             }
-
-            public void OnMemberAdded(IGridMember member) {
+            
+            protected override void OnMemberAdded(IGridMember member) {
                 member.AddGridTotals(totals);
             }
 
-            public void OnMemberRemoved(IGridMember member) {
+            protected override void OnMemberRemoved(IGridMember member) {
                 member.RemoveGridTotals(totals);
             }
         }

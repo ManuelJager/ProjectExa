@@ -2,6 +2,7 @@
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using System;
+using Project.Source.Grids;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints
@@ -53,6 +54,10 @@ namespace Exa.Grids.Blueprints
 
         public void RemoveGridTotals(GridTotals totals) {
             blueprintBlock.Template.RemoveGridTotals(totals);
+        }
+
+        public bool Equals(IGridMember other) {
+            return IGridMemberComparer.Default.Equals(this, other);
         }
 
         public override string ToString() {

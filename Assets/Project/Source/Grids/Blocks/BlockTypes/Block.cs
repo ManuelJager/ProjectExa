@@ -4,6 +4,7 @@ using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using UnityEngine;
 using System.Collections.Generic;
+using Project.Source.Grids;
 
 #pragma warning disable CS0649
 
@@ -12,7 +13,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     /// <summary>
     /// Base class for blocks
     /// </summary>
-    public class Block : MonoBehaviour, IBlock, IGridMember, IPhysical
+    public class Block : MonoBehaviour, IGridMember, IPhysical, IEquatable<IGridMember>
     {
         [NonSerialized] public ABpBlock aBpBlock;
         [HideInInspector] public BlockPoolMember blockPoolMember;
@@ -116,6 +117,10 @@ namespace Exa.Grids.Blocks.BlockTypes
         protected virtual void OnAdd() { }
 
         protected virtual void OnRemove() { }
+
+        public bool Equals(IGridMember other) {
+            return IGridMemberComparer.Default.Equals(this, other);
+        }
 
         public override string ToString() {
             return $"Block: {BlueprintBlock.Template.id}";

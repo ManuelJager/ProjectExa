@@ -9,12 +9,11 @@ using UnityEngine;
 namespace Exa.Grids.Blueprints
 {
     [Serializable]
-    public struct BlueprintBlock
+    public struct BlueprintBlock : IEquatable<BlueprintBlock>
     {
         public string id;
         [DefaultValue(false)] public bool flippedX;
         [DefaultValue(false)] public bool flippedY;
-
         [JsonIgnore] private int rotation;
 
         public int Rotation {
@@ -69,6 +68,28 @@ namespace Exa.Grids.Blueprints
 
         public override string ToString() {
             return $"{id}:{rotation}";
+        }
+
+        public bool Equals(BlueprintBlock other) {
+            return 
+                id == other.id && 
+                flippedX == other.flippedX && 
+                flippedY == other.flippedY && 
+                rotation == other.rotation;
+        }
+
+        public override bool Equals(object obj) {
+            return obj is BlueprintBlock other && Equals(other);
+        }
+
+        public override int GetHashCode() {
+            unchecked {
+                var hashCode = (id != null ? id.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ flippedX.GetHashCode();
+                hashCode = (hashCode * 397) ^ flippedY.GetHashCode();
+                hashCode = (hashCode * 397) ^ rotation;
+                return hashCode;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Exa.ShipEditor
 
         public void ValidateGrid() {
             var args = new BlueprintGridValidationArgs {
-                blueprintBlocks = editorGrid.blueprintLayer.ActiveBlueprint.Blocks
+                blueprintGrid = editorGrid.blueprintLayer.ActiveBlueprint.Grid
             };
 
             GridValidationResult = Validate(gridValidator, args);

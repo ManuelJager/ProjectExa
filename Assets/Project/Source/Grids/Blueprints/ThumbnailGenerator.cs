@@ -19,7 +19,7 @@ namespace Exa.Grids.Blueprints
 
         public void GenerateThumbnail(Blueprint blueprint) {
             // Generate Ship
-            foreach (var block in blueprint.Blocks) {
+            foreach (var block in blueprint.Grid) {
                 var blockGO = block.CreateInactiveInertBlockInGrid(transform);
                 blockGO.SetActive(true);
             }

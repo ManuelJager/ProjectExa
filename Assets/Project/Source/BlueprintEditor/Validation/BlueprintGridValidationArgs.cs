@@ -4,6 +4,6 @@ namespace Exa.ShipEditor
 {
     public class BlueprintGridValidationArgs
     {
-        public BlueprintBlocks blueprintBlocks;
+        public BlueprintGrid blueprintGrid;
     }
 }

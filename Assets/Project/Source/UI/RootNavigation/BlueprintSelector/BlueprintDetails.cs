@@ -36,11 +36,11 @@ namespace Exa.UI
             }
 
             nameText.text = blueprint.name;
-            Vector2Int size = blueprint.Blocks.Size;
+            Vector2Int size = blueprint.Grid.Size;
 
-            var totals = blueprint.Blocks.GetTotals(BlockContext.UserGroup);
+            var totals = blueprint.Grid.GetTotals(BlockContext.UserGroup);
 
-            blockCountView.SetValue(blueprint.Blocks.GetMemberCount());
+            blockCountView.SetValue(blueprint.Grid.GetMemberCount());
             sizeView.SetValue($"{size.x}x{size.y}");
             massView.SetValue($"{totals.Mass:0} Tonne");
             energyView.SetValue($"{totals.PowerGeneration:0} KW");

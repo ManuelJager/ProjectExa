@@ -54,7 +54,7 @@ namespace Exa.ShipEditor
             IsSaved = true;
             UpdateSaveButton();
 
-            ImportArgs.Save(editorGrid.blueprintLayer.ActiveBlueprint);
+            ImportArgs.Save(ActiveBlueprint);
         }
     }
 }

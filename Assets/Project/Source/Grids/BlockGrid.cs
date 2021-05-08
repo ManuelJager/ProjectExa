@@ -17,10 +17,11 @@ namespace Exa.Ships
         public IGridInstance Parent { get; }
         public bool Rebuilding { get; set; }
         public BlockGridMetadata Metadata { get; }
-
+        public Block Controller { get; protected set; }
+        
         public BlockGrid(Transform container, IGridInstance parent) {
             this.container = container;
-            this.totals = Systems.TotalsManager.StartWatching(this, parent.BlockContext);
+            this.totals = Systems.Blocks.Totals.StartWatching(this, parent.BlockContext);
 
             Parent = parent;
             Metadata = new BlockGridMetadata(GridMembers);
@@ -31,8 +32,12 @@ namespace Exa.Ships
         }
 
         public override void Add(Block gridMember) {
-            if (gridMember.GetIsController() && Controller != null) {
-                throw new DuplicateControllerException(gridMember.GridAnchor);
+            if (gridMember.GetIsController()) {
+                if (Controller != null) {
+                    throw new DuplicateControllerException(gridMember.GridAnchor);
+                }
+                
+                Controller = gridMember;
             }
 
             base.Add(gridMember);
@@ -41,6 +46,10 @@ namespace Exa.Ships
         public override void Remove(Block gridMember) {
             base.Remove(gridMember);
 
+            if (gridMember.GetIsController()) {
+                Controller = null;
+            }
+
             // Only rebuild if it isn't being rebuilt already
             if (!Rebuilding) {
                 GameSystems.BlockGridManager.AttemptRebuild(Parent);
@@ -48,7 +57,7 @@ namespace Exa.Ships
         }
 
         internal void Import(Blueprint blueprint) {
-            foreach (var anchoredBlueprintBlock in blueprint.Blocks) {
+            foreach (var anchoredBlueprintBlock in blueprint.Grid) {
                 Add(CreateBlock(anchoredBlueprintBlock));
             }
         }

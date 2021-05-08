@@ -25,7 +25,7 @@ namespace Exa.Ships
 
         public void SetGrid(GridInstance instance) {
             gridInstance = instance;
-            var size = instance.Blueprint.Blocks.MaxSize * 10;
+            var size = instance.Blueprint.Grid.MaxSize * 10;
             rectContainer.sizeDelta = new Vector2(size, size);
         }
 

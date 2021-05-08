@@ -11,6 +11,7 @@ using System.Collections;
 using Exa.Audio.Music;
 using Exa.Camera;
 using Exa.Data;
+using Exa.Grids;
 using Exa.Research;
 using UnityEditor;
 using UnityEngine;
@@ -25,7 +26,6 @@ namespace Exa
     {
         [Header("References")] 
         [SerializeField] private BlockFactory blockFactory;
-        [SerializeField] private TotalsManager totalsManager;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private ColorManager colorManager;
         [SerializeField] private ResearchStore researchStore;
@@ -46,7 +46,6 @@ namespace Exa
         [SerializeField] private bool loadSafe = false;
 
         public static BlockFactory Blocks => Instance.blockFactory;
-        public static TotalsManager TotalsManager => Instance.totalsManager;
         public static CameraController CameraController => Instance.cameraController;
         public static ColorManager Colors => Instance.colorManager;
         public static ResearchStore Research => Instance.researchStore;

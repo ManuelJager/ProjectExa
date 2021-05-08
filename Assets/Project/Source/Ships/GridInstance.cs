@@ -56,7 +56,7 @@ namespace Exa.Ships
 
         private void Update() {
             var currentHull = BlockGrid.GetTotals().Hull;
-            var totalHull = Blueprint.Blocks.GetTotals(BlockContext).Hull;
+            var totalHull = Blueprint.Grid.GetTotals(BlockContext).Hull;
             HullIntegrity = currentHull / totalHull;
 
             if (Active) {
@@ -97,26 +97,26 @@ namespace Exa.Ships
         }
 
         public GridTotals GetBaseTotals() {
-            return Blueprint.Blocks.GetTotals(BlockContext);
+            return Blueprint.Grid.GetTotals(BlockContext);
         }
 
         public virtual void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
-            if (blueprint.Blocks.Controller == null) {
-                throw new ArgumentException("Blueprint must have a controller reference");
-            }
-            
             BlockGrid = new BlockGrid(pivot, this);
             Configuration = configuration;
             ActionScheduler = new ActionScheduler(this);
             Active = true;
             BlockContext = blockContext;
 
-            var radius = blueprint.Blocks.MaxSize / 2f;
+            var radius = blueprint.Grid.MaxSize / 2f;
             mouseOverCollider.radius = radius;
             BlockGrid.Import(blueprint);
             Blueprint = blueprint;
 
             gridAi.Init();
+        }
+
+        public virtual void SetBlueprint(Blueprint blueprint) {
+            Blueprint = blueprint;
         }
 
         public string GetInstanceString() {

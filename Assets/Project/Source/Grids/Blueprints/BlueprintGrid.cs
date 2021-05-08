@@ -6,14 +6,14 @@ using Newtonsoft.Json;
 namespace Exa.Grids.Blueprints
 {
     [JsonConverter(typeof(BlueprintBlocksConverter))]
-    public class BlueprintBlocks : Grid<ABpBlock>, ICloneable<BlueprintBlocks>
+    public class BlueprintGrid : Grid<ABpBlock>, ICloneable<BlueprintGrid>
     {
         public GridTotals GetTotals(BlockContext context = BlockContext.DefaultGroup) {
-            return Systems.TotalsManager.GetGridTotalsSafe(this, context);
+            return Systems.Blocks.Totals.GetGridTotalsSafe(this, context);
         }
         
-        public BlueprintBlocks Clone() {
-            var newBlocks = new BlueprintBlocks();
+        public BlueprintGrid Clone() {
+            var newBlocks = new BlueprintGrid();
             foreach (var block in GridMembers) {
                 newBlocks.Add(block.Clone());
             }

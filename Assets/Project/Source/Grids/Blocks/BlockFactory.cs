@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Exa.Types.Binding;
+using Project.Source.Grids;
 using UnityEngine;
 
 #pragma warning disable CS0649
@@ -21,6 +22,7 @@ namespace Exa.Grids.Blocks
         public ObservableBlockTemplateCollection blockTemplates = new ObservableBlockTemplateCollection();
         public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
+        [SerializeField] private TotalsManager totalsManager;
         [SerializeField] private BlockTemplateBag blockTemplateBag;
         [SerializeField] private InertBlockPoolGroup inertPrefabGroup;
         [SerializeField] private AliveBlockPoolGroup defaultPrefabGroup;
@@ -28,6 +30,8 @@ namespace Exa.Grids.Blocks
         [SerializeField] private AliveBlockPoolGroup enemyPrefabGroup;
 
         public BlockValuesStore Values { get; private set; }
+        public BlockGridDiffManager Diffs { get; private set; }
+        public TotalsManager Totals => totalsManager;
 
         public T FindTemplate<T>()
             where T : class {
@@ -36,6 +40,7 @@ namespace Exa.Grids.Blocks
 
         public IEnumerator Init(IProgress<float> progress) {
             Values = new BlockValuesStore();
+            Diffs = new BlockGridDiffManager();
             var enumerator = EnumeratorUtils.ReportForeachOperation(blockTemplateBag, RegisterBlockTemplate, progress);
             while (enumerator.MoveNext()) yield return enumerator.Current;
         }

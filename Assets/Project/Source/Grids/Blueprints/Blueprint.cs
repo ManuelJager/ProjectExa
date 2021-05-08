@@ -13,7 +13,7 @@ namespace Exa.Grids.Blueprints
         public string name;
         public BlueprintTypeGuid shipClass;
 
-        [JsonProperty("blocks")] public BlueprintBlocks Blocks { get; private set; }
+        [JsonProperty("blocks")] public BlueprintGrid Grid { get; private set; }
         [JsonIgnore] public Texture2D Thumbnail { get; set; }
 
         [JsonIgnore] public BlueprintType BlueprintType => Systems.Blueprints.blueprintTypes.typesById[shipClass];
@@ -21,39 +21,39 @@ namespace Exa.Grids.Blueprints
         public Blueprint(BlueprintOptions options) {
             this.name = options.name;
             this.shipClass = options.shipClass;
-            this.Blocks = new BlueprintBlocks();
+            this.Grid = new BlueprintGrid();
         }
 
         [JsonConstructor]
-        public Blueprint(string name, BlueprintTypeGuid shipClass, BlueprintBlocks blocks) {
+        public Blueprint(string name, BlueprintTypeGuid shipClass, BlueprintGrid grid) {
             this.name = name;
             this.shipClass = shipClass;
-            this.Blocks = blocks;
+            this.Grid = grid;
         }
 
         public void Add(ABpBlock aBpBlock) {
-            Blocks.Add(aBpBlock);
+            Grid.Add(aBpBlock);
         }
 
         public void Remove(Vector2Int gridPos) {
-            Blocks.Remove(gridPos);
+            Grid.Remove(gridPos);
         }
 
         public void ClearBlocks() {
-            Blocks = new BlueprintBlocks();
+            Grid = new BlueprintGrid();
             Thumbnail = null;
         }
 
         public Blueprint Clone() {
-            return new Blueprint(name, shipClass, Blocks.Clone());
+            return new Blueprint(name, shipClass, Grid.Clone());
         }
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
             new TooltipText($"Name: {name}"),
             new TooltipText($"Class: {shipClass}"),
-            new TooltipText($"Size: {(Vector2Int)Blocks.Size}"),
-            new TooltipText($"Blocks (Count: {Blocks.GetMemberCount()}):"),
-            new TooltipGroup(Blocks.GetTotals().GetDebugTooltipComponents(), 1)
+            new TooltipText($"Size: {(Vector2Int)Grid.Size}"),
+            new TooltipText($"Blocks (Count: {Grid.GetMemberCount()}):"),
+            new TooltipGroup(Grid.GetTotals().GetDebugTooltipComponents(), 1)
         };
     }
 }

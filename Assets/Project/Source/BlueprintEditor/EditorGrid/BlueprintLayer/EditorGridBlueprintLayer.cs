@@ -27,7 +27,7 @@ namespace Exa.ShipEditor
         public void Import(Blueprint blueprint) {
             ActiveBlueprint = blueprint;
 
-            foreach (var block in blueprint.Blocks) {
+            foreach (var block in blueprint.Grid) {
                 PlaceBlock(block);
             }
         }
@@ -49,9 +49,9 @@ namespace Exa.ShipEditor
         }
 
         public void RemoveBlock(Vector2Int gridPos) {
-            if (!ActiveBlueprint.Blocks.ContainsMember(gridPos)) return;
+            if (!ActiveBlueprint.Grid.ContainsMember(gridPos)) return;
 
-            RemoveBlock(ActiveBlueprint.Blocks.GetMember(gridPos));
+            RemoveBlock(ActiveBlueprint.Grid.GetMember(gridPos));
         }
 
         public void RemoveBlock(ABpBlock block) {

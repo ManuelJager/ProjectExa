@@ -10,7 +10,7 @@ namespace Exa.Gameplay.Missions
 {
     public class MissionManager : MonoBehaviour
     {
-        public  bool IsEditing { get; set; }
+        public bool IsEditing { get; set; }
         public Mission Mission { get; private set; }
         public BlockCosts CurrentResources { get; private set; }
 
@@ -36,7 +36,8 @@ namespace Exa.Gameplay.Missions
 
         public void StartEditing() {
             IsEditing = true;
-
+            editResult = null;
+            
             var currentTarget = Systems.CameraController.CurrentTarget;
             GameSystems.SpawnLayer.SetLayerActive(false);
             GameSystems.UI.gameplayLayer.NavigateTo(Systems.Editor.navigateable);
@@ -53,22 +54,24 @@ namespace Exa.Gameplay.Missions
             Systems.Editor.Import(import);
         }
 
-        public void StopEditing(ICameraTarget cameraTarget) {
-            IsEditing = false;
-            
-            Systems.CameraController.SetTarget(cameraTarget);
-            GameSystems.SpawnLayer.SetLayerActive(true);
-            
-            // TODO: use edit result
-            editResult = null;
-        }
-
         public void Update() {
             if (Mission != null) {
                 Mission.Update();
             }
             
             GameSystems.UI.gameplayLayer.currentResources.Refresh(CurrentResources);
+        }
+        
+        private void StopEditing(ICameraTarget cameraTarget) {
+            IsEditing = false;
+            
+            Systems.CameraController.SetTarget(cameraTarget);
+            GameSystems.SpawnLayer.SetLayerActive(true);
+            
+            // TODO: use edit result
+            if (editResult != null) {
+                Mission.Station.SetBlueprint(editResult);
+            }
         }
     }
 }

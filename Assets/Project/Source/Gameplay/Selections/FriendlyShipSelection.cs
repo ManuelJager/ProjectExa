@@ -17,7 +17,7 @@ namespace Exa.Gameplay
 
         public void MoveLookAt(Vector2 point) {
             var formationPositions = formation.GetGlobalLayout(this, point);
-            var formationShips = this.OrderByDescending(ship => ship.Blueprint.Blocks.MaxSize);
+            var formationShips = this.OrderByDescending(ship => ship.Blueprint.Grid.MaxSize);
 
             foreach (var (ship, formationPosition) in formationShips.AsTupleEnumerable(formationPositions)) {
                 var currentPosition = ship.transform.position.ToVector2();

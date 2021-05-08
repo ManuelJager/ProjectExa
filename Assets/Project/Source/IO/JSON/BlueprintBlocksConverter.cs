@@ -8,15 +8,15 @@ using UnityEngine;
 
 namespace Exa.IO.Json
 {
-    public class BlueprintBlocksConverter : JsonConverter<BlueprintBlocks>
+    public class BlueprintBlocksConverter : JsonConverter<BlueprintGrid>
     {
         public static readonly string[] SEPARATORS = {"(", ",", ")"};
 
-        public override BlueprintBlocks ReadJson(JsonReader reader, Type objectType, BlueprintBlocks existingValue,
+        public override BlueprintGrid ReadJson(JsonReader reader, Type objectType, BlueprintGrid existingValue,
             bool hasExistingValue, JsonSerializer serializer) {
             if (reader.TokenType == JsonToken.Null) return null;
 
-            var blocks = new BlueprintBlocks();
+            var blocks = new BlueprintGrid();
             foreach (var pair in JObject.Load(reader).Unpack()) {
                 var vector = pair.key.Split(SEPARATORS, StringSplitOptions.RemoveEmptyEntries);
 
@@ -33,7 +33,7 @@ namespace Exa.IO.Json
             return blocks;
         }
 
-        public override void WriteJson(JsonWriter writer, BlueprintBlocks value, JsonSerializer serializer) {
+        public override void WriteJson(JsonWriter writer, BlueprintGrid value, JsonSerializer serializer) {
             writer.WriteStartObject();
             foreach (var pair in value) {
                 writer.WritePropertyName(pair.GridAnchor.ToShortString());

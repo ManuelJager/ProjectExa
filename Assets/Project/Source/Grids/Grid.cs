@@ -9,6 +9,7 @@ using Project.Source.Grids;
 
 namespace Exa.Grids
 {
+    // TODO: Implement a clear mechanism, so consumers don't need to re-instantiate a grid
     public abstract class Grid<T> : IEnumerable<T>, IMemberCollection
         where T : class, IGridMember
     {
@@ -21,7 +22,6 @@ namespace Exa.Grids
         protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
         protected Dictionary<T, List<T>> NeighbourDict { get; set; }
 
-        public T Controller { get; protected set; }
 
         public float MaxSize {
             get {
@@ -47,11 +47,6 @@ namespace Exa.Grids
 
         public virtual void Add(T gridMember) {
             Size.Invalidate();
-
-            // Assign controller reference
-            if (gridMember.GetIsController() && Controller == null) {
-                Controller = gridMember;
-            }
 
             GridMembers.Add(gridMember);
             
@@ -81,10 +76,6 @@ namespace Exa.Grids
 
         public virtual void Remove(T gridMember) {
             Size.Invalidate();
-            // Remove controller reference
-            if (ReferenceEquals(gridMember, Controller)) {
-                Controller = default;
-            }
 
             // TODO: Cache this result
             var tilePositions = gridMember.GetTileClaims();

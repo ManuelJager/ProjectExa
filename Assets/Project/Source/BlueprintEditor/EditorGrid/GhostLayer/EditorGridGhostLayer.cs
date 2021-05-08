@@ -65,7 +65,7 @@ namespace Exa.ShipEditor
         }
 
         public void TryDelete() {
-            var blocks = blueprintLayer.ActiveBlueprint.Blocks;
+            var blocks = blueprintLayer.ActiveBlueprint.Grid;
 
             QueryActiveControllers().ForEach(controller => {
                 var pos = controller.BlueprintBlock.gridAnchor;
@@ -139,7 +139,7 @@ namespace Exa.ShipEditor
 
             var positionValid = occupiedBlocks.Distinct().Count() == occupiedBlocks.Count()
                    && occupiedBlocks.All(pos => backgroundLayer.PosIsInGrid(pos))
-                   && !blueprintLayer.ActiveBlueprint.Blocks.HasOverlap(occupiedBlocks);
+                   && !blueprintLayer.ActiveBlueprint.Grid.HasOverlap(occupiedBlocks);
 
             if (!positionValid) {
                 return false;

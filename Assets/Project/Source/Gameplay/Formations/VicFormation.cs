@@ -51,7 +51,7 @@ namespace Exa.Gameplay
         }
 
         private float CalculateEchelonSpread(Blueprint blueprint) {
-            return blueprint.Blocks.MaxSize * 2f;
+            return blueprint.Grid.MaxSize * 2f;
         }
     }
 }
