@@ -26,12 +26,6 @@ namespace Exa.Ships
             base.ActiveFixedUpdate(fixedDeltaTime);
         }
 
-        public float GetTurningRate() {
-            var totals = BlockGrid.GetTotals(); 
-            
-            return totals.TurningPower / totals.Mass;
-        }
-
         public override ShipSelection GetAppropriateSelection(Formation formation) {
             return new EnemyShipSelection(formation);
         }
