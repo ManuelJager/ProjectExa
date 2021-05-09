@@ -186,7 +186,7 @@ namespace Exa.Ships
 
         public abstract void SetPosition(Vector2 position);
 
-        private TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(new ITooltipComponent[] {
+        protected virtual TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(1,
             new TooltipTitle(GetInstanceString(), false),
             new TooltipSpacer(),
             new TooltipText("Blueprint:"),
@@ -196,19 +196,19 @@ namespace Exa.Ships
             new TooltipGroup(BlockGrid.GetDebugTooltipComponents(), 1),
             new TooltipSpacer(),
             new TooltipText("State:"),
-            new TooltipGroup(new ITooltipComponent[] {
-                new TooltipText($"HullIntegrity: {HullIntegrity}"),
-            }, 1),
+            new TooltipGroup(1,
+                new TooltipText($"HullIntegrity: {HullIntegrity}")
+            ),
             new TooltipSpacer(),
             new TooltipText("State:"),
-            new TooltipGroup(new ITooltipComponent[] {
+            new TooltipGroup(1,
                 new TooltipText($"Rotation: {rb.rotation}"),
-                new TooltipText($"Clamped Rotation: {MathUtils.NormalizeAngle360(rb.rotation)}"), 
-            }, 1),
+                new TooltipText($"Clamped Rotation: {MathUtils.NormalizeAngle360(rb.rotation)}")
+            ),
             new TooltipSpacer(), 
             new TooltipText("AI:"),
             new TooltipGroup(gridAi.GetDebugTooltipComponents(), 1)
-        });
+        );
         
         public void SetLookAt(Vector2 globalLookAt) {
             Rigidbody2D.rotation = (globalLookAt - GetPosition()).GetAngle();

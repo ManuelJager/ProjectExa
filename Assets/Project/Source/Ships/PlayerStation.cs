@@ -5,6 +5,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Input;
+using Exa.UI.Tooltips;
 using Project.Source.Grids;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -88,5 +89,12 @@ namespace Exa.Ships
                 }
             }
         }
+
+        protected override TooltipGroup GetDebugTooltipComponents() =>
+            base.GetDebugTooltipComponents().AppendRange(
+                new TooltipSpacer(),
+                new TooltipText("Grid diff:"),
+                Diff.GetDebugTooltipComponents()
+            );
     }
 }

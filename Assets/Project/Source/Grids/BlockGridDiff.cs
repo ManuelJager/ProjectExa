@@ -4,6 +4,7 @@ using Exa.Grids;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Ships;
+using Exa.UI.Tooltips;
 using UnityEngine;
 
 namespace Project.Source.Grids
@@ -29,15 +30,17 @@ namespace Project.Source.Grids
             Diff();
         }
 
+        public TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(1,
+            new TooltipText($"Added to Target: {addedToTarget.Count} Items"),
+            new TooltipText($"Removed from target: {removedFromTarget.Count} Items")
+        );
+
         private void Diff() {
             addedToTarget.Clear();
             removedFromTarget.Clear();
             
             addedToTarget.AddRange(target.Where(FilterAdd));
             removedFromTarget.AddRange(source.Where(FilterRemoved));
-            
-            Debug.Log($"Added to target {addedToTarget.Count}");
-            Debug.Log($"Removed from target {removedFromTarget.Count}");
         }
 
         private bool FilterAdd(ABpBlock aBpBlock) {
@@ -49,15 +52,9 @@ namespace Project.Source.Grids
         }
 
         // Get whether a blueprint block doesn't exist on the target, or the blocks differ
-        private bool PassesFilter<T>(Grid<T> grid, IGridMember member) 
+        private static bool PassesFilter<T>(Grid<T> grid, IGridMember member) 
             where T : class, IGridMember {
-            if (!grid.TryGetMember(member.GridAnchor, out var block)) {
-                return true;
-            }
-            
-            var equals = !member.Equals(block);
-
-            return equals;
+            return !grid.TryGetMember(member.GridAnchor, out var block) || !block.Equals(member);
         }
         
         protected override void OnMemberAdded(IGridMember member) {
