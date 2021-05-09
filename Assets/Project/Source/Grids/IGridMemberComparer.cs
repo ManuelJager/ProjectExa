@@ -12,7 +12,6 @@ namespace Project.Source.Grids
             if (ReferenceEquals(x, y)) return true;
             if (ReferenceEquals(x, null)) return false;
             if (ReferenceEquals(y, null)) return false;
-            if (x.GetType() != y.GetType()) return false;
             return x.GridAnchor.Equals(y.GridAnchor) && x.BlueprintBlock.Equals(y.BlueprintBlock);
         }
 

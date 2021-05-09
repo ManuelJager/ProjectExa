@@ -41,12 +41,23 @@ namespace Project.Source.Grids
         }
 
         private bool FilterAdd(ABpBlock aBpBlock) {
-            // Get whether a blueprint block doesn't exist on the target, or the blocks differ
-            return !source.TryGetMember(aBpBlock.GridAnchor, out var block) || !block.Equals(aBpBlock);
+            return PassesFilter(source, aBpBlock);
         }
 
         private bool FilterRemoved(Block block) {
-            return !target.TryGetMember(block.GridAnchor, out var aBpBlock) || !aBpBlock.Equals(block);
+            return PassesFilter(target, block);
+        }
+
+        // Get whether a blueprint block doesn't exist on the target, or the blocks differ
+        private bool PassesFilter<T>(Grid<T> grid, IGridMember member) 
+            where T : class, IGridMember {
+            if (!grid.TryGetMember(member.GridAnchor, out var block)) {
+                return true;
+            }
+            
+            var equals = !member.Equals(block);
+
+            return equals;
         }
         
         protected override void OnMemberAdded(IGridMember member) {
