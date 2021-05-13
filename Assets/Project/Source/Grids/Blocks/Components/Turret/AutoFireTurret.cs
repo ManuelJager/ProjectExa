@@ -17,7 +17,7 @@ namespace Exa.Grids.Blocks.Components
 
         protected virtual void AttemptFire(float targetAngleDelta) {
             if (AutoFire && targetAngleDelta < 0.5f && timeSinceFire > data.FiringRate) {
-                timeSinceFire = 0f; // TODO: This is increasingly more inaccurate on low fps
+                timeSinceFire -= data.FiringRate;
                 Fire();
             }
         }

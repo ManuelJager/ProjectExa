@@ -10,17 +10,16 @@ namespace Project.Source.Grids
     public class BlockGridDiff : MemberCollectionListener<BlockGrid>
     {
         private BlueprintGrid target;
-        private SortedSet<IGridMember> pendingAdd;
-        private SortedSet<IGridMember> pendingRemove;
+        private List<IGridMember> pendingAdd;
+        private List<IGridMember> pendingRemove;
 
         public IEnumerable<IGridMember> PendingAdd => pendingAdd;
-        public IEnumerable<IGridMember> PendingRemoved => pendingRemove;
+        public IEnumerable<IGridMember> PendingRemove => pendingRemove;
         
         public BlockGridDiff(BlockGrid source, BlueprintGrid target) : base(source) {
             this.target = target;
-            var comparer = new RelativeGridMemberComparer(source);
-            pendingAdd = new SortedSet<IGridMember>(comparer);
-            pendingRemove = new SortedSet<IGridMember>(comparer.ReverseComparer());
+            pendingAdd = new List<IGridMember>();
+            pendingRemove = new List<IGridMember>();
             Diff();
         }
 
@@ -48,7 +47,7 @@ namespace Project.Source.Grids
         }
 
         // Get whether a blueprint block doesn't exist on the target, or the blocks differ
-        private static void FilteredAddToPending<T>(Grid<T> grid, IGridMember member, ISet<IGridMember> destination) 
+        private static void FilteredAddToPending<T>(Grid<T> grid, IGridMember member, IList<IGridMember> destination) 
             where T : class, IGridMember {
             if (!grid.TryGetMember(member.GridAnchor, out var block) || !block.Equals(member)) {
                 destination.Add(member);

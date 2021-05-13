@@ -24,6 +24,10 @@ namespace Exa.Gameplay.Missions
             waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
             waveManager.StartPreparationPhase(true);
+
+            waveManager.WaveStarted += () => {
+                Station.ReconcileWithDiff();
+            };
         }
     }
 }

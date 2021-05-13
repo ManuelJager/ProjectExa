@@ -33,11 +33,11 @@ namespace Exa.ShipEditor
             return cache.Values.SelectMany(cache => cache.TurretClaimedTiles).Distinct();
         }
 
-        public override void Remove(ABpBlock gridMember) {
-            cache.Remove(gridMember);
-            turretLayer.RemoveStationaryOverlay(gridMember);
+        public override void Remove(ABpBlock block) {
+            cache.Remove(block);
+            turretLayer.RemoveStationaryOverlay(block);
 
-            base.Remove(gridMember);
+            base.Remove(block);
         }
 
         private struct TurretCache

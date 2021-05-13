@@ -13,6 +13,8 @@ namespace Exa.Grids.Blueprints
         public string name;
         public BlueprintTypeGuid shipClass;
 
+        public ABpBlock this[Vector2Int key] => Grid.GetMember(key);
+
         [JsonProperty("blocks")] public BlueprintGrid Grid { get; private set; }
         [JsonIgnore] public Texture2D Thumbnail { get; set; }
 

@@ -17,7 +17,6 @@ namespace Exa.Ships
     {
         private GameControls gameControls;
 
-        public BlockGridDiff Diff { get; private set; }
 
         protected override void Awake() {
             base.Awake();
@@ -36,7 +35,6 @@ namespace Exa.Ships
         
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             base.Import(blueprint, blockContext, configuration);
-            Diff = Systems.Blocks.Diffs.StartWatching(BlockGrid, Blueprint.Grid);
             Overlay = GameSystems.UI.gameplayLayer.coreHealthBar;
         }
 

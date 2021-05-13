@@ -52,28 +52,25 @@ namespace Exa.Gameplay
 
             void FloodFill(int x, int y) {
                 var gridPos = new Vector2Int(x, y);
-                if (!visitedGridPos.Add(gridPos)) {
-                    return;
-                }
+                
+                if (!visitedGridPos.Add(gridPos)) return;
+                if (!blockGrid.TryGetMember(gridPos, out var member)) return;
+                if (vacantBlocks.Contains(member)) {
+                    vacantBlocks.Remove(member);
+                    cluster.Add(member);
 
-                if (blockGrid.TryGetMember(gridPos, out var member)) {
-                    if (vacantBlocks.Contains(member)) {
-                        vacantBlocks.Remove(member);
-                        cluster.Add(member);
+                    if (member.GetIsController()) {
+                        if (cluster.containsController)
+                            Debug.LogWarning($"Cluster {cluster} contains multiple controllers, this shouldn't happen");
 
-                        if (member.GetIsController()) {
-                            if (cluster.containsController)
-                                Debug.LogWarning($"Cluster {cluster} contains multiple controllers, this shouldn't happen");
-
-                            cluster.containsController = true;
-                        }
+                        cluster.containsController = true;
                     }
-
-                    FloodFill(x - 1, y);
-                    FloodFill(x + 1, y);
-                    FloodFill(x, y - 1);
-                    FloodFill(x, y + 1);
                 }
+
+                FloodFill(x - 1, y);
+                FloodFill(x + 1, y);
+                FloodFill(x, y - 1);
+                FloodFill(x, y + 1);
             }
 
             FloodFill(startPoint.x, startPoint.y);

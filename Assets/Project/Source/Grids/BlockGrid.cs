@@ -4,6 +4,7 @@ using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Source.Grids;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -30,23 +31,23 @@ namespace Exa.Ships
         public GridTotals GetTotals() {
             return totals;
         }
-
-        public override void Add(Block gridMember) {
-            if (gridMember.GetIsController()) {
+ 
+        public override void Add(Block block) {
+            if (block.GetIsController()) {
                 if (Controller != null) {
-                    throw new DuplicateControllerException(gridMember.GridAnchor);
+                    throw new DuplicateControllerException(block.GridAnchor);
                 }
                 
-                Controller = gridMember;
+                Controller = block;
             }
 
-            base.Add(gridMember);
+            base.Add(block);
         }
 
-        public override void Remove(Block gridMember) {
-            base.Remove(gridMember);
+        public override void Remove(Block block) {
+            base.Remove(block);
 
-            if (gridMember.GetIsController()) {
+            if (block.GetIsController()) {
                 Controller = null;
             }
 
@@ -56,25 +57,33 @@ namespace Exa.Ships
             }
         }
 
-        internal void Import(Blueprint blueprint) {
-            foreach (var anchoredBlueprintBlock in blueprint.Grid) {
-                Add(CreateBlock(anchoredBlueprintBlock));
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] { };
+
+        public void DestroyIfEmpty() {
+            if (!GridMembers.Any()) {
+                Object.Destroy(container.gameObject);
             }
         }
 
+        internal void Import(Blueprint blueprint) {
+            foreach (var anchoredBlueprintBlock in blueprint.Grid) {
+                Place(anchoredBlueprintBlock);
+            }
+        }
+        
+        internal void Place(ABpBlock aBpBlock) {
+            Add(CreateBlock(aBpBlock));
+        }
+
+        internal void Destroy(Vector2Int gridAnchor) {
+            GetMember(gridAnchor).DestroyBlock();
+        }
+        
         private Block CreateBlock(ABpBlock aBpBlock) {
             var block = aBpBlock.CreateInactiveBlockInGrid(container, Parent.BlockContext);
             block.Parent = Parent;
             block.gameObject.SetActive(true);
             return block;
-        }
-
-        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
-        };
-
-        public void DestroyIfEmpty() {
-            if (!GridMembers.Any())
-                Object.Destroy(container.gameObject);
         }
     }
 }

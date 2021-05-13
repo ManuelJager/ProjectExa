@@ -9,8 +9,10 @@ using Exa.UI;
 using Exa.UI.Tooltips;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids;
 using Exa.Types.Generics;
+using Project.Source.Grids;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -42,6 +44,7 @@ namespace Exa.Ships
         public BlockGrid BlockGrid { get; private set; }
         public Blueprint Blueprint { get; private set; }
         public Controller Controller { get; internal set; }
+        public BlockGridDiff Diff { get; private set; }
         public bool Active { get; private set; }
         public IGridOverlay Overlay { get; set; }
         public Transform Transform => transform;
@@ -111,6 +114,8 @@ namespace Exa.Ships
             mouseOverCollider.radius = radius;
             BlockGrid.Import(blueprint);
             Blueprint = blueprint;
+            
+            Diff = Systems.Blocks.Diffs.StartWatching(BlockGrid, Blueprint.Grid);
 
             gridAi.Init();
         }
@@ -220,6 +225,19 @@ namespace Exa.Ships
 
         public void Rotate(float degrees) {
             Rigidbody2D.rotation += degrees;
+        }
+        
+        public void ReconcileWithDiff() {
+            var pendingAdd = Diff.PendingAdd.ToList();
+            var pendingRemove = Diff.PendingRemove.ToList();
+ 
+            foreach (var block in pendingRemove) {
+                BlockGrid.Destroy(block.GridAnchor);
+            }
+            
+            foreach (var block in pendingAdd) {
+                BlockGrid.Place(Blueprint[block.GridAnchor]);
+            }
         }
     }
 }

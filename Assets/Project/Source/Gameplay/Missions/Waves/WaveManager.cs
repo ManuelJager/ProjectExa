@@ -16,18 +16,27 @@ namespace Exa.Gameplay.Missions
         private int preparationPhaseLength = 5;
         private WaveState currentWaveState;
 
+        public event Action WaveStarted;
+        public event Action WaveEnded;
+        public event Action MissionEnded;
+
         public void Setup(Spawner spawner, List<Wave> waves) {
             this.spawner = spawner;
             this.waves = waves;
+
+            WaveStarted += () => Debug.Log("Wave Started");
+            WaveEnded += () => Debug.Log("Wave Ended");
+            MissionEnded += () => Debug.Log("Mission Ended");
         }
         
-        public void NextWave() {
+        private void NextWave() {
             if (currentWaveIndex >= waves.Count) {
                 throw new InvalidOperationException("Cannot find wave");
             }
             
+            WaveStarted?.Invoke();
             GameSystems.UI.gameplayLayer.missionState.SetText("Combat phase", $"Wave {currentWaveIndex + 1}");
-
+            
             currentWaveState = new WaveState(OnWaveEnded, OnEnemyDestroyed);
             waves[currentWaveIndex].Spawn(spawner, currentWaveState);
 
@@ -39,12 +48,12 @@ namespace Exa.Gameplay.Missions
         }
 
         private void OnMissionEnded() {
-            Debug.Log("Mission ended");
+            MissionEnded?.Invoke();
         }
 
         private void OnWaveEnded() {
-            Debug.Log("Wave ended");
-
+            WaveEnded?.Invoke();
+            
             if (currentWaveIndex >= waves.Count) {
                 OnMissionEnded();
             }
