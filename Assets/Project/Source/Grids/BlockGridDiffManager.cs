@@ -15,10 +15,12 @@ namespace Project.Source.Grids
         public BlockGridDiff StartWatching(BlockGrid source, BlueprintGrid target) {
             var diff = new BlockGridDiff(source, target);
             diffs.Add(source, diff);
+            diff.AddListeners();
             return diff;
         }
 
         public void StopWatching(BlockGrid source) {
+            diffs[source].RemoveListeners();
             diffs.Remove(source);
         }
         

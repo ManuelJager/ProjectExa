@@ -5,23 +5,22 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Ships;
 using Exa.UI.Tooltips;
-using UnityEngine;
 
 namespace Project.Source.Grids
 {
     public class BlockGridDiff : MemberCollectionListener<BlockGrid>
     {
         private BlueprintGrid target;
-        private List<IGridMember> addedToTarget;
-        private List<IGridMember> removedFromTarget;
+        private SortedSet<IGridMember> pendingAdd;
+        private SortedSet<IGridMember> pendingRemove;
 
-        public IEnumerable<IGridMember> Added => addedToTarget;
-        public IEnumerable<IGridMember> Removed => removedFromTarget;
+        public IEnumerable<IGridMember> PendingAdd => pendingAdd;
+        public IEnumerable<IGridMember> PendingRemoved => pendingRemove;
         
         public BlockGridDiff(BlockGrid source, BlueprintGrid target) : base(source) {
             this.target = target;
-            addedToTarget = new List<IGridMember>();
-            removedFromTarget = new List<IGridMember>();
+            pendingAdd = new SortedSet<IGridMember>();
+            pendingRemove = new SortedSet<IGridMember>();
             Diff();
         }
 
@@ -31,42 +30,42 @@ namespace Project.Source.Grids
         }
 
         public TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(1,
-            new TooltipText($"Added to Target: {addedToTarget.Count} Items"),
-            new TooltipText($"Removed from target: {removedFromTarget.Count} Items")
+            new TooltipText($"Pending add: {pendingAdd.Count} Items"),
+            new TooltipText($"Pending remove: {pendingRemove.Count} Items")
         );
 
         private void Diff() {
-            addedToTarget.Clear();
-            removedFromTarget.Clear();
-            
-            addedToTarget.AddRange(target.Where(FilterAdd));
-            removedFromTarget.AddRange(source.Where(FilterRemoved));
-        }
+            pendingAdd.Clear();
+            pendingRemove.Clear();
 
-        private bool FilterAdd(ABpBlock aBpBlock) {
-            return PassesFilter(source, aBpBlock);
-        }
+            foreach (var aBpBlock in target) {
+                FilteredAddToPending(source, aBpBlock, pendingAdd);
+            }
 
-        private bool FilterRemoved(Block block) {
-            return PassesFilter(target, block);
+            foreach (var block in source) {
+                FilteredAddToPending(target, block, pendingRemove);
+            }
         }
 
         // Get whether a blueprint block doesn't exist on the target, or the blocks differ
-        private static bool PassesFilter<T>(Grid<T> grid, IGridMember member) 
+        private static void FilteredAddToPending<T>(Grid<T> grid, IGridMember member, SortedSet<IGridMember> destination) 
             where T : class, IGridMember {
-            return !grid.TryGetMember(member.GridAnchor, out var block) || !block.Equals(member);
+            if (!grid.TryGetMember(member.GridAnchor, out var block) || !block.Equals(member)) {
+                destination.Add(member);
+            }
         }
         
         protected override void OnMemberAdded(IGridMember member) {
-            // Check if
-            if (!addedToTarget.Remove(member)) {
-                removedFromTarget.Add(member);
+            // Check if the block is pending to be added, if it isn't, mark it as pending to be removed
+            if (!pendingAdd.Remove(member)) {
+                pendingRemove.Add(member);
             }
         }
 
         protected override void OnMemberRemoved(IGridMember member) {
-            if (!removedFromTarget.Remove(member)) {
-                addedToTarget.Add(member);
+            // Check if the block is pending to be removed, if it isn't, mark it as pending to be added
+            if (!pendingRemove.Remove(member)) {
+                pendingAdd.Add(member);
             }
         }
     }
