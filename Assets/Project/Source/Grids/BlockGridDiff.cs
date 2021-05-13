@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Exa.Grids;
-using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.Ships;
 using Exa.UI.Tooltips;
+using Exa.Utils;
 
 namespace Project.Source.Grids
 {
@@ -19,8 +18,9 @@ namespace Project.Source.Grids
         
         public BlockGridDiff(BlockGrid source, BlueprintGrid target) : base(source) {
             this.target = target;
-            pendingAdd = new SortedSet<IGridMember>();
-            pendingRemove = new SortedSet<IGridMember>();
+            var comparer = new RelativeGridMemberComparer(source);
+            pendingAdd = new SortedSet<IGridMember>(comparer);
+            pendingRemove = new SortedSet<IGridMember>(comparer.ReverseComparer());
             Diff();
         }
 
@@ -48,7 +48,7 @@ namespace Project.Source.Grids
         }
 
         // Get whether a blueprint block doesn't exist on the target, or the blocks differ
-        private static void FilteredAddToPending<T>(Grid<T> grid, IGridMember member, SortedSet<IGridMember> destination) 
+        private static void FilteredAddToPending<T>(Grid<T> grid, IGridMember member, ISet<IGridMember> destination) 
             where T : class, IGridMember {
             if (!grid.TryGetMember(member.GridAnchor, out var block) || !block.Equals(member)) {
                 destination.Add(member);
