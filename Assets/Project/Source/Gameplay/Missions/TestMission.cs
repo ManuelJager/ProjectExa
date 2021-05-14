@@ -12,7 +12,7 @@ namespace Exa.Gameplay.Missions
         
         public override void Init(MissionArgs args) {
             spawner = new Spawner();
-            Station = spawner.SpawnPlayerStation(configuration: GridInstanceConfiguration.InvulnerableConfig);
+            GameSystems.MissionManager.Station = spawner.SpawnPlayerStation(configuration: GridInstanceConfiguration.InvulnerableConfig);
             Spawn().Start();
         }
 

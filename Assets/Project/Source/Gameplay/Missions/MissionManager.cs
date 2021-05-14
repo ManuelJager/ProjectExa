@@ -3,19 +3,27 @@ using Exa.Camera;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.ShipEditor;
+using Exa.Ships;
 using Exa.Validation;
 using UnityEngine;
 
 namespace Exa.Gameplay.Missions
 {
+    public struct EditResult
+    {
+        public Blueprint blueprint;
+        // NOTE: This should be recalculated if the research context changes
+        public BlockCosts editCost; 
+    }
+    
     public class MissionManager : MonoBehaviour
     {
-        public bool IsEditing { get; set; }
+        public bool IsEditing { get; private set; }
         public Mission Mission { get; private set; }
         public BlockCosts CurrentResources { get; private set; }
+        public PlayerStation Station { get; internal set; }
 
-
-        private Blueprint editResult;
+        private EditResult? editResult;
 
         public void LoadMission(Mission mission, MissionArgs args) {
             if (Mission != null) {
@@ -42,16 +50,24 @@ namespace Exa.Gameplay.Missions
             GameSystems.SpawnLayer.SetLayerActive(false);
             GameSystems.UI.gameplayLayer.NavigateTo(Systems.Editor.navigateable);
 
-            var import = new BlueprintImportArgs(Mission.Station.Blueprint, result => editResult = result) {
+            var settings = new BlueprintImportArgs(Station.Blueprint, blueprint => {
+                var newCosts = blueprint.Grid.GetTotals(BlockContext.UserGroup).Metadata.blockCosts;
+                var oldCosts = Station.GetBaseTotals().Metadata.blockCosts;
+                
+                editResult = new EditResult {
+                    blueprint = blueprint,
+                    editCost = newCosts - oldCosts
+                };
+            }) {
                 OnExit = () => StopEditing(currentTarget),
             };
 
-            import.AddValidator(new BlueprintCostValidator(
+            settings.AddValidator(new BlueprintCostValidator(
                 CurrentResources,
-                Mission.Station.GetBaseTotals().Metadata.blockCosts
+                Station.GetBaseTotals().Metadata.blockCosts
             ));
             
-            Systems.Editor.Import(import);
+            Systems.Editor.Import(settings);
         }
 
         public void Update() {
@@ -70,7 +86,8 @@ namespace Exa.Gameplay.Missions
             
             // TODO: use edit result
             if (editResult != null) {
-                Mission.Station.SetBlueprint(editResult);
+                Station.SetBlueprint(editResult.Value.blueprint);
+                CurrentResources -= editResult.Value.editCost;
             }
         }
     }

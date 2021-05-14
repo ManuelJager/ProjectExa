@@ -11,7 +11,6 @@ namespace Exa.Gameplay.Missions
 
         public string Label => missionName;
         public Mission Value => this;
-        public PlayerStation Station { get; protected set; }
 
         public abstract void Init(MissionArgs args);
 

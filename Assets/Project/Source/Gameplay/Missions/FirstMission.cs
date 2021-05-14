@@ -9,8 +9,6 @@ namespace Exa.Gameplay.Missions
     {
         [SerializeField] private List<Wave> waves;
         
-        private WaveManager waveManager;
-        
         public override void Init(MissionArgs args) {
             var spawner = new Spawner();
 
@@ -19,14 +17,14 @@ namespace Exa.Gameplay.Missions
                 metalsCost = 10,
             });
             
-            Station = spawner.SpawnPlayerStation();
+            GameSystems.MissionManager.Station = spawner.SpawnPlayerStation();
             
-            waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
+            var waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
             waveManager.StartPreparationPhase(true);
 
             waveManager.WaveStarted += () => {
-                Station.ReconcileWithDiff();
+                GameSystems.MissionManager.Station.ReconcileWithDiff();
             };
         }
     }
