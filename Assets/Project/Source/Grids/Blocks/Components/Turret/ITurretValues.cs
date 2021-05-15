@@ -1,4 +1,6 @@
-﻿namespace Exa.Grids.Blocks.Components
+﻿using Exa.Types.Generics;
+
+namespace Exa.Grids.Blocks.Components
 {
     public interface ITurretValues : IBlockComponentValues
     {
@@ -7,5 +9,12 @@
         float TurretArc { get; }
         float TurretRadius { get; }
         float Damage { get; } // TODO: Expand the damage model
+    }
+
+    public static class ITurretValuesExtensions
+    {
+        public static MinMax<float> GetTurretArcMinMax(this ITurretValues values) {
+            return new MinMax<float>(-(values.TurretArc / 2f), values.TurretArc / 2f);
+        }
     }
 }

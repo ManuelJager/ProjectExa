@@ -15,6 +15,10 @@ namespace Exa.Types.Generics
         }
 
         public static MinMax<float> ZeroOne => new MinMax<float>(0f, 1f);
+
+        public (T, T) AsTuple() {
+            return (min, max);
+        }
     }
 
     public static class MinMaxHelpers

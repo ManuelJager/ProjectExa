@@ -9,9 +9,9 @@ namespace Exa.Grids.Blocks.Components
 
         protected override void BlockUpdate() {
             timeSinceFire += Time.deltaTime;
-            var targetAngleDelta = TryRotateTowardsTarget();
-            if (targetAngleDelta != null) {
-                AttemptFire(targetAngleDelta.Value);
+            var result = TryRotateTowardsTarget();
+            if (result != null) {
+                AttemptFire(result.Value.deltaToTarget);
             }
         }
 

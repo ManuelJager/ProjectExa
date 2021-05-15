@@ -226,6 +226,10 @@ namespace Exa.Ships
             Rigidbody2D.rotation += degrees;
         }
         
+        public void Repair() {
+            
+        }
+        
         public void ReconcileWithDiff() {
             var pendingAdd = Diff.PendingAdd.ToList();
             var pendingRemove = Diff.PendingRemove.ToList();

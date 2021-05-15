@@ -1,8 +1,11 @@
-﻿using Exa.Math;
+﻿using System;
+using Exa.Math;
 using Exa.Ships;
 using Exa.Ships.Targeting;
+using Exa.Types.Generics;
 using Exa.Utils;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -22,33 +25,37 @@ namespace Exa.Grids.Blocks.Components
             TryRotateTowardsTarget();
         }
 
-        protected float? TryRotateTowardsTarget() {
+        protected RotationResult? TryRotateTowardsTarget() {
+            // Dereference target if it isn't valid anymore
             if (!Target?.GetTargetValid() ?? false) {
                 Target = null;
             }
 
-            if (Target == null) {
-                RotateTowards(GetDefaultAngle());
-                return null;
-            }
+            var result = RotateTowards(SelectTargetAngle());
+            DoRotate(result);
+            return result;
+        }
 
-            // Rotate the turret to the target
+        protected virtual float SelectTargetAngle() {
+            if (Target == null) {
+                return GetDefaultAngle();
+            }
+            
             var currentPosition = transform.position.ToVector2();
             var difference = Target.GetPosition(currentPosition) - currentPosition;
-            var targetAngle = difference.GetAngle();
-            return RotateTowards(targetAngle);
+            return difference.GetAngle(); 
         }
 
         protected float GetDefaultAngle() {
             return Parent.Transform.right.ToVector2().GetAngle();
         }
 
-        protected float RotateTowards(float targetAngle) {
+        protected virtual RotationResult RotateTowards(float targetAngle) {
             var currentAngle = turret.rotation.eulerAngles.z;
-            var deltaAngle = Mathf.DeltaAngle(currentAngle, targetAngle);
+            var deltaAngle = GetDeltaAngleTowards(currentAngle, targetAngle);
 
             if (deltaAngle == 0f) {
-                return 0f;
+                return new RotationResult(0f, 0f, currentAngle);
             }
 
             var maxAngles = Data.TurningRate * Time.deltaTime;
@@ -56,9 +63,25 @@ namespace Exa.Grids.Blocks.Components
                 ? Mathf.Min(maxAngles, deltaAngle)
                 : Mathf.Max(-maxAngles, deltaAngle);
 
-            turret.rotation = Quaternion.Euler(0, 0, currentAngle + offset);
+            return new RotationResult {
+                deltaToTarget = Mathf.DeltaAngle(currentAngle + offset, targetAngle),
+                frameRotation = offset,
+                endRotation = currentAngle + offset
+            };
+        }
 
-            return Mathf.DeltaAngle(turret.rotation.eulerAngles.z, targetAngle);
+        protected virtual float GetDeltaAngleTowards(float currentAngle, float targetAngle) {
+            if (Data.TurretArc == 360f) {
+                return Mathf.DeltaAngle(currentAngle, targetAngle);
+            }
+
+            var (min, max) = Data.GetTurretArcMinMax().AsTuple();
+
+            throw new NotImplementedException();
+        }
+
+        protected virtual void DoRotate(RotationResult result) {
+            turret.rotation = Quaternion.Euler(0, 0, result.endRotation);
         }
 
         public abstract void Fire();
@@ -80,6 +103,19 @@ namespace Exa.Grids.Blocks.Components
             return damage > 0f 
                 ? firingPoint.right * maxDistance 
                 : lastHitPosition.ToVector3();
+        }
+    }
+
+    public struct RotationResult
+    {
+        public float deltaToTarget;
+        public float frameRotation;
+        public float endRotation;
+
+        public RotationResult(float deltaToTarget, float frameRotation, float endRotation) {
+            this.deltaToTarget = deltaToTarget;
+            this.frameRotation = frameRotation;
+            this.endRotation = endRotation;
         }
     }
 }

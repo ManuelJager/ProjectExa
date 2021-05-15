@@ -36,6 +36,10 @@ namespace Exa.ShipEditor
         }
 
         public void RotateGhosts(int value) {
+            if (!ImportedTemplate) {
+                return;
+            }
+            
             controllers.ForEach(controller => controller.Rotate(value));
             UpdateGhosts();
         }

@@ -16,7 +16,6 @@ namespace Exa.Ships
     {
         private GameControls gameControls;
 
-
         protected override void Awake() {
             base.Awake();
             

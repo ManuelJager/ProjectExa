@@ -16,7 +16,8 @@ namespace Exa.Utils
             return value.HasFlag(flag);
         }
 
-        public static bool HasAnyValue<T>(this T value, T flags) {
+        public static bool HasAnyValue<T>(this T value, T flags)
+            where T : Enum {
             return ((int) (object) value & (int) (object) flags) != 0;
         }
 

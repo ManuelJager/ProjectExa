@@ -24,6 +24,7 @@ namespace Exa.Gameplay.Missions
             waveManager.StartPreparationPhase(true);
 
             waveManager.WaveStarted += () => {
+                GameSystems.MissionManager.Station.Repair();
                 GameSystems.MissionManager.Station.ReconcileWithDiff();
             };
         }

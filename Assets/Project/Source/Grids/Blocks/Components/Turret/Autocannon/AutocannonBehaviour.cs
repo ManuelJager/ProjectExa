@@ -20,10 +20,14 @@ namespace Exa.Grids.Blocks.Components
                     break;
 
                 case CycleMode.Volley:
-                    foreach (var part in parts)
+                    foreach (var part in parts) {
                         part.Fire(data.damage);
+                    }
 
                     break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -35,21 +39,17 @@ namespace Exa.Grids.Blocks.Components
 
             var damageMask = ~Parent.BlockContext;
 
-            foreach (var part in parts)
+            foreach (var part in parts) {
                 part.Setup(animTime, Parent, damageMask);
+            }
         }
 
         private float GetAnimTime() {
-            switch (data.cycleMode) {
-                case CycleMode.Cycling:
-                    return data.firingRate * 1.5f;
-
-                case CycleMode.Volley:
-                    return data.firingRate * 0.75f;
-
-                default:
-                    throw new Exception();
-            }
+            return data.cycleMode switch {
+                CycleMode.Cycling => data.firingRate * 1.5f,
+                CycleMode.Volley => data.firingRate * 0.75f,
+                _ => throw new Exception()
+            };
         }
     }
 }
