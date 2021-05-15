@@ -3,7 +3,7 @@ using Exa.Grids;
 using Exa.Ships;
 using UnityEngine;
 
-namespace Project.Source.Grids
+namespace Exa.Grids
 {
     public class RelativeGridMemberComparer : IComparer<IGridMember>
     {

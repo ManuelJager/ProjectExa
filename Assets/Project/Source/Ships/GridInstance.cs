@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids;
 using Exa.Types.Generics;
-using Project.Source.Grids;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;

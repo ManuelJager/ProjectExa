@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Exa.Grids;
 
-namespace Project.Source.Grids
+namespace Exa.Grids
 {
     public class IGridMemberComparer : IEqualityComparer<IGridMember>
     {

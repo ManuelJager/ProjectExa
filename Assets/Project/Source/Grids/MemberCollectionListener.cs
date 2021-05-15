@@ -1,6 +1,6 @@
 ﻿using Exa.Grids;
 
-namespace Project.Source.Grids
+namespace Exa.Grids
 {
     public abstract class MemberCollectionListener<T>
         where T : IMemberCollection

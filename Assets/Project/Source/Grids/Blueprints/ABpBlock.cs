@@ -2,7 +2,6 @@
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using System;
-using Project.Source.Grids;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints

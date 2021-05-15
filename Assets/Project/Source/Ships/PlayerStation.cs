@@ -6,7 +6,6 @@ using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Input;
 using Exa.UI.Tooltips;
-using Project.Source.Grids;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Exa.Input.GameControls;

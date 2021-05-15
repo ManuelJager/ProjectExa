@@ -4,7 +4,6 @@ using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using UnityEngine;
 using System.Collections.Generic;
-using Project.Source.Grids;
 
 #pragma warning disable CS0649
 

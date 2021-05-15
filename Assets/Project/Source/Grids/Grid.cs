@@ -5,7 +5,6 @@ using System.Linq;
 using Exa.Types.Binding;
 using Exa.Types.Generics;
 using UnityEngine;
-using Project.Source.Grids;
 
 namespace Exa.Grids
 {

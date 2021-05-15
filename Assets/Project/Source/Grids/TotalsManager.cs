@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids.Blocks;
 using Exa.Utils;
-using Project.Source.Grids;
 using UnityEngine;
 
 namespace Exa.Grids

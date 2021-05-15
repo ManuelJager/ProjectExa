@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Exa.Grids;
 using Exa.Grids.Blueprints;
 using Exa.Ships;
 using Exa.UI.Tooltips;
-using Exa.Utils;
 
-namespace Project.Source.Grids
+namespace Exa.Grids
 {
     public class BlockGridDiff : MemberCollectionListener<BlockGrid>
     {

@@ -2,7 +2,7 @@
 using Exa.Grids.Blueprints;
 using Exa.Ships;
 
-namespace Project.Source.Grids
+namespace Exa.Grids
 {
     public class BlockGridDiffManager
     {
