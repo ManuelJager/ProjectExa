@@ -85,11 +85,7 @@ namespace Exa.Grids.Blocks.Components
             MathUtils.WrapAngle(ref currentAngle);
             MathUtils.WrapAngle(ref targetAngle);
 
-            var minMax = Data.GetTurretArcMinMax();
-            
-            Debug.Log($"Current angle: {currentAngle}, target angle: {targetAngle}, minMax: {minMax}, clamped angle: {minMax.Clamp(targetAngle)}");
-
-            return currentAngle == targetAngle ? 0f : minMax.Clamp(targetAngle) - currentAngle;
+            return Data.GetTurretArcMinMax().Clamp(targetAngle) - currentAngle;
         }
 
 
