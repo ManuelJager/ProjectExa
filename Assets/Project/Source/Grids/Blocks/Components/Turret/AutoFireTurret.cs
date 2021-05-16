@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -8,18 +9,22 @@ namespace Exa.Grids.Blocks.Components
         public virtual bool AutoFire { get; set; } = true;
         
         protected override void BlockUpdate() {
-            timeSinceFire += Time.deltaTime;
-            var result = TryRotateTowardsTarget();
-            if (result != null) {
-                AttemptFire(result.Value.deltaToTarget);
-            }
+            base.BlockUpdate();
+            AttemptFire();           
         }
 
-        protected virtual void AttemptFire(float targetAngleDelta) {
-            if (AutoFire && targetAngleDelta < 0.5f && timeSinceFire > data.FiringRate) {
-                timeSinceFire -= data.FiringRate;
-                Fire();
-            }
+        protected virtual void AttemptFire() {
+            if (Target == null || !AutoFire)
+                return;
+            
+            // Long debug line cause debugging in unity sucks
+            // Debug.Log($"({block.GetInstanceString()}) Current angle: {GetCurrentAngle()}, Target angle: {SelectTargetAngle()}, Diff {Mathf.DeltaAngle(GetCurrentAngle(), SelectTargetAngle())} ({rotationResult.deltaToTarget})");
+            
+            if (Mathf.Abs(rotationResult.deltaToTarget) > 0.5f || timeSinceFire < data.FiringRate)
+                return;
+            
+            timeSinceFire -= data.FiringRate; 
+            Fire();
         }
     }
 }

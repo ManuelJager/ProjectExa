@@ -54,7 +54,7 @@ namespace Exa.Research
             }
         }
 
-        public Action AddDynamicModifier<T>(
+        public Action AddModifier<T>(
             BlockContext filter,
             ResearchStep<T>.ApplyValues applyFunc,
             ValueModificationOrder order = ValueModificationOrder.Multiplicative)

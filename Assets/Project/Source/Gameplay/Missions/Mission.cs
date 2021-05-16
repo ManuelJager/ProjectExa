@@ -1,4 +1,4 @@
-﻿using Exa.Ships;
+﻿using Exa.Research;
 using Exa.Types.Generics;
 using UnityEngine;
 
@@ -12,9 +12,19 @@ namespace Exa.Gameplay.Missions
         public string Label => missionName;
         public Mission Value => this;
 
-        public abstract void Init(MissionArgs args);
+        protected ResearchBuilder researchBuilder;
 
-        public virtual void Update() {
+        public virtual void Init(MissionArgs args) {
+            researchBuilder = new ResearchBuilder(Systems.Research);
+            AddResearchModifiers(researchBuilder);
         }
+
+        public virtual void Unload() {
+            researchBuilder.Clear();
+        }
+
+        protected virtual void AddResearchModifiers(ResearchBuilder builder) { }
+
+        public virtual void Update() { }
     }
 }

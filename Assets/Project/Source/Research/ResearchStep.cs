@@ -5,7 +5,9 @@ namespace Exa.Research
     public class ResearchStep<T> : ResearchStep
         where T : struct, IBlockComponentValues
     {
-        public delegate void ApplyValues(T initialValues, ref T currentValues);
+        public delegate void ApplyValues(T init, ref T curr);
+
+        public delegate void ApplyValuesOmitInit(ref T curr);
 
         private ApplyValues applyFunc;
 
@@ -14,9 +16,9 @@ namespace Exa.Research
             this.applyFunc = applyFunc;
         }
 
-        public override IBlockComponentValues CalculateCurrentValues(IBlockComponentValues initial, IBlockComponentValues current) {
-            var convertedCopy = (T) current;
-            applyFunc((T) initial, ref convertedCopy);
+        public override IBlockComponentValues CalculateCurrentValues(IBlockComponentValues init, IBlockComponentValues curr) {
+            var convertedCopy = (T) curr;
+            applyFunc((T) init, ref convertedCopy);
             return convertedCopy;
         }
 
@@ -33,7 +35,7 @@ namespace Exa.Research
 
         public ValueModificationOrder Order { get; }
 
-        public abstract IBlockComponentValues CalculateCurrentValues(IBlockComponentValues initial, IBlockComponentValues current);
+        public abstract IBlockComponentValues CalculateCurrentValues(IBlockComponentValues init, IBlockComponentValues curr);
 
         public abstract bool MatchesType(IBlockComponentValues values);
     }

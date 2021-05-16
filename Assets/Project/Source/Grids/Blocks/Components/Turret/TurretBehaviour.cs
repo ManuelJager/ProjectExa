@@ -14,19 +14,25 @@ namespace Exa.Grids.Blocks.Components
         [SerializeField] protected Transform turret;
 
         protected float timeSinceFire;
+        protected RotationResult rotationResult;
 
         public IWeaponTarget Target { get; set; }
 
         protected override void BlockUpdate() {
-            timeSinceFire += Time.deltaTime;
-            TryRotateTowardsTarget();
+            // Only add to the time since fire if the current time since fire is below the firing rate of the turret
+            // This implementation allows for the time since fire to be slightly bigger than than the firing rate
+            // automatic fire is accurate
+            if (timeSinceFire < Data.FiringRate) {
+                timeSinceFire += Time.deltaTime;
+            }
+            
+            rotationResult = TryRotateTowardsTarget();
         }
 
-        protected RotationResult? TryRotateTowardsTarget() {
+        protected RotationResult TryRotateTowardsTarget() {
             // Dereference target if it isn't valid anymore
-            if (!Target?.GetTargetValid() ?? false) {
+            if (!Target?.GetTargetValid() ?? false)
                 Target = null;
-            }
 
             var result = RotateTowards(SelectTargetAngle());
             SetCurrentAngle(result.endRotation);
@@ -34,9 +40,8 @@ namespace Exa.Grids.Blocks.Components
         }
 
         protected virtual float SelectTargetAngle() {
-            if (Target == null) {
+            if (Target == null)
                 return GetDefaultAngle();
-            }
             
             var currentPosition = transform.position.ToVector2();
             var difference = Target.GetPosition(currentPosition) - currentPosition;
@@ -52,19 +57,16 @@ namespace Exa.Grids.Blocks.Components
             var currentAngle = GetCurrentAngle();
             var deltaAngle = GetDeltaAngleTowards(currentAngle, targetAngle);
 
-            if (deltaAngle == 0f) {
-                return new RotationResult(0f, 0f, currentAngle);
-            }
+            if (deltaAngle == 0f)
+                return new RotationResult(0f, currentAngle);
 
-            var maxAngles = Data.TurningRate * Time.deltaTime;
-            var offset = deltaAngle > 0f
-                ? Mathf.Min(maxAngles, deltaAngle)
-                : Mathf.Max(-maxAngles, deltaAngle);
+            // Clamp the delta to whatever we are allowed to turn this frame
+            var maxDelta = Data.TurningRate * Time.deltaTime;
+            currentAngle += Mathf.Clamp(deltaAngle, -maxDelta, maxDelta);
 
             return new RotationResult {
-                deltaToTarget = Mathf.DeltaAngle(currentAngle + offset, targetAngle),
-                frameRotation = offset,
-                endRotation = currentAngle + offset
+                deltaToTarget = Mathf.DeltaAngle(currentAngle, targetAngle),
+                endRotation = currentAngle
             };
         }
 
@@ -78,16 +80,14 @@ namespace Exa.Grids.Blocks.Components
 
         protected virtual float GetDeltaAngleTowards(float currentAngle, float targetAngle) {
             // If the arc is 360f, simply allow wrapping
-            if (Data.TurretArc == 360f) {
+            if (Data.TurretArc == 360f)
                 return Mathf.DeltaAngle(currentAngle, targetAngle);
-            }
 
             MathUtils.WrapAngle(ref currentAngle);
             MathUtils.WrapAngle(ref targetAngle);
-
+ 
             return Data.GetTurretArcMinMax().Clamp(targetAngle) - currentAngle;
         }
-
 
         public abstract void Fire();
 
@@ -114,12 +114,10 @@ namespace Exa.Grids.Blocks.Components
     public struct RotationResult
     {
         public float deltaToTarget;
-        public float frameRotation;
         public float endRotation;
 
-        public RotationResult(float deltaToTarget, float frameRotation, float endRotation) {
+        public RotationResult(float deltaToTarget, float endRotation) {
             this.deltaToTarget = deltaToTarget;
-            this.frameRotation = frameRotation;
             this.endRotation = endRotation;
         }
     }

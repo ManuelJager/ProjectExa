@@ -14,6 +14,7 @@ namespace Exa.Research
                 EnableOn(autoEnableOn);
             }
         }
+        
         public abstract void EnableOn(BlockContext filter);
         public abstract void DisableOn(BlockContext filter);
     }

@@ -30,9 +30,8 @@ namespace Exa.Gameplay.Missions
         }
         
         private void NextWave() {
-            if (currentWaveIndex >= waves.Count) {
+            if (currentWaveIndex >= waves.Count)
                 throw new InvalidOperationException("Cannot find wave");
-            }
             
             WaveStarted?.Invoke();
             GameSystems.UI.gameplayLayer.missionState.SetText("Combat phase", $"Wave {currentWaveIndex + 1}");
@@ -54,12 +53,10 @@ namespace Exa.Gameplay.Missions
         private void OnWaveEnded() {
             WaveEnded?.Invoke();
             
-            if (currentWaveIndex >= waves.Count) {
+            if (currentWaveIndex >= waves.Count)
                 OnMissionEnded();
-            }
-            else {
+            else
                 StartPreparationPhase();
-            }
         }
 
         public void StartPreparationPhase(bool firstWave = false) {

@@ -39,6 +39,7 @@ namespace Exa.Gameplay.Missions
         }
 
         public void UnloadMission() {
+            Mission.Unload();
             Mission = null;
         }
 

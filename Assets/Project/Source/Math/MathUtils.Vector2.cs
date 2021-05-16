@@ -55,8 +55,8 @@ namespace Exa.Math
             var ty = vector.y;
 
             return new Vector2 {
-                x = (cos * tx) - (sin * ty),
-                y = (sin * tx) + (cos * ty)
+                x = cos * tx - sin * ty,
+                y = sin * tx + cos * ty
             };
         }
 
@@ -67,8 +67,8 @@ namespace Exa.Math
             var tx = vector.x;
             var ty = vector.y;
 
-            vector.x = (cos * tx) - (sin * ty);
-            vector.y = (sin * tx) + (cos * ty);
+            vector.x = cos * tx - sin * ty;
+            vector.y = sin * tx + cos * ty;
         }
 
         public static Vector2 MoveTowards(Vector2 current, Vector2 target, float maxDelta) {
@@ -103,8 +103,8 @@ namespace Exa.Math
             var tx = vector.x;
             var ty = vector.y;
 
-            vector.x = (cos * tx) - (sin * ty);
-            vector.y = (sin * tx) + (cos * ty);
+            vector.x = cos * tx - sin * ty;
+            vector.y = sin * tx + cos * ty;
 
             return vector;
         }
@@ -130,8 +130,8 @@ namespace Exa.Math
             var tx = vector.x;
             var ty = vector.y;
 
-            vector.x = Mathf.RoundToInt((cos * tx) - (sin * ty));
-            vector.y = Mathf.RoundToInt((sin * tx) + (cos * ty));
+            vector.x = Mathf.RoundToInt(cos * tx - sin * ty);
+            vector.y = Mathf.RoundToInt(sin * tx + cos * ty);
 
             return vector;
         }
