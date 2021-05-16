@@ -30,6 +30,7 @@ namespace Exa.Grids.Blocks.Components
     {
         [HideInInspector] public Block block;
         private IGridInstance parent;
+        private bool forceActive;
 
         public abstract IBlockComponentValues BlockComponentData { get; }
 
@@ -55,16 +56,19 @@ namespace Exa.Grids.Blocks.Components
         public GridInstance GridInstance => Parent as GridInstance;
 
         private void Update() {
-            if (GridInstance && GridInstance.Active)
+            if (forceActive || GridInstance && GridInstance.Active) {
                 BlockUpdate();
+            }
         }
 
-        protected virtual void BlockUpdate() {
-
-        }
+        protected virtual void BlockUpdate() { }
 
         protected virtual void OnAdd() { }
 
         protected virtual void OnRemove() { }
+
+        public void ForceActive() {
+            this.forceActive = true;
+        }
     }
 }

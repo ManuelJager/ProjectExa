@@ -19,6 +19,10 @@ namespace Exa.Types.Generics
         public (T, T) AsTuple() {
             return (min, max);
         }
+
+        public override string ToString() {
+            return $"({min})-({max})";
+        }
     }
 
     public static class MinMaxHelpers

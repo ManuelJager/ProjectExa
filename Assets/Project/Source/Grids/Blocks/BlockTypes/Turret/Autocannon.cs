@@ -2,7 +2,6 @@
 using Exa.Ships.Targeting;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 #pragma warning disable CS0649
 
@@ -10,7 +9,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 {
     public class Autocannon : Block, IBehaviourMarker<AutocannonData>, ITurretPlatform
     {
-        [SerializeField] private AutocannonBehaviour turretBehaviour;
+        public AutocannonBehaviour turretBehaviour;
 
         BlockBehaviour<AutocannonData> IBehaviourMarker<AutocannonData>.Component => turretBehaviour;
 
@@ -19,7 +18,7 @@ namespace Exa.Grids.Blocks.BlockTypes
                 .Append(turretBehaviour);
         }
 
-        public bool AutoFireEnabled => turretBehaviour.AutoFireEnabled;
+        public bool AutoFireEnabled => turretBehaviour.AutoFire;
 
         public void SetTarget(IWeaponTarget target) {
             turretBehaviour.Target = target;
@@ -27,6 +26,12 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public void Fire() {
             turretBehaviour.Fire();
+        }
+
+        public void ForceActive() {
+            foreach (var behaviour in GetBehaviours()) {
+                behaviour.ForceActive();
+            }
         }
     }
 }

@@ -5,8 +5,8 @@ namespace Exa.Grids.Blocks.Components
     public abstract class AutoFireTurret<T> : TurretBehaviour<T>, IAutoFireTurret
         where T : struct, ITurretValues
     {
-        public bool AutoFireEnabled { get; set; } = true;
-
+        public virtual bool AutoFire { get; set; } = true;
+        
         protected override void BlockUpdate() {
             timeSinceFire += Time.deltaTime;
             var result = TryRotateTowardsTarget();

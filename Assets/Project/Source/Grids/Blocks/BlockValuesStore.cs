@@ -5,6 +5,7 @@ using System.Linq;
 using Exa.Grids.Blocks.Components;
 using Exa.Research;
 using Exa.UI.Tooltips;
+using Exa.Utils;
 
 namespace Exa.Grids.Blocks
 {
@@ -126,9 +127,7 @@ namespace Exa.Grids.Blocks
         private class TemplateValuesCache : Dictionary<TemplatePartialBase, IBlockComponentValues>
         {
             public void ApplyValues(Block block) {
-                foreach (var kvp in this) {
-                    var templatePartial = kvp.Key;
-                    var values = kvp.Value;
+                foreach (var (templatePartial, values) in this.Unpack()) {
                     templatePartial.SetValues(block, values);
                 }
             }

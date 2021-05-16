@@ -81,6 +81,19 @@ namespace Exa.Math
             return NormalizeWrap(angle, new MinMax<float>(-180f, 180f));
         }
 
+        public static float WrapAngle(float angle) {
+            // Wrap
+            if (angle > 180f) {
+                angle -= 360f;
+            }
+
+            return angle;
+        }
+
+        public static void WrapAngle(ref float angle) {
+            angle = WrapAngle(angle);
+        }
+
         public static int Round(this float value) {
             return Mathf.RoundToInt(value);
         }

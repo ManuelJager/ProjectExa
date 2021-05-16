@@ -95,7 +95,7 @@ namespace Exa.ShipEditor
             var points = new Vector2[subdivisions + 2];
             points[0] = Vector2.zero;
 
-            var startAngle = -(values.TurretArc / 2f);
+            var startAngle = values.GetTurretArcMinMax().min;
             var subdivisionAngleSize = values.TurretArc / subdivisions;
 
             for (var i = 0; i < subdivisions + 1; i++) {

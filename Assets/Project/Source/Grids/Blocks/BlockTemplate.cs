@@ -20,6 +20,12 @@ namespace Exa.Grids.Blocks
                 physicalTemplatePartial
             };
         }
+
+        public void SetContextlessValues(T block) {
+            foreach (var partial in GetTemplatePartials()) {
+                partial.SetValues(block, partial.GetContextlessValues());
+            }
+        }
     }
 
     public abstract class BlockTemplate : ScriptableObject, IGridTotalsModifier

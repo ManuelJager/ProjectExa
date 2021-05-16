@@ -2,6 +2,6 @@
 {
     public interface IAutoFireTurret
     {
-        public bool AutoFireEnabled { get; }
+        public bool AutoFire { get; }
     }
 }

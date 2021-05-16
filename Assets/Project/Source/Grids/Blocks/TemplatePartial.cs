@@ -14,6 +14,10 @@ namespace Exa.Grids.Blocks
             return Systems.Research.ApplyModifiers(blockContext, ToBaseComponentValues());
         }
 
+        public override IBlockComponentValues GetContextlessValues() {
+            return ToBaseComponentValues();
+        }
+
         public override IBlockComponentValues GetContextfulValues(BlockContext blockContext) {
             return ToContextfulComponentValues(blockContext);
         }
@@ -37,10 +41,8 @@ namespace Exa.Grids.Blocks
             return typeof(T);
         }
 
-        private IBehaviourMarker<T> GetMarker(Block block) {
-            var partial = block as IBehaviourMarker<T>;
-
-            if (partial == null) {
+        private static IBehaviourMarker<T> GetMarker(Block block) {
+            if (!(block is IBehaviourMarker<T> partial)) {
                 var partialString = typeof(IBehaviourMarker<T>).ToGenericString();
                 var blockString = block.GetType().ToGenericString();
                 throw new Exception($"Partial {partialString} is not supported on block: {blockString}");
@@ -56,6 +58,7 @@ namespace Exa.Grids.Blocks
 
     public abstract class TemplatePartialBase : IGridTotalsModifier
     {
+        public abstract IBlockComponentValues GetContextlessValues();
         public abstract IBlockComponentValues GetContextfulValues(BlockContext blockContext);
 
         public abstract void SetValues(Block block, IBlockComponentValues data);

@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks.BlockTypes
     /// <summary>
     /// Base class for blocks
     /// </summary>
-    public class Block : MonoBehaviour, IGridMember, IPhysical, IEquatable<IGridMember>
+    public class Block : MonoBehaviour, IGridMember, IPhysical
     {
         [NonSerialized] public ABpBlock aBpBlock;
         [HideInInspector] public BlockPoolMember blockPoolMember;
@@ -25,9 +25,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public BlueprintBlock BlueprintBlock => aBpBlock.blueprintBlock;
 
-        BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component {
-            get => physicalBehaviour;
-        }
+        BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component => physicalBehaviour;
 
         public PhysicalBehaviour PhysicalBehaviour => physicalBehaviour;
 
@@ -76,11 +74,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         public TComponent GetBlockComponent<TComponent, TValues>()
             where TComponent : BlockBehaviour<TValues>
             where TValues : struct, IBlockComponentValues {
-            if (this is IBehaviourMarker<TValues> behaviourMarker && behaviourMarker.Component is TComponent behaviour) {
-                return behaviour;
-            }
-
-            return null;
+            return this is IBehaviourMarker<TValues> { Component: TComponent behaviour } ? behaviour : null;
         }
 
         public bool TryGetBlockComponent<TComponent, TValues>(out TComponent value)

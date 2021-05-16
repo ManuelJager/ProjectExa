@@ -1,11 +1,9 @@
-﻿using System;
-using Exa.Math;
+﻿using Exa.Math;
 using Exa.Ships;
 using Exa.Ships.Targeting;
 using Exa.Types.Generics;
 using Exa.Utils;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -18,7 +16,6 @@ namespace Exa.Grids.Blocks.Components
         protected float timeSinceFire;
 
         public IWeaponTarget Target { get; set; }
-        public virtual bool AutoFire => true;
 
         protected override void BlockUpdate() {
             timeSinceFire += Time.deltaTime;
@@ -32,7 +29,7 @@ namespace Exa.Grids.Blocks.Components
             }
 
             var result = RotateTowards(SelectTargetAngle());
-            DoRotate(result);
+            SetCurrentAngle(result.endRotation);
             return result;
         }
 
@@ -43,15 +40,16 @@ namespace Exa.Grids.Blocks.Components
             
             var currentPosition = transform.position.ToVector2();
             var difference = Target.GetPosition(currentPosition) - currentPosition;
-            return difference.GetAngle(); 
+            return difference.Rotate(-transform.rotation.eulerAngles.z).GetAngle(); 
         }
 
         protected float GetDefaultAngle() {
-            return Parent.Transform.right.ToVector2().GetAngle();
+            return 0f;
         }
 
+        // TODO: Clamp to local space
         protected virtual RotationResult RotateTowards(float targetAngle) {
-            var currentAngle = turret.rotation.eulerAngles.z;
+            var currentAngle = GetCurrentAngle();
             var deltaAngle = GetDeltaAngleTowards(currentAngle, targetAngle);
 
             if (deltaAngle == 0f) {
@@ -70,19 +68,30 @@ namespace Exa.Grids.Blocks.Components
             };
         }
 
+        protected virtual float GetCurrentAngle() {
+            return turret.localRotation.eulerAngles.z;
+        }
+
+        protected virtual void SetCurrentAngle(float angle) {
+            turret.localRotation = Quaternion.Euler(0, 0, angle);
+        } 
+
         protected virtual float GetDeltaAngleTowards(float currentAngle, float targetAngle) {
+            // If the arc is 360f, simply allow wrapping
             if (Data.TurretArc == 360f) {
                 return Mathf.DeltaAngle(currentAngle, targetAngle);
             }
 
-            var (min, max) = Data.GetTurretArcMinMax().AsTuple();
+            MathUtils.WrapAngle(ref currentAngle);
+            MathUtils.WrapAngle(ref targetAngle);
 
-            throw new NotImplementedException();
+            var minMax = Data.GetTurretArcMinMax();
+            
+            Debug.Log($"Current angle: {currentAngle}, target angle: {targetAngle}, minMax: {minMax}, clamped angle: {minMax.Clamp(targetAngle)}");
+
+            return currentAngle == targetAngle ? 0f : minMax.Clamp(targetAngle) - currentAngle;
         }
 
-        protected virtual void DoRotate(RotationResult result) {
-            turret.rotation = Quaternion.Euler(0, 0, result.endRotation);
-        }
 
         public abstract void Fire();
 
