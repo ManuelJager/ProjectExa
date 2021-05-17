@@ -64,13 +64,13 @@ namespace Exa.Ships
         }
 
         public void OnFire(InputAction.CallbackContext context) {
-            if (Controller is IChargeableTurretPlatform chargeableTurret) {
+            if (Controller.TryGetComponent<IChargeableTurretBehaviour>(out var turret)) {
                 switch (context.phase) {
                     case InputActionPhase.Started:
-                        chargeableTurret.StartCharge();
+                        turret.StartCharge();
                         break;
                     case InputActionPhase.Canceled:
-                        chargeableTurret.EndChange();
+                        turret.EndCharge();
                         break;
                 }
 

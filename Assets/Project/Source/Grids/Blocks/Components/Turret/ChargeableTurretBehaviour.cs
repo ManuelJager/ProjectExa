@@ -2,7 +2,7 @@
 
 namespace Exa.Grids.Blocks.Components
 {
-    public abstract class ChargeableTurretBehaviour<T> : TurretBehaviour<T>
+    public abstract class ChargeableTurretBehaviour<T> : TurretBehaviour<T>, IChargeableTurretBehaviour
         where T : struct, IChargeableTurretValues
     {
         protected bool charging;

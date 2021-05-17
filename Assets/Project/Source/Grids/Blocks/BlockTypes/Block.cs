@@ -4,6 +4,8 @@ using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using Exa.Utils;
 
 #pragma warning disable CS0649
 
@@ -71,17 +73,13 @@ namespace Exa.Grids.Blocks.BlockTypes
             blockPoolMember.ReturnBlock();
         }
 
-        public TComponent GetBlockComponent<TComponent, TValues>()
-            where TComponent : BlockBehaviour<TValues>
-            where TValues : struct, IBlockComponentValues {
-            return this is IBehaviourMarker<TValues> { Component: TComponent behaviour } ? behaviour : null;
+        public T GetBehaviour<T>() {
+            return GetBehaviours().FindFirst<T>();
         }
 
-        public bool TryGetBlockComponent<TComponent, TValues>(out TComponent value)
-            where TComponent : BlockBehaviour<TValues>
-            where TValues : struct, IBlockComponentValues {
-            value = GetBlockComponent<TComponent, TValues>();
-            return value != null;
+        public bool TryGetBehaviour<T>(out T value) {
+            value = GetBehaviour<T>();
+            return value.Equals(default);
         }
 
         public void AddGridTotals(GridTotals totals) {

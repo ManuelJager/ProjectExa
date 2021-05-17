@@ -11,16 +11,6 @@ namespace Exa.Grids.Blocks.BlockTypes
     {
         [SerializeField] protected TurretBehaviour<T> turretBehaviour;
 
-        public bool AutoFireEnabled => false;
-
-        public void SetTarget(IWeaponTarget target) {
-            turretBehaviour.Target = target;
-        }
-
-        public void Fire() {
-            turretBehaviour.Fire();
-        }
-
         BlockBehaviour<T> IBehaviourMarker<T>.Component => turretBehaviour;
 
         public override IEnumerable<BlockBehaviour> GetBehaviours() {

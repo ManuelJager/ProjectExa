@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Exa.Grids;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Math;
 using Exa.Ships;
@@ -39,7 +40,7 @@ namespace Exa.Gameplay.Missions
         public PlayerStation SpawnPlayerStation(Blueprint blueprint = null, GridInstanceConfiguration? configuration = null) {
             blueprint ??= Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
             station = GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
-            ((ITurretPlatform)station.Controller).SetTarget(new MouseCursorTarget());
+            station.Controller.GetBehaviour<ITurretBehaviour>().Target = new MouseCursorTarget();
             return station;
         }
 

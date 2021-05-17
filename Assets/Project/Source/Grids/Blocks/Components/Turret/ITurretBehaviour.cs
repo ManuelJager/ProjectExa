@@ -6,5 +6,12 @@ namespace Exa.Grids.Blocks.Components
     {
         public bool AutoFireEnabled { get; }
         public IWeaponTarget Target { set; }
+        public void Fire();
+    }
+    
+    public interface IChargeableTurretBehaviour : ITurretBehaviour
+    {
+        void StartCharge();
+        void EndCharge();
     }
 }
