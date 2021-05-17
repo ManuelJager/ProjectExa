@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public abstract class StationController<T> : GenericController<StationControllerData>, ITurretPlatform, IBehaviourMarker<T>
+    public abstract class StationController<T> : GenericController<StationControllerData>, IBehaviourMarker<T>
         where T : struct, ITurretValues
     {
         [SerializeField] protected TurretBehaviour<T> turretBehaviour;
@@ -23,7 +23,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         BlockBehaviour<T> IBehaviourMarker<T>.Component => turretBehaviour;
 
-        public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
+        public override IEnumerable<BlockBehaviour> GetBehaviours() {
             return base.GetBehaviours()
                 .Append(turretBehaviour);
         }

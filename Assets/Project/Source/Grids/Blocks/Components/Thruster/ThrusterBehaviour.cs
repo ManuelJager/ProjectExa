@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Exa.Ships;
 using Exa.Types.Generics;
 using Exa.Utils;
 using UnityEngine;
@@ -36,6 +37,14 @@ namespace Exa.Grids.Blocks.Components
         public void PowerDown() {
             thrusterFlame.transform.DOScale(0f, 0.5f);
             light2D.DOIntensity(0f, 0.5f);
+        }
+        
+        protected override void OnAdd() {
+            (GridInstance as EnemyGrid)?.Navigation.ThrustVectors.Register(this);
+        }
+
+        protected override void OnRemove() {
+            (GridInstance as EnemyGrid)?.Navigation.ThrustVectors.Unregister(this);
         }
     }
 }

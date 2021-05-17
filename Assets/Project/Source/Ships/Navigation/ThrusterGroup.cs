@@ -1,10 +1,11 @@
 ﻿using Exa.Data;
 using Exa.Grids.Blocks.BlockTypes;
 using System.Collections.Generic;
+using Exa.Grids.Blocks.Components;
 
 namespace Exa.Ships.Navigation
 {
-    public class ThrusterGroup : List<IThruster>
+    public class ThrusterGroup : List<ThrusterBehaviour>
     {
         private Scalar thrustModifier;
         private float thrust = 0f;
@@ -15,16 +16,16 @@ namespace Exa.Ships.Navigation
             this.thrustModifier = thrustModifier;
         }
 
-        public new void Add(IThruster thruster) {
+        public new void Add(ThrusterBehaviour thruster) {
             base.Add(thruster);
-            thrust += thruster.Component.Data.thrust;
+            thrust += thruster.Data.thrust;
         }
 
-        public new bool Remove(IThruster thruster) {
+        public new bool Remove(ThrusterBehaviour thruster) {
             var result = base.Remove(thruster);
 
             if (result) {
-                thrust -= thruster.Component.Data.thrust;
+                thrust -= thruster.Data.thrust;
             }
 
             return result;

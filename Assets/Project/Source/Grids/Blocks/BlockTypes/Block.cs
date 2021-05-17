@@ -101,8 +101,8 @@ namespace Exa.Grids.Blocks.BlockTypes
         }
 
         // TODO: cache the result of this operation
-        public virtual IEnumerable<BlockBehaviourBase> GetBehaviours() {
-            return new BlockBehaviourBase[] {
+        public virtual IEnumerable<BlockBehaviour> GetBehaviours() {
+            return new BlockBehaviour[] {
                 physicalBehaviour
             };
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public abstract class BlockBehaviour<T> : BlockBehaviourBase
+    public abstract class BlockBehaviour<T> : BlockBehaviour
         where T : struct, IBlockComponentValues
     {
         [NonSerialized] protected T data;
@@ -26,7 +26,7 @@ namespace Exa.Grids.Blocks.Components
         }
     }
 
-    public abstract class BlockBehaviourBase : MonoBehaviour
+    public abstract class BlockBehaviour : MonoBehaviour
     {
         [HideInInspector] public Block block;
         private IGridInstance parent;

@@ -3,10 +3,12 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public abstract class AutoFireTurret<T> : TurretBehaviour<T>, IAutoFireTurret
+    public abstract class AutoFireTurret<T> : TurretBehaviour<T>
         where T : struct, ITurretValues
     {
-        public virtual bool AutoFire { get; set; } = true;
+        private void Awake() {
+            AutoFireEnabled = true;
+        }
         
         protected override void BlockUpdate() {
             base.BlockUpdate();
@@ -14,7 +16,7 @@ namespace Exa.Grids.Blocks.Components
         }
 
         protected virtual void AttemptFire() {
-            if (Target == null || !AutoFire)
+            if (Target == null || !AutoFireEnabled)
                 return;
             
             // Long debug line cause debugging in unity sucks

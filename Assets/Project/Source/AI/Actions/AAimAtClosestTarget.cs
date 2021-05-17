@@ -1,4 +1,5 @@
-﻿using Exa.Ships;
+﻿using Exa.Grids.Blocks.Components;
+using Exa.Ships;
 using Exa.Ships.Targeting;
 
 namespace Exa.AI.Actions
@@ -18,7 +19,12 @@ namespace Exa.AI.Actions
 
         public override ActionLane Update(ActionLane blockedLanes) {
             var target = new ShipTarget(enemyTarget);
-            grid.BlockGrid.Metadata.TurretList.SetTarget(target);
+
+            foreach (var turret in grid.BlockGrid.QueryLike<ITurretBehaviour>()) {
+                if (turret.AutoFireEnabled) {
+                    turret.Target = target;
+                }
+            }
 
             return ActionLane.AimTurrets;
         }

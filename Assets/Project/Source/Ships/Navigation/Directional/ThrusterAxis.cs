@@ -1,5 +1,6 @@
 ﻿using Exa.Data;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation
@@ -14,11 +15,11 @@ namespace Exa.Ships.Navigation
             negativeThrusterGroup = new ThrusterGroup(thrustModifier);
         }
 
-        public void Register(IThruster thruster, bool positiveComponent) {
+        public void Register(ThrusterBehaviour thruster, bool positiveComponent) {
             SelectGroup(positiveComponent).Add(thruster);
         }
 
-        public void Unregister(IThruster thruster, bool positiveComponent) {
+        public void Unregister(ThrusterBehaviour thruster, bool positiveComponent) {
             SelectGroup(positiveComponent).Remove(thruster);
         }
 

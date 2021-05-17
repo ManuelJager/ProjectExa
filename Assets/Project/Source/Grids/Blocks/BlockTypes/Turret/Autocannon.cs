@@ -7,25 +7,15 @@ using System.Linq;
 
 namespace Exa.Grids.Blocks.BlockTypes
 {
-    public class Autocannon : Block, IBehaviourMarker<AutocannonData>, ITurretPlatform
+    public class Autocannon : Block, IBehaviourMarker<AutocannonData>
     {
         public AutocannonBehaviour turretBehaviour;
 
         BlockBehaviour<AutocannonData> IBehaviourMarker<AutocannonData>.Component => turretBehaviour;
 
-        public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
+        public override IEnumerable<BlockBehaviour> GetBehaviours() {
             return base.GetBehaviours()
                 .Append(turretBehaviour);
-        }
-
-        public bool AutoFireEnabled => turretBehaviour.AutoFire;
-
-        public void SetTarget(IWeaponTarget target) {
-            turretBehaviour.Target = target;
-        }
-
-        public void Fire() {
-            turretBehaviour.Fire();
         }
 
         public void ForceActive() {

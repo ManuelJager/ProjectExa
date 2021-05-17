@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
-    public abstract class TurretBehaviour<T> : BlockBehaviour<T>
+    public abstract class TurretBehaviour<T> : BlockBehaviour<T>, ITurretBehaviour
         where T : struct, ITurretValues
     {
         [Header("References")]
@@ -15,6 +15,8 @@ namespace Exa.Grids.Blocks.Components
 
         protected float timeSinceFire;
         protected RotationResult rotationResult;
+
+        public bool AutoFireEnabled { get; set; }
 
         public IWeaponTarget Target { get; set; }
 

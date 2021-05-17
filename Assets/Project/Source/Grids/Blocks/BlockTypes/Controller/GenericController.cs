@@ -14,7 +14,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         BlockBehaviour<T> IBehaviourMarker<T>.Component => controllerBehaviour;
 
-        public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
+        public override IEnumerable<BlockBehaviour> GetBehaviours() {
             return base.GetBehaviours()
                 .Append(controllerBehaviour);
         }

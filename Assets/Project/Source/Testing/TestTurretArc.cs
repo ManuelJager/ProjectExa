@@ -12,9 +12,9 @@ namespace Exa.Testing
 
         private void Awake() {
             template.SetContextlessValues(autocannon);
-            autocannon.turretBehaviour.AutoFire = false;
+            autocannon.turretBehaviour.AutoFireEnabled = false;
+            autocannon.turretBehaviour.Target = new MouseCursorTarget(targetCamera);
             autocannon.ForceActive();
-            autocannon.SetTarget(new MouseCursorTarget(targetCamera));
         }
     }
 }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e576c87acc7ad4782dbfe5fea273eb, type: 3}
   m_Name: WeakAutocannonMod
   m_EditorClassIdentifier: 
-  autoEnableOn: 4
+  autoEnableOn: 0

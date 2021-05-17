@@ -76,14 +76,6 @@ namespace Exa.Ships
 
                 return;
             }
-
-            if (Controller is ITurretPlatform turret) {
-                switch (context.phase) {
-                    case InputActionPhase.Started:
-                        turret.Fire();
-                        break;
-                }
-            }
         }
 
         protected override TooltipGroup GetDebugTooltipComponents() =>

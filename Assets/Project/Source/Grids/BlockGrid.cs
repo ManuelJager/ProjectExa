@@ -1,9 +1,13 @@
-﻿using Exa.Grids;
+﻿using System;
+using Exa.Grids;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Grids.Blocks.Components;
+using Exa.Types;
+using Exa.Utils;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -13,18 +17,18 @@ namespace Exa.Ships
     {
         private readonly Transform container;
         private GridTotals totals;
+        private DefaultDict<Type, List<BlockBehaviour>> blockBehaviours;
 
         public IGridInstance Parent { get; }
         public bool Rebuilding { get; set; }
-        public BlockGridMetadata Metadata { get; }
         public Block Controller { get; protected set; }
         
         public BlockGrid(Transform container, IGridInstance parent) {
             this.container = container;
             this.totals = Systems.Blocks.Totals.StartWatching(this, parent.BlockContext);
 
+            blockBehaviours = new DefaultDict<Type, List<BlockBehaviour>>(_ => new List<BlockBehaviour>());
             Parent = parent;
-            Metadata = new BlockGridMetadata(GridMembers);
         }
 
         public GridTotals GetTotals() {
@@ -40,6 +44,10 @@ namespace Exa.Ships
                 Controller = block;
             }
 
+            foreach (var behaviour in block.GetBehaviours()) {
+                blockBehaviours[behaviour.GetType()].Add(behaviour);
+            }
+
             base.Add(block);
         }
 
@@ -50,10 +58,23 @@ namespace Exa.Ships
                 Controller = null;
             }
 
+            foreach (var behaviour in block.GetBehaviours()) {
+                blockBehaviours[behaviour.GetType()].Remove(behaviour);
+            }
+
             // Only rebuild if it isn't being rebuilt already
             if (!Rebuilding) {
                 GameSystems.BlockGridManager.AttemptRebuild(Parent);
             }
+        }
+
+        public IEnumerable<T> Query<T>() 
+            where T : BlockBehaviour {
+            return blockBehaviours[typeof(T)].Cast<T>();
+        }
+
+        public IEnumerable<T> QueryLike<T>() {
+            return blockBehaviours.Where(kvp => kvp.Key.IsAssignableFrom(typeof(T))).Cast<T>();
         }
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] { };

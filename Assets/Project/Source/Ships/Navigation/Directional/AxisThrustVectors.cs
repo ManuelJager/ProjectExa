@@ -1,5 +1,6 @@
 ﻿using Exa.Data;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
 using Exa.Math;
 using UnityEngine;
 
@@ -33,11 +34,11 @@ namespace Exa.Ships.Navigation
             yAxis.SetGraphics(currentDirection.y);
         }
 
-        public void Register(IThruster thruster) {
+        public void Register(ThrusterBehaviour thruster) {
             SelectAxis(thruster, out var component).Register(thruster, component);
         }
 
-        public void Unregister(IThruster thruster) {
+        public void Unregister(ThrusterBehaviour thruster) {
             SelectAxis(thruster, out var component).Unregister(thruster, component);
         }
 
@@ -70,9 +71,8 @@ namespace Exa.Ships.Navigation
             yAxis.SetGraphics(targetDirection.y);
         }
 
-        private ThrusterAxis SelectAxis(IThruster thruster, out bool positiveAxisComponent) {
-            var block = thruster.Component.block;
-            var direction = block.BlueprintBlock.Direction;
+        private ThrusterAxis SelectAxis(BlockBehaviour thruster, out bool positiveAxisComponent) {
+            var direction = thruster.block.BlueprintBlock.Direction;
 
             positiveAxisComponent = direction <= 1;
             return direction % 2 == 0 ? xAxis : yAxis;

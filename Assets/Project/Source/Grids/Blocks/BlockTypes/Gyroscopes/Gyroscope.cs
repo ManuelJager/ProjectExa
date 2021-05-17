@@ -13,7 +13,7 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         BlockBehaviour<GyroscopeData> IBehaviourMarker<GyroscopeData>.Component => gyroscopeBehaviour;
 
-        public override IEnumerable<BlockBehaviourBase> GetBehaviours() {
+        public override IEnumerable<BlockBehaviour> GetBehaviours() {
             return base.GetBehaviours()
                 .Append(gyroscopeBehaviour);
         }

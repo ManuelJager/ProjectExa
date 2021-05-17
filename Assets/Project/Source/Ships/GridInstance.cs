@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids;
+using Exa.Grids.Blocks.Components;
 using Exa.Types.Generics;
 using UnityEngine;
 using UnityEngine.Events;
@@ -84,7 +85,7 @@ namespace Exa.Ships
 
         // TODO: Make this look nicer by breaking up the ship and adding an explosion
         public virtual void OnControllerDestroyed() {
-            foreach (var thruster in BlockGrid.Metadata.QueryByType<IThruster>()) {
+            foreach (var thruster in BlockGrid.Query<ThrusterBehaviour>()) {
                 thruster.PowerDown();
             }
             
@@ -227,7 +228,9 @@ namespace Exa.Ships
         }
         
         public void Repair() {
-            
+            foreach (var physicalBehaviour in BlockGrid.Query<PhysicalBehaviour>()) {
+                physicalBehaviour.Repair();
+            }
         }
         
         public void ReconcileWithDiff() {

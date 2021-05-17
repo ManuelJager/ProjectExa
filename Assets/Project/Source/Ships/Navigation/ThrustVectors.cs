@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using System.Collections.Generic;
 using Exa.Data;
+using Exa.Grids.Blocks.Components;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation
@@ -19,11 +20,11 @@ namespace Exa.Ships.Navigation
             };
         }
 
-        public void Register(IThruster thruster) {
+        public void Register(ThrusterBehaviour thruster) {
             SelectGroup(thruster)?.Add(thruster);
         }
 
-        public void Unregister(IThruster thruster) {
+        public void Unregister(ThrusterBehaviour thruster) {
             SelectGroup(thruster)?.Remove(thruster);
         }
 
@@ -38,7 +39,7 @@ namespace Exa.Ships.Navigation
             SelectVerticalGroup(directionScalar.y, true).SetGraphics(0);
         }
 
-        private ThrusterGroup SelectGroup(IThruster thruster) {
+        private ThrusterGroup SelectGroup(BlockBehaviour thruster) {
             var rotation = GetDirection(thruster);
             try {
                 return thrusterDict[rotation];
@@ -60,8 +61,8 @@ namespace Exa.Ships.Navigation
                 ? thrusterDict[1]
                 : thrusterDict[3];
 
-        private int GetDirection(IThruster thruster) {
-            return thruster.Component.block.aBpBlock.blueprintBlock.Direction;
+        private static int GetDirection(BlockBehaviour thruster) {
+            return thruster.block.BlueprintBlock.Direction;
         }
     }
 }

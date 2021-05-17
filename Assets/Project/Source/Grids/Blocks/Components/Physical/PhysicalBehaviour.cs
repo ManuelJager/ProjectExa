@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Exa.Utils;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components
 {
@@ -40,6 +42,15 @@ namespace Exa.Grids.Blocks.Components
             }
 
             return instanceData;
+        }
+
+        public void Repair() {
+            var context = Parent.BlockContext;
+            var template = block.BlueprintBlock.Template;
+            
+            if (!Systems.Blocks.Values.TryGetValues(context, template, out data)) {
+                throw new Exception($"Cannot set physical data for {block.GetInstanceString()}");
+            }
         }
 
         public float ComputeDamage(float damage) {

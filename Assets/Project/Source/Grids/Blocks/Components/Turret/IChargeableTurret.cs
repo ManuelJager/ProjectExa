@@ -2,7 +2,7 @@
 
 namespace Exa.Grids.Blocks.Components
 {
-    public interface IChargeableTurretPlatform : ITurretPlatform
+    public interface IChargeableTurretPlatform
     {
         void StartCharge();
         void EndChange();
