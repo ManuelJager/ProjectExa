@@ -55,8 +55,9 @@ namespace Exa.UI.Settings
                 .ToDictionary(description => description.Name);
             var options = dict.Values.Select(description => description.GetLabeledValue());
             soundTrackNameDropdown.CreateTabs(options, (key, tab) => {
-                var text = $"Song count: {dict[key].SongCount}";
-                tab.gameObject.AddComponent<TextTooltipTrigger>().SetText(text);
+                tab.gameObject
+                    .AddComponent<TextTooltipTrigger>()
+                    .SetText($"Song count: {dict[key].SongCount}");
             });
         }
 

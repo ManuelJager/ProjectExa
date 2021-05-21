@@ -16,7 +16,11 @@ namespace Exa.UI
         public Mission SelectedMission { get; private set; }
 
         private void Awake() {
-            missionDropdown.CreateTabs(missionBag);
+            missionDropdown.CreateTabs(missionBag, (mission, tab) => {
+                tab.gameObject
+                    .AddComponent<TextTooltipTrigger>()
+                    .SetText(mission.missionDescription);
+            });
             missionDropdown.OnValueChange.AddListener(item => SelectedMission = item as Mission);
 
             SelectedMission = missionDropdown.Value as Mission;
