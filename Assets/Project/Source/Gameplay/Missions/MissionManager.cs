@@ -20,7 +20,8 @@ namespace Exa.Gameplay.Missions
     {
         public bool IsEditing { get; private set; }
         public Mission Mission { get; private set; }
-        public BlockCosts CurrentResources { get; private set; }
+        public BlockCosts CurrentResources { get; internal set; }
+        public BlockCosts TotalCollectedResources { get; internal set; }
         public PlayerStation Station { get; internal set; }
 
         private EditResult? editResult;
@@ -31,11 +32,12 @@ namespace Exa.Gameplay.Missions
             }
 
             Mission = mission;
-            mission.Init(args);
+            mission.Init(this, args);
         }
 
         public void AddResources(BlockCosts resources) {
             CurrentResources += resources;
+            TotalCollectedResources += resources;
         }
 
         public void UnloadMission() {
@@ -60,7 +62,7 @@ namespace Exa.Gameplay.Missions
                     editCost = newCosts - oldCosts
                 };
             }) {
-                OnExit = () => StopEditing(currentTarget),
+                OnExit = () => StopEditing(currentTarget)
             };
 
             settings.AddValidator(new BlueprintCostValidator(

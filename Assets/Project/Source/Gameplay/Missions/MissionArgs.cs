@@ -1,7 +1,8 @@
-﻿namespace Exa.Gameplay.Missions
+﻿using Exa.Grids.Blocks;
+
+namespace Exa.Gameplay.Missions
 {
     public class MissionArgs
     {
-        
     }
 }

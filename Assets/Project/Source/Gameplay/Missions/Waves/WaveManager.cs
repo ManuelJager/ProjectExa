@@ -19,6 +19,7 @@ namespace Exa.Gameplay.Missions
         public event Action WaveStarted;
         public event Action WaveEnded;
         public event Action MissionEnded;
+        public event Action<EnemyGrid> EnemyDestroyed;
 
         public void Setup(Spawner spawner, List<Wave> waves) {
             this.spawner = spawner;
@@ -43,7 +44,7 @@ namespace Exa.Gameplay.Missions
         }
 
         private void OnEnemyDestroyed(EnemyGrid grid) {
-            GameSystems.MissionManager.AddResources(grid.GetBaseTotals().Metadata.blockCosts);
+            EnemyDestroyed?.Invoke(grid);
         }
 
         private void OnMissionEnded() {

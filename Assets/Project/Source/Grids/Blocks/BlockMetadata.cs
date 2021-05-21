@@ -37,6 +37,11 @@ namespace Exa.Grids.Blocks
             metalsCost = a.metalsCost - b.metalsCost,
         };
 
+        public static BlockCosts operator *(BlockCosts a, float b) => new BlockCosts {
+            creditCost = Mathf.RoundToInt(a.creditCost * b),
+            metalsCost = Mathf.RoundToInt(a.metalsCost * b),
+        };
+
         public TooltipComponentView InstantiateComponentView(Transform parent) {
             return Systems.UI.Tooltips.tooltipGenerator.CreateBlockCostsView(parent, this);
         }
