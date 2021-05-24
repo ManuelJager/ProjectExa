@@ -15,11 +15,11 @@ namespace Exa.CustomEditors
 
         protected void OnEnable()
         {
-            onPointerEnter = serializedObject.FindProperty("onPointerEnter");
-            onPointerExit = serializedObject.FindProperty("onPointerExit");
-            invokeStateChangeOnHover = serializedObject.FindProperty("invokeStateChangeOnHover");
-            cursorState = serializedObject.FindProperty("cursorOverride");
-            checkMouseInsideRectOnEnable = serializedObject.FindProperty("checkMouseInsideRectOnEnable");
+            onPointerEnter = serializedObject.FindProperty(nameof(Hoverable.onPointerEnter));
+            onPointerExit = serializedObject.FindProperty(nameof(Hoverable.onPointerExit));
+            invokeStateChangeOnHover = serializedObject.FindProperty(nameof(Hoverable.invokeStateChangeOnHover));
+            cursorState = serializedObject.FindProperty(nameof(Hoverable.cursorOverride));
+            checkMouseInsideRectOnEnable = serializedObject.FindProperty(nameof(Hoverable.checkMouseInsideRectOnEnable));
         }
 
         public override void OnInspectorGUI()

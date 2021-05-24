@@ -11,11 +11,10 @@ namespace Exa.UI
     {
         public UnityEvent onPointerEnter = new UnityEvent();
         public UnityEvent onPointerExit = new UnityEvent();
-
         public bool invokeStateChangeOnHover;
         public ValueOverride<CursorState> cursorOverride;
-
-        [SerializeField] private bool checkMouseInsideRectOnEnable = true;
+        public bool checkMouseInsideRectOnEnable = true;
+        
         private RectTransform rectTransform;
         private CanvasGroup canvasGroup;
         private bool mouseOverControl = false;

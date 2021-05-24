@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: FirstMission
   m_EditorClassIdentifier: 
   missionName: First
-  missionDescription: 
+  missionDescription: Basic mission with a couple of waves
+  initialResources:
+    creditCost: 100
+    metalsCost: 10
+  resourceMultiplier: 0.2
   waves:
   - blueprints:
     - {fileID: 11400000, guid: 587404bb59283c143936ea0c1463d0a6, type: 2}

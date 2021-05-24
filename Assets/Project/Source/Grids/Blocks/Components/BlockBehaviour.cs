@@ -15,7 +15,10 @@ namespace Exa.Grids.Blocks.Components
             set => data = value;
         }
 
-        public override IBlockComponentValues BlockComponentData => data;
+        public override IBlockComponentValues BlockComponentData {
+            get => data;
+            set => data = (T)value;
+        }
 
         public T GetDefaultData() {
             var context = block.Parent.BlockContext;
@@ -32,7 +35,7 @@ namespace Exa.Grids.Blocks.Components
         private IGridInstance parent;
         private bool forceActive;
 
-        public abstract IBlockComponentValues BlockComponentData { get; }
+        public abstract IBlockComponentValues BlockComponentData { get; set; }
 
         public IGridInstance Parent
         {
