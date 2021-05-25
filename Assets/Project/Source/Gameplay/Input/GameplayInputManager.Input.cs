@@ -47,7 +47,7 @@ namespace Exa.Gameplay
                         return;
                     }
 
-                    if (Systems.GodModeIsEnabled && GameSystems.Raycaster.TryGetTarget<GridInstance>(out var ship)) {
+                    if (Systems.GodModeIsEnabled && GS.Raycaster.TryGetTarget<GridInstance>(out var ship)) {
                         var worldPos = ship.transform.position.ToVector2();
                         var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * ship.BlockGrid.GetTotals().Mass;
                         ship.Rigidbody2D.AddForce(direction, ForceMode2D.Force);
@@ -77,7 +77,7 @@ namespace Exa.Gameplay
                         return;
                     }
 
-                    GameSystems.UI.gameplayLayer.Pause();
+                    GS.UI.gameplayLayer.NavigateTo(GS.UI.pauseMenu);
 
                     break;
             }
@@ -91,7 +91,7 @@ namespace Exa.Gameplay
                     var index = context.ReadValue<float>().Round();
 
                     CurrentSelection?.Clear();
-                    CurrentSelection = GameSystems.UI.gameplayLayer.selectionHotbar.Select(index);
+                    CurrentSelection = GS.UI.gameplayLayer.selectionHotbar.Select(index);
                     break;
             }
         }
@@ -100,7 +100,7 @@ namespace Exa.Gameplay
             switch (context.phase) {
                 case InputActionPhase.Performed:
                     var index = context.ReadValue<float>().Round();
-                    GameSystems.UI.gameplayLayer.selectionHotbar.Save(CurrentSelection, index);
+                    GS.UI.gameplayLayer.selectionHotbar.Save(CurrentSelection, index);
                     break;
             }
         }
@@ -119,12 +119,12 @@ namespace Exa.Gameplay
         private void OnStartSelectionArea() {
             var worldPoint = Systems.Input.MouseWorldPoint;
             selectionBuilder = new SelectionBuilder(worldPoint);
-            GameSystems.UI.gameplayLayer.selectionArea.Show(worldPoint);
+            GS.UI.gameplayLayer.selectionArea.Show(worldPoint);
         }
 
         private void OnUpdateSelectionArea() {
             var worldPoint = Systems.Input.MouseWorldPoint;
-            GameSystems.UI.gameplayLayer.selectionArea.SetEnd(worldPoint);
+            GS.UI.gameplayLayer.selectionArea.SetEnd(worldPoint);
         }
 
         private void OnEndSelectionArea() {
@@ -137,7 +137,7 @@ namespace Exa.Gameplay
                 selectionBuilder.UpdateSelection(worldPoint);
 
                 // Hide the selection area overlay
-                GameSystems.UI.gameplayLayer.selectionArea.Hide();
+                GS.UI.gameplayLayer.selectionArea.Hide();
 
                 // Get the selection and save it in the hotbar if possible
                 var selection = selectionBuilder.Build();
@@ -149,7 +149,7 @@ namespace Exa.Gameplay
 
         private void RemoveSelectionArea() {
             // Deselect current selection
-            var currentHotbarSelection = GameSystems.UI.gameplayLayer.selectionHotbar.CurrentSelection;
+            var currentHotbarSelection = GS.UI.gameplayLayer.selectionHotbar.CurrentSelection;
             if (currentHotbarSelection != null) {
                 // Update the view
                 currentHotbarSelection.Selected = false;

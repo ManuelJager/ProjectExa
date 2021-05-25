@@ -18,8 +18,8 @@ namespace Exa.UI
             });
 
             transition.onPrepared.AddListener(() => {
-                Systems.UI.Root.navigateable.NavigateTo(GameSystems.Navigateable);
-                GameSystems.MissionManager.LoadMission(options.SelectedMission, new MissionArgs {
+                Systems.UI.Root.navigateable.NavigateTo(GS.Navigateable);
+                GS.MissionManager.LoadMission(options.SelectedMission, new MissionArgs {
 
                 });
             });

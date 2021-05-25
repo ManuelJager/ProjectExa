@@ -55,7 +55,7 @@ namespace Exa.Debugging
 
         private static bool TryGetDebugDragable(out IDebugDragable dragable) {
             try {
-                return GameSystems.Raycaster.TryGetTarget(out dragable);
+                return GS.Raycaster.TryGetTarget(out dragable);
             }
             // ReSharper disable once EmptyGeneralCatchClause
             catch {

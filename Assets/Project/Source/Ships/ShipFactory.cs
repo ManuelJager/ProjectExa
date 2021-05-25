@@ -34,7 +34,7 @@ namespace Exa.Ships
         
         private T Configure<T>(GameObject prefab, Vector2 worldPos, Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration? configuration)
             where T : GridInstance {
-            var grid = prefab.Create<T>(GameSystems.SpawnLayer.ships);
+            var grid = prefab.Create<T>(GS.SpawnLayer.ships);
             grid.Import(blueprint, blockContext, configuration ?? new GridInstanceConfiguration {
                 Invulnerable = false
             });
@@ -47,10 +47,10 @@ namespace Exa.Ships
         }
 
         public GridOverlay CreateOverlay(GridInstance gridInstance) {
-            var overlayGo = Instantiate(shipOverlayPrefab, GameSystems.SpawnLayer.overlay);
-            gridInstance.ControllerDestroyedEvent.AddListener(() => {
+            var overlayGo = Instantiate(shipOverlayPrefab, GS.SpawnLayer.overlay);
+            gridInstance.ControllerDestroyed += () => {
                 Destroy(overlayGo);
-            });
+            };
 
             var overlay = overlayGo.GetComponent<GridOverlay>();
             overlay.SetGrid(gridInstance);

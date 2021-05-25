@@ -50,8 +50,8 @@ namespace Exa.Gameplay.Missions
             editResult = null;
             
             var currentTarget = Systems.CameraController.CurrentTarget;
-            GameSystems.SpawnLayer.SetLayerActive(false);
-            GameSystems.UI.gameplayLayer.NavigateTo(Systems.Editor.navigateable);
+            GS.SpawnLayer.SetLayerActive(false);
+            GS.UI.gameplayLayer.NavigateTo(Systems.Editor.navigateable);
 
             var settings = new BlueprintImportArgs(Station.Blueprint, blueprint => {
                 var newCosts = blueprint.Grid.GetTotals(BlockContext.UserGroup).Metadata.blockCosts;
@@ -78,14 +78,14 @@ namespace Exa.Gameplay.Missions
                 Mission.Update();
             }
             
-            GameSystems.UI.gameplayLayer.currentResources.Refresh(CurrentResources);
+            GS.UI.gameplayLayer.currentResources.Refresh(CurrentResources);
         }
         
         private void StopEditing(ICameraTarget cameraTarget) {
             IsEditing = false;
             
             Systems.CameraController.SetTarget(cameraTarget);
-            GameSystems.SpawnLayer.SetLayerActive(true);
+            GS.SpawnLayer.SetLayerActive(true);
             
             // TODO: use edit result
             if (editResult != null) {

@@ -23,7 +23,7 @@ namespace Exa.UI.Gameplay
 
         private void Awake() {
             editorAction.started += (context) => {
-                GameSystems.MissionManager.StartEditing();
+                GS.MissionManager.StartEditing();
             };
         }
 

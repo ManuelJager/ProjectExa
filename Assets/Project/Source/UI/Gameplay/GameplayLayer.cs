@@ -12,9 +12,5 @@ namespace Exa.UI.Gameplay
         public CoreHealthBar coreHealthBar;
         public BlockCostsView currentResources;
         public MissionState missionState;
-
-        public void Pause() {
-            NavigateTo(GameSystems.UI.pauseMenu);
-        }
     }
 }

@@ -33,7 +33,7 @@ namespace Exa.Ships
         
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             base.Import(blueprint, blockContext, configuration);
-            Overlay = GameSystems.UI.gameplayLayer.coreHealthBar;
+            Overlay = GS.UI.gameplayLayer.coreHealthBar;
         }
 
         public override void SetBlueprint(Blueprint blueprint) {

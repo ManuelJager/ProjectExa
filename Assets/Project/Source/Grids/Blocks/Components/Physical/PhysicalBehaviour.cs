@@ -33,7 +33,7 @@ namespace Exa.Grids.Blocks.Components
 
             if (GridInstance) {
                 GridInstance.BlockGrid.GetTotals().Hull -= appliedDamage;
-                GameSystems.PopupManager.CreateOrUpdateDamagePopup(transform.position, damageSource, appliedDamage);
+                GS.PopupManager.CreateOrUpdateDamagePopup(transform.position, damageSource, appliedDamage);
             }
 
             data.hull -= appliedDamage;

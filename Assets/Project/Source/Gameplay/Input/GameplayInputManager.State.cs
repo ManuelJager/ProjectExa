@@ -16,7 +16,7 @@
             get => currentSelection;
             set {
                 currentSelection = value;
-                GameSystems.UI.gameplayLayer.selectionOverlay.Reflect(value);
+                GS.UI.gameplayLayer.selectionOverlay.Reflect(value);
 
                 if (value != null) {
                     Systems.CameraController.SetSelectionTarget(value);

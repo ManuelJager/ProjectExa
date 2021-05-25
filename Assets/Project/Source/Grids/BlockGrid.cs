@@ -64,7 +64,7 @@ namespace Exa.Ships
 
             // Only rebuild if it isn't being rebuilt already
             if (!Rebuilding) {
-                GameSystems.BlockGridManager.AttemptRebuild(Parent);
+                GS.BlockGridManager.AttemptRebuild(Parent);
             }
         }
 

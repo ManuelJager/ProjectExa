@@ -63,7 +63,7 @@ namespace Exa.Grids.Blocks.BlockTypes
         /// Returns the block to the pool
         /// </summary>
         public void DestroyBlock() {
-            if (GameSystems.IsQuitting) {
+            if (GS.IsQuitting) {
                 parent = null;
                 return;
             }

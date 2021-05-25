@@ -17,9 +17,10 @@ namespace Exa.Gameplay.Missions
             this.onEnemyDestroyed = onEnemyDestroyed;
         }
         
-        public void OnEnemySpawned(EnemyGrid grid) {
+    public void OnEnemySpawned(EnemyGrid grid) {
             totalCount++;
-            grid.ControllerDestroyedEvent.AddListener(() => OnEnemyDestroyed(grid));
+            
+            grid.ControllerDestroyed += () => OnEnemyDestroyed(grid);
         }
 
         public void OnFinishSpawning() {

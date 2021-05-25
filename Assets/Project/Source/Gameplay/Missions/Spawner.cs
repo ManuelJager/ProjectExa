@@ -24,7 +24,7 @@ namespace Exa.Gameplay.Missions
             var blueprints = wave.GetSpawnAbleBlueprints();
             var formationLayout = formation.GetGlobalLayout(blueprints, origin, angle);
             foreach (var (position, blueprint) in formationLayout.AsTupleEnumerable(blueprints)) {
-                var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint, position);
+                var enemy = GS.ShipFactory.CreateEnemy(blueprint, position);
                 enemy.SetRotation(angle);
                 yield return enemy;
             }
@@ -33,13 +33,13 @@ namespace Exa.Gameplay.Missions
         public void SpawnRandomEnemy(IWave wave, float distance) {
             var blueprint = wave.GetSpawnAbleBlueprints().GetRandomElement();
             var position = MathUtils.RandomVector2(distance);
-            var enemy = GameSystems.ShipFactory.CreateEnemy(blueprint, position);
+            var enemy = GS.ShipFactory.CreateEnemy(blueprint, position);
             enemy.SetLookAt(station.GetPosition());
         }
         
         public PlayerStation SpawnPlayerStation(Blueprint blueprint = null, GridInstanceConfiguration? configuration = null) {
             blueprint ??= Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
-            station = GameSystems.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
+            station = GS.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
             station.Controller.GetBehaviour<ITurretBehaviour>().Target = new MouseCursorTarget();
             return station;
         }
@@ -47,7 +47,7 @@ namespace Exa.Gameplay.Missions
         public EnemyGrid SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration? configuration = null) {
             var blueprint = Systems.Blueprints.GetBlueprint(name);
             var pos = new Vector2(xPos, yPos);
-            return GameSystems.ShipFactory.CreateEnemy(blueprint, pos, configuration);
+            return GS.ShipFactory.CreateEnemy(blueprint, pos, configuration);
         }
     }
 }

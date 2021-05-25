@@ -18,7 +18,7 @@ namespace Exa.Ships
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             Navigation = navigationOptions.GetNavigation(this, blueprint);
             base.Import(blueprint, blockContext, configuration);
-            Overlay = GameSystems.ShipFactory.CreateOverlay(this);
+            Overlay = GS.ShipFactory.CreateOverlay(this);
         }
 
         protected override void ActiveFixedUpdate(float fixedDeltaTime) {

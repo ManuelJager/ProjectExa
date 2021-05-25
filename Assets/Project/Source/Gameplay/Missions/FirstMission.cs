@@ -21,19 +21,23 @@ namespace Exa.Gameplay.Missions
 
             manager.CurrentResources = initialResources;
             manager.Station = spawner.SpawnPlayerStation();
+
+            manager.Station.ControllerDestroyed += () => {
+                GS.UI.gameplayLayer.NavigateTo(GS.UI.gameOverMenu);
+            };
             
-            var waveManager = GameSystems.GameObject.AddComponent<WaveManager>();
+            var waveManager = GS.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
             waveManager.StartPreparationPhase(true);
 
             waveManager.WaveStarted += () => {
-                GameSystems.MissionManager.Station.Repair();
-                GameSystems.MissionManager.Station.ReconcileWithDiff();
+                GS.MissionManager.Station.Repair();
+                GS.MissionManager.Station.ReconcileWithDiff();
             };
 
             waveManager.EnemyDestroyed += grid => {
                 var costs = grid.GetBaseTotals().Metadata.blockCosts * resourceMultiplier;
-                GameSystems.MissionManager.AddResources(costs);
+                GS.MissionManager.AddResources(costs);
             };
         }
 

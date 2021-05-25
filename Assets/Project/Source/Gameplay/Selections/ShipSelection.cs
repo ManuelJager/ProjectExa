@@ -1,4 +1,5 @@
-﻿using Exa.Generics;
+﻿using System;
+using Exa.Generics;
 using Exa.Math;
 using Exa.Ships;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Exa.Gameplay
             }
         }
 
-        private readonly Dictionary<GridInstance, UnityAction> callbackDict = new Dictionary<GridInstance, UnityAction>();
+        private readonly Dictionary<GridInstance, Action> callbackDict = new Dictionary<GridInstance, Action>();
 
         public override void Add(GridInstance gridInstance) {
             base.Add(gridInstance);
@@ -36,8 +37,10 @@ namespace Exa.Gameplay
 
             // Set a callback that removes the Ship from the collection when destroyed
             void Callback() => Remove(gridInstance);
+
             callbackDict.Add(gridInstance, Callback);
-            gridInstance.ControllerDestroyedEvent.AddListener(Callback);
+
+            gridInstance.ControllerDestroyed += Callback;
         }
 
         public override bool Remove(GridInstance gridInstance) {
@@ -59,7 +62,7 @@ namespace Exa.Gameplay
             // Get the callback and remove it
             var callback = callbackDict[gridInstance];
             callbackDict.Remove(gridInstance);
-            gridInstance.ControllerDestroyedEvent.RemoveListener(callback);
+            gridInstance.ControllerDestroyed -= callback;
         }
 
         public abstract ShipSelection Clone();

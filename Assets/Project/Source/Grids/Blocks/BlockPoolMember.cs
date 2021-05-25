@@ -13,6 +13,6 @@ namespace Exa.Grids.Blocks
             base.OnDisable();
         }
 
-        protected override bool IgnoreClause() => GameSystems.IsQuitting;
+        protected override bool IgnoreClause() => GS.IsQuitting;
     }
 }

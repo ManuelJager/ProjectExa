@@ -33,8 +33,7 @@ namespace Exa.Ships
         [SerializeField] private ValueOverride<CursorState> cursorOverride;
         [FormerlySerializedAs("shipDebugFont")] public Font debugFont;
 
-        [Header("Events")]
-        public UnityEvent ControllerDestroyedEvent;
+        public event Action ControllerDestroyed;
         
         private Tooltip debugTooltip;
 
@@ -89,7 +88,7 @@ namespace Exa.Ships
                 thruster.PowerDown();
             }
             
-            ControllerDestroyedEvent?.Invoke();
+            ControllerDestroyed?.Invoke();
             Active = false;
             
             ExitRaycast();

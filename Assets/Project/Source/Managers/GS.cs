@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Exa
 {
-    public class GameSystems : MonoSingleton<GameSystems>
+    public class GS : MonoSingleton<GS>
     {
         [SerializeField] private Raycaster raycaster;
         [SerializeField] private Navigateable navigateable;

@@ -8,13 +8,13 @@ namespace Exa.UI.Gameplay
         public bool Paused { get; private set; }
         
         public override void HandleEnter(NavigationArgs args) {
-            GameSystems.Raycaster.IsRaycasting = false;
+            GS.Raycaster.IsRaycasting = false;
             Paused = true;
             base.HandleEnter(args);
         }
 
         public override void HandleExit(Navigateable target) {
-            GameSystems.Raycaster.IsRaycasting = true;
+            GS.Raycaster.IsRaycasting = true;
             Paused = false;
             base.HandleExit(target);
         }
@@ -28,9 +28,9 @@ namespace Exa.UI.Gameplay
         }
 
         public void QuitToMenu() {
-            GameSystems.Navigateable.NavigateTo(Systems.UI.Root.navigateable);
+            GS.Navigateable.NavigateTo(Systems.UI.Root.navigateable);
             Systems.Scenes.UnloadAsync("Game");
-            GameSystems.MissionManager.UnloadMission();
+            GS.MissionManager.UnloadMission();
         }
 
         public void QuitToDesktop() {
