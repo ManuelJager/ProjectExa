@@ -74,7 +74,10 @@ namespace Exa.Ships
         }
 
         public IEnumerable<T> QueryLike<T>() {
-            return blockBehaviours.Where(kvp => kvp.Key.IsAssignableFrom(typeof(T))).Cast<T>();
+            return blockBehaviours
+                .Where(kvp => typeof(T).IsAssignableFrom(kvp.Key))
+                .SelectMany(x => x.Value)
+                .Cast<T>();
         }
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] { };

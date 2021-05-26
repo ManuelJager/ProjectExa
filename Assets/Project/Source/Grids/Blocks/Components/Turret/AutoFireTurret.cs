@@ -21,10 +21,10 @@ namespace Exa.Grids.Blocks.Components
             
             // Long debug line cause debugging in unity sucks
             // Debug.Log($"({block.GetInstanceString()}) Current angle: {GetCurrentAngle()}, Target angle: {SelectTargetAngle()}, Diff {Mathf.DeltaAngle(GetCurrentAngle(), SelectTargetAngle())} ({rotationResult.deltaToTarget})");
-            
+
             if (Mathf.Abs(rotationResult.deltaToTarget) > 0.5f || timeSinceFire < data.FiringRate)
                 return;
-            
+
             timeSinceFire -= data.FiringRate; 
             Fire();
         }
