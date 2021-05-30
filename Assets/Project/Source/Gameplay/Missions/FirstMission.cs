@@ -25,6 +25,10 @@ namespace Exa.Gameplay.Missions
             manager.Station.ControllerDestroyed += () => {
                 GS.UI.gameplayLayer.NavigateTo(GS.UI.gameOverMenu);
             };
+
+            manager.Station.Controller.PhysicalBehaviour.OnDamage += damage => {
+                GS.UI.gameplayLayer.damageOverlay.NotifyDamage();
+            };
             
             var waveManager = GS.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
@@ -43,8 +47,6 @@ namespace Exa.Gameplay.Missions
 
         protected override void AddResearchModifiers(ResearchBuilder builder) => builder
             .Context(BlockContext.UserGroup)
-            .Add((ref AutocannonData curr) => curr.damage *= 0.5f)
-            .Context(BlockContext.EnemyGroup)
-            .Add((ref AutocannonData curr) => curr.damage *= 0.02f);
+            .Add((ref AutocannonData curr) => curr.damage *= 0.5f);
     }
 }

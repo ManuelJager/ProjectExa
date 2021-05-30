@@ -12,5 +12,6 @@ namespace Exa.UI.Gameplay
         public CoreHealthBar coreHealthBar;
         public BlockCostsView currentResources;
         public MissionState missionState;
+        public DamageOverlay damageOverlay;
     }
 }

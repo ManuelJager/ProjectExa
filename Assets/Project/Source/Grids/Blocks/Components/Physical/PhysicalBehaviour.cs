@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Exa.Utils;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Exa.Grids.Blocks.Components
 
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
     {
+        public event Action<float> OnDamage;
+        
         // TODO: replace damage source by an actual type
         /// <summary>
         /// Takes a given amount of damage
@@ -30,13 +33,17 @@ namespace Exa.Grids.Blocks.Components
                 appliedDamage = appliedDamage
             };
 
-
             if (GridInstance) {
                 GridInstance.BlockGrid.GetTotals().Hull -= appliedDamage;
                 GS.PopupManager.CreateOrUpdateDamagePopup(transform.position, damageSource, appliedDamage);
             }
 
             data.hull -= appliedDamage;
+
+            if (appliedDamage != 0f) {
+                OnDamage?.Invoke(appliedDamage);
+            }
+            
             if (data.hull <= 0) {
                 block.DestroyBlock();
             }
@@ -63,6 +70,12 @@ namespace Exa.Grids.Blocks.Components
 
         protected override void OnRemove() {
             Parent.Rigidbody2D.mass -= data.mass;
+
+            if (OnDamage != null) {
+                foreach (var d in OnDamage.GetInvocationList()) {
+                    OnDamage -= (Action<float>)d;
+                }    
+            }
         }
     }
 

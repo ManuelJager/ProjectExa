@@ -24,11 +24,11 @@ namespace Exa.Ships
         }
         
         public void OnEnable() {
-            gameControls.Enable();
+            gameControls?.Enable();
         }
 
         public void OnDisable() {
-            gameControls.Disable();
+            gameControls?.Disable();
         }
         
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
