@@ -1,5 +1,7 @@
 ﻿using Exa.Math;
 using System.Collections;
+using DG.Tweening;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.UI.Components
@@ -38,10 +40,7 @@ namespace Exa.UI.Components
         private CanvasGroup canvasGroup;
         private RectTransform rect;
 
-        private float Alpha {
-            get => canvasGroup.alpha;
-            set => canvasGroup.alpha = Mathf.Clamp(value, 0, 1);
-        }
+        private Tween alphaTween;
 
         private void Awake() {
             canvasGroup = GetComponent<CanvasGroup>();
@@ -49,11 +48,13 @@ namespace Exa.UI.Components
         }
 
         private void OnEnable() {
-            originalAlpha = Alpha;
+            originalAlpha = canvasGroup.alpha;
 
             if (animateAlpha) {
-                Alpha = 0f;
-                StartDelayedCoroutine(msLocalAnimationOffset / 1000f, FadeIn(originalAlpha));
+                canvasGroup.alpha = 0f;
+                canvasGroup.DOFade(1, 1 / alphaSpeed)
+                    .SetDelay(msLocalAnimationOffset / 1000)
+                    .Replace(ref alphaTween);
             }
 
             if (movementDirection == AnimationDirection.none) return;
@@ -78,28 +79,19 @@ namespace Exa.UI.Components
 
         public void SkipAnimations() {
             StopAllCoroutines();
+            alphaTween?.Kill();
 
-            Alpha = originalAlpha;
+            canvasGroup.alpha = originalAlpha;
 
             if (movementDirection == AnimationDirection.none) return;
 
             rect.anchoredPosition = originalPos;
         }
 
-        private IEnumerator FadeIn(float target) {
-            if (Alpha < target) {
-                Alpha += Time.deltaTime * alphaSpeed;
-
-                yield return null;
-
-                StartCoroutine(FadeIn(target));
-            }
-        }
-
         private IEnumerator SlideIn(Vector2 towards) {
-            if (rect.anchoredPosition != towards) {
-                rect.anchoredPosition = Vector2.SmoothDamp(
-                    rect.anchoredPosition,
+            if (rect.anchoredPosition + originalPos != towards) {
+                rect.anchoredPosition = originalPos + Vector2.SmoothDamp(
+                    rect.anchoredPosition + originalPos,
                     towards,
                     ref elementVelocity,
                     movementSmoothDamp);
