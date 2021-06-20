@@ -21,6 +21,10 @@ namespace Exa.UI.Tooltips
             valueText.text = value.ToString();
         }
 
+        public void SetLabel(string label) {
+            keyText.text = label;
+        }
+
         protected override void Refresh(LabeledValue<object> labeledValue) {
             keyText.text = labeledValue.Label;
             valueText.text = labeledValue.Value.ToString();

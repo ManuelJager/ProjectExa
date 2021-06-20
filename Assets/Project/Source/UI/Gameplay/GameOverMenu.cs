@@ -6,6 +6,8 @@ namespace Exa.UI.Gameplay
 {
     public class GameOverMenu : Navigateable
     {
+        public ScoreView scoreView;
+        
         public void Retry() {
             throw new NotImplementedException();
         }

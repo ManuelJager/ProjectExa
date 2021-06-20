@@ -21,8 +21,8 @@ namespace Exa.Gameplay.Missions
         public bool IsEditing { get; private set; }
         public Mission Mission { get; private set; }
         public BlockCosts CurrentResources { get; internal set; }
-        public BlockCosts TotalCollectedResources { get; internal set; }
         public PlayerStation Station { get; internal set; }
+        public MissionStats Stats { get; internal set; }
 
         private EditResult? editResult;
 
@@ -32,12 +32,12 @@ namespace Exa.Gameplay.Missions
             }
 
             Mission = mission;
+            Stats = new MissionStats();
             mission.Init(this, args);
         }
 
         public void AddResources(BlockCosts resources) {
             CurrentResources += resources;
-            TotalCollectedResources += resources;
         }
 
         public void UnloadMission() {

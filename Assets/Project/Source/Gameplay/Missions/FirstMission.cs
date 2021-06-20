@@ -23,6 +23,7 @@ namespace Exa.Gameplay.Missions
             manager.Station = spawner.SpawnPlayerStation();
 
             manager.Station.ControllerDestroyed += () => {
+                GS.UI.gameOverMenu.scoreView.PresentStats(manager.Stats);
                 GS.UI.gameplayLayer.NavigateTo(GS.UI.gameOverMenu);
             };
 
@@ -42,6 +43,8 @@ namespace Exa.Gameplay.Missions
             waveManager.EnemyDestroyed += grid => {
                 var costs = grid.GetBaseTotals().Metadata.blockCosts * resourceMultiplier;
                 GS.MissionManager.AddResources(costs);
+                GS.MissionManager.Stats.CollectedResources += costs;
+                GS.MissionManager.Stats.DestroyedShips += 1;
             };
         }
 

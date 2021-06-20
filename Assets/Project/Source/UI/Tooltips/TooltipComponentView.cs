@@ -1,4 +1,5 @@
 ﻿using System;
+using Exa.Types.Generics;
 using UnityEngine;
 
 namespace Exa.UI.Tooltips
