@@ -79,7 +79,13 @@ namespace Exa.Grids.Blocks
         }
 
         private TemplateBundle GetUpdatedBundle(BlockContext blockContext, BlockTemplate blockTemplate) {
-            var bundle = contextDict[blockContext][blockTemplate];
+            if (!contextDict.TryGetValue(blockContext, out var contextDictionary)) {
+                throw new KeyNotFoundException($"Block context: {blockContext} not registered");
+            }
+
+            if (!contextDictionary.TryGetValue(blockTemplate, out var bundle)) {
+                throw new KeyNotFoundException($"Block template: {blockTemplate} not registered");
+            }
 
             if (bundle.valuesAreDirty) {
                 bundle.valuesCache = ComputeValues(blockContext, bundle.template);

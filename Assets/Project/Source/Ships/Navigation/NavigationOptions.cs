@@ -1,8 +1,6 @@
 ﻿using System;
 using Exa.Data;
-using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
-using Unity.Transforms;
 using UnityEngine;
 
 namespace Exa.Ships.Navigation

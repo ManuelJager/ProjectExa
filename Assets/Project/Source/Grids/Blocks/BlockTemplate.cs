@@ -68,5 +68,9 @@ namespace Exa.Grids.Blocks
         }
 
         public abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();
+
+        public override string ToString() {
+            return $"Block template id: {id}";
+        }
     }
 }

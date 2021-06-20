@@ -1368,7 +1368,7 @@ PrefabInstance:
     - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
       propertyPath: message
-      value: Build a fleet, and move around in space
+      value: Defend your station against waves of enemy ships
       objectReference: {fileID: 0}
     - target: {fileID: 3667008806515302476, guid: 4436753b620da8f4aa44ab701036f540,
         type: 3}
