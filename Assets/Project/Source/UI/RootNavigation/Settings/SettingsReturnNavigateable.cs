@@ -9,7 +9,7 @@ namespace Exa.UI.Settings
     {
         [SerializeField] private SettingsTabManager settingsTabManager;
 
-        protected override void Return(bool force = false) {
+        public override void Return(bool force = false) {
             if (settingsTabManager.activeSettingsTab.IsDirty) {
                 settingsTabManager.QueryUserConfirmation(yes => {
                     if (yes)

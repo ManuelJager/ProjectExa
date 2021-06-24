@@ -10,7 +10,7 @@ namespace Exa.ShipEditor
     {
         [SerializeField] private GridEditor gridEditor;
 
-        protected override void Return(bool force = false) {
+        public override void Return(bool force = false) {
             if (!Interactable) return;
 
             var confirmationString = "Are you sure you want to exit without saving?";

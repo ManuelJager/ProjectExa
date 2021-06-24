@@ -29,7 +29,7 @@ namespace Exa.UI.Components
             base.HandleEnter(args);
         }
 
-        protected virtual void Return(bool force = false) {
+        public virtual void Return(bool force = false) {
             if (!Interactable && !force) return;
 
             audioPlayer.Play("UI_SFX_MenuTransitionOut");
