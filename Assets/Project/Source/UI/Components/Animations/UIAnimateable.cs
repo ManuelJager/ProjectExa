@@ -57,16 +57,15 @@ namespace Exa.UI.Components
                     .Replace(ref alphaTween);
             }
 
-            if (movementDirection == AnimationDirection.none) return;
+            if (movementDirection == AnimationDirection.none) {
+                return;
+            }
 
             originalPos = rect.anchoredPosition;
 
             // Create a vector that points upwards and rotate it by the animation direction
             // This is used as an offset from the original rect position
-            var offset = new Vector2 {
-                x = 0,
-                y = movementMagnitude
-            }.Rotate(movementDirection.GetRotation());
+            var offset = new Vector2(0, movementMagnitude).Rotate(movementDirection.GetRotation());
 
             rect.anchoredPosition = originalPos + offset;
 
@@ -77,28 +76,28 @@ namespace Exa.UI.Components
             SkipAnimations();
         }
 
-        public void SkipAnimations() {
+        private void SkipAnimations() {
             StopAllCoroutines();
             alphaTween?.Kill();
 
             canvasGroup.alpha = originalAlpha;
 
-            if (movementDirection == AnimationDirection.none) return;
+            if (movementDirection == AnimationDirection.none) {
+                return;
+            }
 
             rect.anchoredPosition = originalPos;
         }
 
         private IEnumerator SlideIn(Vector2 towards) {
-            if (rect.anchoredPosition + originalPos != towards) {
-                rect.anchoredPosition = originalPos + Vector2.SmoothDamp(
-                    rect.anchoredPosition + originalPos,
+            while (rect.anchoredPosition != towards) {
+                rect.anchoredPosition = Vector2.SmoothDamp(
+                    rect.anchoredPosition,
                     towards,
                     ref elementVelocity,
                     movementSmoothDamp);
 
                 yield return null;
-
-                StartCoroutine(SlideIn(towards));
             }
         }
 
