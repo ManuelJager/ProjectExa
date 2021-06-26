@@ -95,6 +95,13 @@ namespace Exa.Grids.Blocks
             return bundle;
         }
 
+        /// <summary>
+        /// Computes the template values cache for a given template in a given block context
+        /// </summary>
+        /// <param name="blockContext">Block context</param>
+        /// <param name="template">Block template</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private TemplateValuesCache ComputeValues(BlockContext blockContext, BlockTemplate template) {
             var dict = new TemplateValuesCache();
 

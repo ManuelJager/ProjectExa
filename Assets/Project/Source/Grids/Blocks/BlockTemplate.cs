@@ -41,6 +41,10 @@ namespace Exa.Grids.Blocks
         public GameObject alivePrefab;
 
         private void OnEnable() {
+            foreach (var partial in GetTemplatePartials()) {
+                partial.Template = this;
+            }
+            
             if (!inertPrefab) {
                 Debug.LogWarning("inertPrefab must have a prefab reference");
             }

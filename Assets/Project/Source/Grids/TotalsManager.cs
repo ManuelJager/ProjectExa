@@ -28,8 +28,9 @@ namespace Exa.Grids
             cache.Reset();
             cache.AddListeners();
             
-            totalsDictionary.EnsureCreated(grid, () => new Dictionary<BlockContext, TotalsCache>());
-            totalsDictionary[grid].Add(context, cache);
+            totalsDictionary.EnsureCreated(grid, () => new Dictionary<BlockContext, TotalsCache> {
+                { context, cache }
+            });
             
             return cache.totals;
         }

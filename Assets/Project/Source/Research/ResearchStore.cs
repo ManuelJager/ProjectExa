@@ -40,18 +40,20 @@ namespace Exa.Research
             return researchItemBag.FindFirst<T>();
         }
 
-        public T ApplyModifiers<T>(BlockContext context, T baseValues)
+        public T ApplyModifiers<T>(BlockContext context, BlockTemplate template, T baseValues)
             where T : struct, IBlockComponentValues {
-            return researchContexts[context].ApplyContext(baseValues);
+            return researchContexts[context].ApplyContext(template, baseValues);
         }
 
-        public void AddModifier(BlockContext filter, IBlockComponentModifier modifier) {
+        public Action AddModifier(BlockContext filter, IBlockComponentModifier modifier) {
             var steps = new List<ResearchStep>(modifier.GetResearchSteps());
             foreach (var (context, group) in FilterDict(filter)) {
                 group.AddSteps(modifier, steps);
                 Systems.Blocks.Values.SetDirty(context, modifier);
                 ResearchChanged?.Invoke(context);
             }
+
+            return () => RemoveModifier(filter, modifier);
         }
 
         public Action AddModifier<T>(
@@ -65,8 +67,7 @@ namespace Exa.Research
                 return template.GetTemplatePartials().Any(partial => typeof(T).IsAssignableFrom(partial.GetTargetType()));
             });
             
-            AddModifier(filter, dynamicModifier);
-            return () => RemoveModifier(filter, dynamicModifier);
+            return AddModifier(filter, dynamicModifier);
         }
 
         public void RemoveModifier(BlockContext filter, IBlockComponentModifier modifier) {

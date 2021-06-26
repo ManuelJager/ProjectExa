@@ -30,8 +30,8 @@ namespace Exa.Grids
         }
 
         public void Reset() {
-            Mass = 1f;
-            Hull = 1f;
+            Mass = 0f;
+            Hull = 0f;
             PowerGenerationModifier = new Scalar();
             TurningPowerModifier = new Scalar();
         }

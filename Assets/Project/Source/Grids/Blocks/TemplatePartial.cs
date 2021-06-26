@@ -11,7 +11,7 @@ namespace Exa.Grids.Blocks
         public abstract T ToBaseComponentValues();
 
         public T ToContextfulComponentValues(BlockContext blockContext) {
-            return Systems.Research.ApplyModifiers(blockContext, ToBaseComponentValues());
+            return Systems.Research.ApplyModifiers(blockContext, Template, ToBaseComponentValues());
         }
 
         public override IBlockComponentValues GetContextlessValues() {
@@ -68,5 +68,7 @@ namespace Exa.Grids.Blocks
         public abstract void RemoveGridTotals(GridTotals totals);
 
         public abstract Type GetTargetType();
+
+        public BlockTemplate Template { get; internal set; }
     }
 }
