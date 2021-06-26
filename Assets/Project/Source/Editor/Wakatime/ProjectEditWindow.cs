@@ -2,12 +2,14 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace WakaTime {
+namespace WakaTime
+{
     /// <summary>
     /// Popup window for editing .wakatime-project file
     /// <seealso cref="https://wakatime.com/faq#rename-projects"/> 
     /// </summary>
-    public class ProjectEditWindow : EditorWindow {
+    public class ProjectEditWindow : EditorWindow
+    {
         private static ProjectEditWindow _window;
 
         private static Vector2 _size = new Vector2(400, 138);
@@ -15,7 +17,9 @@ namespace WakaTime {
         private static string _branch;
 
         private static readonly GUIStyle RichHelpBoxStyle
-            = new GUIStyle(EditorStyles.helpBox) {richText = true};
+            = new GUIStyle(EditorStyles.helpBox) {
+                richText = true
+            };
 
         private static bool _isProjectFileMissed;
 
@@ -29,7 +33,9 @@ namespace WakaTime {
             }
 
             // We need only first 2 lines from .wakatime-project 
-            _projectSettings = new[] {"", ""};
+            _projectSettings = new[] {
+                "", ""
+            };
             var projectFile = Plugin.GetProjectFile();
 
             if (projectFile == null)
@@ -41,7 +47,7 @@ namespace WakaTime {
 
             _branch = string.IsNullOrEmpty(_projectSettings[1])
                 ? "" // TODO: Read current git branch
-                : _projectSettings[1]; 
+                : _projectSettings[1];
 
             // If we need to display "project file missing" line, we are making different height
             // TODO: calculate height dynamically, if path is too long buttons may not fit
@@ -54,7 +60,8 @@ namespace WakaTime {
         }
 
         void OnGUI() {
-            EditorGUILayout.BeginHorizontal(); {
+            EditorGUILayout.BeginHorizontal();
+            {
                 EditorGUILayout.PrefixLabel("Project name");
                 _projectSettings[0] = EditorGUILayout.TextField(_projectSettings[0]);
             }
@@ -62,7 +69,8 @@ namespace WakaTime {
             EditorGUILayout.LabelField(
                 "A project name to send to WakaTime (Product Name from Player Settings by default)", RichHelpBoxStyle);
 
-            EditorGUILayout.BeginHorizontal(); {
+            EditorGUILayout.BeginHorizontal();
+            {
                 EditorGUILayout.PrefixLabel("Branch");
                 EditorGUILayout.SelectableLabel(_branch, RichHelpBoxStyle,
                     GUILayout.Height(EditorGUIUtility.singleLineHeight));
@@ -75,7 +83,8 @@ namespace WakaTime {
             if (_isProjectFileMissed)
                 GUILayout.Label($"<b>{Path.GetFullPath(".wakatime_project")}</b> will be created on save",
                     RichHelpBoxStyle);
-            EditorGUILayout.BeginHorizontal(); {
+            EditorGUILayout.BeginHorizontal();
+            {
                 if (GUILayout.Button("Save")) {
                     Plugin.SetProjectFile(_projectSettings);
                     Plugin.Initialize();
