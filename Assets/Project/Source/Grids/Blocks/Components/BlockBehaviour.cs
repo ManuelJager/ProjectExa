@@ -1,13 +1,11 @@
 ﻿using System;
-using Exa.Ships;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Ships;
 using UnityEngine;
 
-namespace Exa.Grids.Blocks.Components
-{
+namespace Exa.Grids.Blocks.Components {
     public abstract class BlockBehaviour<T> : BlockBehaviour
-        where T : struct, IBlockComponentValues
-    {
+        where T : struct, IBlockComponentValues {
         [NonSerialized] protected T data;
 
         public T Data {
@@ -17,7 +15,7 @@ namespace Exa.Grids.Blocks.Components
 
         public override IBlockComponentValues BlockComponentData {
             get => data;
-            set => data = (T)value;
+            set => data = (T) value;
         }
 
         public T GetDefaultData() {
@@ -25,24 +23,24 @@ namespace Exa.Grids.Blocks.Components
             var template = block.BlueprintBlock.Template;
             var store = Systems.Blocks.Values;
             var success = store.TryGetValues<T>(context, template, out var result);
+
             return success ? result : throw new InvalidOperationException("Could not find default values");
         }
     }
 
-    public abstract class BlockBehaviour : MonoBehaviour
-    {
+    public abstract class BlockBehaviour : MonoBehaviour {
         [HideInInspector] public Block block;
-        private IGridInstance parent;
         private bool forceActive;
+        private IGridInstance parent;
 
         public abstract IBlockComponentValues BlockComponentData { get; set; }
 
-        public IGridInstance Parent
-        {
+        public IGridInstance Parent {
             get => parent;
-            set
-            {
-                if (parent == value) return;
+            set {
+                if (parent == value) {
+                    return;
+                }
 
                 if (parent != null) {
                     OnRemove();
@@ -56,7 +54,9 @@ namespace Exa.Grids.Blocks.Components
             }
         }
 
-        public GridInstance GridInstance => Parent as GridInstance;
+        public GridInstance GridInstance {
+            get => Parent as GridInstance;
+        }
 
         private void Update() {
             if (forceActive || GridInstance && GridInstance.Active) {
@@ -71,7 +71,7 @@ namespace Exa.Grids.Blocks.Components
         protected virtual void OnRemove() { }
 
         public void ForceActive() {
-            this.forceActive = true;
+            forceActive = true;
         }
     }
 }

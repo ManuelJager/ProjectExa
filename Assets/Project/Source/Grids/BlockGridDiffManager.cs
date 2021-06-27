@@ -2,11 +2,9 @@
 using Exa.Grids.Blueprints;
 using Exa.Ships;
 
-namespace Exa.Grids
-{
-    public class BlockGridDiffManager
-    {
-        private Dictionary<BlockGrid, BlockGridDiff> diffs;
+namespace Exa.Grids {
+    public class BlockGridDiffManager {
+        private readonly Dictionary<BlockGrid, BlockGridDiff> diffs;
 
         public BlockGridDiffManager() {
             diffs = new Dictionary<BlockGrid, BlockGridDiff>();
@@ -16,6 +14,7 @@ namespace Exa.Grids
             var diff = new BlockGridDiff(source, target);
             diffs.Add(source, diff);
             diff.AddListeners();
+
             return diff;
         }
 
@@ -23,7 +22,7 @@ namespace Exa.Grids
             diffs[source].RemoveListeners();
             diffs.Remove(source);
         }
-        
+
         public BlockGridDiff GetDiff(BlockGrid blockGrid) {
             return diffs[blockGrid];
         }

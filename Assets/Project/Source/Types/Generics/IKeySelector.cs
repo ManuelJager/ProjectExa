@@ -1,11 +1,9 @@
-﻿namespace Exa.Types.Generics
-{
+﻿namespace Exa.Types.Generics {
     /// <summary>
-    /// Supports an object that provides a key that may change
+    ///     Supports an object that provides a key that may change
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IKeySelector<T>
-    {
+    public interface IKeySelector<T> {
         T Key { get; }
     }
 }

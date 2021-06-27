@@ -3,10 +3,8 @@ using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.UI
-{
-    public class HardwareMouseCursor : MonoBehaviour, ICursor
-    {
+namespace Exa.UI {
+    public class HardwareMouseCursor : MonoBehaviour, ICursor {
         [SerializeField] private Texture2D idleMouseTexture;
         [SerializeField] private Texture2D activeMouseTexture;
         [SerializeField] private Texture2D removeMouseTexture;

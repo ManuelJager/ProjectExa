@@ -1,6 +1,3 @@
-﻿namespace NaughtyAttributes
-{
-	public interface INaughtyAttribute
-	{
-	}
+﻿namespace NaughtyAttributes {
+    public interface INaughtyAttribute { }
 }

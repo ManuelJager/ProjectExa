@@ -1,14 +1,12 @@
-﻿using Exa.Math;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Exa.Math;
 using Exa.ShipEditor;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.Grids
-{
-    public static class GridUtils
-    {
+namespace Exa.Grids {
+    public static class GridUtils {
         public static IEnumerable<T> GetNeighbours<T>(this Grid<T> grid, IEnumerable<Vector2Int> tilePositions)
             where T : class, IGridMember {
             // Get grid positions around block
@@ -20,8 +18,10 @@ namespace Exa.Grids
             foreach (var neighbourPosition in neighbourPositions) {
                 if (grid.ContainsMember(neighbourPosition)) {
                     var neighbour = grid.GetMember(neighbourPosition);
+
                     if (!neighbours.Contains(neighbour)) {
                         neighbours.Add(neighbour);
+
                         yield return neighbour;
                     }
                 }
@@ -33,8 +33,13 @@ namespace Exa.Grids
             var gridAnchor = gridMember.GridAnchor;
             var area = block.Template.size.Rotate(block.Rotation);
 
-            if (block.flippedX) area.x = -area.x;
-            if (block.flippedY) area.y = -area.y;
+            if (block.flippedX) {
+                area.x = -area.x;
+            }
+
+            if (block.flippedY) {
+                area.y = -area.y;
+            }
 
             return MathUtils.EnumerateVectors(area, gridAnchor);
         }

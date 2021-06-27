@@ -1,27 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Exa.Audio
-{
+namespace Exa.Audio {
     /// <summary>
-    /// Defines a handle for a single sound
+    ///     Defines a handle for a single sound
     /// </summary>
-    public class SoundHandle
-    {
+    public class SoundHandle {
         public AudioSource audioSource;
-        public ISound sound;
+
+        private ITrackContext context;
 
         /// <summary>
-        /// Is invoked when the sound ends or is stopped
+        ///     Is invoked when the sound ends or is stopped
         /// </summary>
         public UnityEvent onEnd = new UnityEvent();
 
         /// <summary>
-        /// Is invoked when the sound is manually stopped
+        ///     Is invoked when the sound is manually stopped
         /// </summary>
         public UnityEvent onStop = new UnityEvent();
-
-        private ITrackContext context;
+        public ISound sound;
 
         public void Play(ITrackContext playableContext) {
             context = playableContext;
@@ -32,8 +30,7 @@ namespace Exa.Audio
 
             if (sound.Config.allowMultipleOfType) {
                 audioSource.PlayOneShot(sound.AudioClip, sound.Config.volume);
-            }
-            else {
+            } else {
                 audioSource.clip = sound.AudioClip;
                 audioSource.volume = sound.Config.volume;
                 audioSource.Play();

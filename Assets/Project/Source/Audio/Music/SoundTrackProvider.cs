@@ -2,27 +2,29 @@
 using System.Linq;
 using Exa.Types.Generics;
 using UnityEngine;
+using Tree = Exa.IO.Tree;
 
-namespace Exa.Audio.Music
-{
-    public class SoundTrackProvider : MonoBehaviour
-    {
+namespace Exa.Audio.Music {
+    public class SoundTrackProvider : MonoBehaviour {
         [SerializeField] private DefaultSoundTrack defaultSoundTrack;
-
-        public ISoundTrackDescription DefaultSoundTrack => defaultSoundTrack.Description;
         public LazyCache<IEnumerable<ISoundTrackDescription>> descriptionsBackingField;
-        public IEnumerable<ISoundTrackDescription> Descriptions => descriptionsBackingField.Value;
+
+        public ISoundTrackDescription DefaultSoundTrack {
+            get => defaultSoundTrack.Description;
+        }
+
+        public IEnumerable<ISoundTrackDescription> Descriptions {
+            get => descriptionsBackingField.Value;
+        }
 
         private void Awake() {
-            descriptionsBackingField = new LazyCache<IEnumerable<ISoundTrackDescription>>(() => {
-                return GetSoundTrackDescriptions().ToList();
-            });
+            descriptionsBackingField = new LazyCache<IEnumerable<ISoundTrackDescription>>(() => { return GetSoundTrackDescriptions().ToList(); });
         }
 
         private IEnumerable<ISoundTrackDescription> GetSoundTrackDescriptions() {
             yield return new DefaultSoundTrackDescription(defaultSoundTrack);
 
-            foreach (var file in IO.Tree.Root.CustomSoundTracks.GetFiles("*.zip")) {
+            foreach (var file in Tree.Root.CustomSoundTracks.GetFiles("*.zip")) {
                 yield return new CustomSoundTrackDescription(file);
             }
         }

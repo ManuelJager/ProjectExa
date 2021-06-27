@@ -1,23 +1,31 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Exa.Grids.Blocks.Components
-{
+namespace Exa.Grids.Blocks.Components {
     [Serializable]
-    public class PhysicalTemplatePartial : TemplatePartial<PhysicalData>
-    {
+    public class PhysicalTemplatePartial : TemplatePartial<PhysicalData> {
         [SerializeField] private float maxHull;
         [SerializeField] private float armor;
         [SerializeField] private float mass; // In ton
 
-        public float MaxHull => maxHull;
-        public float Armor => armor;
-        public float Mass => mass;
+        public float MaxHull {
+            get => maxHull;
+        }
 
-        public override PhysicalData ToBaseComponentValues() => new PhysicalData {
-            armor = armor,
-            hull = maxHull,
-            mass = mass
-        };
+        public float Armor {
+            get => armor;
+        }
+
+        public float Mass {
+            get => mass;
+        }
+
+        public override PhysicalData ToBaseComponentValues() {
+            return new PhysicalData {
+                armor = armor,
+                hull = maxHull,
+                mass = mass
+            };
+        }
     }
 }

@@ -1,6 +1,3 @@
-﻿namespace NaughtyAttributes
-{
-	public interface IGroupAttribute
-	{
-	}
+﻿namespace NaughtyAttributes {
+    public interface IGroupAttribute { }
 }

@@ -2,26 +2,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Exa.Gameplay
-{
-    public class MouseCursorTarget : IWeaponTarget
-    {
-        private UnityEngine.Camera camera;
-        private bool useDefault;
+namespace Exa.Gameplay {
+    public class MouseCursorTarget : IWeaponTarget {
+        private readonly UnityEngine.Camera camera;
+        private readonly bool useDefault;
 
         public MouseCursorTarget() {
-            this.camera = null;
-            this.useDefault = true;
+            camera = null;
+            useDefault = true;
         }
-        
+
         public MouseCursorTarget(UnityEngine.Camera camera) {
             this.camera = camera;
-            this.useDefault = false;
+            useDefault = false;
         }
-        
+
         public Vector2 GetPosition(Vector2 current) {
-            return useDefault 
-                ? Systems.Input.MouseWorldPoint 
+            return useDefault
+                ? Systems.Input.MouseWorldPoint
                 : (Vector2) camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         }
 

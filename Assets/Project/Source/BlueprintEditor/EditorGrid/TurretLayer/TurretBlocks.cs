@@ -5,12 +5,10 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blueprints;
 using UnityEngine;
 
-namespace Exa.ShipEditor
-{
-    public class TurretBlocks : Grid<ABpBlock>
-    {
-        private Dictionary<ABpBlock, TurretCache> cache;
-        private EditorGridTurretLayer turretLayer;
+namespace Exa.ShipEditor {
+    public class TurretBlocks : Grid<ABpBlock> {
+        private readonly Dictionary<ABpBlock, TurretCache> cache;
+        private readonly EditorGridTurretLayer turretLayer;
 
         public TurretBlocks(EditorGridTurretLayer turretLayer) {
             this.turretLayer = turretLayer;
@@ -20,11 +18,15 @@ namespace Exa.ShipEditor
         public void AddTurret(ABpBlock block, ITurretTemplate template) {
             var overlay = turretLayer.CreateStationaryOverlay(block, template);
             var claims = overlay.GetTurretClaims().ToList();
-            cache.Add(block, new TurretCache {
-                Template = template,
-                Overlay = overlay,
-                TurretClaimedTiles = claims
-            });
+
+            cache.Add(
+                block,
+                new TurretCache {
+                    Template = template,
+                    Overlay = overlay,
+                    TurretClaimedTiles = claims
+                }
+            );
 
             base.Add(block);
         }
@@ -40,8 +42,7 @@ namespace Exa.ShipEditor
             base.Remove(block);
         }
 
-        private struct TurretCache
-        {
+        private struct TurretCache {
             public ITurretTemplate Template { get; set; }
             public IEnumerable<Vector2Int> TurretClaimedTiles { get; set; }
             public TurretOverlay Overlay { get; set; }

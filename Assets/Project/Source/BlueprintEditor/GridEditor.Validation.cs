@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Exa.Utils;
+﻿using System.Collections.Generic;
 using Exa.Validation;
 using UnityEngine;
 
-namespace Exa.ShipEditor
-{
-    public partial class GridEditor
-    {
+namespace Exa.ShipEditor {
+    public partial class GridEditor {
+        private List<IPlugableValidator> customValidators;
         private BlueprintGridValidator gridValidator;
         private BlueprintNameValidator nameValidator;
-        private List<IPlugableValidator> customValidators;
 
         public void ValidateGrid() {
             var args = new BlueprintGridValidationArgs {
@@ -33,8 +29,7 @@ namespace Exa.ShipEditor
                 if (NameValidationResult) {
                     editorGrid.blueprintLayer.ActiveBlueprint.name = name;
                 }
-            }
-            else {
+            } else {
                 Debug.LogError("Attempted to validate name on unsupported import arguments");
             }
         }
@@ -42,31 +37,38 @@ namespace Exa.ShipEditor
         public ValidationResult Validate<T>(IValidator<T> validator, T args) {
             return overlay.infoPanel.errorListController.Validate(validator, args);
         }
-        
+
         private bool GetShouldSave(out string message) {
             if (IsSaved) {
                 message = "Blueprint is already saved";
+
                 return false;
             }
 
             if (NameValidationResult != null && !NameValidationResult) {
                 message = NameValidationResult.GetFirstBySeverity().Message;
+
                 return false;
             }
 
             if (GridValidationResult != null && !GridValidationResult) {
                 message = GridValidationResult.GetFirstBySeverity().Message;
+
                 return false;
             }
 
             foreach (var validator in customValidators) {
-                if (validator.Result == null || validator.Result) continue;
-                
+                if (validator.Result == null || validator.Result) {
+                    continue;
+                }
+
                 message = validator.Result.GetFirstBySeverity().Message;
+
                 return false;
             }
 
             message = null;
+
             return true;
         }
     }

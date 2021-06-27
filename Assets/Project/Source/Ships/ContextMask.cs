@@ -2,10 +2,8 @@
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.Ships
-{
-    public readonly struct ContextMask
-    {
+namespace Exa.Ships {
+    public readonly struct ContextMask {
         public LayerMask LayerMask { get; }
         private BlockContext BlockContextMask { get; }
 
@@ -23,8 +21,7 @@ namespace Exa.Ships
         }
     }
 
-    public static class ContextMaskUtils
-    {
+    public static class ContextMaskUtils {
         public static ContextMask GetShipMask(this BlockContext context) {
             return new ContextMask(context, LayerMask.GetMask("unit"));
         }

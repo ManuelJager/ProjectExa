@@ -1,22 +1,20 @@
-﻿using Exa.Validation;
-using Exa.Utils;
+﻿using Exa.Utils;
+using Exa.Validation;
 using UnityEngine;
 
-namespace Exa.ShipEditor
-{
-    public partial class GridEditor
-    {
-        private bool leftButtonPressed;
-        private bool rightButtonPressed;
-        private bool mouseOverUI;
-        private bool interactible = true;
+namespace Exa.ShipEditor {
+    public partial class GridEditor {
         private BlockFlip flipState;
+        private bool interactible = true;
+        private bool leftButtonPressed;
+        private bool mouseOverUI;
+        private bool rightButtonPressed;
 
         public bool IsSaved { get; private set; }
         public ValidationResult NameValidationResult { get; private set; }
         public ValidationResult GridValidationResult { get; private set; }
         public GridEditorImportArgs ImportArgs { get; set; }
-        
+
         private BlockFlip FlipState {
             get => flipState;
             set {
@@ -24,24 +22,6 @@ namespace Exa.ShipEditor
 
                 overlay.verticalMirrorView.SetState(value.HasValue(BlockFlip.FlipY));
                 editorGrid.ghostLayer.SetFlip(value);
-            }
-        }
-
-        public bool Interactable {
-            get => interactible;
-            set {
-                interactible = value;
-
-                editorGrid.Interactable = value;
-                navigateable.Interactable = value;
-
-                if (value) {
-                    gameControls.Enable();
-                }
-                else {
-                    gameControls.Disable();
-                    editorGrid.MovementVector = Vector2.zero;
-                }
             }
         }
 
@@ -55,6 +35,23 @@ namespace Exa.ShipEditor
         }
 
         private bool ShouldSave { get; set; }
+
+        public bool Interactable {
+            get => interactible;
+            set {
+                interactible = value;
+
+                editorGrid.Interactable = value;
+                navigateable.Interactable = value;
+
+                if (value) {
+                    gameControls.Enable();
+                } else {
+                    gameControls.Disable();
+                    editorGrid.MovementVector = Vector2.zero;
+                }
+            }
+        }
 
         private void ResetState() {
             IsSaved = true;

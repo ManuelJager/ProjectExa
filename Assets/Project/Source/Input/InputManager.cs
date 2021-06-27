@@ -1,14 +1,11 @@
-﻿using Exa.UI;
-using System.Linq;
+﻿using System.Linq;
 using Exa.Math;
+using Exa.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Vector2 = UnityEngine.Vector2;
 
-namespace Exa.Input
-{
-    public class InputManager : MonoBehaviour
-    {
+namespace Exa.Input {
+    public class InputManager : MonoBehaviour {
         [HideInInspector] public bool inputIsCaptured;
 
         private MouseCursorController mouseCursor;
@@ -54,6 +51,7 @@ namespace Exa.Input
             var min = new Vector2(-1, -1);
             var max = new Vector2(1, 1);
             var unclampedOffset = mouseViewportPoint * 2f - max;
+
             return unclampedOffset.Clamp(min, max);
         }
     }

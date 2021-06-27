@@ -1,16 +1,14 @@
-﻿using Exa.Grids.Blocks;
-using Exa.Math;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Exa.Grids.Blocks;
+using Exa.Math;
+using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Exa.Grids.Blueprints
-{
+namespace Exa.Grids.Blueprints {
     [Serializable]
-    public struct BlueprintBlock : IEquatable<BlueprintBlock>
-    {
+    public struct BlueprintBlock : IEquatable<BlueprintBlock> {
         public string id;
         [DefaultValue(false)] public bool flippedX;
         [DefaultValue(false)] public bool flippedY;
@@ -27,10 +25,12 @@ namespace Exa.Grids.Blueprints
         }
 
         [JsonIgnore]
-        public Vector2Int FlipVector => new Vector2Int {
-            x = flippedX ? -1 : 1,
-            y = flippedY ? -1 : 1
-        };
+        public Vector2Int FlipVector {
+            get => new Vector2Int {
+                x = flippedX ? -1 : 1,
+                y = flippedY ? -1 : 1
+            };
+        }
 
         [JsonIgnore]
         public BlockTemplate Template {
@@ -43,6 +43,14 @@ namespace Exa.Grids.Blueprints
             }
         }
 
+        public bool Equals(BlueprintBlock other) {
+            return
+                id == other.id &&
+                flippedX == other.flippedX &&
+                flippedY == other.flippedY &&
+                rotation == other.rotation;
+        }
+
         public Quaternion GetDirection() {
             return Quaternion.Euler(0, 0, Direction * 90f);
         }
@@ -50,8 +58,13 @@ namespace Exa.Grids.Blueprints
         public Vector2Int CalculateSizeDelta() {
             var area = Template.size.Rotate(Rotation);
 
-            if (flippedX) area.x = -area.x;
-            if (flippedY) area.y = -area.y;
+            if (flippedX) {
+                area.x = -area.x;
+            }
+
+            if (flippedY) {
+                area.y = -area.y;
+            }
 
             return area;
         }
@@ -70,24 +83,17 @@ namespace Exa.Grids.Blueprints
             return $"{id}:{rotation}";
         }
 
-        public bool Equals(BlueprintBlock other) {
-            return 
-                id == other.id && 
-                flippedX == other.flippedX && 
-                flippedY == other.flippedY && 
-                rotation == other.rotation;
-        }
-
         public override bool Equals(object obj) {
             return obj is BlueprintBlock other && Equals(other);
         }
 
         public override int GetHashCode() {
             unchecked {
-                var hashCode = (id != null ? id.GetHashCode() : 0);
+                var hashCode = id != null ? id.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ flippedX.GetHashCode();
                 hashCode = (hashCode * 397) ^ flippedY.GetHashCode();
                 hashCode = (hashCode * 397) ^ rotation;
+
                 return hashCode;
             }
         }

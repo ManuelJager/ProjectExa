@@ -1,12 +1,11 @@
-﻿using Exa.Utils;
+﻿using System;
+using Exa.Utils;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Grids.Blueprints
-{
-    public class ThumbnailGenerator : MonoBehaviour
-    {
+namespace Exa.Grids.Blueprints {
+    public class ThumbnailGenerator : MonoBehaviour {
         [SerializeField] private Color backgroundColor;
         [SerializeField] private float padding;
 
@@ -24,11 +23,18 @@ namespace Exa.Grids.Blueprints
                 blockGO.SetActive(true);
             }
 
+            transform.GetChildren().ForEach(Debug.Log);
+
             RuntimePreviewGenerator.PreviewDirection = transform.forward;
-            var tex = RuntimePreviewGenerator.GenerateModelPreview(transform, 512, 512, false);
+            var tex = RuntimePreviewGenerator.GenerateModelPreview(transform, 512, 512);
+
+            if (tex == null) {
+                throw new Exception("Generated thumbnail is null");
+            }
+
             blueprint.Thumbnail = tex;
 
-            // Cleaup Ship
+            // Cleanup Ship
             transform.SetActiveChildren(false);
         }
     }

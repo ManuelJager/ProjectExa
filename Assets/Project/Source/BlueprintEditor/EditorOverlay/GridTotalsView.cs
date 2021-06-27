@@ -5,10 +5,8 @@ using UnityEngine.Serialization;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
-    public class GridTotalsView : MonoBehaviour
-    {
+namespace Exa.ShipEditor {
+    public class GridTotalsView : MonoBehaviour {
         [FormerlySerializedAs("metadataView")]
         [Header("References")]
         [SerializeField] private BlockCostsView blockCostsView;
@@ -19,6 +17,7 @@ namespace Exa.ShipEditor
 
         public void Update() {
             var totals = Systems.Editor.ActiveBlueprintTotals;
+
             if (totals != null) {
                 Render(totals);
             }

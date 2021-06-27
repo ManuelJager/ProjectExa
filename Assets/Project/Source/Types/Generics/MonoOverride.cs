@@ -1,12 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Exa.Types.Generics
-{
-    public abstract class MonoOverride<T> : MonoBehaviour, IValueOverride<T>
-    {
+namespace Exa.Types.Generics {
+    public abstract class MonoOverride<T> : MonoBehaviour, IValueOverride<T> {
         [SerializeField] protected T value;
-
-        public T Value => value;
 
         protected virtual void OnEnable() {
             GetPath().Add(this);
@@ -14,6 +10,10 @@ namespace Exa.Types.Generics
 
         protected virtual void OnDisable() {
             GetPath().Remove(this);
+        }
+
+        public T Value {
+            get => value;
         }
 
         protected abstract OverrideList<T> GetPath();

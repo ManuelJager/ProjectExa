@@ -1,9 +1,6 @@
 ﻿using System;
 
-namespace NaughtyAttributes
-{
-	[AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-	public class ReorderableListAttribute : SpecialCaseDrawerAttribute
-	{
-	}
+namespace NaughtyAttributes {
+    [AttributeUsage(AttributeTargets.Field)]
+    public class ReorderableListAttribute : SpecialCaseDrawerAttribute { }
 }

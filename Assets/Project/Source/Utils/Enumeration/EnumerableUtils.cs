@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Random = UnityEngine.Random;
 
-namespace Exa.Utils
-{
-    public static class EnumerableUtils
-    {
-        public static IEnumerable<(T1, T2)> AsTupleEnumerable<T1, T2>(this IEnumerable<T1> first,
-            IEnumerable<T2> second) {
+namespace Exa.Utils {
+    public static class EnumerableUtils {
+        public static IEnumerable<(T1, T2)> AsTupleEnumerable<T1, T2>(
+            this IEnumerable<T1> first,
+            IEnumerable<T2> second
+        ) {
             var firstEnumerator = first.GetEnumerator();
             var secondEnumerator = second.GetEnumerator();
 
@@ -18,8 +18,11 @@ namespace Exa.Utils
             }
         }
 
-        public static IEnumerable<(T1, T2, T3)> AsTupleEnumerable<T1, T2, T3>(this IEnumerable<T1> first,
-            IEnumerable<T2> second, IEnumerable<T3> third) {
+        public static IEnumerable<(T1, T2, T3)> AsTupleEnumerable<T1, T2, T3>(
+            this IEnumerable<T1> first,
+            IEnumerable<T2> second,
+            IEnumerable<T3> third
+        ) {
             var firstEnumerator = first.GetEnumerator();
             var secondEnumerator = second.GetEnumerator();
             var thirdEnumerator = third.GetEnumerator();
@@ -29,16 +32,22 @@ namespace Exa.Utils
             }
         }
 
-        public static IEnumerable<(T1, T2, T3, T4)> AsTupleEnumerable<T1, T2, T3, T4>(this IEnumerable<T1> first,
-            IEnumerable<T2> second, IEnumerable<T3> third, IEnumerable<T4> fourth) {
+        public static IEnumerable<(T1, T2, T3, T4)> AsTupleEnumerable<T1, T2, T3, T4>(
+            this IEnumerable<T1> first,
+            IEnumerable<T2> second,
+            IEnumerable<T3> third,
+            IEnumerable<T4> fourth
+        ) {
             var firstEnumerator = first.GetEnumerator();
             var secondEnumerator = second.GetEnumerator();
             var thirdEnumerator = third.GetEnumerator();
             var fourthEnumerator = fourth.GetEnumerator();
 
-            while (firstEnumerator.MoveNext() && secondEnumerator.MoveNext() && thirdEnumerator.MoveNext() &&
-                   fourthEnumerator.MoveNext()) {
-                yield return (firstEnumerator.Current, secondEnumerator.Current, thirdEnumerator.Current, 
+            while (firstEnumerator.MoveNext() &&
+                secondEnumerator.MoveNext() &&
+                thirdEnumerator.MoveNext() &&
+                fourthEnumerator.MoveNext()) {
+                yield return (firstEnumerator.Current, secondEnumerator.Current, thirdEnumerator.Current,
                     fourthEnumerator.Current);
             }
         }
@@ -49,16 +58,19 @@ namespace Exa.Utils
             }
         }
 
-        public static IEnumerable<TResult> SelectNonNull<TElement, TResult>(this IEnumerable<TElement> enumerable,
-            Func<TElement, TResult> selector)
+        public static IEnumerable<TResult> SelectNonNull<TElement, TResult>(
+            this IEnumerable<TElement> enumerable,
+            Func<TElement, TResult> selector
+        )
             where TResult : class {
             return enumerable.Select(selector).Where(elem => elem != null);
         }
 
         public static T GetRandomElement<T>(this IEnumerable<T> enumerable) {
             var count = enumerable.Count();
-            return count == 0 
-                ? default 
+
+            return count == 0
+                ? default
                 : enumerable.ElementAt(Random.Range(0, count));
         }
 

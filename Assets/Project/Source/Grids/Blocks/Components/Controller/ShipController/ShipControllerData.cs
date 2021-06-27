@@ -1,14 +1,12 @@
 ﻿using System;
-using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using Exa.Data;
 using Exa.Types.Generics;
+using Exa.UI.Tooltips;
 
-namespace Exa.Grids.Blocks.Components
-{
+namespace Exa.Grids.Blocks.Components {
     [Serializable]
-    public struct ShipControllerData : IControllerData
-    {
+    public struct ShipControllerData : IControllerData {
         public Scalar powerGenerationModifier;
         public Scalar turningPowerModifier;
         public Scalar thrustModifier;
@@ -23,9 +21,11 @@ namespace Exa.Grids.Blocks.Components
             totals.TurningPowerModifier -= turningPowerModifier;
         }
 
-        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
-            new LabeledValue<object>("Generation", powerGenerationModifier.ToPercentageString()),
-            new LabeledValue<object>("Consumption", turningPowerModifier.ToPercentageString())
-        };
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() {
+            return new ITooltipComponent[] {
+                new LabeledValue<object>("Generation", powerGenerationModifier.ToPercentageString()),
+                new LabeledValue<object>("Consumption", turningPowerModifier.ToPercentageString())
+            };
+        }
     }
 }

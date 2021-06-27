@@ -1,29 +1,27 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Types.Binding
-{
+namespace Exa.Types.Binding {
     /// <summary>
-    /// Controls views for a collection of models
-    /// <para>
-    /// Handles instantiating views, binding model observables to their corresponding views, and deleting views
-    /// </para>
+    ///     Controls views for a collection of models
+    ///     <para>
+    ///         Handles instantiating views, binding model observables to their corresponding views, and deleting views
+    ///     </para>
     /// </summary>
-    /// <typeparam name="TView">View type, must be an observer of <see cref="{TModel}"/></typeparam>
+    /// <typeparam name="TView">View type, must be an observer of <see cref="{TModel}" /></typeparam>
     /// <typeparam name="TContainer">Model observable type</typeparam>
     /// <typeparam name="TModel">Model type</typeparam>
     public class ViewBinder<TView, TContainer, TModel> : AbstractCollectionObserver<TContainer>
         where TView : MonoBehaviour, IObserver<TModel>
         where TContainer : Observable<TModel>
-        where TModel : class
-    {
+        where TModel : class {
         [SerializeField] protected Transform viewContainer;
         [SerializeField] protected GameObject viewPrefab;
 
         protected Dictionary<TContainer, TView> views = new Dictionary<TContainer, TView>();
 
         /// <summary>
-        /// Add observable
+        ///     Add observable
         /// </summary>
         /// <param name="value"></param>
         public override void OnAdd(TContainer value) {
@@ -31,7 +29,7 @@ namespace Exa.Types.Binding
         }
 
         /// <summary>
-        /// Add Observable with specified view container
+        ///     Add Observable with specified view container
         /// </summary>
         /// <param name="value"></param>
         /// <param name="container"></param>
@@ -41,11 +39,12 @@ namespace Exa.Types.Binding
             view.OnUpdate(value.Data);
             value.Register(view);
             views.Add(value, view);
+
             return view;
         }
 
         /// <summary>
-        /// Clear views
+        ///     Clear views
         /// </summary>
         public override void OnClear() {
             foreach (var key in views.Keys) {
@@ -56,7 +55,7 @@ namespace Exa.Types.Binding
         }
 
         /// <summary>
-        /// Remove view
+        ///     Remove view
         /// </summary>
         /// <param name="value"></param>
         public override void OnRemove(TContainer value) {

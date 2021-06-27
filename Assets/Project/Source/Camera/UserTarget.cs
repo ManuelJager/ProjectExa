@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 
-namespace Exa.Camera
-{
+namespace Exa.Camera {
     /// <summary>
-    /// Represents a camera target the user may move
+    ///     Represents a camera target the user may move
     /// </summary>
-    public class UserTarget : CameraTarget
-    {
-        public Vector2 worldPosition;
+    public class UserTarget : CameraTarget {
+        private readonly float movementSpeedMultiplier = 1.5f;
         public Vector2 movementDelta;
-        private float movementSpeedMultiplier = 1.5f;
+        public Vector2 worldPosition;
 
-        public UserTarget(CameraTargetSettings settings) 
+        public UserTarget(CameraTargetSettings settings)
             : base(settings) { }
 
         public void Tick() {
@@ -20,6 +18,7 @@ namespace Exa.Camera
 
         public override Vector2 GetWorldPosition() {
             var mouseOffset = Systems.Input.MouseOffsetFromCentre * GetCalculatedOrthoSize() * 0.1f;
+
             return worldPosition + mouseOffset;
         }
 
@@ -28,8 +27,8 @@ namespace Exa.Camera
         }
 
         public void ImportValues(ICameraTarget otherTarget) {
-            this.worldPosition = otherTarget.GetWorldPosition();
-            this.ZoomScale = otherTarget.ZoomScale;
+            worldPosition = otherTarget.GetWorldPosition();
+            ZoomScale = otherTarget.ZoomScale;
         }
 
         private float GetMovementSpeed() {

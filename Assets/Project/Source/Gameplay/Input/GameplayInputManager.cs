@@ -4,10 +4,8 @@ using static Exa.Input.GameControls;
 
 #pragma warning disable 649
 
-namespace Exa.Gameplay
-{
-    public partial class GameplayInputManager : MonoBehaviour, IGameplayActions
-    {
+namespace Exa.Gameplay {
+    public partial class GameplayInputManager : MonoBehaviour, IGameplayActions {
         private GameControls gameControls;
 
         public void Awake() {
@@ -16,8 +14,9 @@ namespace Exa.Gameplay
         }
 
         public void Update() {
-            if (IsSelectingArea) 
+            if (IsSelectingArea) {
                 OnUpdateSelectionArea();
+            }
         }
 
         public void OnEnable() {

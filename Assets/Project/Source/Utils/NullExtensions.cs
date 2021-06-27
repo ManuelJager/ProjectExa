@@ -1,10 +1,9 @@
-﻿namespace Exa.Utils
-{
-    public static class NullExtensions
-    {
+﻿namespace Exa.Utils {
+    public static class NullExtensions {
         public static bool IsNotNull<T>(this T input, out T output)
             where T : class {
             output = input;
+
             return input.IsNotNull();
         }
 

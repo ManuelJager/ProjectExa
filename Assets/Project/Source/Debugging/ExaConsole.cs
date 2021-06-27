@@ -2,10 +2,8 @@
 using UCommandConsole;
 using UnityEngine;
 
-namespace Exa.Debugging
-{
-    public class ExaConsole : MonoBehaviour
-    {
+namespace Exa.Debugging {
+    public class ExaConsole : MonoBehaviour {
         private Console console;
 
         private void Start() {

@@ -1,20 +1,23 @@
 ﻿using System;
-using Exa.Audio.Music;
 using System.Collections.Generic;
+using Exa.Audio.Music;
 using UnityEngine;
 
-namespace Exa.Audio
-{
-    public class AudioManager : MonoBehaviour
-    {
+namespace Exa.Audio {
+    public class AudioManager : MonoBehaviour {
         [SerializeField] private SoundBag soundBag;
         [SerializeField] private MusicPlayerGroup ST_AudioTrack;
         [SerializeField] private AudioPlayerGroup UI_SFX_AudioTrack;
 
-        public MusicPlayerGroup Music => ST_AudioTrack;
-        public AudioPlayerGroup Effects => UI_SFX_AudioTrack;
-
         private readonly Dictionary<string, Sound> soundById = new Dictionary<string, Sound>();
+
+        public MusicPlayerGroup Music {
+            get => ST_AudioTrack;
+        }
+
+        public AudioPlayerGroup Effects {
+            get => UI_SFX_AudioTrack;
+        }
 
         private void Awake() {
             foreach (var sound in soundBag) {
@@ -23,12 +26,13 @@ namespace Exa.Audio
         }
 
         /// <summary>
-        /// Play a sound with the given id
+        ///     Play a sound with the given id
         /// </summary>
         /// <param name="soundId"></param>
         public void PlayGlobal(string soundId) {
             if (!soundById.ContainsKey(soundId)) {
-                UnityEngine.Debug.LogError($"{soundId} doesn't exist");
+                Debug.LogError($"{soundId} doesn't exist");
+
                 return;
             }
 
@@ -43,7 +47,7 @@ namespace Exa.Audio
             soundById[sound.Id] = sound;
             GetTrack(sound.AudioType).Register(sound);
         }
-        
+
         private AudioPlayerGroup GetTrack(AudioType audioType) {
             return audioType switch {
                 AudioType.ST => ST_AudioTrack,

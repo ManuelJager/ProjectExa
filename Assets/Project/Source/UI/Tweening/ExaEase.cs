@@ -3,11 +3,9 @@ using DG.Tweening;
 using DG.Tweening.Core.Easing;
 using UnityEngine;
 
-namespace Exa.UI.Tweening
-{
+namespace Exa.UI.Tweening {
     [Serializable]
-    public struct ExaEase
-    {
+    public struct ExaEase {
         public ExaEaseType easeType;
         public Ease ease;
         public AnimationCurve animationCurve;
@@ -24,21 +22,28 @@ namespace Exa.UI.Tweening
             this.animationCurve = animationCurve;
         }
 
-        public float Evaluate(float time) => easeType switch {
-            ExaEaseType.Classic => EaseManager.Evaluate(ease, null, time, 1f, 0f, 0f),
-            ExaEaseType.AnimationCurve => animationCurve.Evaluate(time),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        public float Evaluate(float time) {
+            return easeType switch {
+                ExaEaseType.Classic => EaseManager.Evaluate(
+                    ease,
+                    null,
+                    time,
+                    1f,
+                    0f,
+                    0f
+                ),
+                ExaEaseType.AnimationCurve => animationCurve.Evaluate(time),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
     }
 
-    public enum ExaEaseType
-    {
+    public enum ExaEaseType {
         Classic,
         AnimationCurve
     }
 
-    public static class ExaEaseHelper
-    {
+    public static class ExaEaseHelper {
         public static T SetEase<T>(this T tween, ExaEase ease)
             where T : Tween {
             return ease.easeType switch {

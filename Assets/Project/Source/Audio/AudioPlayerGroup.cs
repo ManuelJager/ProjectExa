@@ -6,10 +6,8 @@ using UnityEngine.Audio;
 
 #pragma warning disable CS0649
 
-namespace Exa.Audio
-{
-    public class AudioPlayerGroup : MonoBehaviour, ITrackContext
-    {
+namespace Exa.Audio {
+    public class AudioPlayerGroup : MonoBehaviour, ITrackContext {
         [SerializeField] private string volumeKey;
         [SerializeField] private AudioMixerGroup audioMixerGroup;
 
@@ -31,8 +29,29 @@ namespace Exa.Audio
             }
         }
 
+        public void RegisterHandle(SoundHandle handle) {
+            // Remove the handle for the sound after finishing playing
+            var endRoutine = WaitForSoundEnd(handle).Start();
+
+            handle.onStop.AddListener(
+                () => {
+                    handleGroups.Remove(handle);
+                    handle.onEnd.Invoke();
+                    StopCoroutine(endRoutine);
+                }
+            );
+
+            handleGroups.Add(handle);
+        }
+
+        public void StopAllSounds() {
+            foreach (var group in handleGroups.Handles) {
+                group.Stop();
+            }
+        }
+
         /// <summary>
-        /// Plays an audio object on this track
+        ///     Plays an audio object on this track
         /// </summary>
         /// <param name="sound">Audio object to be played</param>
         public SoundHandle PlayGlobal(ISound sound) {
@@ -46,7 +65,7 @@ namespace Exa.Audio
         }
 
         /// <summary>
-        /// Registers a sound on this track
+        ///     Registers a sound on this track
         /// </summary>
         /// <param name="sound"></param>
         public void Register(ISound sound) {
@@ -58,33 +77,14 @@ namespace Exa.Audio
             handleGroups.RegisterGroup(sound.Id);
         }
 
-        public void RegisterHandle(SoundHandle handle) {
-            // Remove the handle for the sound after finishing playing
-            var endRoutine = WaitForSoundEnd(handle).Start();
-
-            handle.onStop.AddListener(() => {
-                handleGroups.Remove(handle);
-                handle.onEnd.Invoke();
-                StopCoroutine(endRoutine);
-            });
-
-            handleGroups.Add(handle);
-        }
-
         public void Clear() {
             players.Values.ForEach(player => player.gameObject.DestroyObject());
             players.Clear();
             handleGroups.Clear();
         }
 
-        public void StopAllSounds() {
-            foreach (var group in handleGroups.Handles) {
-                group.Stop();
-            }
-        }
-
         /// <summary>
-        /// Generates the handle for the sound that needs to be played
+        ///     Generates the handle for the sound that needs to be played
         /// </summary>
         /// <param name="sound"></param>
         /// <returns></returns>
@@ -100,8 +100,8 @@ namespace Exa.Audio
         }
 
         /// <summary>
-        /// Waits for a sound to end,
-        /// assumes a sound
+        ///     Waits for a sound to end,
+        ///     assumes a sound
         /// </summary>
         /// <param name="handle"></param>
         /// <returns></returns>

@@ -7,10 +7,8 @@ using Exa.UI.Tooltips;
 using Exa.Utils;
 using UnityEngine.UI;
 
-namespace Exa.UI.Settings
-{
-    public class AudioSettingsPanel : SettingsTab<ExaAudioSettings, AudioSettingsValues>
-    {
+namespace Exa.UI.Settings {
+    public class AudioSettingsPanel : SettingsTab<ExaAudioSettings, AudioSettingsValues> {
         public SliderControl masterVolumeSlider;
         public SliderControl musicVolumeSlider;
         public SliderControl effectsVolumeSlider;
@@ -27,12 +25,14 @@ namespace Exa.UI.Settings
             return new ExaAudioSettings();
         }
 
-        public override AudioSettingsValues GetSettingsValues() => new AudioSettingsValues {
-            masterVolume = masterVolumeSlider.Value / 100f,
-            musicVolume = musicVolumeSlider.Value / 100f,
-            effectsVolume = effectsVolumeSlider.Value / 100f,
-            soundTrackName = soundTrackNameDropdown.Value as string
-        };
+        public override AudioSettingsValues GetSettingsValues() {
+            return new AudioSettingsValues {
+                masterVolume = masterVolumeSlider.Value / 100f,
+                musicVolume = musicVolumeSlider.Value / 100f,
+                effectsVolume = effectsVolumeSlider.Value / 100f,
+                soundTrackName = soundTrackNameDropdown.Value as string
+            };
+        }
 
         public override void ReflectValues(AudioSettingsValues values) {
             masterVolumeSlider.SetValue(values.masterVolume * 100f, false);
@@ -45,28 +45,37 @@ namespace Exa.UI.Settings
             base.ApplyChanges();
 
             if (Container.LoadHandler.LoadEnumerator.IsNotNull(out var enumerator)) {
-                StartCoroutine(enumerator.ScheduleWithTargetFramerate()
-                    .Then(() => Systems.Audio.Music.IsPlaying = true));
+                StartCoroutine(
+                    enumerator.ScheduleWithTargetFramerate()
+                        .Then(() => Systems.Audio.Music.IsPlaying = true)
+                );
             }
         }
 
         private void CreateSoundTrackDropdownTabs() {
             var dict = Systems.Audio.Music.Provider.Descriptions
                 .ToDictionary(description => description.Name);
+
             var options = dict.Values.Select(description => description.GetLabeledValue());
-            soundTrackNameDropdown.CreateTabs(options, (key, tab) => {
-                tab.gameObject
-                    .AddComponent<TextTooltipTrigger>()
-                    .SetText($"Song count: {dict[key].SongCount}");
-            });
+
+            soundTrackNameDropdown.CreateTabs(
+                options,
+                (key, tab) => {
+                    tab.gameObject
+                        .AddComponent<TextTooltipTrigger>()
+                        .SetText($"Song count: {dict[key].SongCount}");
+                }
+            );
         }
 
         private void OpenFolder() {
             var path = Tree.Root.CustomSoundTracks.GetPath();
+
             var startInfo = new ProcessStartInfo {
                 Arguments = path,
                 FileName = "explorer.exe"
             };
+
             Process.Start(startInfo).Focus();
         }
     }

@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Drawing
-{
-    public class SuperSamplingArgs<TSample>
-    {
+namespace Exa.Drawing {
+    public class SuperSamplingArgs<TSample> {
+        public delegate void Applier(Vector2Int pixel, TSample averagedValue);
         public delegate TSample Sampler(Vector2 point, Vector2 localPoint);
         public delegate TSample SamplesAverageFactory(IEnumerable<TSample> values);
-        public delegate void Applier(Vector2Int pixel, TSample averagedValue);
-
-        public int sampleSize;
+        public Applier applier;
         public Sampler sampler;
         public SamplesAverageFactory samplesAverageFactory;
-        public Applier applier;
+
+        public int sampleSize;
 
         public SuperSamplingArgs<TSample> Override(SuperSamplingArgs<TSample> original) {
             if (sampleSize != 0) {

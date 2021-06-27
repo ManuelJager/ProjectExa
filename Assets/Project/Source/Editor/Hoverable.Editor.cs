@@ -1,20 +1,17 @@
 ﻿using Exa.UI;
 using UnityEditor;
 
-namespace Exa.CustomEditors
-{
+namespace Exa.CustomEditors {
     [CustomEditor(typeof(Hoverable))]
     [CanEditMultipleObjects]
-    public class HoverableEditor : Editor
-    {
+    public class HoverableEditor : Editor {
+        private SerializedProperty checkMouseInsideRectOnEnable;
+        private SerializedProperty cursorState;
+        private SerializedProperty invokeStateChangeOnHover;
         private SerializedProperty onPointerEnter;
         private SerializedProperty onPointerExit;
-        private SerializedProperty invokeStateChangeOnHover;
-        private SerializedProperty cursorState;
-        private SerializedProperty checkMouseInsideRectOnEnable;
 
-        protected void OnEnable()
-        {
+        protected void OnEnable() {
             onPointerEnter = serializedObject.FindProperty(nameof(Hoverable.onPointerEnter));
             onPointerExit = serializedObject.FindProperty(nameof(Hoverable.onPointerExit));
             invokeStateChangeOnHover = serializedObject.FindProperty(nameof(Hoverable.invokeStateChangeOnHover));
@@ -22,15 +19,13 @@ namespace Exa.CustomEditors
             checkMouseInsideRectOnEnable = serializedObject.FindProperty(nameof(Hoverable.checkMouseInsideRectOnEnable));
         }
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(checkMouseInsideRectOnEnable);
             EditorGUILayout.PropertyField(invokeStateChangeOnHover);
 
-            if (invokeStateChangeOnHover.boolValue)
-            {
+            if (invokeStateChangeOnHover.boolValue) {
                 EditorGUI.indentLevel = 1;
                 EditorGUILayout.PropertyField(cursorState);
                 EditorGUI.indentLevel = 0;

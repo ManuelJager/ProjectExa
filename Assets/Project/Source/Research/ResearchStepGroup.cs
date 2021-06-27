@@ -4,10 +4,8 @@ using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.Components;
 using Exa.Utils;
 
-namespace Exa.Research
-{
-    public class ResearchStepGroup
-    {
+namespace Exa.Research {
+    public class ResearchStepGroup {
         public StepCache stepCache = new StepCache();
 
         public void AddSteps(IBlockComponentModifier modifier, List<ResearchStep> cache) {
@@ -21,6 +19,7 @@ namespace Exa.Research
         public T ApplyContext<T>(BlockTemplate template, T baseValues)
             where T : struct, IBlockComponentValues {
             var currentValues = baseValues;
+
             foreach (var (_, researchSteps) in GroupByStepAndFilter(template, currentValues)) {
                 var initialValues = currentValues;
 
@@ -30,14 +29,15 @@ namespace Exa.Research
 
                 currentValues = researchSteps.Aggregate(currentValues, Reducer);
             }
+
             return currentValues;
         }
 
         /// <summary>
-        /// Gets the research steps associated with a given block template and block component values, grouped and ordered by the order the steps should be applied
+        ///     Gets the research steps associated with a given block template and block component values, grouped and ordered by
+        ///     the order the steps should be applied
         /// </summary>
         private IEnumerable<(ValueModificationOrder, IEnumerable<ResearchStep>)> GroupByStepAndFilter(BlockTemplate template, IBlockComponentValues values) {
-            
             // Reduce a list of research steps for a given block template
             List<ResearchStep> Reducer(List<ResearchStep> current, (IBlockComponentModifier, List<ResearchStep>) modifierSteps) {
                 var (modifier, steps) = modifierSteps;
@@ -46,7 +46,7 @@ namespace Exa.Research
                 if (modifier.AffectsTemplate(template)) {
                     current.AddRange(steps.Where(step => step.MatchesType(values)));
                 }
-                
+
                 return current;
             }
 
@@ -57,8 +57,5 @@ namespace Exa.Research
         }
     }
 
-    public class StepCache : Dictionary<IBlockComponentModifier, List<ResearchStep>>
-    {
-
-    }
+    public class StepCache : Dictionary<IBlockComponentModifier, List<ResearchStep>> { }
 }

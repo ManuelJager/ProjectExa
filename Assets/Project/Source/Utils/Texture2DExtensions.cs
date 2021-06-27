@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
+using Exa.Math;
 using UnityEngine;
-using MathUtils = Exa.Math.MathUtils;
 
-namespace Exa.Utils
-{
-    public static class Texture2DExtensions
-    {
+namespace Exa.Utils {
+    public static class Texture2DExtensions {
         public static Sprite CreateSprite(this Texture2D tex, float pixelsPerUnit = 32) {
             var rect = new Rect(0, 0, tex.width, tex.height);
+
             return Sprite.Create(tex, rect, new Vector2(0.5f, 0.5f), pixelsPerUnit);
         }
 
         public static Texture2D SetDefaults(this Texture2D tex) {
             tex.filterMode = FilterMode.Point;
             tex.EnumeratePixels().ForEach(pixel => tex.SetPixel(pixel, Color.clear));
+
             return tex;
         }
 

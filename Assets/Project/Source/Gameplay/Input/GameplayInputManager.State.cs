@@ -1,7 +1,5 @@
-﻿namespace Exa.Gameplay
-{
-    public partial class GameplayInputManager
-    {
+﻿namespace Exa.Gameplay {
+    public partial class GameplayInputManager {
         private ShipSelection currentSelection;
 
         private bool HasSelection {

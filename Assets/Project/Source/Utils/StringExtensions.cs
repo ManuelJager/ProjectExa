@@ -6,14 +6,13 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = System.Random;
 
-namespace Exa.Utils
-{
-    public static class StringExtensions
-    {
+namespace Exa.Utils {
+    public static class StringExtensions {
         public static char GetRandomChar() {
             var chars = "$%#@!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
             var r = new Random();
             var i = r.Next(chars.Length);
+
             return chars[i];
         }
 
@@ -33,8 +32,8 @@ namespace Exa.Utils
                     currentName = $"{currentName}{number}";
                 }
 
-                return existingNames.Contains(currentName) 
-                    ? NextName(currentName, number + 1) 
+                return existingNames.Contains(currentName)
+                    ? NextName(currentName, number + 1)
                     : currentName;
             }
 
@@ -56,13 +55,14 @@ namespace Exa.Utils
                 // We will build the type here.
                 var arguments = type.GetGenericArguments();
                 var argList = new StringBuilder();
+
                 foreach (var t in arguments) {
                     // Let's make sure we get the argument list.
                     var arg = ToGenericString(t);
+
                     if (argList.Length > 0) {
                         argList.AppendFormat(", {0}", arg);
-                    }
-                    else {
+                    } else {
                         argList.Append(arg);
                     }
                 }
@@ -73,9 +73,8 @@ namespace Exa.Utils
 
                 return retType.ToString();
             }
-            else {
-                return type.ToString();
-            }
+
+            return type.ToString();
         }
     }
 }

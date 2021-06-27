@@ -5,24 +5,25 @@ using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
+namespace Exa.ShipEditor {
     /// <summary>
-    /// Represents a single block that is not yet placed
+    ///     Represents a single block that is not yet placed
     /// </summary>
-    public class BlockGhost : MonoBehaviour
-    {
+    public class BlockGhost : MonoBehaviour {
         [SerializeField] private SpriteRenderer filter;
         [SerializeField] private Transform filterTransform;
         [SerializeField] private BlockPresenter presenter;
         [SerializeField] private Color activeColor;
         [SerializeField] private Color inactiveColor;
 
-        public BlockPresenter Presenter => presenter;
+        public BlockPresenter Presenter {
+            get => presenter;
+        }
+
         public ABpBlock Block { get; private set; }
 
         /// <summary>
-        /// Update the block the ghost is representing
+        ///     Update the block the ghost is representing
         /// </summary>
         /// <param name="block"></param>
         public void ImportBlock(BlueprintBlock block) {

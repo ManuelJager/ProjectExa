@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Exa.ShipEditor
-{
-    public partial class GridEditor
-    {
+namespace Exa.ShipEditor {
+    public partial class GridEditor {
         public EditorCameraTarget EditorCameraTarget { get; private set; }
-        
+
         public void OnMovement(InputAction.CallbackContext context) {
             if (Systems.Input.inputIsCaptured) {
                 editorGrid.MovementVector = Vector2.zero;
+
                 return;
             }
 
             switch (context.phase) {
                 case InputActionPhase.Performed:
                     editorGrid.MovementVector = context.ReadValue<Vector2>();
+
                     break;
 
                 case InputActionPhase.Canceled:
                     editorGrid.MovementVector = Vector2.zero;
+
                     break;
 
                 default:
@@ -31,10 +32,12 @@ namespace Exa.ShipEditor
             switch (context.phase) {
                 case InputActionPhase.Started:
                     leftButtonPressed = true;
+
                     break;
 
                 case InputActionPhase.Canceled:
                     leftButtonPressed = false;
+
                     break;
 
                 default:
@@ -46,10 +49,12 @@ namespace Exa.ShipEditor
             switch (context.phase) {
                 case InputActionPhase.Started:
                     rightButtonPressed = true;
+
                     break;
 
                 case InputActionPhase.Canceled:
                     rightButtonPressed = false;
+
                     break;
 
                 default:
@@ -61,6 +66,7 @@ namespace Exa.ShipEditor
             switch (context.phase) {
                 case InputActionPhase.Started:
                     editorGrid.OnRotateLeft();
+
                     break;
 
                 default:
@@ -72,6 +78,7 @@ namespace Exa.ShipEditor
             switch (context.phase) {
                 case InputActionPhase.Started:
                     editorGrid.OnRotateRight();
+
                     break;
 
                 default:
@@ -83,6 +90,7 @@ namespace Exa.ShipEditor
             switch (context.phase) {
                 case InputActionPhase.Started:
                     FlipState ^= BlockFlip.FlipY;
+
                     break;
 
                 default:
@@ -91,7 +99,9 @@ namespace Exa.ShipEditor
         }
 
         public void OnZoom(InputAction.CallbackContext context) {
-            if (MouseOverUI) return;
+            if (MouseOverUI) {
+                return;
+            }
 
             if (context.phase == InputActionPhase.Performed) {
                 var delta = context.ReadValue<Vector2>();

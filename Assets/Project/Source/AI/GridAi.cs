@@ -1,21 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using Exa.AI.Actions;
 using Exa.Ships;
 using Exa.UI.Tooltips;
-using System.Collections.Generic;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.AI
-{
-    public class GridAi : Agent
-    {
+namespace Exa.AI {
+    public class GridAi : Agent {
         [SerializeField] private GridInstance gridInstance;
         [SerializeField] private float activeValueThreshold;
         private ActionList actionList;
 
-        public GridInstance GridInstance => gridInstance;
+        public GridInstance GridInstance {
+            get => gridInstance;
+        }
 
         public void Init() {
             actionList = new ActionList(activeValueThreshold, BuildActionList());
@@ -32,7 +32,7 @@ namespace Exa.AI
                     return convertedAction;
                 }
             }
-            
+
             throw new InvalidOperationException($"Cannot find action of type {typeof(T)}");
         }
 
@@ -42,8 +42,10 @@ namespace Exa.AI
             };
         }
 
-        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
-            new TooltipText(actionList.ToString())
-        };
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() {
+            return new ITooltipComponent[] {
+                new TooltipText(actionList.ToString())
+            };
+        }
     }
 }

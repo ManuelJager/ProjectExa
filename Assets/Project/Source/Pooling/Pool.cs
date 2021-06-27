@@ -1,21 +1,18 @@
-﻿using Exa.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.Pooling
-{
-    public class Pool : Pool<PoolMember>
-    { }
+namespace Exa.Pooling {
+    public class Pool : Pool<PoolMember> { }
 
     [Serializable]
     public class Pool<T> : MonoBehaviour, IPool<T>
-        where T : PoolMember
-    {
-        public int totalMembers = 0;
+        where T : PoolMember {
+        public int totalMembers;
+        private Stack<T> poolMembers = new Stack<T>();
 
         private PoolSettings poolSettings;
-        private Stack<T> poolMembers = new Stack<T>();
 
         private void Update() {
             // Grow the queue
@@ -44,14 +41,15 @@ namespace Exa.Pooling
 
         public void OnDestroyMember() {
             totalMembers--;
-            
+
             Debug.LogWarning("Pool member destroyed, this shouldn't happen");
         }
 
         public virtual bool Return(PoolMember poolMember) {
             if (!(poolMember is T)) {
                 throw new ArgumentException(
-                    $"Pool member type ({poolMember.GetType()}) does not match type ({typeof(T)})");
+                    $"Pool member type ({poolMember.GetType()}) does not match type ({typeof(T)})"
+                );
             }
 
             return TryPush((T) poolMember);
@@ -68,14 +66,15 @@ namespace Exa.Pooling
         protected virtual bool TryPush(T poolMember) {
             if (poolMembers.Count > poolSettings.maxSize) {
                 Destroy(poolMember.gameObject);
+
                 return false;
             }
 
             EnumeratorUtils.DelayOneFrame(() => poolMember.transform.SetParent(transform)).Start();
             poolMembers.Push(poolMember);
+
             return true;
         }
-
 
         protected virtual T InstantiatePrefab() {
             totalMembers++;

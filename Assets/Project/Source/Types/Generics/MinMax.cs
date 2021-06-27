@@ -1,11 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Exa.Types.Generics
-{
+namespace Exa.Types.Generics {
     [Serializable]
-    public struct MinMax<T>
-    {
+    public struct MinMax<T> {
         public T min;
         public T max;
 
@@ -14,7 +12,9 @@ namespace Exa.Types.Generics
             this.max = max;
         }
 
-        public static MinMax<float> ZeroOne => new MinMax<float>(0f, 1f);
+        public static MinMax<float> ZeroOne {
+            get => new MinMax<float>(0f, 1f);
+        }
 
         public (T, T) AsTuple() {
             return (min, max);
@@ -25,10 +25,10 @@ namespace Exa.Types.Generics
         }
     }
 
-    public static class MinMaxHelpers
-    {
+    public static class MinMaxHelpers {
         public static float Evaluate(this MinMax<float> minMax, float t) {
             var diff = minMax.max - minMax.min;
+
             return minMax.min + diff * t;
         }
 

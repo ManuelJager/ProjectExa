@@ -4,25 +4,24 @@ using SerializationMode = Exa.IO.SerializationMode;
 #if UNITY_EDITOR
 using Exa.Utils;
 using UnityEditor;
+
 #endif
 
-namespace Exa.Grids.Blueprints
-{
+namespace Exa.Grids.Blueprints {
     [CreateAssetMenu(menuName = "Grids/Blueprints/StaticBlueprint")]
-    public class StaticBlueprint : ScriptableObject
-    {
+    public class StaticBlueprint : ScriptableObject {
         [TextArea(3, 3000)] public string blueprintJson;
-        
+
         private BlueprintContainer container;
-        
-        #if UNITY_EDITOR
+
+    #if UNITY_EDITOR
         public void Save(Blueprint blueprint) {
             blueprint.name = StringExtensions.GetUniqueName(blueprint.name, Systems.Blueprints.GetBlueprintNames());
             blueprintJson = IOUtils.JsonSerializeWithSettings(blueprint, SerializationMode.Readable);
             var path = $"Assets/Project/GameData/Grids/Blueprints/StaticBlueprints/{blueprint.name}.asset";
             AssetDatabase.CreateAsset(this, path);
         }
-        #endif
+    #endif
 
         public BlueprintContainer GetContainer() {
             return container ??= ToContainer();
@@ -42,6 +41,7 @@ namespace Exa.Grids.Blueprints
 
             var container = new BlueprintContainer(args);
             container.LoadThumbnail();
+
             return container;
         }
     }

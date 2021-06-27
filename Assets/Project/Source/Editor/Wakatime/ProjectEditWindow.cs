@@ -2,14 +2,12 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace WakaTime
-{
+namespace WakaTime {
     /// <summary>
-    /// Popup window for editing .wakatime-project file
-    /// <seealso cref="https://wakatime.com/faq#rename-projects"/> 
+    ///     Popup window for editing .wakatime-project file
+    ///     <seealso cref="https://wakatime.com/faq#rename-projects" />
     /// </summary>
-    public class ProjectEditWindow : EditorWindow
-    {
+    public class ProjectEditWindow : EditorWindow {
         private static ProjectEditWindow _window;
 
         private static Vector2 _size = new Vector2(400, 138);
@@ -23,24 +21,88 @@ namespace WakaTime
 
         private static bool _isProjectFileMissed;
 
+        private void OnGUI() {
+            EditorGUILayout.BeginHorizontal();
+
+            {
+                EditorGUILayout.PrefixLabel("Project name");
+                _projectSettings[0] = EditorGUILayout.TextField(_projectSettings[0]);
+            }
+
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.LabelField(
+                "A project name to send to WakaTime (Product Name from Player Settings by default)",
+                RichHelpBoxStyle
+            );
+
+            EditorGUILayout.BeginHorizontal();
+
+            {
+                EditorGUILayout.PrefixLabel("Branch");
+
+                EditorGUILayout.SelectableLabel(
+                    _branch,
+                    RichHelpBoxStyle,
+                    GUILayout.Height(EditorGUIUtility.singleLineHeight)
+                );
+            }
+
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.LabelField(
+                "A branch name to send to WakaTime (current git branch by default) <i>(not implemented in this plugin yet)</i>",
+                RichHelpBoxStyle
+            );
+
+            if (_isProjectFileMissed) {
+                GUILayout.Label(
+                    $"<b>{Path.GetFullPath(".wakatime_project")}</b> will be created on save",
+                    RichHelpBoxStyle
+                );
+            }
+
+            EditorGUILayout.BeginHorizontal();
+
+            {
+                if (GUILayout.Button("Save")) {
+                    Plugin.SetProjectFile(_projectSettings);
+                    Plugin.Initialize();
+                    CloseAndNull();
+                    FocusWindowIfItsOpen<Window>(); // Updates main window for information redraw
+                }
+
+                if (GUILayout.Button("Cancel")) {
+                    CloseAndNull();
+                }
+            }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void OnLostFocus() {
+            CloseAndNull();
+        }
+
         public static void Display() {
             if (_window) {
                 FocusWindowIfItsOpen<ProjectEditWindow>();
-            }
-            else {
+            } else {
                 _window = CreateInstance<ProjectEditWindow>();
                 _window.ShowPopup();
             }
 
             // We need only first 2 lines from .wakatime-project 
             _projectSettings = new[] {
-                "", ""
+                "",
+                ""
             };
+
             var projectFile = Plugin.GetProjectFile();
 
-            if (projectFile == null)
+            if (projectFile == null) {
                 _isProjectFileMissed = true;
-            else {
+            } else {
                 _isProjectFileMissed = false;
                 projectFile.CopyTo(_projectSettings, 0);
             }
@@ -59,52 +121,8 @@ namespace WakaTime
             _window.titleContent = new GUIContent("Change project name");
         }
 
-        void OnGUI() {
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.PrefixLabel("Project name");
-                _projectSettings[0] = EditorGUILayout.TextField(_projectSettings[0]);
-            }
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.LabelField(
-                "A project name to send to WakaTime (Product Name from Player Settings by default)", RichHelpBoxStyle);
-
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.PrefixLabel("Branch");
-                EditorGUILayout.SelectableLabel(_branch, RichHelpBoxStyle,
-                    GUILayout.Height(EditorGUIUtility.singleLineHeight));
-            }
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.LabelField(
-                "A branch name to send to WakaTime (current git branch by default) <i>(not implemented in this plugin yet)</i>",
-                RichHelpBoxStyle);
-
-            if (_isProjectFileMissed)
-                GUILayout.Label($"<b>{Path.GetFullPath(".wakatime_project")}</b> will be created on save",
-                    RichHelpBoxStyle);
-            EditorGUILayout.BeginHorizontal();
-            {
-                if (GUILayout.Button("Save")) {
-                    Plugin.SetProjectFile(_projectSettings);
-                    Plugin.Initialize();
-                    CloseAndNull();
-                    FocusWindowIfItsOpen<Window>(); // Updates main window for information redraw
-                }
-
-                if (GUILayout.Button("Cancel")) {
-                    CloseAndNull();
-                }
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-
-        private void OnLostFocus() {
-            CloseAndNull();
-        }
-
         /// <summary>
-        /// Closes this window and erases instance
+        ///     Closes this window and erases instance
         /// </summary>
         private void CloseAndNull() {
             Close();

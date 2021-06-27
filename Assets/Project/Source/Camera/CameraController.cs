@@ -1,16 +1,14 @@
 ﻿using System;
 using DG.Tweening;
+using Exa.Gameplay;
 using Exa.Math;
 using Exa.Utils;
-using Exa.Gameplay;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Camera
-{
-    public class CameraController : MonoBehaviour
-    {
+namespace Exa.Camera {
+    public class CameraController : MonoBehaviour {
         [SerializeField] private CameraTargetSettings defaultSettings;
         [SerializeField] private UnityEngine.Camera targetCamera;
 
@@ -19,8 +17,14 @@ namespace Exa.Camera
 
         public ICameraTarget CurrentTarget { get; private set; }
         public UserTarget UserTarget { get; private set; }
-        public CameraTargetSettings DefaultSettings => defaultSettings;
-        public UnityEngine.Camera Camera => targetCamera;
+
+        public CameraTargetSettings DefaultSettings {
+            get => defaultSettings;
+        }
+
+        public UnityEngine.Camera Camera {
+            get => targetCamera;
+        }
 
         private void Awake() {
             UserTarget = new UserTarget(defaultSettings);
@@ -34,7 +38,7 @@ namespace Exa.Camera
             if (CurrentTarget != null) {
                 UserTarget.ImportValues(CurrentTarget);
             }
-            
+
             UserTarget.Tick();
 
             var target = GetTarget();
@@ -43,13 +47,15 @@ namespace Exa.Camera
 
             targetCamera.DOOrthoSize(cameraOrthoSize, 0.2f)
                 .Replace(ref cameraZoomTween);
+
             targetCamera.transform.DOMove(cameraPosition, 0.2f)
                 .Replace(ref cameraMoveTween);
         }
 
         public void SetSelectionTarget(ShipSelection selection, bool teleport = false) {
-            if (selection.Count <= 0) 
+            if (selection.Count <= 0) {
                 throw new ArgumentException("Cannot set an empty selection as target", nameof(selection));
+            }
 
             var target = new SelectionTarget(selection, defaultSettings);
             SetTarget(target, teleport);

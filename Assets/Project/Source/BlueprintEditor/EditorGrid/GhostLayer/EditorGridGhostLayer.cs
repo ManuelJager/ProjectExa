@@ -7,10 +7,8 @@ using Exa.Grids.Blueprints;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.ShipEditor
-{
-    public class EditorGridGhostLayer : MonoBehaviour
-    {
+namespace Exa.ShipEditor {
+    public class EditorGridGhostLayer : MonoBehaviour {
         public GameObject ghostPrefab;
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
@@ -39,7 +37,7 @@ namespace Exa.ShipEditor
             if (!ImportedTemplate) {
                 return;
             }
-            
+
             controllers.ForEach(controller => controller.Rotate(value));
             UpdateGhosts();
         }
@@ -50,7 +48,7 @@ namespace Exa.ShipEditor
             if (!ImportedTemplate) {
                 return;
             }
-            
+
             controllers.ForEach(controller => controller.MoveGhost(gridSize, gridPos));
 
             UpdateGhostsOverlap();
@@ -58,12 +56,17 @@ namespace Exa.ShipEditor
         }
 
         public void TryPlace() {
-            if (!PlacementIsAllowed) return;
+            if (!PlacementIsAllowed) {
+                return;
+            }
 
-            QueryActiveControllers().ForEach(controller => {
-                var block = controller.BlueprintBlock.Clone();
-                blueprintLayer.AddBlock(block);
-            });
+            QueryActiveControllers()
+                .ForEach(
+                    controller => {
+                        var block = controller.BlueprintBlock.Clone();
+                        blueprintLayer.AddBlock(block);
+                    }
+                );
 
             UpdateGhosts();
         }
@@ -71,12 +74,16 @@ namespace Exa.ShipEditor
         public void TryDelete() {
             var blocks = blueprintLayer.ActiveBlueprint.Grid;
 
-            QueryActiveControllers().ForEach(controller => {
-                var pos = controller.BlueprintBlock.gridAnchor;
-                if (blocks.TryGetMember(pos, out var member)) {
-                    blueprintLayer.RemoveBlock(member);
-                }
-            });
+            QueryActiveControllers()
+                .ForEach(
+                    controller => {
+                        var pos = controller.BlueprintBlock.gridAnchor;
+
+                        if (blocks.TryGetMember(pos, out var member)) {
+                            blueprintLayer.RemoveBlock(member);
+                        }
+                    }
+                );
 
             UpdateGhosts();
         }
@@ -86,6 +93,7 @@ namespace Exa.ShipEditor
 
             if (template == null) {
                 controllers.ForEach(controller => controller.Clear());
+
                 return;
             }
 
@@ -94,27 +102,26 @@ namespace Exa.ShipEditor
                 Rotation = 0
             };
 
-            controllers.ForEach(controller => {
-                controller.ImportBlock(block);
+            controllers.ForEach(
+                controller => {
+                    controller.ImportBlock(block);
 
-                var overlay = template is ITurretTemplate turretTemplate
-                    ? turretLayer.CreateGhostOverlay(controller.Ghost.Block, turretTemplate)
-                    : null;
-                controller.SetOverlay(overlay);
-            });
+                    var overlay = template is ITurretTemplate turretTemplate
+                        ? turretLayer.CreateGhostOverlay(controller.Ghost.Block, turretTemplate)
+                        : null;
+
+                    controller.SetOverlay(overlay);
+                }
+            );
         }
 
         public void SetVisibility(bool value) {
-            controllers.ForEach(controller => {
-                controller.State = controller.State.SetFlag(GhostControllerState.Visible, value);
-            });
+            controllers.ForEach(controller => { controller.State = controller.State.SetFlag(GhostControllerState.Visible, value); });
         }
 
         private void UpdateGhostsOverlap() {
             void SetFlags(IEnumerable<GhostController> controllers, bool value) {
-                controllers.ForEach(controller => {
-                    controller.State = controller.State.SetFlag(GhostControllerState.Overlapped, value);
-                });
+                controllers.ForEach(controller => { controller.State = controller.State.SetFlag(GhostControllerState.Overlapped, value); });
             }
 
             var activeControllers = QueryActiveControllers();
@@ -141,9 +148,7 @@ namespace Exa.ShipEditor
             var occupiedBlocks = activeControllers
                 .SelectMany(controller => controller.BlueprintBlock.GetTileClaims());
 
-            var positionValid = occupiedBlocks.Distinct().Count() == occupiedBlocks.Count()
-                   && occupiedBlocks.All(pos => backgroundLayer.PosIsInGrid(pos))
-                   && !blueprintLayer.ActiveBlueprint.Grid.HasOverlap(occupiedBlocks);
+            var positionValid = occupiedBlocks.Distinct().Count() == occupiedBlocks.Count() && occupiedBlocks.All(pos => backgroundLayer.PosIsInGrid(pos)) && !blueprintLayer.ActiveBlueprint.Grid.HasOverlap(occupiedBlocks);
 
             if (!positionValid) {
                 return false;
@@ -152,9 +157,8 @@ namespace Exa.ShipEditor
             if (ImportedTemplate is ITurretTemplate) {
                 var ghostTurretClaims = activeControllers.SelectMany(controller => controller.Overlay.GetTurretClaims());
                 var currentBlockClaims = turretLayer.TurretBlocks.SelectMany(block => block.GetTileClaims());
-                return !ghostTurretClaims.Intersect(occupiedBlocks).Any() 
-                       && !ghostTurretClaims.Intersect(currentBlockClaims).Any()
-                       && !turretLayer.TurretBlocks.GetTurretClaims().Intersect(occupiedBlocks).Any();
+
+                return !ghostTurretClaims.Intersect(occupiedBlocks).Any() && !ghostTurretClaims.Intersect(currentBlockClaims).Any() && !turretLayer.TurretBlocks.GetTurretClaims().Intersect(occupiedBlocks).Any();
             }
 
             return true;
@@ -164,6 +168,7 @@ namespace Exa.ShipEditor
             var ghost = Instantiate(ghostPrefab, transform).GetComponent<BlockGhost>();
             ghost.gameObject.name = $"GhostController (Flip: {flip})";
             ghost.gameObject.SetActive(false);
+
             return new GhostController(ghost, flip);
         }
 

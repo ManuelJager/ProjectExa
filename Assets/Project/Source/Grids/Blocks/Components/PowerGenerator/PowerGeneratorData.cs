@@ -1,13 +1,11 @@
 ﻿using System;
-using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using Exa.Types.Generics;
+using Exa.UI.Tooltips;
 
-namespace Exa.Grids.Blocks.Components
-{
+namespace Exa.Grids.Blocks.Components {
     [Serializable]
-    public struct PowerGeneratorData : IBlockComponentValues
-    {
+    public struct PowerGeneratorData : IBlockComponentValues {
         public float powerGeneration;
 
         public void AddGridTotals(GridTotals totals) {
@@ -18,8 +16,10 @@ namespace Exa.Grids.Blocks.Components
             totals.UnscaledPowerGeneration -= powerGeneration;
         }
 
-        public IEnumerable<ITooltipComponent> GetTooltipComponents() => new ITooltipComponent[] {
-            new LabeledValue<object>("Power generation", $"{powerGeneration}")
-        };
+        public IEnumerable<ITooltipComponent> GetTooltipComponents() {
+            return new ITooltipComponent[] {
+                new LabeledValue<object>("Power generation", $"{powerGeneration}")
+            };
+        }
     }
 }

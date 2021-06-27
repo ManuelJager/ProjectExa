@@ -7,21 +7,25 @@ using UnityEngine.Events;
 
 #pragma warning disable CS0649
 
-namespace Exa.UI
-{
-    public class FleetBuilder : MonoBehaviour
-    {
-        [Header("References")] 
+namespace Exa.UI {
+    public class FleetBuilder : MonoBehaviour {
+        [Header("References")]
         [SerializeField] private FleetView fleetView;
         [SerializeField] private FleetBlueprintViewBinder viewBinder;
         [SerializeField] private FleetBuilderBlueprintTypes blueprintTypes;
 
-        [Header("Events")] 
+        [Header("Events")]
         public UnityEvent<ValidationResult> fleetValidation = new UnityEvent<ValidationResult>();
 
         private FleetValidator fleetValidator;
 
-        public Fleet Fleet => fleetView.Fleet;
+        public Fleet Fleet {
+            get => fleetView.Fleet;
+        }
+
+        private void OnDisable() {
+            fleetView.Clear(5);
+        }
 
         public void Init(IObservableEnumerable<BlueprintContainer> source) {
             blueprintTypes.BuildList(viewBinder.CreateTab);
@@ -33,10 +37,6 @@ namespace Exa.UI
             fleetValidator = new FleetValidator();
 
             Validate();
-        }
-
-        private void OnDisable() {
-            fleetView.Clear(5);
         }
 
         public void Validate() {

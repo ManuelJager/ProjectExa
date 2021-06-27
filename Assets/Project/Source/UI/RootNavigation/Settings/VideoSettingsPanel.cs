@@ -3,25 +3,25 @@ using Exa.UI.Controls;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.UI.Settings
-{
-    public class VideoSettingsPanel : SettingsTab<ExaVideoSettings, VideoSettingsValues>
-    {
+namespace Exa.UI.Settings {
+    public class VideoSettingsPanel : SettingsTab<ExaVideoSettings, VideoSettingsValues> {
         public ResolutionDropdown resolutionDropdown;
         public DropdownControl refreshRatesDropdown;
         public RadioControl fullscreenRadio;
 
-        public override VideoSettingsValues GetSettingsValues() => new VideoSettingsValues {
-            resolution = (Resolution) resolutionDropdown.Value,
-            fullscreen = fullscreenRadio.Value
-        };
+        public override VideoSettingsValues GetSettingsValues() {
+            return new VideoSettingsValues {
+                resolution = (Resolution) resolutionDropdown.Value,
+                fullscreen = fullscreenRadio.Value
+            };
+        }
 
         public override void ReflectValues(VideoSettingsValues values) {
             // TODO: Notify user of invalid configuration
             if (!resolutionDropdown.ContainsItem(values.resolution)) {
                 values.resolution = Container.DefaultValues.resolution;
             }
-            
+
             resolutionDropdown.SetValue(values.resolution, false);
             refreshRatesDropdown.SetValue(values.resolution.refreshRate, false);
             fullscreenRadio.SetValue(values.fullscreen, false);
@@ -30,17 +30,23 @@ namespace Exa.UI.Settings
         public override void Init() {
             Container.Resolutions = new Resolutions();
 
-            refreshRatesDropdown.CreateTabs(Container.Resolutions
-                .GetRefreshRateLabels());
+            refreshRatesDropdown.CreateTabs(
+                Container.Resolutions
+                    .GetRefreshRateLabels()
+            );
 
-            refreshRatesDropdown.OnValueChange.AddListener(obj => {
-                resolutionDropdown.FilterByRefreshRate((int)obj);
-                resolutionDropdown.SelectFirst();
-            });
+            refreshRatesDropdown.OnValueChange.AddListener(
+                obj => {
+                    resolutionDropdown.FilterByRefreshRate((int) obj);
+                    resolutionDropdown.SelectFirst();
+                }
+            );
 
-            resolutionDropdown.CreateTabs(Container.Resolutions
-                .GetResolutionLabels()
-                .Reverse());
+            resolutionDropdown.CreateTabs(
+                Container.Resolutions
+                    .GetResolutionLabels()
+                    .Reverse()
+            );
 
             // Get first refresh rate
             var firstRefreshRate = (int) refreshRatesDropdown.Value;
@@ -58,23 +64,32 @@ namespace Exa.UI.Settings
             var uiGroup = Systems.UI.Root.interactableAdapter;
 
             var prompt = null as Prompt;
-            
-            var coroutine = EnumeratorUtils.OnceEverySecond(length, (second) => {
-                setter(format.Format(length - second));
-            }).Then(() => {
-                Apply(backupValues);
-                ReflectValues(backupValues);
 
-                prompt.CleanUp();
-            }).Start(this);
+            var coroutine = EnumeratorUtils.OnceEverySecond(length, second => { setter(format.Format(length - second)); })
+                .Then(
+                    () => {
+                        Apply(backupValues);
+                        ReflectValues(backupValues);
 
-            prompt = Systems.UI.Prompts.PromptYesNo(format.Format(length), uiGroup, value => {
-                StopCoroutine(coroutine);
-                if (value) return;
+                        prompt.CleanUp();
+                    }
+                )
+                .Start(this);
 
-                Apply(backupValues);
-                ReflectValues(backupValues);
-            });
+            prompt = Systems.UI.Prompts.PromptYesNo(
+                format.Format(length),
+                uiGroup,
+                value => {
+                    StopCoroutine(coroutine);
+
+                    if (value) {
+                        return;
+                    }
+
+                    Apply(backupValues);
+                    ReflectValues(backupValues);
+                }
+            );
 
             base.ApplyChanges();
         }

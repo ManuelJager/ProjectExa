@@ -2,13 +2,11 @@
 
 #pragma warning disable CS0649
 
-namespace Exa.UI.Gameplay
-{
-    public class SelectionArea : MonoBehaviour
-    {
+namespace Exa.UI.Gameplay {
+    public class SelectionArea : MonoBehaviour {
         [SerializeField] private RectTransform rect;
-        private Vector2 startWorldPoint;
         private Vector2 endWorldPoint;
+        private Vector2 startWorldPoint;
 
         private void Awake() {
             startWorldPoint = Vector2.zero;

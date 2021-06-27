@@ -4,15 +4,13 @@ using System.Linq;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.Components;
 
-namespace Exa.Research
-{
+namespace Exa.Research {
     public abstract class BlockComponentModifier<T> : BlockComponentModifier
-        where T : struct, IBlockComponentValues
-    {
+        where T : struct, IBlockComponentValues {
         protected virtual IEnumerable<ResearchStep<T>> GetModifiers() {
             return new[] {
                 new ResearchStep<T>(AdditiveStep, ValueModificationOrder.Addition),
-                new ResearchStep<T>(MultiplicativeStep, ValueModificationOrder.Multiplicative),
+                new ResearchStep<T>(MultiplicativeStep, ValueModificationOrder.Multiplicative)
             };
         }
 
@@ -25,19 +23,11 @@ namespace Exa.Research
         }
 
         protected virtual void AdditiveStep(T initialData, ref T currentData) { }
+
         protected virtual void MultiplicativeStep(T initialData, ref T currentData) { }
     }
 
-    public abstract class BlockComponentModifier : ResearchItem, IBlockComponentModifier
-    {
-        public override void EnableOn(BlockContext filter) {
-            Systems.Research.AddModifier(filter, this);
-        }
-
-        public override void DisableOn(BlockContext filter) {
-            Systems.Research.RemoveModifier(filter, this);
-        }
-
+    public abstract class BlockComponentModifier : ResearchItem, IBlockComponentModifier {
         public virtual bool AffectsTemplate(BlockTemplate template) {
             bool Filter(TemplatePartialBase partial) {
                 return partial.GetTargetType() == GetTargetType();
@@ -49,6 +39,15 @@ namespace Exa.Research
         }
 
         public abstract IEnumerable<ResearchStep> GetResearchSteps();
+
+        public override void EnableOn(BlockContext filter) {
+            Systems.Research.AddModifier(filter, this);
+        }
+
+        public override void DisableOn(BlockContext filter) {
+            Systems.Research.RemoveModifier(filter, this);
+        }
+
         public abstract Type GetTargetType();
     }
 }

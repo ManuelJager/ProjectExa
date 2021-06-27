@@ -1,17 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Exa.Generics;
 using Exa.Math;
 using Exa.Ships;
-using System.Collections.Generic;
-using System.Linq;
 using Exa.Types.Binding;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Exa.Gameplay
-{
-    public abstract class ShipSelection : ObservableCollection<GridInstance>, ICloneable<ShipSelection>
-    {
+namespace Exa.Gameplay {
+    public abstract class ShipSelection : ObservableCollection<GridInstance>, ICloneable<ShipSelection> {
+        private readonly Dictionary<GridInstance, Action> callbackDict = new Dictionary<GridInstance, Action>();
         protected Formation formation;
 
         protected ShipSelection(Formation formation) {
@@ -28,7 +26,7 @@ namespace Exa.Gameplay
             }
         }
 
-        private readonly Dictionary<GridInstance, Action> callbackDict = new Dictionary<GridInstance, Action>();
+        public abstract ShipSelection Clone();
 
         public override void Add(GridInstance gridInstance) {
             base.Add(gridInstance);
@@ -36,7 +34,9 @@ namespace Exa.Gameplay
             (gridInstance.Overlay as GridOverlay)?.SetSelected(true);
 
             // Set a callback that removes the Ship from the collection when destroyed
-            void Callback() => Remove(gridInstance);
+            void Callback() {
+                Remove(gridInstance);
+            }
 
             callbackDict.Add(gridInstance, Callback);
 
@@ -45,6 +45,7 @@ namespace Exa.Gameplay
 
         public override bool Remove(GridInstance gridInstance) {
             OnRemove(gridInstance);
+
             return base.Remove(gridInstance);
         }
 
@@ -64,7 +65,5 @@ namespace Exa.Gameplay
             callbackDict.Remove(gridInstance);
             gridInstance.ControllerDestroyed -= callback;
         }
-
-        public abstract ShipSelection Clone();
     }
 }

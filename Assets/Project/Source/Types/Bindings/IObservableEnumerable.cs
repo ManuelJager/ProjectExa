@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Exa.Types.Binding
-{
+namespace Exa.Types.Binding {
     /// <summary>
-    /// Provides
+    ///     Provides
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IObservableEnumerable<T> : IEnumerable<T>
-    {
+    public interface IObservableEnumerable<T> : IEnumerable<T> {
         List<ICollectionObserver<T>> Observers { get; }
     }
 }

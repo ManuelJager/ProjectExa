@@ -1,25 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Exa.Grids;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
 using Exa.Utils;
+using UnityEngine;
 
-namespace Exa.Gameplay
-{
-    public class BlockGridManager : MonoBehaviour
-    {
+namespace Exa.Gameplay {
+    public class BlockGridManager : MonoBehaviour {
         [SerializeField] private GameObject debrisGridPrefab;
 
         public void AttemptRebuild(IGridInstance gridInstance) {
             var blockGrid = gridInstance.BlockGrid;
-            if (!blockGrid.Any()) 
+
+            if (!blockGrid.Any()) {
                 return;
+            }
 
             var clusters = GetClusters(blockGrid);
-            if (clusters.Count() > 1)
+
+            if (clusters.Count() > 1) {
                 Rebuild(gridInstance, clusters);
+            }
         }
 
         private void Rebuild(IGridInstance gridInstance, IEnumerable<Cluster> clusters) {
@@ -42,6 +44,7 @@ namespace Exa.Gameplay
 
             while (vacantBlocks.Count > 0) {
                 var firstBlock = vacantBlocks.First();
+
                 yield return GetCluster(firstBlock.GridAnchor, vacantBlocks, blockGrid);
             }
         }
@@ -52,16 +55,23 @@ namespace Exa.Gameplay
 
             void FloodFill(int x, int y) {
                 var gridPos = new Vector2Int(x, y);
-                
-                if (!visitedGridPos.Add(gridPos)) return;
-                if (!blockGrid.TryGetMember(gridPos, out var member)) return;
+
+                if (!visitedGridPos.Add(gridPos)) {
+                    return;
+                }
+
+                if (!blockGrid.TryGetMember(gridPos, out var member)) {
+                    return;
+                }
+
                 if (vacantBlocks.Contains(member)) {
                     vacantBlocks.Remove(member);
                     cluster.Add(member);
 
                     if (member.GetIsController()) {
-                        if (cluster.containsController)
+                        if (cluster.containsController) {
                             Debug.LogWarning($"Cluster {cluster} contains multiple controllers, this shouldn't happen");
+                        }
 
                         cluster.containsController = true;
                     }

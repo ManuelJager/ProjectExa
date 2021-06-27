@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-namespace Exa.Debugging
-{
-    public class DebugDragger : MonoBehaviour
-    {
+namespace Exa.Debugging {
+    public class DebugDragger : MonoBehaviour {
+        private readonly float sampleTime = 0.2f;
+        private Vector2 averagedVelocity;
         private IDebugDragable currentDragable;
         private Vector2 offset;
-        private Vector2 averagedVelocity;
-        private float sampleTime = 0.2f;
 
         public void Update() {
-            if (currentDragable == null) return;
+            if (currentDragable == null) {
+                return;
+            }
 
             // Set the velocity
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
@@ -22,7 +22,9 @@ namespace Exa.Debugging
         }
 
         public void OnPress() {
-            if (!TryGetDebugDragable(out var dragable)) return;
+            if (!TryGetDebugDragable(out var dragable)) {
+                return;
+            }
 
             currentDragable = dragable;
             averagedVelocity = Vector2.zero;
@@ -35,7 +37,9 @@ namespace Exa.Debugging
         }
 
         public void OnRelease() {
-            if (currentDragable == null) return;
+            if (currentDragable == null) {
+                return;
+            }
 
             var mouseWorldPoint = Systems.Input.MouseWorldPoint;
             var targetPoint = mouseWorldPoint + offset;
@@ -60,6 +64,7 @@ namespace Exa.Debugging
             // ReSharper disable once EmptyGeneralCatchClause
             catch {
                 dragable = null;
+
                 return false;
             }
         }

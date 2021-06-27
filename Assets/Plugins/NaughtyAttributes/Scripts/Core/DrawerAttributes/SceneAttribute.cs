@@ -1,9 +1,6 @@
 ﻿using System;
 
-namespace NaughtyAttributes
-{
-	[AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-	public class SceneAttribute : DrawerAttribute
-	{
-	}
+namespace NaughtyAttributes {
+    [AttributeUsage(AttributeTargets.Field)]
+    public class SceneAttribute : DrawerAttribute { }
 }

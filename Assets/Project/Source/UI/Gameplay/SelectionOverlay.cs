@@ -1,16 +1,14 @@
-﻿using Exa.Gameplay;
-using Exa.Ships;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Exa.Gameplay;
+using Exa.Ships;
 using Exa.Types.Binding;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.UI.Gameplay
-{
-    public class SelectionOverlay : AbstractCollectionObserver<GridInstance>
-    {
+namespace Exa.UI.Gameplay {
+    public class SelectionOverlay : AbstractCollectionObserver<GridInstance> {
         [SerializeField] private GameObject shipViewPrefab;
         [SerializeField] private Transform container;
 
@@ -51,22 +49,23 @@ namespace Exa.UI.Gameplay
         }
 
         public void Reflect(ShipSelection shipSelection) {
-            this.Source = shipSelection;
+            Source = shipSelection;
             ProcessEnabled();
         }
 
         private ShipView SelectOrCreateView(GridInstance gridInstance) {
             var key = gridInstance.Blueprint.name;
+
             if (!shipViews.ContainsKey(key)) {
                 var viewGO = Instantiate(shipViewPrefab, container);
                 var view = viewGO.GetComponent<ShipView>();
                 view.SetThumbnail(gridInstance.Blueprint.Thumbnail);
                 shipViews.Add(key, view);
+
                 return view;
             }
-            else {
-                return shipViews[key];
-            }
+
+            return shipViews[key];
         }
 
         private void ProcessEnabled() {

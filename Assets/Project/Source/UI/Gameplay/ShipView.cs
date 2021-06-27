@@ -1,22 +1,20 @@
-﻿using Exa.Ships;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Exa.Ships;
 using UnityEngine;
 using UnityEngine.UI;
 
 #pragma warning disable CS0649
 
-namespace Exa.UI.Gameplay
-{
-    public class ShipView : MonoBehaviour
-    {
+namespace Exa.UI.Gameplay {
+    public class ShipView : MonoBehaviour {
         [SerializeField] private Gradient colorGradient;
         [SerializeField] private Text countText;
         [SerializeField] private Slider slider;
         [SerializeField] private Image sliderImage;
         [SerializeField] private Image thumbnailImage;
-        private int count;
         private readonly List<GridInstance> ships = new List<GridInstance>();
+        private int count;
 
         public int Count {
             get => count;

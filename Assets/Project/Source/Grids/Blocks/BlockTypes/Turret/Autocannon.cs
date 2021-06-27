@@ -1,17 +1,16 @@
-﻿using Exa.Grids.Blocks.Components;
-using Exa.Ships.Targeting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Exa.Grids.Blocks.Components;
 
 #pragma warning disable CS0649
 
-namespace Exa.Grids.Blocks.BlockTypes
-{
-    public class Autocannon : Block, IBehaviourMarker<AutocannonData>
-    {
+namespace Exa.Grids.Blocks.BlockTypes {
+    public class Autocannon : Block, IBehaviourMarker<AutocannonData> {
         public AutocannonBehaviour turretBehaviour;
 
-        BlockBehaviour<AutocannonData> IBehaviourMarker<AutocannonData>.Component => turretBehaviour;
+        BlockBehaviour<AutocannonData> IBehaviourMarker<AutocannonData>.Component {
+            get => turretBehaviour;
+        }
 
         public override IEnumerable<BlockBehaviour> GetBehaviours() {
             return base.GetBehaviours()

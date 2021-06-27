@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace Exa.Utils
-{
-    public static class EnumeratorUtils
-    {
+namespace Exa.Utils {
+    public static class EnumeratorUtils {
         public static Coroutine DelayOneFrame(this MonoBehaviour monoBehaviour, Action callback) {
             return DelayOneFrame(callback).Start(monoBehaviour);
         }
@@ -15,27 +13,30 @@ namespace Exa.Utils
         public static bool MoveNext<T>(this IEnumerator<T> enumerator, out T current) {
             var next = enumerator.MoveNext();
             current = enumerator.Current;
+
             return next;
         }
 
         public static bool MoveNext(this IEnumerator enumerator, out object current) {
             var next = enumerator.MoveNext();
             current = enumerator.Current;
+
             return next;
         }
 
         public static IEnumerator EnumerateSafe(IEnumerator enumerator, Action<Exception> catcher) {
             while (true) {
                 object current;
+
                 try {
                     if (!enumerator.MoveNext()) {
                         break;
                     }
 
                     current = enumerator.Current;
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     catcher(e);
+
                     yield break;
                 }
 
@@ -72,38 +73,48 @@ namespace Exa.Utils
                 if (current is WorkUnit) {
                     if (Time.realtimeSinceStartup - timeStamp > maxTimeDelta) {
                         yield return null;
+
                         timeStamp = Time.realtimeSinceStartup;
                     }
-                }
-                else {
+                } else {
                     yield return current;
                 }
             }
         }
 
-        public static IEnumerator ReportForeachOperation<T>(IEnumerable<T> enumerable, Func<T, IEnumerator> func,
-            IProgress<float> progress) {
+        public static IEnumerator ReportForeachOperation<T>(
+            IEnumerable<T> enumerable,
+            Func<T, IEnumerator> func,
+            IProgress<float> progress
+        ) {
             var index = 0;
             var list = enumerable.ToList();
             progress.Report(0);
 
             foreach (var item in list) {
                 var enumerator = func(item);
-                while (enumerator.MoveNext(out var current)) yield return current;
+
+                while (enumerator.MoveNext(out var current)) {
+                    yield return current;
+                }
 
                 index++;
                 progress.Report((float) index / list.Count);
             }
         }
 
-        public static IEnumerator ReportForeachOperation<T>(IEnumerable<T> enumerable, Action<T> action,
-            IProgress<float> progress) {
+        public static IEnumerator ReportForeachOperation<T>(
+            IEnumerable<T> enumerable,
+            Action<T> action,
+            IProgress<float> progress
+        ) {
             var index = 0;
             var list = enumerable.ToList();
             progress.Report(0);
 
             foreach (var item in list) {
                 action(item);
+
                 yield return null;
 
                 index++;
@@ -135,10 +146,10 @@ namespace Exa.Utils
                         currentSecond = Mathf.FloorToInt(time);
                         secondCallback(currentSecond);
                     }
-                    
+
                     time += Time.deltaTime;
                 }
-                
+
                 yield return null;
             }
         }

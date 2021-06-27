@@ -3,10 +3,8 @@ using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.ShipEditor
-{
-    public class ShipEditorOverlayInfoPanel : MonoBehaviour
-    {
+namespace Exa.ShipEditor {
+    public class ShipEditorOverlayInfoPanel : MonoBehaviour {
         public Button clearButton;
         public TextTooltipTrigger saveButtonTooltipTrigger;
         public Button saveButton;

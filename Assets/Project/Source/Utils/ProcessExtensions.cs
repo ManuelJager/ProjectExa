@@ -2,10 +2,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Exa.Utils
-{
-    public static class ProcessExtensions
-    {
+namespace Exa.Utils {
+    public static class ProcessExtensions {
         [DllImport("User32.dll")]
         private static extern bool SetForegroundWindow(IntPtr handle);
 

@@ -1,29 +1,25 @@
-﻿using Exa.Grids.Blocks;
-using Exa.UI.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Exa.Grids.Blocks;
 using Exa.Types.Binding;
+using Exa.UI.Components;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
-    public class BlockSelectedEvent : UnityEvent<BlockTemplate>
-    { }
+namespace Exa.ShipEditor {
+    public class BlockSelectedEvent : UnityEvent<BlockTemplate> { }
 
-    public class ShipEditorOverlayInventory : ViewBinder<BlockTemplateView, BlockTemplateContainer, BlockTemplate>
-    {
-        public BlockSelectedEvent blockSelected = new BlockSelectedEvent();
-
+    public class ShipEditorOverlayInventory : ViewBinder<BlockTemplateView, BlockTemplateContainer, BlockTemplate> {
         [SerializeField] private GameObject expandableItemPrefab;
 
         private readonly Dictionary<BlockCategory, ExpandableItem> tabs =
             new Dictionary<BlockCategory, ExpandableItem>();
 
         private BlockTemplateView activeView;
+        public BlockSelectedEvent blockSelected = new BlockSelectedEvent();
         private BlockCategory filter = BlockCategory.All;
 
         public void Init() {
@@ -38,6 +34,7 @@ namespace Exa.ShipEditor
 
         public void SetFilter(BlockCategory blockCategoryFilter) {
             filter = blockCategoryFilter;
+
             foreach (var (category, item) in tabs.Unpack()) {
                 item.gameObject.SetActive(blockCategoryFilter.HasValue(category));
             }
@@ -69,6 +66,7 @@ namespace Exa.ShipEditor
             if (value == null) {
                 activeView = null;
                 blockSelected?.Invoke(null);
+
                 return;
             }
 

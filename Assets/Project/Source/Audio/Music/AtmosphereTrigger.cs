@@ -1,12 +1,10 @@
 ﻿using Exa.Types.Generics;
 
-namespace Exa.Audio.Music
-{
+namespace Exa.Audio.Music {
     /// <summary>
-    /// Sets the current atmosphere when enabled
+    ///     Sets the current atmosphere when enabled
     /// </summary>
-    public class AtmosphereTrigger : MonoOverride<Atmosphere>
-    {
+    public class AtmosphereTrigger : MonoOverride<Atmosphere> {
         protected override OverrideList<Atmosphere> GetPath() {
             return Systems.Audio.Music.Atmospheres;
         }

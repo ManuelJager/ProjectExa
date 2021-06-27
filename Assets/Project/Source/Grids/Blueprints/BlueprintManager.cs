@@ -1,8 +1,8 @@
-﻿using Exa.IO;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.IO;
 using Exa.Types.Binding;
 using Exa.Utils;
 using UnityEngine;
@@ -11,16 +11,14 @@ using Tree = Exa.IO.Tree;
 
 #pragma warning disable CS0649
 
-namespace Exa.Grids.Blueprints
-{
-    public class BlueprintManager : MonoBehaviour
-    {
+namespace Exa.Grids.Blueprints {
+    public class BlueprintManager : MonoBehaviour {
         [HideInInspector] public BlueprintContainerCollection userBlueprints = new BlueprintContainerCollection();
         [HideInInspector] public BlueprintContainerCollection defaultBlueprints = new BlueprintContainerCollection();
-        [HideInInspector] public CompositeObservableEnumerable<BlueprintContainer> useableBlueprints;
         public BlueprintTypeBag blueprintTypes;
 
         [FormerlySerializedAs("defaultBlueprintBag")] [SerializeField] private StaticBlueprintBag staticBlueprintBag;
+        [HideInInspector] public CompositeObservableEnumerable<BlueprintContainer> useableBlueprints;
 
         public IEnumerator Init(IProgress<float> progress) {
             var userBlueprintPaths = CollectionUtils
@@ -38,22 +36,22 @@ namespace Exa.Grids.Blueprints
             foreach (var blueprintPath in userBlueprintPaths) {
                 try {
                     AddUserBlueprint(blueprintPath);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Systems.UI.Logger.LogException($"Error loading blueprint: {e.Message}", false);
                 }
 
                 yield return new WorkUnit();
+
                 iterator++;
                 progress.Report((float) iterator / blueprintTotal);
             }
-
 
             // Load default blueprints
             foreach (var defaultBlueprint in staticBlueprintBag) {
                 AddDefaultBlueprint(defaultBlueprint);
 
                 yield return new WorkUnit();
+
                 iterator++;
                 progress.Report((float) iterator / blueprintTotal);
             }
@@ -62,11 +60,13 @@ namespace Exa.Grids.Blueprints
         }
 
         public Blueprint GetBlueprint(string name) {
-            if (defaultBlueprints.ContainsKey(name))
+            if (defaultBlueprints.ContainsKey(name)) {
                 return defaultBlueprints[name].Data;
+            }
 
-            if (userBlueprints.ContainsKey(name))
+            if (userBlueprints.ContainsKey(name)) {
                 return userBlueprints[name].Data;
+            }
 
             throw new KeyNotFoundException();
         }
@@ -108,8 +108,11 @@ namespace Exa.Grids.Blueprints
             };
 
             var observableBlueprint = new BlueprintContainer(args) {
-                BlueprintFileHandle = { CurrentPath = path }
+                BlueprintFileHandle = {
+                    CurrentPath = path
+                }
             };
+
             observableBlueprint.LoadThumbnail();
             userBlueprints.Add(observableBlueprint);
         }

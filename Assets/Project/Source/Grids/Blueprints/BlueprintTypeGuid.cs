@@ -1,7 +1,5 @@
-﻿namespace Exa.Grids.Blueprints
-{
-    public enum BlueprintTypeGuid
-    {
+﻿namespace Exa.Grids.Blueprints {
+    public enum BlueprintTypeGuid {
         mothership,
         battleship,
         corvette,

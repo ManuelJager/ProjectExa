@@ -6,357 +6,295 @@ using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
-namespace NaughtyAttributes.Editor
-{
-	public static class NaughtyEditorGUI
-	{
-		public const float IndentLength = 15.0f;
-		public const float HorizontalSpacing = 2.0f;
+namespace NaughtyAttributes.Editor {
+    public static class NaughtyEditorGUI {
+        public const float IndentLength = 15.0f;
+        public const float HorizontalSpacing = 2.0f;
 
-		private delegate void PropertyFieldFunction(Rect rect, SerializedProperty property, GUIContent label, bool includeChildren);
+        public static void PropertyField(Rect rect, SerializedProperty property, bool includeChildren) {
+            PropertyField_Implementation(rect, property, includeChildren, DrawPropertyField);
+        }
 
-		public static void PropertyField(Rect rect, SerializedProperty property, bool includeChildren)
-		{
-			PropertyField_Implementation(rect, property, includeChildren, DrawPropertyField);
-		}
+        public static void PropertyField_Layout(SerializedProperty property, bool includeChildren) {
+            var dummyRect = new Rect();
+            PropertyField_Implementation(dummyRect, property, includeChildren, DrawPropertyField_Layout);
+        }
 
-		public static void PropertyField_Layout(SerializedProperty property, bool includeChildren)
-		{
-			Rect dummyRect = new Rect();
-			PropertyField_Implementation(dummyRect, property, includeChildren, DrawPropertyField_Layout);
-		}
+        private static void DrawPropertyField(Rect rect, SerializedProperty property, GUIContent label, bool includeChildren) {
+            EditorGUI.PropertyField(rect, property, label, includeChildren);
+        }
 
-		private static void DrawPropertyField(Rect rect, SerializedProperty property, GUIContent label, bool includeChildren)
-		{
-			EditorGUI.PropertyField(rect, property, label, includeChildren);
-		}
+        private static void DrawPropertyField_Layout(Rect rect, SerializedProperty property, GUIContent label, bool includeChildren) {
+            EditorGUILayout.PropertyField(property, label, includeChildren);
+        }
 
-		private static void DrawPropertyField_Layout(Rect rect, SerializedProperty property, GUIContent label, bool includeChildren)
-		{
-			EditorGUILayout.PropertyField(property, label, includeChildren);
-		}
+        private static void PropertyField_Implementation(Rect rect, SerializedProperty property, bool includeChildren, PropertyFieldFunction propertyFieldFunction) {
+            var specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
 
-		private static void PropertyField_Implementation(Rect rect, SerializedProperty property, bool includeChildren, PropertyFieldFunction propertyFieldFunction)
-		{
-			SpecialCaseDrawerAttribute specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
-			if (specialCaseAttribute != null)
-			{
-				specialCaseAttribute.GetDrawer().OnGUI(rect, property);
-			}
-			else
-			{
-				GUIContent label = new GUIContent(PropertyUtility.GetLabel(property));
-				bool anyDrawerAttribute = PropertyUtility.GetAttributes<DrawerAttribute>(property).Any();
+            if (specialCaseAttribute != null) {
+                specialCaseAttribute.GetDrawer().OnGUI(rect, property);
+            } else {
+                var label = new GUIContent(PropertyUtility.GetLabel(property));
+                var anyDrawerAttribute = PropertyUtility.GetAttributes<DrawerAttribute>(property).Any();
 
-				if (!anyDrawerAttribute)
-				{
-					// Drawer attributes check for visibility, enableability and validator themselves,
-					// so if a property doesn't have a DrawerAttribute we need to check for these explicitly
+                if (!anyDrawerAttribute) {
+                    // Drawer attributes check for visibility, enableability and validator themselves,
+                    // so if a property doesn't have a DrawerAttribute we need to check for these explicitly
 
-					// Check if visible
-					bool visible = PropertyUtility.IsVisible(property);
-					if (!visible)
-					{
-						return;
-					}
+                    // Check if visible
+                    var visible = PropertyUtility.IsVisible(property);
 
-					// Validate
-					ValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
-					foreach (var validatorAttribute in validatorAttributes)
-					{
-						validatorAttribute.GetValidator().ValidateProperty(property);
-					}
+                    if (!visible) {
+                        return;
+                    }
 
-					// Check if enabled and draw
-					EditorGUI.BeginChangeCheck();
-					bool enabled = PropertyUtility.IsEnabled(property);
+                    // Validate
+                    var validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
 
-					using (new EditorGUI.DisabledScope(disabled: !enabled))
-					{
-						propertyFieldFunction.Invoke(rect, property, label, includeChildren);
-					}
+                    foreach (var validatorAttribute in validatorAttributes) {
+                        validatorAttribute.GetValidator().ValidateProperty(property);
+                    }
 
-					// Call OnValueChanged callbacks
-					if (EditorGUI.EndChangeCheck())
-					{
-						PropertyUtility.CallOnValueChangedCallbacks(property);
-					}
-				}
-				else
-				{
-					// We don't need to check for enableIfAttribute
-					propertyFieldFunction.Invoke(rect, property, label, includeChildren);
-				}
-			}
-		}
+                    // Check if enabled and draw
+                    EditorGUI.BeginChangeCheck();
+                    var enabled = PropertyUtility.IsEnabled(property);
 
-		public static float GetIndentLength(Rect sourceRect)
-		{
-			Rect indentRect = EditorGUI.IndentedRect(sourceRect);
-			float indentLength = indentRect.x - sourceRect.x;
+                    using (new EditorGUI.DisabledScope(!enabled)) {
+                        propertyFieldFunction.Invoke(rect, property, label, includeChildren);
+                    }
 
-			return indentLength;
-		}
+                    // Call OnValueChanged callbacks
+                    if (EditorGUI.EndChangeCheck()) {
+                        PropertyUtility.CallOnValueChangedCallbacks(property);
+                    }
+                } else {
+                    // We don't need to check for enableIfAttribute
+                    propertyFieldFunction.Invoke(rect, property, label, includeChildren);
+                }
+            }
+        }
 
-		public static void BeginBoxGroup_Layout(string label = "")
-		{
-			EditorGUILayout.BeginVertical(GUI.skin.box);
-			if (!string.IsNullOrEmpty(label))
-			{
-				EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
-			}
-		}
+        public static float GetIndentLength(Rect sourceRect) {
+            var indentRect = EditorGUI.IndentedRect(sourceRect);
+            var indentLength = indentRect.x - sourceRect.x;
 
-		public static void EndBoxGroup_Layout()
-		{
-			EditorGUILayout.EndVertical();
-		}
+            return indentLength;
+        }
 
-		/// <summary>
-		/// Creates a dropdown
-		/// </summary>
-		/// <param name="rect">The rect the defines the position and size of the dropdown in the inspector</param>
-		/// <param name="serializedObject">The serialized object that is being updated</param>
-		/// <param name="target">The target object that contains the dropdown</param>
-		/// <param name="dropdownField">The field of the target object that holds the currently selected dropdown value</param>
-		/// <param name="label">The label of the dropdown</param>
-		/// <param name="selectedValueIndex">The index of the value from the values array</param>
-		/// <param name="values">The values of the dropdown</param>
-		/// <param name="displayOptions">The display options for the values</param>
-		public static void Dropdown(
-			Rect rect, SerializedObject serializedObject, object target, FieldInfo dropdownField,
-			string label, int selectedValueIndex, object[] values, string[] displayOptions)
-		{
-			EditorGUI.BeginChangeCheck();
+        public static void BeginBoxGroup_Layout(string label = "") {
+            EditorGUILayout.BeginVertical(GUI.skin.box);
 
-			int newIndex = EditorGUI.Popup(rect, label, selectedValueIndex, displayOptions);
+            if (!string.IsNullOrEmpty(label)) {
+                EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
+            }
+        }
 
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(serializedObject.targetObject, "Dropdown");
+        public static void EndBoxGroup_Layout() {
+            EditorGUILayout.EndVertical();
+        }
 
-				// TODO: Problem with structs, because they are value type.
-				// The solution is to make boxing/unboxing but unfortunately I don't know the compile time type of the target object
-				dropdownField.SetValue(target, values[newIndex]);
-			}
-		}
+        /// <summary>
+        ///     Creates a dropdown
+        /// </summary>
+        /// <param name="rect">The rect the defines the position and size of the dropdown in the inspector</param>
+        /// <param name="serializedObject">The serialized object that is being updated</param>
+        /// <param name="target">The target object that contains the dropdown</param>
+        /// <param name="dropdownField">The field of the target object that holds the currently selected dropdown value</param>
+        /// <param name="label">The label of the dropdown</param>
+        /// <param name="selectedValueIndex">The index of the value from the values array</param>
+        /// <param name="values">The values of the dropdown</param>
+        /// <param name="displayOptions">The display options for the values</param>
+        public static void Dropdown(
+            Rect rect,
+            SerializedObject serializedObject,
+            object target,
+            FieldInfo dropdownField,
+            string label,
+            int selectedValueIndex,
+            object[] values,
+            string[] displayOptions
+        ) {
+            EditorGUI.BeginChangeCheck();
 
-		public static void Button(UnityEngine.Object target, MethodInfo methodInfo)
-		{
-			bool visible = ButtonUtility.IsVisible(target, methodInfo);
-			if (!visible)
-			{
-				return;
-			}
+            var newIndex = EditorGUI.Popup(rect, label, selectedValueIndex, displayOptions);
 
-			if (methodInfo.GetParameters().All(p => p.IsOptional))
-			{
-				ButtonAttribute buttonAttribute = (ButtonAttribute)methodInfo.GetCustomAttributes(typeof(ButtonAttribute), true)[0];
-				string buttonText = string.IsNullOrEmpty(buttonAttribute.Text) ? ObjectNames.NicifyVariableName(methodInfo.Name) : buttonAttribute.Text;
+            if (EditorGUI.EndChangeCheck()) {
+                Undo.RecordObject(serializedObject.targetObject, "Dropdown");
 
-				bool buttonEnabled = ButtonUtility.IsEnabled(target, methodInfo);
+                // TODO: Problem with structs, because they are value type.
+                // The solution is to make boxing/unboxing but unfortunately I don't know the compile time type of the target object
+                dropdownField.SetValue(target, values[newIndex]);
+            }
+        }
 
-				EButtonEnableMode mode = buttonAttribute.SelectedEnableMode;
-				buttonEnabled &=
-					mode == EButtonEnableMode.Always ||
-					mode == EButtonEnableMode.Editor && !Application.isPlaying ||
-					mode == EButtonEnableMode.Playmode && Application.isPlaying;
+        public static void Button(Object target, MethodInfo methodInfo) {
+            var visible = ButtonUtility.IsVisible(target, methodInfo);
 
-				bool methodIsCoroutine = methodInfo.ReturnType == typeof(IEnumerator);
-				if (methodIsCoroutine)
-				{
-					buttonEnabled &= (Application.isPlaying ? true : false);
-				}
+            if (!visible) {
+                return;
+            }
 
-				EditorGUI.BeginDisabledGroup(!buttonEnabled);
+            if (methodInfo.GetParameters().All(p => p.IsOptional)) {
+                var buttonAttribute = (ButtonAttribute) methodInfo.GetCustomAttributes(typeof(ButtonAttribute), true)[0];
+                var buttonText = string.IsNullOrEmpty(buttonAttribute.Text) ? ObjectNames.NicifyVariableName(methodInfo.Name) : buttonAttribute.Text;
 
-				if (GUILayout.Button(buttonText))
-				{
-					object[] defaultParams = methodInfo.GetParameters().Select(p => p.DefaultValue).ToArray();
-					IEnumerator methodResult = methodInfo.Invoke(target, defaultParams) as IEnumerator;
+                var buttonEnabled = ButtonUtility.IsEnabled(target, methodInfo);
 
-					if (!Application.isPlaying)
-					{
-						// Set target object and scene dirty to serialize changes to disk
-						EditorUtility.SetDirty(target);
+                var mode = buttonAttribute.SelectedEnableMode;
 
-						PrefabStage stage = PrefabStageUtility.GetCurrentPrefabStage();
-						if (stage != null)
-						{
-							// Prefab mode
-							EditorSceneManager.MarkSceneDirty(stage.scene);
-						}
-						else
-						{
-							// Normal scene
-							EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-						}
-					}
-					else if (methodResult != null && target is MonoBehaviour behaviour)
-					{
-						behaviour.StartCoroutine(methodResult);
-					}
-				}
+                buttonEnabled &=
+                    mode == EButtonEnableMode.Always ||
+                    mode == EButtonEnableMode.Editor && !Application.isPlaying ||
+                    mode == EButtonEnableMode.Playmode && Application.isPlaying;
 
-				EditorGUI.EndDisabledGroup();
-			}
-			else
-			{
-				string warning = typeof(ButtonAttribute).Name + " works only on methods with no parameters";
-				HelpBox_Layout(warning, MessageType.Warning, context: target, logToConsole: true);
-			}
-		}
+                var methodIsCoroutine = methodInfo.ReturnType == typeof(IEnumerator);
 
-		public static void NativeProperty_Layout(UnityEngine.Object target, PropertyInfo property)
-		{
-			object value = property.GetValue(target, null);
+                if (methodIsCoroutine) {
+                    buttonEnabled &= Application.isPlaying ? true : false;
+                }
 
-			if (value == null)
-			{
-				string warning = string.Format("{0} is null. {1} doesn't support reference types with null value", property.Name, typeof(ShowNativePropertyAttribute).Name);
-				HelpBox_Layout(warning, MessageType.Warning, context: target);
-			}
-			else if (!Field_Layout(value, property.Name))
-			{
-				string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNativePropertyAttribute).Name, property.PropertyType.Name);
-				HelpBox_Layout(warning, MessageType.Warning, context: target);
-			}
-		}
+                EditorGUI.BeginDisabledGroup(!buttonEnabled);
 
-		public static void NonSerializedField_Layout(UnityEngine.Object target, FieldInfo field)
-		{
-			object value = field.GetValue(target);
+                if (GUILayout.Button(buttonText)) {
+                    var defaultParams = methodInfo.GetParameters().Select(p => p.DefaultValue).ToArray();
+                    var methodResult = methodInfo.Invoke(target, defaultParams) as IEnumerator;
 
-			if (value == null)
-			{
-				string warning = string.Format("{0} is null. {1} doesn't support reference types with null value", field.Name, typeof(ShowNonSerializedFieldAttribute).Name);
-				HelpBox_Layout(warning, MessageType.Warning, context: target);
-			}
-			else if (!Field_Layout(value, field.Name))
-			{
-				string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNonSerializedFieldAttribute).Name, field.FieldType.Name);
-				HelpBox_Layout(warning, MessageType.Warning, context: target);
-			}
-		}
+                    if (!Application.isPlaying) {
+                        // Set target object and scene dirty to serialize changes to disk
+                        EditorUtility.SetDirty(target);
 
-		public static void HorizontalLine(Rect rect, float height, Color color)
-		{
-			rect.height = height;
-			EditorGUI.DrawRect(rect, color);
-		}
+                        var stage = PrefabStageUtility.GetCurrentPrefabStage();
 
-		public static void HelpBox(Rect rect, string message, MessageType type, UnityEngine.Object context = null, bool logToConsole = false)
-		{
-			EditorGUI.HelpBox(rect, message, type);
+                        if (stage != null)
+                            // Prefab mode
+                        {
+                            EditorSceneManager.MarkSceneDirty(stage.scene);
+                        } else
+                            // Normal scene
+                        {
+                            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+                        }
+                    } else if (methodResult != null && target is MonoBehaviour behaviour) {
+                        behaviour.StartCoroutine(methodResult);
+                    }
+                }
 
-			if (logToConsole)
-			{
-				DebugLogMessage(message, type, context);
-			}
-		}
+                EditorGUI.EndDisabledGroup();
+            } else {
+                var warning = typeof(ButtonAttribute).Name + " works only on methods with no parameters";
+                HelpBox_Layout(warning, MessageType.Warning, target, true);
+            }
+        }
 
-		public static void HelpBox_Layout(string message, MessageType type, UnityEngine.Object context = null, bool logToConsole = false)
-		{
-			EditorGUILayout.HelpBox(message, type);
+        public static void NativeProperty_Layout(Object target, PropertyInfo property) {
+            var value = property.GetValue(target, null);
 
-			if (logToConsole)
-			{
-				DebugLogMessage(message, type, context);
-			}
-		}
+            if (value == null) {
+                var warning = string.Format("{0} is null. {1} doesn't support reference types with null value", property.Name, typeof(ShowNativePropertyAttribute).Name);
+                HelpBox_Layout(warning, MessageType.Warning, target);
+            } else if (!Field_Layout(value, property.Name)) {
+                var warning = string.Format("{0} doesn't support {1} types", typeof(ShowNativePropertyAttribute).Name, property.PropertyType.Name);
+                HelpBox_Layout(warning, MessageType.Warning, target);
+            }
+        }
 
-		public static bool Field_Layout(object value, string label)
-		{
-			using (new EditorGUI.DisabledScope(disabled: true))
-			{
-				bool isDrawn = true;
-				Type valueType = value.GetType();
+        public static void NonSerializedField_Layout(Object target, FieldInfo field) {
+            var value = field.GetValue(target);
 
-				if (valueType == typeof(bool))
-				{
-					EditorGUILayout.Toggle(label, (bool)value);
-				}
-				else if (valueType == typeof(int))
-				{
-					EditorGUILayout.IntField(label, (int)value);
-				}
-				else if (valueType == typeof(long))
-				{
-					EditorGUILayout.LongField(label, (long)value);
-				}
-				else if (valueType == typeof(float))
-				{
-					EditorGUILayout.FloatField(label, (float)value);
-				}
-				else if (valueType == typeof(double))
-				{
-					EditorGUILayout.DoubleField(label, (double)value);
-				}
-				else if (valueType == typeof(string))
-				{
-					EditorGUILayout.TextField(label, (string)value);
-				}
-				else if (valueType == typeof(Vector2))
-				{
-					EditorGUILayout.Vector2Field(label, (Vector2)value);
-				}
-				else if (valueType == typeof(Vector3))
-				{
-					EditorGUILayout.Vector3Field(label, (Vector3)value);
-				}
-				else if (valueType == typeof(Vector4))
-				{
-					EditorGUILayout.Vector4Field(label, (Vector4)value);
-				}
-				else if (valueType == typeof(Color))
-				{
-					EditorGUILayout.ColorField(label, (Color)value);
-				}
-				else if (valueType == typeof(Bounds))
-				{
-					EditorGUILayout.BoundsField(label, (Bounds)value);
-				}
-				else if (valueType == typeof(Rect))
-				{
-					EditorGUILayout.RectField(label, (Rect)value);
-				}
-				else if (typeof(UnityEngine.Object).IsAssignableFrom(valueType))
-				{
-					EditorGUILayout.ObjectField(label, (UnityEngine.Object)value, valueType, true);
-				}
-				else if (valueType.BaseType == typeof(Enum))
-				{
-					EditorGUILayout.EnumPopup(label, (Enum)value);
-				}
-				else if (valueType.BaseType == typeof(System.Reflection.TypeInfo))
-				{
-					EditorGUILayout.TextField(label, value.ToString());
-				}
-				else
-				{
-					isDrawn = false;
-				}
+            if (value == null) {
+                var warning = string.Format("{0} is null. {1} doesn't support reference types with null value", field.Name, typeof(ShowNonSerializedFieldAttribute).Name);
+                HelpBox_Layout(warning, MessageType.Warning, target);
+            } else if (!Field_Layout(value, field.Name)) {
+                var warning = string.Format("{0} doesn't support {1} types", typeof(ShowNonSerializedFieldAttribute).Name, field.FieldType.Name);
+                HelpBox_Layout(warning, MessageType.Warning, target);
+            }
+        }
 
-				return isDrawn;
-			}
-		}
+        public static void HorizontalLine(Rect rect, float height, Color color) {
+            rect.height = height;
+            EditorGUI.DrawRect(rect, color);
+        }
 
-		private static void DebugLogMessage(string message, MessageType type, UnityEngine.Object context)
-		{
-			switch (type)
-			{
-				case MessageType.None:
-				case MessageType.Info:
-					Debug.Log(message, context);
-					break;
-				case MessageType.Warning:
-					Debug.LogWarning(message, context);
-					break;
-				case MessageType.Error:
-					Debug.LogError(message, context);
-					break;
-			}
-		}
-	}
+        public static void HelpBox(Rect rect, string message, MessageType type, Object context = null, bool logToConsole = false) {
+            EditorGUI.HelpBox(rect, message, type);
+
+            if (logToConsole) {
+                DebugLogMessage(message, type, context);
+            }
+        }
+
+        public static void HelpBox_Layout(string message, MessageType type, Object context = null, bool logToConsole = false) {
+            EditorGUILayout.HelpBox(message, type);
+
+            if (logToConsole) {
+                DebugLogMessage(message, type, context);
+            }
+        }
+
+        public static bool Field_Layout(object value, string label) {
+            using (new EditorGUI.DisabledScope(true)) {
+                var isDrawn = true;
+                var valueType = value.GetType();
+
+                if (valueType == typeof(bool)) {
+                    EditorGUILayout.Toggle(label, (bool) value);
+                } else if (valueType == typeof(int)) {
+                    EditorGUILayout.IntField(label, (int) value);
+                } else if (valueType == typeof(long)) {
+                    EditorGUILayout.LongField(label, (long) value);
+                } else if (valueType == typeof(float)) {
+                    EditorGUILayout.FloatField(label, (float) value);
+                } else if (valueType == typeof(double)) {
+                    EditorGUILayout.DoubleField(label, (double) value);
+                } else if (valueType == typeof(string)) {
+                    EditorGUILayout.TextField(label, (string) value);
+                } else if (valueType == typeof(Vector2)) {
+                    EditorGUILayout.Vector2Field(label, (Vector2) value);
+                } else if (valueType == typeof(Vector3)) {
+                    EditorGUILayout.Vector3Field(label, (Vector3) value);
+                } else if (valueType == typeof(Vector4)) {
+                    EditorGUILayout.Vector4Field(label, (Vector4) value);
+                } else if (valueType == typeof(Color)) {
+                    EditorGUILayout.ColorField(label, (Color) value);
+                } else if (valueType == typeof(Bounds)) {
+                    EditorGUILayout.BoundsField(label, (Bounds) value);
+                } else if (valueType == typeof(Rect)) {
+                    EditorGUILayout.RectField(label, (Rect) value);
+                } else if (typeof(Object).IsAssignableFrom(valueType)) {
+                    EditorGUILayout.ObjectField(label, (Object) value, valueType, true);
+                } else if (valueType.BaseType == typeof(Enum)) {
+                    EditorGUILayout.EnumPopup(label, (Enum) value);
+                } else if (valueType.BaseType == typeof(TypeInfo)) {
+                    EditorGUILayout.TextField(label, value.ToString());
+                } else {
+                    isDrawn = false;
+                }
+
+                return isDrawn;
+            }
+        }
+
+        private static void DebugLogMessage(string message, MessageType type, Object context) {
+            switch (type) {
+                case MessageType.None:
+                case MessageType.Info:
+                    Debug.Log(message, context);
+
+                    break;
+                case MessageType.Warning:
+                    Debug.LogWarning(message, context);
+
+                    break;
+                case MessageType.Error:
+                    Debug.LogError(message, context);
+
+                    break;
+            }
+        }
+
+        private delegate void PropertyFieldFunction(Rect rect, SerializedProperty property, GUIContent label, bool includeChildren);
+    }
 }

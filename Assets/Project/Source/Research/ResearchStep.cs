@@ -1,15 +1,13 @@
 ﻿using Exa.Grids.Blocks.Components;
 
-namespace Exa.Research
-{
+namespace Exa.Research {
     public class ResearchStep<T> : ResearchStep
-        where T : struct, IBlockComponentValues
-    {
+        where T : struct, IBlockComponentValues {
         public delegate void ApplyValues(T init, ref T curr);
 
         public delegate void ApplyValuesOmitInit(ref T curr);
 
-        private ApplyValues applyFunc;
+        private readonly ApplyValues applyFunc;
 
         public ResearchStep(ApplyValues applyFunc, ValueModificationOrder order)
             : base(order) {
@@ -19,6 +17,7 @@ namespace Exa.Research
         public override IBlockComponentValues CalculateCurrentValues(IBlockComponentValues init, IBlockComponentValues curr) {
             var convertedCopy = (T) curr;
             applyFunc((T) init, ref convertedCopy);
+
             return convertedCopy;
         }
 
@@ -27,10 +26,9 @@ namespace Exa.Research
         }
     }
 
-    public abstract class ResearchStep
-    {
+    public abstract class ResearchStep {
         protected ResearchStep(ValueModificationOrder order) {
-            this.Order = order;
+            Order = order;
         }
 
         public ValueModificationOrder Order { get; }

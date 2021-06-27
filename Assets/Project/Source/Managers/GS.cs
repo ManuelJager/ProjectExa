@@ -9,10 +9,8 @@ using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa
-{
-    public class GS : MonoSingleton<GS>
-    {
+namespace Exa {
+    public class GS : MonoSingleton<GS> {
         [SerializeField] private Raycaster raycaster;
         [SerializeField] private Navigateable navigateable;
         [SerializeField] private ShipFactory shipFactory;
@@ -23,18 +21,52 @@ namespace Exa
         [SerializeField] private PopupManager popupManager;
         [SerializeField] private MissionManager missionManager;
 
-        public static Raycaster Raycaster => Instance.raycaster;
-        public static Navigateable Navigateable => Instance.navigateable;
-        public static ShipFactory ShipFactory => Instance.shipFactory;
-        public static GameplayUI UI => Instance.gameplayUI;
-        public static AIManager AI => Instance.aIManager;
-        public static SpawnLayer SpawnLayer => Instance.spawnLayer;
-        public static BlockGridManager BlockGridManager => Instance.blockGridManager;
-        public static PopupManager PopupManager => Instance.popupManager;
-        public static MissionManager MissionManager => Instance.missionManager;
-        public static GameObject GameObject => Instance.gameObject;
-        
-        public static bool IsQuitting => Systems.IsQuitting || Systems.Scenes.GetSceneIsUnloading("Game");
-        public static bool IsPaused => UI.pauseMenu.Paused || MissionManager.IsEditing;
+        public static Raycaster Raycaster {
+            get => Instance.raycaster;
+        }
+
+        public static Navigateable Navigateable {
+            get => Instance.navigateable;
+        }
+
+        public static ShipFactory ShipFactory {
+            get => Instance.shipFactory;
+        }
+
+        public static GameplayUI UI {
+            get => Instance.gameplayUI;
+        }
+
+        public static AIManager AI {
+            get => Instance.aIManager;
+        }
+
+        public static SpawnLayer SpawnLayer {
+            get => Instance.spawnLayer;
+        }
+
+        public static BlockGridManager BlockGridManager {
+            get => Instance.blockGridManager;
+        }
+
+        public static PopupManager PopupManager {
+            get => Instance.popupManager;
+        }
+
+        public static MissionManager MissionManager {
+            get => Instance.missionManager;
+        }
+
+        public static GameObject GameObject {
+            get => Instance.gameObject;
+        }
+
+        public static bool IsQuitting {
+            get => Systems.IsQuitting || Systems.Scenes.GetSceneIsUnloading("Game");
+        }
+
+        public static bool IsPaused {
+            get => UI.pauseMenu.Paused || MissionManager.IsEditing;
+        }
     }
 }

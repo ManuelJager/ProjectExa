@@ -6,10 +6,8 @@ using UnityEngine.UI;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
-    public class BlueprintErrorListController : ErrorListController
-    {
+namespace Exa.ShipEditor {
+    public class BlueprintErrorListController : ErrorListController {
         [SerializeField] private LayoutElement layoutElement;
         [SerializeField] private CanvasGroup canvasGroup;
 

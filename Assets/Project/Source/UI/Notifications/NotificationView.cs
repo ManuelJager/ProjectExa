@@ -5,18 +5,11 @@ using UnityEngine.UI;
 
 #pragma warning disable CS0649
 
-namespace Exa.UI
-{
-    public class NotificationView : MonoBehaviour
-    {
+namespace Exa.UI {
+    public class NotificationView : MonoBehaviour {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Text header;
         [SerializeField] private Text body;
-
-        public void Setup(string header, string body) {
-            this.header.text = header;
-            this.body.text = body;
-        }
 
         private void Awake() {
             canvasGroup.alpha = 0f;
@@ -25,6 +18,11 @@ namespace Exa.UI
             StartCoroutine(EnumeratorUtils.Delay(() => { canvasGroup.DOFade(0f, 0.2f); }, 3f));
 
             StartCoroutine(EnumeratorUtils.Delay(() => { Destroy(gameObject); }, 3.2f));
+        }
+
+        public void Setup(string header, string body) {
+            this.header.text = header;
+            this.body.text = body;
         }
     }
 }

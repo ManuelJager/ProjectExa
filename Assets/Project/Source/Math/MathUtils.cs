@@ -2,10 +2,8 @@
 using Exa.Types.Generics;
 using UnityEngine;
 
-namespace Exa.Math
-{
-    public static partial class MathUtils
-    {
+namespace Exa.Math {
+    public static partial class MathUtils {
         public static int GreatestCommonDivisor(int a, int b) {
             while (b != 0) {
                 var i = a % b;
@@ -17,14 +15,17 @@ namespace Exa.Math
         }
 
         public static float Increment(float from, float to, float by) {
-            if (from == to) return from;
+            if (from == to) {
+                return from;
+            }
 
             if (from < to) {
                 var result = from + by;
+
                 return result < to ? result : to;
-            }
-            else {
+            } else {
                 var result = from - by;
+
                 return result > to ? result : to;
             }
         }
@@ -38,7 +39,8 @@ namespace Exa.Math
             float from1,
             float to1,
             float from2,
-            float to2) {
+            float to2
+        ) {
             value = Mathf.Clamp(value, from1, to1);
 
             return
@@ -52,10 +54,10 @@ namespace Exa.Math
         }
 
         /// <summary>
-        /// Normalizes a given float value between the float range
+        ///     Normalizes a given float value between the float range
         /// </summary>
         /// <para>
-        /// Values over or under the min and max wrap to a value inside the range
+        ///     Values over or under the min and max wrap to a value inside the range
         /// </para>
         public static float NormalizeWrap(float value, MinMax<float> minMax) {
             value %= minMax.max;

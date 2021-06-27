@@ -1,23 +1,20 @@
-﻿using Exa.Grids.Blueprints;
+﻿using System.Collections.Generic;
+using Exa.Camera;
+using Exa.Grids;
+using Exa.Grids.Blueprints;
 using Exa.Input;
 using Exa.IO;
 using Exa.UI;
-using System.Collections.Generic;
-using Exa.Camera;
-using Exa.Grids;
 using Exa.UI.Controls;
-using Exa.Utils;
 using Exa.Validation;
 using UnityEngine;
 using static Exa.Input.GameControls;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
+namespace Exa.ShipEditor {
     [RequireComponent(typeof(GridEditorNavigateable))]
-    public partial class GridEditor : MonoBehaviour, IEditorActions, IUIGroup
-    {
+    public partial class GridEditor : MonoBehaviour, IEditorActions, IUIGroup {
         [SerializeField] private EditorGrid editorGrid;
         public GridEditorNavigateable navigateable;
 
@@ -26,8 +23,13 @@ namespace Exa.ShipEditor
         private GameControls gameControls;
         private ShipEditorOverlay overlay;
 
-        public Blueprint ActiveBlueprint => editorGrid.blueprintLayer.ActiveBlueprint;
-        public GridTotals ActiveBlueprintTotals => ActiveBlueprint.Grid.GetTotals(ImportArgs.BlockContext);
+        public Blueprint ActiveBlueprint {
+            get => editorGrid.blueprintLayer.ActiveBlueprint;
+        }
+
+        public GridTotals ActiveBlueprintTotals {
+            get => ActiveBlueprint.Grid.GetTotals(ImportArgs.BlockContext);
+        }
 
         private void Awake() {
             overlay = Systems.UI.EditorOverlay;
@@ -48,21 +50,37 @@ namespace Exa.ShipEditor
 
             stopwatch.onTime.AddListener(OnBlueprintGridValidationRequested);
 
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
             var button = ButtonControl.Create(overlay.infoPanel.controlsContainer, "Save as asset");
-            button.OnClick.AddListener(() => {
-                var blueprint = editorGrid.blueprintLayer.ActiveBlueprint;
-                var staticBlueprint = ScriptableObject.CreateInstance<StaticBlueprint>();
-                staticBlueprint.Save(blueprint);
-            });
+
+            button.OnClick.AddListener(
+                () => {
+                    var blueprint = editorGrid.blueprintLayer.ActiveBlueprint;
+                    var staticBlueprint = ScriptableObject.CreateInstance<StaticBlueprint>();
+                    staticBlueprint.Save(blueprint);
+                }
+            );
+
             button.LayoutElement.preferredHeight = 32;
-#endif
+        #endif
+        }
+
+        private void Update() {
+            if (leftButtonPressed) {
+                editorGrid.OnLeftClickPressed();
+
+                return;
+            }
+
+            if (rightButtonPressed) {
+                editorGrid.OnRightClickPressed();
+            }
         }
 
         private void OnEnable() {
             overlay.gameObject.SetActive(true);
             gameControls.Enable();
-            
+
             Systems.CameraController.SetTarget(EditorCameraTarget, true);
         }
 
@@ -75,23 +93,11 @@ namespace Exa.ShipEditor
             }
         }
 
-        private void Update() {
-            if (leftButtonPressed) {
-                editorGrid.OnLeftClickPressed();
-                return;
-            }
-
-            if (rightButtonPressed) {
-                editorGrid.OnRightClickPressed();
-                return;
-            }
-        }
-
         public void Import(GridEditorImportArgs importArgs) {
             ImportArgs = importArgs;
             customValidators = new List<IPlugableValidator>();
             customValidators.AddRange(importArgs.Validators);
-            
+
             BaseImport(importArgs.GetBlueprint(), importArgs.ValidateName);
         }
 
@@ -106,7 +112,7 @@ namespace Exa.ShipEditor
 
             var newBlueprint = blueprint.Clone();
             editorGrid.Import(newBlueprint);
-                
+
             if (enableNameChanging) {
                 ValidateName(newBlueprint.name);
             }

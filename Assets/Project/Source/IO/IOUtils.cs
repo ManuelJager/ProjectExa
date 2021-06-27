@@ -2,10 +2,8 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Exa.IO
-{
-    public static partial class IOUtils
-    {
+namespace Exa.IO {
+    public static partial class IOUtils {
         public static string CombinePathWithDataPath(params string[] paths) {
             paths = paths.Prepend(Application.persistentDataPath)
                 .ToArray();

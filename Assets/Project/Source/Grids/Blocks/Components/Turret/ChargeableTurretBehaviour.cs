@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 
-namespace Exa.Grids.Blocks.Components
-{
+namespace Exa.Grids.Blocks.Components {
     public abstract class ChargeableTurretBehaviour<T> : TurretBehaviour<T>, IChargeableTurretBehaviour
-        where T : struct, IChargeableTurretValues
-    {
-        protected bool charging;
-        protected float chargeTime;
-
+        where T : struct, IChargeableTurretValues {
         [Header("Settings")]
         [SerializeField] protected float chargeDecaySpeed = 4f;
+        protected float chargeTime;
+        protected bool charging;
 
         public virtual void StartCharge() {
             charging = true;
@@ -22,15 +19,16 @@ namespace Exa.Grids.Blocks.Components
 
         protected override void BlockUpdate() {
             base.BlockUpdate();
+
             if (charging) {
                 chargeTime += Time.deltaTime;
+
                 if (chargeTime > Data.ChargeTime) {
                     charging = false;
                     Fire();
                     chargeTime = 0f;
                 }
-            }
-            else {
+            } else {
                 chargeTime -= Time.deltaTime * chargeDecaySpeed;
             }
 

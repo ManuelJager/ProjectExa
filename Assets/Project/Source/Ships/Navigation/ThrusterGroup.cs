@@ -1,19 +1,18 @@
-﻿using Exa.Data;
-using Exa.Grids.Blocks.BlockTypes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Exa.Data;
 using Exa.Grids.Blocks.Components;
 
-namespace Exa.Ships.Navigation
-{
-    public class ThrusterGroup : List<ThrusterBehaviour>
-    {
+namespace Exa.Ships.Navigation {
+    public class ThrusterGroup : List<ThrusterBehaviour> {
+        private float thrust;
         private Scalar thrustModifier;
-        private float thrust = 0f;
-
-        public float Thrust => thrustModifier.GetValue(thrust);
 
         public ThrusterGroup(Scalar thrustModifier) {
             this.thrustModifier = thrustModifier;
+        }
+
+        public float Thrust {
+            get => thrustModifier.GetValue(thrust);
         }
 
         public new void Add(ThrusterBehaviour thruster) {

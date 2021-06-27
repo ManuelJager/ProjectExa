@@ -2,39 +2,33 @@ using System.Collections.Generic;
 using System.Linq;
 using Exa.Utils;
 using UnityEditor;
-#if UNITY_EDITOR
-using UnityEditor.SceneManagement;
-#endif
 using UnityEngine;
 using MathUtils = Exa.Math.MathUtils;
 using Random = System.Random;
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
 
-namespace Exa.VFX
-{
-    public class GaussCannonArcs : MonoBehaviour
-    {
-        private static int NoiseOffsetID = Shader.PropertyToID("_NoiseOffset");
-        private static int FlickeringOffsetID = Shader.PropertyToID("_FlickeringOffset");
+#endif
+
+namespace Exa.VFX {
+    public class GaussCannonArcs : MonoBehaviour {
+        private static readonly int NoiseOffsetID = Shader.PropertyToID("_NoiseOffset");
+        private static readonly int FlickeringOffsetID = Shader.PropertyToID("_FlickeringOffset");
 
         [Header("Arc settings")]
         [SerializeField] private int arcCount;
         [SerializeField] private float arcDistance;
         [SerializeField] private GameObject arcPrefab;
         [SerializeField] private List<GameObject> arcs;
+        private int prevActivatedArcIndex;
 
         private float timeAlive;
-        private int prevActivatedArcIndex;
 
         public float ChargeTime { get; set; }
 
-        public void RandomizeMaterials() {
-            var random = new Random();
-            var propertyBlock = new MaterialPropertyBlock();
-            foreach (var renderer in arcs.Select(arc => arc.GetComponent<SpriteRenderer>())) {
-                propertyBlock.SetVector(NoiseOffsetID, MathUtils.RandomVector2(10f));
-                propertyBlock.SetFloat(FlickeringOffsetID, random.Next() % 1000);
-                renderer.SetPropertyBlock(propertyBlock);
-            }
+        private void Update() {
+            timeAlive += Time.deltaTime;
+            SetActiveUpTo(Mathf.FloorToInt(timeAlive / ChargeTime * (arcCount + 1)) + 1);
         }
 
         private void OnEnable() {
@@ -46,9 +40,15 @@ namespace Exa.VFX
             arcs.ForEach(arc => arc.SetActive(false));
         }
 
-        private void Update() {
-            timeAlive += Time.deltaTime;
-            SetActiveUpTo(Mathf.FloorToInt(timeAlive / ChargeTime * (arcCount + 1)) + 1);
+        public void RandomizeMaterials() {
+            var random = new Random();
+            var propertyBlock = new MaterialPropertyBlock();
+
+            foreach (var renderer in arcs.Select(arc => arc.GetComponent<SpriteRenderer>())) {
+                propertyBlock.SetVector(NoiseOffsetID, MathUtils.RandomVector2(10f));
+                propertyBlock.SetFloat(FlickeringOffsetID, random.Next() % 1000);
+                renderer.SetPropertyBlock(propertyBlock);
+            }
         }
 
         private void SetActiveUpTo(int index) {
@@ -57,7 +57,10 @@ namespace Exa.VFX
             }
 
             var diff = index - prevActivatedArcIndex;
-            if (diff == 0) return;
+
+            if (diff == 0) {
+                return;
+            }
 
             for (var i = prevActivatedArcIndex; i < index; i++) {
                 arcs[i].gameObject.SetActive(true);
@@ -65,7 +68,7 @@ namespace Exa.VFX
 
             prevActivatedArcIndex = index;
         }
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         [ContextMenu("Create Arcs")]
         private void CreateArcs() {
             foreach (var child in transform.GetChildren().ToList()) {
@@ -73,6 +76,7 @@ namespace Exa.VFX
             }
 
             arcs = new List<GameObject>(arcCount);
+
             for (var i = 0; i < arcCount; i++) {
                 var go = Instantiate(arcPrefab, transform);
                 go.name = $"Arc ({i})";
@@ -87,7 +91,6 @@ namespace Exa.VFX
 
             EditorUtility.SetDirty(gameObject);
         }
-#endif
+    #endif
     }
 }
-

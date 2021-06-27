@@ -1,34 +1,25 @@
 using UnityEditor;
 
-namespace NaughtyAttributes.Editor
-{
-	internal class SavedBool
-	{
-		private bool _value;
-		private string _name;
+namespace NaughtyAttributes.Editor {
+    internal class SavedBool {
+        private readonly string _name;
+        private bool _value;
 
-		public bool Value
-		{
-			get
-			{
-				return _value;
-			}
-			set
-			{
-				if (_value == value)
-				{
-					return;
-				}
+        public SavedBool(string name, bool value) {
+            _name = name;
+            _value = EditorPrefs.GetBool(name, value);
+        }
 
-				_value = value;
-				EditorPrefs.SetBool(_name, value);
-			}
-		}
+        public bool Value {
+            get => _value;
+            set {
+                if (_value == value) {
+                    return;
+                }
 
-		public SavedBool(string name, bool value)
-		{
-			_name = name;
-			_value = EditorPrefs.GetBool(name, value);
-		}
-	}
+                _value = value;
+                EditorPrefs.SetBool(_name, value);
+            }
+        }
+    }
 }

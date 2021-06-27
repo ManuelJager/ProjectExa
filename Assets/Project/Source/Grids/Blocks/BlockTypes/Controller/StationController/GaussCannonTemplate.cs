@@ -4,12 +4,10 @@ using System.Linq;
 using Exa.Grids.Blocks.Components;
 using UnityEngine;
 
-namespace Exa.Grids.Blocks.BlockTypes
-{
+namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/GaussCannon")]
-    public class GaussCannonTemplate : StationControllerTemplate<GaussCannon>
-    {
+    public class GaussCannonTemplate : StationControllerTemplate<GaussCannon> {
         [SerializeField] private GaussCannonTemplatePartial gaussCannonTemplatePartial;
 
         public override ITurretValues GetTurretValues(BlockContext context) {

@@ -1,18 +1,16 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
+﻿using System.Collections.Generic;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Exa.Grids.Blocks
-{
+namespace Exa.Grids.Blocks {
     /// <summary>
-    /// Provides a generic base class for storing and setting the base values of blocks
+    ///     Provides a generic base class for storing and setting the base values of blocks
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class BlockTemplate<T> : BlockTemplate
-        where T : Block
-    {
-        [Header("Template partials")] 
+        where T : Block {
+        [Header("Template partials")]
         [SerializeField] protected PhysicalTemplatePartial physicalTemplatePartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
@@ -28,9 +26,8 @@ namespace Exa.Grids.Blocks
         }
     }
 
-    public abstract class BlockTemplate : ScriptableObject, IGridTotalsModifier
-    {
-        [Header("Settings")] 
+    public abstract class BlockTemplate : ScriptableObject, IGridTotalsModifier {
+        [Header("Settings")]
         public string id;
         public string displayId;
         public BlockCategory category;
@@ -44,7 +41,7 @@ namespace Exa.Grids.Blocks
             foreach (var partial in GetTemplatePartials()) {
                 partial.Template = this;
             }
-            
+
             if (!inertPrefab) {
                 Debug.LogWarning("inertPrefab must have a prefab reference");
             }
@@ -52,7 +49,7 @@ namespace Exa.Grids.Blocks
 
         public void AddGridTotals(GridTotals totals) {
             totals.Metadata += metadata;
-            
+
             foreach (var partial in GetTemplatePartials()) {
                 partial.AddGridTotals(totals);
             }
@@ -60,7 +57,7 @@ namespace Exa.Grids.Blocks
 
         public void RemoveGridTotals(GridTotals totals) {
             totals.Metadata -= metadata;
-            
+
             foreach (var partial in GetTemplatePartials()) {
                 partial.RemoveGridTotals(totals);
             }

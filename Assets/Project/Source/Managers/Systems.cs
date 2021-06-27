@@ -1,36 +1,34 @@
-﻿using Exa.Audio;
+﻿using System;
+using System.Collections;
+using Exa.Audio;
+using Exa.Audio.Music;
+using Exa.Camera;
+using Exa.Data;
 using Exa.Debugging;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.Input;
+using Exa.Research;
 using Exa.SceneManagement;
+using Exa.ShipEditor;
 using Exa.UI;
 using Exa.Utils;
-using System;
-using System.Collections;
-using Exa.Audio.Music;
-using Exa.Camera;
-using Exa.Data;
-using Exa.Grids;
-using Exa.Research;
 using UnityEditor;
 using UnityEngine;
 
 #pragma warning disable 649
 
-namespace Exa
-{
+namespace Exa {
     public delegate void DebugChangeDelegate(DebugMode mode);
 
-    public class Systems : MonoSingleton<Systems>
-    {
-        [Header("References")] 
+    public class Systems : MonoSingleton<Systems> {
+        [Header("References")]
         [SerializeField] private BlockFactory blockFactory;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private ColorManager colorManager;
         [SerializeField] private ResearchStore researchStore;
         [SerializeField] private BlueprintManager blueprintManager;
-        [SerializeField] private ShipEditor.GridEditor gridEditor;
+        [SerializeField] private GridEditor gridEditor;
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private ThumbnailGenerator thumbnailGenerator;
         [SerializeField] private DebugManager debugManager;
@@ -41,39 +39,72 @@ namespace Exa
         [SerializeField] private MainUI mainUI;
         [SerializeField] private AtmosphereTrigger atmosphereTrigger;
 
-        [Header("Settings")] 
-        [SerializeField] private bool godModeIsEnabled = false;
-        [SerializeField] private bool loadSafe = false;
+        [Header("Settings")]
+        [SerializeField] private bool godModeIsEnabled;
+        [SerializeField] private bool loadSafe;
 
-        public static BlockFactory Blocks => Instance.blockFactory;
-        public static CameraController CameraController => Instance.cameraController;
-        public static ColorManager Colors => Instance.colorManager;
-        public static ResearchStore Research => Instance.researchStore;
-        public static BlueprintManager Blueprints => Instance.blueprintManager;
-        public static ShipEditor.GridEditor Editor => Instance.gridEditor;
-        public static AudioManager Audio => Instance.audioManager;
-        public static ThumbnailGenerator Thumbnails => Instance.thumbnailGenerator;
-        public static DebugManager Debug => Instance.debugManager;
-        public static InputManager Input => Instance.inputManager;
-        public static SettingsManager Settings => Instance.settingsManager;
-        public static ExaSceneManager Scenes => Instance.sceneManager;
-        public static LoggerInterceptor Logger => Instance.logger;
-        public static MainUI UI => Instance.mainUI;
+        public static BlockFactory Blocks {
+            get => Instance.blockFactory;
+        }
+
+        public static CameraController CameraController {
+            get => Instance.cameraController;
+        }
+
+        public static ColorManager Colors {
+            get => Instance.colorManager;
+        }
+
+        public static ResearchStore Research {
+            get => Instance.researchStore;
+        }
+
+        public static BlueprintManager Blueprints {
+            get => Instance.blueprintManager;
+        }
+
+        public static GridEditor Editor {
+            get => Instance.gridEditor;
+        }
+
+        public static AudioManager Audio {
+            get => Instance.audioManager;
+        }
+
+        public static ThumbnailGenerator Thumbnails {
+            get => Instance.thumbnailGenerator;
+        }
+
+        public static DebugManager Debug {
+            get => Instance.debugManager;
+        }
+
+        public static InputManager Input {
+            get => Instance.inputManager;
+        }
+
+        public static SettingsManager Settings {
+            get => Instance.settingsManager;
+        }
+
+        public static ExaSceneManager Scenes {
+            get => Instance.sceneManager;
+        }
+
+        public static LoggerInterceptor Logger {
+            get => Instance.logger;
+        }
+
+        public static MainUI UI {
+            get => Instance.mainUI;
+        }
 
         public static bool GodModeIsEnabled {
             get => Instance.godModeIsEnabled;
             set => Instance.godModeIsEnabled = value;
         }
 
-        public static bool IsQuitting { get; set; } = false;
-
-        public static void Quit() {
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-        }
+        public static bool IsQuitting { get; set; }
 
         private void Start() {
             var enumerator = loadSafe
@@ -81,6 +112,14 @@ namespace Exa
                 : Load();
 
             StartCoroutine(enumerator);
+        }
+
+        public static void Quit() {
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
         }
 
         [RuntimeInitializeOnLoadMethod]
@@ -136,7 +175,7 @@ namespace Exa
         private void OnLoadException(Exception exception) {
             UI.LoadingScreen.HideScreen("Error");
             UnityEngine.Debug.LogWarning(exception);
-            UI.Logger.LogException($"An error has occurred while loading.\n {exception.Message}", true);
+            UI.Logger.LogException($"An error has occurred while loading.\n {exception.Message}");
         }
     }
 }

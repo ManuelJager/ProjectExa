@@ -1,13 +1,11 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
+﻿using System;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
-using System;
 using Exa.Utils;
 
-namespace Exa.Grids.Blocks
-{
+namespace Exa.Grids.Blocks {
     public abstract class TemplatePartial<T> : TemplatePartialBase, ITemplatePartial<T>
-        where T : struct, IBlockComponentValues
-    {
+        where T : struct, IBlockComponentValues {
         public abstract T ToBaseComponentValues();
 
         public T ToContextfulComponentValues(BlockContext blockContext) {
@@ -26,12 +24,12 @@ namespace Exa.Grids.Blocks
             var partial = GetMarker(block);
             partial.Component.Data = (T) data;
         }
-        
+
         // TODO: Use cached values
         public override void AddGridTotals(GridTotals totals) {
             ToContextfulComponentValues(totals.GetInjectedContext()).AddGridTotals(totals);
         }
-        
+
         // TODO: Use cached values
         public override void RemoveGridTotals(GridTotals totals) {
             ToContextfulComponentValues(totals.GetInjectedContext()).RemoveGridTotals(totals);
@@ -45,6 +43,7 @@ namespace Exa.Grids.Blocks
             if (!(block is IBehaviourMarker<T> partial)) {
                 var partialString = typeof(IBehaviourMarker<T>).ToGenericString();
                 var blockString = block.GetType().ToGenericString();
+
                 throw new Exception($"Partial {partialString} is not supported on block: {blockString}");
             }
 
@@ -56,19 +55,19 @@ namespace Exa.Grids.Blocks
         }
     }
 
-    public abstract class TemplatePartialBase : IGridTotalsModifier
-    {
-        public abstract IBlockComponentValues GetContextlessValues();
-        public abstract IBlockComponentValues GetContextfulValues(BlockContext blockContext);
-
-        public abstract void SetValues(Block block, IBlockComponentValues data);
+    public abstract class TemplatePartialBase : IGridTotalsModifier {
+        public BlockTemplate Template { get; internal set; }
 
         public abstract void AddGridTotals(GridTotals totals);
 
         public abstract void RemoveGridTotals(GridTotals totals);
 
-        public abstract Type GetTargetType();
+        public abstract IBlockComponentValues GetContextlessValues();
 
-        public BlockTemplate Template { get; internal set; }
+        public abstract IBlockComponentValues GetContextfulValues(BlockContext blockContext);
+
+        public abstract void SetValues(Block block, IBlockComponentValues data);
+
+        public abstract Type GetTargetType();
     }
 }

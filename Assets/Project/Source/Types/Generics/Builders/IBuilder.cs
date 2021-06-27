@@ -1,7 +1,5 @@
-﻿namespace Exa.Generics
-{
-    public interface IBuilder<T>
-    {
+﻿namespace Exa.Generics {
+    public interface IBuilder<T> {
         T Build();
     }
 }

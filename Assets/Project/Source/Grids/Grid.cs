@@ -1,54 +1,69 @@
-﻿using Exa.Grids.Blueprints;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Grids.Blueprints;
 using Exa.Types.Binding;
 using Exa.Types.Generics;
 using UnityEngine;
 
-namespace Exa.Grids
-{
+namespace Exa.Grids {
     // TODO: Implement a clear mechanism, so consumers don't need to re-instantiate a grid
     public abstract class Grid<T> : IEnumerable<T>, IMemberCollection
-        where T : class, IGridMember
-    {
-        public event IMemberCollection.MemberChange MemberAdded;
-        public event IMemberCollection.MemberChange MemberRemoved;
-
-        public LazyCache<Vector2Int> Size { get; protected set; }
-        
-        protected ObservableCollection<T> GridMembers { get; set; }
-        protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
-        protected Dictionary<T, List<T>> NeighbourDict { get; set; }
-
-
-        public float MaxSize {
-            get {
-                Vector2Int size = Size;
-                return Mathf.Max(size.x, size.y);
-            }
-        }
-        
+        where T : class, IGridMember {
         protected Grid(
             LazyCache<Vector2Int> size = null,
             ObservableCollection<T> gridMembers = null,
             Dictionary<Vector2Int, T> occupiedTiles = null,
-            Dictionary<T, List<T>> neighbourDict = null) {
-            Size = size ?? new LazyCache<Vector2Int>(() => {
-                var bounds = new GridBounds(OccupiedTiles.Keys);
-                return bounds.GetDelta();
-            });
-            
+            Dictionary<T, List<T>> neighbourDict = null
+        ) {
+            Size = size ??
+                new LazyCache<Vector2Int>(
+                    () => {
+                        var bounds = new GridBounds(OccupiedTiles.Keys);
+
+                        return bounds.GetDelta();
+                    }
+                );
+
             GridMembers = gridMembers ?? new ObservableCollection<T>();
             OccupiedTiles = occupiedTiles ?? new Dictionary<Vector2Int, T>();
             NeighbourDict = neighbourDict ?? new Dictionary<T, List<T>>();
+        }
+
+        public LazyCache<Vector2Int> Size { get; protected set; }
+
+        protected ObservableCollection<T> GridMembers { get; set; }
+        protected Dictionary<Vector2Int, T> OccupiedTiles { get; set; }
+        protected Dictionary<T, List<T>> NeighbourDict { get; set; }
+
+        public float MaxSize {
+            get {
+                Vector2Int size = Size;
+
+                return Mathf.Max(size.x, size.y);
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator() {
+            return GridMembers.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GridMembers.GetEnumerator();
+        }
+
+        public event IMemberCollection.MemberChange MemberAdded;
+        public event IMemberCollection.MemberChange MemberRemoved;
+
+        public IEnumerable<IGridMember> GetMembers() {
+            return GridMembers;
         }
 
         public virtual void Add(T gridMember) {
             Size.Invalidate();
 
             GridMembers.Add(gridMember);
-            
+
             MemberAdded?.Invoke(gridMember);
 
             // Get grid positions of blueprint block
@@ -70,6 +85,7 @@ namespace Exa.Grids
         public virtual T Remove(Vector2Int key) {
             var gridMember = GetMember(key);
             Remove(gridMember);
+
             return gridMember;
         }
 
@@ -80,7 +96,7 @@ namespace Exa.Grids
             var tilePositions = gridMember.GetTileClaims();
 
             GridMembers.Remove(gridMember);
-            
+
             MemberRemoved?.Invoke(gridMember);
 
             // Remove neighbour references
@@ -94,10 +110,6 @@ namespace Exa.Grids
                 OccupiedTiles.Remove(occupiedTile);
             }
         }
-        
-        public IEnumerable<IGridMember> GetMembers() {
-            return GridMembers;
-        }
 
         public bool ContainsMember(Vector2Int gridPos) {
             return OccupiedTiles.ContainsKey(gridPos);
@@ -106,6 +118,7 @@ namespace Exa.Grids
         public bool TryGetMember(Vector2Int gridPos, out T member) {
             var containsMember = ContainsMember(gridPos);
             member = containsMember ? GetMember(gridPos) : null;
+
             return containsMember;
         }
 
@@ -144,14 +157,6 @@ namespace Exa.Grids
 
         public int GetNeighbourCount(T gridMember) {
             return NeighbourDict[gridMember].Count;
-        }
-        
-        public IEnumerator<T> GetEnumerator() {
-            return GridMembers.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GridMembers.GetEnumerator();
         }
     }
 }

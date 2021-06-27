@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Exa.Ships.Targeting
-{
-    public readonly struct ShipTarget : IWeaponTarget
-    {
+namespace Exa.Ships.Targeting {
+    public readonly struct ShipTarget : IWeaponTarget {
         private readonly GridInstance gridInstance;
 
         public ShipTarget(GridInstance gridInstance) {

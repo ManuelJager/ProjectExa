@@ -1,10 +1,8 @@
 ﻿using Exa.Math;
 using UnityEngine;
 
-namespace Exa.Grids
-{
-    public static class GridMemberUtils
-    {
+namespace Exa.Grids {
+    public static class GridMemberUtils {
         public static void SetupGameObject(this IGridMember gridMember, GameObject blockGO) {
             var blueprintBlock = gridMember.BlueprintBlock;
             var gridAnchor = gridMember.GridAnchor;

@@ -1,11 +1,9 @@
-﻿using Exa.UI.Tooltips;
-using System;
+﻿using System;
+using Exa.UI.Tooltips;
 using UnityEngine;
 
-namespace Exa.Types.Generics
-{
-    public struct LabeledValue<T> : ILabeledValue<T>, IEquatable<LabeledValue<T>>, ITooltipComponent
-    {
+namespace Exa.Types.Generics {
+    public struct LabeledValue<T> : ILabeledValue<T>, IEquatable<LabeledValue<T>>, ITooltipComponent {
         public string Label { get; set; }
         public T Value { get; set; }
 
@@ -25,8 +23,7 @@ namespace Exa.Types.Generics
         }
     }
 
-    public interface ILabeledValue<out T>
-    {
+    public interface ILabeledValue<out T> {
         string Label { get; }
         T Value { get; }
     }

@@ -1,59 +1,58 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace NaughtyAttributes.Editor
-{
-	[CustomPropertyDrawer(typeof(InfoBoxAttribute))]
-	public class InfoBoxDecoratorDrawer : DecoratorDrawer
-	{
-		public override float GetHeight()
-		{
-			return GetHelpBoxHeight();
-		}
+namespace NaughtyAttributes.Editor {
+    [CustomPropertyDrawer(typeof(InfoBoxAttribute))]
+    public class InfoBoxDecoratorDrawer : DecoratorDrawer {
+        public override float GetHeight() {
+            return GetHelpBoxHeight();
+        }
 
-		public override void OnGUI(Rect rect)
-		{
-			InfoBoxAttribute infoBoxAttribute = (InfoBoxAttribute)attribute;
+        public override void OnGUI(Rect rect) {
+            var infoBoxAttribute = (InfoBoxAttribute) attribute;
 
-			float indentLength = NaughtyEditorGUI.GetIndentLength(rect);
-			Rect infoBoxRect = new Rect(
-				rect.x + indentLength,
-				rect.y,
-				rect.width - indentLength,
-				GetHelpBoxHeight());
+            var indentLength = NaughtyEditorGUI.GetIndentLength(rect);
 
-			DrawInfoBox(infoBoxRect, infoBoxAttribute.Text, infoBoxAttribute.Type);
-		}
+            var infoBoxRect = new Rect(
+                rect.x + indentLength,
+                rect.y,
+                rect.width - indentLength,
+                GetHelpBoxHeight()
+            );
 
-		private float GetHelpBoxHeight()
-		{
-			InfoBoxAttribute infoBoxAttribute = (InfoBoxAttribute)attribute;
-			float minHeight = EditorGUIUtility.singleLineHeight * 2.0f;
-			float desiredHeight = GUI.skin.box.CalcHeight(new GUIContent(infoBoxAttribute.Text), EditorGUIUtility.currentViewWidth);
-			float height = Mathf.Max(minHeight, desiredHeight);
+            DrawInfoBox(infoBoxRect, infoBoxAttribute.Text, infoBoxAttribute.Type);
+        }
 
-			return height;
-		}
+        private float GetHelpBoxHeight() {
+            var infoBoxAttribute = (InfoBoxAttribute) attribute;
+            var minHeight = EditorGUIUtility.singleLineHeight * 2.0f;
+            var desiredHeight = GUI.skin.box.CalcHeight(new GUIContent(infoBoxAttribute.Text), EditorGUIUtility.currentViewWidth);
+            var height = Mathf.Max(minHeight, desiredHeight);
 
-		private void DrawInfoBox(Rect rect, string infoText, EInfoBoxType infoBoxType)
-		{
-			MessageType messageType = MessageType.None;
-			switch (infoBoxType)
-			{
-				case EInfoBoxType.Normal:
-					messageType = MessageType.Info;
-					break;
+            return height;
+        }
 
-				case EInfoBoxType.Warning:
-					messageType = MessageType.Warning;
-					break;
+        private void DrawInfoBox(Rect rect, string infoText, EInfoBoxType infoBoxType) {
+            var messageType = MessageType.None;
 
-				case EInfoBoxType.Error:
-					messageType = MessageType.Error;
-					break;
-			}
+            switch (infoBoxType) {
+                case EInfoBoxType.Normal:
+                    messageType = MessageType.Info;
 
-			NaughtyEditorGUI.HelpBox(rect, infoText, messageType);
-		}
-	}
+                    break;
+
+                case EInfoBoxType.Warning:
+                    messageType = MessageType.Warning;
+
+                    break;
+
+                case EInfoBoxType.Error:
+                    messageType = MessageType.Error;
+
+                    break;
+            }
+
+            NaughtyEditorGUI.HelpBox(rect, infoText, messageType);
+        }
+    }
 }

@@ -3,10 +3,8 @@ using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.UI.Tooltips
-{
-    public class TooltipFactory : MonoBehaviour
-    {
+namespace Exa.UI.Tooltips {
+    public class TooltipFactory : MonoBehaviour {
         [SerializeField] private GameObject propertyPrefab;
         [SerializeField] private GameObject groupPrefab;
         [SerializeField] private GameObject titlePrefab;
@@ -21,6 +19,7 @@ namespace Exa.UI.Tooltips
             var container = tooltip.GetRootData();
             var root = container.InstantiateComponentView(parent) as GroupView;
             currentTooltip = null;
+
             return root;
         }
 
@@ -55,7 +54,7 @@ namespace Exa.UI.Tooltips
         public BlockCostsView CreateBlockCostsView(Transform parent, BlockCosts metadata) {
             return CreateComponent<BlockCostsView>(metadataPrefab, parent, metadata);
         }
-        
+
         public TextView GenerateTooltipText(Transform parent, TooltipText value) {
             var view = CreateComponent<TextView>(textPrefab, parent, value);
 
@@ -70,6 +69,7 @@ namespace Exa.UI.Tooltips
             where T : TooltipComponentView {
             var component = Instantiate(prefab, parent).GetComponent<T>();
             component.Refresh(value);
+
             return component;
         }
     }

@@ -1,14 +1,16 @@
-﻿using Exa.Data;
+﻿using System.Collections.Generic;
+using Exa.Data;
 using Exa.Generics;
-using Exa.UI.Tooltips;
-using System.Collections.Generic;
 using Exa.Grids.Blocks;
+using Exa.UI.Tooltips;
 
-namespace Exa.Grids
-{
-    public class GridTotals : ICloneable<GridTotals>
-    {
-        private BlockContext context;
+namespace Exa.Grids {
+    public class GridTotals : ICloneable<GridTotals> {
+        private readonly BlockContext context;
+
+        public GridTotals(BlockContext context) {
+            this.context = context;
+        }
 
         public float Mass { get; set; }
         public float Hull { get; set; }
@@ -17,12 +19,22 @@ namespace Exa.Grids
         public Scalar PowerGenerationModifier { get; set; }
         public Scalar TurningPowerModifier { get; set; }
         public BlockMetadata Metadata { get; set; }
-        
-        public float PowerGeneration => PowerGenerationModifier.GetValue(UnscaledPowerGeneration);
-        public float TurningPower => TurningPowerModifier.GetValue(UnscaledTurningPower);
-        
-        public GridTotals(BlockContext context) {
-            this.context = context;
+
+        public float PowerGeneration {
+            get => PowerGenerationModifier.GetValue(UnscaledPowerGeneration);
+        }
+
+        public float TurningPower {
+            get => TurningPowerModifier.GetValue(UnscaledTurningPower);
+        }
+
+        public GridTotals Clone() {
+            return new GridTotals(context) {
+                Mass = Mass,
+                Hull = Hull,
+                PowerGenerationModifier = PowerGenerationModifier,
+                TurningPowerModifier = TurningPowerModifier
+            };
         }
 
         public BlockContext GetInjectedContext() {
@@ -36,16 +48,11 @@ namespace Exa.Grids
             TurningPowerModifier = new Scalar();
         }
 
-        public GridTotals Clone() => new GridTotals(context) {
-            Mass = Mass,
-            Hull = Hull,
-            PowerGenerationModifier = PowerGenerationModifier,
-            TurningPowerModifier = TurningPowerModifier
-        };
-
-        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
-            new TooltipText($"Mass: {Mass}"),
-            new TooltipText($"Hull: {Hull}"),
-        };
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() {
+            return new ITooltipComponent[] {
+                new TooltipText($"Mass: {Mass}"),
+                new TooltipText($"Hull: {Hull}")
+            };
+        }
     }
 }

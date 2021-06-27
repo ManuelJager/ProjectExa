@@ -1,26 +1,23 @@
-﻿using Exa.Math;
-using System.Collections;
+﻿using System.Collections;
 using DG.Tweening;
+using Exa.Math;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.UI.Components
-{
-    public enum AnimationDirection
-    {
+namespace Exa.UI.Components {
+    public enum AnimationDirection {
         none = 0,
         top = 1,
         left = 2,
         bottom = 3,
-        right = 4,
+        right = 4
     }
 
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(CanvasGroup))]
     [DisallowMultipleComponent]
-    public class UIAnimateable : MonoBehaviour
-    {
-        public float msLocalAnimationOffset = 0f;
+    public class UIAnimateable : MonoBehaviour {
+        public float msLocalAnimationOffset;
 
         // movement animation
         public AnimationDirection movementDirection = AnimationDirection.none;
@@ -32,15 +29,15 @@ namespace Exa.UI.Components
         public bool animateAlpha;
 
         public float alphaSpeed = 8f;
-        private float originalAlpha = 0f;
-
-        private Vector2 elementVelocity = Vector2.zero;
-        private Vector2 originalPos;
-
-        private CanvasGroup canvasGroup;
-        private RectTransform rect;
 
         private Tween alphaTween;
+
+        private CanvasGroup canvasGroup;
+
+        private Vector2 elementVelocity = Vector2.zero;
+        private float originalAlpha;
+        private Vector2 originalPos;
+        private RectTransform rect;
 
         private void Awake() {
             canvasGroup = GetComponent<CanvasGroup>();
@@ -52,6 +49,7 @@ namespace Exa.UI.Components
 
             if (animateAlpha) {
                 canvasGroup.alpha = 0f;
+
                 canvasGroup.DOFade(1, 1 / alphaSpeed)
                     .SetDelay(msLocalAnimationOffset / 1000)
                     .Replace(ref alphaTween);
@@ -95,7 +93,8 @@ namespace Exa.UI.Components
                     rect.anchoredPosition,
                     towards,
                     ref elementVelocity,
-                    movementSmoothDamp);
+                    movementSmoothDamp
+                );
 
                 yield return null;
             }

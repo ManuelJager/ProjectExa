@@ -3,72 +3,62 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace NaughtyAttributes.Editor
-{
-	public abstract class SpecialCasePropertyDrawerBase
-	{
-		public void OnGUI(Rect rect, SerializedProperty property)
-		{
-			// Check if visible
-			bool visible = PropertyUtility.IsVisible(property);
-			if (!visible)
-			{
-				return;
-			}
+namespace NaughtyAttributes.Editor {
+    public abstract class SpecialCasePropertyDrawerBase {
+        public void OnGUI(Rect rect, SerializedProperty property) {
+            // Check if visible
+            var visible = PropertyUtility.IsVisible(property);
 
-			// Validate
-			ValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
-			foreach (var validatorAttribute in validatorAttributes)
-			{
-				validatorAttribute.GetValidator().ValidateProperty(property);
-			}
+            if (!visible) {
+                return;
+            }
 
-			// Check if enabled and draw
-			EditorGUI.BeginChangeCheck();
-			bool enabled = PropertyUtility.IsEnabled(property);
+            // Validate
+            var validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
 
-			using (new EditorGUI.DisabledScope(disabled: !enabled))
-			{
-				OnGUI_Internal(rect, property, new GUIContent(PropertyUtility.GetLabel(property)));
-			}
+            foreach (var validatorAttribute in validatorAttributes) {
+                validatorAttribute.GetValidator().ValidateProperty(property);
+            }
 
-			// Call OnValueChanged callbacks
-			if (EditorGUI.EndChangeCheck())
-			{
-				PropertyUtility.CallOnValueChangedCallbacks(property);
-			}
-		}
+            // Check if enabled and draw
+            EditorGUI.BeginChangeCheck();
+            var enabled = PropertyUtility.IsEnabled(property);
 
-		public float GetPropertyHeight(SerializedProperty property)
-		{
-			return GetPropertyHeight_Internal(property);
-		}
+            using (new EditorGUI.DisabledScope(!enabled)) {
+                OnGUI_Internal(rect, property, new GUIContent(PropertyUtility.GetLabel(property)));
+            }
 
-		protected abstract void OnGUI_Internal(Rect rect, SerializedProperty property, GUIContent label);
-		protected abstract float GetPropertyHeight_Internal(SerializedProperty property);
-	}
+            // Call OnValueChanged callbacks
+            if (EditorGUI.EndChangeCheck()) {
+                PropertyUtility.CallOnValueChangedCallbacks(property);
+            }
+        }
 
-	public static class SpecialCaseDrawerAttributeExtensions
-	{
-		private static Dictionary<Type, SpecialCasePropertyDrawerBase> _drawersByAttributeType;
+        public float GetPropertyHeight(SerializedProperty property) {
+            return GetPropertyHeight_Internal(property);
+        }
 
-		static SpecialCaseDrawerAttributeExtensions()
-		{
-			_drawersByAttributeType = new Dictionary<Type, SpecialCasePropertyDrawerBase>();
-			_drawersByAttributeType[typeof(ReorderableListAttribute)] = ReorderableListPropertyDrawer.Instance;
-		}
+        protected abstract void OnGUI_Internal(Rect rect, SerializedProperty property, GUIContent label);
 
-		public static SpecialCasePropertyDrawerBase GetDrawer(this SpecialCaseDrawerAttribute attr)
-		{
-			SpecialCasePropertyDrawerBase drawer;
-			if (_drawersByAttributeType.TryGetValue(attr.GetType(), out drawer))
-			{
-				return drawer;
-			}
-			else
-			{
-				return null;
-			}
-		}
-	}
+        protected abstract float GetPropertyHeight_Internal(SerializedProperty property);
+    }
+
+    public static class SpecialCaseDrawerAttributeExtensions {
+        private static readonly Dictionary<Type, SpecialCasePropertyDrawerBase> _drawersByAttributeType;
+
+        static SpecialCaseDrawerAttributeExtensions() {
+            _drawersByAttributeType = new Dictionary<Type, SpecialCasePropertyDrawerBase>();
+            _drawersByAttributeType[typeof(ReorderableListAttribute)] = ReorderableListPropertyDrawer.Instance;
+        }
+
+        public static SpecialCasePropertyDrawerBase GetDrawer(this SpecialCaseDrawerAttribute attr) {
+            SpecialCasePropertyDrawerBase drawer;
+
+            if (_drawersByAttributeType.TryGetValue(attr.GetType(), out drawer)) {
+                return drawer;
+            }
+
+            return null;
+        }
+    }
 }

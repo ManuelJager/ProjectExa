@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace Exa.Types
-{
-    public class MarkerContainer
-    {
+namespace Exa.Types {
+    public class MarkerContainer {
+        private readonly Action<bool> onChangeContainsItem;
         private int count;
-        private Action<bool> onChangeContainsItem;
 
         public MarkerContainer(Action<bool> onChangeContainsItem) {
             this.onChangeContainsItem = onChangeContainsItem;

@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace Exa.ShipEditor
-{
+namespace Exa.ShipEditor {
     [Flags]
-    public enum BlockFlip
-    {
+    public enum BlockFlip {
         None = 0,
         FlipX = 1 << 0,
         FlipY = 2 << 0,

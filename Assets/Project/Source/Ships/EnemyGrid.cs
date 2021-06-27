@@ -7,13 +7,19 @@ using Exa.Math;
 using Exa.Ships.Navigation;
 using UnityEngine;
 
-namespace Exa.Ships
-{
-    public class EnemyGrid : GridInstance, IDebugDragable
-    {
+namespace Exa.Ships {
+    public class EnemyGrid : GridInstance, IDebugDragable {
+        [SerializeField] private NavigationOptions navigationOptions;
         public INavigation Navigation { get; private set; }
 
-        [SerializeField] private NavigationOptions navigationOptions;
+        public Vector2 GetDebugDraggerPosition() {
+            return transform.position;
+        }
+
+        public void SetDebugDraggerGlobals(Vector2 position, Vector2 velocity) {
+            transform.position = position;
+            Rigidbody2D.velocity = velocity;
+        }
 
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             Navigation = navigationOptions.GetNavigation(this, blueprint);
@@ -40,15 +46,6 @@ namespace Exa.Ships
 
         public override void SetPosition(Vector2 position) {
             transform.position = position - Rigidbody2D.centerOfMass.Rotate(-Rigidbody2D.rotation);
-        }
-
-        public Vector2 GetDebugDraggerPosition() {
-            return transform.position;
-        }
-
-        public void SetDebugDraggerGlobals(Vector2 position, Vector2 velocity) {
-            transform.position = position;
-            Rigidbody2D.velocity = velocity;
         }
     }
 }

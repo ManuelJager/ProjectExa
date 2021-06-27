@@ -1,22 +1,32 @@
-﻿using Exa.Grids.Blueprints;
+﻿using System;
+using Exa.Grids.Blueprints;
 using Exa.Math;
+using Exa.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.IO.Json
-{
-    public class BlueprintBlocksConverter : JsonConverter<BlueprintGrid>
-    {
-        public static readonly string[] SEPARATORS = {"(", ",", ")"};
+namespace Exa.IO.Json {
+    public class BlueprintBlocksConverter : JsonConverter<BlueprintGrid> {
+        public static readonly string[] SEPARATORS = {
+            "(",
+            ",",
+            ")"
+        };
 
-        public override BlueprintGrid ReadJson(JsonReader reader, Type objectType, BlueprintGrid existingValue,
-            bool hasExistingValue, JsonSerializer serializer) {
-            if (reader.TokenType == JsonToken.Null) return null;
+        public override BlueprintGrid ReadJson(
+            JsonReader reader,
+            Type objectType,
+            BlueprintGrid existingValue,
+            bool hasExistingValue,
+            JsonSerializer serializer
+        ) {
+            if (reader.TokenType == JsonToken.Null) {
+                return null;
+            }
 
             var blocks = new BlueprintGrid();
+
             foreach (var pair in JObject.Load(reader).Unpack()) {
                 var vector = pair.key.Split(SEPARATORS, StringSplitOptions.RemoveEmptyEntries);
 
@@ -35,6 +45,7 @@ namespace Exa.IO.Json
 
         public override void WriteJson(JsonWriter writer, BlueprintGrid value, JsonSerializer serializer) {
             writer.WriteStartObject();
+
             foreach (var pair in value) {
                 writer.WritePropertyName(pair.GridAnchor.ToShortString());
                 serializer.Serialize(writer, pair.BlueprintBlock);

@@ -1,7 +1,5 @@
 ﻿using Exa.Validation;
 
-namespace Exa.ShipEditor
-{
-    public class DisconnectedBlocksError : ValidationError
-    { }
+namespace Exa.ShipEditor {
+    public class DisconnectedBlocksError : ValidationError { }
 }

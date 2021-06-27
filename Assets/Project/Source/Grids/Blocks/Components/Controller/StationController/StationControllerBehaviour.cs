@@ -1,5 +1,3 @@
-﻿namespace Exa.Grids.Blocks.Components
-{
-    public class StationControllerBehaviour : BlockBehaviour<StationControllerData>
-    { }
+﻿namespace Exa.Grids.Blocks.Components {
+    public class StationControllerBehaviour : BlockBehaviour<StationControllerData> { }
 }

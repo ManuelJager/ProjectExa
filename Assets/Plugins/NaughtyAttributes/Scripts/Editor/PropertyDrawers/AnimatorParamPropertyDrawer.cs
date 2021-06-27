@@ -1,173 +1,163 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace NaughtyAttributes.Editor
-{
-	[CustomPropertyDrawer(typeof(AnimatorParamAttribute))]
-	public class AnimatorParamPropertyDrawer : PropertyDrawerBase
-	{
-		private const string InvalidAnimatorControllerWarningMessage = "Target animator controller is null";
-		private const string InvalidTypeWarningMessage = "{0} must be an int or a string";
+namespace NaughtyAttributes.Editor {
+    [CustomPropertyDrawer(typeof(AnimatorParamAttribute))]
+    public class AnimatorParamPropertyDrawer : PropertyDrawerBase {
+        private const string InvalidAnimatorControllerWarningMessage = "Target animator controller is null";
+        private const string InvalidTypeWarningMessage = "{0} must be an int or a string";
 
-		protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
-		{
-			AnimatorParamAttribute animatorParamAttribute = PropertyUtility.GetAttribute<AnimatorParamAttribute>(property);
-			bool validAnimatorController = GetAnimatorController(property, animatorParamAttribute.AnimatorName) != null;
-			bool validPropertyType = property.propertyType == SerializedPropertyType.Integer || property.propertyType == SerializedPropertyType.String;
+        protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label) {
+            var animatorParamAttribute = PropertyUtility.GetAttribute<AnimatorParamAttribute>(property);
+            var validAnimatorController = GetAnimatorController(property, animatorParamAttribute.AnimatorName) != null;
+            var validPropertyType = property.propertyType == SerializedPropertyType.Integer || property.propertyType == SerializedPropertyType.String;
 
-			return (validAnimatorController && validPropertyType)
-				? GetPropertyHeight(property)
-				: GetPropertyHeight(property) + GetHelpBoxHeight();
-		}
+            return validAnimatorController && validPropertyType
+                ? GetPropertyHeight(property)
+                : GetPropertyHeight(property) + GetHelpBoxHeight();
+        }
 
-		protected override void OnGUI_Internal(Rect rect, SerializedProperty property, GUIContent label)
-		{
-			AnimatorParamAttribute animatorParamAttribute = PropertyUtility.GetAttribute<AnimatorParamAttribute>(property);
+        protected override void OnGUI_Internal(Rect rect, SerializedProperty property, GUIContent label) {
+            var animatorParamAttribute = PropertyUtility.GetAttribute<AnimatorParamAttribute>(property);
 
-			AnimatorController animatorController = GetAnimatorController(property, animatorParamAttribute.AnimatorName);
-			if (animatorController == null)
-			{
-				DrawDefaultPropertyAndHelpBox(rect, property, InvalidAnimatorControllerWarningMessage, MessageType.Warning);
-				return;
-			}
+            var animatorController = GetAnimatorController(property, animatorParamAttribute.AnimatorName);
 
-			int parametersCount = animatorController.parameters.Length;
-			List<AnimatorControllerParameter> animatorParameters = new List<AnimatorControllerParameter>(parametersCount);
-			for (int i = 0; i < parametersCount; i++)
-			{
-				AnimatorControllerParameter parameter = animatorController.parameters[i];
-				if (animatorParamAttribute.AnimatorParamType == null || parameter.type == animatorParamAttribute.AnimatorParamType)
-				{
-					animatorParameters.Add(parameter);
-				}
-			}
+            if (animatorController == null) {
+                DrawDefaultPropertyAndHelpBox(rect, property, InvalidAnimatorControllerWarningMessage, MessageType.Warning);
 
-			switch (property.propertyType)
-			{
-				case SerializedPropertyType.Integer:
-					DrawPropertyForInt(rect, property, label, animatorParameters);
-					break;
-				case SerializedPropertyType.String:
-					DrawPropertyForString(rect, property, label, animatorParameters);
-					break;
-				default:
-					DrawDefaultPropertyAndHelpBox(rect, property, string.Format(InvalidTypeWarningMessage, property.name), MessageType.Warning);
-					break;
-			}
-		}
+                return;
+            }
 
-		private static void DrawPropertyForInt(Rect rect, SerializedProperty property, GUIContent label, List<AnimatorControllerParameter> animatorParameters)
-		{
-			int paramNameHash = property.intValue;
-			int index = 0;
+            var parametersCount = animatorController.parameters.Length;
+            var animatorParameters = new List<AnimatorControllerParameter>(parametersCount);
 
-			for (int i = 0; i < animatorParameters.Count; i++)
-			{
-				if (paramNameHash == animatorParameters[i].nameHash)
-				{
-					index = i + 1; // +1 because the first option is reserved for (None)
-					break;
-				}
-			}
+            for (var i = 0; i < parametersCount; i++) {
+                var parameter = animatorController.parameters[i];
 
-			string[] displayOptions = GetDisplayOptions(animatorParameters);
+                if (animatorParamAttribute.AnimatorParamType == null || parameter.type == animatorParamAttribute.AnimatorParamType) {
+                    animatorParameters.Add(parameter);
+                }
+            }
 
-			int newIndex = EditorGUI.Popup(rect, label.text, index, displayOptions);
-			if (newIndex == 0)
-			{
-				property.intValue = 0;
-			}
-			else
-			{
-				property.intValue = animatorParameters[newIndex - 1].nameHash;
-			}
-		}
+            switch (property.propertyType) {
+                case SerializedPropertyType.Integer:
+                    DrawPropertyForInt(rect, property, label, animatorParameters);
 
-		private static void DrawPropertyForString(Rect rect, SerializedProperty property, GUIContent label, List<AnimatorControllerParameter> animatorParameters)
-		{
-			string paramName = property.stringValue;
-			int index = 0;
+                    break;
+                case SerializedPropertyType.String:
+                    DrawPropertyForString(rect, property, label, animatorParameters);
 
-			for (int i = 0; i < animatorParameters.Count; i++)
-			{
-				if (paramName == animatorParameters[i].name)
-				{
-					index = i + 1; // +1 because the first option is reserved for (None)
-					break;
-				}
-			}
+                    break;
+                default:
+                    DrawDefaultPropertyAndHelpBox(rect, property, string.Format(InvalidTypeWarningMessage, property.name), MessageType.Warning);
 
-			string[] displayOptions = GetDisplayOptions(animatorParameters);
+                    break;
+            }
+        }
 
-			int newIndex = EditorGUI.Popup(rect, label.text, index, displayOptions);
-			if (newIndex == 0)
-			{
-				property.stringValue = null;
-			}
-			else
-			{
-				property.stringValue = animatorParameters[newIndex - 1].name;
-			}
-		}
+        private static void DrawPropertyForInt(Rect rect, SerializedProperty property, GUIContent label, List<AnimatorControllerParameter> animatorParameters) {
+            var paramNameHash = property.intValue;
+            var index = 0;
 
-		private static string[] GetDisplayOptions(List<AnimatorControllerParameter> animatorParams)
-		{
-			string[] displayOptions = new string[animatorParams.Count + 1];
-			displayOptions[0] = "(None)";
+            for (var i = 0; i < animatorParameters.Count; i++) {
+                if (paramNameHash == animatorParameters[i].nameHash) {
+                    index = i + 1; // +1 because the first option is reserved for (None)
 
-			for (int i = 0; i < animatorParams.Count; i++)
-			{
-				displayOptions[i + 1] = animatorParams[i].name;
-			}
+                    break;
+                }
+            }
 
-			return displayOptions;
-		}
+            var displayOptions = GetDisplayOptions(animatorParameters);
 
-		private static AnimatorController GetAnimatorController(SerializedProperty property, string animatorName)
-		{
-			object target = PropertyUtility.GetTargetObjectWithProperty(property);
+            var newIndex = EditorGUI.Popup(rect, label.text, index, displayOptions);
 
-			FieldInfo animatorFieldInfo = ReflectionUtility.GetField(target, animatorName);
-			if (animatorFieldInfo != null &&
-				animatorFieldInfo.FieldType == typeof(Animator))
-			{
-				Animator animator = animatorFieldInfo.GetValue(target) as Animator;
-				if (animator != null)
-				{
-					AnimatorController animatorController = animator.runtimeAnimatorController as AnimatorController;
-					return animatorController;
-				}
-			}
+            if (newIndex == 0) {
+                property.intValue = 0;
+            } else {
+                property.intValue = animatorParameters[newIndex - 1].nameHash;
+            }
+        }
 
-			PropertyInfo animatorPropertyInfo = ReflectionUtility.GetProperty(target, animatorName);
-			if (animatorPropertyInfo != null &&
-				animatorPropertyInfo.PropertyType == typeof(Animator))
-			{
-				Animator animator = animatorPropertyInfo.GetValue(target) as Animator;
-				if (animator != null)
-				{
-					AnimatorController animatorController = animator.runtimeAnimatorController as AnimatorController;
-					return animatorController;
-				}
-			}
+        private static void DrawPropertyForString(Rect rect, SerializedProperty property, GUIContent label, List<AnimatorControllerParameter> animatorParameters) {
+            var paramName = property.stringValue;
+            var index = 0;
 
-			MethodInfo animatorGetterMethodInfo = ReflectionUtility.GetMethod(target, animatorName);
-			if (animatorGetterMethodInfo != null &&
-				animatorGetterMethodInfo.ReturnType == typeof(Animator) &&
-				animatorGetterMethodInfo.GetParameters().Length == 0)
-			{
-				Animator animator = animatorGetterMethodInfo.Invoke(target, null) as Animator;
-				if (animator != null)
-				{
-					AnimatorController animatorController = animator.runtimeAnimatorController as AnimatorController;
-					return animatorController;
-				}
-			}
+            for (var i = 0; i < animatorParameters.Count; i++) {
+                if (paramName == animatorParameters[i].name) {
+                    index = i + 1; // +1 because the first option is reserved for (None)
 
-			return null;
-		}
-	}
+                    break;
+                }
+            }
+
+            var displayOptions = GetDisplayOptions(animatorParameters);
+
+            var newIndex = EditorGUI.Popup(rect, label.text, index, displayOptions);
+
+            if (newIndex == 0) {
+                property.stringValue = null;
+            } else {
+                property.stringValue = animatorParameters[newIndex - 1].name;
+            }
+        }
+
+        private static string[] GetDisplayOptions(List<AnimatorControllerParameter> animatorParams) {
+            var displayOptions = new string[animatorParams.Count + 1];
+            displayOptions[0] = "(None)";
+
+            for (var i = 0; i < animatorParams.Count; i++) {
+                displayOptions[i + 1] = animatorParams[i].name;
+            }
+
+            return displayOptions;
+        }
+
+        private static AnimatorController GetAnimatorController(SerializedProperty property, string animatorName) {
+            var target = PropertyUtility.GetTargetObjectWithProperty(property);
+
+            var animatorFieldInfo = ReflectionUtility.GetField(target, animatorName);
+
+            if (animatorFieldInfo != null &&
+                animatorFieldInfo.FieldType == typeof(Animator)) {
+                var animator = animatorFieldInfo.GetValue(target) as Animator;
+
+                if (animator != null) {
+                    var animatorController = animator.runtimeAnimatorController as AnimatorController;
+
+                    return animatorController;
+                }
+            }
+
+            var animatorPropertyInfo = ReflectionUtility.GetProperty(target, animatorName);
+
+            if (animatorPropertyInfo != null &&
+                animatorPropertyInfo.PropertyType == typeof(Animator)) {
+                var animator = animatorPropertyInfo.GetValue(target) as Animator;
+
+                if (animator != null) {
+                    var animatorController = animator.runtimeAnimatorController as AnimatorController;
+
+                    return animatorController;
+                }
+            }
+
+            var animatorGetterMethodInfo = ReflectionUtility.GetMethod(target, animatorName);
+
+            if (animatorGetterMethodInfo != null &&
+                animatorGetterMethodInfo.ReturnType == typeof(Animator) &&
+                animatorGetterMethodInfo.GetParameters().Length == 0) {
+                var animator = animatorGetterMethodInfo.Invoke(target, null) as Animator;
+
+                if (animator != null) {
+                    var animatorController = animator.runtimeAnimatorController as AnimatorController;
+
+                    return animatorController;
+                }
+            }
+
+            return null;
+        }
+    }
 }

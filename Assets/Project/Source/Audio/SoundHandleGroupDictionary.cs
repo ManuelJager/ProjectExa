@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Exa.Audio
-{
-    public class SoundHandleGroupDictionary
-    {
+namespace Exa.Audio {
+    public class SoundHandleGroupDictionary {
         private readonly Dictionary<string, SoundHandleGroup> dict = new Dictionary<string, SoundHandleGroup>();
+
+        public IEnumerable<SoundHandleGroup> Handles {
+            get => dict.Values;
+        }
 
         public void Add(SoundHandle handle) {
             dict[handle.sound.Id].Add(handle);
@@ -20,10 +22,6 @@ namespace Exa.Audio
 
         public void Clear() {
             dict.Clear();
-        }
-
-        public IEnumerable<SoundHandleGroup> Handles {
-            get => dict.Values;
         }
     }
 }

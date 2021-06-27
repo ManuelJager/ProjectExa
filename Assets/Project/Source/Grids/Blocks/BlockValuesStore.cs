@@ -1,16 +1,14 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
+﻿using System;
 using System.Collections.Generic;
-using System;
 using System.Linq;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Research;
 using Exa.UI.Tooltips;
 using Exa.Utils;
 
-namespace Exa.Grids.Blocks
-{
-    public class BlockValuesStore
-    {
+namespace Exa.Grids.Blocks {
+    public class BlockValuesStore {
         private readonly Dictionary<BlockContext, BundleDictionary> contextDict;
 
         public BlockValuesStore() {
@@ -45,7 +43,7 @@ namespace Exa.Grids.Blocks
             return GetUpdatedBundle(blockContext, blockTemplate).tooltip;
         }
 
-        public T GetValues<T>(BlockContext blockContext, BlockTemplate blockTemplate) 
+        public T GetValues<T>(BlockContext blockContext, BlockTemplate blockTemplate)
             where T : struct, IBlockComponentValues {
             var bundle = GetUpdatedBundle(blockContext, blockTemplate);
 
@@ -65,11 +63,13 @@ namespace Exa.Grids.Blocks
             foreach (var value in bundle.valuesCache.Values) {
                 if (value.GetType() == typeof(T)) {
                     output = (T) value;
+
                     return true;
                 }
             }
 
             output = default;
+
             return true;
         }
 
@@ -96,7 +96,7 @@ namespace Exa.Grids.Blocks
         }
 
         /// <summary>
-        /// Computes the template values cache for a given template in a given block context
+        ///     Computes the template values cache for a given template in a given block context
         /// </summary>
         /// <param name="blockContext">Block context</param>
         /// <param name="template">Block template</param>
@@ -109,8 +109,7 @@ namespace Exa.Grids.Blocks
                 try {
                     var data = partial.GetContextfulValues(blockContext);
                     dict.Add(partial, data);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new Exception($"Exception while setting values of {partial.GetType().Name} partial", e);
                 }
             }
@@ -134,11 +133,9 @@ namespace Exa.Grids.Blocks
             return contextDict[context].Values.Where(Filter);
         }
 
-        private class BundleDictionary : Dictionary<BlockTemplate, TemplateBundle>
-        { }
+        private class BundleDictionary : Dictionary<BlockTemplate, TemplateBundle> { }
 
-        private class TemplateValuesCache : Dictionary<TemplatePartialBase, IBlockComponentValues>
-        {
+        private class TemplateValuesCache : Dictionary<TemplatePartialBase, IBlockComponentValues> {
             public void ApplyValues(Block block) {
                 foreach (var (templatePartial, values) in this.Unpack()) {
                     templatePartial.SetValues(block, values);
@@ -146,22 +143,23 @@ namespace Exa.Grids.Blocks
             }
         }
 
-        private class TemplateBundle
-        {
-            public BlockTemplate template;
-            public TemplateValuesCache valuesCache;
-            public bool valuesAreDirty;
+        private class TemplateBundle {
             public readonly Tooltip tooltip;
+            public BlockTemplate template;
+            public bool valuesAreDirty;
+            public TemplateValuesCache valuesCache;
 
             public TemplateBundle() {
                 tooltip = new Tooltip(GetTooltipGroup);
             }
 
-            private TooltipGroup GetTooltipGroup() => new TooltipGroup(SelectTooltipComponents());
+            private TooltipGroup GetTooltipGroup() {
+                return new TooltipGroup(SelectTooltipComponents());
+            }
 
             private IEnumerable<ITooltipComponent> SelectTooltipComponents() {
                 var components = new List<ITooltipComponent> {
-                    new TooltipTitle(template.displayId), 
+                    new TooltipTitle(template.displayId),
                     template.metadata.blockCosts
                 };
 

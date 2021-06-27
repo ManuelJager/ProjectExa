@@ -1,7 +1,3 @@
-﻿namespace Exa.Research
-{
-    public class DynamicResearchStep
-    {
-        
-    }
+﻿namespace Exa.Research {
+    public class DynamicResearchStep { }
 }

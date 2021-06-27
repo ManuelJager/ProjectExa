@@ -5,10 +5,8 @@ using Exa.UI.Tooltips;
 using UCommandConsole;
 using UnityEngine;
 
-namespace Exa.UI
-{
-    public class MainUI : MonoBehaviour
-    {
+namespace Exa.UI {
+    public class MainUI : MonoBehaviour {
         [SerializeField] private Canvas rootCanvas;
         [SerializeField] private RectTransform rootTransform;
         [SerializeField] private LoadingScreen loadingScreen;
@@ -23,19 +21,57 @@ namespace Exa.UI
         [SerializeField] private ControlFactory controlFactory;
         [SerializeField] private WipScreen wipScreen;
 
-        public Canvas RootCanvas => rootCanvas;
-        public RectTransform RootTransform => rootTransform;
-        public LoadingScreen LoadingScreen => loadingScreen;
-        public ShipEditorOverlay EditorOverlay => editorOverlay;
-        public RootNavigation Root => root;
-        public VariableTooltipManager Tooltips => tooltips;
-        public Console Console => console;
-        public NotificationLogger Logger => logger;
-        public MouseCursorController MouseCursor => mouseCursor;
-        public PromptController Prompts => promptController;
-        public DiagnosticsPanel Diagnostics => diagnostics;
-        public ControlFactory Controls => controlFactory;
-        public WipScreen WipScreen => wipScreen;
+        public Canvas RootCanvas {
+            get => rootCanvas;
+        }
+
+        public RectTransform RootTransform {
+            get => rootTransform;
+        }
+
+        public LoadingScreen LoadingScreen {
+            get => loadingScreen;
+        }
+
+        public ShipEditorOverlay EditorOverlay {
+            get => editorOverlay;
+        }
+
+        public RootNavigation Root {
+            get => root;
+        }
+
+        public VariableTooltipManager Tooltips {
+            get => tooltips;
+        }
+
+        public Console Console {
+            get => console;
+        }
+
+        public NotificationLogger Logger {
+            get => logger;
+        }
+
+        public MouseCursorController MouseCursor {
+            get => mouseCursor;
+        }
+
+        public PromptController Prompts {
+            get => promptController;
+        }
+
+        public DiagnosticsPanel Diagnostics {
+            get => diagnostics;
+        }
+
+        public ControlFactory Controls {
+            get => controlFactory;
+        }
+
+        public WipScreen WipScreen {
+            get => wipScreen;
+        }
 
         private void Awake() {
             console.Initialize();

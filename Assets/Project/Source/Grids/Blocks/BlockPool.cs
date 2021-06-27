@@ -1,10 +1,8 @@
 ﻿using Exa.Grids.Blocks.BlockTypes;
 using Exa.Pooling;
 
-namespace Exa.Grids.Blocks
-{
-    public class BlockPool : Pool<BlockPoolMember>
-    {
+namespace Exa.Grids.Blocks {
+    public class BlockPool : Pool<BlockPoolMember> {
         public BlockContext blockContext;
         public BlockTemplate blockTemplate;
 
@@ -12,6 +10,7 @@ namespace Exa.Grids.Blocks
             var member = base.Retrieve();
             var block = member.block;
             Systems.Blocks.Values.SetValues(blockContext, blockTemplate, block);
+
             return member;
         }
 
@@ -20,6 +19,7 @@ namespace Exa.Grids.Blocks
             var block = member.gameObject.GetComponent<Block>();
             block.blockPoolMember = member;
             member.block = block;
+
             return member;
         }
     }

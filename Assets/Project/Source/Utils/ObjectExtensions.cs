@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 
-namespace Exa.Utils
-{
-    public static class ObjectExtensions
-    {
+namespace Exa.Utils {
+    public static class ObjectExtensions {
         public static GameObject Instantiate(GameObject prefab, Transform parent, string namePrefix = null) {
             var go = Object.Instantiate(prefab, parent);
             go.name = $"{namePrefix}: {go.GetInstanceID()}";
+
             return go;
         }
 

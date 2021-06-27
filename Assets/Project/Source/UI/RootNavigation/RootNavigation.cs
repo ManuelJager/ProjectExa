@@ -4,10 +4,8 @@ using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.UI
-{
-    public class RootNavigation : MonoBehaviour
-    {
+namespace Exa.UI {
+    public class RootNavigation : MonoBehaviour {
         public InteractableAdapter interactableAdapter;
         public BlueprintSelector blueprintSelector;
         [SerializeField] private SettingsManager settings;

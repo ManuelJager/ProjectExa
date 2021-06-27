@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Exa.UI.Tooltips
-{
-    public struct TooltipTitle : ITooltipComponent
-    {
+namespace Exa.UI.Tooltips {
+    public struct TooltipTitle : ITooltipComponent {
         private readonly bool animated;
 
-        public string Text { get; private set; }
+        public string Text { get; }
 
         public TooltipTitle(string text, bool animated = true) {
             this.animated = animated;

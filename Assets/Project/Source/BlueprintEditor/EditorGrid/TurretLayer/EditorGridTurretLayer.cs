@@ -6,16 +6,14 @@ using Exa.Utils;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Exa.ShipEditor
-{
-    public class EditorGridTurretLayer : CustomEditorGridLayer<ITurretTemplate>
-    {
+namespace Exa.ShipEditor {
+    public class EditorGridTurretLayer : CustomEditorGridLayer<ITurretTemplate> {
         [SerializeField] private GameObject basePrefab;
         [SerializeField] private Transform prefabContainer;
         [SerializeField] private Transform instanceContainer;
+        private Dictionary<ABpBlock, TurretOverlay> overlayInstances;
 
         private Dictionary<ITurretTemplate, GameObject> overlayPrefabs;
-        private Dictionary<ABpBlock, TurretOverlay> overlayInstances;
         private bool overlayVisibility;
 
         public bool OverlayVisibility {
@@ -33,8 +31,9 @@ namespace Exa.ShipEditor
             TurretBlocks = new TurretBlocks(this);
             overlayPrefabs = new Dictionary<ITurretTemplate, GameObject>();
             overlayInstances = new Dictionary<ABpBlock, TurretOverlay>();
-            
+
             var templates = Systems.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
+
             foreach (var template in templates) {
                 GenerateTurretOverlayPrefab(template);
             }
@@ -51,16 +50,18 @@ namespace Exa.ShipEditor
 
         public TurretOverlay CreateStationaryOverlay(ABpBlock block, ITurretTemplate template) {
             var overlay = CreateOverlay(block, template);
-            overlay.SetColor(Color.white.SetAlpha(0.5f)); 
+            overlay.SetColor(Color.white.SetAlpha(0.5f));
             overlay.Presenter.Present(block);
             overlay.SetVisibility(overlayVisibility);
             overlayInstances[block] = overlay;
+
             return overlay;
         }
 
         private TurretOverlay CreateOverlay(ABpBlock block, ITurretTemplate template) {
             var overlay = overlayPrefabs[template].Create<TurretOverlay>(instanceContainer);
             overlay.Import(block);
+
             return overlay;
         }
 

@@ -1,8 +1,5 @@
 ﻿using System;
 
-namespace NaughtyAttributes
-{
-	public class SpecialCaseDrawerAttribute : Attribute, INaughtyAttribute
-	{
-	}
+namespace NaughtyAttributes {
+    public class SpecialCaseDrawerAttribute : Attribute, INaughtyAttribute { }
 }

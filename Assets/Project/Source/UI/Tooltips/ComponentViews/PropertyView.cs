@@ -3,12 +3,10 @@ using Exa.Types.Generics;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.UI.Tooltips
-{
+namespace Exa.UI.Tooltips {
     [Serializable]
-    public class PropertyView : TooltipComponentView<LabeledValue<object>>
-    {
-        [Header("References")] 
+    public class PropertyView : TooltipComponentView<LabeledValue<object>> {
+        [Header("References")]
         [SerializeField] private Text keyText;
         [SerializeField] private Text valueText;
 

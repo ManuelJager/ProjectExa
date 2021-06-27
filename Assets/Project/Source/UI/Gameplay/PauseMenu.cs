@@ -1,12 +1,10 @@
 ﻿using System;
 using Exa.UI.Components;
 
-namespace Exa.UI.Gameplay
-{
-    public class PauseMenu : ReturnNavigateable
-    {
+namespace Exa.UI.Gameplay {
+    public class PauseMenu : ReturnNavigateable {
         public bool Paused { get; private set; }
-        
+
         public override void HandleEnter(NavigationArgs args) {
             GS.Raycaster.IsRaycasting = false;
             Paused = true;

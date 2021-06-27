@@ -1,11 +1,9 @@
-﻿namespace Exa.Research
-{
+﻿namespace Exa.Research {
     /// <summary>
-    /// Denotes the step in which the modifier is applied
+    ///     Denotes the step in which the modifier is applied
     /// </summary>
-    public enum ValueModificationOrder
-    {
+    public enum ValueModificationOrder {
         Addition,
-        Multiplicative,
+        Multiplicative
     }
 }

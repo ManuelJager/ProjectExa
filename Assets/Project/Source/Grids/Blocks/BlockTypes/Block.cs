@@ -1,35 +1,28 @@
 ﻿using System;
-using Exa.Ships;
+using System.Collections.Generic;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
-using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
+using Exa.Ships;
 using Exa.Utils;
+using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Grids.Blocks.BlockTypes
-{
+namespace Exa.Grids.Blocks.BlockTypes {
     /// <summary>
-    /// Base class for blocks
+    ///     Base class for blocks
     /// </summary>
-    public class Block : MonoBehaviour, IGridMember, IPhysical
-    {
-        [NonSerialized] public ABpBlock aBpBlock;
+    public class Block : MonoBehaviour, IGridMember, IPhysical {
         [HideInInspector] public BlockPoolMember blockPoolMember;
-        
+
         [SerializeField] private PhysicalBehaviour physicalBehaviour;
-        [SerializeField, HideInInspector] private new BoxCollider2D collider;
+        [SerializeField] [HideInInspector] private new BoxCollider2D collider;
+        [NonSerialized] public ABpBlock aBpBlock;
         private IGridInstance parent;
 
-        public Vector2Int GridAnchor => aBpBlock.gridAnchor;
-
-        public BlueprintBlock BlueprintBlock => aBpBlock.blueprintBlock;
-
-        BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component => physicalBehaviour;
-
-        public PhysicalBehaviour PhysicalBehaviour => physicalBehaviour;
+        public PhysicalBehaviour PhysicalBehaviour {
+            get => physicalBehaviour;
+        }
 
         public BoxCollider2D Collider {
             get => collider;
@@ -39,7 +32,9 @@ namespace Exa.Grids.Blocks.BlockTypes
         public IGridInstance Parent {
             get => parent;
             set {
-                if (parent == value) return;
+                if (parent == value) {
+                    return;
+                }
 
                 if (parent != null && !Systems.IsQuitting) {
                     OnRemove();
@@ -57,14 +52,49 @@ namespace Exa.Grids.Blocks.BlockTypes
             }
         }
 
-        public GridInstance GridInstance => Parent as GridInstance;
+        public GridInstance GridInstance {
+            get => Parent as GridInstance;
+        }
+
+        public Vector2Int GridAnchor {
+            get => aBpBlock.gridAnchor;
+        }
+
+        public BlueprintBlock BlueprintBlock {
+            get => aBpBlock.blueprintBlock;
+        }
+
+        public void AddGridTotals(GridTotals totals) {
+            totals.Metadata += BlueprintBlock.Template.metadata;
+
+            foreach (var behaviour in GetBehaviours()) {
+                behaviour.BlockComponentData.AddGridTotals(totals);
+            }
+        }
+
+        public void RemoveGridTotals(GridTotals totals) {
+            totals.Metadata += BlueprintBlock.Template.metadata;
+
+            foreach (var behaviour in GetBehaviours()) {
+                behaviour.BlockComponentData.RemoveGridTotals(totals);
+            }
+        }
+
+        public bool Equals(IGridMember other) {
+            return IGridMemberComparer.Default.Equals(this, other);
+        }
+
+        BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component {
+            get => physicalBehaviour;
+        }
 
         /// <summary>
-        /// Returns the block to the pool
+        ///     Returns the block to the pool
         /// </summary>
         public void DestroyBlock() {
             if (GS.IsQuitting) {
                 parent = null;
+
                 return;
             }
 
@@ -79,23 +109,8 @@ namespace Exa.Grids.Blocks.BlockTypes
 
         public bool TryGetBehaviour<T>(out T value) {
             value = GetBehaviour<T>();
+
             return value.Equals(default);
-        }
-
-        public void AddGridTotals(GridTotals totals) {
-            totals.Metadata += BlueprintBlock.Template.metadata;
-            
-            foreach (var behaviour in GetBehaviours()) {
-                behaviour.BlockComponentData.AddGridTotals(totals);
-            }
-        }
-
-        public void RemoveGridTotals(GridTotals totals) {
-            totals.Metadata += BlueprintBlock.Template.metadata;
-            
-            foreach (var behaviour in GetBehaviours()) {
-                behaviour.BlockComponentData.RemoveGridTotals(totals);
-            }
         }
 
         // TODO: cache the result of this operation
@@ -108,10 +123,6 @@ namespace Exa.Grids.Blocks.BlockTypes
         protected virtual void OnAdd() { }
 
         protected virtual void OnRemove() { }
-
-        public bool Equals(IGridMember other) {
-            return IGridMemberComparer.Default.Equals(this, other);
-        }
 
         public override string ToString() {
             return $"Block: {BlueprintBlock.Template.id}";

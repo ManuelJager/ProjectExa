@@ -1,11 +1,9 @@
 using Exa.Grids.Blocks;
 using Exa.UI.Tooltips;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
-public class BlockCostsView : TooltipComponentView<BlockCosts>
-{
+public class BlockCostsView : TooltipComponentView<BlockCosts> {
     public TextMeshProUGUI credits;
     public TextMeshProUGUI metals;
 

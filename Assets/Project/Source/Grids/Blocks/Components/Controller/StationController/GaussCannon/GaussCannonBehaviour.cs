@@ -1,15 +1,13 @@
 ﻿using DG.Tweening;
+using Exa.Math;
 using Exa.Utils;
 using Exa.VFX;
-using Exa.Math;
 using UnityEngine;
 
 #pragma warning disable 649
 
-namespace Exa.Grids.Blocks.Components
-{
-    public class GaussCannonBehaviour : ChargeableTurretBehaviour<GaussCannonData>
-    {
+namespace Exa.Grids.Blocks.Components {
+    public class GaussCannonBehaviour : ChargeableTurretBehaviour<GaussCannonData> {
         [Header("References")]
         [SerializeField] private Animator animator;
         [SerializeField] private Transform beamOrigin;
@@ -40,6 +38,7 @@ namespace Exa.Grids.Blocks.Components
 
             lineRenderer.gameObject.SetActive(true);
             lineRenderer.widthMultiplier = 1.5f;
+
             lineRenderer.DOWidthMultiplier(0f, 0.5f)
                 .OnComplete(() => lineRenderer.gameObject.SetActive(false));
         }

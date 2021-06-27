@@ -2,17 +2,20 @@
 using Exa.Types.Generics;
 using UnityEngine;
 
-namespace Exa.Gameplay.Missions
-{
-    public abstract class Mission : ScriptableObject, ILabeledValue<Mission>
-    {
+namespace Exa.Gameplay.Missions {
+    public abstract class Mission : ScriptableObject, ILabeledValue<Mission> {
         public string missionName;
         public string missionDescription;
 
-        public string Label => missionName;
-        public Mission Value => this;
-
         protected ResearchBuilder researchBuilder;
+
+        public string Label {
+            get => missionName;
+        }
+
+        public Mission Value {
+            get => this;
+        }
 
         public virtual void Init(MissionManager manager, MissionArgs args) {
             researchBuilder = new ResearchBuilder(Systems.Research);

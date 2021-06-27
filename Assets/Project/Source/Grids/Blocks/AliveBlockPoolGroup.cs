@@ -2,14 +2,14 @@
 using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 
-namespace Exa.Grids.Blocks
-{
-    public class AliveBlockPoolGroup : BlockPoolGroupBase
-    {
-        protected override PrefabType PrefabType => PrefabType.alive;
+namespace Exa.Grids.Blocks {
+    public class AliveBlockPoolGroup : BlockPoolGroupBase {
+        protected override PrefabType PrefabType {
+            get => PrefabType.alive;
+        }
 
         /// <summary>
-        /// Creates an alive prefab on this group.
+        ///     Creates an alive prefab on this group.
         /// </summary>
         /// <param name="blockTemplate"></param>
         /// <returns></returns>
@@ -22,7 +22,7 @@ namespace Exa.Grids.Blocks
                 if (component == null) {
                     throw new Exception($"Null component in block of template {blockTemplate.id} on block {blockGO.name}");
                 }
-                
+
                 component.block = block;
             }
 

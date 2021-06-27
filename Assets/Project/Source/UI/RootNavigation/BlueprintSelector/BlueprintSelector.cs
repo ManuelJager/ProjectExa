@@ -9,10 +9,8 @@ using Exa.Types.Binding;
 using Exa.UI.Components;
 using UnityEngine;
 
-namespace Exa.UI
-{
-    public class BlueprintSelector : ViewBinder<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup
-    {
+namespace Exa.UI {
+    public class BlueprintSelector : ViewBinder<BlueprintView, BlueprintContainer, Blueprint>, IUIGroup {
         [SerializeField] private Navigateable blueprintSelectorNavigateable;
         [SerializeField] private Navigateable shipEditorNavigateable;
         [SerializeField] private BlueprintDetails blueprintDetails;
@@ -30,84 +28,67 @@ namespace Exa.UI
 
         public void OnAddNewBlueprint() {
             Systems.UI.Prompts.PromptForm(
-                message: "Add blueprint",
-                uiGroup: this,
-                modelDescriptor: new BlueprintOptionsDescriptor(),
-                onSubmit: ImportBlueprintWithOptions);
+                "Add blueprint",
+                this,
+                new BlueprintOptionsDescriptor(),
+                ImportBlueprintWithOptions
+            );
         }
-
-        #region Clipboard import
-
-        public void OnClipboardImport() {
-            var clipboardText = GUIUtility.systemCopyBuffer;
-
-            if (string.IsNullOrEmpty(clipboardText)) {
-                Systems.UI.Logger.LogException("Clipboard is empty");
-                return;
-            }
-
-            if (!OnClipboardImportDeserialize(clipboardText, out var blueprint)) return;
-
-            var args = new BlueprintContainerArgs(blueprint);
-            var container = new BlueprintContainer(args);
-
-            if (Systems.Blueprints.ContainsName(blueprint.name)) {
-                Systems.UI.Logger.LogException("Blueprint with given name already added");
-                return;
-            }
-
-            // Save blueprint and generate thumbnail
-            TrySave(container);
-        }
-
-        private bool OnClipboardImportDeserialize(string json, out Blueprint blueprint) {
-            try {
-                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(json);
-                return true;
-            }
-            catch {
-                Systems.UI.Logger.LogException("Clipboard data is formatted incorrectly", false);
-                blueprint = null;
-                return false;
-            }
-        }
-
-        #endregion
 
         public void TrySave(BlueprintContainer container) {
             if (Source is ICollection<BlueprintContainer> collection) {
-                if (!collection.Contains(container))
+                if (!collection.Contains(container)) {
                     collection.Add(container);
-            }
-            else
+                }
+            } else {
                 throw new InvalidOperationException("Source must be an observable collection");
+            }
         }
 
         protected override BlueprintView CreateView(BlueprintContainer value, Transform container) {
             var view = base.CreateView(value, container);
 
-            view.button.onClick.AddListener(() => {
-                if (!Interactable) return;
-
-                blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable, new NavigationArgs {
-                    current = blueprintSelectorNavigateable
-                });
-                Systems.Editor.Import(new ContainerImportArgs(value, TrySave));
-            });
-            view.deleteButton.onClick.AddListener(() => {
-                if (!Interactable) return;
-
-                Systems.UI.Prompts.PromptYesNo("Are you sure you want to delete this blueprint?", this, yes => {
-                    if (!yes) return;
-
-                    if (Source is ICollection<BlueprintContainer> collection) {
-                        collection.Remove(value);
+            view.button.onClick.AddListener(
+                () => {
+                    if (!Interactable) {
+                        return;
                     }
-                    else {
-                        throw new InvalidOperationException("Source must be an observable collection");
+
+                    blueprintSelectorNavigateable.NavigateTo(
+                        shipEditorNavigateable,
+                        new NavigationArgs {
+                            current = blueprintSelectorNavigateable
+                        }
+                    );
+
+                    Systems.Editor.Import(new ContainerImportArgs(value, TrySave));
+                }
+            );
+
+            view.deleteButton.onClick.AddListener(
+                () => {
+                    if (!Interactable) {
+                        return;
                     }
-                });
-            });
+
+                    Systems.UI.Prompts.PromptYesNo(
+                        "Are you sure you want to delete this blueprint?",
+                        this,
+                        yes => {
+                            if (!yes) {
+                                return;
+                            }
+
+                            if (Source is ICollection<BlueprintContainer> collection) {
+                                collection.Remove(value);
+                            } else {
+                                throw new InvalidOperationException("Source must be an observable collection");
+                            }
+                        }
+                    );
+                }
+            );
+
             view.hoverable.onPointerEnter.AddListener(() => { blueprintDetails.Reflect(value.Data); });
             view.hoverable.onPointerExit.AddListener(() => { blueprintDetails.Reflect(null); });
 
@@ -119,6 +100,7 @@ namespace Exa.UI
 
             if (Systems.Blueprints.ContainsName(blueprint.name)) {
                 Systems.UI.Logger.LogException($"Blueprint name \"{blueprint.name}\" is already used");
+
                 return;
             }
 
@@ -128,5 +110,48 @@ namespace Exa.UI
             blueprintSelectorNavigateable.NavigateTo(shipEditorNavigateable);
             Systems.Editor.Import(new ContainerImportArgs(container, TrySave));
         }
+
+    #region Clipboard import
+
+        public void OnClipboardImport() {
+            var clipboardText = GUIUtility.systemCopyBuffer;
+
+            if (string.IsNullOrEmpty(clipboardText)) {
+                Systems.UI.Logger.LogException("Clipboard is empty");
+
+                return;
+            }
+
+            if (!OnClipboardImportDeserialize(clipboardText, out var blueprint)) {
+                return;
+            }
+
+            var args = new BlueprintContainerArgs(blueprint);
+            var container = new BlueprintContainer(args);
+
+            if (Systems.Blueprints.ContainsName(blueprint.name)) {
+                Systems.UI.Logger.LogException("Blueprint with given name already added");
+
+                return;
+            }
+
+            // Save blueprint and generate thumbnail
+            TrySave(container);
+        }
+
+        private bool OnClipboardImportDeserialize(string json, out Blueprint blueprint) {
+            try {
+                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(json);
+
+                return true;
+            } catch {
+                Systems.UI.Logger.LogException("Clipboard data is formatted incorrectly", false);
+                blueprint = null;
+
+                return false;
+            }
+        }
+
+    #endregion
     }
 }

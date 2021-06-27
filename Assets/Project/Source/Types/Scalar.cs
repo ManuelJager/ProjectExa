@@ -1,15 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Exa.Data
-{
+namespace Exa.Data {
     [Serializable]
-    public struct Scalar : IFormattable
-    {
+    public struct Scalar : IFormattable {
         [SerializeField] private float scalar;
 
         public Scalar(float value) {
-            this.scalar = value;
+            scalar = value;
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider) {
+            return scalar.ToString(format, formatProvider);
         }
 
         public float GetValue(float real) {
@@ -42,10 +44,6 @@ namespace Exa.Data
 
         public override string ToString() {
             return scalar.ToString();
-        }
-
-        public string ToString(string format, IFormatProvider formatProvider) {
-            return scalar.ToString(format, formatProvider);
         }
     }
 }

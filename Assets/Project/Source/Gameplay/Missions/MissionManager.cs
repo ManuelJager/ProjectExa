@@ -4,27 +4,30 @@ using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.ShipEditor;
 using Exa.Ships;
-using Exa.Validation;
 using UnityEngine;
 
-namespace Exa.Gameplay.Missions
-{
-    public struct EditResult
-    {
+namespace Exa.Gameplay.Missions {
+    public struct EditResult {
         public Blueprint blueprint;
         // NOTE: This should be recalculated if the research context changes
-        public BlockCosts editCost; 
+        public BlockCosts editCost;
     }
-    
-    public class MissionManager : MonoBehaviour
-    {
+
+    public class MissionManager : MonoBehaviour {
+        private EditResult? editResult;
         public bool IsEditing { get; private set; }
         public Mission Mission { get; private set; }
         public BlockCosts CurrentResources { get; internal set; }
         public PlayerStation Station { get; internal set; }
         public MissionStats Stats { get; internal set; }
 
-        private EditResult? editResult;
+        public void Update() {
+            if (Mission != null) {
+                Mission.Update();
+            }
+
+            GS.UI.gameplayLayer.currentResources.Refresh(CurrentResources);
+        }
 
         public void LoadMission(Mission mission, MissionArgs args) {
             if (Mission != null) {
@@ -48,45 +51,42 @@ namespace Exa.Gameplay.Missions
         public void StartEditing() {
             IsEditing = true;
             editResult = null;
-            
+
             var currentTarget = Systems.CameraController.CurrentTarget;
             GS.SpawnLayer.SetLayerActive(false);
             GS.UI.gameplayLayer.NavigateTo(Systems.Editor.navigateable);
 
-            var settings = new BlueprintImportArgs(Station.Blueprint, blueprint => {
-                var newCosts = blueprint.Grid.GetTotals(BlockContext.UserGroup).Metadata.blockCosts;
-                var oldCosts = Station.GetBaseTotals().Metadata.blockCosts;
-                
-                editResult = new EditResult {
-                    blueprint = blueprint,
-                    editCost = newCosts - oldCosts
-                };
-            }) {
+            var settings = new BlueprintImportArgs(
+                Station.Blueprint,
+                blueprint => {
+                    var newCosts = blueprint.Grid.GetTotals(BlockContext.UserGroup).Metadata.blockCosts;
+                    var oldCosts = Station.GetBaseTotals().Metadata.blockCosts;
+
+                    editResult = new EditResult {
+                        blueprint = blueprint,
+                        editCost = newCosts - oldCosts
+                    };
+                }
+            ) {
                 OnExit = () => StopEditing(currentTarget)
             };
 
-            settings.AddValidator(new BlueprintCostValidator(
-                CurrentResources,
-                Station.GetBaseTotals().Metadata.blockCosts
-            ));
-            
+            settings.AddValidator(
+                new BlueprintCostValidator(
+                    CurrentResources,
+                    Station.GetBaseTotals().Metadata.blockCosts
+                )
+            );
+
             Systems.Editor.Import(settings);
         }
 
-        public void Update() {
-            if (Mission != null) {
-                Mission.Update();
-            }
-            
-            GS.UI.gameplayLayer.currentResources.Refresh(CurrentResources);
-        }
-        
         private void StopEditing(ICameraTarget cameraTarget) {
             IsEditing = false;
-            
+
             Systems.CameraController.SetTarget(cameraTarget);
             GS.SpawnLayer.SetLayerActive(true);
-            
+
             // TODO: use edit result
             if (editResult != null) {
                 Station.SetBlueprint(editResult.Value.blueprint);

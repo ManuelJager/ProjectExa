@@ -1,11 +1,8 @@
 ﻿using Exa.Gameplay;
 using Exa.UI.Components;
-using UnityEngine;
 
-namespace Exa.UI.Gameplay
-{
-    public class GameplayLayer : Navigateable
-    {
+namespace Exa.UI.Gameplay {
+    public class GameplayLayer : Navigateable {
         public SelectionOverlay selectionOverlay;
         public SelectionHotbar selectionHotbar;
         public SelectionArea selectionArea;

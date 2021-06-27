@@ -7,16 +7,14 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 #pragma warning disable CS0649
 
-namespace Exa.Grids.Blocks.Components
-{
-    public class ThrusterBehaviour : BlockBehaviour<ThrusterData>
-    {
-        [Header("References")] 
+namespace Exa.Grids.Blocks.Components {
+    public class ThrusterBehaviour : BlockBehaviour<ThrusterData> {
+        [Header("References")]
         [SerializeField] private Transform thrusterFlameContainer;
         [SerializeField] private SpriteRenderer thrusterFlame;
         [SerializeField] private Light2D light2D;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] private MinMax<float> xScale;
         [SerializeField] private MinMax<float> yScale;
         [SerializeField] private MinMax<float> lightIntensityScale;
@@ -38,7 +36,7 @@ namespace Exa.Grids.Blocks.Components
             thrusterFlame.transform.DOScale(0f, 0.5f);
             light2D.DOIntensity(0f, 0.5f);
         }
-        
+
         protected override void OnAdd() {
             (GridInstance as EnemyGrid)?.Navigation.ThrustVectors.Register(this);
         }

@@ -1,7 +1,5 @@
-﻿namespace Exa.Data
-{
-    public interface ISettings
-    {
+﻿namespace Exa.Data {
+    public interface ISettings {
         void Load();
 
         void Save();

@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace Exa.Data
-{
+namespace Exa.Data {
     [Serializable]
-    public class ActivePair<T>
-    {
+    public class ActivePair<T> {
         public T active;
         public T inactive;
 
@@ -14,7 +12,7 @@ namespace Exa.Data
         }
 
         public T GetValue(bool active) {
-            return active ? this.active : this.inactive;
+            return active ? this.active : inactive;
         }
     }
 }

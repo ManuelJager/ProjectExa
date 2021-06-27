@@ -1,26 +1,21 @@
-﻿using Exa.Math;
+﻿using System.Collections.Generic;
+using Exa.Math;
 using Exa.Utils;
-using System.Collections.Generic;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
+namespace Exa.ShipEditor {
     public delegate void HoverDelegate(Vector2Int? gridItem);
 
     public delegate void ExitDelegate();
 
-    public class EditorGridBackgroundLayer : MonoBehaviour
-    {
-        public event HoverDelegate EnterGrid;
-        public event ExitDelegate ExitGrid;
-
+    public class EditorGridBackgroundLayer : MonoBehaviour {
         [SerializeField] private GameObject gridItemPrefab;
-        private KeyValuePair<Vector2Int, EditorGridBackgroundItem>? currActiveGridItem;
 
         private readonly Dictionary<Vector2Int, EditorGridBackgroundItem>
             gridItems = new Dictionary<Vector2Int, EditorGridBackgroundItem>();
+        private KeyValuePair<Vector2Int, EditorGridBackgroundItem>? currActiveGridItem;
 
         private Vector2Int size = Vector2Int.zero;
 
@@ -31,6 +26,9 @@ namespace Exa.ShipEditor
             }
         }
 
+        public event HoverDelegate EnterGrid;
+        public event ExitDelegate ExitGrid;
+
         public void SetGridBackgroundItemColor(Vector2Int? gridPos, bool active) {
             var realGridPos = gridPos.GetValueOrDefault();
 
@@ -38,7 +36,9 @@ namespace Exa.ShipEditor
         }
 
         public void GenerateGrid(Vector2Int size) {
-            if (this.size == size) return;
+            if (this.size == size) {
+                return;
+            }
 
             this.size = size;
 
@@ -74,6 +74,7 @@ namespace Exa.ShipEditor
             if (currActiveGridItem == null) {
                 currActiveGridItem = new KeyValuePair<Vector2Int, EditorGridBackgroundItem>(gridPos, gridItem);
                 EnterGrid?.Invoke(gridPos);
+
                 return;
             }
 
@@ -81,7 +82,9 @@ namespace Exa.ShipEditor
             var lastGridPos = currActiveGridItem.GetValueOrDefault().Key;
             var lastGridItem = currActiveGridItem?.Value;
 
-            if (lastGridPos == gridPos) return;
+            if (lastGridPos == gridPos) {
+                return;
+            }
 
             // Grid item events
             EnterGrid?.Invoke(gridPos);

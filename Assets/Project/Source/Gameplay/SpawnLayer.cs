@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Exa.Gameplay
-{
-    public class SpawnLayer : MonoBehaviour
-    {
+namespace Exa.Gameplay {
+    public class SpawnLayer : MonoBehaviour {
         public Transform overlay;
         public Transform projectiles;
         public Transform ships;

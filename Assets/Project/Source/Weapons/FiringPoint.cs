@@ -4,10 +4,8 @@ using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Weapons
-{
-    public class FiringPoint : MonoBehaviour
-    {
+namespace Exa.Weapons {
+    public class FiringPoint : MonoBehaviour {
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private Transform spawnPoint;
 
@@ -22,7 +20,14 @@ namespace Exa.Weapons
         public void Fire(float damage) {
             // TODO: Pool projectiles
             projectilePrefab.Create<Projectile>(GS.SpawnLayer.projectiles)
-                .Setup(spawnPoint, 80f, 250f, damage, damageSource, damageMask);
+                .Setup(
+                    spawnPoint,
+                    80f,
+                    250f,
+                    damage,
+                    damageSource,
+                    damageMask
+                );
         }
     }
 }

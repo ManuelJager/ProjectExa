@@ -3,17 +3,12 @@ using Exa.Grids.Blueprints;
 using Exa.Ships;
 using Exa.UI.Tooltips;
 
-namespace Exa.Grids
-{
-    public class BlockGridDiff : MemberCollectionListener<BlockGrid>
-    {
+namespace Exa.Grids {
+    public class BlockGridDiff : MemberCollectionListener<BlockGrid> {
+        private readonly List<IGridMember> pendingAdd;
+        private readonly List<IGridMember> pendingRemove;
         private BlueprintGrid target;
-        private List<IGridMember> pendingAdd;
-        private List<IGridMember> pendingRemove;
 
-        public IEnumerable<IGridMember> PendingAdd => pendingAdd;
-        public IEnumerable<IGridMember> PendingRemove => pendingRemove;
-        
         public BlockGridDiff(BlockGrid source, BlueprintGrid target) : base(source) {
             this.target = target;
             pendingAdd = new List<IGridMember>();
@@ -21,15 +16,26 @@ namespace Exa.Grids
             Diff();
         }
 
+        public IEnumerable<IGridMember> PendingAdd {
+            get => pendingAdd;
+        }
+
+        public IEnumerable<IGridMember> PendingRemove {
+            get => pendingRemove;
+        }
+
         public void TrackNewTarget(BlueprintGrid target) {
             this.target = target;
             Diff();
         }
 
-        public TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(1,
-            new TooltipText($"Pending add: {pendingAdd.Count} Items"),
-            new TooltipText($"Pending remove: {pendingRemove.Count} Items")
-        );
+        public TooltipGroup GetDebugTooltipComponents() {
+            return new TooltipGroup(
+                1,
+                new TooltipText($"Pending add: {pendingAdd.Count} Items"),
+                new TooltipText($"Pending remove: {pendingRemove.Count} Items")
+            );
+        }
 
         private void Diff() {
             pendingAdd.Clear();
@@ -45,13 +51,13 @@ namespace Exa.Grids
         }
 
         // Get whether a blueprint block doesn't exist on the target, or the blocks differ
-        private static void FilteredAddToPending<T>(Grid<T> grid, IGridMember member, IList<IGridMember> destination) 
+        private static void FilteredAddToPending<T>(Grid<T> grid, IGridMember member, IList<IGridMember> destination)
             where T : class, IGridMember {
             if (!grid.TryGetMember(member.GridAnchor, out var block) || !block.Equals(member)) {
                 destination.Add(member);
             }
         }
-        
+
         protected override void OnMemberAdded(IGridMember member) {
             // Check if the block is pending to be added, if it isn't, mark it as pending to be removed
             if (!pendingAdd.Remove(member)) {

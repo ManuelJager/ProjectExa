@@ -4,13 +4,11 @@ using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Gameplay
-{
-    public class PopupManager : MonoBehaviour
-    {
+namespace Exa.Gameplay {
+    public class PopupManager : MonoBehaviour {
         [SerializeField] private GameObject damagePopupPrefab;
+        private int order;
         private Dictionary<object, DamagePopup> popupByDamageSource;
-        private int order = 0;
 
         private void Awake() {
             popupByDamageSource = new Dictionary<object, DamagePopup>();
@@ -21,13 +19,14 @@ namespace Exa.Gameplay
 
             if (damageSource != null && popupByDamageSource.ContainsKey(damageSource)) {
                 SetupPopup(popupByDamageSource[damageSource], worldPosition, damage);
+
                 return;
             }
 
             var popup = CreateNewDamagePopup(worldPosition, damage);
 
             if (damageSource != null) {
-                popupByDamageSource.Add(damageSource, popup); 
+                popupByDamageSource.Add(damageSource, popup);
                 popup.DestroyEvent.AddListener(() => popupByDamageSource.Remove(damageSource));
             }
         }
@@ -36,6 +35,7 @@ namespace Exa.Gameplay
             var popupGO = Instantiate(damagePopupPrefab, transform);
             var popup = popupGO.GetComponent<DamagePopup>();
             SetupPopup(popup, worldPosition, damage);
+
             return popup;
         }
 

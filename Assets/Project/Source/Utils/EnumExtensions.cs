@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace Exa.Utils
-{
-    public static class EnumExtensions
-    {
+namespace Exa.Utils {
+    public static class EnumExtensions {
         /// <summary>
-        /// Type constrained version of <see cref="Enum.HasFlag(Enum)"/>
+        ///     Type constrained version of <see cref="Enum.HasFlag(Enum)" />
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -25,6 +23,7 @@ namespace Exa.Utils
             where T : Enum {
             var valueInt = (int) (object) value;
             var flagInt = (int) (object) flag;
+
             return (T) (object) (set ? valueInt | flagInt : valueInt & ~flagInt);
         }
     }

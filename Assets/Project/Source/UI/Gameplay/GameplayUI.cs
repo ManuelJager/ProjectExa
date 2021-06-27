@@ -1,10 +1,7 @@
-﻿using Exa.UI.Components;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Exa.UI.Gameplay
-{
-    public class GameplayUI : MonoBehaviour
-    {
+namespace Exa.UI.Gameplay {
+    public class GameplayUI : MonoBehaviour {
         public GameplayLayer gameplayLayer;
         public PauseMenu pauseMenu;
         public GameOverMenu gameOverMenu;

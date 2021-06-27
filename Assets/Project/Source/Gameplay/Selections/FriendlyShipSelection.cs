@@ -1,15 +1,13 @@
-﻿using Exa.Math;
-using Exa.Ships.Targeting;
-using System.Linq;
+﻿using System.Linq;
 using Exa.AI;
 using Exa.AI.Actions;
+using Exa.Math;
+using Exa.Ships.Targeting;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.Gameplay
-{
-    public class FriendlyShipSelection : ShipSelection
-    {
+namespace Exa.Gameplay {
+    public class FriendlyShipSelection : ShipSelection {
         public FriendlyShipSelection(Formation formation)
             : base(formation) {
             CanControl = true;
@@ -29,6 +27,7 @@ namespace Exa.Gameplay
 
         public override ShipSelection Clone() {
             var selection = new FriendlyShipSelection(formation);
+
             foreach (var ship in this) {
                 selection.Add(ship);
             }

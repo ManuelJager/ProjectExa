@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace Exa.Audio.Music
-{
+namespace Exa.Audio.Music {
     [CreateAssetMenu(menuName = "Audio/Song")]
-    public class Song : Sound, ISong
-    {
+    public class Song : Sound, ISong {
         [SerializeField] private Atmosphere atmosphereFilter;
 
-        public Atmosphere AtmosphereFilter => atmosphereFilter;
+        public Atmosphere AtmosphereFilter {
+            get => atmosphereFilter;
+        }
     }
 }

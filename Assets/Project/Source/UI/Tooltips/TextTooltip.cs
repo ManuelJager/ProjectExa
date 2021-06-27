@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.UI.Tooltips
-{
-    public class TextTooltip : FloatingTooltip
-    {
+namespace Exa.UI.Tooltips {
+    public class TextTooltip : FloatingTooltip {
         [SerializeField] private Text text;
         [SerializeField] private RectTransform verticalContainer;
 
@@ -24,16 +22,18 @@ namespace Exa.UI.Tooltips
         }
 
         private void ShowTooltipInternal(string message) {
-            if (!gameObject.activeSelf)
+            if (!gameObject.activeSelf) {
                 gameObject.SetActive(true);
+            }
 
             text.text = message;
             UpdatePosition(true);
         }
 
         private void HideTooltipInternal() {
-            if (gameObject.activeSelf)
+            if (gameObject.activeSelf) {
                 gameObject.SetActive(false);
+            }
         }
     }
 }

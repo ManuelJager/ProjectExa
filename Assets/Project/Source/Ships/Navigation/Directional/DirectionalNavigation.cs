@@ -4,10 +4,8 @@ using Exa.Math;
 using Exa.Ships.Targeting;
 using UnityEngine;
 
-namespace Exa.Ships.Navigation
-{
-    public class DirectionalNavigation : INavigation
-    {
+namespace Exa.Ships.Navigation {
+    public class DirectionalNavigation : INavigation {
         private static readonly Scalar DampeningThrustMultiplier = new Scalar(1.5f);
         private static readonly Scalar TargetThrustMultiplier = new Scalar(1f);
 
@@ -15,16 +13,19 @@ namespace Exa.Ships.Navigation
         private readonly NavigationOptions options;
         private readonly AxisThrustVectors thrustVectors;
 
-        public ITarget LookAt { private get; set; }
-        public ITarget MoveTo { private get; set; }
-        public IThrustVectors ThrustVectors => thrustVectors;
-
         public DirectionalNavigation(GridInstance gridInstance, NavigationOptions options, Scalar thrustModifier) {
             this.gridInstance = gridInstance;
             this.options = options;
 
             thrustVectors = gridInstance.gameObject.AddComponent<AxisThrustVectors>();
             thrustVectors.Setup(gridInstance, thrustModifier);
+        }
+
+        public ITarget LookAt { private get; set; }
+        public ITarget MoveTo { private get; set; }
+
+        public IThrustVectors ThrustVectors {
+            get => thrustVectors;
         }
 
         public void Update(float deltaTime) {
@@ -72,11 +73,13 @@ namespace Exa.Ships.Navigation
         private Vector2 GetLocalDifference(ITarget target) {
             var currentPos = gridInstance.GetPosition();
             var diff = target.GetPosition(currentPos) - currentPos;
+
             return diff.Rotate(-GetCurrentRotation());
         }
 
         private float GetDecelerationVelocity(Vector2 direction, Scalar thrustModifier) {
             var force = thrustVectors.GetClampedForce(direction, thrustModifier);
+
             return -(force / Mathf.Pow(gridInstance.Rigidbody2D.mass, 2)).magnitude;
         }
 
@@ -84,11 +87,13 @@ namespace Exa.Ships.Navigation
         private float GetBrakeDistance(Vector2 diff, VelocityValues velocityValues) {
             var currentVelocity = velocityValues.localVelocity.magnitude;
             var deceleration = GetDecelerationVelocity(-diff, DampeningThrustMultiplier);
+
             return CalculateBrakeDistance(currentVelocity, 0, deceleration);
         }
 
         private float CalculateBrakeDistance(float currentVelocity, float targetVelocity, float deceleration) {
             var t = (targetVelocity - currentVelocity) / deceleration;
+
             return currentVelocity * t + deceleration * (t * t) / 2f;
         }
 
@@ -102,6 +107,7 @@ namespace Exa.Ships.Navigation
             // Get force for this frame
             var frameTargetForce =
                 thrustVectors.GetForce(-velocityValues.localVelocityForce, DampeningThrustMultiplier) * deltaTime;
+
             var frameVelocityForce = -velocityValues.localVelocityForce / deltaTime;
 
             ProcessAxis(ref frameTargetForce.x, frameVelocityForce.x);
@@ -113,10 +119,12 @@ namespace Exa.Ships.Navigation
         private Vector2 MergeForces(Vector2 frameTargetForce, Vector2 frameDampenForce) {
             // TODO: Make this branch-less
             float ProcessAxis(float targetComponent, float dampenComponent) {
-                if (targetComponent == 0f) return dampenComponent;
+                if (targetComponent == 0f) {
+                    return dampenComponent;
+                }
 
                 // Check if the target and the dampen component have different signs
-                return targetComponent > 0f ^ dampenComponent > 0f
+                return (targetComponent > 0f) ^ (dampenComponent > 0f)
                     // If so, return the target vector component
                     ? targetComponent
                     // Otherwise, return biggest of the two components
@@ -139,6 +147,7 @@ namespace Exa.Ships.Navigation
 
         private VelocityValues GetLocalVelocity() {
             var localVelocity = gridInstance.Rigidbody2D.velocity.Rotate(-GetCurrentRotation());
+
             return new VelocityValues {
                 localVelocity = localVelocity,
                 localVelocityForce = localVelocity * gridInstance.Rigidbody2D.mass
@@ -149,8 +158,7 @@ namespace Exa.Ships.Navigation
             return MathUtils.NormalizeAngle360(gridInstance.Rigidbody2D.rotation);
         }
 
-        private struct VelocityValues
-        {
+        private struct VelocityValues {
             public Vector2 localVelocity;
             public Vector2 localVelocityForce;
         }

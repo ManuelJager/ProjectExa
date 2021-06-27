@@ -1,21 +1,19 @@
-﻿using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
-using Exa.Grids;
-using Exa.Utils;
+﻿using Exa.Grids;
 using Exa.Grids.Blocks;
+using Exa.Utils;
+using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 #pragma warning disable CS0649
 
-namespace Exa.Weapons
-{
-    public class AutocannonPart : MonoBehaviour
-    {
-        [Header("References")] 
+namespace Exa.Weapons {
+    public class AutocannonPart : MonoBehaviour {
+        [Header("References")]
         [SerializeField] private FiringPoint firingPoint;
         [SerializeField] private Animation barrelAnimator;
         [SerializeField] private Light2D light2D;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] private float peakIntensity;
         [SerializeField] private SpriteRenderer drumRenderer;
         [SerializeField] private Sprite drumNormal;

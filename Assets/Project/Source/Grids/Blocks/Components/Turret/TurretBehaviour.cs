@@ -5,20 +5,20 @@ using Exa.Types.Generics;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.Grids.Blocks.Components
-{
+namespace Exa.Grids.Blocks.Components {
     public abstract class TurretBehaviour<T> : BlockBehaviour<T>, ITurretBehaviour
-        where T : struct, ITurretValues
-    {
+        where T : struct, ITurretValues {
         [Header("References")]
         [SerializeField] protected Transform turret;
+        protected RotationResult rotationResult;
 
         protected float timeSinceFire;
-        protected RotationResult rotationResult;
 
         public bool AutoFireEnabled { get; set; }
 
         public IWeaponTarget Target { get; set; }
+
+        public abstract void Fire();
 
         protected override void BlockUpdate() {
             // Only add to the time since fire if the current time since fire is below the firing rate of the turret
@@ -27,27 +27,31 @@ namespace Exa.Grids.Blocks.Components
             if (timeSinceFire < Data.FiringRate) {
                 timeSinceFire += Time.deltaTime;
             }
-            
+
             rotationResult = TryRotateTowardsTarget();
         }
 
         protected RotationResult TryRotateTowardsTarget() {
             // Dereference target if it isn't valid anymore
-            if (!Target?.GetTargetValid() ?? false)
+            if (!Target?.GetTargetValid() ?? false) {
                 Target = null;
+            }
 
             var result = RotateTowards(SelectTargetAngle());
             SetCurrentAngle(result.endRotation);
+
             return result;
         }
 
         protected virtual float SelectTargetAngle() {
-            if (Target == null)
+            if (Target == null) {
                 return GetDefaultAngle();
-            
+            }
+
             var currentPosition = transform.position.ToVector2();
             var difference = Target.GetPosition(currentPosition) - currentPosition;
-            return difference.Rotate(-transform.rotation.eulerAngles.z).GetAngle(); 
+
+            return difference.Rotate(-transform.rotation.eulerAngles.z).GetAngle();
         }
 
         protected float GetDefaultAngle() {
@@ -59,8 +63,9 @@ namespace Exa.Grids.Blocks.Components
             var currentAngle = GetCurrentAngle();
             var deltaAngle = GetDeltaAngleTowards(currentAngle, targetAngle);
 
-            if (deltaAngle == 0f)
+            if (deltaAngle == 0f) {
                 return new RotationResult(0f, currentAngle);
+            }
 
             // Clamp the delta to whatever we are allowed to turn this frame
             var maxDelta = Data.TurningRate * Time.deltaTime;
@@ -78,20 +83,19 @@ namespace Exa.Grids.Blocks.Components
 
         protected virtual void SetCurrentAngle(float angle) {
             turret.localRotation = Quaternion.Euler(0, 0, angle);
-        } 
+        }
 
         protected virtual float GetDeltaAngleTowards(float currentAngle, float targetAngle) {
             // If the arc is 360f, simply allow wrapping
-            if (Data.TurretArc == 360f)
+            if (Data.TurretArc == 360f) {
                 return Mathf.DeltaAngle(currentAngle, targetAngle);
+            }
 
             MathUtils.WrapAngle(ref currentAngle);
             MathUtils.WrapAngle(ref targetAngle);
- 
+
             return Data.GetTurretArcMinMax().Clamp(targetAngle) - currentAngle;
         }
-
-        public abstract void Fire();
 
         protected Vector3 HitScanFire(float damage, float maxDistance, Transform firingPoint) {
             var enemyMask = (~Parent.BlockContext).GetBlockMask();
@@ -107,14 +111,13 @@ namespace Exa.Grids.Blocks.Components
                 damage -= damageInstance.absorbedDamage;
             }
 
-            return damage > 0f 
-                ? firingPoint.right * maxDistance 
+            return damage > 0f
+                ? firingPoint.right * maxDistance
                 : lastHitPosition.ToVector3();
         }
     }
 
-    public struct RotationResult
-    {
+    public struct RotationResult {
         public float deltaToTarget;
         public float endRotation;
 

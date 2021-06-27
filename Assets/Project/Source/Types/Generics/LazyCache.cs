@@ -1,16 +1,18 @@
 ﻿using System;
 
-namespace Exa.Types.Generics
-{
+namespace Exa.Types.Generics {
     /// <summary>
-    /// Supports a value with lazy initialization that can be invalidated
+    ///     Supports a value with lazy initialization that can be invalidated
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class LazyCache<T>
-    {
-        protected Func<T> valueFactory;
+    public class LazyCache<T> {
         protected T value;
-        protected bool valueUpdated = false;
+        protected Func<T> valueFactory;
+        protected bool valueUpdated;
+
+        public LazyCache(Func<T> valueFactory) {
+            this.valueFactory = valueFactory;
+        }
 
         public T Value {
             get {
@@ -24,20 +26,17 @@ namespace Exa.Types.Generics
             }
         }
 
-        public LazyCache(Func<T> valueFactory) {
-            this.valueFactory = valueFactory;
-        }
-
         /// <summary>
-        /// Invalidate a value so it needs to be recalculated next time it's requested
+        ///     Invalidate a value so it needs to be recalculated next time it's requested
         /// </summary>
         public void Invalidate() {
             valueUpdated = false;
         }
 
         public static implicit operator T(LazyCache<T> cache) {
-            if (cache == null)
+            if (cache == null) {
                 throw new ArgumentNullException(nameof(cache));
+            }
 
             return cache.Value;
         }

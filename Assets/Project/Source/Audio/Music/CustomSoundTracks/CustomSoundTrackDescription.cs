@@ -9,23 +9,28 @@ using UnityEngine;
 using UnityEngine.Networking;
 using CompressionLevel = Ionic.Zlib.CompressionLevel;
 
-namespace Exa.Audio.Music
-{
-    public class CustomSoundTrackDescription : ISoundTrackDescription
-    {
-        private static readonly IEnumerable<string> SupportedAudioTypes = new [] {".wav"};
+namespace Exa.Audio.Music {
+    public class CustomSoundTrackDescription : ISoundTrackDescription {
+        private static readonly IEnumerable<string> SupportedAudioTypes = new[] {
+            ".wav"
+        };
         private static readonly string ConfigName = "config.json";
 
-        private CustomSoundTrackMetadata metadata;
-        private string path;
-
-        public string Name => metadata.Name;
-        public int SongCount => metadata.Songs.Count();
+        private readonly CustomSoundTrackMetadata metadata;
+        private readonly string path;
 
         public CustomSoundTrackDescription(string path) {
             this.path = path;
 
             metadata = GetMetadata(path);
+        }
+
+        public string Name {
+            get => metadata.Name;
+        }
+
+        public int SongCount {
+            get => metadata.Songs.Count();
         }
 
         public void LoadSoundTrack(SoundTrackLoadHandler loadHandler) {
@@ -39,7 +44,7 @@ namespace Exa.Audio.Music
             loadHandler.Progress.Report(0f);
 
             var zipEntries = zip.Entries.ToDictionary(entry => entry.FileName);
-            var songCount = (float)metadata.Songs.Count();
+            var songCount = (float) metadata.Songs.Count();
             var count = 0f;
 
             yield return new WaitForEndOfFrame();
@@ -53,8 +58,10 @@ namespace Exa.Audio.Music
 
                 var www = UnityWebRequestMultimedia.GetAudioClip(fileName, UnityEngine.AudioType.WAV);
                 var request = www.SendWebRequest();
+
                 while (!request.isDone) {
                     loadHandler.Progress.Report(count / songCount + request.progress / songCount);
+
                     yield return new WaitForEndOfFrame();
                 }
 
@@ -74,19 +81,23 @@ namespace Exa.Audio.Music
             zip.CompressionLevel = CompressionLevel.BestCompression;
             var configEntry = zip.Entries.FirstOrDefault(entry => entry.FileName == ConfigName);
 
-            return configEntry == null 
-                ? GenerateMetadata(zip) 
+            return configEntry == null
+                ? GenerateMetadata(zip)
                 : configEntry.ReadJson<CustomSoundTrackMetadata>(SerializationMode.Readable);
         }
 
         private CustomSoundTrackMetadata GenerateMetadata(ZipFile zip) {
             var name = Path.GetFileNameWithoutExtension(zip.Name);
-            var songs = zip.Entries.Filter(SupportedAudioTypes).Select(entry => new CustomSongMetadata {
-                Name = Path.GetFileNameWithoutExtension(entry.FileName),
-                FileName = entry.FileName,
-                Atmospheres = Atmosphere.All,
-                Volume = 1f,
-            });
+
+            var songs = zip.Entries.Filter(SupportedAudioTypes)
+                .Select(
+                    entry => new CustomSongMetadata {
+                        Name = Path.GetFileNameWithoutExtension(entry.FileName),
+                        FileName = entry.FileName,
+                        Atmospheres = Atmosphere.All,
+                        Volume = 1f
+                    }
+                );
 
             var metadata = new CustomSoundTrackMetadata {
                 Name = name,
@@ -105,4 +116,3 @@ namespace Exa.Audio.Music
         }
     }
 }
-

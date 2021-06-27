@@ -1,36 +1,35 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
-using Exa.Utils;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Types.Binding;
+using Exa.Utils;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Grids.Blocks
-{
-    public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer>
-    { }
+namespace Exa.Grids.Blocks {
+    public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer> { }
 
     /// <summary>
-    /// Registers block types and creates block pools
+    ///     Registers block types and creates block pools
     /// </summary>
-    public class BlockFactory : MonoBehaviour
-    {
-        public ObservableBlockTemplateCollection blockTemplates = new ObservableBlockTemplateCollection();
-        public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
-
+    public class BlockFactory : MonoBehaviour {
         [SerializeField] private TotalsManager totalsManager;
         [SerializeField] private BlockTemplateBag blockTemplateBag;
         [SerializeField] private InertBlockPoolGroup inertPrefabGroup;
         [SerializeField] private AliveBlockPoolGroup defaultPrefabGroup;
         [SerializeField] private AliveBlockPoolGroup userPrefabGroup;
         [SerializeField] private AliveBlockPoolGroup enemyPrefabGroup;
+        public ObservableBlockTemplateCollection blockTemplates = new ObservableBlockTemplateCollection();
+        public Dictionary<string, BlockTemplate> blockTemplatesDict = new Dictionary<string, BlockTemplate>();
 
         public BlockValuesStore Values { get; private set; }
         public BlockGridDiffManager Diffs { get; private set; }
-        public TotalsManager Totals => totalsManager;
+
+        public TotalsManager Totals {
+            get => totalsManager;
+        }
 
         public T FindTemplate<T>()
             where T : class {
@@ -41,7 +40,10 @@ namespace Exa.Grids.Blocks
             Values = new BlockValuesStore();
             Diffs = new BlockGridDiffManager();
             var enumerator = EnumeratorUtils.ReportForeachOperation(blockTemplateBag, RegisterBlockTemplate, progress);
-            while (enumerator.MoveNext()) yield return enumerator.Current;
+
+            while (enumerator.MoveNext()) {
+                yield return enumerator.Current;
+            }
         }
 
         public GameObject GetInactiveInertBlock(string id, Transform transform) {
@@ -49,7 +51,7 @@ namespace Exa.Grids.Blocks
         }
 
         /// <summary>
-        /// Get the block prefab with the given id
+        ///     Get the block prefab with the given id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -60,7 +62,7 @@ namespace Exa.Grids.Blocks
         }
 
         /// <summary>
-        /// Register a template, and set the values on the block prefab
+        ///     Register a template, and set the values on the block prefab
         /// </summary>
         /// <param name="blockTemplate"></param>
         private IEnumerator RegisterBlockTemplate(BlockTemplate blockTemplate) {
@@ -71,7 +73,7 @@ namespace Exa.Grids.Blocks
             blockTemplates.Add(new BlockTemplateContainer(blockTemplate));
             blockTemplatesDict[blockTemplate.id] = blockTemplate;
             inertPrefabGroup.CreateInertPrefab(blockTemplate);
-            
+
             yield return new WorkUnit();
 
             foreach (var context in BlockContextExtensions.GetContexts()) {
@@ -79,11 +81,10 @@ namespace Exa.Grids.Blocks
 
                 try {
                     GetGroup(context).CreateAlivePrefabGroup(blockTemplate, context);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     throw new Exception($"Exception while registering block template: {blockTemplate} for {context}", e);
                 }
-                
+
                 yield return new WorkUnit();
             }
         }

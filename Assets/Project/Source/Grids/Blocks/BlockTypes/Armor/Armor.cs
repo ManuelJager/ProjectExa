@@ -1,5 +1,3 @@
-﻿namespace Exa.Grids.Blocks.BlockTypes
-{
-    public class Armor : Block
-    { }
+﻿namespace Exa.Grids.Blocks.BlockTypes {
+    public class Armor : Block { }
 }

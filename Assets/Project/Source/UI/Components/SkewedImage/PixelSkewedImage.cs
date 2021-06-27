@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Exa.UI
-{
-    public class PixelSkewedImage : Image
-    {
+namespace Exa.UI {
+    public class PixelSkewedImage : Image {
         public Vector2 skew;
 
         protected override void OnPopulateMesh(VertexHelper vh) {

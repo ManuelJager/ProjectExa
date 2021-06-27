@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.Grids.Blocks.Components
-{
-    public interface IPhysical : IBehaviourMarker<PhysicalData>
-    { }
+namespace Exa.Grids.Blocks.Components {
+    public interface IPhysical : IBehaviourMarker<PhysicalData> { }
 
-    public class PhysicalBehaviour : BlockBehaviour<PhysicalData>
-    {
+    public class PhysicalBehaviour : BlockBehaviour<PhysicalData> {
         public event Action<float> OnDamage;
-        
+
         // TODO: replace damage source by an actual type
         /// <summary>
-        /// Takes a given amount of damage
+        ///     Takes a given amount of damage
         /// </summary>
         /// <param name="damageSource">Damage source metadata</param>
         /// <param name="damage">The damage to take</param>
@@ -28,6 +24,7 @@ namespace Exa.Grids.Blocks.Components
             }
 
             var appliedDamage = Mathf.Min(data.hull, ComputeDamage(damage));
+
             var instanceData = new DamageInstanceData {
                 absorbedDamage = Mathf.Min(data.hull, damage),
                 appliedDamage = appliedDamage
@@ -43,7 +40,7 @@ namespace Exa.Grids.Blocks.Components
             if (appliedDamage != 0f) {
                 OnDamage?.Invoke(appliedDamage);
             }
-            
+
             if (data.hull <= 0) {
                 block.DestroyBlock();
             }
@@ -54,7 +51,7 @@ namespace Exa.Grids.Blocks.Components
         public void Repair() {
             var context = Parent.BlockContext;
             var template = block.BlueprintBlock.Template;
-            
+
             if (!Systems.Blocks.Values.TryGetValues(context, template, out data)) {
                 throw new Exception($"Cannot set physical data for {block.GetInstanceString()}");
             }
@@ -73,14 +70,13 @@ namespace Exa.Grids.Blocks.Components
 
             if (OnDamage != null) {
                 foreach (var d in OnDamage.GetInvocationList()) {
-                    OnDamage -= (Action<float>)d;
-                }    
+                    OnDamage -= (Action<float>) d;
+                }
             }
         }
     }
 
-    public struct DamageInstanceData
-    {
+    public struct DamageInstanceData {
         public float absorbedDamage;
         public float appliedDamage;
     }

@@ -1,24 +1,25 @@
-﻿using Exa.Math;
+﻿using Exa.Data;
+using Exa.Math;
 using Exa.Ships.Targeting;
-using Exa.Data;
 using UnityEngine;
 
-namespace Exa.Ships.Navigation
-{
-    public class SimpleNavigation : INavigation
-    {
-        private readonly ThrustVectors thrustVectors;
+namespace Exa.Ships.Navigation {
+    public class SimpleNavigation : INavigation {
         private readonly GridInstance gridInstance;
         private readonly NavigationOptions options;
-
-        public ITarget LookAt { private get; set; }
-        public ITarget MoveTo { private get; set; }
-        public IThrustVectors ThrustVectors => thrustVectors;
+        private readonly ThrustVectors thrustVectors;
 
         public SimpleNavigation(GridInstance gridInstance, NavigationOptions options, Scalar thrustModifier) {
             this.gridInstance = gridInstance;
             this.options = options;
-            this.thrustVectors = new ThrustVectors(thrustModifier);
+            thrustVectors = new ThrustVectors(thrustModifier);
+        }
+
+        public ITarget LookAt { private get; set; }
+        public ITarget MoveTo { private get; set; }
+
+        public IThrustVectors ThrustVectors {
+            get => thrustVectors;
         }
 
         public void Update(float deltaTime) {
@@ -28,8 +29,7 @@ namespace Exa.Ships.Navigation
 
             if (MoveTo != null) {
                 UpdatePosition();
-            }
-            else {
+            } else {
                 ThrustVectors.SetGraphics(new Vector2(0, 0));
             }
         }
@@ -40,6 +40,7 @@ namespace Exa.Ships.Navigation
 
             if (currentPosition == moveToTargetPosition) {
                 ThrustVectors.SetGraphics(Vector2.zero);
+
                 return;
             }
 

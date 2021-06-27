@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 
-namespace Exa.Ships
-{
-    public class GridOverlay : MonoBehaviour, IGridOverlay
-    {
-        private GridInstance gridInstance;
-
+namespace Exa.Ships {
+    public class GridOverlay : MonoBehaviour, IGridOverlay {
         [SerializeField] private RectTransform rectContainer;
         [SerializeField] private ShipOverlayHullBar overlayHullBar;
         [SerializeField] private ShipOverlayEnergyBar overlayEnergyBar;
         [SerializeField] private ShipOverlayCircle overlayCircle;
+        private GridInstance gridInstance;
 
         public void Update() {
             transform.position = gridInstance.GetPosition();

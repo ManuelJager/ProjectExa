@@ -1,15 +1,13 @@
-﻿using Exa.Weapons;
-using System;
+﻿using System;
+using Exa.Weapons;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Grids.Blocks.Components
-{
-    public class AutocannonBehaviour : AutoFireTurret<AutocannonData>
-    {
+namespace Exa.Grids.Blocks.Components {
+    public class AutocannonBehaviour : AutoFireTurret<AutocannonData> {
         [SerializeField] private AutocannonPart[] parts;
-        private int currentPoint = 0;
+        private int currentPoint;
 
         public override void Fire() {
             switch (data.cycleMode) {
@@ -17,6 +15,7 @@ namespace Exa.Grids.Blocks.Components
                     parts[currentPoint].Fire(data.damage);
                     currentPoint++;
                     currentPoint %= parts.Length;
+
                     break;
 
                 case CycleMode.Volley:
@@ -25,7 +24,7 @@ namespace Exa.Grids.Blocks.Components
                     }
 
                     break;
-                
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -33,6 +32,7 @@ namespace Exa.Grids.Blocks.Components
 
         protected override void OnAdd() {
             var animTime = GetAnimTime();
+
             if (Parent.BlockContext == 0) {
                 throw new InvalidOperationException("Parent's block context must be set");
             }

@@ -1,46 +1,43 @@
 ﻿using System;
-using Exa.Grids;
-using Exa.Grids.Blocks.BlockTypes;
-using Exa.Grids.Blueprints;
-using Exa.UI.Tooltips;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Grids;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
+using Exa.Grids.Blueprints;
 using Exa.Types;
-using Exa.Utils;
+using Exa.UI.Tooltips;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Exa.Ships
-{
-    public class BlockGrid : Grid<Block>
-    {
+namespace Exa.Ships {
+    public class BlockGrid : Grid<Block> {
+        private readonly DefaultDict<Type, List<BlockBehaviour>> blockBehaviours;
         private readonly Transform container;
-        private GridTotals totals;
-        private DefaultDict<Type, List<BlockBehaviour>> blockBehaviours;
+        private readonly GridTotals totals;
 
-        public IGridInstance Parent { get; }
-        public bool Rebuilding { get; set; }
-        public Block Controller { get; protected set; }
-        
         public BlockGrid(Transform container, IGridInstance parent) {
             this.container = container;
-            this.totals = Systems.Blocks.Totals.StartWatching(this, parent.BlockContext);
+            totals = Systems.Blocks.Totals.StartWatching(this, parent.BlockContext);
 
             blockBehaviours = new DefaultDict<Type, List<BlockBehaviour>>(_ => new List<BlockBehaviour>());
             Parent = parent;
         }
 
+        public IGridInstance Parent { get; }
+        public bool Rebuilding { get; set; }
+        public Block Controller { get; protected set; }
+
         public GridTotals GetTotals() {
             return totals;
         }
- 
+
         public override void Add(Block block) {
             if (block.GetIsController()) {
                 if (Controller != null) {
                     throw new DuplicateControllerException(block.GridAnchor);
                 }
-                
+
                 Controller = block;
             }
 
@@ -68,7 +65,7 @@ namespace Exa.Ships
             }
         }
 
-        public IEnumerable<T> Query<T>() 
+        public IEnumerable<T> Query<T>()
             where T : BlockBehaviour {
             return blockBehaviours[typeof(T)].Cast<T>();
         }
@@ -80,7 +77,9 @@ namespace Exa.Ships
                 .Cast<T>();
         }
 
-        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] { };
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() {
+            return new ITooltipComponent[] { };
+        }
 
         public void DestroyIfEmpty() {
             if (!GridMembers.Any()) {
@@ -93,7 +92,7 @@ namespace Exa.Ships
                 Place(anchoredBlueprintBlock);
             }
         }
-        
+
         internal void Place(ABpBlock aBpBlock) {
             Add(CreateBlock(aBpBlock));
         }
@@ -101,11 +100,12 @@ namespace Exa.Ships
         internal void Destroy(Vector2Int gridAnchor) {
             GetMember(gridAnchor).DestroyBlock();
         }
-        
+
         private Block CreateBlock(ABpBlock aBpBlock) {
             var block = aBpBlock.CreateInactiveBlockInGrid(container, Parent.BlockContext);
             block.Parent = Parent;
             block.gameObject.SetActive(true);
+
             return block;
         }
     }

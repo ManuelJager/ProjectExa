@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Exa
-{
-    public class ColorManager : MonoBehaviour
-    {
+namespace Exa {
+    public class ColorManager : MonoBehaviour {
         public Color white;
         public Color dimGray;
         public Color onyx;

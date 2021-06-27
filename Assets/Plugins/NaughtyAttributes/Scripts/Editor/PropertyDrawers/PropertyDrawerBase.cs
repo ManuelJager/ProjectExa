@@ -1,94 +1,87 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace NaughtyAttributes.Editor
-{
-	public abstract class PropertyDrawerBase : PropertyDrawer
-	{
-		public sealed override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
-		{
-			// Check if visible
-			bool visible = PropertyUtility.IsVisible(property);
-			if (!visible)
-			{
-				return;
-			}
+namespace NaughtyAttributes.Editor {
+    public abstract class PropertyDrawerBase : PropertyDrawer {
+        public sealed override void OnGUI(Rect rect, SerializedProperty property, GUIContent label) {
+            // Check if visible
+            var visible = PropertyUtility.IsVisible(property);
 
-			// Validate
-			ValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
-			foreach (var validatorAttribute in validatorAttributes)
-			{
-				validatorAttribute.GetValidator().ValidateProperty(property);
-			}
+            if (!visible) {
+                return;
+            }
 
-			// Check if enabled and draw
-			EditorGUI.BeginChangeCheck();
-			bool enabled = PropertyUtility.IsEnabled(property);
+            // Validate
+            var validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
 
-			using (new EditorGUI.DisabledScope(disabled: !enabled))
-			{
-				OnGUI_Internal(rect, property, new GUIContent(PropertyUtility.GetLabel(property)));
-			}
+            foreach (var validatorAttribute in validatorAttributes) {
+                validatorAttribute.GetValidator().ValidateProperty(property);
+            }
 
-			// Call OnValueChanged callbacks
-			if (EditorGUI.EndChangeCheck())
-			{
-				PropertyUtility.CallOnValueChangedCallbacks(property);
-			}
-		}
+            // Check if enabled and draw
+            EditorGUI.BeginChangeCheck();
+            var enabled = PropertyUtility.IsEnabled(property);
 
-		protected abstract void OnGUI_Internal(Rect rect, SerializedProperty property, GUIContent label);
+            using (new EditorGUI.DisabledScope(!enabled)) {
+                OnGUI_Internal(rect, property, new GUIContent(PropertyUtility.GetLabel(property)));
+            }
 
-		sealed override public float GetPropertyHeight(SerializedProperty property, GUIContent label)
-		{
-			bool visible = PropertyUtility.IsVisible(property);
-			if (!visible)
-			{
-				return 0.0f;
-			}
+            // Call OnValueChanged callbacks
+            if (EditorGUI.EndChangeCheck()) {
+                PropertyUtility.CallOnValueChangedCallbacks(property);
+            }
+        }
 
-			return GetPropertyHeight_Internal(property, label);
-		}
+        protected abstract void OnGUI_Internal(Rect rect, SerializedProperty property, GUIContent label);
 
-		protected virtual float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
-		{
-			return base.GetPropertyHeight(property, label);
-		}
+        public sealed override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
+            var visible = PropertyUtility.IsVisible(property);
 
-		protected float GetPropertyHeight(SerializedProperty property)
-		{
-			SpecialCaseDrawerAttribute specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
-			if (specialCaseAttribute != null)
-			{
-				return specialCaseAttribute.GetDrawer().GetPropertyHeight(property);
-			}
+            if (!visible) {
+                return 0.0f;
+            }
 
-			return EditorGUI.GetPropertyHeight(property, true);
-		}
+            return GetPropertyHeight_Internal(property, label);
+        }
 
-		public virtual float GetHelpBoxHeight()
-		{
-			return EditorGUIUtility.singleLineHeight * 2.0f;
-		}
+        protected virtual float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label) {
+            return base.GetPropertyHeight(property, label);
+        }
 
-		public void DrawDefaultPropertyAndHelpBox(Rect rect, SerializedProperty property, string message, MessageType messageType)
-		{
-			float indentLength = NaughtyEditorGUI.GetIndentLength(rect);
-			Rect helpBoxRect = new Rect(
-				rect.x + indentLength,
-				rect.y,
-				rect.width - indentLength,
-				GetHelpBoxHeight());
+        protected float GetPropertyHeight(SerializedProperty property) {
+            var specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
 
-			NaughtyEditorGUI.HelpBox(helpBoxRect, message, MessageType.Warning, context: property.serializedObject.targetObject);
+            if (specialCaseAttribute != null) {
+                return specialCaseAttribute.GetDrawer().GetPropertyHeight(property);
+            }
 
-			Rect propertyRect = new Rect(
-				rect.x,
-				rect.y + GetHelpBoxHeight(),
-				rect.width,
-				GetPropertyHeight(property));
+            return EditorGUI.GetPropertyHeight(property, true);
+        }
 
-			EditorGUI.PropertyField(propertyRect, property, true);
-		}
-	}
+        public virtual float GetHelpBoxHeight() {
+            return EditorGUIUtility.singleLineHeight * 2.0f;
+        }
+
+        public void DrawDefaultPropertyAndHelpBox(Rect rect, SerializedProperty property, string message, MessageType messageType) {
+            var indentLength = NaughtyEditorGUI.GetIndentLength(rect);
+
+            var helpBoxRect = new Rect(
+                rect.x + indentLength,
+                rect.y,
+                rect.width - indentLength,
+                GetHelpBoxHeight()
+            );
+
+            NaughtyEditorGUI.HelpBox(helpBoxRect, message, MessageType.Warning, property.serializedObject.targetObject);
+
+            var propertyRect = new Rect(
+                rect.x,
+                rect.y + GetHelpBoxHeight(),
+                rect.width,
+                GetPropertyHeight(property)
+            );
+
+            EditorGUI.PropertyField(propertyRect, property, true);
+        }
+    }
 }

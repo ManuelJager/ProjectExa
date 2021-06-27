@@ -1,28 +1,26 @@
 ﻿using System;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
-using Exa.Math;
-using Exa.Types.Generics;
 using Exa.UI.Tweening;
 using UnityEngine;
 
-namespace Exa.ShipEditor
-{
-    public partial class EditorGrid
-    {
+namespace Exa.ShipEditor {
+    public partial class EditorGrid {
         [SerializeField] private MovementConfiguration movementCfg;
         private Vector2Int? mouseGridPos;
 
         /// <summary>
-        /// Current mouse position in the grid
-        /// <para>
-        /// A null value signifies a mouse outside of the grid
-        /// </para>
+        ///     Current mouse position in the grid
+        ///     <para>
+        ///         A null value signifies a mouse outside of the grid
+        ///     </para>
         /// </summary>
         private Vector2Int? MouseGridPos {
             get => mouseGridPos;
             set {
-                if (mouseGridPos == value) return;
+                if (mouseGridPos == value) {
+                    return;
+                }
 
                 if (mouseGridPos != null) {
                     SetActiveBackground(mouseGridPos, false);
@@ -71,7 +69,7 @@ namespace Exa.ShipEditor
             // Move the grid to keyboard input
             // Remap zoom scale range to damp scale
             var remappedZoomScale = movementCfg.zoomCurve.Evaluate(Systems.Editor.EditorCameraTarget.ZoomScale);
-            
+
             // Calculate movement offset
             playerPos -= MovementVector * (movementCfg.speed * Time.deltaTime * remappedZoomScale);
 
@@ -91,14 +89,15 @@ namespace Exa.ShipEditor
         }
 
         private void SetActiveBackground(Vector2Int? gridPos, bool enter) {
-            if (gridPos == null) return;
+            if (gridPos == null) {
+                return;
+            }
 
             backgroundLayer.SetGridBackgroundItemColor(gridPos, enter);
         }
 
         [Serializable]
-        public struct MovementConfiguration
-        {
+        public struct MovementConfiguration {
             [Header("Base movement speed multiplier")]
             public float speed;
 

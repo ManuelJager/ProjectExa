@@ -1,21 +1,21 @@
 ﻿using Exa.Grids.Blocks.Components;
 using Exa.Ships;
 using Exa.Ships.Targeting;
-using UnityEngine;
 
-namespace Exa.AI.Actions
-{
+namespace Exa.AI.Actions {
     // TODO: Implement a distance difference threshold that prevents already targeted ships from being untargeted too quickly
-    public class AAimAtClosestTarget : GridAiAction<GridInstance>
-    {
-        public override ActionLane Lanes => ActionLane.AimTurrets;
-
-        private GridInstance enemyTarget = null;
+    public class AAimAtClosestTarget : GridAiAction<GridInstance> {
         private readonly float detectionRadius;
+
+        private GridInstance enemyTarget;
 
         internal AAimAtClosestTarget(GridInstance gridInstance, float detectionRadius)
             : base(gridInstance) {
             this.detectionRadius = detectionRadius;
+        }
+
+        public override ActionLane Lanes {
+            get => ActionLane.AimTurrets;
         }
 
         public override ActionLane Update(ActionLane blockedLanes) {

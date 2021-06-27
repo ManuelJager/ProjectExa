@@ -1,53 +1,37 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections.Generic;
 using DG.Tweening;
 using Exa.Grids.Blueprints;
 using Exa.Math;
 using Exa.UI;
-using System.Collections.Generic;
 using Exa.UI.Tweening;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
+namespace Exa.ShipEditor {
     /// <summary>
-    /// Grid layer for the Ship layer
+    ///     Grid layer for the Ship layer
     /// </summary>
-    public partial class EditorGrid : MonoBehaviour, IUIGroup
-    {
-        private bool interactable = true;
-        private Vector2 centerPos;
-        private Vector2 playerPos = Vector2.zero;
-        private Vector2Int size;
-        private TweenWrapper<Vector3> positionTween;
-
+    public partial class EditorGrid : MonoBehaviour, IUIGroup {
         [SerializeReference] private List<CustomEditorGridLayer> customLayers;
         public EditorGridBackgroundLayer backgroundLayer;
         public EditorGridBlueprintLayer blueprintLayer;
         public EditorGridGhostLayer ghostLayer;
         public EditorGridTurretLayer turretLayer;
+        private Vector2 centerPos;
+        private bool interactable = true;
+        private Vector2 playerPos = Vector2.zero;
+        private TweenWrapper<Vector3> positionTween;
+        private Vector2Int size;
 
         public Vector2 MovementVector { private get; set; }
 
-        /// <summary>
-        /// Whether or not the grid can be interacted with
-        /// </summary>
-        public bool Interactable {
-            get => interactable;
-            set {
-                interactable = value;
-                if (!value) {
-                    ghostLayer.SetVisibility(false);
-                }
-            }
+        public IEnumerable<ICustomEditorGridLayer> CustomLayers {
+            get => customLayers;
         }
 
-        public IEnumerable<ICustomEditorGridLayer> CustomLayers => customLayers;
-
         /// <summary>
-        /// Whether or not the mouse is over UI
+        ///     Whether or not the mouse is over UI
         /// </summary>
         public bool MouseOverUI { get; set; }
 
@@ -58,10 +42,12 @@ namespace Exa.ShipEditor
         }
 
         public void Update() {
-            if (!Interactable) return;
+            if (!Interactable) {
+                return;
+            }
 
             UpdatePosition();
-            
+
             // Check for mouse input
             backgroundLayer.UpdateCurrActiveGridItem(transform.localPosition.ToVector2());
         }
@@ -74,7 +60,21 @@ namespace Exa.ShipEditor
         }
 
         /// <summary>
-        /// Creates a grid with the given size
+        ///     Whether or not the grid can be interacted with
+        /// </summary>
+        public bool Interactable {
+            get => interactable;
+            set {
+                interactable = value;
+
+                if (!value) {
+                    ghostLayer.SetVisibility(false);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Creates a grid with the given size
         /// </summary>
         /// <param name="size"></param>
         public void GenerateGrid(Vector2Int size) {
@@ -102,6 +102,7 @@ namespace Exa.ShipEditor
 
         private Vector2 GetGridOffset() {
             var halfSize = size.ToVector2() / 2f;
+
             return new Vector2 {
                 x = -halfSize.x + 0.5f,
                 y = -halfSize.y + 0.5f

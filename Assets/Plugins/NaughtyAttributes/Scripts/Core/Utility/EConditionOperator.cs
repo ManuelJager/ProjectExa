@@ -1,8 +1,6 @@
-﻿namespace NaughtyAttributes
-{
-	public enum EConditionOperator
-	{
-		And,
-		Or
-	}
+﻿namespace NaughtyAttributes {
+    public enum EConditionOperator {
+        And,
+        Or
+    }
 }

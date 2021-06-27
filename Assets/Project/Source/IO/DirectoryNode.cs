@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
-namespace Exa.IO
-{
-    public class DirectoryNode : IDirectoryNode
-    {
+namespace Exa.IO {
+    public class DirectoryNode : IDirectoryNode {
+        private readonly string name;
         protected IDirectoryNode parent;
-        private string name;
 
         public DirectoryNode(IDirectoryNode parent, string name) {
             this.parent = parent;
@@ -18,7 +17,7 @@ namespace Exa.IO
         }
 
         public IEnumerable<string> GetFiles(string pattern) {
-            return System.IO.Directory.GetFiles(GetPath(), pattern);
+            return Directory.GetFiles(GetPath(), pattern);
         }
 
         public static implicit operator string(DirectoryNode node) {

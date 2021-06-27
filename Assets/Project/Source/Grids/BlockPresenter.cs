@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace Exa.Grids
-{
-    public class BlockPresenter : MonoBehaviour
-    {
+namespace Exa.Grids {
+    public class BlockPresenter : MonoBehaviour {
         [SerializeField] private SpriteRenderer spriteRenderer;
 
-        public SpriteRenderer Renderer => spriteRenderer;
+        public SpriteRenderer Renderer {
+            get => spriteRenderer;
+        }
 
         public virtual void Present(IGridMember gridMember) {
             gridMember.UpdateLocals(gameObject);

@@ -3,10 +3,8 @@ using Exa.Ships;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Exa.Gameplay
-{
-    public partial class GameplayInputManager
-    {
+namespace Exa.Gameplay {
+    public partial class GameplayInputManager {
         private SelectionBuilder selectionBuilder;
         private bool shiftIsPressed;
 
@@ -14,10 +12,12 @@ namespace Exa.Gameplay
             switch (context.phase) {
                 case InputActionPhase.Started:
                     OnStartSelectionArea();
+
                     break;
 
                 case InputActionPhase.Canceled:
                     OnEndSelectionArea();
+
                     break;
             }
         }
@@ -27,10 +27,12 @@ namespace Exa.Gameplay
                 case InputActionPhase.Performed:
                     Systems.CameraController.EscapeTarget();
                     Systems.CameraController.UserTarget.movementDelta = context.ReadValue<Vector2>();
+
                     break;
 
                 case InputActionPhase.Canceled:
                     Systems.CameraController.UserTarget.movementDelta = Vector2.zero;
+
                     break;
 
                 default:
@@ -44,6 +46,7 @@ namespace Exa.Gameplay
                     if (CurrentSelection is FriendlyShipSelection selection) {
                         var point = Systems.Input.MouseWorldPoint;
                         selection.MoveLookAt(point);
+
                         return;
                     }
 
@@ -61,10 +64,14 @@ namespace Exa.Gameplay
             switch (context.phase) {
                 case InputActionPhase.Performed:
                     var yScroll = context.ReadValue<Vector2>().y;
-                    if (yScroll == 0f) return;
+
+                    if (yScroll == 0f) {
+                        return;
+                    }
 
                     var target = Systems.CameraController.GetTarget();
                     target.OnScroll(yScroll);
+
                     break;
             }
         }
@@ -74,6 +81,7 @@ namespace Exa.Gameplay
                 case InputActionPhase.Started:
                     if (HasSelection && !IsSelectingArea) {
                         RemoveSelectionArea();
+
                         return;
                     }
 
@@ -84,7 +92,9 @@ namespace Exa.Gameplay
         }
 
         public void OnSelectGroup(InputAction.CallbackContext context) {
-            if (shiftIsPressed) return;
+            if (shiftIsPressed) {
+                return;
+            }
 
             switch (context.phase) {
                 case InputActionPhase.Performed:
@@ -92,6 +102,7 @@ namespace Exa.Gameplay
 
                     CurrentSelection?.Clear();
                     CurrentSelection = GS.UI.gameplayLayer.selectionHotbar.Select(index);
+
                     break;
             }
         }
@@ -101,17 +112,20 @@ namespace Exa.Gameplay
                 case InputActionPhase.Performed:
                     var index = context.ReadValue<float>().Round();
                     GS.UI.gameplayLayer.selectionHotbar.Save(CurrentSelection, index);
+
                     break;
             }
         }
 
         public void OnSaveGroupModifier(InputAction.CallbackContext context) {
             switch (context.phase) {
-                case InputActionPhase.Started: 
+                case InputActionPhase.Started:
                     shiftIsPressed = true;
+
                     break;
                 case InputActionPhase.Canceled:
                     shiftIsPressed = false;
+
                     break;
             }
         }
@@ -150,8 +164,9 @@ namespace Exa.Gameplay
         private void RemoveSelectionArea() {
             // Deselect current selection
             var currentHotbarSelection = GS.UI.gameplayLayer.selectionHotbar.CurrentSelection;
-            if (currentHotbarSelection != null) {
-                // Update the view
+
+            if (currentHotbarSelection != null) // Update the view
+            {
                 currentHotbarSelection.Selected = false;
             }
 
@@ -160,8 +175,6 @@ namespace Exa.Gameplay
             CurrentSelection = null;
         }
 
-        private void OnSelectGroup(int index) {
-            
-        }
+        private void OnSelectGroup(int index) { }
     }
 }

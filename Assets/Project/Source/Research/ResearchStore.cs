@@ -6,12 +6,10 @@ using Exa.Grids.Blocks.Components;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.Research
-{
-    public class ResearchStore : MonoBehaviour
-    {
+namespace Exa.Research {
+    public class ResearchStore : MonoBehaviour {
         public delegate void ResearchChangedDelegate(BlockContext blockContext);
-        
+
         [SerializeField] private ResearchItemBag researchItemBag;
 
         private Dictionary<BlockContext, ResearchStepGroup> researchContexts;
@@ -20,6 +18,7 @@ namespace Exa.Research
 
         public void Init() {
             researchContexts = new Dictionary<BlockContext, ResearchStepGroup>();
+
             foreach (var blockContext in BlockContextExtensions.GetContexts()) {
                 researchContexts.Add(blockContext, new ResearchStepGroup());
             }
@@ -47,6 +46,7 @@ namespace Exa.Research
 
         public Action AddModifier(BlockContext filter, IBlockComponentModifier modifier) {
             var steps = new List<ResearchStep>(modifier.GetResearchSteps());
+
             foreach (var (context, group) in FilterDict(filter)) {
                 group.AddSteps(modifier, steps);
                 Systems.Blocks.Values.SetDirty(context, modifier);
@@ -59,14 +59,12 @@ namespace Exa.Research
         public Action AddModifier<T>(
             BlockContext filter,
             ResearchStep<T>.ApplyValues applyFunc,
-            ValueModificationOrder order = ValueModificationOrder.Multiplicative)
+            ValueModificationOrder order = ValueModificationOrder.Multiplicative
+        )
             where T : struct, IBlockComponentValues {
-
             var step = new ResearchStep<T>(applyFunc, order);
-            var dynamicModifier = new DynamicBlockComponentModifier(step, template => {
-                return template.GetTemplatePartials().Any(partial => typeof(T).IsAssignableFrom(partial.GetTargetType()));
-            });
-            
+            var dynamicModifier = new DynamicBlockComponentModifier(step, template => { return template.GetTemplatePartials().Any(partial => typeof(T).IsAssignableFrom(partial.GetTargetType())); });
+
             return AddModifier(filter, dynamicModifier);
         }
 

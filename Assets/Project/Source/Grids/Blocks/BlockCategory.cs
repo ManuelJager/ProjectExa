@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace Exa.Grids.Blocks
-{
+namespace Exa.Grids.Blocks {
     [Flags]
-    public enum BlockCategory : int
-    {
+    public enum BlockCategory {
         Armor = 1 << 0,
         ShipController = 1 << 1,
         Thruster = 1 << 2,
@@ -17,8 +15,7 @@ namespace Exa.Grids.Blocks
         All = ~0
     }
 
-    public static class BlockCategoryExtensions
-    {
+    public static class BlockCategoryExtensions {
         public static string ToFriendlyString(this BlockCategory category) {
             return category switch {
                 BlockCategory.Armor => "Armor",

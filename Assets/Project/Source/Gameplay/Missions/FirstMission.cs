@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
 using Exa.Grids.Blocks;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Research;
-using NaughtyAttributes;
 using UnityEngine;
 
-namespace Exa.Gameplay.Missions
-{
+namespace Exa.Gameplay.Missions {
     [CreateAssetMenu(menuName = "Missions/First")]
-    public class FirstMission : Mission
-    {
+    public class FirstMission : Mission {
         [SerializeField] private BlockCosts initialResources;
         [SerializeField] private float resourceMultiplier;
         [SerializeField] private List<Wave> waves;
-        
+
         public override void Init(MissionManager manager, MissionArgs args) {
             base.Init(manager, args);
-            
+
             var spawner = new Spawner();
 
             manager.CurrentResources = initialResources;
@@ -27,10 +25,8 @@ namespace Exa.Gameplay.Missions
                 GS.UI.gameplayLayer.NavigateTo(GS.UI.gameOverMenu);
             };
 
-            manager.Station.Controller.PhysicalBehaviour.OnDamage += damage => {
-                GS.UI.gameplayLayer.damageOverlay.NotifyDamage();
-            };
-            
+            manager.Station.Controller.PhysicalBehaviour.OnDamage += damage => { GS.UI.gameplayLayer.damageOverlay.NotifyDamage(); };
+
             var waveManager = GS.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
             waveManager.StartPreparationPhase(true);
@@ -48,8 +44,12 @@ namespace Exa.Gameplay.Missions
             };
         }
 
-        protected override void AddResearchModifiers(ResearchBuilder builder) => builder
-            .Context(BlockContext.UserGroup)
-            .Add((ref AutocannonData curr) => curr.damage *= 0.5f);
+        protected override void AddResearchModifiers(ResearchBuilder builder) {
+            builder
+                .Context(BlockContext.UserGroup)
+                .Add((ref AutocannonData curr) => curr.damage *= 0.5f)
+                .ForTemplate<GaussCannonTemplate>()
+                .Add((ref PhysicalData curr) => curr.hull *= 100f);
+        }
     }
 }

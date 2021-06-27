@@ -1,15 +1,13 @@
-﻿using Exa.Grids.Blueprints;
+﻿using System.Collections.Generic;
+using Exa.Grids.Blueprints;
 using Exa.Utils;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
-    public class EditorGridBlueprintLayer : MonoBehaviour
-    {
+namespace Exa.ShipEditor {
+    public class EditorGridBlueprintLayer : MonoBehaviour {
         public UnityEvent onBlueprintChanged;
         [SerializeField] private GridEditorStopwatch stopwatch;
         [SerializeField] private EditorGrid editorGrid;
@@ -49,7 +47,9 @@ namespace Exa.ShipEditor
         }
 
         public void RemoveBlock(Vector2Int gridPos) {
-            if (!ActiveBlueprint.Grid.ContainsMember(gridPos)) return;
+            if (!ActiveBlueprint.Grid.ContainsMember(gridPos)) {
+                return;
+            }
 
             RemoveBlock(ActiveBlueprint.Grid.GetMember(gridPos));
         }

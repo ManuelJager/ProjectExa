@@ -1,20 +1,18 @@
-﻿using UnityEngine;
-using Exa.Misc;
+﻿using Exa.Misc;
 using Exa.Utils;
+using UnityEngine;
 
-namespace Exa.UI
-{
-    public class NotificationLogger : MonoBehaviour
-    {
+namespace Exa.UI {
+    public class NotificationLogger : MonoBehaviour {
         [SerializeField] private GameObject notificationPrefab;
         [SerializeField] private Transform container;
 
         public void NotifyNowPlaying(string name) {
             Notify("Now playing", name);
         }
-        
+
         public void LogException(UserException exception) {
-            LogException(exception.Message, true);
+            LogException(exception.Message);
         }
 
         public void LogException(string message, bool unhandled = true) {

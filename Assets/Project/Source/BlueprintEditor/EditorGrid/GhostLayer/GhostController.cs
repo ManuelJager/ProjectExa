@@ -4,26 +4,30 @@ using Exa.Grids.Blueprints;
 using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.ShipEditor
-{
+namespace Exa.ShipEditor {
     [Flags]
-    public enum GhostControllerState
-    {
+    public enum GhostControllerState {
         Visible = 1 << 0,
         Active = 1 << 1,
         Overlapped = 1 << 2,
         Valid = Visible | Active
     }
 
-    public class GhostController
-    {
-        private BlockFlip flip;
+    public class GhostController {
+        private readonly BlockFlip flip;
         private GhostControllerState state;
+
+        public GhostController(BlockGhost blockGhost, BlockFlip flip) {
+            Ghost = blockGhost;
+            this.flip = flip;
+        }
 
         public BlockGhost Ghost { get; }
         public TurretOverlay Overlay { get; private set; }
 
-        public ABpBlock BlueprintBlock => Ghost.Block;
+        public ABpBlock BlueprintBlock {
+            get => Ghost.Block;
+        }
 
         public GhostControllerState State {
             get => state;
@@ -32,11 +36,6 @@ namespace Exa.ShipEditor
                 Ghost.gameObject.SetActive(state == GhostControllerState.Valid);
                 UpdateOverlay();
             }
-        }
-
-        public GhostController(BlockGhost blockGhost, BlockFlip flip) {
-            this.Ghost = blockGhost;
-            this.flip = flip;
         }
 
         public void SetActive(BlockFlip mask) {
@@ -52,12 +51,14 @@ namespace Exa.ShipEditor
         }
 
         public void ImportBlock(BlueprintBlock block) {
-            Ghost.ImportBlock(new BlueprintBlock {
-                flippedX = flip.HasValue(BlockFlip.FlipX),
-                flippedY = flip.HasValue(BlockFlip.FlipY),
-                id = block.id,
-                Rotation = block.Rotation
-            });
+            Ghost.ImportBlock(
+                new BlueprintBlock {
+                    flippedX = flip.HasValue(BlockFlip.FlipX),
+                    flippedY = flip.HasValue(BlockFlip.FlipY),
+                    id = block.id,
+                    Rotation = block.Rotation
+                }
+            );
         }
 
         public void Clear() {
@@ -68,7 +69,7 @@ namespace Exa.ShipEditor
             if (Overlay != null) {
                 Overlay.gameObject.DestroyObject();
             }
-            
+
             Overlay = overlay;
 
             if (overlay != null) {
@@ -94,10 +95,9 @@ namespace Exa.ShipEditor
                 if (Overlay != null) {
                     Overlay.SetVisibility(true);
                 }
-                
+
                 UpdateOverlay();
-            }
-            else {
+            } else {
                 if (Overlay != null) {
                     Overlay.SetVisibility(false);
                 }

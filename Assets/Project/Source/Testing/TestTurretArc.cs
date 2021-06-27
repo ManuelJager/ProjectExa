@@ -2,10 +2,8 @@ using Exa.Gameplay;
 using Exa.Grids.Blocks.BlockTypes;
 using UnityEngine;
 
-namespace Exa.Testing
-{
-    public class TestTurretArc : MonoBehaviour
-    {
+namespace Exa.Testing {
+    public class TestTurretArc : MonoBehaviour {
         [SerializeField] private UnityEngine.Camera targetCamera;
         [SerializeField] private Autocannon autocannon;
         [SerializeField] private AutocannonTemplate template;

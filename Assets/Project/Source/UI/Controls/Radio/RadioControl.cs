@@ -4,17 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Exa.UI.Controls
-{
+namespace Exa.UI.Controls {
     [Serializable]
-    public class RadioControl : InputControl<bool>
-    {
-        public static RadioControl Create(Transform container, string label, Action<bool> setter) {
-            return Systems.UI.Controls.CreateRadio(container, label, setter);
-        }
-        
+    public class RadioControl : InputControl<bool> {
         [SerializeField] private Image buttonImage;
         [SerializeField] private ActivePair<Color> colors;
+
+        private RadioCheckEvent onValueChange = new RadioCheckEvent();
         private bool value;
 
         public override bool Value {
@@ -25,10 +21,12 @@ namespace Exa.UI.Controls
             }
         }
 
-        private RadioCheckEvent onValueChange = new RadioCheckEvent();
-
         public override UnityEvent<bool> OnValueChange {
             get => onValueChange;
+        }
+
+        public static RadioControl Create(Transform container, string label, Action<bool> setter) {
+            return Systems.UI.Controls.CreateRadio(container, label, setter);
         }
 
         public void Toggle() {
@@ -36,7 +34,6 @@ namespace Exa.UI.Controls
         }
 
         [Serializable]
-        public class RadioCheckEvent : UnityEvent<bool>
-        { }
+        public class RadioCheckEvent : UnityEvent<bool> { }
     }
 }

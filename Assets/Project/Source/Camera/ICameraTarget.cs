@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Exa.Camera
-{
-    public interface ICameraTarget
-    {
+namespace Exa.Camera {
+    public interface ICameraTarget {
         float ZoomScale { get; }
 
         bool TargetValid { get; }
@@ -11,7 +9,7 @@ namespace Exa.Camera
         Vector2 GetWorldPosition();
 
         float GetCalculatedOrthoSize();
-        
+
         void OnScroll(float yScroll);
     }
 }

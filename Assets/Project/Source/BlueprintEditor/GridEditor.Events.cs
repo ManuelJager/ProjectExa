@@ -1,19 +1,21 @@
 ﻿using System;
 
-namespace Exa.ShipEditor
-{
-    public partial class GridEditor
-    {
+namespace Exa.ShipEditor {
+    public partial class GridEditor {
         public event Action BlueprintChangedEvent;
-        
+
         public void OnBlueprintClear() {
             // Hide block ghost and ask user for blueprint clear confirmation
-            Systems.UI.Prompts.PromptYesNo("Are you sure you want to clear the blueprint?", this, yes => {
-                if (yes) {
-                    IsSaved = false;
-                    editorGrid.ClearBlueprint();
+            Systems.UI.Prompts.PromptYesNo(
+                "Are you sure you want to clear the blueprint?",
+                this,
+                yes => {
+                    if (yes) {
+                        IsSaved = false;
+                        editorGrid.ClearBlueprint();
+                    }
                 }
-            });
+            );
         }
 
         public void OnOverlayPointerEnter() {
@@ -43,13 +45,17 @@ namespace Exa.ShipEditor
 
         public void OnBlueprintSave() {
             // Don't to save twice
-            if (IsSaved) return;
+            if (IsSaved) {
+                return;
+            }
 
             // Make sure the grid is validated before saving
             ValidateGrid();
             UpdateSaveButton();
 
-            if (!ShouldSave) return;
+            if (!ShouldSave) {
+                return;
+            }
 
             IsSaved = true;
             UpdateSaveButton();

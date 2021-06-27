@@ -1,54 +1,47 @@
-﻿using Exa.AI;
-using Exa.Debugging;
-using Exa.Gameplay;
-using Exa.Grids.Blocks;
-using Exa.Grids.Blocks.BlockTypes;
-using Exa.Grids.Blueprints;
-using Exa.Math;
-using Exa.UI;
-using Exa.UI.Tooltips;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.AI;
+using Exa.Debugging;
+using Exa.Gameplay;
 using Exa.Grids;
+using Exa.Grids.Blocks;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
+using Exa.Grids.Blueprints;
+using Exa.Math;
 using Exa.Types.Generics;
+using Exa.UI;
+using Exa.UI.Tooltips;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 #pragma warning disable CS0649
 
-namespace Exa.Ships
-{
-    public abstract class GridInstance : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IGridInstance
-    {
+namespace Exa.Ships {
+    public abstract class GridInstance : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IGridInstance {
         [Header("References")]
         [SerializeField] private Transform pivot;
         [SerializeField] private GridAi gridAi;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private CircleCollider2D mouseOverCollider;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] private ValueOverride<CursorState> cursorOverride;
         [FormerlySerializedAs("shipDebugFont")] public Font debugFont;
 
-        public event Action ControllerDestroyed;
-        
         private Tooltip debugTooltip;
 
         public ActionScheduler ActionScheduler { get; private set; }
-        public BlockContext BlockContext { get; private set; }
-        public GridInstanceConfiguration Configuration { get; private set; }
-        public BlockGrid BlockGrid { get; private set; }
         public Blueprint Blueprint { get; private set; }
         public Controller Controller { get; internal set; }
         public BlockGridDiff Diff { get; private set; }
         public bool Active { get; private set; }
         public IGridOverlay Overlay { get; set; }
-        public Transform Transform => transform;
-        public Rigidbody2D Rigidbody2D => rb;
-        public GridAi Ai => gridAi;
+
+        public GridAi Ai {
+            get => gridAi;
+        }
 
         public float HullIntegrity { get; set; }
 
@@ -70,13 +63,47 @@ namespace Exa.Ships
             if (Active) {
                 ActiveFixedUpdate(Time.fixedDeltaTime);
             }
-            
+
             mouseOverCollider.offset = rb.centerOfMass;
 
             if (debugTooltip != null) {
                 debugTooltip.ShouldRefresh = true;
             }
         }
+
+        public BlockContext BlockContext { get; private set; }
+        public GridInstanceConfiguration Configuration { get; private set; }
+        public BlockGrid BlockGrid { get; private set; }
+
+        public Transform Transform {
+            get => transform;
+        }
+
+        public Rigidbody2D Rigidbody2D {
+            get => rb;
+        }
+
+        public virtual void OnRaycastEnter() {
+            if (!Active) {
+                return;
+            }
+
+            EnterRaycast();
+        }
+
+        public virtual void OnRaycastExit() {
+            if (!Active) {
+                return;
+            }
+
+            ExitRaycast();
+        }
+
+        public Tooltip GetTooltip() {
+            return debugTooltip;
+        }
+
+        public event Action ControllerDestroyed;
 
         protected virtual void ActiveFixedUpdate(float fixedDeltaTime) {
             ActionScheduler.ExecuteActions(fixedDeltaTime);
@@ -87,10 +114,10 @@ namespace Exa.Ships
             foreach (var thruster in BlockGrid.Query<ThrusterBehaviour>()) {
                 thruster.PowerDown();
             }
-            
+
             ControllerDestroyed?.Invoke();
             Active = false;
-            
+
             ExitRaycast();
         }
 
@@ -113,7 +140,7 @@ namespace Exa.Ships
             mouseOverCollider.radius = radius;
             BlockGrid.Import(blueprint);
             Blueprint = blueprint;
-            
+
             Diff = Systems.Blocks.Diffs.StartWatching(BlockGrid, Blueprint.Grid);
 
             gridAi.Init();
@@ -127,12 +154,6 @@ namespace Exa.Ships
             return $"({GetType().Name}) {Blueprint.name} : {gameObject.GetInstanceID()}";
         }
 
-        public virtual void OnRaycastEnter() {
-            if (!Active) return;
-
-            EnterRaycast();
-        }
-
         private void EnterRaycast() {
             (Overlay as GridOverlay)?.SetHovered(true);
             Systems.UI.MouseCursor.stateManager.Add(cursorOverride);
@@ -140,12 +161,6 @@ namespace Exa.Ships
             if (DebugMode.Ships.IsEnabled()) {
                 Systems.UI.Tooltips.shipAIDebugTooltip.Show(this);
             }
-        }
-
-        public virtual void OnRaycastExit() {
-            if (!Active) return;
-
-            ExitRaycast();
         }
 
         private void ExitRaycast() {
@@ -163,11 +178,13 @@ namespace Exa.Ships
 
             foreach (var collider in colliders) {
                 var neighbour = collider.gameObject.GetComponent<GridInstance>();
+
                 if (neighbour == null) {
                     continue;
                 }
 
                 var passesContextMask = contextMask.HasValue(neighbour.BlockContext);
+
                 if (!ReferenceEquals(neighbour, this) && passesContextMask) {
                     if (mustBeActive && !neighbour.Active) {
                         continue;
@@ -178,10 +195,6 @@ namespace Exa.Ships
             }
         }
 
-        public Tooltip GetTooltip() {
-            return debugTooltip;
-        }
-
         public abstract ShipSelection GetAppropriateSelection(Formation formation);
 
         public abstract bool MatchesSelection(ShipSelection selection);
@@ -190,30 +203,35 @@ namespace Exa.Ships
 
         public abstract void SetPosition(Vector2 position);
 
-        protected virtual TooltipGroup GetDebugTooltipComponents() => new TooltipGroup(1,
-            new TooltipTitle(GetInstanceString(), false),
-            new TooltipSpacer(),
-            new TooltipText("Blueprint:"),
-            new TooltipGroup(Blueprint.GetDebugTooltipComponents(), 1),
-            new TooltipSpacer(),
-            new TooltipText("BlockGrid:"),
-            new TooltipGroup(BlockGrid.GetDebugTooltipComponents(), 1),
-            new TooltipSpacer(),
-            new TooltipText("State:"),
-            new TooltipGroup(1,
-                new TooltipText($"HullIntegrity: {HullIntegrity}")
-            ),
-            new TooltipSpacer(),
-            new TooltipText("State:"),
-            new TooltipGroup(1,
-                new TooltipText($"Rotation: {rb.rotation}"),
-                new TooltipText($"Clamped Rotation: {MathUtils.NormalizeAngle360(rb.rotation)}")
-            ),
-            new TooltipSpacer(), 
-            new TooltipText("AI:"),
-            new TooltipGroup(gridAi.GetDebugTooltipComponents(), 1)
-        );
-        
+        protected virtual TooltipGroup GetDebugTooltipComponents() {
+            return new TooltipGroup(
+                1,
+                new TooltipTitle(GetInstanceString(), false),
+                new TooltipSpacer(),
+                new TooltipText("Blueprint:"),
+                new TooltipGroup(Blueprint.GetDebugTooltipComponents(), 1),
+                new TooltipSpacer(),
+                new TooltipText("BlockGrid:"),
+                new TooltipGroup(BlockGrid.GetDebugTooltipComponents(), 1),
+                new TooltipSpacer(),
+                new TooltipText("State:"),
+                new TooltipGroup(
+                    1,
+                    new TooltipText($"HullIntegrity: {HullIntegrity}")
+                ),
+                new TooltipSpacer(),
+                new TooltipText("State:"),
+                new TooltipGroup(
+                    1,
+                    new TooltipText($"Rotation: {rb.rotation}"),
+                    new TooltipText($"Clamped Rotation: {MathUtils.NormalizeAngle360(rb.rotation)}")
+                ),
+                new TooltipSpacer(),
+                new TooltipText("AI:"),
+                new TooltipGroup(gridAi.GetDebugTooltipComponents(), 1)
+            );
+        }
+
         public void SetLookAt(Vector2 globalLookAt) {
             Rigidbody2D.rotation = (globalLookAt - GetPosition()).GetAngle();
         }
@@ -225,21 +243,21 @@ namespace Exa.Ships
         public void Rotate(float degrees) {
             Rigidbody2D.rotation += degrees;
         }
-        
+
         public void Repair() {
             foreach (var physicalBehaviour in BlockGrid.Query<PhysicalBehaviour>()) {
                 physicalBehaviour.Repair();
             }
         }
-        
+
         public void ReconcileWithDiff() {
             var pendingAdd = Diff.PendingAdd.ToList();
             var pendingRemove = Diff.PendingRemove.ToList();
- 
+
             foreach (var block in pendingRemove) {
                 BlockGrid.Destroy(block.GridAnchor);
             }
-            
+
             foreach (var block in pendingAdd) {
                 BlockGrid.Place(Blueprint[block.GridAnchor]);
             }

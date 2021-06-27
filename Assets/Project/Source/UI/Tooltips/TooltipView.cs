@@ -1,10 +1,8 @@
 ﻿using Exa.Utils;
 
-namespace Exa.UI.Tooltips
-{
+namespace Exa.UI.Tooltips {
     public abstract class TooltipView<T> : FloatingTooltip
-        where T : ITooltipPresenter
-    {
+        where T : ITooltipPresenter {
         protected Tooltip tooltip;
 
         public GroupView Root { get; set; }

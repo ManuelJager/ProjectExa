@@ -1,16 +1,13 @@
-﻿using Exa.Pooling;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Exa.Pooling;
 using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.Grids.Blocks
-{
-    public abstract class BlockPoolGroupBase : MonoBehaviour
-    {
-        protected Dictionary<string, IPool<PoolMember>> poolById = new Dictionary<string, IPool<PoolMember>>();
-
+namespace Exa.Grids.Blocks {
+    public abstract class BlockPoolGroupBase : MonoBehaviour {
         [SerializeField] private PoolSettings defaultPoolSettings;
+        protected Dictionary<string, IPool<PoolMember>> poolById = new Dictionary<string, IPool<PoolMember>>();
 
         protected abstract PrefabType PrefabType { get; }
 
@@ -23,7 +20,7 @@ namespace Exa.Grids.Blocks
         }
 
         /// <summary>
-        /// Creates a block prefab for the given block template on this group
+        ///     Creates a block prefab for the given block template on this group
         /// </summary>
         /// <param name="blockTemplate"></param>
         /// <param name="inert"></param>

@@ -8,18 +8,16 @@ using UnityEngine.UI;
 
 #pragma warning disable CS0649
 
-namespace Exa.ShipEditor
-{
-    public class BlockTemplateView : MonoBehaviour, IObserver<BlockTemplate>
-    {
-        [Header("References")] 
+namespace Exa.ShipEditor {
+    public class BlockTemplateView : MonoBehaviour, IObserver<BlockTemplate> {
+        [Header("References")]
         public Button button;
         [SerializeField] private Text blockSizeText;
         [SerializeField] private Image image;
         [SerializeField] private Border activeBorder;
         [SerializeField] private Hoverable hoverable;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] private ActivePair<Color> backgroundColors;
 
         private BlockTemplate data;
@@ -29,9 +27,7 @@ namespace Exa.ShipEditor
         }
 
         private void Awake() {
-            hoverable.onPointerEnter.AddListener(() => {
-                Systems.UI.Tooltips.blockTemplateTooltip.Show(BlockContext.DefaultGroup, data);
-            });
+            hoverable.onPointerEnter.AddListener(() => { Systems.UI.Tooltips.blockTemplateTooltip.Show(BlockContext.DefaultGroup, data); });
             hoverable.onPointerExit.AddListener(() => { Systems.UI.Tooltips.blockTemplateTooltip.Hide(); });
         }
 

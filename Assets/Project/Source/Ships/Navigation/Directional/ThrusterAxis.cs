@@ -1,14 +1,11 @@
 ﻿using Exa.Data;
-using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using UnityEngine;
 
-namespace Exa.Ships.Navigation
-{
-    public class ThrusterAxis
-    {
-        private readonly ThrusterGroup positiveThrusterGroup;
+namespace Exa.Ships.Navigation {
+    public class ThrusterAxis {
         private readonly ThrusterGroup negativeThrusterGroup;
+        private readonly ThrusterGroup positiveThrusterGroup;
 
         public ThrusterAxis(Scalar thrustModifier) {
             positiveThrusterGroup = new ThrusterGroup(thrustModifier);
@@ -36,6 +33,7 @@ namespace Exa.Ships.Navigation
         public float Clamp(float directionForce) {
             var positive = directionForce > 0f;
             var maxForceDelta = SelectGroup(positive).Thrust;
+
             return positive ? maxForceDelta : -maxForceDelta;
         }
 

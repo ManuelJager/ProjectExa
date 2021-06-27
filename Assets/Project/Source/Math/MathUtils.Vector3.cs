@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 
-namespace Exa.Math
-{
-    public static partial class MathUtils
-    {
+namespace Exa.Math {
+    public static partial class MathUtils {
         /// <summary>
-        /// Convert a vector3int to a vector
+        ///     Convert a vector3int to a vector
         /// </summary>
         /// <param name="from"></param>
         /// <returns></returns>
@@ -23,6 +21,7 @@ namespace Exa.Math
 
         public static Vector3 SetZ(this Vector3 from, float value) {
             from.z = value;
+
             return from;
         }
     }
