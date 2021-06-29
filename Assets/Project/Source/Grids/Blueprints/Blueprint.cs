@@ -32,7 +32,7 @@ namespace Exa.Grids.Blueprints {
         [JsonIgnore] public Texture2D Thumbnail { get; set; }
 
         [JsonIgnore] public BlueprintType BlueprintType {
-            get => Systems.Blueprints.blueprintTypes.typesById[shipClass];
+            get => S.Blueprints.blueprintTypes.typesById[shipClass];
         }
 
         public Blueprint Clone() {

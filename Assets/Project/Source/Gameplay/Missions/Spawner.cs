@@ -44,7 +44,7 @@ namespace Exa.Gameplay.Missions {
         }
 
         public PlayerStation SpawnPlayerStation(Blueprint blueprint = null, GridInstanceConfiguration? configuration = null) {
-            blueprint ??= Systems.Blueprints.GetBlueprint("defaultPlayerMothership");
+            blueprint ??= S.Blueprints.GetBlueprint("defaultPlayerMothership");
             station = GS.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
             station.Controller.GetBehaviour<ITurretBehaviour>().Target = new MouseCursorTarget();
 
@@ -52,7 +52,7 @@ namespace Exa.Gameplay.Missions {
         }
 
         public EnemyGrid SpawnEnemy(string name, float xPos, float yPos, GridInstanceConfiguration? configuration = null) {
-            var blueprint = Systems.Blueprints.GetBlueprint(name);
+            var blueprint = S.Blueprints.GetBlueprint(name);
             var pos = new Vector2(xPos, yPos);
 
             return GS.ShipFactory.CreateEnemy(blueprint, pos, configuration);

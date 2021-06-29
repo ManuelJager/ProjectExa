@@ -26,7 +26,7 @@ namespace Exa.UI.Controls {
         }
 
         public static RadioControl Create(Transform container, string label, Action<bool> setter) {
-            return Systems.UI.Controls.CreateRadio(container, label, setter);
+            return S.UI.Controls.CreateRadio(container, label, setter);
         }
 
         public void Toggle() {

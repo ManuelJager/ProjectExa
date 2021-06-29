@@ -7,7 +7,7 @@ namespace Exa.Debugging {
         private Console console;
 
         private void Start() {
-            console = Systems.UI.Console;
+            console = S.UI.Console;
 
             console.Container.AddGetter(() => new ClsCommand());
             console.Container.AddGetter(() => new SpawnCommand());

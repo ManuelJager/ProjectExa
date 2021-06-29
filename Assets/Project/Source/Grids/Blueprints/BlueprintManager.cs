@@ -37,7 +37,7 @@ namespace Exa.Grids.Blueprints {
                 try {
                     AddUserBlueprint(blueprintPath);
                 } catch (Exception e) {
-                    Systems.UI.Logger.LogException($"Error loading blueprint: {e.Message}", false);
+                    S.UI.Logger.LogException($"Error loading blueprint: {e.Message}", false);
                 }
 
                 yield return new WorkUnit();

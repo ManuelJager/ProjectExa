@@ -8,7 +8,7 @@ namespace Exa.UI {
         public MissionOptions options;
 
         public void NavigateToMission() {
-            var transition = Systems.Scenes.Transition(
+            var transition = S.Scenes.Transition(
                 "Game",
                 new TransitionArgs {
                     loadSceneMode = LoadSceneMode.Additive,
@@ -20,7 +20,7 @@ namespace Exa.UI {
 
             transition.onPrepared.AddListener(
                 () => {
-                    Systems.UI.Root.navigateable.NavigateTo(GS.Navigateable);
+                    S.UI.Root.navigateable.NavigateTo(GS.Navigateable);
                     GS.MissionManager.LoadMission(options.SelectedMission, new MissionArgs());
                 }
             );

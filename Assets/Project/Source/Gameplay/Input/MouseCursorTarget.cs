@@ -19,7 +19,7 @@ namespace Exa.Gameplay {
 
         public Vector2 GetPosition(Vector2 current) {
             return useDefault
-                ? Systems.Input.MouseWorldPoint
+                ? S.Input.MouseWorldPoint
                 : (Vector2) camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         }
 

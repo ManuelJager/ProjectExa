@@ -62,7 +62,7 @@ namespace Exa {
         }
 
         public static bool IsQuitting {
-            get => Systems.IsQuitting || Systems.Scenes.GetSceneIsUnloading("Game");
+            get => S.IsQuitting || S.Scenes.GetSceneIsUnloading("Game");
         }
 
         public static bool IsPaused {

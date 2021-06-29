@@ -16,7 +16,7 @@ namespace Exa.ShipEditor {
         [SerializeField] private PropertyView turningPower;
 
         public void Update() {
-            var totals = Systems.Editor.ActiveBlueprintTotals;
+            var totals = S.Editor.ActiveBlueprintTotals;
 
             if (totals != null) {
                 Render(totals);

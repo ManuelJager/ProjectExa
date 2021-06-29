@@ -24,7 +24,11 @@ namespace Exa.Grids.Blueprints {
             ThumbnailFileHandle = new FileHandle(
                 this,
                 name => thumbnailDirectory.CombineWith($"{name}.png"),
-                path => IOUtils.SaveTexture2D(Data.Thumbnail, path)
+                path => {
+                    if (Data.Thumbnail != null) {
+                        IOUtils.SaveTexture2D(Data.Thumbnail, path);
+                    }
+                }
             );
         }
 
@@ -40,20 +44,25 @@ namespace Exa.Grids.Blueprints {
         }
 
         public override void SetData(Blueprint data, bool notify = true) {
+            Data = data;
+            
+            // Generate a thumbnail with the new blueprint.
             if (notify) {
-                Systems.Thumbnails.GenerateThumbnail(data);
+                S.Thumbnails.GenerateThumbnail(data);
+                
+                // Make sure that Data is set before the thumbnail file handle is refreshed, as it requires the Data 
                 ThumbnailFileHandle.Refresh();
                 BlueprintFileHandle.Refresh();
+                
+                Notify();
             }
-
-            base.SetData(data, notify);
         }
 
         public void LoadThumbnail() {
             if (File.Exists(ThumbnailFileHandle.TargetPath)) {
                 Data.Thumbnail = IOUtils.LoadTexture2D(ThumbnailFileHandle.TargetPath, 512, 512);
             } else {
-                Systems.Thumbnails.GenerateThumbnail(Data);
+                S.Thumbnails.GenerateThumbnail(Data);
                 ThumbnailFileHandle.Refresh();
             }
         }

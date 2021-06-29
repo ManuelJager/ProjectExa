@@ -8,7 +8,7 @@ namespace Exa.UI.Components {
         [SerializeField] private float planeDistance;
 
         private void Awake() {
-            canvas.worldCamera = Systems.CameraController.Camera;
+            canvas.worldCamera = S.CameraController.Camera;
             canvas.planeDistance = planeDistance;
         }
     }

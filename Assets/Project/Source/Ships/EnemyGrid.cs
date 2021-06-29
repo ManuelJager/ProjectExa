@@ -4,11 +4,12 @@ using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
 using Exa.Math;
+using Exa.Project.Source.UI.Gameplay;
 using Exa.Ships.Navigation;
 using UnityEngine;
 
 namespace Exa.Ships {
-    public class EnemyGrid : GridInstance, IDebugDragable {
+    public class EnemyGrid : GridInstance, IDebugDragable, IEnemyWarningCircleSource {
         [SerializeField] private NavigationOptions navigationOptions;
         public INavigation Navigation { get; private set; }
 
@@ -38,6 +39,10 @@ namespace Exa.Ships {
 
         public override bool MatchesSelection(ShipSelection selection) {
             return selection is EnemyShipSelection;
+        }
+
+        float IEnemyWarningCircleSource.GetSize() {
+            return BlockGrid.MaxSize;
         }
 
         public override Vector2 GetPosition() {

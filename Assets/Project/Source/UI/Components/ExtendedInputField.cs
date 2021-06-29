@@ -5,12 +5,12 @@ namespace Exa.UI.Components {
     public class ExtendedInputField : InputField {
         public override void OnSelect(BaseEventData eventData) {
             base.OnSelect(eventData);
-            Systems.Input.inputIsCaptured = true;
+            S.Input.inputIsCaptured = true;
         }
 
         public override void OnDeselect(BaseEventData eventData) {
             base.OnDeselect(eventData);
-            Systems.Input.inputIsCaptured = false;
+            S.Input.inputIsCaptured = false;
         }
     }
 }

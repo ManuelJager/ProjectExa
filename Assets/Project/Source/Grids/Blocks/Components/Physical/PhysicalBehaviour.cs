@@ -52,7 +52,7 @@ namespace Exa.Grids.Blocks.Components {
             var context = Parent.BlockContext;
             var template = block.BlueprintBlock.Template;
 
-            if (!Systems.Blocks.Values.TryGetValues(context, template, out data)) {
+            if (!S.Blocks.Values.TryGetValues(context, template, out data)) {
                 throw new Exception($"Cannot set physical data for {block.GetInstanceString()}");
             }
         }

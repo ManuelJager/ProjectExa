@@ -25,13 +25,13 @@ namespace Exa.Gameplay {
         public void OnMovement(InputAction.CallbackContext context) {
             switch (context.phase) {
                 case InputActionPhase.Performed:
-                    Systems.CameraController.EscapeTarget();
-                    Systems.CameraController.UserTarget.movementDelta = context.ReadValue<Vector2>();
+                    S.CameraController.EscapeTarget();
+                    S.CameraController.UserTarget.movementDelta = context.ReadValue<Vector2>();
 
                     break;
 
                 case InputActionPhase.Canceled:
-                    Systems.CameraController.UserTarget.movementDelta = Vector2.zero;
+                    S.CameraController.UserTarget.movementDelta = Vector2.zero;
 
                     break;
 
@@ -44,15 +44,15 @@ namespace Exa.Gameplay {
             switch (context.phase) {
                 case InputActionPhase.Started:
                     if (CurrentSelection is FriendlyShipSelection selection) {
-                        var point = Systems.Input.MouseWorldPoint;
+                        var point = S.Input.MouseWorldPoint;
                         selection.MoveLookAt(point);
 
                         return;
                     }
 
-                    if (Systems.GodModeIsEnabled && GS.Raycaster.TryGetTarget<GridInstance>(out var ship)) {
+                    if (S.GodModeIsEnabled && GS.Raycaster.TryGetTarget<GridInstance>(out var ship)) {
                         var worldPos = ship.transform.position.ToVector2();
-                        var direction = (worldPos - Systems.Input.MouseWorldPoint).normalized * ship.BlockGrid.GetTotals().Mass;
+                        var direction = (worldPos - S.Input.MouseWorldPoint).normalized * ship.BlockGrid.GetTotals().Mass;
                         ship.Rigidbody2D.AddForce(direction, ForceMode2D.Force);
                     }
 
@@ -69,7 +69,7 @@ namespace Exa.Gameplay {
                         return;
                     }
 
-                    var target = Systems.CameraController.GetTarget();
+                    var target = S.CameraController.GetTarget();
                     target.OnScroll(yScroll);
 
                     break;
@@ -131,13 +131,13 @@ namespace Exa.Gameplay {
         }
 
         private void OnStartSelectionArea() {
-            var worldPoint = Systems.Input.MouseWorldPoint;
+            var worldPoint = S.Input.MouseWorldPoint;
             selectionBuilder = new SelectionBuilder(worldPoint);
             GS.UI.gameplayLayer.selectionArea.Show(worldPoint);
         }
 
         private void OnUpdateSelectionArea() {
-            var worldPoint = Systems.Input.MouseWorldPoint;
+            var worldPoint = S.Input.MouseWorldPoint;
             GS.UI.gameplayLayer.selectionArea.SetEnd(worldPoint);
         }
 
@@ -147,7 +147,7 @@ namespace Exa.Gameplay {
                 CurrentSelection?.Clear();
 
                 // Update selection builder
-                var worldPoint = Systems.Input.MouseWorldPoint;
+                var worldPoint = S.Input.MouseWorldPoint;
                 selectionBuilder.UpdateSelection(worldPoint);
 
                 // Hide the selection area overlay

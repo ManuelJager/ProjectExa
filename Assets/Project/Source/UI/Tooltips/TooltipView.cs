@@ -20,7 +20,7 @@ namespace Exa.UI.Tooltips {
         public void Rebuild(T data) {
             itemsContainer.DestroyChildren();
             tooltip = data.GetTooltip();
-            Root = Systems.UI.Tooltips.tooltipGenerator.CreateRootView(tooltip, itemsContainer);
+            Root = S.UI.Tooltips.tooltipGenerator.CreateRootView(tooltip, itemsContainer);
             tooltip.ShouldRefresh = false;
         }
     }

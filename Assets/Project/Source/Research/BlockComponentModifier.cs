@@ -41,11 +41,11 @@ namespace Exa.Research {
         public abstract IEnumerable<ResearchStep> GetResearchSteps();
 
         public override void EnableOn(BlockContext filter) {
-            Systems.Research.AddModifier(filter, this);
+            S.Research.AddModifier(filter, this);
         }
 
         public override void DisableOn(BlockContext filter) {
-            Systems.Research.RemoveModifier(filter, this);
+            S.Research.RemoveModifier(filter, this);
         }
 
         public abstract Type GetTargetType();

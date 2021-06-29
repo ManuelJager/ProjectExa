@@ -141,7 +141,7 @@ namespace Exa.Ships {
             BlockGrid.Import(blueprint);
             Blueprint = blueprint;
 
-            Diff = Systems.Blocks.Diffs.StartWatching(BlockGrid, Blueprint.Grid);
+            Diff = S.Blocks.Diffs.StartWatching(BlockGrid, Blueprint.Grid);
 
             gridAi.Init();
         }
@@ -156,19 +156,19 @@ namespace Exa.Ships {
 
         private void EnterRaycast() {
             (Overlay as GridOverlay)?.SetHovered(true);
-            Systems.UI.MouseCursor.stateManager.Add(cursorOverride);
+            S.UI.MouseCursor.stateManager.Add(cursorOverride);
 
             if (DebugMode.Ships.IsEnabled()) {
-                Systems.UI.Tooltips.shipAIDebugTooltip.Show(this);
+                S.UI.Tooltips.shipAIDebugTooltip.Show(this);
             }
         }
 
         private void ExitRaycast() {
             (Overlay as GridOverlay)?.SetHovered(false);
-            Systems.UI.MouseCursor.stateManager.Remove(cursorOverride);
+            S.UI.MouseCursor.stateManager.Remove(cursorOverride);
 
             if (DebugMode.Ships.IsEnabled()) {
-                Systems.UI.Tooltips.shipAIDebugTooltip.Hide();
+                S.UI.Tooltips.shipAIDebugTooltip.Hide();
             }
         }
 

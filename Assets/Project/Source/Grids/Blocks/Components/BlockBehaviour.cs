@@ -21,7 +21,7 @@ namespace Exa.Grids.Blocks.Components {
         public T GetDefaultData() {
             var context = block.Parent.BlockContext;
             var template = block.BlueprintBlock.Template;
-            var store = Systems.Blocks.Values;
+            var store = S.Blocks.Values;
             var success = store.TryGetValues<T>(context, template, out var result);
 
             return success ? result : throw new InvalidOperationException("Could not find default values");

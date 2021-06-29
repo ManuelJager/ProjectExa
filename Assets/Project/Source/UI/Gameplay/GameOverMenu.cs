@@ -10,13 +10,13 @@ namespace Exa.UI.Gameplay {
         }
 
         public void QuitToMenu() {
-            GS.Navigateable.NavigateTo(Systems.UI.Root.navigateable);
-            Systems.Scenes.UnloadAsync("Game");
+            GS.Navigateable.NavigateTo(S.UI.Root.navigateable);
+            S.Scenes.UnloadAsync("Game");
             GS.MissionManager.UnloadMission();
         }
 
         public void QuitToDesktop() {
-            Systems.Quit();
+            S.Quit();
         }
     }
 }

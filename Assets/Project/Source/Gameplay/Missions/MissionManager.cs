@@ -52,9 +52,9 @@ namespace Exa.Gameplay.Missions {
             IsEditing = true;
             editResult = null;
 
-            var currentTarget = Systems.CameraController.CurrentTarget;
+            var currentTarget = S.CameraController.CurrentTarget;
             GS.SpawnLayer.SetLayerActive(false);
-            GS.UI.gameplayLayer.NavigateTo(Systems.Editor.navigateable);
+            GS.UI.gameplayLayer.NavigateTo(S.Editor.navigateable);
 
             var settings = new BlueprintImportArgs(
                 Station.Blueprint,
@@ -78,13 +78,13 @@ namespace Exa.Gameplay.Missions {
                 )
             );
 
-            Systems.Editor.Import(settings);
+            S.Editor.Import(settings);
         }
 
         private void StopEditing(ICameraTarget cameraTarget) {
             IsEditing = false;
 
-            Systems.CameraController.SetTarget(cameraTarget);
+            S.CameraController.SetTarget(cameraTarget);
             GS.SpawnLayer.SetLayerActive(true);
 
             // TODO: use edit result

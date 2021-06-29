@@ -13,14 +13,14 @@ namespace Exa.Debugging {
         private NotificationLogger notificationLogger;
 
         private void Awake() {
-            notificationLogger = Systems.UI.Logger;
+            notificationLogger = S.UI.Logger;
             defaultLogHandler = Debug.unityLogger.logHandler;
             Debug.unityLogger.logHandler = this;
         }
 
         public void LogException(Exception exception, Object context) {
             // Missing reference exceptions when the application is quitting should be ignored
-            if (exception is MissingReferenceException && Systems.IsQuitting) {
+            if (exception is MissingReferenceException && S.IsQuitting) {
                 return;
             }
 

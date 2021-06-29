@@ -49,7 +49,7 @@ namespace Exa.Research {
 
             foreach (var (context, group) in FilterDict(filter)) {
                 group.AddSteps(modifier, steps);
-                Systems.Blocks.Values.SetDirty(context, modifier);
+                S.Blocks.Values.SetDirty(context, modifier);
                 ResearchChanged?.Invoke(context);
             }
 
@@ -71,7 +71,7 @@ namespace Exa.Research {
         public void RemoveModifier(BlockContext filter, IBlockComponentModifier modifier) {
             foreach (var (context, group) in FilterDict(filter)) {
                 group.RemoveSteps(modifier);
-                Systems.Blocks.Values.SetDirty(context, modifier);
+                S.Blocks.Values.SetDirty(context, modifier);
                 ResearchChanged?.Invoke(context);
             }
         }

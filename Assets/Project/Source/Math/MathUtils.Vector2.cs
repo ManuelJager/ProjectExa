@@ -199,5 +199,17 @@ namespace Exa.Math {
         public static string ToShortString(this Vector2Int vector) {
             return $"{vector.x},{vector.y}";
         }
+
+        public static bool GetPointIsInViewport(Vector2 viewportPoint) {
+            return !(
+                viewportPoint.x < 0f ||
+                viewportPoint.x > 1f ||
+                viewportPoint.y < 0f ||
+                viewportPoint.y > 1f);
+        }
+
+        public static Vector2 ViewportPointToCentreOffset(Vector2 viewportPoint) {
+            return viewportPoint * 2 - new Vector2(1f, 1f);
+        }
     }
 }

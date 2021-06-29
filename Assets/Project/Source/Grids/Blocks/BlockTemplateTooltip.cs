@@ -5,8 +5,8 @@ namespace Exa.Grids.Blocks {
     public class BlockTemplateTooltip : FloatingTooltip {
         public void Show(BlockContext blockContext, BlockTemplate blockTemplate) {
             gameObject.SetActive(true);
-            var tooltip = Systems.Blocks.Values.GetTooltip(blockContext, blockTemplate);
-            Systems.UI.Tooltips.tooltipGenerator.CreateRootView(tooltip, itemsContainer);
+            var tooltip = S.Blocks.Values.GetTooltip(blockContext, blockTemplate);
+            S.UI.Tooltips.tooltipGenerator.CreateRootView(tooltip, itemsContainer);
             UpdatePosition(true);
         }
 

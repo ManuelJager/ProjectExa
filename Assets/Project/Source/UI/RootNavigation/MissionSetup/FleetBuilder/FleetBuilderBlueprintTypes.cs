@@ -18,7 +18,7 @@ namespace Exa.UI {
         public void BuildList(Func<BlueprintType, BlueprintTypeTabContent> tabFactory) {
             var index = 0;
 
-            foreach (var blueprintType in Systems.Blueprints.blueprintTypes.Reverse()) {
+            foreach (var blueprintType in S.Blueprints.blueprintTypes.Reverse()) {
                 var blueprintTypeButton = Instantiate(buttonPrefab, container)
                     .GetComponent<BlueprintTypeButton>();
 

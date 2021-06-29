@@ -21,7 +21,7 @@ namespace Exa.UI.Controls {
         }
 
         public static ButtonControl Create(Transform container, string label) {
-            return Systems.UI.Controls.CreateButton(container, label);
+            return S.UI.Controls.CreateButton(container, label);
         }
 
         public void Setup(string label) {

@@ -23,7 +23,7 @@ namespace Exa.ShipEditor {
         private BlockCategory filter = BlockCategory.All;
 
         public void Init() {
-            Source = Systems.Blocks.blockTemplates;
+            Source = S.Blocks.blockTemplates;
         }
 
         public void SelectFirst() {

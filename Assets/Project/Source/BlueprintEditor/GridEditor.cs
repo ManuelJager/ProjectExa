@@ -32,7 +32,7 @@ namespace Exa.ShipEditor {
         }
 
         private void Awake() {
-            overlay = Systems.UI.EditorOverlay;
+            overlay = S.UI.EditorOverlay;
             EditorCameraTarget = new EditorCameraTarget(cameraSettings);
 
             gameControls = new GameControls();
@@ -81,7 +81,7 @@ namespace Exa.ShipEditor {
             overlay.gameObject.SetActive(true);
             gameControls.Enable();
 
-            Systems.CameraController.SetTarget(EditorCameraTarget, true);
+            S.CameraController.SetTarget(EditorCameraTarget, true);
         }
 
         private void OnDisable() {
@@ -98,10 +98,10 @@ namespace Exa.ShipEditor {
             customValidators = new List<IPlugableValidator>();
             customValidators.AddRange(importArgs.Validators);
 
-            BaseImport(importArgs.GetBlueprint(), importArgs.ValidateName);
+            ImportImpl(importArgs.GetBlueprint(), importArgs.ValidateName);
         }
 
-        private void BaseImport(Blueprint blueprint, bool enableNameChanging) {
+        private void ImportImpl(Blueprint blueprint, bool enableNameChanging) {
             ResetState();
 
             editorGrid.turretLayer.Init();

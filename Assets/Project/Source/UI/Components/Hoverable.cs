@@ -93,7 +93,7 @@ namespace Exa.UI {
                 return;
             }
 
-            if (Systems.Input.GetMouseInsideRect(rectTransform)) {
+            if (S.Input.GetMouseInsideRect(rectTransform)) {
                 TryEnter();
             } else if (exit) {
                 TryExit();
@@ -101,11 +101,11 @@ namespace Exa.UI {
         }
 
         private void OnEnter() {
-            Systems.UI.MouseCursor.stateManager.Add(cursorOverride);
+            S.UI.MouseCursor.stateManager.Add(cursorOverride);
         }
 
         private void OnExit() {
-            Systems.UI.MouseCursor.stateManager.Remove(cursorOverride);
+            S.UI.MouseCursor.stateManager.Remove(cursorOverride);
         }
     }
 }

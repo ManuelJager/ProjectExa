@@ -60,7 +60,7 @@ namespace Exa.Utils {
 
         public static IEnumerator ScheduleWithTargetFramerate(this IEnumerator enumerator) {
             // Select a target frame rate
-            var targetFrameRate = Systems.Settings.VideoSettings.Values.resolution.refreshRate;
+            var targetFrameRate = S.Settings.VideoSettings.Values.resolution.refreshRate;
 
             return ScheduleWithFramerate(enumerator, targetFrameRate);
         }

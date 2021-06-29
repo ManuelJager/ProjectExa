@@ -18,7 +18,7 @@ namespace Exa.Gameplay.Missions {
         }
 
         public virtual void Init(MissionManager manager, MissionArgs args) {
-            researchBuilder = new ResearchBuilder(Systems.Research);
+            researchBuilder = new ResearchBuilder(S.Research);
             AddResearchModifiers(researchBuilder);
         }
 

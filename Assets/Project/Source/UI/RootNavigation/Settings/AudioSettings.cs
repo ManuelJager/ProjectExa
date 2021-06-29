@@ -23,8 +23,8 @@ namespace Exa.UI.Settings {
 
         public override void Apply() {
             AudioListener.volume = Values.masterVolume;
-            Systems.Audio.Music.Volume = Values.musicVolume;
-            Systems.Audio.Effects.Volume = Values.effectsVolume;
+            S.Audio.Music.Volume = Values.musicVolume;
+            S.Audio.Effects.Volume = Values.effectsVolume;
             LoadSoundTrack();
         }
 
@@ -33,7 +33,7 @@ namespace Exa.UI.Settings {
                 throw new InvalidOperationException("Load handler not set when loading soundtrack");
             }
 
-            var music = Systems.Audio.Music;
+            var music = S.Audio.Music;
 
             if (music.CurrentSoundtrack != null &&
                 music.CurrentSoundtrack.Description.Name == Values.soundTrackName) {
@@ -46,7 +46,7 @@ namespace Exa.UI.Settings {
             var description = provider.Find(Values.soundTrackName);
 
             if (description == null) {
-                Systems.UI.Logger.LogException($"Could not find soundtrack by name \"{Values.soundTrackName}\"");
+                S.UI.Logger.LogException($"Could not find soundtrack by name \"{Values.soundTrackName}\"");
                 provider.DefaultSoundTrack.LoadSoundTrack(LoadHandler);
             } else {
                 description.LoadSoundTrack(LoadHandler);
@@ -54,14 +54,14 @@ namespace Exa.UI.Settings {
 
             LoadHandler.LoadEnumerator = LoadHandler.LoadEnumerator.Then(
                 () => {
-                    Systems.Audio.Music.CurrentSoundtrack = LoadHandler.OutputSoundtrack;
+                    S.Audio.Music.CurrentSoundtrack = LoadHandler.OutputSoundtrack;
                     LoadHandler.LoadEnumerator = null;
                 }
             );
         }
 
         private string GetDefaultSoundTrackName() {
-            return Systems.Audio.Music.Provider.DefaultSoundTrack.Name;
+            return S.Audio.Music.Provider.DefaultSoundTrack.Name;
         }
 
         public override AudioSettingsValues Clone() {
@@ -76,7 +76,7 @@ namespace Exa.UI.Settings {
         protected override AudioSettingsValues DeserializeValues(string path) {
             var values = base.DeserializeValues(path);
 
-            if (Systems.Audio.Music.Provider.Find(values.soundTrackName) == null) {
+            if (S.Audio.Music.Provider.Find(values.soundTrackName) == null) {
                 values.soundTrackName = GetDefaultSoundTrackName();
             }
 

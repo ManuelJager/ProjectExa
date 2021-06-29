@@ -11,7 +11,7 @@ namespace Exa.Grids {
 
         private void Awake() {
             totalsDictionary = new Dictionary<IMemberCollection, Dictionary<BlockContext, TotalsCache>>();
-            Systems.Research.ResearchChanged += InvalidateTotals;
+            S.Research.ResearchChanged += InvalidateTotals;
         }
 
         public GridTotals StartWatching(IMemberCollection grid, BlockContext context) {

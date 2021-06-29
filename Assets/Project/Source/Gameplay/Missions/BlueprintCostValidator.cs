@@ -20,21 +20,21 @@ namespace Exa.Gameplay.Missions {
 
         private void BlueprintChangedHandler() {
             var args = new BlueprintCostValidatorArgs {
-                currentCosts = Systems.Editor.ActiveBlueprintTotals.Metadata.blockCosts
+                currentCosts = S.Editor.ActiveBlueprintTotals.Metadata.blockCosts
             };
 
             view.SetBudget(maxAllowedCosts - args.currentCosts);
-            Result = Systems.Editor.Validate(this, args);
+            Result = S.Editor.Validate(this, args);
         }
 
         public override void Add() {
-            view = Systems.UI.EditorOverlay.EnableBudgetView();
-            Systems.Editor.BlueprintChangedEvent += BlueprintChangedHandler;
+            view = S.UI.EditorOverlay.EnableBudgetView();
+            S.Editor.BlueprintChangedEvent += BlueprintChangedHandler;
             BlueprintChangedHandler();
         }
 
         public override void Remove() {
-            Systems.Editor.BlueprintChangedEvent -= BlueprintChangedHandler;
+            S.Editor.BlueprintChangedEvent -= BlueprintChangedHandler;
         }
     }
 

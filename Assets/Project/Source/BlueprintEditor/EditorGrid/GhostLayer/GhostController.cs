@@ -67,7 +67,7 @@ namespace Exa.ShipEditor {
 
         public void SetOverlay(TurretOverlay overlay) {
             if (Overlay != null) {
-                Overlay.gameObject.DestroyObject();
+                Overlay.gameObject.Destroy();
             }
 
             Overlay = overlay;

@@ -78,7 +78,7 @@ namespace Exa.Audio {
         }
 
         public void Clear() {
-            players.Values.ForEach(player => player.gameObject.DestroyObject());
+            players.Values.ForEach(player => player.gameObject.Destroy());
             players.Clear();
             handleGroups.Clear();
         }

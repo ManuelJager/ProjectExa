@@ -43,7 +43,7 @@ namespace Exa.Gameplay {
         }
 
         private void UpdateRaycastTarget() {
-            var worldPoint = Systems.Input.MouseWorldPoint;
+            var worldPoint = S.Input.MouseWorldPoint;
 
             var hits = Physics2D.RaycastAll(worldPoint, Vector2.zero)
                 .Select(hit => hit.transform.gameObject.GetComponent<IRaycastTarget>())

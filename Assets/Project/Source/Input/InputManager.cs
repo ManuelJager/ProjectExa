@@ -18,29 +18,23 @@ namespace Exa.Input {
         public Vector2 MouseOffsetFromCentre { get; private set; }
 
         private void Awake() {
-            mouseCursor = Systems.UI.MouseCursor;
-            root = Systems.UI.RootCanvas;
+            mouseCursor = S.UI.MouseCursor;
+            root = S.UI.RootCanvas;
         }
 
         private void Update() {
             var mousePos = Mouse.current.position.ReadValue();
             MouseScaledViewportPoint = mousePos / root.scaleFactor;
             MouseScreenPoint = mousePos;
-            MouseWorldPoint = Systems.CameraController.Camera.ScreenToWorldPoint(mousePos);
-            MouseViewportPoint = Systems.CameraController.Camera.ScreenToViewportPoint(mousePos);
+            MouseWorldPoint = S.CameraController.Camera.ScreenToWorldPoint(mousePos);
+            MouseViewportPoint = S.CameraController.Camera.ScreenToViewportPoint(mousePos);
             MouseOffsetFromCentre = CalculateMouseOffsetFromCentre(MouseViewportPoint);
 
-            var currFrameMouseInViewport = !(
-                MouseViewportPoint.x < 0f ||
-                MouseViewportPoint.x > 1f ||
-                MouseViewportPoint.y < 0f ||
-                MouseViewportPoint.y > 1f);
-
-            mouseCursor.UpdateMouseInViewport(currFrameMouseInViewport);
+            mouseCursor.UpdateMouseInViewport(MathUtils.GetPointIsInViewport(MouseViewportPoint));
         }
 
         public bool GetMouseInsideRect(RectTransform rect) {
-            return RectTransformUtility.RectangleContainsScreenPoint(rect, MouseScreenPoint, Systems.CameraController.Camera);
+            return RectTransformUtility.RectangleContainsScreenPoint(rect, MouseScreenPoint, S.CameraController.Camera);
         }
 
         public bool GetMouseInsideRect(params RectTransform[] rects) {
@@ -50,7 +44,7 @@ namespace Exa.Input {
         private Vector2 CalculateMouseOffsetFromCentre(Vector2 mouseViewportPoint) {
             var min = new Vector2(-1, -1);
             var max = new Vector2(1, 1);
-            var unclampedOffset = mouseViewportPoint * 2f - max;
+            var unclampedOffset = MathUtils.ViewportPointToCentreOffset(mouseViewportPoint);
 
             return unclampedOffset.Clamp(min, max);
         }

@@ -29,7 +29,7 @@ namespace Exa.Grids.Blocks {
         public int metalsCost;
 
         public TooltipComponentView InstantiateComponentView(Transform parent) {
-            return Systems.UI.Tooltips.tooltipGenerator.CreateBlockCostsView(parent, this);
+            return S.UI.Tooltips.tooltipGenerator.CreateBlockCostsView(parent, this);
         }
 
         public static BlockCosts operator +(BlockCosts a, BlockCosts b) {

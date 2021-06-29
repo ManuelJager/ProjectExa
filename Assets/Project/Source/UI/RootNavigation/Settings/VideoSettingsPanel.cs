@@ -60,8 +60,8 @@ namespace Exa.UI.Settings {
             const string format = "Do you wish to keep these settings? (Reverting in {0} seconds)";
 
             var backupValues = Container.Clone();
-            var setter = Systems.UI.Prompts.PromptTextSetter;
-            var uiGroup = Systems.UI.Root.interactableAdapter;
+            var setter = S.UI.Prompts.PromptTextSetter;
+            var uiGroup = S.UI.Root.interactableAdapter;
 
             var prompt = null as Prompt;
 
@@ -76,7 +76,7 @@ namespace Exa.UI.Settings {
                 )
                 .Start(this);
 
-            prompt = Systems.UI.Prompts.PromptYesNo(
+            prompt = S.UI.Prompts.PromptYesNo(
                 format.Format(length),
                 uiGroup,
                 value => {

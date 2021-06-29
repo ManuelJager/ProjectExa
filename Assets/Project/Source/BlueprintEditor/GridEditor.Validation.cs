@@ -19,7 +19,7 @@ namespace Exa.ShipEditor {
         public void ValidateName(string name) {
             if (ImportArgs is ContainerImportArgs containerImportArgs) {
                 var args = new BlueprintNameValidationArgs {
-                    collectionContext = Systems.Blueprints.userBlueprints,
+                    collectionContext = S.Blueprints.userBlueprints,
                     requestedName = name,
                     blueprintContainer = containerImportArgs.Container
                 };

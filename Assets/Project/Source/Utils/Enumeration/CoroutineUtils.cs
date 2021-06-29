@@ -9,7 +9,7 @@ namespace Exa.Utils {
         }
 
         public static Coroutine Start(this IEnumerator enumerator) {
-            return Systems.Instance.StartCoroutine(enumerator);
+            return S.Instance.StartCoroutine(enumerator);
         }
 
         public static Coroutine Start(this IEnumerator enumerator, MonoBehaviour target) {

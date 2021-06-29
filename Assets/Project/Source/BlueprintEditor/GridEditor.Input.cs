@@ -6,7 +6,7 @@ namespace Exa.ShipEditor {
         public EditorCameraTarget EditorCameraTarget { get; private set; }
 
         public void OnMovement(InputAction.CallbackContext context) {
-            if (Systems.Input.inputIsCaptured) {
+            if (S.Input.inputIsCaptured) {
                 editorGrid.MovementVector = Vector2.zero;
 
                 return;

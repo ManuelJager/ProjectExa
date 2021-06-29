@@ -6,7 +6,7 @@ namespace Exa.ShipEditor {
 
         public void OnBlueprintClear() {
             // Hide block ghost and ask user for blueprint clear confirmation
-            Systems.UI.Prompts.PromptYesNo(
+            S.UI.Prompts.PromptYesNo(
                 "Are you sure you want to clear the blueprint?",
                 this,
                 yes => {

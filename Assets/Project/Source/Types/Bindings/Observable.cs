@@ -15,7 +15,7 @@ namespace Exa.Types.Binding {
             Data = data;
         }
 
-        public T Data { get; private set; }
+        public T Data { get; protected set; }
 
         public bool Equals(Observable<T> other) {
             if (other == null) {

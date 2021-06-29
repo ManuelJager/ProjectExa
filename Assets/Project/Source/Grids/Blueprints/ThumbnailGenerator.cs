@@ -23,19 +23,25 @@ namespace Exa.Grids.Blueprints {
                 blockGO.SetActive(true);
             }
 
-            transform.GetChildren().ForEach(Debug.Log);
+            // Thumbnails are not that important, so nulling them is fine
+            try {
+                var thisTransform = transform;
+                RuntimePreviewGenerator.PreviewDirection = thisTransform.forward;
+                var tex = RuntimePreviewGenerator.GenerateModelPreview(thisTransform, 512, 512);
 
-            RuntimePreviewGenerator.PreviewDirection = transform.forward;
-            var tex = RuntimePreviewGenerator.GenerateModelPreview(transform, 512, 512);
+                // Make sure the texture is set
+                if (tex == null) {
+                    throw new Exception("Generated thumbnail is null");
+                }
 
-            if (tex == null) {
-                throw new Exception("Generated thumbnail is null");
+                blueprint.Thumbnail = tex;
+            } catch (Exception e) {
+                blueprint.Thumbnail = null;
+                Debug.LogWarning($"Cannot generate grid thumbnail, {e}");
+            } finally {
+                // Disable children, thus returning the blocks to the pool
+                transform.SetActiveChildren(false);
             }
-
-            blueprint.Thumbnail = tex;
-
-            // Cleanup Ship
-            transform.SetActiveChildren(false);
         }
     }
 }

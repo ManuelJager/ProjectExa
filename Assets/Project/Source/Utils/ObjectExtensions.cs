@@ -13,7 +13,7 @@ namespace Exa.Utils {
             return Instantiate(prefab, parent, name ?? typeof(T).Name).GetComponent<T>();
         }
 
-        public static void DestroyObject(this Object @object) {
+        public static void Destroy(this Object @object) {
             Object.Destroy(@object);
         }
     }

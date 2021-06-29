@@ -17,7 +17,7 @@ namespace Exa.Camera {
         }
 
         public override Vector2 GetWorldPosition() {
-            var mouseOffset = Systems.Input.MouseOffsetFromCentre * GetCalculatedOrthoSize() * 0.1f;
+            var mouseOffset = S.Input.MouseOffsetFromCentre * GetCalculatedOrthoSize() * 0.1f;
 
             return worldPosition + mouseOffset;
         }

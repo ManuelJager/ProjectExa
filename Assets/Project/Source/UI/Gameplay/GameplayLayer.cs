@@ -1,4 +1,5 @@
 ﻿using Exa.Gameplay;
+using Exa.Project.Source.UI.Gameplay;
 using Exa.UI.Components;
 
 namespace Exa.UI.Gameplay {
@@ -10,5 +11,6 @@ namespace Exa.UI.Gameplay {
         public BlockCostsView currentResources;
         public MissionState missionState;
         public DamageOverlay damageOverlay;
+        public EnemyWarningCircleManager warningCircleOverlay;
     }
 }

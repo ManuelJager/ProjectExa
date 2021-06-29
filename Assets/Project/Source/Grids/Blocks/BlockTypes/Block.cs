@@ -36,7 +36,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
                     return;
                 }
 
-                if (parent != null && !Systems.IsQuitting) {
+                if (parent != null && !S.IsQuitting) {
                     OnRemove();
                 }
 

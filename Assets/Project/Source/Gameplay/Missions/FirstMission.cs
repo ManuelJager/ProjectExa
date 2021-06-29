@@ -27,21 +27,26 @@ namespace Exa.Gameplay.Missions {
 
             manager.Station.Controller.PhysicalBehaviour.OnDamage += damage => { GS.UI.gameplayLayer.damageOverlay.NotifyDamage(); };
 
-            var waveManager = GS.GameObject.AddComponent<WaveManager>();
-            waveManager.Setup(spawner, waves);
-            waveManager.StartPreparationPhase(true);
+            {
+                var waveManager = GS.GameObject.AddComponent<WaveManager>();
+                waveManager.Setup(spawner, waves);
+                waveManager.StartPreparationPhase(true);
 
-            waveManager.WaveStarted += () => {
-                GS.MissionManager.Station.Repair();
-                GS.MissionManager.Station.ReconcileWithDiff();
-            };
+                waveManager.WaveStarted += () => {
+                    GS.MissionManager.Station.Repair();
+                    GS.MissionManager.Station.ReconcileWithDiff();
+                };
 
-            waveManager.EnemyDestroyed += grid => {
-                var costs = grid.GetBaseTotals().Metadata.blockCosts * resourceMultiplier;
-                GS.MissionManager.AddResources(costs);
-                GS.MissionManager.Stats.CollectedResources += costs;
-                GS.MissionManager.Stats.DestroyedShips += 1;
-            };
+                waveManager.EnemySpawned += grid => { GS.UI.gameplayLayer.warningCircleOverlay.Add(grid); };
+
+                waveManager.EnemyDestroyed += grid => {
+                    var costs = grid.GetBaseTotals().Metadata.blockCosts * resourceMultiplier;
+                    GS.UI.gameplayLayer.warningCircleOverlay.Remove(grid);
+                    GS.MissionManager.AddResources(costs);
+                    GS.MissionManager.Stats.CollectedResources += costs;
+                    GS.MissionManager.Stats.DestroyedShips += 1;
+                };
+            }
         }
 
         protected override void AddResearchModifiers(ResearchBuilder builder) {

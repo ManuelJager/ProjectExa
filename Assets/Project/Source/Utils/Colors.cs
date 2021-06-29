@@ -3,27 +3,27 @@
 namespace Exa.Utils {
     public static class Colors {
         public static Color White {
-            get => Systems.Colors.white;
+            get => S.Colors.white;
         }
 
         public static Color DimGray {
-            get => Systems.Colors.dimGray;
+            get => S.Colors.dimGray;
         }
 
         public static Color Onyx {
-            get => Systems.Colors.onyx;
+            get => S.Colors.onyx;
         }
 
         public static Color RaisinBlack {
-            get => Systems.Colors.raisinBlack;
+            get => S.Colors.raisinBlack;
         }
 
         public static Color Verdigris {
-            get => Systems.Colors.verdigris;
+            get => S.Colors.verdigris;
         }
 
         public static Color RoseVale {
-            get => Systems.Colors.roseVale;
+            get => S.Colors.roseVale;
         }
 
         public static Color GetActiveColor(bool active) {

@@ -21,7 +21,7 @@ namespace Exa.Debugging {
         }
 
         public void Awake() {
-            console = Systems.UI.Console;
+            console = S.UI.Console;
             gameControls = new GameControls();
             gameControls.Debug.SetCallbacks(this);
         }
@@ -96,7 +96,7 @@ namespace Exa.Debugging {
         /// <param name="debugMode"></param>
         /// <returns></returns>
         public static bool IsEnabled(this DebugMode debugMode) {
-            return (Systems.Debug.DebugMode & debugMode) == debugMode;
+            return (S.Debug.DebugMode & debugMode) == debugMode;
         }
     }
 }

@@ -86,7 +86,7 @@ namespace Exa.UI.Controls {
             Action<T> setter,
             Action<T, DropdownTab> onTabCreated = null
         ) {
-            return Systems.UI.Controls.CreateDropdown(
+            return S.UI.Controls.CreateDropdown(
                 container,
                 label,
                 possibleValues,
@@ -131,7 +131,7 @@ namespace Exa.UI.Controls {
         }
 
         private bool GetMouseOutsideControl() {
-            return !Systems.Input.GetMouseInsideRect(tabContainer, selectedTab);
+            return !S.Input.GetMouseInsideRect(tabContainer, selectedTab);
         }
 
         [Serializable]

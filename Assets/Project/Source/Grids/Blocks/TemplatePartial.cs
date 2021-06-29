@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks {
         public abstract T ToBaseComponentValues();
 
         public T ToContextfulComponentValues(BlockContext blockContext) {
-            return Systems.Research.ApplyModifiers(blockContext, Template, ToBaseComponentValues());
+            return S.Research.ApplyModifiers(blockContext, Template, ToBaseComponentValues());
         }
 
         public override IBlockComponentValues GetContextlessValues() {

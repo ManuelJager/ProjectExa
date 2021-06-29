@@ -21,7 +21,7 @@ using UnityEngine;
 namespace Exa {
     public delegate void DebugChangeDelegate(DebugMode mode);
 
-    public class Systems : MonoSingleton<Systems> {
+    public class S : MonoSingleton<S> {
         [Header("References")]
         [SerializeField] private BlockFactory blockFactory;
         [SerializeField] private CameraController cameraController;

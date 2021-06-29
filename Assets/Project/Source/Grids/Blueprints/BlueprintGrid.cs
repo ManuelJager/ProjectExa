@@ -17,7 +17,7 @@ namespace Exa.Grids.Blueprints {
         }
 
         public GridTotals GetTotals(BlockContext context = BlockContext.DefaultGroup) {
-            return Systems.Blocks.Totals.GetGridTotalsSafe(this, context);
+            return S.Blocks.Totals.GetGridTotalsSafe(this, context);
         }
     }
 }

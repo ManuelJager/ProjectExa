@@ -6,7 +6,7 @@ namespace Exa.Audio.Music {
     /// </summary>
     public class AtmosphereTrigger : MonoOverride<Atmosphere> {
         protected override OverrideList<Atmosphere> GetPath() {
-            return Systems.Audio.Music.Atmospheres;
+            return S.Audio.Music.Atmospheres;
         }
     }
 }

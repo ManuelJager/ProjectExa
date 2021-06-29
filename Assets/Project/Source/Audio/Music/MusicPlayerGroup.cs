@@ -77,7 +77,7 @@ namespace Exa.Audio.Music {
             if (currentSoundtrack.SelectSong(atmosphere).IsNotNull(out var song)) {
                 currentSoundHandle = PlayGlobal(song);
                 currentSoundHandle.onEnd.AddListener(Play);
-                Systems.UI.Logger.NotifyNowPlaying(song.Id);
+                S.UI.Logger.NotifyNowPlaying(song.Id);
             } else {
                 var message = $"Cannot select a song from the current soundtrack {currentSoundtrack.Description.Name}, " +
                     $"as it probably doesn't have a song for the atmosphere {atmosphere}";

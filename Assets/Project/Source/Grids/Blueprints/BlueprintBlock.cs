@@ -35,11 +35,11 @@ namespace Exa.Grids.Blueprints {
         [JsonIgnore]
         public BlockTemplate Template {
             get {
-                if (!Systems.Blocks.blockTemplatesDict.ContainsKey(id)) {
+                if (!S.Blocks.blockTemplatesDict.ContainsKey(id)) {
                     throw new KeyNotFoundException($"Block template with id: {id} doesn't exist");
                 }
 
-                return Systems.Blocks.blockTemplatesDict[id];
+                return S.Blocks.blockTemplatesDict[id];
             }
         }
 

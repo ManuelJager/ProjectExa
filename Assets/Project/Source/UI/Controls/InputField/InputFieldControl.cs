@@ -25,7 +25,7 @@ namespace Exa.UI.Controls {
         }
 
         public static InputFieldControl Create(Transform container, string label, Action<string> setter) {
-            return Systems.UI.Controls.CreateInputField(container, label, setter);
+            return S.UI.Controls.CreateInputField(container, label, setter);
         }
 
         public void SetValueWithoutNotify(string value) {

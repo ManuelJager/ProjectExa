@@ -32,7 +32,7 @@ namespace Exa.ShipEditor {
             overlayPrefabs = new Dictionary<ITurretTemplate, GameObject>();
             overlayInstances = new Dictionary<ABpBlock, TurretOverlay>();
 
-            var templates = Systems.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
+            var templates = S.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
 
             foreach (var template in templates) {
                 GenerateTurretOverlayPrefab(template);

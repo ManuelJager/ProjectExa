@@ -12,7 +12,7 @@ namespace Exa.Grids.Blueprints {
         }
 
         public override void GenerateView(Transform container) {
-            var blueprintTypes = Systems.Blueprints.blueprintTypes;
+            var blueprintTypes = S.Blueprints.blueprintTypes;
             InputFieldControl.Create(container, "Name", SetBlueprintName);
 
             DropdownControl.Create(
@@ -34,8 +34,8 @@ namespace Exa.Grids.Blueprints {
 
         private void OnOptionCreation(BlueprintType value, DropdownTab tab) {
             var hoverable = tab.gameObject.AddComponent<Hoverable>();
-            hoverable.onPointerEnter.AddListener(() => Systems.UI.Tooltips.blueprintTypeTooltip.Show(value));
-            hoverable.onPointerExit.AddListener(() => Systems.UI.Tooltips.blueprintTypeTooltip.Hide());
+            hoverable.onPointerEnter.AddListener(() => S.UI.Tooltips.blueprintTypeTooltip.Show(value));
+            hoverable.onPointerExit.AddListener(() => S.UI.Tooltips.blueprintTypeTooltip.Hide());
         }
     }
 }

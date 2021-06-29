@@ -7,7 +7,7 @@ namespace Exa.UI {
         }
 
         public void Exit() {
-            Systems.Quit();
+            S.Quit();
         }
     }
 }

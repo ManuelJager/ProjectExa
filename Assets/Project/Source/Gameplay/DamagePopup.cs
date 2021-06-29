@@ -27,7 +27,7 @@ namespace Exa.Gameplay {
             DestroyEvent = new UnityEvent();
         }
 
-        public void Update() {
+        private void Update() {
             currentLifetime += Time.deltaTime;
 
             if (currentLifetime > maxLifetime) {

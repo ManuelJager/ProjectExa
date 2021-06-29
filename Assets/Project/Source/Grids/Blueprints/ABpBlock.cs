@@ -46,14 +46,14 @@ namespace Exa.Grids.Blueprints {
         }
 
         public GameObject CreateInactiveInertBlockInGrid(Transform parent) {
-            var blockGO = Systems.Blocks.GetInactiveInertBlock(blueprintBlock.id, parent);
+            var blockGO = S.Blocks.GetInactiveInertBlock(blueprintBlock.id, parent);
             this.SetupGameObject(blockGO);
 
             return blockGO;
         }
 
         public Block CreateInactiveBlockInGrid(Transform parent, BlockContext blockPrefabType) {
-            var block = Systems.Blocks.GetInactiveBlock(blueprintBlock.id, parent, blockPrefabType);
+            var block = S.Blocks.GetInactiveBlock(blueprintBlock.id, parent, blockPrefabType);
             var blockGO = block.gameObject;
             block.aBpBlock = this;
             this.SetupGameObject(blockGO);

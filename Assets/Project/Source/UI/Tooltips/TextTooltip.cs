@@ -7,11 +7,11 @@ namespace Exa.UI.Tooltips {
         [SerializeField] private RectTransform verticalContainer;
 
         public static void ShowTooltip(string message) {
-            Systems.UI.Tooltips.textTooltip.ShowTooltipInternal(message);
+            S.UI.Tooltips.textTooltip.ShowTooltipInternal(message);
         }
 
         public static void HideTooltip() {
-            Systems.UI.Tooltips.textTooltip.HideTooltipInternal();
+            S.UI.Tooltips.textTooltip.HideTooltipInternal();
         }
 
         protected override Vector2 GetTooltipSize() {

@@ -21,7 +21,7 @@ namespace Exa.Pooling {
         }
 
         protected virtual bool IgnoreClause() {
-            return Systems.IsQuitting;
+            return S.IsQuitting;
         }
     }
 }

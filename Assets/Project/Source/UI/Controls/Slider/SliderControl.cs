@@ -42,7 +42,7 @@ namespace Exa.UI.Controls {
             Action<float> setter,
             MinMax<float>? minMax = null
         ) {
-            return Systems.UI.Controls.CreateSlider(container, label, setter, minMax);
+            return S.UI.Controls.CreateSlider(container, label, setter, minMax);
         }
 
         public void SetMinMax(MinMax<float> minMax) {
@@ -59,11 +59,11 @@ namespace Exa.UI.Controls {
         }
 
         public void OnBeginDrag() {
-            Systems.UI.MouseCursor.stateManager.Add(cursorState);
+            S.UI.MouseCursor.stateManager.Add(cursorState);
         }
 
         public void OnEndDrag() {
-            Systems.UI.MouseCursor.stateManager.Remove(cursorState);
+            S.UI.MouseCursor.stateManager.Remove(cursorState);
         }
 
         private void OnSliderValueChanged(float value) {

@@ -16,7 +16,7 @@ namespace Exa.Grids.Blueprints {
 
     #if UNITY_EDITOR
         public void Save(Blueprint blueprint) {
-            blueprint.name = StringExtensions.GetUniqueName(blueprint.name, Systems.Blueprints.GetBlueprintNames());
+            blueprint.name = StringExtensions.GetUniqueName(blueprint.name, S.Blueprints.GetBlueprintNames());
             blueprintJson = IOUtils.JsonSerializeWithSettings(blueprint, SerializationMode.Readable);
             var path = $"Assets/Project/GameData/Grids/Blueprints/StaticBlueprints/{blueprint.name}.asset";
             AssetDatabase.CreateAsset(this, path);

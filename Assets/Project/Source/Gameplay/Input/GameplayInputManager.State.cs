@@ -17,7 +17,7 @@
                 GS.UI.gameplayLayer.selectionOverlay.Reflect(value);
 
                 if (value != null) {
-                    Systems.CameraController.SetSelectionTarget(value);
+                    S.CameraController.SetSelectionTarget(value);
                 }
             }
         }

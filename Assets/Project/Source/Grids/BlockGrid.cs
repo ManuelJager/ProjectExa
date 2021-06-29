@@ -18,7 +18,7 @@ namespace Exa.Ships {
 
         public BlockGrid(Transform container, IGridInstance parent) {
             this.container = container;
-            totals = Systems.Blocks.Totals.StartWatching(this, parent.BlockContext);
+            totals = S.Blocks.Totals.StartWatching(this, parent.BlockContext);
 
             blockBehaviours = new DefaultDict<Type, List<BlockBehaviour>>(_ => new List<BlockBehaviour>());
             Parent = parent;

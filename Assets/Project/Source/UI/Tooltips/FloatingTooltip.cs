@@ -24,7 +24,7 @@ namespace Exa.UI.Tooltips {
 
         private Rect RootRect {
             get {
-                rootRect = rootRect ?? Systems.UI.RootTransform.rect;
+                rootRect = rootRect ?? S.UI.RootTransform.rect;
 
                 return rootRect.Value;
             }
@@ -40,7 +40,7 @@ namespace Exa.UI.Tooltips {
         /// <param name="immediate"></param>
         public void UpdatePosition(bool immediate = false) {
             // Get the mouse position
-            var mousePos = Systems.Input.MouseScaledViewportPoint;
+            var mousePos = S.Input.MouseScaledViewportPoint;
             var clampedCorner = ClampPos(mousePos + offset);
             SetAnchoredPos(clampedCorner, immediate);
         }

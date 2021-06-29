@@ -27,8 +27,8 @@ namespace Exa.ShipEditor {
         }
 
         private void Awake() {
-            hoverable.onPointerEnter.AddListener(() => { Systems.UI.Tooltips.blockTemplateTooltip.Show(BlockContext.DefaultGroup, data); });
-            hoverable.onPointerExit.AddListener(() => { Systems.UI.Tooltips.blockTemplateTooltip.Hide(); });
+            hoverable.onPointerEnter.AddListener(() => { S.UI.Tooltips.blockTemplateTooltip.Show(BlockContext.DefaultGroup, data); });
+            hoverable.onPointerExit.AddListener(() => { S.UI.Tooltips.blockTemplateTooltip.Hide(); });
         }
 
         public void OnUpdate(BlockTemplate data) {

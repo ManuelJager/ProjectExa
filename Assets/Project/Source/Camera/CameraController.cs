@@ -26,6 +26,10 @@ namespace Exa.Camera {
             get => targetCamera;
         }
 
+        public Vector2 CurrentPosition {
+            get => targetCamera.transform.position;
+        }
+
         private void Awake() {
             UserTarget = new UserTarget(defaultSettings);
         }

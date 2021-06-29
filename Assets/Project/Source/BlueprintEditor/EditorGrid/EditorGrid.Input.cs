@@ -68,7 +68,7 @@ namespace Exa.ShipEditor {
         private void UpdatePosition() {
             // Move the grid to keyboard input
             // Remap zoom scale range to damp scale
-            var remappedZoomScale = movementCfg.zoomCurve.Evaluate(Systems.Editor.EditorCameraTarget.ZoomScale);
+            var remappedZoomScale = movementCfg.zoomCurve.Evaluate(S.Editor.EditorCameraTarget.ZoomScale);
 
             // Calculate movement offset
             playerPos -= MovementVector * (movementCfg.speed * Time.deltaTime * remappedZoomScale);

@@ -16,6 +16,7 @@ namespace Exa.Gameplay.Missions {
         public event Action WaveStarted;
         public event Action WaveEnded;
         public event Action MissionEnded;
+        public event Action<EnemyGrid> EnemySpawned;
         public event Action<EnemyGrid> EnemyDestroyed;
 
         public void Setup(Spawner spawner, List<Wave> waves) {
@@ -35,10 +36,14 @@ namespace Exa.Gameplay.Missions {
             WaveStarted?.Invoke();
             GS.UI.gameplayLayer.missionState.SetText("Combat phase", $"Wave {currentWaveIndex + 1}");
 
-            currentWaveState = new WaveState(OnWaveEnded, OnEnemyDestroyed);
+            currentWaveState = new WaveState(OnWaveEnded, OnEnemySpawned, OnEnemyDestroyed);
             waves[currentWaveIndex].Spawn(spawner, currentWaveState);
 
             currentWaveIndex++;
+        }
+
+        private void OnEnemySpawned(EnemyGrid grid) {
+            EnemySpawned?.Invoke(grid);
         }
 
         private void OnEnemyDestroyed(EnemyGrid grid) {

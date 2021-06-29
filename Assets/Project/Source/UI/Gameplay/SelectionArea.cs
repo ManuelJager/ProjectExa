@@ -51,7 +51,7 @@ namespace Exa.UI.Gameplay {
         }
 
         private Vector2 GetScreenSpace(Vector2 worldPos) {
-            return Systems.CameraController.Camera.WorldToScreenPoint(worldPos);
+            return S.CameraController.Camera.WorldToScreenPoint(worldPos);
         }
     }
 }

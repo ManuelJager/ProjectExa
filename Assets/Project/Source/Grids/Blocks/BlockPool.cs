@@ -9,7 +9,7 @@ namespace Exa.Grids.Blocks {
         public override BlockPoolMember Retrieve() {
             var member = base.Retrieve();
             var block = member.block;
-            Systems.Blocks.Values.SetValues(blockContext, blockTemplate, block);
+            S.Blocks.Values.SetValues(blockContext, blockTemplate, block);
 
             return member;
         }
