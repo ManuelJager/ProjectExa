@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Data;
 using Exa.Utils;
 using UnityEditor;
 using UnityEngine;
@@ -20,54 +21,43 @@ namespace Exa.VFX {
         [SerializeField] private float arcDistance;
         [SerializeField] private GameObject arcPrefab;
         [SerializeField] private List<GameObject> arcs;
-        private int prevActivatedArcIndex;
+        private int prevActiveIndex = -1;
 
-        private float timeAlive;
+        public void SetChargeProgress(Scalar progress) {
+            var index = Mathf.CeilToInt(progress * arcCount);
 
-        public float ChargeTime { get; set; }
-
-        private void Update() {
-            timeAlive += Time.deltaTime;
-            SetActiveUpTo(Mathf.FloorToInt(timeAlive / ChargeTime * (arcCount + 1)) + 1);
-        }
-
-        private void OnEnable() {
-            timeAlive = 0f;
-            prevActivatedArcIndex = 0;
-        }
-
-        private void OnDisable() {
-            arcs.ForEach(arc => arc.SetActive(false));
+            if (prevActiveIndex == index) {
+                return;
+            }
+            
+            prevActiveIndex = index;
+            
+            SetActiveUpTo(index);
         }
 
         public void RandomizeMaterials() {
             var random = new Random();
             var propertyBlock = new MaterialPropertyBlock();
 
-            foreach (var renderer in arcs.Select(arc => arc.GetComponent<SpriteRenderer>())) {
+            foreach (var spriteRenderer in arcs.Select(arc => arc.GetComponent<SpriteRenderer>())) {
                 propertyBlock.SetVector(NoiseOffsetID, MathUtils.RandomVector2(10f));
                 propertyBlock.SetFloat(FlickeringOffsetID, random.Next() % 1000);
-                renderer.SetPropertyBlock(propertyBlock);
+                spriteRenderer.SetPropertyBlock(propertyBlock);
             }
         }
 
         private void SetActiveUpTo(int index) {
             if (index > arcCount) {
+                Debug.LogWarning($"Index out of range {index}");
+
                 return;
             }
 
-            var diff = index - prevActivatedArcIndex;
-
-            if (diff == 0) {
-                return;
+            for (var i = 0; i < arcCount; i++) {
+                arcs[i].SetActive(i < index);
             }
-
-            for (var i = prevActivatedArcIndex; i < index; i++) {
-                arcs[i].gameObject.SetActive(true);
-            }
-
-            prevActivatedArcIndex = index;
         }
+
     #if UNITY_EDITOR
         [ContextMenu("Create Arcs")]
         private void CreateArcs() {

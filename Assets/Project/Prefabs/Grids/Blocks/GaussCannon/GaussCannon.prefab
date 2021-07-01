@@ -25,6 +25,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b9e0eca0994644e8b0fa1bff585834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockPoolMember: {fileID: 0}
   physicalBehaviour: {fileID: 3183903237534111054}
   collider: {fileID: 0}
   controllerBehaviour: {fileID: 7596730845723094954}
@@ -41,6 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94a1ceb55be6a843ba5db513312cdfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  block: {fileID: 0}
 --- !u!114 &7617634622350147509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +79,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3351404769725639999, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6371902840315417119, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}
       propertyPath: m_Sprite
@@ -87,6 +94,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445760314682769892, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6722852894330278194, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}

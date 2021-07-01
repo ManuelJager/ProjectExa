@@ -7,10 +7,15 @@ namespace Exa.Grids.Blocks.Components {
         [SerializeField] protected float chargeDecaySpeed = 4f;
         protected float chargeTime;
         protected bool charging;
+        
+        public abstract bool CanResumeCharge { get; }
 
         public virtual void StartCharge() {
             charging = true;
-            chargeTime = 0f;
+
+            if (!CanResumeCharge) {
+                chargeTime = 0f;
+            }
         }
 
         public virtual void EndCharge() {

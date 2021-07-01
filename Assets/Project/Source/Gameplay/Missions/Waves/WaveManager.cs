@@ -11,7 +11,7 @@ namespace Exa.Gameplay.Missions {
         private int currentWaveIndex;
         private WaveState currentWaveState;
         private Spawner spawner;
-        private List<Wave> waves;
+        private List<DynamicStrengthWave> waves;
 
         public event Action WaveStarted;
         public event Action WaveEnded;
@@ -19,7 +19,7 @@ namespace Exa.Gameplay.Missions {
         public event Action<EnemyGrid> EnemySpawned;
         public event Action<EnemyGrid> EnemyDestroyed;
 
-        public void Setup(Spawner spawner, List<Wave> waves) {
+        public void Setup(Spawner spawner, List<DynamicStrengthWave> waves) {
             this.spawner = spawner;
             this.waves = waves;
 

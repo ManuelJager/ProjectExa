@@ -28,6 +28,10 @@ namespace Exa.Grids.Blocks {
         public int creditCost;
         public int metalsCost;
 
+        public float GaugePotentialStrength() {
+            return S.Blocks.blockTemplates.GetAverageStrengthPerCredit() * creditCost;
+        }
+
         public TooltipComponentView InstantiateComponentView(Transform parent) {
             return S.UI.Tooltips.tooltipGenerator.CreateBlockCostsView(parent, this);
         }

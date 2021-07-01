@@ -47,7 +47,6 @@ namespace Exa.UI {
             blockCountView.SetValue(blueprint.Grid.GetMemberCount());
             sizeView.SetValue($"{size.x}x{size.y}");
             massView.SetValue($"{totals.Mass:0} Tonne");
-            energyView.SetValue($"{totals.PowerGeneration:0} KW");
         }
     }
 }

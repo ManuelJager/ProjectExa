@@ -10,7 +10,7 @@ namespace Exa.Gameplay.Missions {
     public class FirstMission : Mission {
         [SerializeField] private BlockCosts initialResources;
         [SerializeField] private float resourceMultiplier;
-        [SerializeField] private List<Wave> waves;
+        [SerializeField] private List<DynamicStrengthWave> waves;
 
         public override void Init(MissionManager manager, MissionArgs args) {
             base.Init(manager, args);
@@ -28,6 +28,10 @@ namespace Exa.Gameplay.Missions {
             manager.Station.Controller.PhysicalBehaviour.OnDamage += damage => { GS.UI.gameplayLayer.damageOverlay.NotifyDamage(); };
 
             {
+                foreach (var wave in waves) {
+                    wave.Setup(GaugeCurrentStrength);
+                }
+                
                 var waveManager = GS.GameObject.AddComponent<WaveManager>();
                 waveManager.Setup(spawner, waves);
                 waveManager.StartPreparationPhase(true);
@@ -55,6 +59,16 @@ namespace Exa.Gameplay.Missions {
                 .Add((ref AutocannonData curr) => curr.damage *= 0.5f)
                 .ForTemplate<GaussCannonTemplate>()
                 .Add((ref PhysicalData curr) => curr.hull *= 100f);
+        }
+
+        private float GaugeCurrentStrength() {
+            // Calculate station strength
+            var stationStrength = GS.MissionManager.Station.GetBaseTotals().Metadata.strength;
+            
+            // Somewhat punish hoarding resources by taking it into account
+            var resourcesStrength = GS.MissionManager.CurrentResources.GaugePotentialStrength() * 0.5f;
+
+            return stationStrength + resourcesStrength;
         }
     }
 }

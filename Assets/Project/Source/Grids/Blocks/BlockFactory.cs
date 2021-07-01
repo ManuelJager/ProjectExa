@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Types.Binding;
 using Exa.Utils;
@@ -9,7 +10,19 @@ using UnityEngine;
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks {
-    public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer> { }
+    public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer> {
+        private float? averageStrengthPerCredit = null;
+        
+        public float GetAverageStrengthPerCredit() {
+            return averageStrengthPerCredit ??= this.Select(
+                    template => {
+                        var metadata = template.Data.metadata;
+                        return (float) metadata.strength / metadata.blockCosts.creditCost;
+                    }
+                )
+                .Average();
+        }
+    }
 
     /// <summary>
     ///     Registers block types and creates block pools

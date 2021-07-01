@@ -14,10 +14,13 @@ namespace Exa.Grids.Blocks.Components {
         [SerializeField] private GaussCannonArcs arcs;
         [SerializeField] private LineRenderer lineRenderer;
 
+        public override bool CanResumeCharge {
+            get => true;
+        }
+
         public override void StartCharge() {
             base.StartCharge();
             animator.Play("Charge", 0, GetNormalizedChargeProgress());
-            arcs.gameObject.SetActive(true);
         }
 
         public override void EndCharge() {
@@ -25,8 +28,17 @@ namespace Exa.Grids.Blocks.Components {
                 animator.Play("CancelCharge", 0, 1f - GetNormalizedChargeProgress());
             }
 
-            arcs.gameObject.SetActive(false);
             base.EndCharge();
+        }
+
+        protected override void BlockUpdate() {
+            var prevChargeTime = chargeTime;
+            
+            base.BlockUpdate();
+
+            if (prevChargeTime != chargeTime) {
+                arcs.SetChargeProgress(GetNormalizedChargeProgress());
+            } 
         }
 
         public override void Fire() {
@@ -38,8 +50,8 @@ namespace Exa.Grids.Blocks.Components {
 
             lineRenderer.gameObject.SetActive(true);
             lineRenderer.widthMultiplier = 1.5f;
-
-            lineRenderer.DOWidthMultiplier(0f, 0.5f)
+            
+            lineRenderer.DOWidthMultiplier(0.5f, 0.5f)
                 .OnComplete(() => lineRenderer.gameObject.SetActive(false));
         }
 
@@ -50,7 +62,6 @@ namespace Exa.Grids.Blocks.Components {
             animator.SetFloat("ChargeDecaySpeed", chargeSpeed * chargeDecaySpeed);
 
             arcs.RandomizeMaterials();
-            arcs.ChargeTime = Data.chargeTime;
         }
     }
 }

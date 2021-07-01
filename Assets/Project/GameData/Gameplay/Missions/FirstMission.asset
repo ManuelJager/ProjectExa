@@ -19,9 +19,15 @@ MonoBehaviour:
     metalsCost: 10
   resourceMultiplier: 0.2
   waves:
-  - blueprints:
+  - baseStrength: 0
+    blueprints:
     - {fileID: 11400000, guid: 587404bb59283c143936ea0c1463d0a6, type: 2}
-  - blueprints:
+  - baseStrength: 50
+    blueprints:
     - {fileID: 11400000, guid: 587404bb59283c143936ea0c1463d0a6, type: 2}
+  - baseStrength: 100
+    blueprints:
     - {fileID: 11400000, guid: 587404bb59283c143936ea0c1463d0a6, type: 2}
+  - baseStrength: 200
+    blueprints:
     - {fileID: 11400000, guid: 587404bb59283c143936ea0c1463d0a6, type: 2}

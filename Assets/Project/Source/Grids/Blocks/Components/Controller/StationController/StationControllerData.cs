@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Exa.Data;
+using Exa.Math;
 using Exa.Types.Generics;
 using Exa.UI.Tooltips;
 
 namespace Exa.Grids.Blocks.Components {
     [Serializable]
     public struct StationControllerData : IControllerData {
-        public Scalar powerGenerationModifier;
-        public Scalar turningPowerModifier;
+        public float powerGenerationModifier;
+        public float turningPowerModifier;
 
         public void AddGridTotals(GridTotals totals) {
             totals.PowerGenerationModifier += powerGenerationModifier;

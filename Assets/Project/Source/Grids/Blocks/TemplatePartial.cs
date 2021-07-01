@@ -25,14 +25,12 @@ namespace Exa.Grids.Blocks {
             partial.Component.Data = (T) data;
         }
 
-        // TODO: Use cached values
         public override void AddGridTotals(GridTotals totals) {
-            ToContextfulComponentValues(totals.GetInjectedContext()).AddGridTotals(totals);
+            S.Blocks.Values.GetValues<T>(totals.GetInjectedContext(), Template).AddGridTotals(totals);
         }
 
-        // TODO: Use cached values
         public override void RemoveGridTotals(GridTotals totals) {
-            ToContextfulComponentValues(totals.GetInjectedContext()).RemoveGridTotals(totals);
+            S.Blocks.Values.GetValues<T>(totals.GetInjectedContext(), Template).RemoveGridTotals(totals);
         }
 
         public override Type GetTargetType() {

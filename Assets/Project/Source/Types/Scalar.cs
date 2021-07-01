@@ -7,6 +7,10 @@ namespace Exa.Data {
         [SerializeField] private float scalar;
 
         public Scalar(float value) {
+            if (value < 0f || value > 1f) {
+                throw new ArgumentOutOfRangeException(nameof(value), $"value {value} must be between 0 and 1");
+            }
+            
             scalar = value;
         }
 
@@ -37,9 +41,13 @@ namespace Exa.Data {
         public static Scalar operator +(Scalar a, Scalar b) {
             return new Scalar(a.scalar + b.scalar);
         }
+        
+        public static implicit operator Scalar(float a) {
+            return new Scalar(a);
+        }
 
-        public string ToPercentageString() {
-            return $"{scalar * 100f}%";
+        public static implicit operator float(Scalar a) {
+            return a.scalar;
         }
 
         public override string ToString() {
