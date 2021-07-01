@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Exa.Data;
+using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components {
     public abstract class ChargeableTurretBehaviour<T> : TurretBehaviour<T>, IChargeableTurretBehaviour
@@ -7,7 +8,7 @@ namespace Exa.Grids.Blocks.Components {
         [SerializeField] protected float chargeDecaySpeed = 4f;
         protected float chargeTime;
         protected bool charging;
-        
+
         public abstract bool CanResumeCharge { get; }
 
         public virtual void StartCharge() {
@@ -42,7 +43,8 @@ namespace Exa.Grids.Blocks.Components {
             }
         }
 
-        protected float GetNormalizedChargeProgress() {
+        protected Scalar GetNormalizedChargeProgress() {
+            // Get the charge 
             return chargeTime == 0f ? 0f : chargeTime / Data.ChargeTime;
         }
     }

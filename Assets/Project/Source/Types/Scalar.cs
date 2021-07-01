@@ -26,6 +26,15 @@ namespace Exa.Data {
             return real * scalar;
         }
 
+        public static implicit operator Scalar(float a) {
+            return new Scalar(a);
+        }
+
+        public static implicit operator float(Scalar a) {
+            return a.scalar;
+        }
+
+    #region Operators
         public static bool operator >(Scalar a, Scalar b) {
             return a.scalar > b.scalar;
         }
@@ -41,15 +50,8 @@ namespace Exa.Data {
         public static Scalar operator +(Scalar a, Scalar b) {
             return new Scalar(a.scalar + b.scalar);
         }
+    #endregion
         
-        public static implicit operator Scalar(float a) {
-            return new Scalar(a);
-        }
-
-        public static implicit operator float(Scalar a) {
-            return a.scalar;
-        }
-
         public override string ToString() {
             return scalar.ToString();
         }
