@@ -5,35 +5,34 @@ using System.Linq;
 using Exa.IO;
 using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Exa.CustomEditors {
-    interface IEditorAction {
-        void Render();
-
-        void Execute(string asepritePath, string filePath);
-    }
-
     [Serializable]
     public class AsepriteTools : EditorWindow {
+        internal bool EnableLogging {
+            get => true;
+        }
+
         [MenuItem("Window/AsepriteTools")]
         public static void ShowWindow() {
             GetWindow<AsepriteTools>();
         }
 
         private void OnEnable() {
-            actions = new IEditorAction[] {
-                new ExportInPlaceAction()
+            actions = new EditorAction[] {
+                new ExportInPlaceAction(this)
             };
 
             displayActions = actions.Select(x => x.GetType().Name).ToArray();
 
-            asepritePath = PlayerPrefs.GetString("AsepriteTools_AsepritePath", "");
+            asepritePath = EditorPrefs.GetString("AsepriteTools_AsepritePath", "");
 
             GetPaths();
         }
 
         [SerializeField] private string asepritePath;
-        private IEditorAction[] actions;
+        private EditorAction[] actions;
         private string[] displayActions;
 
         [SerializeField] private string renderError;
@@ -44,6 +43,14 @@ namespace Exa.CustomEditors {
 
         private string[] paths;
         private string[] displayPaths;
+
+        internal string FilePath {
+            get => paths[selectedPath];
+        }
+
+        internal string AsepritePath {
+            get => asepritePath;
+        }
 
         private void GetPaths() {
             var path = IOUtils.CombinePath(Application.dataPath, "Project", "Graphics");
@@ -85,7 +92,7 @@ namespace Exa.CustomEditors {
             if (!string.IsNullOrEmpty(asepritePath)) {
                 if (GUILayout.Button("Execute action")) {
                     try {
-                        actions[selectedAction].Execute(asepritePath, paths[selectedPath]);
+                        actions[selectedAction].Execute();
                         executionError = null;
                     } catch (Exception e) {
                         executionError = e.Message;
@@ -97,7 +104,7 @@ namespace Exa.CustomEditors {
 
             if (executionError != null) {
                 GUILayout.Space(8);
-                EditorGUILayout.HelpBox("Execution error: " + executionError, MessageType.Error);
+                EditorGUILayout.HelpBox("Unhandled execution error: " + executionError, MessageType.Error);
             }
         }
 
@@ -106,7 +113,7 @@ namespace Exa.CustomEditors {
                 "Locate aseprite",
                 "",
                 new[] {
-                    "Executeable",
+                    "Executable",
                     "exe"
                 }
             );

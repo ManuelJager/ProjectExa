@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Exa.Utils {
@@ -84,8 +85,14 @@ namespace Exa.Utils {
             return default;
         }
 
-        public static string Join<T>(this IEnumerable<T> enumerable, string separator) {
+        public static string Join<T>(this IEnumerable<T> enumerable, string separator = "") {
             return string.Join(separator, enumerable);
+        }
+
+        public static void Log<T>(this IEnumerable<T> enumerable, string prefix = "") {
+            foreach (var value in enumerable) {
+                Debug.Log(prefix + value);
+            }
         }
     }
 }
