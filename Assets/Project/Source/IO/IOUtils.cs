@@ -22,7 +22,11 @@ namespace Exa.IO {
         }
 
         public static string CombineAssetsPath(params string[] paths) {
-            return NormalizeAssets(Path.Combine(paths));
+            try {
+                return NormalizeAssets(Path.Combine(paths));
+            } catch (Exception e) {
+                throw new Exception($"Exception throw with paths {string.Join(", ", paths)}", e);
+            }
         }
 
         public static string NormalizeAssets(string path) {

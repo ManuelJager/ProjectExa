@@ -2,6 +2,6 @@ fileFormatVersion: 2
 guid: 9a1cb3cecdc515248b4c27bf98ea696e
 DefaultImporter:
   externalObjects: {}
-  userData: 
+  userData: '{"layers":{"thrusters":{"mergeUp":false},"arms":{"mergeUp":false},"body-plate":{"mergeUp":false},"body-frame":{"mergeUp":false}}}'
   assetBundleName: 
   assetBundleVariant: 
