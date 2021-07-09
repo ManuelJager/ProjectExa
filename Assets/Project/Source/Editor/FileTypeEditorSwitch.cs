@@ -8,11 +8,11 @@ namespace Exa.CustomEditors {
         private readonly FileTypeEditor[] editors = {
             new AseEditor()
         };
-        
+
         private FileTypeEditor selectedEditor;
 
         public AssetImporter Importer { get; private set; }
-        
+
         public string AssetPath { get; private set; }
 
         public bool EnableLogging { get; private set; }
@@ -24,6 +24,7 @@ namespace Exa.CustomEditors {
 
             foreach (var editor in editors) {
                 editor.Context = this;
+
                 if (editor.GetAcceptedFileTypes().Any(fileType => path.EndsWith(fileType))) {
                     Importer = AssetImporter.GetAtPath(path);
                     AssetPath = path;

@@ -93,7 +93,7 @@ namespace Exa.CustomEditors {
 
         private AseExportConfiguration GetConfiguration() {
             var output = JsonConvert.DeserializeObject<AseExportConfiguration>(Context.Importer.userData) ?? new AseExportConfiguration();
-            
+
             SaveConfiguration(output);
 
             return output;
@@ -173,8 +173,9 @@ namespace Exa.CustomEditors {
                 if (layerGroup.configuration.exportOnlyFirstFrame) {
                     builder.Append(" --frame-range 0,0");
                 }
-                
+
                 builder.Append($" \"{Context.AssetPath}\"");
+
                 return builder.ToString();
             }
 
@@ -183,7 +184,7 @@ namespace Exa.CustomEditors {
             if (Context.EnableLogging) {
                 Debug.Log($"exporting with argument string ${argumentString}");
             }
-            
+
             using var process = GetProcess(argumentString);
 
             if (process.StartRedirected(out var stdOut, out var errOut) != 0) {
