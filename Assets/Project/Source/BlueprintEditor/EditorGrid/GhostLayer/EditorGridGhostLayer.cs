@@ -3,6 +3,7 @@ using System.Linq;
 using Exa.Grids;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Utils;
 using UnityEngine;
@@ -106,8 +107,8 @@ namespace Exa.ShipEditor {
                 controller => {
                     controller.ImportBlock(block);
 
-                    var overlay = template is ITurretTemplate turretTemplate
-                        ? turretLayer.CreateGhostOverlay(controller.Ghost.Block, turretTemplate)
+                    var overlay = template.PartialAnyOf<ITurretValues>()
+                        ? turretLayer.CreateGhostOverlay(controller.Ghost.Block)
                         : null;
 
                     controller.SetOverlay(overlay);
@@ -154,7 +155,7 @@ namespace Exa.ShipEditor {
                 return false;
             }
 
-            if (ImportedTemplate is ITurretTemplate) {
+            if (ImportedTemplate.PartialAnyOf<ITurretValues>()) {
                 var ghostTurretClaims = activeControllers.SelectMany(controller => controller.Overlay.GetTurretClaims());
                 var currentBlockClaims = turretLayer.TurretBlocks.SelectMany(block => block.GetTileClaims());
 

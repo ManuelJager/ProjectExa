@@ -19,8 +19,6 @@ MonoBehaviour:
   size: {x: 2, y: 2}
   metadata:
     strength: 30
-    creditCost: 600
-    metalsCost: 15
     blockCosts:
       creditCost: 600
       metalsCost: 15
@@ -28,15 +26,20 @@ MonoBehaviour:
     type: 3}
   alivePrefab: {fileID: 5810594951229872469, guid: 5246ab3b0a4e35a4d876a3e32059717c,
     type: 3}
-  physicalTemplatePartial:
-    maxHull: 500
-    armor: 50
-    mass: 4
+  physicalPartial:
+    data:
+      hull: 500
+      armor: 50
+      mass: 4
   stationControllerTemplatePartial:
     powerGenerationModifier:
       scalar: 1.1
     turningPowerModifier:
       scalar: 0.9
+  stationControllerPartial:
+    data:
+      powerGenerationModifier: 1.1
+      turningPowerModifier: 0.9
   gaussCannonTemplatePartial:
     turningRate: 50
     firingRate: 0
@@ -45,3 +48,12 @@ MonoBehaviour:
     damage: 250
     chargeTime: 3
     range: 150
+  gaussCannonPartial:
+    data:
+      turningRate: 50
+      firingRate: 0
+      turretArc: 360
+      turretRadius: 3.4375
+      damage: 250
+      chargeTime: 3
+      range: 150

@@ -8,11 +8,10 @@ namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/Gyroscope")]
     public class GyroscopeTemplate : BlockTemplate<Gyroscope> {
-        [SerializeField] protected GyroscopeTemplatePartial gyroscopeTemplatePartial;
+        [SerializeField] private GenericTemplatePartial<GyroscopeData> gyroscopePartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
-            return base.GetTemplatePartials()
-                .Append(gyroscopeTemplatePartial);
+            return base.GetTemplatePartials().Append(gyroscopePartial);
         }
     }
 }

@@ -7,15 +7,12 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/ShipController")]
-    public abstract class StationControllerTemplate<T> : BlockTemplate<T>, ITurretTemplate
+    public abstract class StationControllerTemplate<T> : BlockTemplate<T>
         where T : Block {
-        [SerializeField] public StationControllerTemplatePartial stationControllerTemplatePartial;
-
-        public abstract ITurretValues GetTurretValues(BlockContext context);
+        [SerializeField] private GenericTemplatePartial<StationControllerData> stationControllerPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
-            return base.GetTemplatePartials()
-                .Append(stationControllerTemplatePartial);
+            return base.GetTemplatePartials().Append(stationControllerPartial);
         }
     }
 }

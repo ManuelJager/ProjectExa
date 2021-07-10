@@ -8,11 +8,10 @@ namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/PowerGenerator")]
     public class PowerGeneratorTemplate : BlockTemplate<PowerGenerator> {
-        [SerializeField] protected PowerGeneratorTemplatePartial powerGeneratorTemplatePartial;
+        [SerializeField] private GenericTemplatePartial<PowerGeneratorData> powerGeneratorPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
-            return base.GetTemplatePartials()
-                .Append(powerGeneratorTemplatePartial);
+            return base.GetTemplatePartials().Append(powerGeneratorPartial);
         }
     }
 }

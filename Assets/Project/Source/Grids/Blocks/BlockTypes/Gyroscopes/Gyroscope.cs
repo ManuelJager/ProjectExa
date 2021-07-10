@@ -14,8 +14,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
         }
 
         public override IEnumerable<BlockBehaviour> GetBehaviours() {
-            return base.GetBehaviours()
-                .Append(gyroscopeBehaviour);
+            return base.GetBehaviours().Append(gyroscopeBehaviour);
         }
     }
 }

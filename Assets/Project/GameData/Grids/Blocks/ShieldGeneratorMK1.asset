@@ -27,11 +27,12 @@ MonoBehaviour:
     type: 3}
   alivePrefab: {fileID: 6229444498424008411, guid: d06dc347ad0ad5e40aa7d747c62c0471,
     type: 3}
-  physicalTemplatePartial:
-    maxHull: 50
-    armor: 10
-    mass: 5
-  shieldGeneratorTemplatePartial:
+  physicalPartial:
+    data:
+      hull: 50
+      armor: 10
+      mass: 5
+  shieldGeneratorPartial:
     data:
       recoverTime: 5
-      health: 300
+      health: 600

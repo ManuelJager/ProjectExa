@@ -20,8 +20,6 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   metadata:
     strength: 3
-    creditCost: 30
-    metalsCost: 1
     blockCosts:
       creditCost: 30
       metalsCost: 1
@@ -29,9 +27,13 @@ MonoBehaviour:
     type: 3}
   alivePrefab: {fileID: 4166625144049295618, guid: c401a2b3fb7edc645ba12478200efbd0,
     type: 3}
-  physicalTemplatePartial:
-    maxHull: 5
-    armor: 0
-    mass: 1
+  physicalPartial:
+    data:
+      hull: 5
+      armor: 0
+      mass: 1
   gyroscopeTemplatePartial:
     turningPower: 15
+  gyroscopePartial:
+    data:
+      turningPower: 15

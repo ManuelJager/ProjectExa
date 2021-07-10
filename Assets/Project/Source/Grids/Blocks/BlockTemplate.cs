@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Exa.Grids.Blocks {
     /// <summary>
@@ -11,12 +13,10 @@ namespace Exa.Grids.Blocks {
     public abstract class BlockTemplate<T> : BlockTemplate
         where T : Block {
         [Header("Template partials")]
-        [SerializeField] protected PhysicalTemplatePartial physicalTemplatePartial;
+        [SerializeField] [FormerlySerializedAs("physicalTemplatePartial1")] protected GenericTemplatePartial<PhysicalData> physicalPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
-            return new TemplatePartialBase[] {
-                physicalTemplatePartial
-            };
+            yield return physicalPartial;
         }
 
         public void SetContextlessValues(T block) {
@@ -64,8 +64,13 @@ namespace Exa.Grids.Blocks {
         }
 
         public T GetValues<T>(BlockContext blockContext)
-            where T : struct, IBlockComponentValues {
+            where T : IBlockComponentValues {
             return S.Blocks.Values.GetValues<T>(blockContext, this);
+        }
+
+        public bool PartialAnyOf<T>()
+            where T : IBlockComponentValues {
+            return GetTemplatePartials().OfType<ITemplatePartial<T>>().Any();
         }
 
         public abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();

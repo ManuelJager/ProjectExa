@@ -20,8 +20,6 @@ MonoBehaviour:
   size: {x: 3, y: 1}
   metadata:
     strength: 6
-    creditCost: 40
-    metalsCost: 3
     blockCosts:
       creditCost: 40
       metalsCost: 3
@@ -29,6 +27,11 @@ MonoBehaviour:
     type: 3}
   alivePrefab: {fileID: 7854684309494694163, guid: ae0ad9411c864ba42add8284bea1367d,
     type: 3}
+  physicalTemplatePartial1:
+    data:
+      hull: 110
+      armor: 40
+      mass: 5.4
   physicalTemplatePartial:
     maxHull: 110
     armor: 40

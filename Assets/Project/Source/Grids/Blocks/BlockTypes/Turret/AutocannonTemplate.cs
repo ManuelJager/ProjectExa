@@ -7,16 +7,11 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/Autocannon")]
-    public class AutocannonTemplate : BlockTemplate<Autocannon>, ITurretTemplate {
-        [SerializeField] private AutocannonTemplatePartial autocannonTemplatePartial;
-
-        public ITurretValues GetTurretValues(BlockContext context) {
-            return autocannonTemplatePartial.ToContextfulComponentValues(context);
-        }
+    public class AutocannonTemplate : BlockTemplate<Autocannon> {
+        [SerializeField] private GenericTemplatePartial<AutocannonData> autocannonPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
-            return base.GetTemplatePartials()
-                .Append(autocannonTemplatePartial);
+            return base.GetTemplatePartials().Append(autocannonPartial);
         }
     }
 }

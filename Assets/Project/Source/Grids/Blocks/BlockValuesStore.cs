@@ -44,7 +44,7 @@ namespace Exa.Grids.Blocks {
         }
 
         public T GetValues<T>(BlockContext blockContext, BlockTemplate blockTemplate)
-            where T : struct, IBlockComponentValues {
+            where T : IBlockComponentValues {
             var bundle = GetUpdatedBundle(blockContext, blockTemplate);
 
             foreach (var value in bundle.valuesCache.Values) {

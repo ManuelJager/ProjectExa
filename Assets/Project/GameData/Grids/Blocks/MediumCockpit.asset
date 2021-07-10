@@ -20,8 +20,6 @@ MonoBehaviour:
   size: {x: 3, y: 1}
   metadata:
     strength: 10
-    creditCost: 100
-    metalsCost: 10
     blockCosts:
       creditCost: 100
       metalsCost: 10
@@ -29,14 +27,17 @@ MonoBehaviour:
     type: 3}
   alivePrefab: {fileID: 3867314681599816325, guid: d41aedf958e2ee642b8940842ab9524f,
     type: 3}
-  physicalTemplatePartial:
-    maxHull: 80
-    armor: 25
-    mass: 1.5
+  physicalPartial:
+    data:
+      hull: 80
+      armor: 25
+      mass: 1.5
   shipControllerTemplatePartial:
     powerGenerationModifier:
       scalar: 0.7
     turningPowerModifier:
       scalar: 1.5
-    thrustModifier:
-      scalar: 1
+  shipControllerPartial:
+    data:
+      powerGenerationModifier: 0.7
+      turningPowerModifier: 1.5

@@ -1,19 +1,21 @@
 using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
+using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Utils;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Exa.ShipEditor {
-    public class EditorGridTurretLayer : CustomEditorGridLayer<ITurretTemplate> {
+    public class EditorGridTurretLayer : CustomEditorGridLayer {
         [SerializeField] private GameObject basePrefab;
         [SerializeField] private Transform prefabContainer;
         [SerializeField] private Transform instanceContainer;
         private Dictionary<ABpBlock, TurretOverlay> overlayInstances;
 
-        private Dictionary<ITurretTemplate, GameObject> overlayPrefabs;
+        private Dictionary<BlockTemplate, GameObject> overlayPrefabs;
         private bool overlayVisibility;
 
         public bool OverlayVisibility {
@@ -25,18 +27,23 @@ namespace Exa.ShipEditor {
 
         public TurretBlocks TurretBlocks { get; private set; }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void Init() {
             prefabContainer.DestroyChildren();
             instanceContainer.DestroyChildren();
             TurretBlocks = new TurretBlocks(this);
-            overlayPrefabs = new Dictionary<ITurretTemplate, GameObject>();
+            overlayPrefabs = new Dictionary<BlockTemplate, GameObject>();
             overlayInstances = new Dictionary<ABpBlock, TurretOverlay>();
 
-            var templates = S.Blocks.blockTemplates.SelectNonNull(elem => elem.Data as ITurretTemplate);
+            var templates = S.Blocks.blockTemplates
+                .Select(elem => elem.Data)
+                .Where(Predicate);
 
-            foreach (var template in templates) {
-                GenerateTurretOverlayPrefab(template);
+            if (!templates.Any()) {
+                Debug.LogError("Template filtering found no turret templates, this shouldn't happen");
             }
+            
+            templates.ForEach(GenerateTurretOverlayPrefab);
         }
 
         [Button]
@@ -44,12 +51,12 @@ namespace Exa.ShipEditor {
             Debug.Log(TurretBlocks.GetTurretClaims().Join(", "));
         }
 
-        public TurretOverlay CreateGhostOverlay(ABpBlock block, ITurretTemplate template) {
-            return CreateOverlay(block, template);
+        public TurretOverlay CreateGhostOverlay(ABpBlock block) {
+            return CreateOverlay(block);
         }
 
-        public TurretOverlay CreateStationaryOverlay(ABpBlock block, ITurretTemplate template) {
-            var overlay = CreateOverlay(block, template);
+        public TurretOverlay CreateStationaryOverlay(ABpBlock block) {
+            var overlay = CreateOverlay(block);
             overlay.SetColor(Color.white.SetAlpha(0.5f));
             overlay.Presenter.Present(block);
             overlay.SetVisibility(overlayVisibility);
@@ -58,8 +65,8 @@ namespace Exa.ShipEditor {
             return overlay;
         }
 
-        private TurretOverlay CreateOverlay(ABpBlock block, ITurretTemplate template) {
-            var overlay = overlayPrefabs[template].Create<TurretOverlay>(instanceContainer);
+        private TurretOverlay CreateOverlay(ABpBlock block) {
+            var overlay = overlayPrefabs[block.Template].Create<TurretOverlay>(instanceContainer);
             overlay.Import(block);
 
             return overlay;
@@ -71,17 +78,22 @@ namespace Exa.ShipEditor {
         }
 
         // TODO: Don't hardcode the user group here
-        public void GenerateTurretOverlayPrefab(ITurretTemplate template) {
+        private void GenerateTurretOverlayPrefab(BlockTemplate template) {
             var overlay = basePrefab.Create<TurretOverlay>(prefabContainer);
-            overlay.Generate(template.GetTurretValues(BlockContext.UserGroup));
+            overlay.Generate(template.GetValues<ITurretValues>(BlockContext.UserGroup));
             overlayPrefabs[template] = overlay.gameObject;
         }
 
-        protected override void OnAdd(ABpBlock block, ITurretTemplate template) {
-            TurretBlocks.AddTurret(block, template);
+        protected override bool Predicate(BlockTemplate template) {
+            // this editor layer should only be triggered by templates that contain turret values
+            return template.PartialAnyOf<ITurretValues>();
         }
 
-        protected override void OnRemove(ABpBlock block, ITurretTemplate template) {
+        protected override void OnAdd(ABpBlock block) {
+            TurretBlocks.AddTurret(block);
+        }
+
+        protected override void OnRemove(ABpBlock block) {
             TurretBlocks.Remove(block);
         }
     }
