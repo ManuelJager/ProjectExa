@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/Thruster")]
     public class ThrusterTemplate : BlockTemplate<Thruster> {
-        [SerializeField] private GenericTemplatePartial<ThrusterData> thrusterPartial;
+        [SerializeField] private TemplatePartial<ThrusterData> thrusterPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             return base.GetTemplatePartials().Append(thrusterPartial);

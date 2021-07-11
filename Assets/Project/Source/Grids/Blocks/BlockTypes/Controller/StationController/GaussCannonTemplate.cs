@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/GaussCannon")]
     public class GaussCannonTemplate : StationControllerTemplate<GaussCannon> {
-        [SerializeField] private GenericTemplatePartial<GaussCannonData> gaussCannonPartial;
+        [SerializeField] private TemplatePartial<GaussCannonData> gaussCannonPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             return base.GetTemplatePartials().Append(gaussCannonPartial);

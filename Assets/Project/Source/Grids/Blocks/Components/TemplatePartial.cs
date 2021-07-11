@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components {
     [Serializable]
-    public class GenericTemplatePartial<T> : TemplatePartial<T>
+    public class TemplatePartial<T> : TemplatePartialBase<T>
         where T : struct, IBlockComponentValues {
         [SerializeField] private T data;
         

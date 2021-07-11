@@ -86,7 +86,7 @@ namespace Exa.ShipEditor {
 
         protected override bool Predicate(BlockTemplate template) {
             // this editor layer should only be triggered by templates that contain turret values
-            return template.PartialAnyOf<ITurretValues>();
+            return template.GetAnyPartialDataIsOf<ITurretValues>();
         }
 
         protected override void OnAdd(ABpBlock block) {

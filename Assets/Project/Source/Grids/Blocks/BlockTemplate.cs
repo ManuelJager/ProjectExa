@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
@@ -13,7 +14,7 @@ namespace Exa.Grids.Blocks {
     public abstract class BlockTemplate<T> : BlockTemplate
         where T : Block {
         [Header("Template partials")]
-        [SerializeField] [FormerlySerializedAs("physicalTemplatePartial1")] protected GenericTemplatePartial<PhysicalData> physicalPartial;
+        [SerializeField] [FormerlySerializedAs("physicalTemplatePartial1")] protected TemplatePartial<PhysicalData> physicalPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             yield return physicalPartial;
@@ -68,9 +69,13 @@ namespace Exa.Grids.Blocks {
             return S.Blocks.Values.GetValues<T>(blockContext, this);
         }
 
-        public bool PartialAnyOf<T>()
+        public bool GetAnyPartialDataIsOf<T>()
             where T : IBlockComponentValues {
-            return GetTemplatePartials().OfType<ITemplatePartial<T>>().Any();
+            return GetTemplatePartials().Any(partial => partial.GetDataTypeIsOf<T>());
+        }
+
+        public bool GetAnyPartialDataIsOf(Type type) {
+            return GetTemplatePartials().Any(partial => partial.GetDataTypeIsOf(type));
         }
 
         public abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();

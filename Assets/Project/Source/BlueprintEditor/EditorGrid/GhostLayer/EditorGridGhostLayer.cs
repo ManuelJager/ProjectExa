@@ -107,7 +107,7 @@ namespace Exa.ShipEditor {
                 controller => {
                     controller.ImportBlock(block);
 
-                    var overlay = template.PartialAnyOf<ITurretValues>()
+                    var overlay = template.GetAnyPartialDataIsOf<ITurretValues>()
                         ? turretLayer.CreateGhostOverlay(controller.Ghost.Block)
                         : null;
 
@@ -155,7 +155,7 @@ namespace Exa.ShipEditor {
                 return false;
             }
 
-            if (ImportedTemplate.PartialAnyOf<ITurretValues>()) {
+            if (ImportedTemplate.GetAnyPartialDataIsOf<ITurretValues>()) {
                 var ghostTurretClaims = activeControllers.SelectMany(controller => controller.Overlay.GetTurretClaims());
                 var currentBlockClaims = turretLayer.TurretBlocks.SelectMany(block => block.GetTileClaims());
 

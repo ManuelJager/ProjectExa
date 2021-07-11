@@ -18,7 +18,7 @@ namespace Exa.Research {
             return GetModifiers();
         }
 
-        public override Type GetTargetType() {
+        protected override Type GetTargetType() {
             return typeof(T);
         }
 
@@ -29,13 +29,10 @@ namespace Exa.Research {
 
     public abstract class BlockComponentModifier : ResearchItem, IBlockComponentModifier {
         public virtual bool AffectsTemplate(BlockTemplate template) {
-            bool Filter(TemplatePartialBase partial) {
-                return partial.GetTargetType() == GetTargetType();
-            }
 
             // This makes sure the modifier only affects block templates which contain partials with the same target type
             // This can be overriden to provide custom target behaviour
-            return template.GetTemplatePartials().Any(Filter);
+            return template.GetAnyPartialDataIsOf(GetTargetType());
         }
 
         public abstract IEnumerable<ResearchStep> GetResearchSteps();
@@ -48,6 +45,6 @@ namespace Exa.Research {
             S.Research.RemoveModifier(filter, this);
         }
 
-        public abstract Type GetTargetType();
+        protected abstract Type GetTargetType();
     }
 }

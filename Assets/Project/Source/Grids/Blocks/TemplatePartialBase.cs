@@ -4,7 +4,7 @@ using Exa.Grids.Blocks.Components;
 using Exa.Utils;
 
 namespace Exa.Grids.Blocks {
-    public abstract class TemplatePartial<T> : TemplatePartialBase, ITemplatePartial<T>
+    public abstract class TemplatePartialBase<T> : TemplatePartialBase, ITemplatePartial<T>
         where T : struct, IBlockComponentValues {
         public abstract T ToBaseComponentValues();
 
@@ -33,7 +33,7 @@ namespace Exa.Grids.Blocks {
             S.Blocks.Values.GetValues<T>(totals.GetInjectedContext(), Template).RemoveGridTotals(totals);
         }
 
-        public override Type GetTargetType() {
+        public override Type GetDataType() {
             return typeof(T);
         }
 
@@ -53,7 +53,7 @@ namespace Exa.Grids.Blocks {
         }
     }
 
-    public abstract class TemplatePartialBase : IGridTotalsModifier {
+    public abstract class TemplatePartialBase : IGridTotalsModifier, ITemplatePartial {
         public BlockTemplate Template { get; internal set; }
 
         public abstract void AddGridTotals(GridTotals totals);
@@ -66,6 +66,6 @@ namespace Exa.Grids.Blocks {
 
         public abstract void SetValues(Block block, IBlockComponentValues data);
 
-        public abstract Type GetTargetType();
+        public abstract Type GetDataType();
     }
 }

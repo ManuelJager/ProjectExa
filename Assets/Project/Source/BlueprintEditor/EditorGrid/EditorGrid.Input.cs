@@ -40,7 +40,7 @@ namespace Exa.ShipEditor {
 
         public void OnBlockSelected(BlockTemplate template) {
             ghostLayer.ImportTemplate(template);
-            turretLayer.OverlayVisibility = template.PartialAnyOf<ITurretValues>();
+            turretLayer.OverlayVisibility = template?.GetAnyPartialDataIsOf<ITurretValues>() ?? false;
         }
 
         public void OnRotateLeft() {

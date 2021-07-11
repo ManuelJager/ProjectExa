@@ -8,7 +8,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/ShipController")]
     public class ShipControllerTemplate : BlockTemplate<ShipController> {
-        [SerializeField] private GenericTemplatePartial<ShipControllerData> shipControllerPartial;
+        [SerializeField] private TemplatePartial<ShipControllerData> shipControllerPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
             return base.GetTemplatePartials().Append(shipControllerPartial);

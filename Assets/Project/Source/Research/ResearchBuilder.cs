@@ -29,7 +29,7 @@ namespace Exa.Research {
             where T : struct, IBlockComponentValues {
             Func<BlockTemplate, bool> GetClosure() {
                 if (templateTypeFilter == null) {
-                    return template => { return template.GetTemplatePartials().Any(partial => { return typeof(T).IsAssignableFrom(partial.GetTargetType()); }); };
+                    return template => template.GetAnyPartialDataIsOf<T>();
                 }
 
                 var currFilter = templateTypeFilter;

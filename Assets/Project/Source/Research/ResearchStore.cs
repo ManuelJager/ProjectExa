@@ -63,7 +63,7 @@ namespace Exa.Research {
         )
             where T : struct, IBlockComponentValues {
             var step = new ResearchStep<T>(applyFunc, order);
-            var dynamicModifier = new DynamicBlockComponentModifier(step, template => { return template.GetTemplatePartials().Any(partial => typeof(T).IsAssignableFrom(partial.GetTargetType())); });
+            var dynamicModifier = new DynamicBlockComponentModifier(step, template => template.GetAnyPartialDataIsOf<T>());
 
             return AddModifier(filter, dynamicModifier);
         }
