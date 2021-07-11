@@ -3,8 +3,6 @@ using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components {
-    public interface IPhysical : IBehaviourMarker<PhysicalData> { }
-
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData> {
         public event Action<float> OnDamage;
 

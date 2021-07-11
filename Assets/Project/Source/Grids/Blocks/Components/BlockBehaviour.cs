@@ -26,9 +26,13 @@ namespace Exa.Grids.Blocks.Components {
 
             return success ? result : throw new InvalidOperationException("Could not find default values");
         }
+
+        public override Type GetDataType() {
+            return typeof(T);
+        }
     }
 
-    public abstract class BlockBehaviour : MonoBehaviour {
+    public abstract class BlockBehaviour : MonoBehaviour, IBlockComponentContainer {
         [HideInInspector] public Block block;
         private bool forceActive;
         private IGridInstance parent;
@@ -73,5 +77,7 @@ namespace Exa.Grids.Blocks.Components {
         public void ForceActive() {
             forceActive = true;
         }
+
+        public abstract Type GetDataType();
     }
 }

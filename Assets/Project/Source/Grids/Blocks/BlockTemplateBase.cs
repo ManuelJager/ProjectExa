@@ -7,26 +7,6 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Exa.Grids.Blocks {
-    /// <summary>
-    ///     Provides a generic base class for storing and setting the base values of blocks
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public abstract class BlockTemplate<T> : BlockTemplate
-        where T : Block {
-        [Header("Template partials")]
-        [SerializeField] [FormerlySerializedAs("physicalTemplatePartial1")] protected TemplatePartial<PhysicalData> physicalPartial;
-
-        public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
-            yield return physicalPartial;
-        }
-
-        public void SetContextlessValues(T block) {
-            foreach (var partial in GetTemplatePartials()) {
-                partial.SetValues(block, partial.GetContextlessValues());
-            }
-        }
-    }
-
     public abstract class BlockTemplate : ScriptableObject, IGridTotalsModifier {
         [Header("Settings")]
         public string id;
@@ -37,6 +17,9 @@ namespace Exa.Grids.Blocks {
         public BlockMetadata metadata;
         public GameObject inertPrefab;
         public GameObject alivePrefab;
+        
+        [Header("Template partials")]
+        [SerializeField] [FormerlySerializedAs("physicalTemplatePartial1")] protected TemplatePartial<PhysicalData> physicalPartial;
 
         private void OnEnable() {
             foreach (var partial in GetTemplatePartials()) {
@@ -78,7 +61,19 @@ namespace Exa.Grids.Blocks {
             return GetTemplatePartials().Any(partial => partial.GetDataTypeIsOf(type));
         }
 
-        public abstract IEnumerable<TemplatePartialBase> GetTemplatePartials();
+        public virtual IEnumerable<TemplatePartialBase> GetTemplatePartials() {
+            yield return physicalPartial;
+        }
+        
+        public void SetContextlessValues(Block block) {
+            if (block.BlueprintBlock.Template != this) {
+                throw new InvalidOperationException("Cannot set contextless values of block whose template is not the current template");
+            }
+            
+            foreach (var partial in GetTemplatePartials()) {
+                partial.SetValues(block, partial.GetContextlessValues());
+            }
+        }
 
         public override string ToString() {
             return $"Block template id: {id}";

@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &633880491859487074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3867314681599816325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2ff825921b5ab04f91cb6668f515782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  physicalBehaviour: {fileID: 3478639850444596420}
-  collider: {fileID: 0}
-  controllerBehaviour: {fileID: 4752509573575635510}
 --- !u!114 &3478639850444596420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,6 +26,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
+--- !u!114 &5916433866587796410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3867314681599816325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efbc8914b07d1545ab528e8a2d648cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockPoolMember: {fileID: 0}
+  physicalBehaviour: {fileID: 3478639850444596420}
+  collider: {fileID: 0}
 --- !u!1001 &2345329414674824249
 PrefabInstance:
   m_ObjectHideFlags: 0

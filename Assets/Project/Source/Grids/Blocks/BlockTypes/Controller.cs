@@ -1,5 +1,5 @@
 ﻿namespace Exa.Grids.Blocks.BlockTypes {
-    public abstract class Controller : Block {
+    public class Controller : Block {
         protected override void OnAdd() {
             if (!GridInstance) {
                 return;

@@ -13,23 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
---- !u!114 &3963789266654642281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5810594951229872469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56b9e0eca0994644e8b0fa1bff585834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockPoolMember: {fileID: 0}
-  physicalBehaviour: {fileID: 3183903237534111054}
-  collider: {fileID: 0}
-  controllerBehaviour: {fileID: 7596730845723094954}
-  turretBehaviour: {fileID: 7617634622350147509}
 --- !u!114 &7596730845723094954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +45,21 @@ MonoBehaviour:
   beamOrigin: {fileID: 6574230540406159965}
   arcs: {fileID: 8196826969012918710}
   lineRenderer: {fileID: 7853267247228533205}
+--- !u!114 &121140803942446368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5810594951229872469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efbc8914b07d1545ab528e8a2d648cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockPoolMember: {fileID: 0}
+  physicalBehaviour: {fileID: 3183903237534111054}
+  collider: {fileID: 0}
 --- !u!1001 &3217081780728070486
 PrefabInstance:
   m_ObjectHideFlags: 0

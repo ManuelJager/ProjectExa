@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
-    [CreateAssetMenu(menuName = "Grids/Blocks/Thruster")]
-    public class ThrusterTemplate : BlockTemplate<Thruster> {
-        [SerializeField] private TemplatePartial<ThrusterData> thrusterPartial;
+    [CreateAssetMenu(menuName = "Grids/Blocks/Autocannon")]
+    public class AutocannonTemplate : BlockTemplate {
+        [SerializeField] private TemplatePartial<AutocannonData> autocannonPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {
-            return base.GetTemplatePartials().Append(thrusterPartial);
+            return base.GetTemplatePartials().Append(autocannonPartial);
         }
     }
 }

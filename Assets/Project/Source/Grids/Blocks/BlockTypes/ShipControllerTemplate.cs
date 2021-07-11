@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks.BlockTypes {
     [Serializable]
     [CreateAssetMenu(menuName = "Grids/Blocks/ShipController")]
-    public class ShipControllerTemplate : BlockTemplate<ShipController> {
+    public class ShipControllerTemplate : BlockTemplate {
         [SerializeField] private TemplatePartial<ShipControllerData> shipControllerPartial;
 
         public override IEnumerable<TemplatePartialBase> GetTemplatePartials() {

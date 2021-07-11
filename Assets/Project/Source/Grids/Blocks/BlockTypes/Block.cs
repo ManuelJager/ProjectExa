@@ -12,13 +12,15 @@ namespace Exa.Grids.Blocks.BlockTypes {
     /// <summary>
     ///     Base class for blocks
     /// </summary>
-    public class Block : MonoBehaviour, IGridMember, IPhysical {
+    public class Block : MonoBehaviour, IGridMember {
         [HideInInspector] public BlockPoolMember blockPoolMember;
 
         [SerializeField] private PhysicalBehaviour physicalBehaviour;
         [SerializeField] [HideInInspector] private new BoxCollider2D collider;
         [NonSerialized] public ABpBlock aBpBlock;
         private IGridInstance parent;
+
+        private List<BlockBehaviour> behaviours;
 
         public PhysicalBehaviour PhysicalBehaviour {
             get => physicalBehaviour;
@@ -84,10 +86,6 @@ namespace Exa.Grids.Blocks.BlockTypes {
             return IGridMemberComparer.Default.Equals(this, other);
         }
 
-        BlockBehaviour<PhysicalData> IBehaviourMarker<PhysicalData>.Component {
-            get => physicalBehaviour;
-        }
-
         /// <summary>
         ///     Returns the block to the pool
         /// </summary>
@@ -107,17 +105,29 @@ namespace Exa.Grids.Blocks.BlockTypes {
             return GetBehaviours().FindFirst<T>();
         }
 
+        public BlockBehaviour<T> GetBehaviourOfData<T>()
+            where T : struct, IBlockComponentValues {
+            foreach (var behaviour in GetBehaviours()) {
+                if (behaviour.GetDataTypeIsOf<T>()) {
+                    return (BlockBehaviour<T>)behaviour;
+                }
+            }
+            
+            return null;
+        }
+
         public bool TryGetBehaviour<T>(out T value) {
             value = GetBehaviour<T>();
 
             return value.Equals(default);
         }
 
-        // TODO: cache the result of this operation
-        public virtual IEnumerable<BlockBehaviour> GetBehaviours() {
-            return new BlockBehaviour[] {
-                physicalBehaviour
-            };
+        public IEnumerable<BlockBehaviour> GetBehaviours() {
+            if (behaviours == null) {
+                gameObject.GetComponents(behaviours = new List<BlockBehaviour>());
+            }
+
+            return behaviours;
         }
 
         protected virtual void OnAdd() { }

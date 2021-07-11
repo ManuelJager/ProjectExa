@@ -5,6 +5,7 @@ using System.Reflection;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Types;
+using Exa.Utils;
 using UnityEditor;
 
 namespace Exa.CustomEditors {
@@ -29,6 +30,7 @@ namespace Exa.CustomEditors {
         }
 
         private class BlockDataInfo {
+            private bool foldout = true;
             private readonly string name;
             private readonly IEnumerable<FieldInfo> properties;
 
@@ -39,15 +41,22 @@ namespace Exa.CustomEditors {
 
             public IBlockComponentValues Draw(IBlockComponentValues values) {
                 EditorGUILayout.Space();
-                EditorGUILayout.BeginFoldoutHeaderGroup(true, name);
 
-                foreach (var prop in properties) {
-                    var currentValue = prop.GetValue(values);
-                    var value = DrawField(prop.Name, currentValue, prop.FieldType);
+                foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, name);
+                
+                if (foldout) {
+                    EditorGUI.indentLevel += 1;
+                    
+                    foreach (var prop in properties) {
+                        var currentValue = prop.GetValue(values);
+                        var value = DrawField(prop.Name.ToProperCase(), currentValue, prop.FieldType);
 
-                    if (value != null && !currentValue.Equals(value)) {
-                        prop.SetValue(values, value);
+                        if (value != null && !currentValue.Equals(value)) {
+                            prop.SetValue(values, value);
+                        }
                     }
+
+                    EditorGUI.indentLevel -= 1;
                 }
 
                 EditorGUILayout.EndFoldoutHeaderGroup();

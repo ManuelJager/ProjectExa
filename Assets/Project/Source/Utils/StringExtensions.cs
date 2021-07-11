@@ -76,5 +76,31 @@ namespace Exa.Utils {
 
             return type.ToString();
         }
+
+        public static string ToProperCase(this string value) {
+            // If there are 0 or 1 characters, just return the string.
+            if (value == null) {
+                return value;
+            }
+
+            if (value.Length < 2) {
+                return value.ToUpper();
+            }
+
+            // Start with the first character.
+            var result = new StringBuilder(value.Substring(0, 1).ToUpper());
+
+            // Add the remaining characters.
+            for (var i = 1; i < value.Length; i++) {
+                if (char.IsUpper(value[i])) {
+                    result.Append(" ");
+                }
+                    
+
+                result.Append(value[i]);
+            }
+
+            return result.ToString();
+        }
     }
 }

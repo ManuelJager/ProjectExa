@@ -21,8 +21,7 @@ namespace Exa.Grids.Blocks {
         }
 
         public override void SetValues(Block block, IBlockComponentValues data) {
-            var partial = GetMarker(block);
-            partial.Component.Data = (T) data;
+            block.GetBehaviourOfData<T>().Data = (T) data;
         }
 
         public override void AddGridTotals(GridTotals totals) {
@@ -36,24 +35,9 @@ namespace Exa.Grids.Blocks {
         public override Type GetDataType() {
             return typeof(T);
         }
-
-        private static IBehaviourMarker<T> GetMarker(Block block) {
-            if (!(block is IBehaviourMarker<T> partial)) {
-                var partialString = typeof(IBehaviourMarker<T>).ToGenericString();
-                var blockString = block.GetType().ToGenericString();
-
-                throw new Exception($"Partial {partialString} is not supported on block: {blockString}");
-            }
-
-            if (partial.Component == null) {
-                throw new Exception($"Block behaviour for {typeof(T).Name} is null");
-            }
-
-            return partial;
-        }
     }
 
-    public abstract class TemplatePartialBase : IGridTotalsModifier, ITemplatePartial {
+    public abstract class TemplatePartialBase : IGridTotalsModifier, IBlockComponentContainer {
         public BlockTemplate Template { get; internal set; }
 
         public abstract void AddGridTotals(GridTotals totals);
