@@ -32,8 +32,6 @@ MonoBehaviour:
       hull: 5
       armor: 0
       mass: 1
-  gyroscopeTemplatePartial:
-    turningPower: 15
   gyroscopePartial:
     data:
       turningPower: 15

@@ -32,8 +32,6 @@ MonoBehaviour:
       hull: 50
       armor: 5
       mass: 1.5
-  thrusterTemplatePartial:
-    thrust: 6000
   thrusterPartial:
     data:
       thrust: 6000

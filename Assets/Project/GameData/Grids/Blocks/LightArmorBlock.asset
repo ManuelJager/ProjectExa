@@ -27,12 +27,8 @@ MonoBehaviour:
     type: 3}
   alivePrefab: {fileID: 2367148154100342487, guid: 12c02378d4ee4574683e717462817270,
     type: 3}
-  physicalTemplatePartial1:
+  physicalPartial:
     data:
       hull: 15
       armor: 10
       mass: 0.6
-  physicalTemplatePartial:
-    maxHull: 15
-    armor: 10
-    mass: 0.6

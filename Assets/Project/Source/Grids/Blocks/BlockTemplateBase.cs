@@ -4,7 +4,6 @@ using System.Linq;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Exa.Grids.Blocks {
     public abstract class BlockTemplate : ScriptableObject, IGridTotalsModifier {
@@ -19,7 +18,7 @@ namespace Exa.Grids.Blocks {
         public GameObject alivePrefab;
         
         [Header("Template partials")]
-        [SerializeField] [FormerlySerializedAs("physicalTemplatePartial1")] protected TemplatePartial<PhysicalData> physicalPartial;
+        [SerializeField] protected TemplatePartial<PhysicalData> physicalPartial;
 
         private void OnEnable() {
             foreach (var partial in GetTemplatePartials()) {

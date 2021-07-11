@@ -32,13 +32,6 @@ MonoBehaviour:
       hull: 50
       armor: 15
       mass: 3
-  autocannonTemplatePartial:
-    turningRate: 100
-    firingRate: 0.5
-    turretArc: 200
-    turretRadius: 1.375
-    damage: 80
-    cycleMode: 0
   autocannonPartial:
     data:
       turningRate: 100

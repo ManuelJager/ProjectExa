@@ -31,23 +31,10 @@ MonoBehaviour:
       hull: 500
       armor: 50
       mass: 4
-  stationControllerTemplatePartial:
-    powerGenerationModifier:
-      scalar: 1.1
-    turningPowerModifier:
-      scalar: 0.9
   stationControllerPartial:
     data:
       powerGenerationModifier: 1.1
       turningPowerModifier: 0.9
-  gaussCannonTemplatePartial:
-    turningRate: 50
-    firingRate: 0
-    turretArc: 360
-    turretRadius: 3.4375
-    damage: 250
-    chargeTime: 3
-    range: 150
   gaussCannonPartial:
     data:
       turningRate: 50

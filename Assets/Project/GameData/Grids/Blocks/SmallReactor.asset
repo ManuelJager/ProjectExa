@@ -32,8 +32,6 @@ MonoBehaviour:
       hull: 10
       armor: 0
       mass: 1
-  powerGeneratorTemplatePartial:
-    powerGeneration: 10
   powerGeneratorPartial:
     data:
       powerGeneration: 10
