@@ -107,7 +107,14 @@ namespace Exa.Grids.Blocks.Components {
 
             while (damage > 0f && hitsEnumerator.MoveNext(out var hit)) {
                 lastHitPosition = hit.hit.point;
-                var damageInstance = hit.block.PhysicalBehaviour.AbsorbDamage(Parent, damage);
+
+                var damageInstance = hit.damageable.AbsorbDamage(
+                    new Damage {
+                        source = Parent,
+                        value = damage
+                    }
+                );
+
                 damage -= damageInstance.absorbedDamage;
             }
 

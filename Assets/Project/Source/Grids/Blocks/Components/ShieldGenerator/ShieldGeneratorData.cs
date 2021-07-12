@@ -6,6 +6,7 @@ using Exa.UI.Tooltips;
 namespace Exa.Grids.Blocks.Components {
     [Serializable]
     public struct ShieldGeneratorData : IBlockComponentValues {
+        public float shieldRadius;
         public float recoverTime;
         public float health;
 
@@ -14,6 +15,7 @@ namespace Exa.Grids.Blocks.Components {
         public void RemoveGridTotals(GridTotals totals) { }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() {
+            yield return new LabeledValue<object>("Shield radius", $"{shieldRadius}");
             yield return new LabeledValue<object>("Recover time", $"{recoverTime}s");
             yield return new LabeledValue<object>("Health", $"{health}");
         }

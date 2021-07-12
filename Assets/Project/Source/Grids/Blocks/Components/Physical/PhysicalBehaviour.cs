@@ -1,9 +1,13 @@
 ﻿using System;
+using Exa.Grids.Blocks.BlockTypes;
 using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components {
-    public class PhysicalBehaviour : BlockBehaviour<PhysicalData> {
+    public class PhysicalBehaviour : BlockBehaviour<PhysicalData>, IDamageable {
+        [Header("State")]
+        [SerializeField] private HealthPool hull;
+
         public event Action<float> OnDamage;
 
         // TODO: replace damage source by an actual type
@@ -13,50 +17,35 @@ namespace Exa.Grids.Blocks.Components {
         /// <param name="damageSource">Damage source metadata</param>
         /// <param name="damage">The damage to take</param>
         /// <returns></returns>
-        public DamageInstanceData AbsorbDamage(object damageSource, float damage) {
+        public ReceivedDamage AbsorbDamage(Damage damage) {
             if (Parent.Configuration.Invulnerable) {
-                return new DamageInstanceData {
-                    absorbedDamage = damage,
+                return new ReceivedDamage {
+                    absorbedDamage = damage.value,
                     appliedDamage = 0
                 };
             }
 
-            var appliedDamage = Mathf.Min(data.hull, ComputeDamage(damage));
-
-            var instanceData = new DamageInstanceData {
-                absorbedDamage = Mathf.Min(data.hull, damage),
-                appliedDamage = appliedDamage
-            };
+            var isDestroyed = !hull.TakeDamage(damage, data.armor, out var receivedDamage);
+            var appliedDamage = receivedDamage.appliedDamage;
 
             if (GridInstance) {
                 GridInstance.BlockGrid.GetTotals().Hull -= appliedDamage;
-                GS.PopupManager.CreateOrUpdateDamagePopup(transform.position, damageSource, appliedDamage);
+                GS.PopupManager.CreateOrUpdateDamagePopup(transform.position, damage.source, appliedDamage);
             }
-
-            data.hull -= appliedDamage;
 
             if (appliedDamage != 0f) {
                 OnDamage?.Invoke(appliedDamage);
             }
 
-            if (data.hull <= 0) {
+            if (isDestroyed) {
                 block.DestroyBlock();
             }
 
-            return instanceData;
+            return receivedDamage;
         }
 
         public void Repair() {
-            var context = Parent.BlockContext;
-            var template = block.BlueprintBlock.Template;
-
-            if (!S.Blocks.Values.TryGetValues(context, template, out data)) {
-                throw new Exception($"Cannot set physical data for {block.GetInstanceString()}");
-            }
-        }
-
-        public float ComputeDamage(float damage) {
-            return Mathf.Max(damage - data.armor, 0f);
+            hull.health = data.hull;
         }
 
         protected override void OnAdd() {
@@ -72,10 +61,5 @@ namespace Exa.Grids.Blocks.Components {
                 }
             }
         }
-    }
-
-    public struct DamageInstanceData {
-        public float absorbedDamage;
-        public float appliedDamage;
     }
 }

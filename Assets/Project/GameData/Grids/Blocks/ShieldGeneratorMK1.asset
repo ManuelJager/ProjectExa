@@ -34,5 +34,6 @@ MonoBehaviour:
       mass: 5
   shieldGeneratorPartial:
     data:
+      shieldRadius: 3
       recoverTime: 5
       health: 600

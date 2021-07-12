@@ -20,6 +20,7 @@ namespace Exa.Weapons {
         [SerializeField] private Sprite drumCycling;
 
         private float animTime;
+        private IGridInstance parent;
 
         private void OnDisable() {
             StopAllCoroutines();
@@ -27,15 +28,19 @@ namespace Exa.Weapons {
 
         public void Setup(float animTime, IGridInstance parent, BlockContext damageMask) {
             this.animTime = animTime;
+            this.parent = parent;
             barrelAnimator["BarrelAnimation"].speed = 1f / animTime;
-            firingPoint.Setup(parent, damageMask);
+            firingPoint.Setup(damageMask);
         }
 
         public void Fire(float damage) {
             barrelAnimator.Stop();
             barrelAnimator.Play();
 
-            firingPoint.Fire(damage);
+            firingPoint.Fire(new Damage {
+                value = damage,
+                source = parent 
+            });
 
             light2D.intensity = peakIntensity;
             light2D.DOIntensity(0, 0.1f);

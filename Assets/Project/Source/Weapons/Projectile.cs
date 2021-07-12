@@ -6,9 +6,8 @@ using UnityEngine;
 namespace Exa.Weapons {
     public class Projectile : MonoBehaviour {
         [SerializeField] private Rigidbody2D rb;
-        private float damage;
+        private Damage damage;
         private BlockContext damageMask;
-        private object damageSource;
         private float lifeTime;
         private float timeAlive;
 
@@ -22,31 +21,24 @@ namespace Exa.Weapons {
         }
 
         public void OnTriggerEnter2D(Collider2D collider) {
-            var block = collider.gameObject.GetComponent<Block>();
+            var damageable = collider.gameObject.GetComponent<IDamageable>();
 
-            if (!block) {
-                Debug.LogError($"Collided with {collider.gameObject}, but found no block attached");
-
+            if (!PassesDamageMask(damageable.Block)) {
                 return;
             }
 
-            if (!PassesDamageMask(block)) {
-                return;
-            }
+            var damageInstanceData = damageable.AbsorbDamage(damage);
+            damage.value -= damageInstanceData.absorbedDamage;
 
-            var damageInstanceData = block.PhysicalBehaviour.AbsorbDamage(damageSource, damage);
-            damage -= damageInstanceData.absorbedDamage;
-
-            if (damage <= 0f) {
+            if (damage.value <= 0f) {
                 Destroy(gameObject);
             }
         }
 
-        public void Setup(Transform transform, float speed, float range, float damage, object damageSource, BlockContext damageMask) {
+        public void Setup(Transform transform, float speed, float range, Damage damage, BlockContext damageMask) {
             this.transform.position = transform.position;
             this.damage = damage;
             lifeTime = range / speed;
-            this.damageSource = damageSource;
             this.damageMask = damageMask;
 
             rb.velocity = transform.right * speed;

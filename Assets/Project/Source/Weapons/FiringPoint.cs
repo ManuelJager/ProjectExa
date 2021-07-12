@@ -10,14 +10,12 @@ namespace Exa.Weapons {
         [SerializeField] private Transform spawnPoint;
 
         private BlockContext damageMask;
-        private object damageSource;
 
-        public void Setup(object damageSource, BlockContext damageMask) {
+        public void Setup(BlockContext damageMask) {
             this.damageMask = damageMask;
-            this.damageSource = damageSource;
         }
 
-        public void Fire(float damage) {
+        public void Fire(Damage damage) {
             // TODO: Pool projectiles
             projectilePrefab.Create<Projectile>(GS.SpawnLayer.projectiles)
                 .Setup(
@@ -25,7 +23,6 @@ namespace Exa.Weapons {
                     80f,
                     250f,
                     damage,
-                    damageSource,
                     damageMask
                 );
         }

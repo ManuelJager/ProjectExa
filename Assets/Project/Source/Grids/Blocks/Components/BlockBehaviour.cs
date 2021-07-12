@@ -10,12 +10,23 @@ namespace Exa.Grids.Blocks.Components {
 
         public T Data {
             get => data;
-            set => data = value;
+            set {
+                var copy = data;
+                data = value;
+
+            #if UNITY_EDITOR
+                if (Application.isPlaying) {
+                    OnBlockDataReceived(copy, data);
+                }
+            #else
+                OnBlockDataReceived(copy, data);
+            #endif
+            }
         }
 
         public override IBlockComponentValues BlockComponentData {
-            get => data;
-            set => data = (T) value;
+            get => Data;
+            set => Data = (T) value;
         }
 
         public T GetDefaultData() {
@@ -30,6 +41,8 @@ namespace Exa.Grids.Blocks.Components {
         public override Type GetDataType() {
             return typeof(T);
         }
+
+        protected virtual void OnBlockDataReceived(T oldValues, T newValues) { }
     }
 
     public abstract class BlockBehaviour : MonoBehaviour, IBlockComponentContainer {
@@ -38,6 +51,10 @@ namespace Exa.Grids.Blocks.Components {
         private IGridInstance parent;
 
         public abstract IBlockComponentValues BlockComponentData { get; set; }
+
+        public Block Block {
+            get => block;
+        }
 
         public IGridInstance Parent {
             get => parent;

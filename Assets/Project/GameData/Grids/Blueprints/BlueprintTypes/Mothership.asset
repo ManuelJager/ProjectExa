@@ -15,4 +15,4 @@ MonoBehaviour:
   typeGuid: 0
   displayName: Mothership
   maxSize: {x: 30, y: 21}
-  allowedBlockCategory: 95
+  allowedBlockCategory: 351
