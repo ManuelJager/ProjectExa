@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
+using Exa.Ships;
 using UnityEngine;
 
 namespace Exa.Gameplay.Missions {
@@ -54,12 +55,8 @@ namespace Exa.Gameplay.Missions {
             }
         }
 
-        public void Spawn(Spawner spawner, WaveState state) {
-            foreach (var enemy in spawner.SpawnFormationAtRandomPosition(this, new VicFormation(), 100f)) {
-                state.OnEnemySpawned(enemy);
-            }
-
-            state.OnFinishSpawning();
+        public IEnumerable<EnemyGrid> Spawn(Spawner spawner) {
+            return spawner.SpawnFormationAtRandomPosition(this, new VicFormation(), 100f);
         }
     }
 }

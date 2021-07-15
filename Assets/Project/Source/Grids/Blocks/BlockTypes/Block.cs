@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Ships;
@@ -20,6 +21,14 @@ namespace Exa.Grids.Blocks.BlockTypes {
         [NonSerialized] public ABpBlock aBpBlock;
         private IGridInstance parent;
 
+    #if UNITY_EDITOR
+        public bool DebugFocused { get; set; }
+    #endif
+
+    #if ENABLE_BLOCK_LOGS
+        public List<string> Logs { get; } = new List<string>();
+    #endif
+
         private List<BlockBehaviour> behaviours;
 
         public PhysicalBehaviour PhysicalBehaviour {
@@ -33,24 +42,33 @@ namespace Exa.Grids.Blocks.BlockTypes {
 
         public IGridInstance Parent {
             get => parent;
-            set {
-                if (parent == value) {
-                    return;
-                }
+        }
 
-                if (parent != null && !S.IsQuitting) {
-                    OnRemove();
-                }
+        public void SetParentWithoutNotify(IGridInstance value) {
+            parent = value;
+        }
 
-                parent = value;
+        /// <summary>
+        /// Notifies the block as being added.
+        /// </summary>
+        /// <param name="mockSetValues">If true, it will call the OnBlockDataReceived handler on every behaviour</param>
+        public void NotifyAdded(bool mockSetValues) {
+            OnAdd();
 
-                if (parent != null) {
-                    OnAdd();
-                }
+            foreach (var behaviour in GetBehaviours()) {
+                behaviour.NotifyAdded();
 
-                foreach (var behaviour in GetBehaviours()) {
-                    behaviour.Parent = value;
+                if (mockSetValues) {
+                    behaviour.MockSetValues();
                 }
+            }
+        }
+
+        public void NotifyRemoved() {
+            OnRemove();
+
+            foreach (var behaviour in GetBehaviours()) {
+                behaviour.NotifyRemoved();
             }
         }
 
@@ -90,14 +108,23 @@ namespace Exa.Grids.Blocks.BlockTypes {
         ///     Returns the block to the pool
         /// </summary>
         public void DestroyBlock() {
+        #if ENABLE_BLOCK_LOGS
+            Logs.Add("Function: DestroyBlock");
+        #endif
+
             if (GS.IsQuitting) {
                 parent = null;
 
+            #if ENABLE_BLOCK_LOGS
+                Logs.Add("Function: DestroyBlock: Return");
+
                 return;
+            #endif
             }
 
+            gameObject.SetActive(false);
             Parent.BlockGrid.Remove(GridAnchor);
-            Parent = null;
+            NotifyRemoved();
             blockPoolMember.ReturnBlock();
         }
 
@@ -107,13 +134,10 @@ namespace Exa.Grids.Blocks.BlockTypes {
 
         public BlockBehaviour<T> GetBehaviourOfData<T>()
             where T : struct, IBlockComponentValues {
-            foreach (var behaviour in GetBehaviours()) {
-                if (behaviour.GetDataTypeIsOf<T>()) {
-                    return (BlockBehaviour<T>)behaviour;
-                }
-            }
-            
-            return null;
+            return GetBehaviours()
+                .Where(behaviour => behaviour.GetDataTypeIsOf<T>())
+                .Cast<BlockBehaviour<T>>()
+                .FirstOrDefault();
         }
 
         public bool TryGetBehaviour<T>(out T value) {
@@ -130,9 +154,17 @@ namespace Exa.Grids.Blocks.BlockTypes {
             return behaviours;
         }
 
-        protected virtual void OnAdd() { }
+        protected virtual void OnAdd() {
+        #if ENABLE_BLOCK_LOGS
+            Logs.Add("Function: OnAdd");
+        #endif
+        }
 
-        protected virtual void OnRemove() { }
+        protected virtual void OnRemove() {
+        #if ENABLE_BLOCK_LOGS
+            Logs.Add("Function: OnRemove");
+        #endif
+        }
 
         public override string ToString() {
             return $"Block: {BlueprintBlock.Template.id}";

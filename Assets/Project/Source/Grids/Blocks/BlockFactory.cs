@@ -12,11 +12,12 @@ using UnityEngine;
 namespace Exa.Grids.Blocks {
     public class ObservableBlockTemplateCollection : ObservableCollection<BlockTemplateContainer> {
         private float? averageStrengthPerCredit = null;
-        
+
         public float GetAverageStrengthPerCredit() {
             return averageStrengthPerCredit ??= this.Select(
                     template => {
                         var metadata = template.Data.metadata;
+
                         return (float) metadata.strength / metadata.blockCosts.creditCost;
                     }
                 )
@@ -60,7 +61,7 @@ namespace Exa.Grids.Blocks {
         }
 
         public GameObject GetInactiveInertBlock(string id, Transform transform) {
-            return inertPrefabGroup.GetInactiveBlock(id, transform);
+            return inertPrefabGroup.GetInactiveBlock(id, transform).gameObject;
         }
 
         /// <summary>
@@ -68,10 +69,10 @@ namespace Exa.Grids.Blocks {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Block GetInactiveBlock(string id, Transform transform, BlockContext blockContext) {
-            return GetGroup(blockContext)
-                .GetInactiveBlock(id, transform)
-                .GetComponent<Block>();
+        public Block GetInactiveBlock(string id, IGridInstance instance) {
+            return GetGroup(instance.BlockContext)
+                .GetInactiveBlock(id, instance.Transform)
+                .block;
         }
 
         /// <summary>
@@ -93,7 +94,7 @@ namespace Exa.Grids.Blocks {
                 Values.Register(context, blockTemplate);
 
                 try {
-                    GetGroup(context).CreateAlivePrefabGroup(blockTemplate, context);
+                    GetGroup(context).CreateAlivePrefabGroup(blockTemplate);
                 } catch (Exception e) {
                     throw new Exception($"Exception while registering block template: {blockTemplate} for {context}", e);
                 }

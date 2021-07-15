@@ -21,13 +21,13 @@ namespace Exa.Weapons {
         }
 
         public void OnTriggerEnter2D(Collider2D collider) {
-            var damageable = collider.gameObject.GetComponent<IDamageable>();
+            var damageable = collider.GetComponent<IDamageable>();
 
             if (!PassesDamageMask(damageable.Block)) {
                 return;
             }
 
-            var damageInstanceData = damageable.AbsorbDamage(damage);
+            var damageInstanceData = damageable.TakeDamage(damage);
             damage.value -= damageInstanceData.absorbedDamage;
 
             if (damage.value <= 0f) {

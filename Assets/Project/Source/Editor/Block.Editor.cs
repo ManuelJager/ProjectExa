@@ -22,11 +22,17 @@ namespace Exa.CustomEditors {
 
             base.OnInspectorGUI();
 
-            foreach (var behaviour in ((Block) target).GetBehaviours()) {
+            var block = (Block) target;
+
+            foreach (var behaviour in block.GetBehaviours()) {
                 var data = behaviour.BlockComponentData;
                 data = typeCache[data.GetType()].Draw(data);
                 behaviour.BlockComponentData = data;
             }
+            
+            EditorGUILayout.Space(8);
+            
+            block.DebugFocused = EditorGUILayout.Toggle("Focus on block", block.DebugFocused);
         }
 
         private class BlockDataInfo {

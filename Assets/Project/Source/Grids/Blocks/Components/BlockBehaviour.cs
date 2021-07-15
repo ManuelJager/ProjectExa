@@ -38,6 +38,15 @@ namespace Exa.Grids.Blocks.Components {
             return success ? result : throw new InvalidOperationException("Could not find default values");
         }
 
+        public sealed override void NotifyRemoved() {
+            OnRemove();
+            OnBlockDataReceived(data, default);
+        }
+
+        public override void MockSetValues() {
+            OnBlockDataReceived(default, data);
+        }
+
         public override Type GetDataType() {
             return typeof(T);
         }
@@ -48,7 +57,6 @@ namespace Exa.Grids.Blocks.Components {
     public abstract class BlockBehaviour : MonoBehaviour, IBlockComponentContainer {
         [HideInInspector] public Block block;
         private bool forceActive;
-        private IGridInstance parent;
 
         public abstract IBlockComponentValues BlockComponentData { get; set; }
 
@@ -56,28 +64,25 @@ namespace Exa.Grids.Blocks.Components {
             get => block;
         }
 
+    #if UNITY_EDITOR
+        protected bool DebugFocused {
+            get => block.DebugFocused;
+        }
+    #endif
+
         public IGridInstance Parent {
-            get => parent;
-            set {
-                if (parent == value) {
-                    return;
-                }
-
-                if (parent != null) {
-                    OnRemove();
-                }
-
-                parent = value;
-
-                if (parent != null) {
-                    OnAdd();
-                }
-            }
+            get => block.Parent;
         }
 
         public GridInstance GridInstance {
             get => Parent as GridInstance;
         }
+
+        public void NotifyAdded() {
+            OnAdd();
+        }
+
+        public abstract void NotifyRemoved();
 
         private void Update() {
             if (forceActive || GridInstance && GridInstance.Active) {
@@ -94,6 +99,8 @@ namespace Exa.Grids.Blocks.Components {
         public void ForceActive() {
             forceActive = true;
         }
+
+        public abstract void MockSetValues();
 
         public abstract Type GetDataType();
     }

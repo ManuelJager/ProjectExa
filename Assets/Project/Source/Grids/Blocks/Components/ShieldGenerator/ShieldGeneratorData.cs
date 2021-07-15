@@ -15,7 +15,7 @@ namespace Exa.Grids.Blocks.Components {
         public void RemoveGridTotals(GridTotals totals) { }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() {
-            yield return new LabeledValue<object>("Shield radius", $"{shieldRadius}");
+            yield return new LabeledValue<object>("Shield radius", $"{shieldRadius}m");
             yield return new LabeledValue<object>("Recover time", $"{recoverTime}s");
             yield return new LabeledValue<object>("Health", $"{health}");
         }

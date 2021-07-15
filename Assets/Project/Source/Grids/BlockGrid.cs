@@ -13,11 +13,9 @@ using Object = UnityEngine.Object;
 namespace Exa.Ships {
     public class BlockGrid : Grid<Block> {
         private readonly DefaultDict<Type, List<BlockBehaviour>> blockBehaviours;
-        private readonly Transform container;
         private readonly GridTotals totals;
 
-        public BlockGrid(Transform container, IGridInstance parent) {
-            this.container = container;
+        public BlockGrid(IGridInstance parent) {
             totals = S.Blocks.Totals.StartWatching(this, parent.BlockContext);
 
             blockBehaviours = new DefaultDict<Type, List<BlockBehaviour>>(_ => new List<BlockBehaviour>());
@@ -83,7 +81,7 @@ namespace Exa.Ships {
 
         public void DestroyIfEmpty() {
             if (!GridMembers.Any()) {
-                Object.Destroy(container.gameObject);
+                Object.Destroy(Parent.Transform);
             }
         }
 
@@ -102,8 +100,16 @@ namespace Exa.Ships {
         }
 
         private Block CreateBlock(ABpBlock aBpBlock) {
-            var block = aBpBlock.CreateInactiveBlockInGrid(container, Parent.BlockContext);
-            block.Parent = Parent;
+            var block = aBpBlock.CreateInactiveBlockInGrid(Parent);
+            
+            // Set the parent without triggering any calls to listeners
+            // This is because the side effects caused by setting component values and parent of the block,
+            // may use each others underlying values
+            block.SetParentWithoutNotify(Parent);
+            S.Blocks.Values.SetValues(Parent.BlockContext, aBpBlock.Template, block);
+            block.NotifyAdded(false);
+            
+            // Set active
             block.gameObject.SetActive(true);
 
             return block;

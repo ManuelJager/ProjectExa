@@ -16,6 +16,7 @@ namespace Exa.Grids.Blocks.Components {
         public float turretArc;
         public float turretRadius;
         public float damage;
+        public float range;
         public CycleMode cycleMode;
 
         public float TurningRate {
@@ -34,8 +35,8 @@ namespace Exa.Grids.Blocks.Components {
             get => turretRadius;
         }
 
-        public float Damage {
-            get => damage;
+        public float Range {
+            get => range;
         }
 
         public void AddGridTotals(GridTotals totals) { }
@@ -43,13 +44,13 @@ namespace Exa.Grids.Blocks.Components {
         public void RemoveGridTotals(GridTotals totals) { }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() {
-            return new ITooltipComponent[] {
-                new LabeledValue<object>("Turning rate", $"{turningRate}°/s"),
-                new LabeledValue<object>("Firing rate", $"{60 / firingRate} RPM"),
-                new LabeledValue<object>("Firing arc", $"{TurretArc}°"),
-                new LabeledValue<object>("Damage", $"{damage}"),
-                new LabeledValue<object>("Cycle mode", $"{cycleMode}")
-            };
+            // TO BE LOCALIZED
+            yield return new LabeledValue<object>("Turning rate", $"{turningRate}°/s");
+            yield return new LabeledValue<object>("Firing rate", $"{60 / firingRate} RPM");
+            yield return new LabeledValue<object>("Firing arc", $"{TurretArc}°");
+            yield return new LabeledValue<object>("Damage", $"{damage}");
+            yield return new LabeledValue<object>("Cycle mode", $"{cycleMode}");
+            yield return new LabeledValue<object>("Range", $"{range}m");
         }
     }
 }

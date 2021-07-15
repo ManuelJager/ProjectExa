@@ -21,7 +21,6 @@ using UnityEngine.Serialization;
 namespace Exa.Ships {
     public abstract class GridInstance : MonoBehaviour, IRaycastTarget, ITooltipPresenter, IGridInstance {
         [Header("References")]
-        [SerializeField] private Transform pivot;
         [SerializeField] private GridAi gridAi;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private CircleCollider2D mouseOverCollider;
@@ -130,7 +129,7 @@ namespace Exa.Ships {
         }
 
         public virtual void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
-            BlockGrid = new BlockGrid(pivot, this);
+            BlockGrid = new BlockGrid(this);
             Configuration = configuration;
             ActionScheduler = new ActionScheduler(this);
             Active = true;

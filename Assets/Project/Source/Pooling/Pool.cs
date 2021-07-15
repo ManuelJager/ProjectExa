@@ -46,13 +46,13 @@ namespace Exa.Pooling {
         }
 
         public virtual bool Return(PoolMember poolMember) {
-            if (!(poolMember is T)) {
+            if (!(poolMember is T member)) {
                 throw new ArgumentException(
                     $"Pool member type ({poolMember.GetType()}) does not match type ({typeof(T)})"
                 );
             }
 
-            return TryPush((T) poolMember);
+            return TryPush(member);
         }
 
         protected virtual T TryPop() {

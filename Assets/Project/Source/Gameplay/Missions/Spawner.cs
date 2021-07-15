@@ -44,7 +44,7 @@ namespace Exa.Gameplay.Missions {
         }
 
         public PlayerStation SpawnPlayerStation(Blueprint blueprint = null, GridInstanceConfiguration? configuration = null) {
-            blueprint ??= S.Blueprints.GetBlueprint("defaultPlayerMothership");
+            blueprint ??= S.Blueprints.GetBlueprint("asd");
             station = GS.ShipFactory.CreateStation(blueprint, new Vector2(0, 0), configuration);
             station.Controller.GetBehaviour<ITurretBehaviour>().Target = new MouseCursorTarget();
 

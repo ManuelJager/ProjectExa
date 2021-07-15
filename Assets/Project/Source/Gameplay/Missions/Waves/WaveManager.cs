@@ -36,32 +36,27 @@ namespace Exa.Gameplay.Missions {
             WaveStarted?.Invoke();
             GS.UI.gameplayLayer.missionState.SetText("Combat phase", $"Wave {currentWaveIndex + 1}");
 
-            currentWaveState = new WaveState(OnWaveEnded, OnEnemySpawned, OnEnemyDestroyed);
-            waves[currentWaveIndex].Spawn(spawner, currentWaveState);
+            currentWaveState = new WaveState();
+
+            foreach (var enemy in waves[currentWaveIndex].Spawn(spawner)) {
+                currentWaveState.OnEnemySpawned(enemy);
+                EnemySpawned?.Invoke(enemy);
+
+                enemy.ControllerDestroyed += () => EnemyDestroyed?.Invoke(enemy);
+            }
+            
+            currentWaveState.OnFinishSpawning();
+            currentWaveState.OnWaveEnded += () => {
+                WaveEnded?.Invoke();
+
+                if (currentWaveIndex >= waves.Count) {
+                    MissionEnded?.Invoke();
+                } else {
+                    StartPreparationPhase();
+                }
+            };
 
             currentWaveIndex++;
-        }
-
-        private void OnEnemySpawned(EnemyGrid grid) {
-            EnemySpawned?.Invoke(grid);
-        }
-
-        private void OnEnemyDestroyed(EnemyGrid grid) {
-            EnemyDestroyed?.Invoke(grid);
-        }
-
-        private void OnMissionEnded() {
-            MissionEnded?.Invoke();
-        }
-
-        private void OnWaveEnded() {
-            WaveEnded?.Invoke();
-
-            if (currentWaveIndex >= waves.Count) {
-                OnMissionEnded();
-            } else {
-                StartPreparationPhase();
-            }
         }
 
         public void StartPreparationPhase(bool firstWave = false) {
@@ -69,7 +64,7 @@ namespace Exa.Gameplay.Missions {
         }
 
         private IEnumerator PreparationPhase(bool firstWave) {
-            void UpdateText(float time, bool animate) {
+            static void UpdateText(float time, bool animate) {
                 var phaseInfo = "{0} Second/s remaining".Format(Mathf.CeilToInt(time));
                 GS.UI.gameplayLayer.missionState.SetText("Preparation phase", phaseInfo, animate);
             }

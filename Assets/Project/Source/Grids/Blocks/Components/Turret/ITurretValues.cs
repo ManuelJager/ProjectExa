@@ -1,4 +1,6 @@
-﻿using Exa.Types.Generics;
+﻿using System.Collections.Generic;
+using Exa.Types.Generics;
+using Exa.UI.Tooltips;
 
 namespace Exa.Grids.Blocks.Components {
     public interface ITurretValues : IBlockComponentValues {
@@ -6,7 +8,7 @@ namespace Exa.Grids.Blocks.Components {
         float FiringRate { get; } // As seconds elapsed between each shot
         float TurretArc { get; }
         float TurretRadius { get; }
-        float Damage { get; } // TODO: Expand the damage model
+        float Range { get; }
     }
 
     public static class ITurretValuesExtensions {

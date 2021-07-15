@@ -6,11 +6,7 @@ namespace Exa.Grids.Blocks {
         alive
     }
 
-    public class InertBlockPoolGroup : BlockPoolGroupBase {
-        protected override PrefabType PrefabType {
-            get => PrefabType.inert;
-        }
-
+    public class InertBlockPoolGroup : BlockPoolGroupBase<PoolMember> {
         /// <summary>
         ///     Creates an inert block prefab on this group
         /// </summary>
@@ -18,7 +14,7 @@ namespace Exa.Grids.Blocks {
         /// <returns></returns>
         public void CreateInertPrefab(BlockTemplate blockTemplate) {
             var id = blockTemplate.id;
-            var prefab = CreatePrefab(blockTemplate, PrefabType);
+            var prefab = CreatePrefab(blockTemplate, PrefabType.inert);
             var pool = CreatePool<Pool>(prefab, $"Inert block pool: {id}", out var settings);
             poolById[id] = pool;
             pool.Configure(settings);

@@ -5,18 +5,15 @@ using UnityEngine;
 #pragma warning disable CS0649
 
 namespace Exa.Grids.Blocks {
-    public abstract class BlockPoolGroupBase : MonoBehaviour {
+    public abstract class BlockPoolGroupBase<TPoolMember> : MonoBehaviour
+        where TPoolMember : PoolMember {
         [SerializeField] private PoolSettings defaultPoolSettings;
-        protected Dictionary<string, IPool<PoolMember>> poolById = new Dictionary<string, IPool<PoolMember>>();
+        protected Dictionary<string, IPool<TPoolMember>> poolById = new Dictionary<string, IPool<TPoolMember>>();
 
-        protected abstract PrefabType PrefabType { get; }
-
-        public GameObject GetInactiveBlock(string id, Transform parent) {
-            var blockGO = poolById[id].Retrieve().gameObject;
-
-            blockGO.transform.SetParent(parent);
-
-            return blockGO;
+        public TPoolMember GetInactiveBlock(string id, Transform container) {
+            var member = poolById[id].Retrieve();
+            member.transform.SetParent(container);
+            return member;
         }
 
         /// <summary>
@@ -33,12 +30,12 @@ namespace Exa.Grids.Blocks {
             return instance;
         }
 
-        protected T CreatePool<T>(GameObject prefab, string name, out PoolSettings settings)
-            where T : Component, IPool<PoolMember> {
+        protected TPool CreatePool<TPool>(GameObject prefab, string name, out PoolSettings settings)
+            where TPool : Component, IPool<TPoolMember> {
             var poolGO = new GameObject(name);
             poolGO.transform.SetParent(transform);
 
-            var pool = poolGO.AddComponent<T>();
+            var pool = poolGO.AddComponent<TPool>();
 
             settings = defaultPoolSettings.Clone();
             settings.prefab = prefab;

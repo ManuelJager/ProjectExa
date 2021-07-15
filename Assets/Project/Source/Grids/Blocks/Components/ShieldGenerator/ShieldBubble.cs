@@ -17,8 +17,8 @@ namespace Exa.Grids.Blocks.Components {
             gameObject.SetActive(false);
         }
 
-        public ReceivedDamage AbsorbDamage(Damage damage) {
-            return shieldGeneratorBehaviour.OnReceiveDamage(damage);
+        public TakenDamage TakeDamage(Damage damage) {
+            return shieldGeneratorBehaviour.TakeDamage(damage);
         }
 
         public Block Block { get; set; }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Exa.Ships;
 using Exa.Utils;
 using UnityEngine;
 
@@ -28,11 +29,19 @@ namespace Exa.Project.Source.UI.Gameplay {
             var circle = enemyWarningCirclePrefab.Create<EnemyWarningCircle>(transform);
             circle.Setup(source);
             circles.Add(source, circle);
+            
+            Debug.Log($"Function: Add, {(source as EnemyGrid).gameObject.name}");
         }
 
         public void Remove(IEnemyWarningCircleSource source) {
+            if (!circles.ContainsKey(source)) {
+                throw new KeyNotFoundException($"Cannot remove source: {(source as MonoBehaviour).gameObject.name}");
+            }
+            
             circles[source].gameObject.Destroy();
             circles.Remove(source);
+            
+            Debug.Log($"Function: Remove, {(source as EnemyGrid).gameObject.name}");
         }
     }
 }

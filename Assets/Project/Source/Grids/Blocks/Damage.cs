@@ -2,7 +2,7 @@
 
 namespace Exa.Grids.Blocks {
     public interface IDamageable {
-        ReceivedDamage AbsorbDamage(Damage damage);
+        TakenDamage TakeDamage(Damage damage);
         
         Block Block { get; }
     }
@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks {
         public object source;
     }
    
-    public struct ReceivedDamage {
+    public struct TakenDamage {
         public float absorbedDamage;
         public float appliedDamage;
     } 

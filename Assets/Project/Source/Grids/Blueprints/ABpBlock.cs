@@ -52,8 +52,8 @@ namespace Exa.Grids.Blueprints {
             return blockGO;
         }
 
-        public Block CreateInactiveBlockInGrid(Transform parent, BlockContext blockPrefabType) {
-            var block = S.Blocks.GetInactiveBlock(blueprintBlock.id, parent, blockPrefabType);
+        public Block CreateInactiveBlockInGrid(IGridInstance parent) {
+            var block = S.Blocks.GetInactiveBlock(blueprintBlock.id, parent);
             var blockGO = block.gameObject;
             block.aBpBlock = this;
             this.SetupGameObject(blockGO);

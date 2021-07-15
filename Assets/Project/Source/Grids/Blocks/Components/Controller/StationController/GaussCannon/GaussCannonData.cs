@@ -7,7 +7,6 @@ namespace Exa.Grids.Blocks.Components {
     [Serializable]
     public struct GaussCannonData : IChargeableTurretValues {
         public float turningRate;
-        public float firingRate;
         public float turretArc;
         public float turretRadius;
         public float damage;
@@ -23,7 +22,7 @@ namespace Exa.Grids.Blocks.Components {
         }
 
         public float FiringRate {
-            get => firingRate;
+            get => 0f;
         }
 
         public float TurretArc {
@@ -32,10 +31,6 @@ namespace Exa.Grids.Blocks.Components {
 
         public float TurretRadius {
             get => turretRadius;
-        }
-
-        public float Damage {
-            get => damage;
         }
 
         public float ChargeTime {
@@ -47,12 +42,11 @@ namespace Exa.Grids.Blocks.Components {
         public void RemoveGridTotals(GridTotals totals) { }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() {
-            return new ITooltipComponent[] {
-                new LabeledValue<object>("Turning rate", $"{turningRate}°/s"),
-                new LabeledValue<object>("Firing rate", $"{60 / firingRate} RPM"),
-                new LabeledValue<object>("Firing arc", $"{TurretArc}°"),
-                new LabeledValue<object>("Damage", $"{damage}")
-            };
+            // TO BE LOCALIZED
+            yield return new LabeledValue<object>("Turning rate", $"{turningRate}°/s");
+            yield return new LabeledValue<object>("Charge time", $"{chargeTime}s");
+            yield return new LabeledValue<object>("Firing arc", $"{TurretArc}°");
+            yield return new LabeledValue<object>("Damage", $"{damage}");
         }
     }
 }

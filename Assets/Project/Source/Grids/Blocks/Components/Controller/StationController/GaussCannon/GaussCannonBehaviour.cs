@@ -42,7 +42,7 @@ namespace Exa.Grids.Blocks.Components {
         }
 
         public override void Fire() {
-            var endPoint = HitScanFire(Data.Damage, Data.Range, beamOrigin);
+            var endPoint = HitScanFire(Data.damage, Data.Range, beamOrigin);
 
             lineRenderer.SetPosition(0, beamOrigin.position.SetZ(-0.2f));
             lineRenderer.SetPosition(1, endPoint.SetZ(-0.2f));

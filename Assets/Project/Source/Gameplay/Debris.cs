@@ -27,7 +27,7 @@ namespace Exa.Gameplay {
         public GridInstanceConfiguration Configuration { get; private set; }
 
         public void FromCluster(Cluster cluster) {
-            BlockGrid = new BlockGrid(transform, this);
+            BlockGrid = new BlockGrid(this);
 
             Configuration = new GridInstanceConfiguration {
                 Invulnerable = false
@@ -35,7 +35,7 @@ namespace Exa.Gameplay {
 
             foreach (var block in cluster) {
                 block.transform.SetParent(transform);
-                block.Parent = this;
+                block.NotifyAdded(true);
                 BlockGrid.Add(block);
             }
 

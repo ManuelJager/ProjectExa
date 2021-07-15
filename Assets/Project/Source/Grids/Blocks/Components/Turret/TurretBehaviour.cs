@@ -12,8 +12,6 @@ namespace Exa.Grids.Blocks.Components {
         [SerializeField] protected Transform turret;
         protected RotationResult rotationResult;
 
-        protected float timeSinceFire;
-
         public bool AutoFireEnabled { get; set; }
 
         public IWeaponTarget Target { get; set; }
@@ -21,13 +19,6 @@ namespace Exa.Grids.Blocks.Components {
         public abstract void Fire();
 
         protected override void BlockUpdate() {
-            // Only add to the time since fire if the current time since fire is below the firing rate of the turret
-            // This implementation allows for the time since fire to be slightly bigger than than the firing rate
-            // automatic fire is accurate
-            if (timeSinceFire < Data.FiringRate) {
-                timeSinceFire += Time.deltaTime;
-            }
-
             rotationResult = TryRotateTowardsTarget();
         }
 
@@ -108,7 +99,7 @@ namespace Exa.Grids.Blocks.Components {
             while (damage > 0f && hitsEnumerator.MoveNext(out var hit)) {
                 lastHitPosition = hit.hit.point;
 
-                var damageInstance = hit.damageable.AbsorbDamage(
+                var damageInstance = hit.damageable.TakeDamage(
                     new Damage {
                         source = Parent,
                         value = damage

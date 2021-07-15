@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
 using DG.Tweening;
-using Exa.Math;
 using Exa.Utils;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Exa.Grids.Blocks.Components {
     public class ShieldGeneratorBehaviour : BlockBehaviour<ShieldGeneratorData> {
@@ -15,31 +15,40 @@ namespace Exa.Grids.Blocks.Components {
 
         [Header("State")]
         [SerializeField] private HealthPool healthPool;
-        [SerializeField] private bool shieldIsRaised;
+        [SerializeField] private bool shieldIsRaised = true;
         private Tween lightsTween;
         private float normalizedLightsAlpha = 1f;
 
         protected override void OnAdd() {
             shieldBubble.Block = block;
+            healthPool.value = Data.health;
         }
 
         protected override void OnBlockDataReceived(ShieldGeneratorData oldValues, ShieldGeneratorData newValues) {
-            healthPool.health += newValues.health - oldValues.health;
             shieldBubble.SetRadius(newValues.shieldRadius);
         }
 
-        public ReceivedDamage OnReceiveDamage(Damage damage) {
-            if (!shieldIsRaised) {
-                Debug.LogError("Received shield damage when shield is not raised");
+        public TakenDamage TakeDamage(Damage damage) {
+            try {
+                if (!shieldIsRaised) {
+                    Debug.LogError("Received shield damage when shield is not raised");
 
-                return new ReceivedDamage();
+                    return new TakenDamage();
+                }
+
+                if (!healthPool.TakeDamage(damage, 0, out var takenDamage)) {
+                    LowerShields();
+                }
+
+                return takenDamage;
+            } catch (Exception e) {
+                Debug.LogException(e);
             }
 
-            if (!healthPool.TakeDamage(damage, 0, out var receivedDamage)) {
-                LowerShields();
-            }
-
-            return receivedDamage;
+            return new TakenDamage {
+                absorbedDamage = damage.value,
+                appliedDamage = 0f
+            };
         }
 
         private void LowerShields() {
@@ -53,7 +62,7 @@ namespace Exa.Grids.Blocks.Components {
         private void RaiseShields() {
             shieldIsRaised = true;
             shieldBubble.Raise();
-            healthPool.health = Data.health;
+            healthPool.value = Data.health;
             AnimateLights(1f);
         }
 

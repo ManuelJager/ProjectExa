@@ -8,6 +8,10 @@ namespace Exa.Grids.Blocks {
         protected override void OnDisable() { }
 
         public void ReturnBlock() {
+        #if ENABLE_BLOCK_LOGS
+            block.Logs.Add("Function: ReturnBlock");
+        #endif    
+            
             base.OnDisable();
         }
 
