@@ -34,12 +34,11 @@ namespace Exa.Gameplay {
             };
 
             foreach (var block in cluster) {
-                block.transform.SetParent(transform);
-                block.NotifyAdded(true);
-                BlockGrid.Add(block);
+                block.Parent.RemoveBlock(block);
+                this.AddBlock(block, true);
             }
 
-            foreach (var thruster in BlockGrid.Query<ThrusterBehaviour>()) {
+            foreach (var thruster in BlockGrid.QueryLike<ThrusterBehaviour>()) {
                 thruster.PowerDown();
             }
         }

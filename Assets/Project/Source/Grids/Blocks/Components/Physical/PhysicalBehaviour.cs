@@ -7,7 +7,7 @@ namespace Exa.Grids.Blocks.Components {
     public class PhysicalBehaviour : BlockBehaviour<PhysicalData>, IDamageable {
         [Header("State")]
         [SerializeField] private HealthPool hull;
-        private bool queuedForDestruction;
+        public bool IsQueuedForDestruction { get; private set; }
 
         public event Action<float> OnDamage;
 
@@ -19,7 +19,7 @@ namespace Exa.Grids.Blocks.Components {
         /// <param name="damage">The damage to take</param>
         /// <returns></returns>
         public TakenDamage TakeDamage(Damage damage) {
-            if (queuedForDestruction) {
+            if (IsQueuedForDestruction) {
             #if ENABLE_BLOCK_LOGS
                 block.Logs.Add("Function: TakeDamage, Returning because block is queued for destruction");
             #endif
@@ -42,7 +42,7 @@ namespace Exa.Grids.Blocks.Components {
                     }
 
                     if (noHealth) {
-                        queuedForDestruction = true;
+                        IsQueuedForDestruction = true;
                         block.DestroyBlock();
                     }
 
@@ -68,7 +68,7 @@ namespace Exa.Grids.Blocks.Components {
 
         protected override void OnAdd() {
             Repair();
-            queuedForDestruction = false;
+            IsQueuedForDestruction = false;
         }
 
         protected override void OnRemove() {

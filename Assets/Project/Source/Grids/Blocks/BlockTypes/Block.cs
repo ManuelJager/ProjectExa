@@ -112,7 +112,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
             Logs.Add("Function: DestroyBlock");
         #endif
 
-            if (GS.IsQuitting) {
+            if (!GS.IsQuitting) {
                 parent = null;
 
             #if ENABLE_BLOCK_LOGS
@@ -122,9 +122,8 @@ namespace Exa.Grids.Blocks.BlockTypes {
             #endif
             }
 
+            Parent.RemoveBlock(this);
             gameObject.SetActive(false);
-            Parent.BlockGrid.Remove(GridAnchor);
-            NotifyRemoved();
             blockPoolMember.ReturnBlock();
         }
 

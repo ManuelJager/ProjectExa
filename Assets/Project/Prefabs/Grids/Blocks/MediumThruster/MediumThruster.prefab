@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
+  hull:
+    value: 0
 --- !u!114 &2439175266936420258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,7 +53,7 @@ MonoBehaviour:
   lightIntensityScale:
     min: 0.1
     max: 1
---- !u!114 &6805597610780844853
+--- !u!114 &8416425206652745101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,7 +62,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6789153558413497451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1efbc8914b07d1545ab528e8a2d648cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b28ac2d5bd8b414e984c0d2a8d80743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blockPoolMember: {fileID: 0}

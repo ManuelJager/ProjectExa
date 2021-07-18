@@ -15,13 +15,13 @@ namespace Exa.Weapons {
             this.damageMask = damageMask;
         }
 
-        public void Fire(Damage damage) {
+        public void Fire(Damage damage, float speed, float range) {
             // TODO: Pool projectiles
             projectilePrefab.Create<Projectile>(GS.SpawnLayer.projectiles)
                 .Setup(
                     spawnPoint,
-                    80f,
-                    250f,
+                    speed,
+                    range,
                     damage,
                     damageMask
                 );

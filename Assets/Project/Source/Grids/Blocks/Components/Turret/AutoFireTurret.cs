@@ -39,11 +39,13 @@ namespace Exa.Grids.Blocks.Components {
             // Long debug line cause debugging in unity sucks
             // Debug.Log($"({block.GetInstanceString()}) Current angle: {GetCurrentAngle()}, Target angle: {SelectTargetAngle()}, Diff {Mathf.DeltaAngle(GetCurrentAngle(), SelectTargetAngle())} ({rotationResult.deltaToTarget})");
 
+            
+            // Only fire if the turret is facing the target properly, and it is ready to fire
             if (Mathf.Abs(rotationResult.deltaToTarget) > 0.5f || timeSinceFire < timeBetweenFire) {
                 return;
             }
 
-            timeSinceFire -= data.FiringRate;
+            timeSinceFire -= timeBetweenFire;
             Fire();
         }
     }

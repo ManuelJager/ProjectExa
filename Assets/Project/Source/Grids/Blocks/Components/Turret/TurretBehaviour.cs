@@ -115,6 +115,7 @@ namespace Exa.Grids.Blocks.Components {
         }
     }
 
+    // TODO: Fix delta to target
     public struct RotationResult {
         public float deltaToTarget;
         public float endRotation;

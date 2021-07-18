@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Exa.Ships {
     public readonly struct ContextMask {
         public LayerMask LayerMask { get; }
-        private BlockContext BlockContextMask { get; }
+        public BlockContext BlockContextMask { get; }
 
         internal ContextMask(BlockContext blockContextMask, LayerMask layerMask) {
             LayerMask = layerMask;

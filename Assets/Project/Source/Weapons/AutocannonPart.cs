@@ -33,14 +33,18 @@ namespace Exa.Weapons {
             firingPoint.Setup(damageMask);
         }
 
-        public void Fire(float damage) {
+        public void Fire(float damage, float range) {
             barrelAnimator.Stop();
             barrelAnimator.Play();
 
-            firingPoint.Fire(new Damage {
-                value = damage,
-                source = parent 
-            });
+            firingPoint.Fire(
+                new Damage {
+                    value = damage,
+                    source = parent
+                },
+                80f,
+                range
+            );
 
             light2D.intensity = peakIntensity;
             light2D.DOIntensity(0, 0.1f);

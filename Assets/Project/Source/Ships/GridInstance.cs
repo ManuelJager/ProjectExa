@@ -30,10 +30,25 @@ namespace Exa.Ships {
         [FormerlySerializedAs("shipDebugFont")] public Font debugFont;
 
         private Tooltip debugTooltip;
+        private Controller controller;
 
         public ActionScheduler ActionScheduler { get; private set; }
         public Blueprint Blueprint { get; private set; }
-        public Controller Controller { get; internal set; }
+
+        public Controller Controller {
+            get => controller;
+            set {
+                if (value != null && controller != null) {
+                    throw new InvalidOperationException(
+                        "Cannot overwrite the controller by another one before explicitly setting the value as null." + 
+                        "This exception is probably caused by multiple controllers being set on a grid"
+                    );
+                }
+
+                controller = value;
+            }
+        }
+
         public BlockGridDiff Diff { get; private set; }
         public bool Active { get; private set; }
         public IGridOverlay Overlay { get; set; }
@@ -110,7 +125,7 @@ namespace Exa.Ships {
 
         // TODO: Make this look nicer by breaking up the ship and adding an explosion
         public virtual void OnControllerDestroyed() {
-            foreach (var thruster in BlockGrid.Query<ThrusterBehaviour>()) {
+            foreach (var thruster in BlockGrid.QueryLike<ThrusterBehaviour>()) {
                 thruster.PowerDown();
             }
 
@@ -244,7 +259,7 @@ namespace Exa.Ships {
         }
 
         public void Repair() {
-            foreach (var physicalBehaviour in BlockGrid.Query<PhysicalBehaviour>()) {
+            foreach (var physicalBehaviour in BlockGrid.QueryLike<PhysicalBehaviour>()) {
                 physicalBehaviour.Repair();
             }
         }

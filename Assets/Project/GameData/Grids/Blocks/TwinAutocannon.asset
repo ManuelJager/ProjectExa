@@ -39,4 +39,5 @@ MonoBehaviour:
       turretArc: 200
       turretRadius: 1.375
       damage: 80
+      range: 300
       cycleMode: 0

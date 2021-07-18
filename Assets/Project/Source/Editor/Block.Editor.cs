@@ -12,7 +12,11 @@ namespace Exa.CustomEditors {
     [CustomEditor(typeof(Block), true)]
     public class BlockEditor : Editor {
         private DefaultDict<Type, BlockDataInfo> typeCache;
-
+        
+    #if ENABLE_BLOCK_LOGS
+        private bool foldoutLogs = true;
+    #endif
+        
         private void OnEnable() {
             typeCache = new DefaultDict<Type, BlockDataInfo>(type => new BlockDataInfo(type));
         }
@@ -27,12 +31,31 @@ namespace Exa.CustomEditors {
             foreach (var behaviour in block.GetBehaviours()) {
                 var data = behaviour.BlockComponentData;
                 data = typeCache[data.GetType()].Draw(data);
-                behaviour.BlockComponentData = data;
+
+                try {
+                    behaviour.BlockComponentData = data;
+                } catch { }
             }
             
             EditorGUILayout.Space(8);
             
             block.DebugFocused = EditorGUILayout.Toggle("Focus on block", block.DebugFocused);
+            
+        #if ENABLE_BLOCK_LOGS
+            EditorGUILayout.Space(8);
+
+            foldoutLogs = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutLogs, "Show block logs");
+
+            if (foldoutLogs) {
+                EditorGUI.indentLevel++;
+                
+                foreach (var log in block.Logs) {
+                    EditorGUILayout.LabelField(log);
+                }
+
+                EditorGUI.indentLevel--;
+            }
+        #endif
         }
 
         private class BlockDataInfo {

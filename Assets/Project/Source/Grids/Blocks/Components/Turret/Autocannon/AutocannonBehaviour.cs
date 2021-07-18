@@ -12,7 +12,7 @@ namespace Exa.Grids.Blocks.Components {
         public override void Fire() {
             switch (data.cycleMode) {
                 case CycleMode.Cycling:
-                    parts[currentPoint].Fire(data.damage);
+                    parts[currentPoint].Fire(data.damage, data.range);
                     currentPoint++;
                     currentPoint %= parts.Length;
 
@@ -20,7 +20,7 @@ namespace Exa.Grids.Blocks.Components {
 
                 case CycleMode.Volley:
                     foreach (var part in parts) {
-                        part.Fire(data.damage);
+                        part.Fire(data.damage, data.range);
                     }
 
                     break;

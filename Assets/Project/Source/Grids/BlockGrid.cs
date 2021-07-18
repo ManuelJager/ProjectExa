@@ -59,11 +59,11 @@ namespace Exa.Ships {
 
             // Only rebuild if it isn't being rebuilt already
             if (!Rebuilding) {
-                GS.BlockGridManager.AttemptRebuild(Parent);
-            }
+                GS.BlockGridManager.ScheduleRebuild(Parent);
+            } 
         }
 
-        public IEnumerable<T> Query<T>()
+        public IEnumerable<T> QueryStrict<T>()
             where T : BlockBehaviour {
             return blockBehaviours[typeof(T)].Cast<T>();
         }
@@ -92,27 +92,13 @@ namespace Exa.Ships {
         }
 
         internal void Place(ABpBlock aBpBlock) {
-            Add(CreateBlock(aBpBlock));
+            var block = aBpBlock.CreateInactiveBlockInGrid(Parent);
+            Parent.AddBlock(block, false);
+            block.gameObject.SetActive(true);
         }
 
         internal void Destroy(Vector2Int gridAnchor) {
             GetMember(gridAnchor).DestroyBlock();
-        }
-
-        private Block CreateBlock(ABpBlock aBpBlock) {
-            var block = aBpBlock.CreateInactiveBlockInGrid(Parent);
-            
-            // Set the parent without triggering any calls to listeners
-            // This is because the side effects caused by setting component values and parent of the block,
-            // may use each others underlying values
-            block.SetParentWithoutNotify(Parent);
-            S.Blocks.Values.SetValues(Parent.BlockContext, aBpBlock.Template, block);
-            block.NotifyAdded(false);
-            
-            // Set active
-            block.gameObject.SetActive(true);
-
-            return block;
         }
     }
 }
