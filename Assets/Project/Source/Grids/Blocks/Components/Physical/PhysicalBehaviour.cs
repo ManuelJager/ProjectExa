@@ -15,7 +15,6 @@ namespace Exa.Grids.Blocks.Components {
         /// <summary>
         ///     Takes a given amount of damage
         /// </summary>
-        /// <param name="damageSource">Damage source metadata</param>
         /// <param name="damage">The damage to take</param>
         /// <returns></returns>
         public TakenDamage TakeDamage(Damage damage) {

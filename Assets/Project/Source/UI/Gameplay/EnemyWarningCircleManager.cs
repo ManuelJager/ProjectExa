@@ -30,7 +30,7 @@ namespace Exa.Project.Source.UI.Gameplay {
             circle.Setup(source);
             circles.Add(source, circle);
             
-            Debug.Log($"Function: Add, {(source as EnemyGrid).gameObject.name}");
+            // Debug.Log($"Function: Add, {(source as EnemyGrid).gameObject.name}");
         }
 
         public void Remove(IEnemyWarningCircleSource source) {
@@ -41,7 +41,7 @@ namespace Exa.Project.Source.UI.Gameplay {
             circles[source].gameObject.Destroy();
             circles.Remove(source);
             
-            Debug.Log($"Function: Remove, {(source as EnemyGrid).gameObject.name}");
+            // Debug.Log($"Function: Remove, {(source as EnemyGrid).gameObject.name}");
         }
     }
 }

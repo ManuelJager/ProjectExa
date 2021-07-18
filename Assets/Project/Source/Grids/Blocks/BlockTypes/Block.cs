@@ -112,7 +112,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
             Logs.Add("Function: DestroyBlock");
         #endif
 
-            if (!GS.IsQuitting) {
+            if (GS.IsQuitting) {
                 parent = null;
 
             #if ENABLE_BLOCK_LOGS

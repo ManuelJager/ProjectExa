@@ -81,7 +81,7 @@ namespace Exa.Ships {
 
         public void DestroyIfEmpty() {
             if (!GridMembers.Any()) {
-                Object.Destroy(Parent.Transform);
+                Object.Destroy(Parent.Transform.gameObject);
             }
         }
 

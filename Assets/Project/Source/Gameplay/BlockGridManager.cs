@@ -10,7 +10,7 @@ namespace Exa.Gameplay {
     public class BlockGridManager : MonoBehaviour {
         [SerializeField] private GameObject debrisGridPrefab;
         private Queue<IGridInstance> gridInstances = new Queue<IGridInstance>();
-        
+
         /// <summary>
         /// Schedules a grid to be rebuilt the next frame. This batches multiple rebuild requests
         /// </summary>
@@ -27,21 +27,21 @@ namespace Exa.Gameplay {
                 AttemptRebuild(gridInstances.Dequeue());
             }
         }
-        
+
         private void AttemptRebuild(IGridInstance gridInstance) {
             var blockGrid = gridInstance.BlockGrid;
 
             if (!blockGrid.Any()) {
                 Debug.LogWarning("Grid found with no block ?");
-                
+
                 return;
             }
 
             // Get the clusters associated 
-            var clusters = GetClusters(blockGrid);
+            var clusters = GetClusters(blockGrid).ToArray();
 
             // Rebuild the grid, if multiple clusters were found;
-            if (clusters.Count() > 1) {
+            if (clusters.Length > 1) {
                 Rebuild(gridInstance, clusters);
             }
         }
@@ -52,9 +52,8 @@ namespace Exa.Gameplay {
         /// <param name="gridInstance">Initial grid instance</param>
         /// <param name="clusters">Clusters of the grid instance that need to be separated from the grid instance</param>
         private void Rebuild(IGridInstance gridInstance, IEnumerable<Cluster> clusters) {
-            
             var blockGrid = gridInstance.BlockGrid;
-            
+
             // Set a flag that lets the block grid know it's being rebuilt
             // This prevents the block grid from scheduling a rebuild when blocks are removed 
             blockGrid.Rebuilding = true;

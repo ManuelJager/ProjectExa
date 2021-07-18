@@ -40,7 +40,7 @@ namespace Exa.Ships {
             set {
                 if (value != null && controller != null) {
                     throw new InvalidOperationException(
-                        "Cannot overwrite the controller by another one before explicitly setting the value as null." + 
+                        "Cannot overwrite the controller by another one before explicitly setting the value as null." +
                         "This exception is probably caused by multiple controllers being set on a grid"
                     );
                 }
@@ -52,12 +52,22 @@ namespace Exa.Ships {
         public BlockGridDiff Diff { get; private set; }
         public bool Active { get; private set; }
         public IGridOverlay Overlay { get; set; }
+        public float HullIntegrity { get; set; }
+        public BlockContext BlockContext { get; private set; }
+        public GridInstanceConfiguration Configuration { get; private set; }
+        public BlockGrid BlockGrid { get; private set; }
+
+        public Transform Transform {
+            get => transform;
+        }
+
+        public Rigidbody2D Rigidbody2D {
+            get => rb;
+        }
 
         public GridAi Ai {
             get => gridAi;
         }
-
-        public float HullIntegrity { get; set; }
 
         protected virtual void Awake() {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, debugFont);
@@ -83,18 +93,6 @@ namespace Exa.Ships {
             if (debugTooltip != null) {
                 debugTooltip.ShouldRefresh = true;
             }
-        }
-
-        public BlockContext BlockContext { get; private set; }
-        public GridInstanceConfiguration Configuration { get; private set; }
-        public BlockGrid BlockGrid { get; private set; }
-
-        public Transform Transform {
-            get => transform;
-        }
-
-        public Rigidbody2D Rigidbody2D {
-            get => rb;
         }
 
         public virtual void OnRaycastEnter() {

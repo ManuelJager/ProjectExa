@@ -68,7 +68,7 @@ namespace Exa.Grids.Blueprints {
                 return userBlueprints[name].Data;
             }
 
-            throw new KeyNotFoundException();
+            throw new KeyNotFoundException($"Name: \"{name}\" not found");
         }
 
         public bool ContainsName(string name) {

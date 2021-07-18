@@ -15,7 +15,7 @@ namespace Exa.Grids.Blocks {
         public void CreateInertPrefab(BlockTemplate blockTemplate) {
             var id = blockTemplate.id;
             var prefab = CreatePrefab(blockTemplate, PrefabType.inert);
-            var pool = CreatePool<Pool>(prefab, $"Inert block pool: {id}", out var settings);
+            var pool = CreatePool<Pool<PoolMember>>(prefab, $"Inert block pool: {id}", out var settings);
             poolById[id] = pool;
             pool.Configure(settings);
         }

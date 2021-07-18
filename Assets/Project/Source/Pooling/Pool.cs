@@ -4,8 +4,6 @@ using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Pooling {
-    public class Pool : Pool<PoolMember> { }
-
     [Serializable]
     public class Pool<T> : MonoBehaviour, IPool<T>
         where T : PoolMember {
@@ -56,11 +54,7 @@ namespace Exa.Pooling {
         }
 
         protected virtual T TryPop() {
-            if (poolMembers.Count == 0) {
-                return InstantiatePrefab();
-            }
-
-            return poolMembers.Pop();
+            return poolMembers.Count == 0 ? InstantiatePrefab() : poolMembers.Pop();
         }
 
         protected virtual bool TryPush(T poolMember) {

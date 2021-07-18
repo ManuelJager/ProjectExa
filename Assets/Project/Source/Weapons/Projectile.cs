@@ -1,6 +1,4 @@
 ﻿using Exa.Grids.Blocks;
-using Exa.Grids.Blocks.BlockTypes;
-using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Weapons {
