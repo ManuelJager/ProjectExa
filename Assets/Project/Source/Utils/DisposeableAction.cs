@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Exa.IO {
+namespace Exa.Utils {
     /// <summary>    
     /// The disposable action.    
     /// </summary>    

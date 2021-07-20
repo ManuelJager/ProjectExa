@@ -5,6 +5,7 @@ using Exa.Grids;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
+using Exa.Logging;
 using Exa.Types;
 using Exa.UI.Tooltips;
 using UnityEngine;
@@ -60,7 +61,7 @@ namespace Exa.Ships {
             // Only rebuild if it isn't being rebuilt already
             if (!Rebuilding) {
                 GS.BlockGridManager.ScheduleRebuild(Parent);
-            } 
+            }
         }
 
         public IEnumerable<T> QueryStrict<T>()
@@ -80,8 +81,16 @@ namespace Exa.Ships {
         }
 
         public void DestroyIfEmpty() {
-            if (!GridMembers.Any()) {
-                Object.Destroy(Parent.Transform.gameObject);
+            using (Logs.Context(
+                new {
+                    Name = Parent.Transform.gameObject.name
+                }
+            )) {
+                Logs.Log("Destroying grid");
+
+                if (!GridMembers.Any()) {
+                    Object.Destroy(Parent.Transform.gameObject);
+                }
             }
         }
 

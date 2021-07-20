@@ -18,6 +18,7 @@ namespace Exa.Grids {
             // This is because the side effects caused by setting component values and parent of the block,
             // may use each others underlying values
             block.SetParentWithoutNotify(instance);
+            block.transform.SetParent(instance.Transform);
 
             if (!mockSetValues) {
                 S.Blocks.Values.SetValues(instance.BlockContext, block.aBpBlock.Template, block);

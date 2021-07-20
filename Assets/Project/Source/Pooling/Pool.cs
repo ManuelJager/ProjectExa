@@ -4,6 +4,8 @@ using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Pooling {
+    public class Pool : Pool<PoolMember> { }
+
     [Serializable]
     public class Pool<T> : MonoBehaviour, IPool<T>
         where T : PoolMember {
