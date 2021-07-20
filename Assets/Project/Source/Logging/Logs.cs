@@ -9,18 +9,22 @@ namespace Exa.Logging {
     public class Logs : MonoSingleton<Logs> {
         private static List<object> currentStackContext = new List<object>();
 
-        private static void LogImpl(LogType logType, string message) {
+        private static void LogImpl(LogType logType, string message, object ctx = null) {
+            var stackDisposer = ctx == null ? null : Context(ctx);
+            
             Debug.unityLogger.Log(logType, $"{message} info: {{\n{StringifyContext()}}}");
+            
+            stackDisposer?.Dispose();
         }
 
-        public static IDisposable Context(object obj) {
-            currentStackContext.Add(obj);
+        private static IDisposable Context(object ctx) {
+            currentStackContext.Add(ctx);
 
-            return new DisposableAction(() => currentStackContext.Remove(obj));
+            return new DisposableAction(() => currentStackContext.Remove(ctx));
         }
 
-        public static void Log(string message) {
-            LogImpl(LogType.Log, message);
+        public static void Log(string message, object ctx = null) {
+            LogImpl(LogType.Log, message, ctx);
         }
 
         public static void Warn(string message) {

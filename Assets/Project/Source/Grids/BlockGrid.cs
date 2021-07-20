@@ -8,6 +8,7 @@ using Exa.Grids.Blueprints;
 using Exa.Logging;
 using Exa.Types;
 using Exa.UI.Tooltips;
+using Exa.Utils;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -81,16 +82,19 @@ namespace Exa.Ships {
         }
 
         public void DestroyIfEmpty() {
-            using (Logs.Context(
+            Logs.Log(
+                "Destroying grid",
                 new {
                     Name = Parent.Transform.gameObject.name
                 }
-            )) {
-                Logs.Log("Destroying grid");
+            );
 
-                if (!GridMembers.Any()) {
-                    Object.Destroy(Parent.Transform.gameObject);
-                }
+            // No need to clean up now. Wait a frame for any potential remaining blocks in the grid to have been deleted or returned to the pool
+            if (!GridMembers.Any()) {
+                EnumeratorUtils.DelayOneFrame(
+                        () => { Parent.Transform.gameObject.Destroy(); }
+                    )
+                    .Start();
             }
         }
 

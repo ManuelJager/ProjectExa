@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Exa.Logging;
 using Exa.Utils;
 using UnityEngine;
 
@@ -61,6 +62,13 @@ namespace Exa.Pooling {
 
         protected virtual bool TryPush(T poolMember) {
             if (poolMembers.Count > poolSettings.maxSize) {
+                Logs.Log(
+                    "Destroyed member",
+                    new {
+                        Name = poolMember.gameObject.name
+                    }
+                );
+
                 Destroy(poolMember.gameObject);
 
                 return false;
