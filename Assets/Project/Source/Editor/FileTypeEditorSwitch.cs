@@ -47,6 +47,7 @@ namespace Exa.CustomEditors {
         public override void OnInspectorGUI() {
             if (selectedEditor != null) {
                 GUI.enabled = true;
+                EditorGUILayout.Space(8);
 
                 EnableLogging = EditorGUILayout.Toggle("Enabled logging", EnableLogging);
 

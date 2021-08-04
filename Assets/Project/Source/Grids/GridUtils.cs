@@ -21,11 +21,11 @@ namespace Exa.Grids {
 
                     if (!neighbours.Contains(neighbour)) {
                         neighbours.Add(neighbour);
-
-                        yield return neighbour;
                     }
                 }
             }
+
+            return neighbours;
         }
 
         public static IEnumerable<Vector2Int> GetTileClaims(this IGridMember gridMember) {

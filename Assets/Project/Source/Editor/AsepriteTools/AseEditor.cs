@@ -19,12 +19,8 @@ namespace Exa.CustomEditors {
 
         public override void OnEnable() {
             base.OnEnable();
-            asepritePath = EditorPrefs.GetString("AsepriteTools_AsepritePath", "");
+            asepritePath = EditorPrefs.GetString("AsepriteTools_AsepritePath", null);
             configuration = GetConfiguration();
-        }
-
-        public override void OnDisable() {
-            base.OnDisable();
         }
 
         public override IEnumerable<string> GetAcceptedFileTypes() {
@@ -34,17 +30,37 @@ namespace Exa.CustomEditors {
 
         public override void OnInspectorGUI() {
             GUILayout.Space(8);
-            GUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Locate aseprite executeable")) {
+            if (GUILayout.Button("Locate aseprite executable")) {
                 LocateAseprite();
             }
+            
+            EditorGUI.BeginDisabledGroup(string.IsNullOrEmpty(asepritePath));
 
             if (GUILayout.Button("Start aseprite")) {
                 Process.Start(asepritePath);
             }
 
-            GUILayout.EndHorizontal();
+            DrawLayers();
+
+            if (GUILayout.Button("Save configuration")) {
+                SaveConfiguration(configuration);
+            }
+
+            if (GUILayout.Button("Export in place")) {
+                ExportInPlace();
+            }
+            
+            EditorGUI.EndDisabledGroup();
+        }
+
+        private void DrawLayers() {
+            if (string.IsNullOrEmpty(asepritePath)) {
+                EditorGUILayout.HelpBox("Path to aseprite.exe not set", MessageType.Warning);
+
+                return;
+            }
+            
             GUILayout.Space(8);
             EditorGUI.indentLevel++;
 
@@ -76,18 +92,13 @@ namespace Exa.CustomEditors {
 
             EditorGUI.indentLevel--;
             GUILayout.Space(8);
-
-            if (GUILayout.Button("Save configuration")) {
-                SaveConfiguration(configuration);
-            }
-
-            if (GUILayout.Button("Export in place")) {
-                ExportInPlace();
-            }
         }
 
         private void SaveConfiguration(AseExportConfiguration config) {
-            config.NormalizeWithAseLayers(GetLayers());
+            if (!string.IsNullOrEmpty(asepritePath)) {
+                config.NormalizeWithAseLayers(GetLayers());
+            }
+            
             Context.Importer.userData = JsonConvert.SerializeObject(config);
         }
 
