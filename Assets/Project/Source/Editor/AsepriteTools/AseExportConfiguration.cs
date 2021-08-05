@@ -4,15 +4,25 @@ using Exa.Utils;
 
 namespace Exa.CustomEditors {
     public class AseExportConfiguration {
-        public Dictionary<string, LayerConfigurationEntry> layers;
+        private string[] aseLayers;
+        private Dictionary<string, LayerConfigurationEntry> layers;
 
         public AseExportConfiguration() {
             layers = new Dictionary<string, LayerConfigurationEntry>();
         }
 
+        public IEnumerable<(string, LayerConfigurationEntry)> GetSortedLayers() {
+            return from entry 
+                in layers 
+                orderby entry.Value.index
+                select (entry.Key, entry.Value);
+        }
+
         public void NormalizeWithAseLayers(IEnumerable<string> currentLayers) {
+            aseLayers = currentLayers as string[] ?? currentLayers.ToArray();
+
             foreach (var (layer, layerConfig) in layers.Unpack().ToList()) {
-                if (!currentLayers.Contains(layer)) {
+                if (!aseLayers.Contains(layer)) {
                     layers.Remove(layer);
                 }
 
@@ -21,7 +31,9 @@ namespace Exa.CustomEditors {
                 }
             }
 
-            foreach (var currentLayer in currentLayers) {
+            for (var i = 0; i < aseLayers.Length; i++) {
+                var currentLayer = aseLayers[i];
+                
                 if (!layers.ContainsKey(currentLayer)) {
                     layers.Add(
                         currentLayer,
@@ -32,6 +44,8 @@ namespace Exa.CustomEditors {
                         }
                     );
                 }
+
+                layers[currentLayer].index = i;
             }
         }
 
@@ -40,25 +54,25 @@ namespace Exa.CustomEditors {
         /// </summary>
         /// <returns></returns>
         public IEnumerable<GroupedLayerOutput> GetLayerGroups() {
-            GroupedLayerOutput output = null;
+        var temp = null as GroupedLayerOutput;
 
-            foreach (var (layer, layerConfig) in layers.Unpack()) {
-                if (!layerConfig.mergeUp && output != null) {
-                    yield return output;
+            foreach (var (layer, layerConfig) in GetSortedLayers()) {
+                if (!layerConfig.mergeUp && temp != null) {
+                    yield return temp;
 
-                    output = null;
+                    temp = null;
                 }
 
-                output ??= new GroupedLayerOutput {
+                temp ??= new GroupedLayerOutput {
                     aseLayers = new List<string>(),
                     configuration = layerConfig
                 };
 
-                output.aseLayers.Add(layer);
+                temp.aseLayers.Add(layer);
             }
 
-            if (output != null) {
-                yield return output;
+            if (temp != null) {
+                yield return temp;
             }
         }
     }
@@ -73,5 +87,6 @@ namespace Exa.CustomEditors {
         public bool mergeUp;
         public bool exportOnlyFirstFrame;
         public string name;
+        public int index;
     }
 }

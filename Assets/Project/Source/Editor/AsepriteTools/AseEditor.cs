@@ -38,7 +38,7 @@ namespace Exa.CustomEditors {
             EditorGUI.BeginDisabledGroup(string.IsNullOrEmpty(asepritePath));
 
             if (GUILayout.Button("Start aseprite")) {
-                Process.Start(asepritePath);
+                Process.Start(asepritePath, Context.AssetPath);
             }
 
             DrawLayers();
@@ -66,7 +66,7 @@ namespace Exa.CustomEditors {
 
             var isFirstLayer = true;
 
-            foreach (var (layer, layerConfig) in configuration.layers.Unpack()) {
+            foreach (var (layer, layerConfig) in configuration.GetSortedLayers()) {
                 EditorGUILayout.LabelField($"Ase Layer: {layer}");
                 EditorGUI.indentLevel++;
 
@@ -280,6 +280,8 @@ namespace Exa.CustomEditors {
 
         private IEnumerable<string> GetLayers() {
             GetProcess($"-b -list-layers --all-layers \"{Context.AssetPath}\"").StartRedirected(out var layers, out _);
+
+            layers.Reverse();
 
             return layers;
         }

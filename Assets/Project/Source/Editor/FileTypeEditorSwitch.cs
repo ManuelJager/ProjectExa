@@ -1,4 +1,7 @@
+using System;
 using System.Linq;
+using Exa.Logging;
+using Exa.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -51,7 +54,11 @@ namespace Exa.CustomEditors {
 
                 EnableLogging = EditorGUILayout.Toggle("Enabled logging", EnableLogging);
 
-                selectedEditor.OnInspectorGUI();
+                try {
+                    selectedEditor.OnInspectorGUI();
+                } catch (Exception e) {
+                    Debug.LogError(e);
+                }
             } else {
                 base.OnInspectorGUI();
             }
