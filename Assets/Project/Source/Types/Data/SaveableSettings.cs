@@ -28,7 +28,7 @@ namespace Exa.Data {
 
         public virtual void Save() {
             var path = Tree.Root.Settings.CombineWith($"{Key}.json");
-            IOUtils.JsonSerializeToPath(Values, path, SerializationMode.Settings);
+            IOUtils.ToJsonPath(Values, path, SerializationMode.Settings);
         }
 
         public virtual void Load() {
@@ -42,7 +42,7 @@ namespace Exa.Data {
         public abstract T Clone();
 
         protected virtual T DeserializeValues(string path) {
-            return IOUtils.JsonDeserializeFromPath<T>(path, SerializationMode.Settings);
+            return IOUtils.FromJsonPath<T>(path, SerializationMode.Settings);
         }
     }
 }

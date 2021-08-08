@@ -4,6 +4,7 @@ using System.Linq;
 using Exa.Utils;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Exa.IO {
     public static partial class IOUtils {
@@ -61,6 +62,20 @@ namespace Exa.IO {
             AssetDatabase.CreateFolder(parentPath, childFolder);
         }
 
+        public static T SaveOrCreateAsset<T>(T asset, string path)
+            where T : Object {
+            var existingAsset = AssetDatabase.LoadAssetAtPath<T>(path);
+
+            if (!existingAsset) {
+                AssetDatabase.CreateAsset(asset, path);
+                existingAsset = asset;
+            } else {
+                EditorUtility.CopySerialized(asset, existingAsset);
+            }
+
+            return existingAsset;
+        }
+
         public static Sprite SaveSpriteToEditorPath(Sprite sprite, string path, Action<TextureImporter> modifyImportSettings = null) {
             // Delete if exists
             if (File.Exists(path)) {
@@ -79,9 +94,6 @@ namespace Exa.IO {
             if (textureImporter == null) {
                 throw new Exception($"Asset importer {assetImporter} at path {path} is not an instance of TextureImporter");
             }
-
-            textureImporter.spritePixelsPerUnit = sprite.pixelsPerUnit;
-            textureImporter.mipmapEnabled = false;
 
             modifyImportSettings?.Invoke(textureImporter);
 

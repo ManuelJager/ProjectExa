@@ -130,7 +130,7 @@ namespace Exa.ShipEditor {
         }
 
         public void ExportToClipboard() {
-            var json = IOUtils.JsonSerializeWithSettings(editorGrid.blueprintLayer.ActiveBlueprint);
+            var json = IOUtils.ToJson(editorGrid.blueprintLayer.ActiveBlueprint);
             GUIUtility.systemCopyBuffer = json;
         }
     }

@@ -17,7 +17,7 @@ namespace Exa.Grids.Blueprints {
     #if UNITY_EDITOR
         public void Save(Blueprint blueprint) {
             blueprint.name = StringExtensions.GetUniqueName(blueprint.name, S.Blueprints.GetBlueprintNames());
-            blueprintJson = IOUtils.JsonSerializeWithSettings(blueprint, SerializationMode.Readable);
+            blueprintJson = IOUtils.ToJson(blueprint, SerializationMode.Readable);
             var path = $"Assets/Project/GameData/Grids/Blueprints/StaticBlueprints/{blueprint.name}.asset";
             AssetDatabase.CreateAsset(this, path);
         }
@@ -32,7 +32,7 @@ namespace Exa.Grids.Blueprints {
         }
 
         private BlueprintContainer ToContainer() {
-            var blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(blueprintJson, SerializationMode.Readable);
+            var blueprint = IOUtils.FromJson<Blueprint>(blueprintJson, SerializationMode.Readable);
 
             var args = new BlueprintContainerArgs(blueprint) {
                 generateBlueprintFileHandle = false,

@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using SerializationMode = Exa.IO.SerializationMode;
 
 namespace Exa.CustomEditors {
     public class AseEditor : FileTypeEditor {
@@ -41,15 +42,15 @@ namespace Exa.CustomEditors {
                 Process.Start(asepritePath, Context.AssetPath);
             }
 
-            DrawLayers();
-
             if (GUILayout.Button("Save configuration")) {
-                SaveConfiguration(configuration);
+                SaveConfiguration();
             }
 
-            if (GUILayout.Button("Export in place")) {
-                ExportInPlace();
+            if (GUILayout.Button("Export as sprite sheet")) {
+                ExportAsSpritesheet();
             }
+            
+            DrawLayers();
             
             EditorGUI.EndDisabledGroup();
         }
@@ -94,18 +95,21 @@ namespace Exa.CustomEditors {
             GUILayout.Space(8);
         }
 
-        private void SaveConfiguration(AseExportConfiguration config) {
+        private void SaveConfiguration() {
             if (!string.IsNullOrEmpty(asepritePath)) {
-                config.NormalizeWithAseLayers(GetLayers());
+                configuration.NormalizeWithAseLayers(GetLayers());
             }
-            
-            Context.Importer.userData = JsonConvert.SerializeObject(config);
+
+            Context.Importer.userData = IOUtils.ToJson(configuration, SerializationMode.Settings);
+            Context.Importer.SaveAndReimport();
         }
 
         private AseExportConfiguration GetConfiguration() {
-            var output = JsonConvert.DeserializeObject<AseExportConfiguration>(Context.Importer.userData) ?? new AseExportConfiguration();
+            var output = IOUtils.FromJsonSafe<AseExportConfiguration>(Context.Importer.userData) ?? new AseExportConfiguration();
 
-            SaveConfiguration(output);
+            if (!string.IsNullOrEmpty(asepritePath)) {
+                output.NormalizeWithAseLayers(GetLayers());
+            }
 
             return output;
         }
@@ -123,7 +127,7 @@ namespace Exa.CustomEditors {
             EditorPrefs.SetString("AsepriteTools_AsepritePath", asepritePath);
         }
 
-        private void ExportInPlace() {
+        private void ExportAsSpritesheet() {
             var progress = 0f;
 
             // Output folder
@@ -211,8 +215,6 @@ namespace Exa.CustomEditors {
                 output = JObject.Parse(stdOut.Join());
             } catch (JsonReaderException e) {
                 throw new Exception($"Failed to parse JSON output, probably due to export failure, output: {stdOut.Join("\n")}", e);
-            } catch (Exception e) {
-                throw e;
             }
 
             return File.ReadAllBytes(file);
@@ -236,7 +238,7 @@ namespace Exa.CustomEditors {
                     var sizeX = height;
 
                     importer.wrapMode = TextureWrapMode.Clamp;
-                    importer.maxTextureSize = 2048;
+                    importer.maxTextureSize = 32768;
                     importer.crunchedCompression = false;
                     importer.compressionQuality = 100;
                     importer.isReadable = true;
@@ -250,7 +252,7 @@ namespace Exa.CustomEditors {
                         for (var i = 0; i < width; i += sizeX) {
                             spriteMetaData.Add(
                                 new SpriteMetaData {
-                                    name = $"{texture.name}_{frameNumber}",
+                                    name = $"{layer}_{frameNumber}",
                                     rect = new Rect(i, j - sizeY, sizeX, sizeY),
                                     alignment = 0,
                                     pivot = new Vector2(0f, 0f)

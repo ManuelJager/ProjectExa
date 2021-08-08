@@ -92,7 +92,7 @@ namespace Exa.Grids.Blueprints {
         }
 
         private void AddUserBlueprint(string path) {
-            var blueprint = IOUtils.JsonDeserializeFromPath<Blueprint>(path);
+            var blueprint = IOUtils.FromJsonPath<Blueprint>(path);
 
             if (blueprint == null) {
                 throw new ArgumentNullException("blueprint");

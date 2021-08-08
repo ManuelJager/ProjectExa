@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Exa.Utils;
+using Newtonsoft.Json;
 
 namespace Exa.CustomEditors {
+    [JsonObject]
     public class AseExportConfiguration {
         private string[] aseLayers;
-        private Dictionary<string, LayerConfigurationEntry> layers;
+        [JsonProperty] private Dictionary<string, LayerConfigurationEntry> layers;
 
         public AseExportConfiguration() {
             layers = new Dictionary<string, LayerConfigurationEntry>();

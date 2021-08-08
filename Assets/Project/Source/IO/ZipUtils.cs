@@ -31,7 +31,7 @@ namespace Exa.IO {
         public static T ReadJson<T>(this ZipEntry entry, SerializationMode mode) {
             var json = Encoding.UTF8.GetString(entry.GetStream().ToArray());
 
-            return IOUtils.JsonDeserializeWithSettings<T>(json, mode);
+            return IOUtils.FromJson<T>(json, mode);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Exa.Grids.Blueprints {
                 BlueprintFileHandle = new FileHandle(
                     this,
                     name => Tree.Root.Blueprints.CombineWith($"{name}.json"),
-                    path => IOUtils.JsonSerializeToPath(Data, path),
+                    path => IOUtils.ToJsonPath(Data, path),
                     args.generateBlueprintFileName
                 );
             }

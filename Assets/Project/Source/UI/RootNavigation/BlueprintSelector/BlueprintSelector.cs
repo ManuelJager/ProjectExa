@@ -143,7 +143,7 @@ namespace Exa.UI {
 
         private bool OnClipboardImportDeserialize(string json, out Blueprint blueprint) {
             try {
-                blueprint = IOUtils.JsonDeserializeWithSettings<Blueprint>(json);
+                blueprint = IOUtils.FromJson<Blueprint>(json);
 
                 return true;
             } catch {

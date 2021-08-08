@@ -110,7 +110,7 @@ namespace Exa.Audio.Music {
         }
 
         private void AppendMetadata(ZipFile file, CustomSoundTrackMetadata metadata) {
-            var json = IOUtils.JsonSerializeWithSettings(metadata, SerializationMode.Readable);
+            var json = IOUtils.ToJson(metadata, SerializationMode.Readable);
             file.AddEntry(ConfigName, Encoding.UTF8.GetBytes(json));
             file.Save();
         }
