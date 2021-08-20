@@ -8,6 +8,42 @@ TextureImporter:
   - first:
       213: -6238854588986108936
     second: turret-body-overlay_0
+  - first:
+      213: 6050708127486344681
+    second: turret-body-overlay_1
+  - first:
+      213: -4845861996426006968
+    second: turret-body-overlay_2
+  - first:
+      213: -1434968985562409513
+    second: turret-body-overlay_3
+  - first:
+      213: -5303971531435702369
+    second: turret-body-overlay_4
+  - first:
+      213: -7366791808677366294
+    second: turret-body-overlay_5
+  - first:
+      213: 222563443745118093
+    second: turret-body-overlay_6
+  - first:
+      213: -3687473235541946033
+    second: turret-body-overlay_7
+  - first:
+      213: -2941201455976413282
+    second: turret-body-overlay_8
+  - first:
+      213: -1574685939341810562
+    second: turret-body-overlay_9
+  - first:
+      213: 3503560673037679602
+    second: turret-body-overlay_10
+  - first:
+      213: 5233304454890802401
+    second: turret-body-overlay_11
+  - first:
+      213: -8656379700624669197
+    second: turret-body-overlay_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -26,7 +62,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -71,7 +107,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 32768
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0

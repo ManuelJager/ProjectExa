@@ -56,7 +56,7 @@ namespace Exa.CustomEditors {
         /// </summary>
         /// <returns></returns>
         public IEnumerable<GroupedLayerOutput> GetLayerGroups() {
-        var temp = null as GroupedLayerOutput;
+            var temp = null as GroupedLayerOutput;
 
             foreach (var (layer, layerConfig) in GetSortedLayers()) {
                 if (!layerConfig.mergeUp && temp != null) {

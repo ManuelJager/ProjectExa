@@ -67,7 +67,7 @@ namespace Exa.Grids {
             MemberAdded?.Invoke(gridMember);
 
             // Get grid positions of blueprint block
-            var tilePositions = gridMember.GetTileClaims();
+            var tilePositions = gridMember.GetTileClaims().ToList();
 
             EnsureNeighbourKeyIsCreated(gridMember);
 

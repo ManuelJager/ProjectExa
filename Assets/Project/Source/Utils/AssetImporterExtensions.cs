@@ -13,6 +13,7 @@ namespace Exa.Utils {
             importer.maxTextureSize = 2048;
             importer.crunchedCompression = false;
             importer.compressionQuality = 100;
+            importer.spritePixelsPerUnit = 32;
             importer.isReadable = true;
             importer.textureShape = TextureImporterShape.Texture2D;
             importer.npotScale = TextureImporterNPOTScale.None;
