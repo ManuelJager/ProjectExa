@@ -58,7 +58,8 @@ MonoBehaviour:
   block: {fileID: 0}
   turret: {fileID: 4706351059954302035}
   chargeDecaySpeed: 4
-  animator: {fileID: 3807540685108769277}
+  coilAnimator: {fileID: 3807540685108769277}
+  gunOverlayAnimator: {fileID: 5122118237215007916}
   beamOrigin: {fileID: 6574230540406159965}
   arcs: {fileID: 8196826969012918710}
   lineRenderer: {fileID: 7853267247228533205}

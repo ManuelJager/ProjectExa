@@ -3,13 +3,20 @@ using Exa.Math;
 using Exa.Utils;
 using Exa.VFX;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 #pragma warning disable 649
 
 namespace Exa.Grids.Blocks.Components {
     public class GaussCannonBehaviour : ChargeableTurretBehaviour<GaussCannonData> {
+        private static readonly int Charge = Animator.StringToHash("Charge");
+        private static readonly int CancelCharge = Animator.StringToHash("CancelCharge");
+        private static readonly int ChargeDecaySpeed = Animator.StringToHash("ChargeDecaySpeed");
+        private static readonly int ChargeSpeed = Animator.StringToHash("ChargeSpeed");
+       
         [Header("References")]
-        [SerializeField] private Animator animator;
+        [SerializeField] private Animator coilAnimator;
+        [SerializeField] private Animator gunOverlayAnimator;
         [SerializeField] private Transform beamOrigin;
         [SerializeField] private GaussCannonArcs arcs;
         [SerializeField] private LineRenderer lineRenderer;
@@ -20,12 +27,17 @@ namespace Exa.Grids.Blocks.Components {
 
         public override void StartCharge() {
             base.StartCharge();
-            animator.Play("Charge", 0, GetNormalizedChargeProgress());
+
+            var pos = GetNormalizedChargeProgress();
+            coilAnimator.Play(Charge, 0, pos);
+            gunOverlayAnimator.Play(Charge, 0, pos);
         }
 
         public override void EndCharge() {
             if (charging) {
-                animator.Play("CancelCharge", 0, 1f - GetNormalizedChargeProgress());
+                var pos = 1f - GetNormalizedChargeProgress();
+                coilAnimator.Play(CancelCharge, 0, pos);
+                gunOverlayAnimator.Play(CancelCharge, 0, pos);
             }
 
             base.EndCharge();
@@ -56,9 +68,12 @@ namespace Exa.Grids.Blocks.Components {
 
         protected override void OnAdd() {
             base.OnAdd();
+            
             var chargeSpeed = 1f / Data.chargeTime;
-            animator.SetFloat("ChargeSpeed", chargeSpeed);
-            animator.SetFloat("ChargeDecaySpeed", chargeSpeed * chargeDecaySpeed);
+            coilAnimator.SetFloat(ChargeSpeed, chargeSpeed);
+            coilAnimator.SetFloat(ChargeDecaySpeed, chargeSpeed * chargeDecaySpeed);
+            gunOverlayAnimator.SetFloat(ChargeSpeed, chargeSpeed);
+            gunOverlayAnimator.SetFloat(ChargeDecaySpeed, chargeSpeed * chargeDecaySpeed);
 
             arcs.RandomizeMaterials();
         }
