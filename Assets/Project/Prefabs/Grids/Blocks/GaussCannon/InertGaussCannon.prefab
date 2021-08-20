@@ -502,7 +502,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 96d1545cc484067429bd9bd8da062edd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -705,6 +705,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6b8f5cbe3613e4e9c1117404714da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progressMap:
+    easeType: 1
+    ease: 0
+    animationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 160.9192
+        outSlope: 160.9192
+        tangentMode: 0
+        weightedMode: 2
+        inWeight: 0
+        outWeight: 0.0037035435
+      - serializedVersion: 3
+        time: 0.33
+        value: 0.33
+        inSlope: 1
+        outSlope: 24.786648
+        tangentMode: 5
+        weightedMode: 2
+        inWeight: 0.33333334
+        outWeight: 0.02309452
+      - serializedVersion: 3
+        time: 0.67
+        value: 0.67
+        inSlope: 1
+        outSlope: 126.570496
+        tangentMode: 5
+        weightedMode: 2
+        inWeight: 0.33333334
+        outWeight: 0.004853805
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 2
+        tangentMode: 5
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   arcCount: 25
   arcDistance: 0.125
   arcPrefab: {fileID: 6479496829754540037, guid: 1267a043116d69b429d1487303d6bb5a,

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Exa.Data;
+using Exa.UI.Tweening;
 using Exa.Utils;
 using UnityEditor;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Exa.VFX {
         private static readonly int FlickeringOffsetID = Shader.PropertyToID("_FlickeringOffset");
 
         [Header("Arc settings")]
+        [SerializeField] private ExaEase progressMap;
         [SerializeField] private int arcCount;
         [SerializeField] private float arcDistance;
         [SerializeField] private GameObject arcPrefab;
@@ -24,7 +26,7 @@ namespace Exa.VFX {
         private int prevActiveIndex = -1;
 
         public void SetChargeProgress(Scalar progress) {
-            var index = Mathf.CeilToInt(progress * arcCount);
+            var index = Mathf.CeilToInt(progressMap.Evaluate(progress) * arcCount);
 
             if (prevActiveIndex == index) {
                 return;
