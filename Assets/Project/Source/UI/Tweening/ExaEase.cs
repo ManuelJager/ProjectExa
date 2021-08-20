@@ -6,6 +6,8 @@ using UnityEngine;
 namespace Exa.UI.Tweening {
     [Serializable]
     public struct ExaEase {
+        private static readonly float Tolerance = 0.00001f;
+        
         public ExaEaseType easeType;
         public Ease ease;
         public AnimationCurve animationCurve;
@@ -23,7 +25,7 @@ namespace Exa.UI.Tweening {
         }
 
         public float Evaluate(float time) {
-            return easeType switch {
+            var value = easeType switch {
                 ExaEaseType.Classic => EaseManager.Evaluate(
                     ease,
                     null,
@@ -35,6 +37,12 @@ namespace Exa.UI.Tweening {
                 ExaEaseType.AnimationCurve => animationCurve.Evaluate(time),
                 _ => throw new ArgumentOutOfRangeException()
             };
+
+            return value < Tolerance
+                ? 0f // Return 0 if value is below tolerance
+                : value > 1f - Tolerance
+                    ? 1f // Return 1 if value is above 1 - tolerance
+                    : value;
         }
     }
 
