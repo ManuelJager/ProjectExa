@@ -29,14 +29,14 @@ namespace Exa.Gameplay.Missions {
             GS.UI.gameplayLayer.currentResources.Refresh(CurrentResources);
         }
 
-        public void LoadMission(Mission mission, MissionArgs args) {
+        public void LoadMission(Mission mission) {
             if (Mission != null) {
                 throw new InvalidOperationException("Cannot load a mission without unloading previous one");
             }
 
             Mission = mission;
             Stats = new MissionStats();
-            mission.Init(this, args);
+            mission.Init(this);
         }
 
         public void AddResources(BlockCosts resources) {

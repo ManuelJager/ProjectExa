@@ -1,5 +1,6 @@
 ﻿using Exa.Research;
 using Exa.Types.Generics;
+using Exa.UI;
 using UnityEngine;
 
 namespace Exa.Gameplay.Missions {
@@ -17,7 +18,7 @@ namespace Exa.Gameplay.Missions {
             get => this;
         }
 
-        public virtual void Init(MissionManager manager, MissionArgs args) {
+        public virtual void Init(MissionManager manager) {
             researchBuilder = new ResearchBuilder(S.Research);
             AddResearchModifiers(researchBuilder);
         }
@@ -25,6 +26,8 @@ namespace Exa.Gameplay.Missions {
         public virtual void Unload() {
             researchBuilder.Clear();
         }
+
+        public virtual void BuildStartOptions(MissionOptions options) { }
 
         protected virtual void AddResearchModifiers(ResearchBuilder builder) { }
 

@@ -1,6 +1,9 @@
-﻿using Exa.Gameplay.Missions;
+﻿using System;
+using System.Linq;
+using Exa.Gameplay.Missions;
 using Exa.UI.Controls;
 using Exa.UI.Tooltips;
+using Exa.Utils;
 using Exa.Validation;
 using UnityEngine;
 
@@ -10,8 +13,12 @@ namespace Exa.UI {
         [SerializeField] private DropdownControl missionDropdown;
         [SerializeField] private InteractableAdapter button;
         [SerializeField] private TextTooltipTrigger tooltipTrigger;
-
+        [SerializeField] private Transform container;
+        
         public Mission SelectedMission { get; private set; }
+        public Transform MissionStartOptionContainer {
+            get => container;
+        }
 
         private void Awake() {
             missionDropdown.CreateTabs(
@@ -23,9 +30,24 @@ namespace Exa.UI {
                 }
             );
 
-            missionDropdown.OnValueChange.AddListener(item => SelectedMission = item as Mission);
+            missionDropdown.OnValueChange.AddListener(
+                item => {
+                    var mission = item as Mission;
+                    SelectedMission = mission;
+                    RenderMissionStartOptions(mission);
+                });
 
             SelectedMission = missionDropdown.Value as Mission;
+        }
+
+        private void OnEnable() {
+            RenderMissionStartOptions(SelectedMission);
+        }
+
+        private void RenderMissionStartOptions(Mission mission) {
+            container.GetChildren().ForEach(child => child.gameObject.Destroy());
+            mission.BuildStartOptions(this);
+            container.gameObject.SetActive(container.GetChildren().Any());
         }
 
         public void ReflectFleetBuilderResult(ValidationResult result) {

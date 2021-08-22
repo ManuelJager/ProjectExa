@@ -1,10 +1,11 @@
 ﻿using Exa.Gameplay.Missions;
 using Exa.SceneManagement;
+using Exa.UI.Components;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Exa.UI {
-    public class MissionSetup : MonoBehaviour {
+    public class MissionSetup : AnimatedTabContent {
         public MissionOptions options;
 
         public void NavigateToMission() {
@@ -21,7 +22,7 @@ namespace Exa.UI {
             transition.onPrepared.AddListener(
                 () => {
                     S.UI.Root.navigateable.NavigateTo(GS.Navigateable);
-                    GS.MissionManager.LoadMission(options.SelectedMission, new MissionArgs());
+                    GS.MissionManager.LoadMission(options.SelectedMission);
                 }
             );
         }

@@ -1,8 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
+using Exa.Grids.Blueprints;
 using Exa.Research;
+using Exa.Types.Generics;
+using Exa.UI;
+using Exa.UI.Controls;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Gameplay.Missions {
@@ -12,13 +18,15 @@ namespace Exa.Gameplay.Missions {
         [SerializeField] private float resourceMultiplier;
         [SerializeField] private List<DynamicStrengthWave> waves;
 
-        public override void Init(MissionManager manager, MissionArgs args) {
-            base.Init(manager, args);
+        private Blueprint selectedBlueprint;
+        
+        public override void Init(MissionManager manager) {
+            base.Init(manager);
 
             var spawner = new Spawner();
 
             manager.CurrentResources = initialResources;
-            manager.Station = spawner.SpawnPlayerStation();
+            manager.Station = spawner.SpawnPlayerStation(selectedBlueprint);
 
             manager.Station.ControllerDestroyed += () => {
                 GS.UI.gameOverMenu.scoreView.PresentStats(manager.Stats);
@@ -50,6 +58,17 @@ namespace Exa.Gameplay.Missions {
                 GS.MissionManager.Stats.DestroyedShips += 1;
             };
         }
+
+        public override void BuildStartOptions(MissionOptions options) {
+            selectedBlueprint = DropdownControl.Create(
+                options.MissionStartOptionContainer,
+                "Blueprint",
+                S.Blueprints.useableBlueprints.Select(container => container.Data),
+                selection => {
+                    selectedBlueprint = selection;
+                }
+            ).Value as Blueprint;
+        } 
 
         protected override void AddResearchModifiers(ResearchBuilder builder) {
             builder
