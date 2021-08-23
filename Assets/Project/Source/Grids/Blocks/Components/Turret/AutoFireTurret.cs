@@ -30,8 +30,6 @@ namespace Exa.Grids.Blocks.Components {
         }
 
         protected virtual void AttemptFire() {
-            if (DebugFocused) { }
-
             if (Target == null || !AutoFireEnabled) {
                 return;
             }

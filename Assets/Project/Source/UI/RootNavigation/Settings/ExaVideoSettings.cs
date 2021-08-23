@@ -1,10 +1,6 @@
 ﻿using Exa.Data;
 using UnityEngine;
 
-#if !UNITY_EDITOR
-using UnityEngine;
-#endif
-
 namespace Exa.UI.Settings {
     public class ExaVideoSettings : SaveableSettings<VideoSettingsValues> {
         public override VideoSettingsValues DefaultValues {

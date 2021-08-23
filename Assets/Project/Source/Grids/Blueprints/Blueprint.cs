@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Exa.Grids.Blueprints {
-    public class Blueprint : ICloneable<Blueprint>, ILabeledValue<Blueprint> {
+    public class Blueprint : ICloneable<Blueprint> {
         public static readonly string DEFAULT_BLUEPRINT_NAME = "New blueprint";
 
         public string name;
@@ -62,15 +62,5 @@ namespace Exa.Grids.Blueprints {
                 new TooltipGroup(Grid.GetTotals().GetDebugTooltipComponents(), 1)
             };
         }
-
-    #region ILabeledValue
-        public string Label {
-            get => name;
-        }
-
-        public Blueprint Value {
-            get => this;
-        }
-    #endregion    
     }
 }

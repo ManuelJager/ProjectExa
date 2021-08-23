@@ -19,7 +19,7 @@ namespace Exa.Gameplay.Missions {
         [SerializeField] private List<DynamicStrengthWave> waves;
 
         private Blueprint selectedBlueprint;
-        
+
         public override void Init(MissionManager manager) {
             base.Init(manager);
 
@@ -38,7 +38,7 @@ namespace Exa.Gameplay.Missions {
             foreach (var wave in waves) {
                 wave.Setup(GaugeCurrentStrength);
             }
-            
+
             var waveManager = GS.GameObject.AddComponent<WaveManager>();
             waveManager.Setup(spawner, waves);
             waveManager.StartPreparationPhase(true);
@@ -60,28 +60,31 @@ namespace Exa.Gameplay.Missions {
         }
 
         public override void BuildStartOptions(MissionOptions options) {
-            selectedBlueprint = DropdownControl.Create(
+            var dropdown = DropdownControl.Create(
                 options.MissionStartOptionContainer,
-                "Blueprint",
-                S.Blueprints.useableBlueprints.Select(container => container.Data),
-                selection => {
-                    selectedBlueprint = selection;
-                }
-            ).Value as Blueprint;
-        } 
+                label: "Blueprint",
+                possibleValues: S.Blueprints.useableBlueprints
+                    .Where(container => container.Data.shipClass == BlueprintTypeGuid.station)
+                    .Select<BlueprintContainer, ILabeledValue<Blueprint>>(container => new LabeledValue<Blueprint>(container.Data.name, container.Data)),
+                setter: selection => selectedBlueprint = selection
+            );
+
+            selectedBlueprint = dropdown.Value as Blueprint;
+        }
 
         protected override void AddResearchModifiers(ResearchBuilder builder) {
             builder
-                .Context(BlockContext.UserGroup)
+                .Context(BlockContext.EnemyGroup)
                 .Add((ref AutocannonData curr) => curr.damage *= 0.5f)
+                .Context(BlockContext.UserGroup)
                 .ForTemplate<GaussCannonTemplate>()
-                .Add((ref PhysicalData curr) => curr.hull *= 100f);
+                .Add((ref PhysicalData curr) => curr.hull *= 10f);
         }
 
         private float GaugeCurrentStrength() {
             // Calculate station strength
             var stationStrength = GS.MissionManager.Station.GetBaseTotals().Metadata.strength;
-            
+
             // Somewhat punish hoarding resources by taking it into account
             var resourcesStrength = GS.MissionManager.CurrentResources.GaugePotentialStrength() * 0.5f;
 

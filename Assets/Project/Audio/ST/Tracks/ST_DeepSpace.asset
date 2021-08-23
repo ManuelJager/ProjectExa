@@ -20,4 +20,4 @@ MonoBehaviour:
     pitch: 1
     allowMultipleOfType: 1
     allowMultipleOnTrack: 0
-  atmosphereFilter: 2
+  atmosphereFilter: 2147483647

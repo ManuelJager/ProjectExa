@@ -48,7 +48,22 @@ namespace Exa.IO {
             var bytes = tex.EncodeToPNG();
             File.WriteAllBytes(filePath, bytes);
         }
+        
+        public static Texture2D LoadTexture2D(string filePath, int width, int height) {
+            var bytes = File.ReadAllBytes(filePath);
+            var tex = new Texture2D(width, height);
+            tex.LoadImage(bytes);
 
+            return tex;
+        }
+
+        public static void EnsureCreated(string directoryString) {
+            if (!Directory.Exists(directoryString)) {
+                Directory.CreateDirectory(directoryString);
+            }
+        }
+
+    #if UNITY_EDITOR
         public static void EnsureAssetPathCreated(string assetPath) {
             assetPath = NormalizeAssets(assetPath);
 
@@ -75,7 +90,7 @@ namespace Exa.IO {
 
             return existingAsset;
         }
-
+        
         public static Sprite SaveSpriteToEditorPath(Sprite sprite, string path, Action<TextureImporter> modifyImportSettings = null) {
             // Delete if exists
             if (File.Exists(path)) {
@@ -89,7 +104,7 @@ namespace Exa.IO {
             AssetDatabase.SaveAssets();
 
             var assetImporter = AssetImporter.GetAtPath(path);
-            var textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
+            var textureImporter = assetImporter as TextureImporter;
 
             if (textureImporter == null) {
                 throw new Exception($"Asset importer {assetImporter} at path {path} is not an instance of TextureImporter");
@@ -112,19 +127,6 @@ namespace Exa.IO {
 
             throw new ArgumentException(nameof(path), $"Path: {path} is not a valid asset path");
         }
-
-        public static Texture2D LoadTexture2D(string filePath, int width, int height) {
-            var bytes = File.ReadAllBytes(filePath);
-            var tex = new Texture2D(width, height);
-            tex.LoadImage(bytes);
-
-            return tex;
-        }
-
-        public static void EnsureCreated(string directoryString) {
-            if (!Directory.Exists(directoryString)) {
-                Directory.CreateDirectory(directoryString);
-            }
-        }
+    #endif
     }
 }

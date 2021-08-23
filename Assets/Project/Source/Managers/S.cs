@@ -136,6 +136,8 @@ namespace Exa {
 
             yield return new WorkUnit();
 
+            Audio.Init();
+            
             Settings.AudioSettings.LoadHandler = new SoundTrackLoadHandler {
                 Progress = UI.LoadingScreen.GetLoadReporter("soundtrack")
             };

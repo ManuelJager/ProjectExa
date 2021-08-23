@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Exa.Audio {
     public class AudioManager : MonoBehaviour {
         [SerializeField] private SoundBag soundBag;
+        [SerializeField] private AtmosphereTrigger defaultTrigger;
         [SerializeField] private MusicPlayerGroup ST_AudioTrack;
         [SerializeField] private AudioPlayerGroup UI_SFX_AudioTrack;
 
@@ -19,10 +20,12 @@ namespace Exa.Audio {
             get => UI_SFX_AudioTrack;
         }
 
-        private void Awake() {
+        public void Init() {
             foreach (var sound in soundBag) {
                 Register(sound);
             }
+            
+            defaultTrigger.gameObject.SetActive(true);
         }
 
         /// <summary>

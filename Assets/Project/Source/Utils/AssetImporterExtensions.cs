@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace Exa.Utils {
+#if UNITY_EDITOR
     public static class AssetImporterExtensions {
         public static void ApplyDefaultBlockImportSettings(this TextureImporter importer) {
             importer.textureType = TextureImporterType.Sprite;
@@ -19,4 +20,5 @@ namespace Exa.Utils {
             importer.npotScale = TextureImporterNPOTScale.None;
         }
     }
+#endif
 }

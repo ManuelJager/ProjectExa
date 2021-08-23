@@ -7,13 +7,14 @@ using System.Threading;
 
 namespace Exa.Utils {
     public static class ProcessExtensions {
+    #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
         [DllImport("User32.dll")]
         private static extern bool SetForegroundWindow(IntPtr handle);
 
         public static void Focus(this Process process) {
             SetForegroundWindow(process.MainWindowHandle);
         }
-
+    #endif
         public static int StartRedirected(this Process process, out List<string> stdOut, out List<string> errOut, int timeout = 5000) {
             stdOut = new List<string>();
             errOut = new List<string>();

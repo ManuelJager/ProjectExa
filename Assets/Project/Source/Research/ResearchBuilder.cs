@@ -38,11 +38,11 @@ namespace Exa.Research {
             }
 
             clearActions.Add(
-                store.AddModifier(
+                item: store.AddModifier(
                     context,
-                    new DynamicBlockComponentModifier(
-                        new ResearchStep<T>(applyValues, order),
-                        GetClosure()
+                    modifier: new DynamicBlockComponentModifier(
+                        step: new ResearchStep<T>(applyValues, order),
+                        affectsTemplate: GetClosure()
                     )
                 )
             );
