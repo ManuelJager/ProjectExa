@@ -12,13 +12,13 @@ namespace Exa.Grids.Blocks.Components {
         public float turningPowerModifier;
 
         public void AddGridTotals(GridTotals totals) {
-            totals.PowerGenerationModifier += powerGenerationModifier;
-            totals.TurningPowerModifier += turningPowerModifier;
+            totals.UnscaledPowerGeneration += powerGenerationModifier;
+            totals.UnscaledTurningPower += turningPowerModifier;
         }
 
         public void RemoveGridTotals(GridTotals totals) {
-            totals.PowerGenerationModifier -= powerGenerationModifier;
-            totals.TurningPowerModifier -= turningPowerModifier;
+            totals.UnscaledPowerGeneration -= powerGenerationModifier;
+            totals.UnscaledTurningPower -= turningPowerModifier;
         }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() {

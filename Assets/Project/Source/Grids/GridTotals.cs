@@ -16,16 +16,14 @@ namespace Exa.Grids {
         public float Hull { get; set; }
         public float UnscaledPowerGeneration { get; set; }
         public float UnscaledTurningPower { get; set; }
-        public float PowerGenerationModifier { get; set; }
-        public float TurningPowerModifier { get; set; }
         public BlockMetadata Metadata { get; set; }
 
         public GridTotals Clone() {
             return new GridTotals(context) {
                 Mass = Mass,
                 Hull = Hull,
-                PowerGenerationModifier = PowerGenerationModifier,
-                TurningPowerModifier = TurningPowerModifier,
+                UnscaledPowerGeneration = UnscaledPowerGeneration,
+                UnscaledTurningPower = UnscaledTurningPower,
                 Metadata = Metadata
             };
         }
@@ -37,8 +35,8 @@ namespace Exa.Grids {
         public void Reset() {
             Mass = 0f;
             Hull = 0f;
-            PowerGenerationModifier = 0f;
-            TurningPowerModifier = 0f;
+            UnscaledPowerGeneration = 0f;
+            UnscaledTurningPower = 0f;
             Metadata = new BlockMetadata();
         }
 

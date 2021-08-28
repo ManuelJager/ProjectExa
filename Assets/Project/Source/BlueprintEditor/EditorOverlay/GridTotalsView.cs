@@ -27,8 +27,8 @@ namespace Exa.ShipEditor {
             blockCostsView.Refresh(totals.Metadata.blockCosts);
             massView.SetValue($"{totals.Mass:0} Tonne");
             hullView.SetValue($"{totals.Hull:0}");
-            energyView.SetValue($"{totals.PowerGenerationModifier:0}");
-            turningPower.SetValue($"{totals.TurningPowerModifier:0}");
+            energyView.SetValue($"{totals.UnscaledPowerGeneration:0}");
+            turningPower.SetValue($"{totals.UnscaledTurningPower:0}");
         }
     }
 }
