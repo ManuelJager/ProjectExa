@@ -53,7 +53,7 @@ namespace Exa.Debugging {
 
         private void AverageVelocity(Vector2 newVelocity, float sampleTime) {
             var deltaTime = Time.deltaTime;
-            var total = averagedVelocity * deltaTime * (sampleTime - deltaTime) + newVelocity;
+            var total = averagedVelocity * (deltaTime * (sampleTime - deltaTime)) + newVelocity;
             averagedVelocity = total * sampleTime / deltaTime;
         }
 

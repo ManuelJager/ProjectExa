@@ -12,7 +12,9 @@ namespace Exa.Types {
 
         public new TValue this[TKey key] {
             get {
-                this.EnsureCreated(key, () => factory(key));
+                if (!ContainsKey(key)) {
+                    Add(key, value: factory(key));
+                }
 
                 return base[key];
             }

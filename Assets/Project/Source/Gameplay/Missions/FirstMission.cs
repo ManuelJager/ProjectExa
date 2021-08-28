@@ -51,7 +51,7 @@ namespace Exa.Gameplay.Missions {
             waveManager.EnemySpawned += grid => { GS.UI.gameplayLayer.warningCircleOverlay.Add(grid); };
 
             waveManager.EnemyDestroyed += grid => {
-                var costs = grid.GetBaseTotals().Metadata.blockCosts * resourceMultiplier;
+                var costs = grid.BlueprintTotals().Metadata.blockCosts * resourceMultiplier;
                 GS.UI.gameplayLayer.warningCircleOverlay.Remove(grid);
                 GS.MissionManager.AddResources(costs);
                 GS.MissionManager.Stats.CollectedResources += costs;
@@ -83,7 +83,7 @@ namespace Exa.Gameplay.Missions {
 
         private float GaugeCurrentStrength() {
             // Calculate station strength
-            var stationStrength = GS.MissionManager.Station.GetBaseTotals().Metadata.strength;
+            var stationStrength = GS.MissionManager.Station.BlueprintTotals().Metadata.strength;
 
             // Somewhat punish hoarding resources by taking it into account
             var resourcesStrength = GS.MissionManager.CurrentResources.GaugePotentialStrength() * 0.5f;

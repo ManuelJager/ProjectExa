@@ -2,8 +2,10 @@
 using Exa.Camera;
 using Exa.Grids.Blocks;
 using Exa.Grids.Blueprints;
+using Exa.IO;
 using Exa.ShipEditor;
 using Exa.Ships;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Gameplay.Missions {
@@ -36,7 +38,7 @@ namespace Exa.Gameplay.Missions {
 
             Mission = mission;
             Stats = new MissionStats();
-            mission.Init(this);
+            mission.Init(manager: this);
         }
 
         public void AddResources(BlockCosts resources) {
@@ -57,10 +59,10 @@ namespace Exa.Gameplay.Missions {
             GS.UI.gameplayLayer.NavigateTo(S.Editor.navigateable);
 
             var settings = new BlueprintImportArgs(
-                Station.Blueprint,
-                blueprint => {
+                blueprint: Station.Blueprint,
+                save: blueprint => {
                     var newCosts = blueprint.Grid.GetTotals(BlockContext.UserGroup).Metadata.blockCosts;
-                    var oldCosts = Station.GetBaseTotals().Metadata.blockCosts;
+                    var oldCosts = Station.BlueprintTotals().Metadata.blockCosts;
 
                     editResult = new EditResult {
                         blueprint = blueprint,
@@ -72,9 +74,9 @@ namespace Exa.Gameplay.Missions {
             };
 
             settings.AddValidator(
-                new BlueprintCostValidator(
+                validator: new BlueprintCostValidator(
                     CurrentResources,
-                    Station.GetBaseTotals().Metadata.blockCosts
+                    Station.BlueprintTotals().Metadata.blockCosts
                 )
             );
 
@@ -87,10 +89,14 @@ namespace Exa.Gameplay.Missions {
             S.CameraController.SetTarget(cameraTarget);
             GS.SpawnLayer.SetLayerActive(true);
 
-            // TODO: use edit result
-            if (editResult != null) {
-                Station.SetBlueprint(editResult.Value.blueprint);
-                CurrentResources -= editResult.Value.editCost;
+            if (editResult.GetHasValue(out var value)) {
+                Debug.Log(new {
+                    HasValue = true,
+                    editResult = IOUtils.ToJson(value),
+                });
+                
+                Station.SetBlueprint(value.blueprint);
+                CurrentResources -= value.editCost;
             }
         }
     }

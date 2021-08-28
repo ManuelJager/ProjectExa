@@ -19,11 +19,13 @@ namespace Exa.Gameplay.Missions {
         }
 
         private void BlueprintChangedHandler() {
+            var currentCosts = S.Editor.ActiveBlueprintTotals.Metadata.blockCosts;
+            view.SetBudget(maxAllowedCosts - currentCosts);
+            
             var args = new BlueprintCostValidatorArgs {
-                currentCosts = S.Editor.ActiveBlueprintTotals.Metadata.blockCosts
+                currentCosts = currentCosts
             };
-
-            view.SetBudget(maxAllowedCosts - args.currentCosts);
+            
             Result = S.Editor.Validate(this, args);
         }
 

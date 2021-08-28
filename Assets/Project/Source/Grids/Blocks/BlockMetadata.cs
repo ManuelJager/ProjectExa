@@ -1,4 +1,5 @@
 ﻿using System;
+using Exa.IO;
 using Exa.UI.Tooltips;
 using UnityEngine;
 
@@ -55,6 +56,10 @@ namespace Exa.Grids.Blocks {
                 creditCost = Mathf.RoundToInt(a.creditCost * b),
                 metalsCost = Mathf.RoundToInt(a.metalsCost * b)
             };
+        }
+
+        public override string ToString() {
+            return IOUtils.ToJson(this);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Exa.ShipEditor {
     public partial class GridEditor {

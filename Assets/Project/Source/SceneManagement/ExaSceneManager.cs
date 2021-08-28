@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Exa.UI;
 using Exa.Utils;
@@ -32,7 +33,10 @@ namespace Exa.SceneManagement {
             var operation = SceneManager.LoadSceneAsync(name, transitionArgs.loadSceneMode);
             var transition = new SceneTransition(operation);
 
-            sceneStatuses.EnsureCreated(name, () => new SceneStatus());
+            if (!sceneStatuses.ContainsKey(name)) {
+                sceneStatuses.Add(name, new SceneStatus());
+            }
+
             sceneStatuses[name].loading = true;
             transition.onPrepared.AddListener(() => { sceneStatuses[name].loading = false; });
 
@@ -59,19 +63,32 @@ namespace Exa.SceneManagement {
         }
 
         public bool GetSceneIsLoading(string name) {
-            sceneStatuses.EnsureCreated(name, () => new SceneStatus());
+            Func<SceneStatus> factory = () => new SceneStatus();
+
+            if (!sceneStatuses.ContainsKey(name)) {
+                sceneStatuses.Add(name, factory());
+            }
 
             return sceneStatuses[name].loading;
         }
 
         public bool GetSceneIsUnloading(string name) {
-            sceneStatuses.EnsureCreated(name, () => new SceneStatus());
+            Func<SceneStatus> factory = () => new SceneStatus();
+
+            if (!sceneStatuses.ContainsKey(name)) {
+                sceneStatuses.Add(name, factory());
+            }
 
             return sceneStatuses[name].unloading;
         }
 
         public AsyncOperation UnloadAsync(string name) {
-            sceneStatuses.EnsureCreated(name, () => new SceneStatus());
+            Func<SceneStatus> factory = () => new SceneStatus();
+
+            if (!sceneStatuses.ContainsKey(name)) {
+                sceneStatuses.Add(name, factory());
+            }
+
             sceneStatuses[name].unloading = true;
             var asyncOperation = SceneManager.UnloadSceneAsync(name);
             asyncOperation.completed += op => { sceneStatuses[name].unloading = false; };

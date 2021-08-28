@@ -24,14 +24,16 @@ namespace Exa.UI.Tweening {
         }
 
         public Tween To(int id, T startValue, T endValue, float duration) {
-            blenders.EnsureCreated(
-                id,
-                () => new Blender {
-                    tween = new TTarget()
+            if (!blenders.ContainsKey(id)) {
+                blenders.Add(
+                    key: id, 
+                    value: new Blender {
+                        tween = new TTarget()
                         .DOGetter(() => blenders[id].value)
                         .DOSetter(x => blenders[id].value = x)
-                }
-            );
+                    }
+                );
+            }
 
             blenders[id].value = startValue;
 

@@ -13,7 +13,7 @@ namespace Exa.Grids.Blocks.Components {
         }
 
         public void RemoveGridTotals(GridTotals totals) {
-            totals.UnscaledTurningPower += turningPower;
+            totals.UnscaledTurningPower -= turningPower;
         }
 
         public IEnumerable<ITooltipComponent> GetTooltipComponents() {

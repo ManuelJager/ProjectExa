@@ -5,9 +5,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks {
     public interface IDamageable {
         TakenDamage TakeDamage(Damage damage);
-        
         Block Block { get; }
-        
         bool IsQueuedForDestruction { get; }
     }
     

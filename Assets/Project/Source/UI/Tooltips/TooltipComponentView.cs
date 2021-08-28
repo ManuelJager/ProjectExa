@@ -8,9 +8,9 @@ namespace Exa.UI.Tooltips {
 
         public override void Refresh(ITooltipComponent value) {
             try {
-                Refresh((T) value);
+                Refresh(value: (T) value);
             } catch (InvalidCastException) {
-                throw new ArgumentException($"{value.GetType()} cannot be converted to {typeof(T)}");
+                throw new ArgumentException(message: $"{value.GetType()} cannot be converted to {typeof(T)}");
             }
         }
     }

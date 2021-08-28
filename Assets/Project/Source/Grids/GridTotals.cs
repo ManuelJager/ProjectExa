@@ -25,7 +25,8 @@ namespace Exa.Grids {
                 Mass = Mass,
                 Hull = Hull,
                 PowerGenerationModifier = PowerGenerationModifier,
-                TurningPowerModifier = TurningPowerModifier
+                TurningPowerModifier = TurningPowerModifier,
+                Metadata = Metadata
             };
         }
 
@@ -38,6 +39,7 @@ namespace Exa.Grids {
             Hull = 0f;
             PowerGenerationModifier = 0f;
             TurningPowerModifier = 0f;
+            Metadata = new BlockMetadata();
         }
 
         public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() {

@@ -133,11 +133,11 @@ namespace Exa.Ships {
             ExitRaycast();
         }
 
-        public GridTotals GetCurrentTotals() {
+        public GridTotals GridTotals() {
             return BlockGrid.GetTotals();
         }
 
-        public GridTotals GetBaseTotals() {
+        public GridTotals BlueprintTotals() {
             return Blueprint.Grid.GetTotals(BlockContext);
         }
 

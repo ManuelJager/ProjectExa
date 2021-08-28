@@ -18,10 +18,10 @@ namespace Exa.Ships {
         private readonly GridTotals totals;
 
         public BlockGrid(IGridInstance parent) {
-            totals = S.Blocks.Totals.StartWatching(this, parent.BlockContext);
-
-            blockBehaviours = new DefaultDict<Type, List<BlockBehaviour>>(_ => new List<BlockBehaviour>());
             Parent = parent;
+            blockBehaviours = new DefaultDict<Type, List<BlockBehaviour>>(_ => new List<BlockBehaviour>());
+            
+            totals = S.Blocks.Totals.StartWatching(this, parent.BlockContext);
         }
 
         public IGridInstance Parent { get; }

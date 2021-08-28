@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Exa.Debugging;
 using Exa.Grids.Blocks;
+using Exa.Grids.Blueprints;
+using Exa.IO;
+using Exa.Ships;
 using Exa.Utils;
 using UnityEngine;
 
@@ -15,6 +19,24 @@ namespace Exa.Grids {
         }
 
         public GridTotals StartWatching(IMemberCollection grid, BlockContext context) {
+            if (DebugMode.Global.IsEnabled()) {
+                switch (grid) {
+                    case BlockGrid blockGrid:
+                        Debug.Log(IOUtils.ToJson(new {
+                            message = "Started watching block grid",
+                            grid = blockGrid.Parent.Transform.name
+                        }));
+
+                        break;
+                    case BlueprintGrid blueprintGrid:
+                        Debug.Log(IOUtils.ToJson(new {
+                            message = "Started watching blueprint grid"
+                        }));
+
+                        break;
+                }
+            }
+            
             if (totalsDictionary.ContainsKey(grid) && totalsDictionary[grid].ContainsKey(context)) {
                 throw new Exception("Grid with given context already being watched");
             }
@@ -26,14 +48,11 @@ namespace Exa.Grids {
             cache.Reset();
             cache.AddListeners();
 
-            totalsDictionary.EnsureCreated(
-                grid,
-                () => new Dictionary<BlockContext, TotalsCache> {
-                    {
-                        context, cache
-                    }
-                }
-            );
+            if (!totalsDictionary.ContainsKey(grid)) {
+                totalsDictionary.Add(grid, new Dictionary<BlockContext, TotalsCache>() {
+                    { context, cache }
+                });
+            }
 
             return cache.totals;
         }

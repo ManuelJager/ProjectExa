@@ -93,7 +93,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
         }
 
         public void RemoveGridTotals(GridTotals totals) {
-            totals.Metadata += BlueprintBlock.Template.metadata;
+            totals.Metadata -= BlueprintBlock.Template.metadata;
 
             foreach (var behaviour in GetBehaviours()) {
                 behaviour.BlockComponentData.RemoveGridTotals(totals);
