@@ -19,7 +19,7 @@ namespace Exa.Grids {
         }
 
         public GridTotals StartWatching(IMemberCollection grid, BlockContext context) {
-            if (DebugMode.Global.IsEnabled()) {
+            if (DebugMode.Ships.IsEnabled()) {
                 switch (grid) {
                     case BlockGrid blockGrid:
                         Debug.Log(IOUtils.ToJson(new {
@@ -28,7 +28,7 @@ namespace Exa.Grids {
                         }));
 
                         break;
-                    case BlueprintGrid blueprintGrid:
+                    case BlueprintGrid _:
                         Debug.Log(IOUtils.ToJson(new {
                             message = "Started watching blueprint grid"
                         }));
@@ -81,7 +81,7 @@ namespace Exa.Grids {
                 foreach (var (cacheContext, cache) in totalsDictionary
                     .SelectMany(blockContextDict => blockContextDict.Value.Unpack())
                 ) {
-                    if (cacheContext == context) {
+                    if ((cacheContext & context) == cacheContext) {
                         yield return cache;
                     }
                 }
