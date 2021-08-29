@@ -43,6 +43,15 @@ namespace Exa.Ships {
             }
         }
 
+        public void OnLook(InputAction.CallbackContext context) {
+            switch (context.phase) {
+                case InputActionPhase.Started:
+                    rotationController.SetTargetVector(S.Input.MouseWorldPoint);
+                    
+                    break;
+            }
+        }
+
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             base.Import(blueprint, blockContext, configuration);
             Overlay = GS.UI.gameplayLayer.coreHealthBar;

@@ -223,11 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e442b55f9f8690a4f84f8cca8e9f0779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  metadataView: {fileID: 6355928026916758900}
+  blockCostsView: {fileID: 6355928026916758900}
   massView: {fileID: 3590768861163363707}
   hullView: {fileID: 3834890491517039723}
   energyView: {fileID: 6035699777514013743}
-  turningPower: {fileID: 603468073177009649}
+  torque: {fileID: 603468073177009649}
 --- !u!1001 &426351121301943560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -399,7 +399,7 @@ PrefabInstance:
     - target: {fileID: 6372109433816541427, guid: 7d49f4aa77aebae418b6c289028d58ec,
         type: 3}
       propertyPath: m_Name
-      value: TurningPowerProperty
+      value: TorqueProperty
       objectReference: {fileID: 0}
     - target: {fileID: 6686136345054778047, guid: 7d49f4aa77aebae418b6c289028d58ec,
         type: 3}

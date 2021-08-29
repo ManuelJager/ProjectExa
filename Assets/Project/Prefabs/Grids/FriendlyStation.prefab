@@ -12,16 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd5925918061a948b2fadecad172f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot: {fileID: 6183172587043395870}
   gridAi: {fileID: 4972437827272540485}
   rb: {fileID: 1466252569320871234}
   mouseOverCollider: {fileID: 985683296314031610}
+  rotationController: {fileID: 316373630799923880}
   cursorOverride:
     value: 1
   debugFont: {fileID: 12800000, guid: e58ca1af91bfa2e44a621cdd32863aa0, type: 3}
-  ControllerDestroyedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4972437827272540485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,12 +152,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5743988287613530553}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6183172587043395870 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1907754239003912359, guid: c338b1f640f93a541a625245831a6e85,
-    type: 3}
-  m_PrefabInstance: {fileID: 5743988287613530553}
-  m_PrefabAsset: {fileID: 0}
 --- !u!58 &985683296314031610 stripped
 CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 4763514651900120131, guid: c338b1f640f93a541a625245831a6e85,
@@ -173,3 +164,15 @@ Rigidbody2D:
     type: 3}
   m_PrefabInstance: {fileID: 5743988287613530553}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &316373630799923880 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5464347176439397137, guid: c338b1f640f93a541a625245831a6e85,
+    type: 3}
+  m_PrefabInstance: {fileID: 5743988287613530553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183172587043395867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd260b1e3f304c2db6ce091ce48800e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

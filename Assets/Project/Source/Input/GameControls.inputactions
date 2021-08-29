@@ -922,6 +922,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Look",
+                    "type": "Button",
+                    "id": "0c0d7d47-2dfa-48fb-a4f0-c2744a18f3d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -933,6 +941,17 @@
                     "processors": "",
                     "groups": "MouseKb",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4439616f-255b-4222-9ecc-4dfbf9f157f1",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "MouseKb",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -446,7 +446,7 @@ LightingSettings:
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
-  m_PVRMinBounces: 1
+  m_PVRMinBounces: 2
   m_PVREnvironmentMIS: 0
   m_PVRFilteringMode: 2
   m_PVRDenoiserTypeDirect: 0
@@ -2852,7 +2852,7 @@ PrefabInstance:
     - target: {fileID: 5676475580568291460, guid: 29d1d30fcec04de40816d90ac6e32d7e,
         type: 3}
       propertyPath: debugMode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5676475580568291469, guid: 29d1d30fcec04de40816d90ac6e32d7e,
         type: 3}

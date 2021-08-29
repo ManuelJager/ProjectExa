@@ -33,12 +33,11 @@ MonoBehaviour:
       mass: 4
   stationControllerPartial:
     data:
-      powerGenerationModifier: 1.1
-      turningPowerModifier: 0.9
+      powerGeneration: 0.65
+      torque: 1000
   gaussCannonPartial:
     data:
       turningRate: 50
-      firingRate: 0
       turretArc: 360
       turretRadius: 3.4375
       damage: 250

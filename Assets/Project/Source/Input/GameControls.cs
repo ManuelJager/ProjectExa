@@ -937,6 +937,14 @@ namespace Exa.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c0d7d47-2dfa-48fb-a4f0-c2744a18f3d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -948,6 +956,17 @@ namespace Exa.Input
                     ""processors"": """",
                     ""groups"": ""MouseKb"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4439616f-255b-4222-9ecc-4dfbf9f157f1"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MouseKb"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1003,6 +1022,7 @@ namespace Exa.Input
             // PlayerStation
             m_PlayerStation = asset.FindActionMap("PlayerStation", throwIfNotFound: true);
             m_PlayerStation_Fire = m_PlayerStation.FindAction("Fire", throwIfNotFound: true);
+            m_PlayerStation_Look = m_PlayerStation.FindAction("Look", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1305,11 +1325,13 @@ namespace Exa.Input
         private readonly InputActionMap m_PlayerStation;
         private IPlayerStationActions m_PlayerStationActionsCallbackInterface;
         private readonly InputAction m_PlayerStation_Fire;
+        private readonly InputAction m_PlayerStation_Look;
         public struct PlayerStationActions
         {
             private @GameControls m_Wrapper;
             public PlayerStationActions(@GameControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Fire => m_Wrapper.m_PlayerStation_Fire;
+            public InputAction @Look => m_Wrapper.m_PlayerStation_Look;
             public InputActionMap Get() { return m_Wrapper.m_PlayerStation; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1322,6 +1344,9 @@ namespace Exa.Input
                     @Fire.started -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnFire;
                     @Fire.performed -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnFire;
                     @Fire.canceled -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnFire;
+                    @Look.started -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_PlayerStationActionsCallbackInterface.OnLook;
                 }
                 m_Wrapper.m_PlayerStationActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1329,6 +1354,9 @@ namespace Exa.Input
                     @Fire.started += instance.OnFire;
                     @Fire.performed += instance.OnFire;
                     @Fire.canceled += instance.OnFire;
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
                 }
             }
         }
@@ -1376,6 +1404,7 @@ namespace Exa.Input
         public interface IPlayerStationActions
         {
             void OnFire(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
         }
     }
 }

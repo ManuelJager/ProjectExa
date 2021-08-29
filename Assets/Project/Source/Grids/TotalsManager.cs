@@ -19,24 +19,6 @@ namespace Exa.Grids {
         }
 
         public GridTotals StartWatching(IMemberCollection grid, BlockContext context) {
-            if (DebugMode.Ships.IsEnabled()) {
-                switch (grid) {
-                    case BlockGrid blockGrid:
-                        Debug.Log(IOUtils.ToJson(new {
-                            message = "Started watching block grid",
-                            grid = blockGrid.Parent.Transform.name
-                        }));
-
-                        break;
-                    case BlueprintGrid _:
-                        Debug.Log(IOUtils.ToJson(new {
-                            message = "Started watching blueprint grid"
-                        }));
-
-                        break;
-                }
-            }
-            
             if (totalsDictionary.ContainsKey(grid) && totalsDictionary[grid].ContainsKey(context)) {
                 throw new Exception("Grid with given context already being watched");
             }
@@ -49,7 +31,7 @@ namespace Exa.Grids {
             cache.AddListeners();
 
             if (!totalsDictionary.ContainsKey(grid)) {
-                totalsDictionary.Add(grid, new Dictionary<BlockContext, TotalsCache>() {
+                totalsDictionary.Add(grid, new Dictionary<BlockContext, TotalsCache> {
                     { context, cache }
                 });
             }

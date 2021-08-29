@@ -44,59 +44,59 @@ namespace Exa {
         [SerializeField] private bool loadSafe;
 
         public static BlockFactory Blocks {
-            get => Instance.blockFactory;
+            get => Instance?.blockFactory;
         }
 
         public static CameraController CameraController {
-            get => Instance.cameraController;
+            get => Instance?.cameraController;
         }
 
         public static ColorManager Colors {
-            get => Instance.colorManager;
+            get => Instance?.colorManager;
         }
 
         public static ResearchStore Research {
-            get => Instance.researchStore;
+            get => Instance?.researchStore;
         }
 
         public static BlueprintManager Blueprints {
-            get => Instance.blueprintManager;
+            get => Instance?.blueprintManager;
         }
 
         public static GridEditor Editor {
-            get => Instance.gridEditor;
+            get => Instance?.gridEditor;
         }
 
         public static AudioManager Audio {
-            get => Instance.audioManager;
+            get => Instance?.audioManager;
         }
 
         public static ThumbnailGenerator Thumbnails {
-            get => Instance.thumbnailGenerator;
+            get => Instance?.thumbnailGenerator;
         }
 
         public static DebugManager Debug {
-            get => Instance.debugManager;
+            get => Instance?.debugManager;
         }
 
         public static InputManager Input {
-            get => Instance.inputManager;
+            get => Instance?.inputManager;
         }
 
         public static SettingsManager Settings {
-            get => Instance.settingsManager;
+            get => Instance?.settingsManager;
         }
 
         public static ExaSceneManager Scenes {
-            get => Instance.sceneManager;
+            get => Instance?.sceneManager;
         }
 
         public static LoggerInterceptor Logger {
-            get => Instance.logger;
+            get => Instance?.logger;
         }
 
         public static MainUI UI {
-            get => Instance.mainUI;
+            get => Instance?.mainUI;
         }
 
         public static bool GodModeIsEnabled {

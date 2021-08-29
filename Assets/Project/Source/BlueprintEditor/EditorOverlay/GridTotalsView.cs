@@ -13,7 +13,7 @@ namespace Exa.ShipEditor {
         [SerializeField] private PropertyView massView;
         [SerializeField] private PropertyView hullView;
         [SerializeField] private PropertyView energyView;
-        [SerializeField] private PropertyView turningPower;
+        [SerializeField] private PropertyView torque;
 
         public void Update() {
             var totals = S.Editor.ActiveBlueprintTotals;
@@ -28,7 +28,7 @@ namespace Exa.ShipEditor {
             massView.SetValue($"{totals.Mass:0} Tonne");
             hullView.SetValue($"{totals.Hull:0}");
             energyView.SetValue($"{totals.UnscaledPowerGeneration:0}");
-            turningPower.SetValue($"{totals.UnscaledTurningPower:0}");
+            torque.SetValue($"{totals.UnscaledTorque:0}");
         }
     }
 }

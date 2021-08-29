@@ -34,4 +34,4 @@ MonoBehaviour:
       mass: 1
   gyroscopePartial:
     data:
-      turningPower: 15
+      torque: 400

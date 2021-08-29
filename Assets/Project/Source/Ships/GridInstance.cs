@@ -10,6 +10,7 @@ using Exa.Grids.Blocks.BlockTypes;
 using Exa.Grids.Blocks.Components;
 using Exa.Grids.Blueprints;
 using Exa.Math;
+using Exa.Ships.Rotation;
 using Exa.Types.Generics;
 using Exa.UI;
 using Exa.UI.Tooltips;
@@ -24,6 +25,7 @@ namespace Exa.Ships {
         [SerializeField] private GridAi gridAi;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private CircleCollider2D mouseOverCollider;
+        [SerializeField] protected RotationController rotationController;
 
         [Header("Settings")]
         [SerializeField] private ValueOverride<CursorState> cursorOverride;
@@ -143,6 +145,10 @@ namespace Exa.Ships {
 
         public virtual void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             BlockGrid = new BlockGrid(this);
+            
+            GridTotals().UnscaledTorqueChanged += rotationController.SetMaxTorque;
+            rotationController.SetMaxTorque(GridTotals().UnscaledTorque);
+            
             Configuration = configuration;
             ActionScheduler = new ActionScheduler(this);
             Active = true;
