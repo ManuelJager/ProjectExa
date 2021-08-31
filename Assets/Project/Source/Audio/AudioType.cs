@@ -3,14 +3,8 @@
 namespace Exa.Audio {
     [Flags]
     public enum AudioType {
-        /// <summary>
-        ///     Defines a soundtrack audio type
-        /// </summary>
-        ST = 1 << 0,
-
-        /// <summary>
-        ///     Defines a soundtrack audio type
-        /// </summary>
-        UI_SFX = 1 << 1
+        Soundtrack = 1 << 0,
+        InterfaceSFX = 1 << 1,
+        GameplaySFX = 1 << 2,
     }
 }

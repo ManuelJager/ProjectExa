@@ -83,7 +83,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1792497010058463426}
   - component: {fileID: 3123830650505063154}
-  - component: {fileID: 6541160198654604926}
   - component: {fileID: 7231465176129703473}
   - component: {fileID: 8839323852490801902}
   m_Layer: 5
@@ -122,37 +121,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819854040440497804}
   m_CullTransparentMesh: 1
---- !u!114 &6541160198654604926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819854040440497804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d06e1cd33074c5daca1981ae29d4034, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9ed5f14807d0abb46b875225c7dcb3d2, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
-  skew: {x: 20, y: 0}
 --- !u!114 &7231465176129703473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +327,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8056503318451917968}
   - component: {fileID: 1951839170423585735}
-  - component: {fileID: 5152396634740871300}
   - component: {fileID: 8791313247360601109}
   - component: {fileID: 3618154509612254057}
   m_Layer: 5
@@ -398,37 +365,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2702235182511106016}
   m_CullTransparentMesh: 1
---- !u!114 &5152396634740871300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2702235182511106016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d06e1cd33074c5daca1981ae29d4034, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9ed5f14807d0abb46b875225c7dcb3d2, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
-  skew: {x: 20, y: 0}
 --- !u!114 &8791313247360601109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,7 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.19607843, a: 1}
+  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

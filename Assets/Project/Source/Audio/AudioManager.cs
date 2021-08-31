@@ -53,8 +53,8 @@ namespace Exa.Audio {
 
         private AudioPlayerGroup GetTrack(AudioType audioType) {
             return audioType switch {
-                AudioType.ST => ST_AudioTrack,
-                AudioType.UI_SFX => UI_SFX_AudioTrack,
+                AudioType.Soundtrack => ST_AudioTrack,
+                AudioType.InterfaceSFX => UI_SFX_AudioTrack,
                 _ => throw new ArgumentException("Invalid audioType given", nameof(audioType))
             };
         }

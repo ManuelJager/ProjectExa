@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7e654be5f38614388626bb325fb1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuTransitionOut: {fileID: 11400000, guid: 39f12b02ccd77de41825bf98b2a7159c, type: 2}
   audioPlayer: {fileID: 8625900837292856731}
   gridEditor: {fileID: 1617958063522696134}
 --- !u!114 &9133893927100921210

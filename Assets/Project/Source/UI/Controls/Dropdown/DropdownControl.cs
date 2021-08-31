@@ -12,8 +12,13 @@ using UnityEngine.UI;
 namespace Exa.UI.Controls {
     [Serializable]
     public class DropdownControl : InputControl<object> {
-        [SerializeField] private Text selectedText;
+        [Header("References")]
+        [SerializeField] private Sound buttonSelectPositive;
+        [SerializeField] private Sound buttonSelectNegative;
         [SerializeField] private GlobalAudioPlayerProxy playerProxy;
+        
+        [Space]
+        [SerializeField] private Text selectedText;
         [SerializeField] private UIFlip tabArrow;
         [SerializeField] private Button button;
         [SerializeField] private RectTransform selectedTab;
@@ -21,6 +26,7 @@ namespace Exa.UI.Controls {
         [SerializeField] private GameObject tabPrefab;
         [SerializeField] private InputAction clickAction;
 
+        [Space]
         [SerializeField] private DropdownTabSelected onValueChange = new DropdownTabSelected();
 
         private bool isFoldedOpen;
@@ -53,7 +59,7 @@ namespace Exa.UI.Controls {
 
                 tabContainer.gameObject.SetActive(value);
                 tabArrow.vertical = value;
-                playerProxy.Play(value ? "UI_SFX_ButtonSelectPositive" : "UI_SFX_ButtonSelectNegative");
+                playerProxy.Play(value ? buttonSelectPositive : buttonSelectNegative);
             }
         }
 

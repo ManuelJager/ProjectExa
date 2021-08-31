@@ -14,7 +14,7 @@ namespace Exa.Audio.Music {
         }
 
         public AudioType AudioType {
-            get => AudioType.ST;
+            get => AudioType.Soundtrack;
         }
 
         public string Id { get; }

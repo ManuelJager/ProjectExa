@@ -61,8 +61,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   labelText: {fileID: 6665540959298001051}
-  selectedText: {fileID: 7791772207032264622}
+  buttonSelectPositive: {fileID: 11400000, guid: 9aae5c7b23a755e4d93b870b00a802ed,
+    type: 2}
+  buttonSelectNegative: {fileID: 11400000, guid: bdaa7c8727d197444a1b1e9662639ac3,
+    type: 2}
   playerProxy: {fileID: 8619676640294347819}
+  selectedText: {fileID: 7791772207032264622}
   tabArrow: {fileID: 7658791969648165921}
   button: {fileID: 3225811572161413474}
   selectedTab: {fileID: 2604008715579885882}
@@ -510,6 +514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -605,12 +610,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8619676640294347819}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: Exa.Audio.GlobalAudioPlayerProxy, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: b48159f68624a6f4785ccc1ca593a456,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Exa.Audio.Sound, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: UI_SFX_ButtonHover

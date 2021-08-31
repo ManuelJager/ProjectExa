@@ -9,6 +9,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 namespace Exa.UI.Components {
     public class ReturnNavigateable : Navigateable, IReturnNavigateableActions {
+        [SerializeField] private Sound menuTransitionOut;
         [SerializeField] private GlobalAudioPlayerProxy audioPlayer;
         private GameControls gameControls;
         private Navigateable returnTarget;
@@ -47,7 +48,7 @@ namespace Exa.UI.Components {
                 return;
             }
 
-            audioPlayer.Play("UI_SFX_MenuTransitionOut");
+            audioPlayer.Play(menuTransitionOut);
 
             NavigateTo(
                 returnTarget,
