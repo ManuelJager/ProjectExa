@@ -12,7 +12,7 @@ namespace Exa.Audio {
         [SerializeField] private AudioMixerGroup audioMixerGroup;
 
         // Stores a handle group for the currently playing sounds of the given id
-        protected SoundHandleGroupDictionary handleGroups = new SoundHandleGroupDictionary();
+        protected SoundHandleGroupDictionary handles = new SoundHandleGroupDictionary();
 
         // Stores an audio source for sound on the track
         protected Dictionary<string, AudioSource> players = new Dictionary<string, AudioSource>();
@@ -29,25 +29,12 @@ namespace Exa.Audio {
             }
         }
 
-        public void RegisterHandle(SoundHandle handle) {
-            // Remove the handle for the sound after finishing playing
-            var endRoutine = WaitForSoundEnd(handle).Start();
-
-            handle.onStop.AddListener(
-                () => {
-                    handleGroups.Remove(handle);
-                    handle.onEnd.Invoke();
-                    StopCoroutine(endRoutine);
-                }
-            );
-
-            handleGroups.Add(handle);
+        public void RegisterHandle(SoundHandle soundHandle) {
+            soundHandle.RegisterHandle(handles);
         }
 
         public void StopAllSounds() {
-            foreach (var group in handleGroups.Handles) {
-                group.Stop();
-            }
+            handles.Stop();
         }
 
         /// <summary>
@@ -74,13 +61,13 @@ namespace Exa.Audio {
             var source = go.AddComponent<AudioSource>();
             source.outputAudioMixerGroup = audioMixerGroup;
             players[sound.Id] = source;
-            handleGroups.RegisterGroup(sound.Id);
+            handles.RegisterGroup(sound.Id);
         }
 
         public void Clear() {
             players.Values.ForEach(player => player.gameObject.Destroy());
             players.Clear();
-            handleGroups.Clear();
+            handles.Clear();
         }
 
         /// <summary>
@@ -91,29 +78,10 @@ namespace Exa.Audio {
         private SoundHandle GetGlobalHandle(ISound sound) {
             var source = players[sound.Id];
 
-            var handle = new SoundHandle {
+            return new SoundHandle {
                 audioSource = source,
                 sound = sound
             };
-
-            return handle;
-        }
-
-        /// <summary>
-        ///     Waits for a sound to end,
-        ///     assumes a sound
-        /// </summary>
-        /// <param name="handle"></param>
-        /// <returns></returns>
-        private IEnumerator WaitForSoundEnd(SoundHandle handle) {
-            // Wait for the sound to play
-            yield return new WaitForSeconds(handle.sound.AudioClip.length - handle.audioSource.time);
-
-            // Remove context from currently playing sounds
-            handleGroups.Remove(handle);
-
-            // Invoke the on end callback on the sound handle
-            handle.onEnd?.Invoke();
         }
     }
 }

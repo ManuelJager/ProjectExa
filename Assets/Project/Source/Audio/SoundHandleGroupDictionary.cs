@@ -20,6 +20,12 @@ namespace Exa.Audio {
             dict[id] = new SoundHandleGroup();
         }
 
+        public void Stop() {
+            foreach (var group in Handles) {
+                group.Stop();
+            }
+        }
+
         public void Clear() {
             dict.Clear();
         }

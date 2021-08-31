@@ -28,33 +28,20 @@ namespace Exa.Audio {
             defaultTrigger.gameObject.SetActive(true);
         }
 
-        /// <summary>
-        ///     Play a sound with the given id
-        /// </summary>
-        /// <param name="soundId"></param>
-        public void PlayGlobal(string soundId) {
-            if (!soundById.ContainsKey(soundId)) {
-                Debug.LogError($"{soundId} doesn't exist");
-
-                return;
-            }
-
-            PlayGlobal(soundById[soundId]);
-        }
-
         public void PlayGlobal(Sound sound) {
             GetTrack(sound.AudioType).PlayGlobal(sound);
         }
 
         public void Register(Sound sound) {
             soundById[sound.Id] = sound;
-            GetTrack(sound.AudioType).Register(sound);
+            GetTrack(sound.AudioType)?.Register(sound);
         }
 
         private AudioPlayerGroup GetTrack(AudioType audioType) {
             return audioType switch {
                 AudioType.Soundtrack => ST_AudioTrack,
                 AudioType.InterfaceSFX => UI_SFX_AudioTrack,
+                AudioType.GameplaySFX => null,
                 _ => throw new ArgumentException("Invalid audioType given", nameof(audioType))
             };
         }

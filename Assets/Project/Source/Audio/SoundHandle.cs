@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Exa.Utils;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Exa.Audio {
@@ -44,6 +46,38 @@ namespace Exa.Audio {
         public void Stop() {
             onStop?.Invoke();
             audioSource.Stop();
+        }
+        
+        public void RegisterHandle(SoundHandleGroupDictionary handles) {
+            // Remove the handle for the sound after finishing playing
+            var endRoutine = WaitForSoundEnd(handles).Start();
+
+            onStop.AddListener(
+                () => {
+                    handles.Remove(this);
+                    onEnd.Invoke();
+                    S.Audio.StopCoroutine(endRoutine);
+                }
+            );
+
+            handles.Add(this);
+        }
+        
+        /// <summary>
+        ///     Waits for a sound to end,
+        ///     assumes a sound
+        /// </summary>
+        /// <param name="handles"></param>
+        /// <returns></returns>
+        public IEnumerator WaitForSoundEnd(SoundHandleGroupDictionary handles) {
+            // Wait for the sound to play
+            yield return new WaitForSeconds(sound.AudioClip.length - audioSource.time);
+
+            // Remove context from currently playing sounds
+            handles.Remove(this);
+
+            // Invoke the on end callback on the sound handle
+            onEnd?.Invoke();
         }
     }
 }
