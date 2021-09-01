@@ -23,7 +23,7 @@ namespace Exa.Audio {
         public UnityEvent onStop = new UnityEvent();
         public ISound sound;
 
-        public void Play(ITrackContext playableContext) {
+        public void Play(ITrackContext playableContext, float progress) {
             context = playableContext;
 
             if (!sound.Config.allowMultipleOfType) {
@@ -35,6 +35,7 @@ namespace Exa.Audio {
             } else {
                 audioSource.clip = sound.AudioClip;
                 audioSource.volume = sound.Config.volume;
+                audioSource.time = progress * sound.AudioClip.length;
                 audioSource.Play();
             }
 

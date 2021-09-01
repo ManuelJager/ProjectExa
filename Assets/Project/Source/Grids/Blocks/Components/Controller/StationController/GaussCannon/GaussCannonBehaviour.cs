@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Exa.Audio;
 using Exa.Math;
 using Exa.Utils;
 using Exa.VFX;
@@ -17,6 +18,7 @@ namespace Exa.Grids.Blocks.Components {
         [Header("References")]
         [SerializeField] private Animator coilAnimator;
         [SerializeField] private Animator gunOverlayAnimator;
+        [SerializeField] private LocalAudioPlayerProxy audioPlayer;
         [SerializeField] private Transform beamOrigin;
         [SerializeField] private GaussCannonArcs arcs;
         [SerializeField] private LineRenderer lineRenderer;
@@ -49,11 +51,13 @@ namespace Exa.Grids.Blocks.Components {
             base.BlockUpdate();
 
             if (prevChargeTime != chargeTime) {
-                arcs.SetChargeProgress(GetNormalizedChargeProgress());
+                arcs.SetChargeProgress(GetNormalizedChargeProgress(), charging);
             } 
         }
 
         public override void Fire() {
+            arcs.Reset();
+            
             var endPoint = HitScanFire(Data.damage, Data.Range, beamOrigin);
 
             lineRenderer.SetPosition(0, beamOrigin.position.SetZ(-0.2f));

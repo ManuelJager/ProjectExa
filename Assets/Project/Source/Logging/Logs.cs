@@ -27,6 +27,10 @@ namespace Exa.Logging {
             LogImpl(LogType.Log, message, ctx);
         }
 
+        public static void LogObj(object obj) {
+            LogImpl(LogType.Log, IOUtils.ToJson(obj));
+        }
+
         public static void Warn(string message) {
             LogImpl(LogType.Warning, message);
         }

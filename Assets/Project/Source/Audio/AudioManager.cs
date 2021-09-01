@@ -28,8 +28,8 @@ namespace Exa.Audio {
             defaultTrigger.gameObject.SetActive(true);
         }
 
-        public void PlayGlobal(Sound sound) {
-            GetTrack(sound.AudioType).PlayGlobal(sound);
+        public void PlayGlobal(Sound sound, float progress = 0f) {
+            GetTrack(sound.AudioType).PlayGlobal(sound, progress);
         }
 
         public void Register(Sound sound) {

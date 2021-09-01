@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+using Exa.Types.Generics;
+using UnityEditor;
 using UnityEngine;
 
 namespace Exa.Audio {
     public class LocalAudioPlayerProxy : MonoBehaviour, ITrackContext {
-        private Dictionary<string, AudioSource> players;
+        [SerializeField] private SerializableDictionary<Sound, AudioSource> players;
         private SoundHandleGroupDictionary handles;
 
         public SoundHandleGroupDictionary Handles {
@@ -11,21 +12,20 @@ namespace Exa.Audio {
         }
         
         private void Awake() {
-            players = new Dictionary<string, AudioSource>();
             handles = new SoundHandleGroupDictionary();
+
+            foreach (var sound in players.Keys) {
+                handles.RegisterGroup(sound.Id);
+            }
         }
         
-        public SoundHandle Play(Sound sound) {
-            if (!players.ContainsKey(sound.Id)) {
-                players[sound.Id] = gameObject.AddComponent<AudioSource>();
-            }
-
+        public SoundHandle Play(Sound sound, float progress = 0f) {
             var handler = new SoundHandle {
                 sound = sound,
-                audioSource = players[sound.Id]
+                audioSource = players[sound]
             };
             
-            handler.Play(this);
+            handler.Play(this, progress);
 
             return handler;
         }
@@ -35,7 +35,25 @@ namespace Exa.Audio {
         }
 
         public void StopAllSounds() {
-            throw new System.NotImplementedException();
+            handles.Stop();
         }
+        
+    #if UNITY_EDITOR
+        [ContextMenu(nameof(GenerateAudioSources))]
+        public void GenerateAudioSources() {
+            foreach (var sound in players.Keys) {
+                var player = players[sound];
+                
+                if (player == null) {
+                    player = gameObject.AddComponent<AudioSource>();
+                    players[sound] = player;
+                }
+
+                player.clip = sound.AudioClip;
+            }
+            
+            EditorUtility.SetDirty(gameObject);
+        }    
+    #endif
     }
 }

@@ -41,12 +41,13 @@ namespace Exa.Audio {
         ///     Plays an audio object on this track
         /// </summary>
         /// <param name="sound">Audio object to be played</param>
-        public SoundHandle PlayGlobal(ISound sound) {
+        /// <param name="progress">Progress</param>
+        public SoundHandle PlayGlobal(ISound sound, float progress = 0f) {
             // Get a handle for the sound, play it, and add it to the collection
             var handle = GetGlobalHandle(sound);
 
             // Return the handle to the caller
-            handle.Play(this);
+            handle.Play(this, progress);
 
             return handle;
         }
