@@ -6,12 +6,28 @@ namespace Exa.Grids.Blocks.Components {
         where T : struct, IChargeableTurretValues {
         [Header("Settings")]
         [SerializeField] protected float chargeDecaySpeed = 4f;
+        [SerializeField] protected float coolingDownChargeDecaySpeed = 12f;
+        
         protected float chargeTime;
         protected bool charging;
+        protected float remainingCooldownTime;
 
-        public abstract bool CanResumeCharge { get; }
+        protected abstract bool CanResumeCharge { get; }
+        protected abstract float GetCooldownTime { get; }
+
+        protected bool IsCoolingDown {
+            get => remainingCooldownTime > 0f;
+        }
+
+        public override void Fire() {
+            remainingCooldownTime = GetCooldownTime;
+        }
 
         public virtual void StartCharge() {
+            if (IsCoolingDown) {
+                return;
+            }
+            
             charging = true;
 
             if (!CanResumeCharge) {
@@ -34,6 +50,9 @@ namespace Exa.Grids.Blocks.Components {
                     chargeTime = Data.ChargeTime;
                     Fire();
                 }
+            } else if (IsCoolingDown) {
+                chargeTime -= Time.deltaTime * coolingDownChargeDecaySpeed;
+                remainingCooldownTime -= Time.deltaTime;
             } else {
                 chargeTime -= Time.deltaTime * chargeDecaySpeed;
             }

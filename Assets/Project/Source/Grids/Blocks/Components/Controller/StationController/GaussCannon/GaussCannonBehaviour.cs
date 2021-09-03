@@ -43,11 +43,19 @@ namespace Exa.Grids.Blocks.Components {
         
         private int prevCoilStep = -1;
 
-        public override bool CanResumeCharge {
+        protected override bool CanResumeCharge {
             get => true;
         }
 
+        protected override float GetCooldownTime {
+            get => data.chargeTime * 2f;
+        }
+
         public override void StartCharge() {
+            if (IsCoolingDown) {
+                return;
+            }
+            
             base.StartCharge();
             
             var pos = GetNormalizedChargeProgress();
@@ -59,6 +67,10 @@ namespace Exa.Grids.Blocks.Components {
         }
 
         public override void EndCharge() {
+            if (IsCoolingDown) {
+                return;
+            }
+            
             if (charging) {
                 var pos = 1f - GetNormalizedChargeProgress();
                 coilAnimator.Play(CancelCharge, 0, pos);
@@ -103,6 +115,8 @@ namespace Exa.Grids.Blocks.Components {
         }
 
         public override void Fire() {
+            base.Fire();
+            
             prevCoilStep = -1;
             arcs.Reset();
 
