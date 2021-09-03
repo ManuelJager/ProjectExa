@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09514ecf28b230a408a213dce317ddb0, type: 3}
   m_Name: WindDown
   m_EditorClassIdentifier: 
-  id: 
+  id: GaussCannonWindDown
   audioType: 0
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 251c3c2a8770e4647a5b70e41ac4355c, type: 3}
   soundConfig:
     volume: 1
     pitch: 1
     allowMultipleOfType: 1
-    oneShot: 1
+    oneShot: 0
