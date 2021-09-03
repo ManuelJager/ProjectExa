@@ -30,7 +30,7 @@ namespace Exa.Audio {
                 context.StopAllSounds();
             }
 
-            if (sound.Config.allowMultipleOfType) {
+            if (sound.Config.oneShot) {
                 audioSource.PlayOneShot(sound.AudioClip, sound.Config.volume);
             } else {
                 audioSource.clip = sound.AudioClip;
@@ -51,7 +51,7 @@ namespace Exa.Audio {
         
         public void RegisterHandle(SoundHandleGroupDictionary handles) {
             // Remove the handle for the sound after finishing playing
-            var endRoutine = WaitForSoundEnd(handles).Start();
+            var endRoutine = WaitForSoundEnd(handles).Start(S.Audio);
 
             onStop.AddListener(
                 () => {

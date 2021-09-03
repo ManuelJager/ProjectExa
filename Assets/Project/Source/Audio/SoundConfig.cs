@@ -5,7 +5,7 @@ namespace Exa.Audio {
     public class SoundConfig {
         public float volume = 1f;
         public float pitch = 1f;
-        public bool allowMultipleOfType;
-        public bool allowMultipleOnTrack = true;
+        public bool allowMultipleOfType = true;
+        public bool oneShot = true;
     }
 }

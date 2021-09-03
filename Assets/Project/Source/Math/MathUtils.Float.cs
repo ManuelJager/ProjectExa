@@ -15,5 +15,9 @@ namespace Exa.Math {
 
             return Mathf.FloorToInt(value / mod);
         }
+        
+        public static int DivRem(this float value, float mod) {
+            return Mathf.FloorToInt(value / mod);
+        }
     }
 }

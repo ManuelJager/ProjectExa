@@ -18,5 +18,5 @@ MonoBehaviour:
   soundConfig:
     volume: 1
     pitch: 1
-    allowMultipleOfType: 0
-    allowMultipleOnTrack: 1
+    allowMultipleOfType: 1
+    oneShot: 0

@@ -1,10 +1,11 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Exa.Audio;
 using Exa.Math;
+using Exa.UI.Tweening;
 using Exa.Utils;
 using Exa.VFX;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 #pragma warning disable 649
 
@@ -14,14 +15,33 @@ namespace Exa.Grids.Blocks.Components {
         private static readonly int CancelCharge = Animator.StringToHash("CancelCharge");
         private static readonly int ChargeDecaySpeed = Animator.StringToHash("ChargeDecaySpeed");
         private static readonly int ChargeSpeed = Animator.StringToHash("ChargeSpeed");
+        
+        public static readonly float StepSize = 1f / 3f;
        
         [Header("References")]
         [SerializeField] private Animator coilAnimator;
         [SerializeField] private Animator gunOverlayAnimator;
-        [SerializeField] private LocalAudioPlayerProxy audioPlayer;
         [SerializeField] private Transform beamOrigin;
         [SerializeField] private GaussCannonArcs arcs;
         [SerializeField] private LineRenderer lineRenderer;
+        
+        [Header("Audio")]
+        [SerializeField] private LocalAudioPlayerProxy audioPlayer;
+        [SerializeField] private Sound charge;
+        [SerializeField] private Sound coilCharge1;
+        [SerializeField] private Sound coilCharge2;
+        [SerializeField] private Sound coilCharge3;
+        [SerializeField] private Sound electricityLoop;
+        [SerializeField] private Sound fire;
+        [SerializeField] private Sound windDown;
+
+        [Header("Settings")]
+        [SerializeField] private ExaEase progressToElectricityVolume;
+        
+        private SoundHandle fireSoundHandle;
+        private SoundHandle electricityLoopHandle;
+        
+        private int prevCoilStep = -1;
 
         public override bool CanResumeCharge {
             get => true;
@@ -29,10 +49,13 @@ namespace Exa.Grids.Blocks.Components {
 
         public override void StartCharge() {
             base.StartCharge();
-
+            
             var pos = GetNormalizedChargeProgress();
             coilAnimator.Play(Charge, 0, pos);
             gunOverlayAnimator.Play(Charge, 0, pos);
+            
+            fireSoundHandle = audioPlayer.Play(charge, pos);
+            electricityLoopHandle = audioPlayer.Play(electricityLoop, pos);
         }
 
         public override void EndCharge() {
@@ -40,7 +63,12 @@ namespace Exa.Grids.Blocks.Components {
                 var pos = 1f - GetNormalizedChargeProgress();
                 coilAnimator.Play(CancelCharge, 0, pos);
                 gunOverlayAnimator.Play(CancelCharge, 0, pos);
+                
+                fireSoundHandle?.Stop();
+                fireSoundHandle = null;
             }
+
+            audioPlayer.Play(windDown);
 
             base.EndCharge();
         }
@@ -51,12 +79,34 @@ namespace Exa.Grids.Blocks.Components {
             base.BlockUpdate();
 
             if (prevChargeTime != chargeTime) {
-                arcs.SetChargeProgress(GetNormalizedChargeProgress(), charging);
+                var progress = GetNormalizedChargeProgress();
+                
+                HandleSound(progress);
+
+                if (electricityLoopHandle != null) {
+                    electricityLoopHandle.audioSource.volume = progressToElectricityVolume.Evaluate(progress);
+                }
+
+                // Reset coil step and arcs when reaching 0 charge progress
+                if (progress == 0f) {
+                    prevCoilStep = -1;
+                    arcs.Reset();
+                    
+                    if (!charging) {
+                        electricityLoopHandle?.Stop();
+                        electricityLoopHandle = null;
+                    }
+                }
+                
+                arcs.SetChargeProgress(progress);
             } 
         }
 
         public override void Fire() {
+            prevCoilStep = -1;
             arcs.Reset();
+
+            audioPlayer.Play(fire);
             
             var endPoint = HitScanFire(Data.damage, Data.Range, beamOrigin);
 
@@ -80,6 +130,23 @@ namespace Exa.Grids.Blocks.Components {
             gunOverlayAnimator.SetFloat(ChargeDecaySpeed, chargeSpeed * chargeDecaySpeed);
 
             arcs.RandomizeMaterials();
+        }
+
+        private void HandleSound(float progress) {
+            var coilStep = progress.DivRem(1f / 3f);
+            
+            if (charging && prevCoilStep < coilStep) {
+                var sound = coilStep switch {
+                    0 => coilCharge1,
+                    1 => coilCharge2,
+                    2 => coilCharge3,
+                    _ => throw new ArgumentException("Invalid coilStep", nameof(coilStep))
+                };
+
+                audioPlayer.Play(sound);
+            }
+
+            prevCoilStep = coilStep;
         }
     }
 }

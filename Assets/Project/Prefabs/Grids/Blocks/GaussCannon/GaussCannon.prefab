@@ -60,10 +60,44 @@ MonoBehaviour:
   chargeDecaySpeed: 4
   coilAnimator: {fileID: 3807540685108769277}
   gunOverlayAnimator: {fileID: 5122118237215007916}
-  audioPlayer: {fileID: 3686884718047198672}
   beamOrigin: {fileID: 6574230540406159965}
   arcs: {fileID: 8196826969012918710}
   lineRenderer: {fileID: 7853267247228533205}
+  audioPlayer: {fileID: 3686884718047198672}
+  charge: {fileID: 11400000, guid: 687fb5b53dd0d0540b6e31e1ed526cf0, type: 2}
+  coilCharge1: {fileID: 11400000, guid: b2c5fea277a39af439d7225265978b77, type: 2}
+  coilCharge2: {fileID: 11400000, guid: 007c59ddcff68c9448a5fea18f5ae1be, type: 2}
+  coilCharge3: {fileID: 11400000, guid: 32a0f80093c784b45be7c63035e0d9b8, type: 2}
+  electricityLoop: {fileID: 11400000, guid: 1e8fa8ee2823722409fd3ff24400d43b, type: 2}
+  fire: {fileID: 11400000, guid: b91b8e6ae16a632459f1f81a1fbca2b4, type: 2}
+  windDown: {fileID: 11400000, guid: d871658efd5fd8143ac6104f254bf474, type: 2}
+  progressToElectricityVolume:
+    easeType: 1
+    ease: 0
+    animationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 5.9744997
+        outSlope: 5.9744997
+        tangentMode: 0
+        weightedMode: 2
+        inWeight: 0
+        outWeight: 0.06443655
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: -0
+        outSlope: -0
+        tangentMode: 0
+        weightedMode: 1
+        inWeight: 1
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
 --- !u!95 &5122118237215007916
 Animator:
   serializedVersion: 3
@@ -99,6 +133,7 @@ GameObject:
   - component: {fileID: 868660976539541843}
   - component: {fileID: 4673373303405883605}
   - component: {fileID: 4065493416276577887}
+  - component: {fileID: 1860589775376111719}
   m_Layer: 9
   m_Name: Audio
   m_TagString: Untagged
@@ -146,6 +181,8 @@ MonoBehaviour:
       value: {fileID: 4673373303405883605}
     - key: {fileID: 11400000, guid: b91b8e6ae16a632459f1f81a1fbca2b4, type: 2}
       value: {fileID: 4065493416276577887}
+    - key: {fileID: 11400000, guid: d871658efd5fd8143ac6104f254bf474, type: 2}
+      value: {fileID: 1860589775376111719}
 --- !u!82 &1234271144477445189
 AudioSource:
   m_ObjectHideFlags: 0
@@ -722,6 +759,102 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!82 &1860589775376111719
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4624239260831333735}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: de166871044c05a4381550c7c322a3f0, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &3217081780728070486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -791,6 +924,11 @@ PrefabInstance:
       objectReference: {fileID: 3686884718047198672}
     - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}
+      propertyPath: progressCurve.easeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
       propertyPath: coilChargeSoundByStep.list.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -829,6 +967,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}
+      propertyPath: progressCurve.animationCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
       propertyPath: progressMap.animationCurve.m_Curve.Array.data[1].time
       value: 1
       objectReference: {fileID: 0}
@@ -841,6 +984,16 @@ PrefabInstance:
         type: 3}
       propertyPath: progressMap.animationCurve.m_Curve.Array.data[3].value
       value: 1.0023575
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: progressCurve.animationCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: progressCurve.animationCurve.m_Curve.Array.data[1].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}
@@ -874,6 +1027,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}
+      propertyPath: progressCurve.animationCurve.m_Curve.Array.data[0].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
       propertyPath: progressMap.animationCurve.m_Curve.Array.data[0].outWeight
       value: 0
       objectReference: {fileID: 0}
@@ -881,6 +1039,11 @@ PrefabInstance:
         type: 3}
       propertyPath: progressMap.animationCurve.m_Curve.Array.data[1].outWeight
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
+        type: 3}
+      propertyPath: progressCurve.animationCurve.m_Curve.Array.data[0].outSlope
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6729965979070552288, guid: bd951fd94ddb35e47a065e1ea51cd926,
         type: 3}

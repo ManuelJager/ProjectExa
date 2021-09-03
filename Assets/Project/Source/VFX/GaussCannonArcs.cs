@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Exa.Audio;
 using Exa.Data;
+using Exa.Grids.Blocks.Components;
 using Exa.Logging;
 using Exa.Math;
 using Exa.Types.Generics;
@@ -20,29 +21,18 @@ namespace Exa.VFX {
     public class GaussCannonArcs : MonoBehaviour {
         private static readonly int NoiseOffsetID = Shader.PropertyToID("_NoiseOffset");
         private static readonly int FlickeringOffsetID = Shader.PropertyToID("_FlickeringOffset");
-        private static readonly float StepSize = 1f / 3f;
 
-        [Header("References")]
-        [SerializeField] private SerializableDictionary<int, Sound> coilChargeSoundByStep;
-        [SerializeField] private LocalAudioPlayerProxy audioPlayer;
-        
         [Header("Arc settings")]
-        [SerializeField] private ExaEase progressMap;
+        [SerializeField] private ExaEase progressCurve;
         [SerializeField] private int arcCount;
         [SerializeField] private float arcDistance;
         [SerializeField] private GameObject arcPrefab;
         [SerializeField] private List<GameObject> arcs;
         
-        private int prevCoilStep = -1;
         private int prevActiveIndex = -1;
 
-        public void SetChargeProgress(Scalar progress, bool isCharging) {
-            if (progress == 0f) {
-                Reset();
-                return;
-            }
-            
-            var index = Mathf.CeilToInt(EvaluateProgress(progress, isCharging) * arcCount);
+        public void SetChargeProgress(Scalar progress) {
+            var index = Mathf.CeilToInt(EvaluateProgress(progress) * arcCount);
             
             if (prevActiveIndex == index) {
                 return;
@@ -55,7 +45,6 @@ namespace Exa.VFX {
 
         public void Reset() {
             prevActiveIndex = -1;
-            prevCoilStep = -1;
             
             SetActiveUpTo(0);
         }
@@ -71,16 +60,11 @@ namespace Exa.VFX {
             }
         }
 
-        private float EvaluateProgress(float progress, bool isCharging) {
-            var coilStep = progress.DivRem(StepSize, out var rem);
+        private float EvaluateProgress(float progress) {
+            var coilStep = progress.DivRem(GaussCannonBehaviour.StepSize , out var rem);
 
-            if (isCharging && prevCoilStep < coilStep) {
-                audioPlayer.Play(coilChargeSoundByStep[coilStep]);
-            }
-
-            prevCoilStep = coilStep;
-
-            return coilStep * StepSize + progressMap.Evaluate(rem / StepSize) * StepSize;
+            return coilStep * GaussCannonBehaviour.StepSize // Get base progress (0 -> 0, 1 -> 0.33, 3 -> 0.67)
+                + progressCurve.Evaluate(rem / GaussCannonBehaviour.StepSize) * GaussCannonBehaviour.StepSize; // Get current step progress with curve
         }
 
         private void SetActiveUpTo(int index) {

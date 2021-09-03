@@ -31,8 +31,8 @@ namespace Exa.Grids.Blocks.Components {
 
                 if (chargeTime > Data.ChargeTime) {
                     charging = false;
-                    Fire();
                     chargeTime = Data.ChargeTime;
+                    Fire();
                 }
             } else {
                 chargeTime -= Time.deltaTime * chargeDecaySpeed;
