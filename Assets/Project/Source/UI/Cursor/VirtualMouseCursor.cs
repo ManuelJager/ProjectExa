@@ -13,6 +13,7 @@ namespace Exa.UI.Cursor {
         [SerializeField] internal RectTransform rectTransform;
         [SerializeField] internal RectTransform normalCursor;
         [SerializeField] internal RectTransform inputCursor;
+        [SerializeField] internal GaussCannonCursorDecal gaussCannonCursorDecal;
 
         [Header("Facades")]
         [SerializeField] private StandardCursorFacade standardCursorFacade;

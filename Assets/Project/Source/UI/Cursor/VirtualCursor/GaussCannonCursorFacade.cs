@@ -25,9 +25,10 @@ namespace Exa.UI.Cursor {
 
         public override void OnEnable() {
             base.OnEnable();
-            
+
             fillRecoverTween?.Kill();
 
+            mouse.gaussCannonCursorDecal.SetActive(true);
             mouse.backgroundImage.DOColor(color, colorAnimTime)
                 .Replace(ref colorTween);
         }
@@ -36,6 +37,8 @@ namespace Exa.UI.Cursor {
             if (!Enabled) {
                 return;
             }
+            
+            mouse.gaussCannonCursorDecal.SetProgress(progress, coolingDown);
 
             if (!coolingDown) {
                 mouse.backgroundImage.fillAmount = progress;
@@ -49,6 +52,7 @@ namespace Exa.UI.Cursor {
             
             colorTween?.Kill();
 
+            mouse.gaussCannonCursorDecal.SetActive(false);
             mouse.backgroundImage.DOFillAmount(1f, fillRecoverTime)
                 .Replace(ref fillRecoverTween);
         }

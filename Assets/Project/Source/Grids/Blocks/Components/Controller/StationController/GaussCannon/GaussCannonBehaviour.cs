@@ -17,7 +17,8 @@ namespace Exa.Grids.Blocks.Components {
         private static readonly int CancelCharge = Animator.StringToHash("CancelCharge");
         private static readonly int ChargeDecaySpeed = Animator.StringToHash("ChargeDecaySpeed");
         private static readonly int ChargeSpeed = Animator.StringToHash("ChargeSpeed");
-        
+
+        public static readonly int StepCount = 3;
         public static readonly float StepSize = 1f / 3f;
        
         [Header("References")]
