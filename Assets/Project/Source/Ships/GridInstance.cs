@@ -13,6 +13,7 @@ using Exa.Math;
 using Exa.Ships.Rotation;
 using Exa.Types.Generics;
 using Exa.UI;
+using Exa.UI.Cursor;
 using Exa.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.Serialization;

@@ -1,6 +1,7 @@
 ﻿using System;
 using Exa.Types.Generics;
 using Exa.UI.Components;
+using Exa.UI.Cursor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;

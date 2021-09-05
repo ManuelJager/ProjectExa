@@ -1948,6 +1948,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -204.99994
       objectReference: {fileID: 0}
+    - target: {fileID: 6078577517684990339, guid: 3e219537f6421be4da8379d71ff2d5fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6179197629143929458, guid: 3e219537f6421be4da8379d71ff2d5fa,
         type: 3}
       propertyPath: animTime

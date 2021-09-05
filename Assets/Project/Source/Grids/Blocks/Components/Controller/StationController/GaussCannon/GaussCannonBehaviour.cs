@@ -2,6 +2,8 @@
 using DG.Tweening;
 using Exa.Audio;
 using Exa.Math;
+using Exa.Types.Generics;
+using Exa.UI.Cursor;
 using Exa.UI.Tweening;
 using Exa.Utils;
 using Exa.VFX;
@@ -37,6 +39,7 @@ namespace Exa.Grids.Blocks.Components {
 
         [Header("Settings")]
         [SerializeField] private ExaEase progressToElectricityVolume;
+        [SerializeField] private ValueOverride<GaussCannonCursorFacade> cursorFacade;
         
         private SoundHandle fireSoundHandle;
         private SoundHandle electricityLoopHandle;
@@ -51,12 +54,20 @@ namespace Exa.Grids.Blocks.Components {
             get => data.chargeTime * 2f;
         }
 
+        private void Awake() {
+            cursorFacade.Value.Init(S.UI.MouseCursor.VirtualMouseCursor, this);
+        }
+
         public override void StartCharge() {
             if (IsCoolingDown) {
                 return;
             }
             
             base.StartCharge();
+
+            if (chargeTime == 0f) {
+                S.UI.MouseCursor.CurrentCursor.CursorFacades?.Add(cursorFacade);
+            }
             
             var pos = GetNormalizedChargeProgress();
             coilAnimator.Play(Charge, 0, pos);
@@ -95,6 +106,10 @@ namespace Exa.Grids.Blocks.Components {
                 
                 HandleSound(progress);
 
+                if (cursorFacade.Value.Enabled) {
+                    cursorFacade.Value.Update(progress, IsCoolingDown);
+                }
+
                 if (electricityLoopHandle != null) {
                     electricityLoopHandle.audioSource.volume = progressToElectricityVolume.Evaluate(progress);
                 }
@@ -103,6 +118,9 @@ namespace Exa.Grids.Blocks.Components {
                 if (progress == 0f) {
                     prevCoilStep = -1;
                     arcs.Reset();
+                    
+                    // Remove if using a virtual cursor
+                    S.UI.MouseCursor.CurrentCursor.CursorFacades?.Remove(cursorFacade);
                     
                     if (!charging) {
                         electricityLoopHandle?.Stop();
@@ -144,6 +162,15 @@ namespace Exa.Grids.Blocks.Components {
             gunOverlayAnimator.SetFloat(ChargeDecaySpeed, chargeSpeed * chargeDecaySpeed);
 
             arcs.RandomizeMaterials();
+        }
+
+        protected override void OnRemove() {
+            base.OnRemove();
+
+            // Remove if still present
+            if (cursorFacade.Value.Enabled) {
+                S.UI.MouseCursor.CurrentCursor.CursorFacades?.Remove(cursorFacade);
+            }
         }
 
         private void HandleSound(float progress) {

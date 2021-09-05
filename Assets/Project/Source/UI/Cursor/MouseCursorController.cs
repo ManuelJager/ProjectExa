@@ -2,7 +2,7 @@
 
 #pragma warning disable CS0649
 
-namespace Exa.UI {
+namespace Exa.UI.Cursor {
     public enum CursorType {
         HardwareCursor,
         VirtualCursor
@@ -17,6 +17,7 @@ namespace Exa.UI {
 
         public bool MouseInViewport { get; private set; }
         public ICursor CurrentCursor { get; private set; }
+        public VirtualMouseCursor VirtualMouseCursor => virtualMouseCursor;
 
         private void Start() {
             // Activates the default cursor type

@@ -58,6 +58,7 @@ MonoBehaviour:
   block: {fileID: 0}
   turret: {fileID: 4706351059954302035}
   chargeDecaySpeed: 4
+  coolingDownChargeDecaySpeed: 12
   coilAnimator: {fileID: 3807540685108769277}
   gunOverlayAnimator: {fileID: 5122118237215007916}
   beamOrigin: {fileID: 6574230540406159965}
@@ -98,6 +99,22 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  cursorFacade:
+    value:
+      fillRecoverTime: 0.5
+      color: {r: 0.29411766, g: 0.7254902, b: 0.7058824, a: 1}
+      colorAnimTime: 0.2
+      trackFiringDirection:
+        animTime: 0.2
+        ease:
+          easeType: 0
+          ease: 15
+          animationCurve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
 --- !u!95 &5122118237215007916
 Animator:
   serializedVersion: 3

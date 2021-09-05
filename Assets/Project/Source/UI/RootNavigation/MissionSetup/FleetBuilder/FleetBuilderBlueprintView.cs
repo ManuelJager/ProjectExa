@@ -3,6 +3,7 @@ using Exa.Data;
 using Exa.Grids.Blueprints;
 using Exa.Types.Binding;
 using Exa.UI.Components;
+using Exa.UI.Cursor;
 using Exa.Utils;
 using UnityEngine;
 using UnityEngine.UI;

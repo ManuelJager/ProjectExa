@@ -3,7 +3,7 @@ using UnityEngine;
 
 #pragma warning disable CS0649
 
-namespace Exa.UI {
+namespace Exa.UI.Cursor {
     public class HardwareMouseCursor : MonoBehaviour, ICursor {
         [SerializeField] private Texture2D idleMouseTexture;
         [SerializeField] private Texture2D activeMouseTexture;
@@ -13,8 +13,10 @@ namespace Exa.UI {
 
         public MarkerContainer HoverMarkerContainer { get; } = null;
 
+        public CursorFacades CursorFacades => null;
+        
         private void OnEnable() {
-            Cursor.visible = true;
+            UnityEngine.Cursor.visible = true;
         }
 
         public void SetActive(bool active) {
@@ -23,7 +25,7 @@ namespace Exa.UI {
 
         public void SetState(CursorState cursorState) {
             var tex = GetTexture(cursorState);
-            Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
+            UnityEngine.Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
         }
 
         public void OnEnterViewport() { }

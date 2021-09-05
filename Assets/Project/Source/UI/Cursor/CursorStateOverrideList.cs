@@ -2,7 +2,7 @@
 using Exa.Types.Generics;
 using UnityEngine.Events;
 
-namespace Exa.UI {
+namespace Exa.UI.Cursor {
     public class CursorStateOverrideList : OverrideList<CursorState> {
         public CursorStateOverrideList(CursorState defaultValue, Action<CursorState> onValueChange)
             : base(defaultValue, onValueChange) { }

@@ -1,5 +1,5 @@
 ﻿namespace Exa.Types.Generics {
-    public interface IValueOverride<T> {
+    public interface IValueOverride<out T> {
         public T Value { get; }
     }
 }

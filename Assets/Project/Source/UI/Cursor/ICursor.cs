@@ -1,4 +1,4 @@
-﻿namespace Exa.UI {
+﻿namespace Exa.UI.Cursor {
     public enum CursorState {
         idle,
         active,
@@ -8,6 +8,8 @@
     }
 
     public interface ICursor {
+        CursorFacades CursorFacades { get; }
+        
         void SetActive(bool active);
 
         void SetState(CursorState cursorState);
