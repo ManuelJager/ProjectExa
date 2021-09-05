@@ -61,6 +61,11 @@ namespace Exa.UI.Components {
         /// </summary>
         /// <param name="settingsTab"></param>
         public void ProcessTab(SettingsTabBase settingsTab) {
+            // Don't need to navigate twice
+            if (settingsTab == activeSettingsTab) {
+                return;
+            }
+            
             activeSettingsTab?.gameObject.SetActive(false);
             activeSettingsTab = settingsTab;
             activeTabText.text = settingsTab.tabName;
