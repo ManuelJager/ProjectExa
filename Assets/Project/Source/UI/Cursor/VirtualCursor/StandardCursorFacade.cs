@@ -71,7 +71,10 @@ namespace Exa.UI.Cursor {
         public void Init(VirtualMouseCursor mouse, CursorStateOverrideList overrides) {
             base.Init(mouse);
             
-            overrides.ContainsItemChange.AddListener(active => { cursorScaleBlender.To(0, hoverableCursorSize.GetValue(active), cursorScaleAnimTime); });
+            overrides.ContainsItemChange.AddListener(
+                active => {
+                    cursorScaleBlender.To(0, hoverableCursorSize.GetValue(active), cursorScaleAnimTime);
+                });
             
             inputAction.started += OnLeftMouseStarted;
             inputAction.canceled += OnLeftMouseCanceled;
@@ -147,6 +150,8 @@ namespace Exa.UI.Cursor {
                  case CursorState.input:
                      mouse.inputCursor.gameObject.SetActive(active);
                      break;
+                 default:
+                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
              }
          }
  

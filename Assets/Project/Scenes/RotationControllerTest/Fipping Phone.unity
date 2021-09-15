@@ -133,9 +133,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 39766519}
-  - component: {fileID: 39766520}
   - component: {fileID: 39766522}
   - component: {fileID: 39766521}
+  - component: {fileID: 39766520}
   m_Layer: 0
   m_Name: Phone
   m_TagString: Untagged
@@ -167,12 +167,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 39766518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abd260b1e3f304c2db6ce091ce48800e, type: 3}
+  m_Script: {fileID: 11500000, guid: 58ce7c403f8b2954da923fb8735e65a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTorque: 7.5
-  stopThreshold: 0.3
-  targetVector: {x: 0, y: 0}
+  maxTorque: 1
+  stopThresholdMultiplier: 0.001
+  baseStopThreshold: 0.1
   proxy: {fileID: 39766522}
 --- !u!50 &39766521
 Rigidbody2D:
@@ -185,8 +185,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 3
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 39766520}
+  buttonDown: 0
   action:
     m_Name: Action
     m_Type: 0

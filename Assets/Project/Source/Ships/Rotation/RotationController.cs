@@ -1,5 +1,5 @@
 ﻿using Exa.Debugging;
-using NaughtyAttributes;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Ships.Rotation {
@@ -9,37 +9,33 @@ namespace Exa.Ships.Rotation {
         private float angularAcceleration;
         private float turnSpeed;
 
-        [SerializeField, ReadOnly] private float maxTorque = 7.5f;
-        [SerializeField, ReadOnly] private float stopThreshold = 0.3f;
-        [SerializeField, ReadOnly] Vector2 targetVector;
-        [SerializeField] private Rigidbody2DProxy proxy;
+        [SerializeField] private float maxTorque = 1f;
+        [SerializeField] private float stopThresholdMultiplier = 0.001f;
+        [SerializeField] private float baseStopThreshold = 0.1f;
+        [SerializeField] private Rigidbody2D rb;
+        Vector2? targetVector;
 
         private void Awake() {
             SetMaxTorque(maxTorque);
-            SetTargetVector(Vector2.zero);
         }
 
         private void FixedUpdate() {
-            turnSpeed = proxy.AngularVelocity;
+            turnSpeed = rb.angularVelocity;
+            angularAcceleration = maxTorque / rb.inertia * Mathf.Rad2Deg;
+            
+            if (targetVector.GetHasValue(out var value)) {
+                targetVector += rb.velocity * Time.fixedDeltaTime;
 
-            if (targetVector != Vector2.zero) {
-                targetVector += proxy.Velocity * Time.fixedDeltaTime;
-
-                if (S.Instance != null && DebugMode.Navigation.IsEnabled()) {
-                    Debug.DrawLine(transform.position, targetVector);
+                if (S.Instance == null || DebugMode.Navigation.IsEnabled()) {
+                    Debug.DrawLine(rb.worldCenterOfMass, value);
                 }
 
-                // Cache transform
-                var self = transform;
-
+                var localSpaceTargetVector = value - rb.worldCenterOfMass;
+                
                 // Calculate the angle from the current rotation to the target vector
-                var rot = Quaternion.FromToRotation(
-                        fromDirection: self.right * -1f,
-                        toDirection: targetVector - (Vector2) self.position
-                    )
-                    .eulerAngles.z;
+                var rot = Quaternion.FromToRotation(transform.right * -1f, localSpaceTargetVector);
 
-                var difference = 360f - rot - 180f;
+                var difference = 360f - rot.eulerAngles.z - 180f;
 
                 // Calculate the distance to stop given the current turn speed and angular acceleration
                 var stopDistance = angularAcceleration * Mathf.Pow(turnSpeed / angularAcceleration, 2f) / 2f;
@@ -51,18 +47,17 @@ namespace Exa.Ships.Rotation {
                 }
 
                 // If the distance is longer than the threshold, apply the torque, otherwise zero the angular velocity
-                if (Mathf.Abs(difference) > stopThreshold) {
-                    proxy.AddTorque(torqueDirection * maxTorque);
+                if (Mathf.Abs(difference) > angularAcceleration * stopThresholdMultiplier + baseStopThreshold) {
+                    rb.AddTorque(torqueDirection * maxTorque);
                 } else {
-                    proxy.AngularVelocity = 0;
-                    targetVector = Vector3.zero;
+                    rb.angularVelocity = 0;
+                    targetVector = null;
                 }
             }
         }
 
         public void SetMaxTorque(float maxTorque) {
             this.maxTorque = maxTorque;
-            angularAcceleration = maxTorque / proxy.InertiaTensor * Mathf.Rad2Deg;
         }
 
         public void SetTargetVector(Vector3 newTarget) {

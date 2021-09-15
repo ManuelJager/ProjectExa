@@ -32,7 +32,7 @@ namespace Exa.VFX {
         private int prevActiveIndex = -1;
 
         public void SetChargeProgress(Scalar progress) {
-            var index = Mathf.CeilToInt(EvaluateProgress(progress) * arcCount);
+            var index = Mathf.CeilToInt(EvaluateProgress(progress) * (arcCount - 1f));
             
             if (prevActiveIndex == index) {
                 return;
