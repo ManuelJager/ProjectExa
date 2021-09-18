@@ -7,13 +7,9 @@ using UnityEngine;
 namespace Exa.UI.Cursor {
     public abstract class VirtualCursorFacade {
         protected Tween cursorDragRotateTween;
-        protected VirtualMouseCursor mouse;
+        [SerializeField] protected VirtualMouseCursor mouse;
         
         public bool Enabled { get; protected set; }
-        
-        protected void Init(VirtualMouseCursor mouse) {
-            this.mouse = mouse;
-        }
         
         protected void AnimCursorDirection(float angle, CursorDragAnimSettings args) {
             var targetVector = new Vector3(0, 0, angle);

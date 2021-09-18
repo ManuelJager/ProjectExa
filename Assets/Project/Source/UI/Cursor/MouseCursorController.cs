@@ -50,16 +50,11 @@ namespace Exa.UI.Cursor {
         }
 
         private ICursor GetCursor(CursorType cursorType) {
-            switch (cursorType) {
-                case CursorType.HardwareCursor:
-                    return hardwareMouseCursor;
-
-                case CursorType.VirtualCursor:
-                    return virtualMouseCursor;
-
-                default:
-                    return null;
-            }
+            return cursorType switch {
+                CursorType.HardwareCursor => hardwareMouseCursor,
+                CursorType.VirtualCursor => virtualMouseCursor,
+                _ => null
+            };
         }
     }
 }

@@ -1,5 +1,6 @@
 using Exa.UI.Tweening;
 using Exa.Utils;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,17 +10,16 @@ namespace Exa.UI.Cursor {
         [SerializeField] private Image left;
         [SerializeField] private Image right;
         [SerializeField] private ExaEase progressToMagnitude;
-        [SerializeField] private ExaEase progressToAlpha;
+        [SerializeField] private Gradient gradientMap;
 
         public void SetProgress(float progress) {
-            var magnitude = progressToMagnitude.Evaluate(progress) * this.magnitude;
-            var alpha = progressToAlpha.Evaluate(progress);
+            var currentMagnitude = progressToMagnitude.Evaluate(progress) * magnitude;
+            left.rectTransform.anchoredPosition = new Vector2(-currentMagnitude, currentMagnitude);
+            right.rectTransform.anchoredPosition = new Vector2(currentMagnitude, currentMagnitude);
 
-            left.rectTransform.anchoredPosition = new Vector2(-magnitude, magnitude);
-            right.rectTransform.anchoredPosition = new Vector2(magnitude, magnitude);
-
-            left.color = left.color.SetAlpha(alpha);
-            right.color = right.color.SetAlpha(alpha);
+            var color = gradientMap.Evaluate(progress);
+            left.color = color;
+            right.color = color;
         }
     }
 }

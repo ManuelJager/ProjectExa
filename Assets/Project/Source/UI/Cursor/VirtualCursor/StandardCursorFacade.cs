@@ -68,9 +68,7 @@ namespace Exa.UI.Cursor {
             UpdateCursorScaleAnim(viewportPoint);
         }
 
-        public void Init(VirtualMouseCursor mouse, CursorStateOverrideList overrides) {
-            base.Init(mouse);
-            
+        public void Init(CursorStateOverrideList overrides) {
             overrides.ContainsItemChange.AddListener(
                 active => {
                     cursorScaleBlender.To(0, hoverableCursorSize.GetValue(active), cursorScaleAnimTime);

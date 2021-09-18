@@ -63,7 +63,7 @@ namespace Exa.UI.Cursor {
         }
 
         public void Init(CursorStateOverrideList overrides) {
-            standardCursorFacade.Init(this, overrides);
+            standardCursorFacade.Init(overrides);
         }
     }
     

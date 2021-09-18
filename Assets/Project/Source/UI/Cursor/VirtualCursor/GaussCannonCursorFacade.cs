@@ -19,7 +19,7 @@ namespace Exa.UI.Cursor {
         private GaussCannonBehaviour gaussCannon;
 
         public void Init(VirtualMouseCursor mouse, GaussCannonBehaviour gaussCannon) {
-            base.Init(mouse);
+            this.mouse = mouse;
             this.gaussCannon = gaussCannon;
         }
 

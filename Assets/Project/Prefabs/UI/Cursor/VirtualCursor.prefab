@@ -407,6 +407,7 @@ MonoBehaviour:
   inputCursor: {fileID: 4104469353826917045}
   gaussCannonCursorDecal: {fileID: 61407982668310946}
   standardCursorFacade:
+    mouse: {fileID: 3964688019708486267}
     idleColor: {r: 0.39215687, g: 0.39215687, b: 0.43137255, a: 0.78431374}
     activeColor: {r: 0.29411766, g: 0.7254902, b: 0.7053667, a: 1}
     removeColor: {r: 0.7058824, g: 0.27450982, b: 0.29411766, a: 1}
