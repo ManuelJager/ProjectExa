@@ -22,10 +22,12 @@ namespace Exa.Ships {
 
         public void OnEnable() {
             gameControls?.Enable();
+            GS.UI.stationRotationOverlay.Rc = RotationController;
         }
 
         public void OnDisable() {
             gameControls?.Disable();
+            GS.UI.stationRotationOverlay.Rc = null;
         }
 
         public void OnFire(InputAction.CallbackContext context) {

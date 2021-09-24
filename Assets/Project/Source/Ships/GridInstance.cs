@@ -72,6 +72,10 @@ namespace Exa.Ships {
             get => gridAi;
         }
 
+        public RotationController RotationController {
+            get => rotationController;
+        }
+
         protected virtual void Awake() {
             debugTooltip = new Tooltip(GetDebugTooltipComponents, debugFont);
         }

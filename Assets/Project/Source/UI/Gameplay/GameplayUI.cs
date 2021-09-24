@@ -5,5 +5,6 @@ namespace Exa.UI.Gameplay {
         public GameplayLayer gameplayLayer;
         public PauseMenu pauseMenu;
         public GameOverMenu gameOverMenu;
+        public RotationOverlay stationRotationOverlay;
     }
 }

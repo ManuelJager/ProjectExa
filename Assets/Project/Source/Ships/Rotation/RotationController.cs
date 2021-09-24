@@ -1,4 +1,5 @@
 ﻿using Exa.Debugging;
+using Exa.Math;
 using Exa.Utils;
 using UnityEngine;
 
@@ -14,6 +15,19 @@ namespace Exa.Ships.Rotation {
         [SerializeField] private float baseStopThreshold = 0.1f;
         [SerializeField] private Rigidbody2D rb;
         Vector2? targetVector;
+
+        public Rigidbody2D Rb => rb;
+        public Vector2? TargetVector => targetVector;
+
+        public float? TargetRotation {
+            get {
+                if (targetVector.GetHasValue(out var value)) {
+                    return (value - rb.worldCenterOfMass).GetAngle();
+                }
+
+                return null;
+            }
+        } 
 
         private void Awake() {
             SetMaxTorque(maxTorque);
