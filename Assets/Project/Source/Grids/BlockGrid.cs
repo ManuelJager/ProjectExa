@@ -82,7 +82,7 @@ namespace Exa.Ships {
         }
 
         public void DestroyIfEmpty() {
-            Logs.Log($"Destroying grid: ${Parent.Transform.gameObject.name}");
+            Logs.Log($"Destroying grid: {Parent.Transform.gameObject.name}");
 
             // No need to clean up now. Wait a frame for any potential remaining blocks in the grid to have been deleted or returned to the pool
             if (!GridMembers.Any()) {
