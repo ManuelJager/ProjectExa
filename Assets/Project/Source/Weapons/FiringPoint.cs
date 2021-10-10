@@ -22,6 +22,7 @@ namespace Exa.Weapons {
                     spawnPoint,
                     speed,
                     range,
+                    1.5f, // TODO: Replace this by an actual value
                     damage,
                     damageMask
                 );

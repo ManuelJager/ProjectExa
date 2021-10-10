@@ -1,4 +1,5 @@
 ﻿using Exa.Grids.Blocks;
+using Exa.Math;
 using UnityEngine;
 
 namespace Exa.Weapons {
@@ -48,15 +49,23 @@ namespace Exa.Weapons {
         /// Position and heading are inherited from the spawn point</param>
         /// <param name="speed">Units per second the projectile should be traveling at</param>
         /// <param name="range">Amount of units the projectile before it is destroyed</param>
+        /// <param name="inaccuracy">Degrees in max random offset direction to either side when spawning</param>
         /// <param name="damage">Damage to apply when hitting damageable that pass the damage mask</param>
         /// <param name="damageMask">BlockContext filter to apply when hitting damageables</param>
-        public void Setup(Transform spawnPoint, float speed, float range, Damage damage, BlockContext damageMask) {
+        public void Setup(Transform spawnPoint, float speed, float range, float inaccuracy, Damage damage, BlockContext damageMask) {
             transform.position = spawnPoint.position;
             lifeTime = range / speed;
             this.damage = damage;
             this.damageMask = damageMask;
 
-            rb.velocity = spawnPoint.right * speed;
+            rb.velocity = GetDirection(spawnPoint.right * speed, inaccuracy);
+        }
+
+        private Vector2 GetDirection(Vector2 baseDirection, float randomOffsetRange) {
+            var angle = baseDirection.GetAngle();
+            var halfOffset = randomOffsetRange / 2;
+            var randomOffset = Random.value.Remap(0, 1, -halfOffset, halfOffset);
+            return MathUtils.FromAngledMagnitude(baseDirection.magnitude, angle + randomOffset);
         }
     }
 }

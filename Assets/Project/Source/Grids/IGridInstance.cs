@@ -1,6 +1,7 @@
 ﻿using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids {
@@ -32,6 +33,10 @@ namespace Exa.Grids {
             block.NotifyRemoved();
             instance.BlockGrid.Remove(block);
             block.SetParentWithoutNotify(null);
+        }
+
+        public static void Destroy(this IGridInstance instance) {
+            instance.Transform.gameObject.Destroy();
         }
     }
 }

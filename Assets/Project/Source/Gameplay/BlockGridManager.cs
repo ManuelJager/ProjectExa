@@ -9,23 +9,36 @@ using UnityEngine;
 namespace Exa.Gameplay {
     public class BlockGridManager : MonoBehaviour {
         [SerializeField] private GameObject debrisGridPrefab;
-        private Queue<IGridInstance> gridInstances = new Queue<IGridInstance>();
+        private List<IGridInstance> gridInstancesToRebuild = new List<IGridInstance>();
+        private List<IGridInstance> gridInstancesToDestroy = new List<IGridInstance>();
 
         /// <summary>
         /// Schedules a grid to be rebuilt the next frame. This batches multiple rebuild requests
         /// </summary>
         /// <param name="gridInstance"></param>
         public void ScheduleRebuild(IGridInstance gridInstance) {
-            if (!gridInstances.Contains(gridInstance)) {
-                gridInstances.Enqueue(gridInstance);
+            if (!gridInstancesToRebuild.Contains(gridInstance)) {
+                gridInstancesToRebuild.Add(gridInstance);
             }
         }
 
-        private void Update() {
-            // Drain queue
-            while (gridInstances.Count > 0) {
-                AttemptRebuild(gridInstances.Dequeue());
+        public void ScheduleDestruction(IGridInstance gridInstance) {
+            if (!gridInstancesToDestroy.Contains(gridInstance)) {
+                gridInstancesToDestroy.Add(gridInstance);
             }
+        }
+
+        private void LateUpdate() {
+            foreach (var instance in gridInstancesToDestroy) {
+                instance.Destroy();
+            }
+
+            foreach (var instance in gridInstancesToRebuild.Except(gridInstancesToDestroy)) {
+                AttemptRebuild(instance);
+            }
+            
+            gridInstancesToDestroy.Clear();
+            gridInstancesToRebuild.Clear();
         }
 
         private void AttemptRebuild(IGridInstance gridInstance) {
