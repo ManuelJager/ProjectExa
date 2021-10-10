@@ -31,16 +31,7 @@ namespace Exa.Grids {
         public static IEnumerable<Vector2Int> GetTileClaims(this IGridMember gridMember) {
             var block = gridMember.BlueprintBlock;
             var gridAnchor = gridMember.GridAnchor;
-            var area = block.Template.size.Rotate(block.Rotation);
-
-            if (block.flippedX) {
-                area.x = -area.x;
-            }
-
-            if (block.flippedY) {
-                area.y = -area.y;
-            }
-
+            var area = block.Template.size.Rotate(block.Rotation) * block.FlipVector;
             return MathUtils.EnumerateVectors(area, gridAnchor);
         }
 

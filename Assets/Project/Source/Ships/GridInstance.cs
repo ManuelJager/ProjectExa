@@ -277,12 +277,16 @@ namespace Exa.Ships {
             var pendingAdd = Diff.PendingAdd.ToList();
             var pendingRemove = Diff.PendingRemove.ToList();
 
-            foreach (var block in pendingRemove) {
-                BlockGrid.Destroy(block.GridAnchor);
-            }
+            try {
+                foreach (var block in pendingRemove) {
+                    BlockGrid.GetMember(block.GridAnchor).DestroyBlock();
+                }
 
-            foreach (var block in pendingAdd) {
-                BlockGrid.Place(Blueprint[block.GridAnchor]);
+                foreach (var block in pendingAdd) {
+                    BlockGrid.Place(Blueprint[block.GridAnchor]);
+                }
+            } catch (Exception e) {
+                Debug.LogError(e);
             }
         }
     }

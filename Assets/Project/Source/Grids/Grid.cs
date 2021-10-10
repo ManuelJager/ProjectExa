@@ -61,13 +61,11 @@ namespace Exa.Grids {
 
         public virtual void Add(T gridMember) {
             Size.Invalidate();
-
             GridMembers.Add(gridMember);
-
             MemberAdded?.Invoke(gridMember);
 
             // Get grid positions of blueprint block
-            var tilePositions = gridMember.GetTileClaims().ToList();
+            var tilePositions = gridMember.GetTileClaims();
 
             EnsureNeighbourKeyIsCreated(gridMember);
 
@@ -93,10 +91,8 @@ namespace Exa.Grids {
             Size.Invalidate();
 
             // TODO: Cache this result
-            var tilePositions = gridMember.GetTileClaims();
-
+            var tilePositions = gridMember.GetTileClaims().ToList();
             GridMembers.Remove(gridMember);
-
             MemberRemoved?.Invoke(gridMember);
 
             // Remove neighbour references

@@ -102,9 +102,5 @@ namespace Exa.Ships {
             Parent.AddBlock(block, false);
             block.gameObject.SetActive(true);
         }
-
-        internal void Destroy(Vector2Int gridAnchor) {
-            GetMember(gridAnchor).DestroyBlock();
-        }
     }
 }

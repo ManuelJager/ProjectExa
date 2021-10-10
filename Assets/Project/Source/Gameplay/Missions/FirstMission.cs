@@ -77,8 +77,12 @@ namespace Exa.Gameplay.Missions {
                 .Context(BlockContext.EnemyGroup)
                 .Add((ref AutocannonData curr) => curr.damage *= 0.5f)
                 .Context(BlockContext.UserGroup)
-                .ForTemplate<GaussCannonTemplate>()
-                .Add((ref PhysicalData curr) => curr.hull *= 10f);
+                .Add((ref ShieldGeneratorData curr) => curr.health *= 0.1f)
+                .Filter<GaussCannonTemplate>()
+                .Add((ref PhysicalData curr) => curr.hull *= 10f)
+                .Filter(template => !(template is GaussCannonTemplate))
+                .Add((ref PhysicalData curr) => curr.hull *= 0.2f)
+                .ClearFilter();
         }
 
         private float GaugeCurrentStrength() {

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Exa.Math {
     public static partial class MathUtils {
         /// <summary>
-        ///     Enumerate through a range of intergers, if the value is negative the enumeration will go backwards
+        ///     Enumerate through a range of ints, if the value is negative the enumeration will go backwards
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

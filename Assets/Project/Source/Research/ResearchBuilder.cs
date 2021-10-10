@@ -9,7 +9,7 @@ namespace Exa.Research {
         private readonly List<Action> clearActions;
         private readonly ResearchStore store;
         private BlockContext context = BlockContext.DefaultGroup;
-        private Type templateTypeFilter;
+        private Func<BlockTemplate, bool> filter;
 
         public ResearchBuilder(ResearchStore store) {
             this.store = store;
@@ -27,22 +27,13 @@ namespace Exa.Research {
             ValueModificationOrder order = ValueModificationOrder.Multiplicative
         )
             where T : struct, IBlockComponentValues {
-            Func<BlockTemplate, bool> GetClosure() {
-                if (templateTypeFilter == null) {
-                    return template => template.GetAnyPartialDataIsOf<T>();
-                }
-
-                var currFilter = templateTypeFilter;
-
-                return template => currFilter.IsInstanceOfType(template);
-            }
 
             clearActions.Add(
                 item: store.AddModifier(
                     context,
                     modifier: new DynamicBlockComponentModifier(
                         step: new ResearchStep<T>(applyValues, order),
-                        affectsTemplate: GetClosure()
+                        affectsTemplate: template => template.GetAnyPartialDataIsOf<T>() && (filter?.Invoke(template) ?? true)
                     )
                 )
             );
@@ -64,15 +55,21 @@ namespace Exa.Research {
             return this;
         }
 
-        public ResearchBuilder ForTemplate<TTemplate>()
+        public ResearchBuilder Filter<TTemplate>()
             where TTemplate : BlockTemplate {
-            templateTypeFilter = typeof(TTemplate);
+            filter = template => template is TTemplate;
 
             return this;
         }
 
-        public ResearchBuilder ClearTemplate() {
-            templateTypeFilter = null;
+        public ResearchBuilder Filter(Func<BlockTemplate, bool> filter) {
+            this.filter = filter;
+            
+            return this;
+        }
+
+        public ResearchBuilder ClearFilter() {
+            filter = null;
 
             return this;
         }
