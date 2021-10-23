@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
 namespace Exa.Grids {
-    public class IGridMemberComparer : IEqualityComparer<IGridMember> {
-        private static IGridMemberComparer defaultComparer;
+    public class GridMemberComparer : IEqualityComparer<IGridMember> {
+        private static GridMemberComparer defaultComparer;
 
-        public static IGridMemberComparer Default {
-            get => defaultComparer ??= new IGridMemberComparer();
+        public static GridMemberComparer Default {
+            get => defaultComparer ??= new GridMemberComparer();
         }
 
         public bool Equals(IGridMember x, IGridMember y) {

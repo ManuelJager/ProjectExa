@@ -81,7 +81,10 @@ namespace Exa.Gameplay.Missions {
                 .Filter<GaussCannonTemplate>()
                 .Add((ref PhysicalData curr) => curr.hull *= 10f)
                 .Filter(template => !(template is GaussCannonTemplate))
-                .Add((ref PhysicalData curr) => curr.hull *= 0.2f)
+                .Add((ref PhysicalData curr) => {
+                    curr.hull *= 0.2f;
+                    curr.armor *= 0.5f;
+                })
                 .ClearFilter();
         }
 

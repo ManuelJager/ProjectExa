@@ -16,6 +16,10 @@ namespace Exa.Ships {
     public class BlockGrid : Grid<Block> {
         private readonly DefaultDict<Type, List<BlockBehaviour>> blockBehaviours;
         private readonly GridTotals totals;
+        
+    #if ENABLE_BLOCK_LOGS
+        private List<string> Logs { get; } = new List<string>();  
+    #endif
 
         public BlockGrid(IGridInstance parent) {
             Parent = parent;
@@ -31,8 +35,12 @@ namespace Exa.Ships {
         public GridTotals GetTotals() {
             return totals;
         }
-
+        
         public override void Add(Block block) {
+        #if ENABLE_BLOCK_LOGS
+            Logs.Add($"Added: {block}");
+        #endif
+            
             if (block.GetIsController()) {
                 if (Controller != null) {
                     throw new DuplicateControllerException(block.GridAnchor);
@@ -49,6 +57,10 @@ namespace Exa.Ships {
         }
 
         public override void Remove(Block block) {
+        #if ENABLE_BLOCK_LOGS
+            Logs.Add($"Removed: {block}");
+        #endif
+            
             base.Remove(block);
 
             if (block.GetIsController()) {
@@ -82,7 +94,9 @@ namespace Exa.Ships {
         }
 
         public void DestroyIfEmpty() {
-            Logs.Log($"Destroying grid: {Parent.Transform.gameObject.name}");
+        #if ENABLE_BLOCK_LOGS
+            Logs.Add($"Destroying grid: {Parent.Transform.gameObject.name}");
+        #endif    
 
             // No need to clean up now. Wait a frame for any potential remaining blocks in the grid to have been deleted or returned to the pool
             if (!GridMembers.Any()) {

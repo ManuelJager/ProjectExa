@@ -5,14 +5,14 @@ using Exa.UI.Tooltips;
 
 namespace Exa.Grids {
     public class BlockGridDiff : MemberCollectionListener<BlockGrid> {
-        private readonly List<IGridMember> pendingAdd;
-        private readonly List<IGridMember> pendingRemove;
+        private readonly GridMemberDiffList pendingAdd;
+        private readonly GridMemberDiffList pendingRemove;
         private BlueprintGrid target;
 
         public BlockGridDiff(BlockGrid source, BlueprintGrid target) : base(source) {
             this.target = target;
-            pendingAdd = new List<IGridMember>();
-            pendingRemove = new List<IGridMember>();
+            pendingAdd = new GridMemberDiffList();
+            pendingRemove = new GridMemberDiffList();
             Diff();
         }
 

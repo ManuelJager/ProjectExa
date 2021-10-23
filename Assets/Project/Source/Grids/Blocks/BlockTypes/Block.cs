@@ -101,7 +101,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
         }
 
         public bool Equals(IGridMember other) {
-            return IGridMemberComparer.Default.Equals(this, other);
+            return GridMemberComparer.Default.Equals(this, other);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
         }
 
         public override string ToString() {
-            return $"Block: {BlueprintBlock.Template.id}";
+            return $"Id: {BlueprintBlock.Template.id}, Pos: {GridAnchor}";
         }
     }
 }

@@ -15,6 +15,10 @@ namespace Exa.Grids.Blueprints {
             this.blueprintBlock = blueprintBlock;
         }
 
+        public ABpBlock(IGridMember member)
+            : this(member.GridAnchor, member.BlueprintBlock) {
+        }
+
         public BlockTemplate Template {
             get => BlueprintBlock.Template;
         }
@@ -42,7 +46,7 @@ namespace Exa.Grids.Blueprints {
         }
 
         public bool Equals(IGridMember other) {
-            return IGridMemberComparer.Default.Equals(this, other);
+            return GridMemberComparer.Default.Equals(this, other);
         }
 
         public GameObject CreateInactiveInertBlockInGrid(Transform parent) {

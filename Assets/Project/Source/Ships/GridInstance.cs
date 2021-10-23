@@ -52,7 +52,7 @@ namespace Exa.Ships {
             }
         }
 
-        public BlockGridDiff Diff { get; private set; }
+        public BlockGridDiff Diff { get; protected set; }
         public bool Active { get; private set; }
         public IGridOverlay Overlay { get; set; }
         public float HullIntegrity { get; set; }
@@ -163,8 +163,6 @@ namespace Exa.Ships {
             mouseOverCollider.radius = radius;
             BlockGrid.Import(blueprint);
             Blueprint = blueprint;
-
-            Diff = S.Blocks.Diffs.StartWatching(BlockGrid, Blueprint.Grid);
 
             gridAi.Init();
         }
