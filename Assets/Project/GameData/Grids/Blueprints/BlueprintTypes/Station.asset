@@ -15,4 +15,4 @@ MonoBehaviour:
   typeGuid: 6
   displayName: Station
   maxSize: {x: 30, y: 30}
-  allowedBlockCategory: 465
+  allowedBlockCategory: 977

@@ -17,7 +17,7 @@ MonoBehaviour:
   category: 512
   thumbnail: {fileID: -5935392190051464458, guid: 9bf3524a785798c4cb19748f21802c5f,
     type: 3}
-  size: {x: 0, y: 0}
+  size: {x: 2, y: 2}
   metadata:
     strength: 50
     blockCosts:
@@ -31,7 +31,7 @@ MonoBehaviour:
     data:
       hull: 500
       armor: 20
-      mass: 3200
+      mass: 3.2
   droneBayPartial:
     data:
       buildTime: 30
