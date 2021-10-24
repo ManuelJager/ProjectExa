@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 7a4e05b7a2127234b9a6d05a05d3e221
+DefaultImporter:
+  externalObjects: {}
+  userData: "{\r\n  \"layers\": {\r\n    \"frame\": {\r\n      \"mergeUp\": false,\r\n     
+    \"exportOnlyFirstFrame\": false,\r\n      \"name\": \"frame\",\r\n      \"index\":
+    0\r\n    },\r\n    \"background\": {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\":
+    false,\r\n      \"name\": \"background\",\r\n      \"index\": 1\r\n    },\r\n   
+    \"blastdoor\": {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\":
+    true,\r\n      \"name\": \"blastdoor\",\r\n      \"index\": 2\r\n    }\r\n  }\r\n}"
+  assetBundleName: 
+  assetBundleVariant: 

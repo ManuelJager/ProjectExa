@@ -11,11 +11,11 @@ namespace Exa.Utils {
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.mipmapEnabled = false;
             importer.wrapMode = TextureWrapMode.Clamp;
-            importer.maxTextureSize = 2048;
+            importer.maxTextureSize = 16384;
             importer.crunchedCompression = false;
             importer.compressionQuality = 100;
             importer.spritePixelsPerUnit = 32;
-            importer.isReadable = true;
+            importer.isReadable = false;
             importer.textureShape = TextureImporterShape.Texture2D;
             importer.npotScale = TextureImporterNPOTScale.None;
         }

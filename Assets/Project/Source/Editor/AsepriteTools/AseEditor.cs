@@ -237,14 +237,6 @@ namespace Exa.CustomEditors {
                     var sizeY = height;
                     var sizeX = height;
 
-                    importer.wrapMode = TextureWrapMode.Clamp;
-                    importer.maxTextureSize = 32768;
-                    importer.crunchedCompression = false;
-                    importer.compressionQuality = 100;
-                    importer.isReadable = true;
-                    importer.textureShape = TextureImporterShape.Texture2D;
-                    importer.npotScale = TextureImporterNPOTScale.None;
-
                     var spriteMetaData = new List<SpriteMetaData>();
                     var frameNumber = 0;
 
@@ -252,7 +244,7 @@ namespace Exa.CustomEditors {
                         for (var i = 0; i < width; i += sizeX) {
                             spriteMetaData.Add(
                                 new SpriteMetaData {
-                                    name = $"{layer}_{frameNumber}",
+                                    name = $"{texture.name}-{frameNumber}",
                                     rect = new Rect(i, j - sizeY, sizeX, sizeY),
                                     alignment = 0,
                                     pivot = new Vector2(0f, 0f)

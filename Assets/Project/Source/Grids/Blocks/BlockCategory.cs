@@ -12,6 +12,7 @@ namespace Exa.Grids.Blocks {
         Weapon = 1 << 6,
         StationController = 1 << 7,
         ShieldGenerator = 1 << 8,
+        Support = 1 << 9,
         AnyController = ShipController | StationController,
         All = ~0
     }
@@ -28,6 +29,7 @@ namespace Exa.Grids.Blocks {
                 BlockCategory.Weapon => "Weapon",
                 BlockCategory.StationController => "Controller",
                 BlockCategory.ShieldGenerator => "Shield Generator",
+                BlockCategory.Support => "Support",
                 _ => "Not supported"
             };
         }

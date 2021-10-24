@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlockTemplateBag
   m_EditorClassIdentifier: 
   objects:
+  - {fileID: 11400000, guid: e688b45b241b3924587544a9db71e8d1, type: 2}
   - {fileID: 11400000, guid: 81aa3d02684b5a14a956faee3031142c, type: 2}
   - {fileID: 11400000, guid: 72dbfdef50baee14eb98d46dcf5ed2b0, type: 2}
   - {fileID: 11400000, guid: 316a423b1a9ff5f4d8e5fb32f8578a33, type: 2}
