@@ -8,6 +8,7 @@ namespace Exa.Grids.Blocks.Components {
     public struct DroneBayData : IBlockComponentValues {
         public float buildTime;
         public int maxPopulation;
+        public float droneHull;
         
         public void AddGridTotals(GridTotals totals) {
         }

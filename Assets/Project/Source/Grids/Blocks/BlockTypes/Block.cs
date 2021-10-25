@@ -21,6 +21,8 @@ namespace Exa.Grids.Blocks.BlockTypes {
         [NonSerialized] public ABpBlock aBpBlock;
         private IGridInstance parent;
 
+        public event Action OnRemoved;
+
     #if UNITY_EDITOR
         public bool DebugFocused { get; set; }
     #endif
@@ -54,6 +56,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
         /// <param name="mockSetValues">If true, it will call the OnBlockDataReceived handler on every behaviour</param>
         public void NotifyAdded(bool mockSetValues) {
             OnAdd();
+            OnRemoved = null;
 
             foreach (var behaviour in GetBehaviours()) {
                 behaviour.NotifyAdded();
@@ -65,11 +68,12 @@ namespace Exa.Grids.Blocks.BlockTypes {
         }
 
         public void NotifyRemoved() {
-            OnRemove();
-
             foreach (var behaviour in GetBehaviours()) {
                 behaviour.NotifyRemoved();
             }
+            
+            OnRemoved?.Invoke();
+            OnRemove();
         }
 
         public GridInstance GridInstance {
