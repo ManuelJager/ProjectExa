@@ -28,6 +28,12 @@ namespace Exa.Grids.Blocks.Components {
             var drone = dronePrefab.Create<Drone>(transform);
             
             drone.Setup(this);
+            
+            activeDrones.Add(drone);
+        }
+
+        public void OnDestroyDrone(Drone drone) {
+            activeDrones.Remove(drone);
         }
     }
 }

@@ -20,7 +20,6 @@ namespace Exa.Grids.Blocks.Components {
         private float normalizedLightsAlpha = 1f;
 
         protected override void OnAdd() {
-            shieldBubble.Block = block;
             healthPool.value = Data.health;
         }
 

@@ -1,11 +1,14 @@
-﻿using Exa.Grids.Blocks.BlockTypes;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components {
     public class ShieldBubble : MonoBehaviour, IDamageable {
         [SerializeField] private ShieldGeneratorBehaviour shieldGeneratorBehaviour;
         
-        public bool IsQueuedForDestruction { get; private set; } 
+        public bool IsQueuedForDestruction { get; private set; }
+
+        public BlockContext? BlockContext {
+            get => shieldGeneratorBehaviour.Parent?.BlockContext;
+        }
 
         public void SetRadius(float value) {
             transform.localScale = new Vector3(value * 2, value * 2);
@@ -24,7 +27,5 @@ namespace Exa.Grids.Blocks.Components {
         public TakenDamage TakeDamage(Damage damage) {
             return shieldGeneratorBehaviour.TakeDamage(damage);
         }
-
-        public Block Block { get; set; }
     }
 }

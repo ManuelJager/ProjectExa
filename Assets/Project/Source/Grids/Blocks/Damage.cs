@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Exa.Grids.Blocks {
     public interface IDamageable {
         TakenDamage TakeDamage(Damage damage);
-        Block Block { get; }
+        BlockContext? BlockContext { get; }
         bool IsQueuedForDestruction { get; }
     }
     
@@ -19,25 +19,21 @@ namespace Exa.Grids.Blocks {
         public float appliedDamage;
     }
 
-    public static class IDamageableExtensions {
+    public static class DamageableExtensions {
         /// <summary>
         /// Get whether or not this damageable should be targeted
         /// </summary>
-        /// <param name="damageable"></param>
-        /// <returns></returns>
         public static bool PassesDamageMask(this IDamageable damageable, BlockContext damageMask) {
             if (damageable.IsQueuedForDestruction) {
                 return false;
             }
 
-            var block = damageable.Block; 
-            if (block.Parent == null) {
-                Debug.LogError($"Block {block.GetInstanceID()} has no parent");
-
-                return false;
+            if (damageable.BlockContext.GetHasValue(out var value)) {
+                return value.HasAnyValue(damageMask);
             }
-
-            return block.Parent.BlockContext.HasAnyValue(damageMask);
+            
+            Debug.LogError($"Damageable {damageable} has no parent");
+            return false;
         }
     }
 }

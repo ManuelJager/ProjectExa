@@ -36,3 +36,4 @@ MonoBehaviour:
     data:
       buildTime: 30
       maxPopulation: 3
+      droneHull: 100

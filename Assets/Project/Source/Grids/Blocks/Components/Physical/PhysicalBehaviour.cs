@@ -9,6 +9,10 @@ namespace Exa.Grids.Blocks.Components {
         [SerializeField] private HealthPool hull;
         public bool IsQueuedForDestruction { get; private set; }
 
+        public BlockContext? BlockContext {
+            get => Parent?.BlockContext;
+        }
+
         public event Action<float> OnDamage;
 
         // TODO: replace damage source by an actual type
