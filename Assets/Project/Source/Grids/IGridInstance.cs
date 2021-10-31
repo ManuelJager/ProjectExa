@@ -1,4 +1,5 @@
-﻿using Exa.Grids.Blocks;
+﻿using Exa.Gameplay;
+using Exa.Grids.Blocks;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Ships;
 using Exa.Utils;
@@ -11,6 +12,7 @@ namespace Exa.Grids {
         Transform Transform { get; }
         BlockContext BlockContext { get; }
         GridInstanceConfiguration Configuration { get; }
+        SupportDroneOrchestrator SupportDroneOrchestrator { get; }
     }
 
     public static class IGridInstanceExtensions {

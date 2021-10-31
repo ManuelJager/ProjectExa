@@ -57,6 +57,7 @@ namespace Exa.Ships {
         public override void Import(Blueprint blueprint, BlockContext blockContext, GridInstanceConfiguration configuration) {
             base.Import(blueprint, blockContext, configuration);
             Diff = S.Blocks.Diffs.StartWatching(BlockGrid, Blueprint.Grid);
+            SupportDroneOrchestrator = new SupportDroneOrchestrator(this, Diff);
             Overlay = GS.UI.gameplayLayer.coreHealthBar;
         }
 

@@ -1,4 +1,7 @@
-﻿using Exa.Math;
+﻿using Exa.Grids.Blocks;
+using Exa.Math;
+using Exa.Ships;
+using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids {
@@ -29,6 +32,23 @@ namespace Exa.Grids {
             offset *= gridMember.BlueprintBlock.FlipVector;
 
             return offset + gridMember.GridAnchor;
+        }
+        
+        // Simulates 'transform.position'
+        public static Vector2 GetGlobalPosition(this IGridMember gridMember, IGridInstance gridInstance) {
+            var transform = gridInstance.Transform;
+            var angle = transform.localRotation.eulerAngles.ToVector2().GetAngle();
+            var localPosition = gridMember.GetLocalPosition().Rotate(angle);
+            
+            return transform.position.ToVector2() + localPosition;
+        }
+        
+        public static bool GetIsController(this IGridMember gridMember) {
+            return BlockCategory.AnyController.HasValue(gridMember.GetMemberCategory());
+        }
+
+        public static BlockCategory GetMemberCategory(this IGridMember gridMember) {
+            return gridMember.BlueprintBlock.Template.category;
         }
     }
 }

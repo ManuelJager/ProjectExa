@@ -58,6 +58,7 @@ namespace Exa.Ships {
         public float HullIntegrity { get; set; }
         public BlockContext BlockContext { get; private set; }
         public GridInstanceConfiguration Configuration { get; private set; }
+        public SupportDroneOrchestrator SupportDroneOrchestrator { get; protected set; }
         public BlockGrid BlockGrid { get; private set; }
 
         public Transform Transform {
@@ -87,6 +88,8 @@ namespace Exa.Ships {
 
             if (Active) {
                 Overlay.SetHullFill(currentHull, totalHull);
+
+                SupportDroneOrchestrator?.Update();
             }
         }
 

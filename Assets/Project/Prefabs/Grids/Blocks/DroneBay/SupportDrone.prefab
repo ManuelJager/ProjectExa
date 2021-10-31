@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 187856156003717815}
   - component: {fileID: 187856156003717814}
   - component: {fileID: 668013307793114895}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SupportDrone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187856156003717801}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1.4000001
+  m_Mass: 1.22
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -133,12 +133,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.55, y: 0.6}
-      - {x: 0.55, y: -0.6}
-      - {x: -0.25, y: -0.6}
+    - - {x: 0.2, y: 0.6}
+      - {x: 0.55, y: 0.2}
+      - {x: 0.55, y: -0.2}
+      - {x: 0.2, y: -0.6}
+      - {x: -0.15, y: -0.6}
       - {x: -0.8, y: -0.2}
       - {x: -0.8, y: 0.2}
-      - {x: -0.25, y: 0.6}
+      - {x: -0.15, y: 0.6}
 --- !u!114 &668013307793114895
 MonoBehaviour:
   m_ObjectHideFlags: 0

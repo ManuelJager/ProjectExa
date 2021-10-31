@@ -5,24 +5,18 @@ using Exa.UI.Tooltips;
 
 namespace Exa.Grids {
     public class BlockGridDiff : MemberCollectionListener<BlockGrid> {
-        private readonly GridMemberDiffList pendingAdd;
-        private readonly GridMemberDiffList pendingRemove;
         private BlueprintGrid target;
 
         public BlockGridDiff(BlockGrid source, BlueprintGrid target) : base(source) {
             this.target = target;
-            pendingAdd = new GridMemberDiffList();
-            pendingRemove = new GridMemberDiffList();
+            PendingAdd = new GridMemberDiffList();
+            PendingRemove = new GridMemberDiffList();
             Diff();
         }
-
-        public IEnumerable<IGridMember> PendingAdd {
-            get => pendingAdd;
-        }
-
-        public IEnumerable<IGridMember> PendingRemove {
-            get => pendingRemove;
-        }
+        
+        public GridMemberDiffList PendingAdd { get; private set; }
+        
+        public GridMemberDiffList PendingRemove { get; private set; }
 
         public void TrackNewTarget(BlueprintGrid target) {
             this.target = target;
@@ -32,21 +26,21 @@ namespace Exa.Grids {
         public TooltipGroup GetDebugTooltipComponents() {
             return new TooltipGroup(
                 1,
-                new TooltipText($"Pending add: {pendingAdd.Count} Items"),
-                new TooltipText($"Pending remove: {pendingRemove.Count} Items")
+                new TooltipText($"Pending add: {PendingAdd.Count} Items"),
+                new TooltipText($"Pending remove: {PendingRemove.Count} Items")
             );
         }
 
         private void Diff() {
-            pendingAdd.Clear();
-            pendingRemove.Clear();
+            PendingAdd.Clear();
+            PendingRemove.Clear();
 
             foreach (var aBpBlock in target) {
-                FilteredAddToPending(source, aBpBlock, pendingAdd);
+                FilteredAddToPending(source, aBpBlock, PendingAdd);
             }
 
             foreach (var block in source) {
-                FilteredAddToPending(target, block, pendingRemove);
+                FilteredAddToPending(target, block, PendingRemove);
             }
         }
 
@@ -60,15 +54,15 @@ namespace Exa.Grids {
 
         protected override void OnMemberAdded(IGridMember member) {
             // Check if the block is pending to be added, if it isn't, mark it as pending to be removed
-            if (!pendingAdd.Remove(member)) {
-                pendingRemove.Add(member);
+            if (!PendingAdd.Remove(member)) {
+                PendingRemove.Add(member);
             }
         }
 
         protected override void OnMemberRemoved(IGridMember member) {
             // Check if the block is pending to be removed, if it isn't, mark it as pending to be added
-            if (!pendingRemove.Remove(member)) {
-                pendingAdd.Add(member);
+            if (!PendingRemove.Remove(member)) {
+                PendingAdd.Add(member);
             }
         }
     }

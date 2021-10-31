@@ -10,7 +10,7 @@ namespace Exa.Gameplay {
     public class Debris : MonoBehaviour, IGridInstance {
         [SerializeField] private Rigidbody2D rb;
 
-        public BlockGrid BlockGrid { get; set; }
+        public BlockGrid BlockGrid { get; private set; }
 
         public Rigidbody2D Rigidbody2D {
             get => rb;
@@ -26,12 +26,16 @@ namespace Exa.Gameplay {
 
         public GridInstanceConfiguration Configuration { get; private set; }
 
+        public SupportDroneOrchestrator SupportDroneOrchestrator { get; private set; }
+
         public void FromCluster(Cluster cluster) {
             BlockGrid = new BlockGrid(this);
 
             Configuration = new GridInstanceConfiguration {
                 Invulnerable = false
             };
+
+            SupportDroneOrchestrator = null;
 
             foreach (var block in cluster) {
                 block.Parent.RemoveBlock(block);

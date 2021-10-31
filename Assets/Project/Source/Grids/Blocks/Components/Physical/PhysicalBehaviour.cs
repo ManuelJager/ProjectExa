@@ -1,19 +1,28 @@
 ﻿using System;
+using Exa.Gameplay;
 using Exa.Grids.Blocks.BlockTypes;
 using Exa.Utils;
 using UnityEngine;
 
 namespace Exa.Grids.Blocks.Components {
-    public class PhysicalBehaviour : BlockBehaviour<PhysicalData>, IDamageable {
+    public class PhysicalBehaviour : BlockBehaviour<PhysicalData>, IDamageable, IRepairable {
         [Header("State")]
         [SerializeField] private HealthPool hull;
         public bool IsQueuedForDestruction { get; private set; }
+        
+        public bool IsRepaired { get; }
 
         public BlockContext? BlockContext {
             get => Parent?.BlockContext;
         }
 
         public event Action<float> OnDamage;
+        
+        // Pass event handling to block
+        public event Action OnRemoved {
+            add => block.OnRemoved += value;
+            remove => block.OnRemoved -= value;
+        }
 
         // TODO: replace damage source by an actual type
         /// <summary>
@@ -65,6 +74,10 @@ namespace Exa.Grids.Blocks.Components {
             hull.value = data.hull;
         }
 
+        public void Repair(float repairedHull) {
+            hull.value = Mathf.Min(data.hull, hull.value + repairedHull);
+        }
+
         protected override void OnBlockDataReceived(PhysicalData oldValues, PhysicalData newValues) {
             Parent.Rigidbody2D.mass += newValues.mass - oldValues.mass;
         }
@@ -75,11 +88,7 @@ namespace Exa.Grids.Blocks.Components {
         }
 
         protected override void OnRemove() {
-            if (OnDamage != null) {
-                foreach (var d in OnDamage.GetInvocationList()) {
-                    OnDamage -= (Action<float>) d;
-                }
-            }
+            OnDamage = null;
         }
     }
 }

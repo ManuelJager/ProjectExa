@@ -73,6 +73,7 @@ namespace Exa.Grids.Blocks.BlockTypes {
             }
             
             OnRemoved?.Invoke();
+            OnRemoved = null;
             OnRemove();
         }
 
