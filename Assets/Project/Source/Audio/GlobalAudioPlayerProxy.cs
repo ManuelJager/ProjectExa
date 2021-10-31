@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 
-namespace Exa.Audio
-{
-    public class GlobalAudioPlayerProxy : MonoBehaviour
-    {
-        public void Play(string soundId) {
-            Systems.Audio.PlayGlobal(soundId);
+namespace Exa.Audio {
+    public class GlobalAudioPlayerProxy : MonoBehaviour {
+        public void Play(Sound sound) {
+            S.Audio.PlayGlobal(sound);
         }
     }
 }

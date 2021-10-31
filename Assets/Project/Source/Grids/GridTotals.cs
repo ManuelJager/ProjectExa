@@ -1,42 +1,79 @@
-﻿using Exa.Data;
-using Exa.Generics;
-using Exa.Grids.Blocks.Components;
-using Exa.UI.Tooltips;
+﻿using System;
 using System.Collections.Generic;
+using Exa.Generics;
+using Exa.Grids.Blocks;
+using Exa.UI.Tooltips;
 
-namespace Exa.Grids
-{
-    public class GridTotals : ICloneable<GridTotals>
-    {
-        public ControllerData controllerData;
+namespace Exa.Grids {
+    public class GridTotals : ICloneable<GridTotals> {
+        private readonly BlockContext context;
+        private BlockMetadata metadata;
+        private float unscaledTorque;
+        private float unscaledPowerGeneration;
+        private float hull;
+        private float mass;
 
-        public virtual float Mass { get; set; }
-        public virtual float Hull { get; set; }
-        public virtual Scalar PowerGenerationModifier { get; set; }
-        public virtual Scalar PowerConsumptionModifier { get; set; }
-        public virtual Scalar PowerStorageModifier { get; set; }
-        public virtual Scalar TurningPowerModifier { get; set; }
+        public GridTotals(BlockContext context) {
+            this.context = context;
+        }
 
-        public virtual float PowerGeneration => PowerGenerationModifier.GetValue(controllerData.powerGeneration);
-        public virtual float PowerConsumption => PowerConsumptionModifier.GetValue(controllerData.powerConsumption);
-        public virtual float PowerStorage => PowerStorageModifier.GetValue(controllerData.powerStorage);
-        public virtual float TurningPower => TurningPowerModifier.GetValue(controllerData.turningRate);
+        public float Mass {
+            get => mass;
+            set => mass = value;
+        }
+
+        public float Hull {
+            get => hull;
+            set => hull = value;
+        }
+
+        public float UnscaledPowerGeneration {
+            get => unscaledPowerGeneration;
+            set => unscaledPowerGeneration = value;
+        }
+
+        public float UnscaledTorque {
+            get => unscaledTorque;
+            set {
+                unscaledTorque = value;
+                UnscaledTorqueChanged?.Invoke(value);
+            }
+        }
+
+        public BlockMetadata Metadata {
+            get => metadata;
+            set => metadata = value;
+        }
+
+        public event Action<float> UnscaledTorqueChanged;
 
         public GridTotals Clone() {
-            return new GridTotals {
-                controllerData = controllerData,
-                Mass = Mass,
-                Hull = Hull,
-                PowerGenerationModifier = PowerGenerationModifier,
-                PowerConsumptionModifier = PowerConsumptionModifier,
-                PowerStorageModifier = PowerStorageModifier,
-                TurningPowerModifier = TurningPowerModifier,
+            return new GridTotals(context) {
+                mass = mass,
+                hull = hull,
+                unscaledPowerGeneration = unscaledPowerGeneration,
+                unscaledTorque = unscaledTorque,
+                metadata = metadata
             };
         }
 
-        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() => new ITooltipComponent[] {
-            new TooltipText($"Mass: {Mass}"),
-            new TooltipText($"Hull: {Hull}"),
-        };
+        public BlockContext GetInjectedContext() {
+            return context;
+        }
+
+        public void Reset() {
+            Mass = 0f;
+            Hull = 0f;
+            UnscaledPowerGeneration = 0f;
+            unscaledTorque = 0f;
+            Metadata = new BlockMetadata();
+        }
+
+        public IEnumerable<ITooltipComponent> GetDebugTooltipComponents() {
+            return new ITooltipComponent[] {
+                new TooltipText($"Mass: {Mass}"),
+                new TooltipText($"Hull: {Hull}")
+            };
+        }
     }
 }

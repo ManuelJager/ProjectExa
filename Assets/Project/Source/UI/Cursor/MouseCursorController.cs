@@ -2,40 +2,36 @@
 
 #pragma warning disable CS0649
 
-namespace Exa.UI
-{
-    public enum CursorType
-    {
+namespace Exa.UI.Cursor {
+    public enum CursorType {
         HardwareCursor,
         VirtualCursor
     }
 
-    public class MouseCursorController : MonoBehaviour
-    {
-        public CursorStateOverrideList stateManager;
-
+    public class MouseCursorController : MonoBehaviour {
         [SerializeField] private CursorType cursorType = CursorType.HardwareCursor;
         [SerializeField] private VirtualMouseCursor virtualMouseCursor;
         [SerializeField] private HardwareMouseCursor hardwareMouseCursor;
         [SerializeField] private CursorState cursorState;
-        private ICursor cursor;
+        public CursorStateOverrideList stateManager;
 
         public bool MouseInViewport { get; private set; }
-        public ICursor CurrentCursor => cursor;
+        public ICursor CurrentCursor { get; private set; }
+        public VirtualMouseCursor VirtualMouseCursor => virtualMouseCursor;
 
         private void Start() {
             // Activates the default cursor type
             SetCursor(cursorType);
 
-            stateManager = new CursorStateOverrideList(cursorState, cursor.SetState);
+            stateManager = new CursorStateOverrideList(cursorState, CurrentCursor.SetState);
             virtualMouseCursor.Init(stateManager);
-            cursor.SetState(cursorState);
+            CurrentCursor.SetState(cursorState);
         }
 
         public void SetCursor(CursorType cursorType) {
-            cursor?.SetActive(false);
-            cursor = GetCursor(cursorType);
-            cursor.SetActive(true);
+            CurrentCursor?.SetActive(false);
+            CurrentCursor = GetCursor(cursorType);
+            CurrentCursor.SetActive(true);
         }
 
         public void UpdateMouseInViewport(bool value) {
@@ -47,24 +43,18 @@ namespace Exa.UI
 
         public void SetMouseInViewport(bool value) {
             if (value) {
-                cursor.OnEnterViewport();
-            }
-            else {
-                cursor.OnExitViewport();
+                CurrentCursor.OnEnterViewport();
+            } else {
+                CurrentCursor.OnExitViewport();
             }
         }
 
         private ICursor GetCursor(CursorType cursorType) {
-            switch (cursorType) {
-                case CursorType.HardwareCursor:
-                    return hardwareMouseCursor;
-
-                case CursorType.VirtualCursor:
-                    return virtualMouseCursor;
-
-                default:
-                    return null;
-            }
+            return cursorType switch {
+                CursorType.HardwareCursor => hardwareMouseCursor,
+                CursorType.VirtualCursor => virtualMouseCursor,
+                _ => null
+            };
         }
     }
 }

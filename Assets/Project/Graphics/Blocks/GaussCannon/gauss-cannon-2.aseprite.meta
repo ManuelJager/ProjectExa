@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: c8210ef37892ed34a82c59289079486f
+DefaultImporter:
+  externalObjects: {}
+  userData: "{\r\n  \"layers\": {\r\n    \"turret-body-overlay\": {\r\n      \"mergeUp\":
+    true,\r\n      \"exportOnlyFirstFrame\": true,\r\n      \"name\": \"turret-body-overlay\",\r\n     
+    \"index\": 1\r\n    },\r\n    \"turret-coils-body\": {\r\n      \"mergeUp\":
+    true,\r\n      \"exportOnlyFirstFrame\": false,\r\n      \"name\": \"turret-coils-body\",\r\n     
+    \"index\": 2\r\n    },\r\n    \"turret-coils-internal\": {\r\n      \"mergeUp\":
+    false,\r\n      \"exportOnlyFirstFrame\": false,\r\n      \"name\": \"turret-coils-internal\",\r\n     
+    \"index\": 3\r\n    },\r\n    \"turret-gun\": {\r\n      \"mergeUp\": false,\r\n     
+    \"exportOnlyFirstFrame\": true,\r\n      \"name\": \"turret-gun\",\r\n      \"index\":
+    5\r\n    },\r\n    \"turret-arms\": {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\":
+    false,\r\n      \"name\": \"turret-arms\",\r\n      \"index\": 6\r\n    },\r\n   
+    \"turret-body\": {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\":
+    false,\r\n      \"name\": \"turret-body\",\r\n      \"index\": 7\r\n    },\r\n   
+    \"turret-core\": {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\":
+    false,\r\n      \"name\": \"turret-core\",\r\n      \"index\": 8\r\n    },\r\n   
+    \"turret-arms-base\": {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\":
+    false,\r\n      \"name\": \"turret-arms-base\",\r\n      \"index\": 9\r\n   
+    },\r\n    \"turret-back\": {\r\n      \"mergeUp\": false,\r\n      \"exportOnlyFirstFrame\":
+    true,\r\n      \"name\": \"turret-body-overlay\",\r\n      \"index\": 0\r\n   
+    },\r\n    \"turret-gun-details\": {\r\n      \"mergeUp\": false,\r\n      \"exportOnlyFirstFrame\":
+    false,\r\n      \"name\": \"turret-gun-details\",\r\n      \"index\": 4\r\n   
+    }\r\n  }\r\n}"
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,7 +1,5 @@
-﻿namespace Exa.UI
-{
-    public enum CursorState
-    {
+﻿namespace Exa.UI.Cursor {
+    public enum CursorState {
         idle,
         active,
         remove,
@@ -9,11 +7,15 @@
         input
     }
 
-    public interface ICursor
-    {
+    public interface ICursor {
+        CursorFacades CursorFacades { get; }
+        
         void SetActive(bool active);
+
         void SetState(CursorState cursorState);
+
         void OnEnterViewport();
+
         void OnExitViewport();
     }
 }

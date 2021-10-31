@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a9b5a4c4adb3146841421b06d2a73d, type: 3}
+  m_Name: DroneBay
+  m_EditorClassIdentifier: 
+  id: DroneBay
+  displayId: Drone Bay
+  category: 512
+  thumbnail: {fileID: -5935392190051464458, guid: 9bf3524a785798c4cb19748f21802c5f,
+    type: 3}
+  size: {x: 2, y: 2}
+  metadata:
+    strength: 50
+    blockCosts:
+      creditCost: 50
+      metalsCost: 100
+  inertPrefab: {fileID: 5985878368135977475, guid: 39fdff68dd14bd84dab48dcac3dac195,
+    type: 3}
+  alivePrefab: {fileID: 5475960269345514913, guid: 6bb15bfd671066e4984dec37bd70f834,
+    type: 3}
+  physicalPartial:
+    data:
+      hull: 500
+      armor: 20
+      mass: 3.2
+  droneBayPartial:
+    data:
+      buildTime: 30
+      maxPopulation: 3
+      droneHull: 100

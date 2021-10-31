@@ -1,24 +1,23 @@
-﻿using Exa.Math;
+﻿using Exa.Grids.Blocks;
+using Exa.Math;
+using Exa.Ships;
+using Exa.Utils;
 using UnityEngine;
 
-namespace Exa.Grids
-{
-    public static class GridMemberUtils
-    {
+namespace Exa.Grids {
+    public static class GridMemberUtils {
         public static void SetupGameObject(this IGridMember gridMember, GameObject blockGO) {
             var blueprintBlock = gridMember.BlueprintBlock;
             var gridAnchor = gridMember.GridAnchor;
 
             blockGO.name = $"{blueprintBlock.Template.displayId} {gridAnchor}";
-            var spriteRenderer = blockGO.GetComponent<SpriteRenderer>();
-            gridMember.BlueprintBlock.SetSpriteRendererFlips(spriteRenderer);
-            gridMember.UpdateLocals(blockGO);
+            blockGO.GetComponent<BlockPresenter>().Present(gridMember);
         }
 
         public static void UpdateLocals(this IGridMember gridMember, GameObject blockGO) {
             var blueprintBlock = gridMember.BlueprintBlock;
 
-            blockGO.transform.localRotation = blueprintBlock.QuaternionRotation;
+            blockGO.transform.localRotation = blueprintBlock.GetDirection();
             blockGO.transform.localPosition = gridMember.GetLocalPosition();
         }
 
@@ -33,6 +32,23 @@ namespace Exa.Grids
             offset *= gridMember.BlueprintBlock.FlipVector;
 
             return offset + gridMember.GridAnchor;
+        }
+        
+        // Simulates 'transform.position'
+        public static Vector2 GetGlobalPosition(this IGridMember gridMember, IGridInstance gridInstance) {
+            var transform = gridInstance.Transform;
+            var angle = transform.localRotation.eulerAngles.ToVector2().GetAngle();
+            var localPosition = gridMember.GetLocalPosition().Rotate(angle);
+            
+            return transform.position.ToVector2() + localPosition;
+        }
+        
+        public static bool GetIsController(this IGridMember gridMember) {
+            return BlockCategory.AnyController.HasValue(gridMember.GetMemberCategory());
+        }
+
+        public static BlockCategory GetMemberCategory(this IGridMember gridMember) {
+            return gridMember.BlueprintBlock.Template.category;
         }
     }
 }

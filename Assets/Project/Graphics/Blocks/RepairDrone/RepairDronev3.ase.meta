@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 178569f0c57d63e408373b0e6f712b1f
+DefaultImporter:
+  externalObjects: {}
+  userData: "{\r\n  \"layers\": {\r\n    \"thrusters\": {\r\n      \"mergeUp\": true,\r\n     
+    \"exportOnlyFirstFrame\": false,\r\n      \"name\": \"thrusters\",\r\n      \"index\":
+    4\r\n    },\r\n    \"arms\": {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\":
+    false,\r\n      \"name\": \"arms\",\r\n      \"index\": 3\r\n    },\r\n    \"body-plate\":
+    {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\": false,\r\n     
+    \"name\": \"body-plate\",\r\n      \"index\": 2\r\n    },\r\n    \"body-plate-overlay\":
+    {\r\n      \"mergeUp\": true,\r\n      \"exportOnlyFirstFrame\": false,\r\n     
+    \"name\": \"body-plate-overlay\",\r\n      \"index\": 1\r\n    },\r\n    \"body-frame\":
+    {\r\n      \"mergeUp\": false,\r\n      \"exportOnlyFirstFrame\": false,\r\n     
+    \"name\": \"body-frame\",\r\n      \"index\": 0\r\n    }\r\n  }\r\n}"
+  assetBundleName: 
+  assetBundleVariant: 
